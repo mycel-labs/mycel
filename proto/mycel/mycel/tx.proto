@@ -1,0 +1,7 @@
+syntax = "proto3";
+package mycel.mycel;
+
+option go_package = "mycel/x/mycel/types";
+
+// Msg defines the Msg service.
+service Msg {}

@@ -1,0 +1,12 @@
+syntax = "proto3";
+package mycel.mycel;
+
+import "gogoproto/gogo.proto";
+import "mycel/mycel/params.proto";
+
+option go_package = "mycel/x/mycel/types";
+
+// GenesisState defines the mycel module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}
