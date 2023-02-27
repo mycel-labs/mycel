@@ -4,12 +4,13 @@ import (
 	"strconv"
 	"testing"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/stretchr/testify/require"
 	keepertest "mycel/testutil/keeper"
 	"mycel/testutil/nullify"
 	"mycel/x/mycel/keeper"
 	"mycel/x/mycel/types"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/stretchr/testify/require"
 )
 
 // Prevent strconv unused error
@@ -31,6 +32,7 @@ func TestDomainGet(t *testing.T) {
 	for _, item := range items {
 		rst, found := keeper.GetDomain(ctx,
 			item.Name,
+			item.Parent,
 		)
 		require.True(t, found)
 		require.Equal(t,
@@ -45,9 +47,11 @@ func TestDomainRemove(t *testing.T) {
 	for _, item := range items {
 		keeper.RemoveDomain(ctx,
 			item.Name,
+			item.Parent,
 		)
 		_, found := keeper.GetDomain(ctx,
 			item.Name,
+			item.Parent,
 		)
 		require.False(t, found)
 	}

@@ -42,9 +42,9 @@ message WalletRecord {
 }
 message Domain {
   string name = 1; 
-  string owner = 2; 
-  int64 expirationDate = 3; 
-  string parent = 4; 
+  string parent = 2; 
+  string owner = 3; 
+  int64 expirationDate = 4; 
   map<string, DNSRecord> DNSRecords = 5;
   map<string, WalletRecord> walletRecords = 6;
   map<string, string> metadata = 7;

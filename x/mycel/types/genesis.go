@@ -23,7 +23,7 @@ func (gs GenesisState) Validate() error {
 	domainIndexMap := make(map[string]struct{})
 
 	for _, elem := range gs.DomainList {
-		index := string(DomainKey(elem.Name))
+		index := string(DomainKey(elem.Name, elem.Parent))
 		if _, ok := domainIndexMap[index]; ok {
 			return fmt.Errorf("duplicated index for domain")
 		}

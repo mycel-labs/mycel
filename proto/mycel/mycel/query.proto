@@ -21,7 +21,7 @@ service Query {
   
   // Queries a list of Domain items.
   rpc Domain    (QueryGetDomainRequest) returns (QueryGetDomainResponse) {
-    option (google.api.http).get = "/mycel/mycel/domain/{name}";
+    option (google.api.http).get = "/mycel/mycel/domain/{name}/{parent}";
   
   }
   rpc DomainAll (QueryAllDomainRequest) returns (QueryAllDomainResponse) {
@@ -41,6 +41,7 @@ message QueryParamsResponse {
 
 message QueryGetDomainRequest {
   string name = 1;
+  string parent = 2;
 }
 
 message QueryGetDomainResponse {

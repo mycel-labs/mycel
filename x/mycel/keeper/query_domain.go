@@ -3,12 +3,13 @@ package keeper
 import (
 	"context"
 
+	"mycel/x/mycel/types"
+
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"mycel/x/mycel/types"
 )
 
 func (k Keeper) DomainAll(goCtx context.Context, req *types.QueryAllDomainRequest) (*types.QueryAllDomainResponse, error) {
@@ -48,6 +49,7 @@ func (k Keeper) Domain(goCtx context.Context, req *types.QueryGetDomainRequest) 
 	val, found := k.GetDomain(
 		ctx,
 		req.Name,
+		req.Parent,
 	)
 	if !found {
 		return nil, status.Error(codes.NotFound, "not found")

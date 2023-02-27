@@ -1,9 +1,10 @@
 package keeper
 
 import (
+	"mycel/x/mycel/types"
+
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"mycel/x/mycel/types"
 )
 
 // SetDomain set a specific domain in the store from its index
@@ -12,6 +13,7 @@ func (k Keeper) SetDomain(ctx sdk.Context, domain types.Domain) {
 	b := k.cdc.MustMarshal(&domain)
 	store.Set(types.DomainKey(
 		domain.Name,
+		domain.Parent,
 	), b)
 }
 
@@ -19,12 +21,14 @@ func (k Keeper) SetDomain(ctx sdk.Context, domain types.Domain) {
 func (k Keeper) GetDomain(
 	ctx sdk.Context,
 	name string,
+	parent string,
 
 ) (val types.Domain, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainKeyPrefix))
 
 	b := store.Get(types.DomainKey(
 		name,
+		parent,
 	))
 	if b == nil {
 		return val, false
@@ -38,11 +42,13 @@ func (k Keeper) GetDomain(
 func (k Keeper) RemoveDomain(
 	ctx sdk.Context,
 	name string,
+	parent string,
 
 ) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainKeyPrefix))
 	store.Delete(types.DomainKey(
 		name,
+		parent,
 	))
 }
 

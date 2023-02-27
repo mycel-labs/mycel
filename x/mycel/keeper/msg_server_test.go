@@ -4,6 +4,7 @@ import (
 	"context"
 	"testing"
 
+	"mycel/testutil"
 	keepertest "mycel/testutil/keeper"
 	"mycel/x/mycel"
 	"mycel/x/mycel/keeper"
@@ -22,7 +23,7 @@ func setupMsgServer(t testing.TB) (types.MsgServer, keeper.Keeper, context.Conte
 func TestCreateDomainSuccess(t *testing.T) {
 	msgServer, _, context := setupMsgServer(t)
 	_, err := msgServer.CreateDomain(context, &types.MsgCreateDomain{
-		Creator:                  alice,
+		Creator:                  testutil.Alice,
 		Name:                     "poyo",
 		Parent:                   "ninniku",
 		RegistrationPeriodInYear: 1,
