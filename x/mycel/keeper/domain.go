@@ -1,10 +1,13 @@
 package keeper
 
 import (
+	"errors"
+	"fmt"
 	"mycel/x/mycel/types"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // SetDomain set a specific domain in the store from its index
@@ -66,4 +69,13 @@ func (k Keeper) GetAllDomain(ctx sdk.Context) (list []types.Domain) {
 	}
 
 	return
+}
+
+func (k Keeper) GetIsDomainAlreadyTaken(ctx sdk.Context, name string, parent string) (isDomainAlreadyTaken bool, err error) {
+	domain, isDomainAlreadyTaken := k.GetDomain(ctx, name, parent)
+	if isDomainAlreadyTaken {
+		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s.%s", domain.Name, domain.Parent)),
+			types.ErrorDomainIsAlreadyTaken.Error())
+	}
+	return isDomainAlreadyTaken, err
 }

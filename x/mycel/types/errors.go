@@ -9,5 +9,5 @@ import (
 // x/mycel module sentinel errors
 var (
 	ErrSample                 = sdkerrors.Register(ModuleName, 1100, "sample error")
-	ErrorDomainIsAlreadyTaken = sdkerrors.Register(ModuleName, 1101, "domain is already taken %s")
+	ErrorDomainIsAlreadyTaken = sdkerrors.Register(ModuleName, 1101, "domain is already taken")
 )
