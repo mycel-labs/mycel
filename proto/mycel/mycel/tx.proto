@@ -1,7 +1,19 @@
 syntax = "proto3";
+
 package mycel.mycel;
 
 option go_package = "mycel/x/mycel/types";
 
 // Msg defines the Msg service.
-service Msg {}
+service Msg {
+  rpc CreateDomain (MsgCreateDomain) returns (MsgCreateDomainResponse);
+}
+message MsgCreateDomain {
+  string creator                  = 1;
+  string name                     = 2;
+  string parent                   = 3;
+  uint64 registrationPeriodInYear = 4;
+}
+
+message MsgCreateDomainResponse {}
+
