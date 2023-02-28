@@ -1,5 +1,50 @@
 package types
 
-func (domain Domain) GetIsDefaultListedTLD(parent string) {
+import (
+	"errors"
+	fmt "fmt"
+	"regexp"
 
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+)
+
+const (
+	NamePattern = `-a-z0-9\p{So}\p{Sk}`
+)
+
+func (domain Domain) ValidateDomainName() (err error) {
+	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+$)|(^$)`, NamePattern))
+	if !regex.MatchString(domain.Name) {
+		return sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", domain.Name)), ErrorDomainNameIsInvalid.Error())
+	}
+	return err
+}
+
+func (domain Domain) ValidateDomainParent() (err error) {
+	regex := regexp.MustCompile(fmt.Sprintf(`^[%s]+[%[1]s\.]*[%[1]s]$`, NamePattern))
+	if !regex.MatchString(domain.Parent) {
+		return sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", domain.Parent)), ErrorDomainParentIsInvalid.Error())
+	}
+	return err
+}
+
+func (domain Domain) ValidateDomain() (err error) {
+	err = domain.ValidateDomainName()
+	if err != nil {
+		return err
+	}
+	err = domain.ValidateDomainParent()
+	if err != nil {
+		return err
+	}
+	return err
+}
+
+func (domain Domain) GetIsRootDomain() (isRootDomain bool, err error) {
+	err = domain.ValidateDomain()
+	regex := regexp.MustCompile(fmt.Sprintf(`^[%s]+$`, NamePattern))
+	if regex.MatchString(domain.Parent) {
+		isRootDomain = true
+	}
+	return isRootDomain, err
 }
