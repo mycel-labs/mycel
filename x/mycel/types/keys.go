@@ -17,7 +17,3 @@ const (
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
-
-func GetTLDs() []string {
-	return []string{"cel"}
-}

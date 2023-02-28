@@ -7,10 +7,24 @@ import (
 // DefaultIndex is the default global index
 const DefaultIndex uint64 = 1
 
+// Default TLD Names
+func GetDefaultTLDNames() []string {
+	// Define default TLD names here
+	return []string{"myc"}
+}
+
+// Get default TLDs
+func GetDefaultTLDs() (defaultTLDs []Domain) {
+	for _, v := range GetDefaultTLDNames() {
+		defaultTLDs = append(defaultTLDs, Domain{Name: v})
+	}
+	return defaultTLDs
+}
+
 // DefaultGenesis returns the default genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		DomainList: []Domain{},
+		DomainList: GetDefaultTLDs(),
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}

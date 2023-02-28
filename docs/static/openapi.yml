@@ -75337,8 +75337,6 @@ definitions:
         type: object
         additionalProperties:
           type: string
-  mycel.mycel.MsgCreateDomainResponse:
-    type: object
   mycel.mycel.MsgRegisterDomainResponse:
     type: object
   mycel.mycel.Params:
