@@ -5,12 +5,12 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-const TypeMsgCreateDomain = "create_domain"
+const TypeMsgRegisterDomain = "register_domain"
 
-var _ sdk.Msg = &MsgCreateDomain{}
+var _ sdk.Msg = &MsgRegisterDomain{}
 
-func NewMsgCreateDomain(creator string, name string, parent string, registrationPeriodInYear uint64) *MsgCreateDomain {
-	return &MsgCreateDomain{
+func NewMsgRegisterDomain(creator string, name string, parent string, registrationPeriodInYear uint64) *MsgRegisterDomain {
+	return &MsgRegisterDomain{
 		Creator:                  creator,
 		Name:                     name,
 		Parent:                   parent,
@@ -18,15 +18,15 @@ func NewMsgCreateDomain(creator string, name string, parent string, registration
 	}
 }
 
-func (msg *MsgCreateDomain) Route() string {
+func (msg *MsgRegisterDomain) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgCreateDomain) Type() string {
-	return TypeMsgCreateDomain
+func (msg *MsgRegisterDomain) Type() string {
+	return TypeMsgRegisterDomain
 }
 
-func (msg *MsgCreateDomain) GetSigners() []sdk.AccAddress {
+func (msg *MsgRegisterDomain) GetSigners() []sdk.AccAddress {
 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		panic(err)
@@ -34,12 +34,12 @@ func (msg *MsgCreateDomain) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{creator}
 }
 
-func (msg *MsgCreateDomain) GetSignBytes() []byte {
+func (msg *MsgRegisterDomain) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgCreateDomain) ValidateBasic() error {
+func (msg *MsgRegisterDomain) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)

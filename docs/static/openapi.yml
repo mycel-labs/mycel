@@ -45283,13 +45283,13 @@ paths:
                   properties:
                     name:
                       type: string
+                    parent:
+                      type: string
                     owner:
                       type: string
                     expirationDate:
                       type: string
                       format: int64
-                    parent:
-                      type: string
                     DNSRecords:
                       type: object
                       additionalProperties:
@@ -45448,7 +45448,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /mycel/mycel/domain/{name}:
+  /mycel/mycel/domain/{name}/{parent}:
     get:
       summary: Queries a list of Domain items.
       operationId: MycelMycelDomain
@@ -45463,13 +45463,13 @@ paths:
                 properties:
                   name:
                     type: string
+                  parent:
+                    type: string
                   owner:
                     type: string
                   expirationDate:
                     type: string
                     format: int64
-                  parent:
-                    type: string
                   DNSRecords:
                     type: object
                     additionalProperties:
@@ -45543,6 +45543,10 @@ paths:
                   additionalProperties: {}
       parameters:
         - name: name
+          in: path
+          required: true
+          type: string
+        - name: parent
           in: path
           required: true
           type: string
@@ -75273,13 +75277,13 @@ definitions:
     properties:
       name:
         type: string
+      parent:
+        type: string
       owner:
         type: string
       expirationDate:
         type: string
         format: int64
-      parent:
-        type: string
       DNSRecords:
         type: object
         additionalProperties:
@@ -75335,6 +75339,8 @@ definitions:
           type: string
   mycel.mycel.MsgCreateDomainResponse:
     type: object
+  mycel.mycel.MsgRegisterDomainResponse:
+    type: object
   mycel.mycel.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -75348,13 +75354,13 @@ definitions:
           properties:
             name:
               type: string
+            parent:
+              type: string
             owner:
               type: string
             expirationDate:
               type: string
               format: int64
-            parent:
-              type: string
             DNSRecords:
               type: object
               additionalProperties:
@@ -75442,13 +75448,13 @@ definitions:
         properties:
           name:
             type: string
+          parent:
+            type: string
           owner:
             type: string
           expirationDate:
             type: string
             format: int64
-          parent:
-            type: string
           DNSRecords:
             type: object
             additionalProperties:

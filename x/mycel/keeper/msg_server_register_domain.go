@@ -9,7 +9,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) CreateDomain(goCtx context.Context, msg *types.MsgCreateDomain) (*types.MsgCreateDomainResponse, error) {
+func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterDomain) (*types.MsgRegisterDomainResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	currentTime := time.Now()
@@ -30,5 +30,5 @@ func (k msgServer) CreateDomain(goCtx context.Context, msg *types.MsgCreateDomai
 	}
 	k.Keeper.SetDomain(ctx, newDomain)
 
-	return &types.MsgCreateDomainResponse{}, nil
+	return &types.MsgRegisterDomainResponse{}, nil
 }

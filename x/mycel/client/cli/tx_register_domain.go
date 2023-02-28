@@ -13,10 +13,10 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdCreateDomain() *cobra.Command {
+func CmdRegisterDomain() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-domain [name] [parent] [registration-period-in-year]",
-		Short: "Broadcast message createDomain",
+		Use:   "register-domain [name] [parent] [registration-period-in-year]",
+		Short: "Broadcast message registerDomain",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argName := args[0]
@@ -31,7 +31,7 @@ func CmdCreateDomain() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgCreateDomain(
+			msg := types.NewMsgRegisterDomain(
 				clientCtx.GetFromAddress().String(),
 				argName,
 				argParent,

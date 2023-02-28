@@ -8,21 +8,21 @@ import (
 	"mycel/testutil/sample"
 )
 
-func TestMsgCreateDomain_ValidateBasic(t *testing.T) {
+func TestMsgRegisterDomain_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgCreateDomain
+		msg  MsgRegisterDomain
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgCreateDomain{
+			msg: MsgRegisterDomain{
 				Creator: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgCreateDomain{
+			msg: MsgRegisterDomain{
 				Creator: sample.AccAddress(),
 			},
 		},

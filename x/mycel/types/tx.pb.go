@@ -27,25 +27,25 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-type MsgCreateDomain struct {
+type MsgRegisterDomain struct {
 	Creator                  string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Name                     string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	Parent                   string `protobuf:"bytes,3,opt,name=parent,proto3" json:"parent,omitempty"`
 	RegistrationPeriodInYear uint64 `protobuf:"varint,4,opt,name=registrationPeriodInYear,proto3" json:"registrationPeriodInYear,omitempty"`
 }
 
-func (m *MsgCreateDomain) Reset()         { *m = MsgCreateDomain{} }
-func (m *MsgCreateDomain) String() string { return proto.CompactTextString(m) }
-func (*MsgCreateDomain) ProtoMessage()    {}
-func (*MsgCreateDomain) Descriptor() ([]byte, []int) {
+func (m *MsgRegisterDomain) Reset()         { *m = MsgRegisterDomain{} }
+func (m *MsgRegisterDomain) String() string { return proto.CompactTextString(m) }
+func (*MsgRegisterDomain) ProtoMessage()    {}
+func (*MsgRegisterDomain) Descriptor() ([]byte, []int) {
 	return fileDescriptor_ddc129799a3b0dc2, []int{0}
 }
-func (m *MsgCreateDomain) XXX_Unmarshal(b []byte) error {
+func (m *MsgRegisterDomain) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgCreateDomain) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgRegisterDomain) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgCreateDomain.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgRegisterDomain.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -55,61 +55,61 @@ func (m *MsgCreateDomain) XXX_Marshal(b []byte, deterministic bool) ([]byte, err
 		return b[:n], nil
 	}
 }
-func (m *MsgCreateDomain) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgCreateDomain.Merge(m, src)
+func (m *MsgRegisterDomain) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRegisterDomain.Merge(m, src)
 }
-func (m *MsgCreateDomain) XXX_Size() int {
+func (m *MsgRegisterDomain) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgCreateDomain) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgCreateDomain.DiscardUnknown(m)
+func (m *MsgRegisterDomain) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRegisterDomain.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgCreateDomain proto.InternalMessageInfo
+var xxx_messageInfo_MsgRegisterDomain proto.InternalMessageInfo
 
-func (m *MsgCreateDomain) GetCreator() string {
+func (m *MsgRegisterDomain) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgCreateDomain) GetName() string {
+func (m *MsgRegisterDomain) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *MsgCreateDomain) GetParent() string {
+func (m *MsgRegisterDomain) GetParent() string {
 	if m != nil {
 		return m.Parent
 	}
 	return ""
 }
 
-func (m *MsgCreateDomain) GetRegistrationPeriodInYear() uint64 {
+func (m *MsgRegisterDomain) GetRegistrationPeriodInYear() uint64 {
 	if m != nil {
 		return m.RegistrationPeriodInYear
 	}
 	return 0
 }
 
-type MsgCreateDomainResponse struct {
+type MsgRegisterDomainResponse struct {
 }
 
-func (m *MsgCreateDomainResponse) Reset()         { *m = MsgCreateDomainResponse{} }
-func (m *MsgCreateDomainResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgCreateDomainResponse) ProtoMessage()    {}
-func (*MsgCreateDomainResponse) Descriptor() ([]byte, []int) {
+func (m *MsgRegisterDomainResponse) Reset()         { *m = MsgRegisterDomainResponse{} }
+func (m *MsgRegisterDomainResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgRegisterDomainResponse) ProtoMessage()    {}
+func (*MsgRegisterDomainResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_ddc129799a3b0dc2, []int{1}
 }
-func (m *MsgCreateDomainResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgRegisterDomainResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgCreateDomainResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgRegisterDomainResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgCreateDomainResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgRegisterDomainResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -119,42 +119,42 @@ func (m *MsgCreateDomainResponse) XXX_Marshal(b []byte, deterministic bool) ([]b
 		return b[:n], nil
 	}
 }
-func (m *MsgCreateDomainResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgCreateDomainResponse.Merge(m, src)
+func (m *MsgRegisterDomainResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgRegisterDomainResponse.Merge(m, src)
 }
-func (m *MsgCreateDomainResponse) XXX_Size() int {
+func (m *MsgRegisterDomainResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgCreateDomainResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgCreateDomainResponse.DiscardUnknown(m)
+func (m *MsgRegisterDomainResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgRegisterDomainResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgCreateDomainResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgRegisterDomainResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgCreateDomain)(nil), "mycel.mycel.MsgCreateDomain")
-	proto.RegisterType((*MsgCreateDomainResponse)(nil), "mycel.mycel.MsgCreateDomainResponse")
+	proto.RegisterType((*MsgRegisterDomain)(nil), "mycel.mycel.MsgRegisterDomain")
+	proto.RegisterType((*MsgRegisterDomainResponse)(nil), "mycel.mycel.MsgRegisterDomainResponse")
 }
 
 func init() { proto.RegisterFile("mycel/mycel/tx.proto", fileDescriptor_ddc129799a3b0dc2) }
 
 var fileDescriptor_ddc129799a3b0dc2 = []byte{
-	// 238 bytes of a gzipped FileDescriptorProto
+	// 240 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0xc9, 0xad, 0x4c, 0x4e,
 	0xcd, 0xd1, 0x87, 0x90, 0x25, 0x15, 0x7a, 0x05, 0x45, 0xf9, 0x25, 0xf9, 0x42, 0xdc, 0x60, 0xbe,
-	0x1e, 0x98, 0x54, 0x9a, 0xcc, 0xc8, 0xc5, 0xef, 0x5b, 0x9c, 0xee, 0x5c, 0x94, 0x9a, 0x58, 0x92,
-	0xea, 0x92, 0x9f, 0x9b, 0x98, 0x99, 0x27, 0x24, 0xc1, 0xc5, 0x9e, 0x0c, 0xe2, 0xe7, 0x17, 0x49,
-	0x30, 0x2a, 0x30, 0x6a, 0x70, 0x06, 0xc1, 0xb8, 0x42, 0x42, 0x5c, 0x2c, 0x79, 0x89, 0xb9, 0xa9,
-	0x12, 0x4c, 0x60, 0x61, 0x30, 0x5b, 0x48, 0x8c, 0x8b, 0xad, 0x20, 0xb1, 0x28, 0x35, 0xaf, 0x44,
-	0x82, 0x19, 0x2c, 0x0a, 0xe5, 0x09, 0x59, 0x71, 0x49, 0x14, 0xa5, 0xa6, 0x67, 0x16, 0x97, 0x14,
-	0x25, 0x96, 0x64, 0xe6, 0xe7, 0x05, 0xa4, 0x16, 0x65, 0xe6, 0xa7, 0x78, 0xe6, 0x45, 0xa6, 0x26,
-	0x16, 0x49, 0xb0, 0x28, 0x30, 0x6a, 0xb0, 0x04, 0xe1, 0x94, 0x57, 0x92, 0xe4, 0x12, 0x47, 0x73,
-	0x54, 0x50, 0x6a, 0x71, 0x41, 0x7e, 0x5e, 0x71, 0xaa, 0x51, 0x24, 0x17, 0xb3, 0x6f, 0x71, 0xba,
-	0x50, 0x10, 0x17, 0x0f, 0x8a, 0x9b, 0x65, 0xf4, 0x90, 0x7c, 0xa5, 0x87, 0xa6, 0x59, 0x4a, 0x05,
-	0x9f, 0x2c, 0xcc, 0x68, 0x27, 0xdd, 0x13, 0x8f, 0xe4, 0x18, 0x2f, 0x3c, 0x92, 0x63, 0x7c, 0xf0,
-	0x48, 0x8e, 0x71, 0xc2, 0x63, 0x39, 0x86, 0x0b, 0x8f, 0xe5, 0x18, 0x6e, 0x3c, 0x96, 0x63, 0x88,
-	0x12, 0x86, 0x04, 0x61, 0x05, 0x2c, 0x28, 0x2b, 0x0b, 0x52, 0x8b, 0x93, 0xd8, 0xc0, 0xc1, 0x69,
-	0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0x0c, 0xb3, 0x49, 0x19, 0x66, 0x01, 0x00, 0x00,
+	0x1e, 0x98, 0x54, 0x9a, 0xca, 0xc8, 0x25, 0xe8, 0x5b, 0x9c, 0x1e, 0x94, 0x9a, 0x9e, 0x59, 0x5c,
+	0x92, 0x5a, 0xe4, 0x92, 0x9f, 0x9b, 0x98, 0x99, 0x27, 0x24, 0xc1, 0xc5, 0x9e, 0x5c, 0x94, 0x9a,
+	0x58, 0x92, 0x5f, 0x24, 0xc1, 0xa8, 0xc0, 0xa8, 0xc1, 0x19, 0x04, 0xe3, 0x0a, 0x09, 0x71, 0xb1,
+	0xe4, 0x25, 0xe6, 0xa6, 0x4a, 0x30, 0x81, 0x85, 0xc1, 0x6c, 0x21, 0x31, 0x2e, 0xb6, 0x82, 0xc4,
+	0xa2, 0xd4, 0xbc, 0x12, 0x09, 0x66, 0xb0, 0x28, 0x94, 0x27, 0x64, 0xc5, 0x25, 0x51, 0x04, 0x36,
+	0xb7, 0x28, 0xb1, 0x24, 0x33, 0x3f, 0x2f, 0x20, 0xb5, 0x28, 0x33, 0x3f, 0xc5, 0x33, 0x2f, 0x32,
+	0x35, 0xb1, 0x48, 0x82, 0x45, 0x81, 0x51, 0x83, 0x25, 0x08, 0xa7, 0xbc, 0x92, 0x34, 0x97, 0x24,
+	0x86, 0xb3, 0x82, 0x52, 0x8b, 0x0b, 0xf2, 0xf3, 0x8a, 0x53, 0x8d, 0xe2, 0xb9, 0x98, 0x7d, 0x8b,
+	0xd3, 0x85, 0x22, 0xb8, 0xf8, 0xd0, 0xdc, 0x2d, 0xa7, 0x87, 0xe4, 0x37, 0x3d, 0x0c, 0x03, 0xa4,
+	0xd4, 0xf0, 0xcb, 0xc3, 0x2c, 0x70, 0xd2, 0x3d, 0xf1, 0x48, 0x8e, 0xf1, 0xc2, 0x23, 0x39, 0xc6,
+	0x07, 0x8f, 0xe4, 0x18, 0x27, 0x3c, 0x96, 0x63, 0xb8, 0xf0, 0x58, 0x8e, 0xe1, 0xc6, 0x63, 0x39,
+	0x86, 0x28, 0x61, 0x48, 0x60, 0x56, 0xc0, 0x02, 0xb5, 0xb2, 0x20, 0xb5, 0x38, 0x89, 0x0d, 0x1c,
+	0xb0, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0xd7, 0x62, 0x3b, 0xd3, 0x70, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -169,7 +169,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
-	CreateDomain(ctx context.Context, in *MsgCreateDomain, opts ...grpc.CallOption) (*MsgCreateDomainResponse, error)
+	RegisterDomain(ctx context.Context, in *MsgRegisterDomain, opts ...grpc.CallOption) (*MsgRegisterDomainResponse, error)
 }
 
 type msgClient struct {
@@ -180,9 +180,9 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 	return &msgClient{cc}
 }
 
-func (c *msgClient) CreateDomain(ctx context.Context, in *MsgCreateDomain, opts ...grpc.CallOption) (*MsgCreateDomainResponse, error) {
-	out := new(MsgCreateDomainResponse)
-	err := c.cc.Invoke(ctx, "/mycel.mycel.Msg/CreateDomain", in, out, opts...)
+func (c *msgClient) RegisterDomain(ctx context.Context, in *MsgRegisterDomain, opts ...grpc.CallOption) (*MsgRegisterDomainResponse, error) {
+	out := new(MsgRegisterDomainResponse)
+	err := c.cc.Invoke(ctx, "/mycel.mycel.Msg/RegisterDomain", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -191,35 +191,35 @@ func (c *msgClient) CreateDomain(ctx context.Context, in *MsgCreateDomain, opts 
 
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
-	CreateDomain(context.Context, *MsgCreateDomain) (*MsgCreateDomainResponse, error)
+	RegisterDomain(context.Context, *MsgRegisterDomain) (*MsgRegisterDomainResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
 type UnimplementedMsgServer struct {
 }
 
-func (*UnimplementedMsgServer) CreateDomain(ctx context.Context, req *MsgCreateDomain) (*MsgCreateDomainResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateDomain not implemented")
+func (*UnimplementedMsgServer) RegisterDomain(ctx context.Context, req *MsgRegisterDomain) (*MsgRegisterDomainResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterDomain not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 	s.RegisterService(&_Msg_serviceDesc, srv)
 }
 
-func _Msg_CreateDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgCreateDomain)
+func _Msg_RegisterDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgRegisterDomain)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).CreateDomain(ctx, in)
+		return srv.(MsgServer).RegisterDomain(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mycel.mycel.Msg/CreateDomain",
+		FullMethod: "/mycel.mycel.Msg/RegisterDomain",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).CreateDomain(ctx, req.(*MsgCreateDomain))
+		return srv.(MsgServer).RegisterDomain(ctx, req.(*MsgRegisterDomain))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -229,15 +229,15 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CreateDomain",
-			Handler:    _Msg_CreateDomain_Handler,
+			MethodName: "RegisterDomain",
+			Handler:    _Msg_RegisterDomain_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "mycel/mycel/tx.proto",
 }
 
-func (m *MsgCreateDomain) Marshal() (dAtA []byte, err error) {
+func (m *MsgRegisterDomain) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -247,12 +247,12 @@ func (m *MsgCreateDomain) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgCreateDomain) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgRegisterDomain) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgCreateDomain) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgRegisterDomain) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -286,7 +286,7 @@ func (m *MsgCreateDomain) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgCreateDomainResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgRegisterDomainResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -296,12 +296,12 @@ func (m *MsgCreateDomainResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgCreateDomainResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgRegisterDomainResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgCreateDomainResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgRegisterDomainResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -320,7 +320,7 @@ func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *MsgCreateDomain) Size() (n int) {
+func (m *MsgRegisterDomain) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -344,7 +344,7 @@ func (m *MsgCreateDomain) Size() (n int) {
 	return n
 }
 
-func (m *MsgCreateDomainResponse) Size() (n int) {
+func (m *MsgRegisterDomainResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -359,7 +359,7 @@ func sovTx(x uint64) (n int) {
 func sozTx(x uint64) (n int) {
 	return sovTx(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-func (m *MsgCreateDomain) Unmarshal(dAtA []byte) error {
+func (m *MsgRegisterDomain) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -382,10 +382,10 @@ func (m *MsgCreateDomain) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgCreateDomain: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgRegisterDomain: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgCreateDomain: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgRegisterDomain: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -524,7 +524,7 @@ func (m *MsgCreateDomain) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgCreateDomainResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgRegisterDomainResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -547,10 +547,10 @@ func (m *MsgCreateDomainResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgCreateDomainResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgRegisterDomainResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgCreateDomainResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgRegisterDomainResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

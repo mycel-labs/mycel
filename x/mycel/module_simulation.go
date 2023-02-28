@@ -3,15 +3,16 @@ package mycel
 import (
 	"math/rand"
 
+	"mycel/testutil/sample"
+	mycelsimulation "mycel/x/mycel/simulation"
+	"mycel/x/mycel/types"
+
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	simappparams "github.com/cosmos/cosmos-sdk/simapp/params"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
-	"mycel/testutil/sample"
-	mycelsimulation "mycel/x/mycel/simulation"
-	"mycel/x/mycel/types"
 )
 
 // avoid unused import issue
@@ -24,9 +25,9 @@ var (
 )
 
 const (
-	opWeightMsgCreateDomain = "op_weight_msg_create_domain"
+	opWeightMsgRegisterDomain = "op_weight_msg_register_domain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgCreateDomain int = 100
+	defaultWeightMsgRegisterDomain int = 100
 
 	// this line is used by starport scaffolding # simapp/module/const
 )
@@ -62,15 +63,15 @@ func (am AppModule) RegisterStoreDecoder(_ sdk.StoreDecoderRegistry) {}
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
 
-	var weightMsgCreateDomain int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCreateDomain, &weightMsgCreateDomain, nil,
+	var weightMsgRegisterDomain int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRegisterDomain, &weightMsgRegisterDomain, nil,
 		func(_ *rand.Rand) {
-			weightMsgCreateDomain = defaultWeightMsgCreateDomain
+			weightMsgRegisterDomain = defaultWeightMsgRegisterDomain
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgCreateDomain,
-		mycelsimulation.SimulateMsgCreateDomain(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgRegisterDomain,
+		mycelsimulation.SimulateMsgRegisterDomain(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
