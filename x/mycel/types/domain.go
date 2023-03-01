@@ -43,6 +43,11 @@ func (domain Domain) GetIsRootDomain() (isRootDomain bool) {
 	return isRootDomain
 }
 
+func (domain Domain) GetIsSubDomain() (isSubDomain bool) {
+	isSubDomain = !domain.GetIsTLD() && !domain.GetIsRootDomain()
+	return isSubDomain
+}
+
 func (domain Domain) ValidateDomain() (err error) {
 	err = domain.ValidateDomainName()
 	if err != nil {

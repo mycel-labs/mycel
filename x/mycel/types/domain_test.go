@@ -11,34 +11,35 @@ type DomainTest struct {
 	Domain       Domain
 	IsTLD        bool
 	IsRootDomain bool
+	IsSubDomain  bool
 }
 
 func GetValidDomains() []DomainTest {
 	return []DomainTest{
-		{Domain: Domain{Name: "foo", Parent: "myc"}, IsTLD: false, IsRootDomain: true},
-		{Domain: Domain{Name: "foo", Parent: ""}, IsTLD: true, IsRootDomain: false},
-		{Domain: Domain{Name: "bar", Parent: "foo.myc"}, IsTLD: false, IsRootDomain: false},
-		{Domain: Domain{Name: "🍭", Parent: "foo.🍭"}, IsTLD: false, IsRootDomain: false},
+		{Domain: Domain{Name: "foo", Parent: "myc"}, IsTLD: false, IsRootDomain: true, IsSubDomain: false},
+		{Domain: Domain{Name: "foo", Parent: ""}, IsTLD: true, IsRootDomain: false, IsSubDomain: false},
+		{Domain: Domain{Name: "bar", Parent: "foo.myc"}, IsTLD: false, IsRootDomain: false, IsSubDomain: true},
+		{Domain: Domain{Name: "🍭", Parent: "foo.🍭"}, IsTLD: false, IsRootDomain: false, IsSubDomain: true},
 	}
 }
 
 // Name is invalid
 func GetInvalidNameDomains() []DomainTest {
 	return []DomainTest{
-		{Domain: Domain{Name: ".foo", Parent: "myc"}, IsTLD: false, IsRootDomain: true},
-		{Domain: Domain{Name: "", Parent: "myc"}, IsTLD: false, IsRootDomain: true},
-		{Domain: Domain{Name: "bar.foo", Parent: "myc"}, IsTLD: false, IsRootDomain: true},
-		{Domain: Domain{Name: ".", Parent: "myc"}, IsTLD: false, IsRootDomain: true},
-		{Domain: Domain{Name: "##", Parent: "myc"}, IsTLD: false, IsRootDomain: true},
+		{Domain: Domain{Name: ".foo", Parent: "myc"}},
+		{Domain: Domain{Name: "", Parent: "myc"}},
+		{Domain: Domain{Name: "bar.foo", Parent: "myc"}},
+		{Domain: Domain{Name: ".", Parent: "myc"}},
+		{Domain: Domain{Name: "##", Parent: "myc"}},
 	}
 }
 
 // Parent is invalid
 func GetInvalidParentDomains() []DomainTest {
 	return []DomainTest{
-		{Domain: Domain{Name: "foo", Parent: ".##"}, IsTLD: false, IsRootDomain: false},
-		{Domain: Domain{Name: "foo", Parent: ".myc"}, IsTLD: false, IsRootDomain: false},
-		{Domain: Domain{Name: "foo", Parent: ".foo.myc"}, IsTLD: false, IsRootDomain: false},
+		{Domain: Domain{Name: "foo", Parent: ".##"}},
+		{Domain: Domain{Name: "foo", Parent: ".myc"}},
+		{Domain: Domain{Name: "foo", Parent: ".foo.myc"}},
 	}
 }
 
@@ -81,6 +82,14 @@ func TestGetIsTLD(t *testing.T) {
 		isTLD := v.Domain.GetIsTLD()
 		require.Equal(t, isTLD, v.IsTLD)
 	}
+}
+
+func TestGetIsSubDomain(t *testing.T) {
+	for _, v := range GetValidDomains() {
+		isSubDomain := v.Domain.GetIsSubDomain()
+		require.Equal(t, isSubDomain, v.IsSubDomain)
+	}
+
 }
 
 func TestValidateDomainSuccess(t *testing.T) {
