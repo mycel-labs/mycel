@@ -15,7 +15,7 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 	currentTime := time.Now()
 	expirationDate := currentTime.AddDate(int(msg.RegistrationPeriodInYear), 0, 0)
 
-	newDomain := types.Domain{
+	domain := types.Domain{
 		Name:           msg.Name,
 		Owner:          msg.Creator,
 		ExpirationDate: expirationDate.UnixNano(),
@@ -25,27 +25,45 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 		Metadata:       nil,
 	}
 
-	err := newDomain.ValidateDomain()
+	// Validate domain
+	err := domain.ValidateDomain()
 	if err != nil {
 		return nil, err
 	}
-	_, err = k.Keeper.GetIsDomainAlreadyTaken(ctx, newDomain.Name, newDomain.Parent)
+	_, err = k.Keeper.GetIsDomainAlreadyTaken(ctx, domain.Name, domain.Parent)
 	if err != nil {
 		return nil, err
 	}
-	k.Keeper.SetDomain(ctx, newDomain)
+
+	// Register domain
+	domainLevel := domain.GetDomainLevel()
+
+	switch domainLevel {
+	case 1:
+		k.RegisterSubDomainValidate(ctx, domain)
+	case 2:
+		k.RegisterSecondLevelDomainValidate(ctx, domain)
+	default:
+		k.RegisterSubDomainValidate(ctx, domain)
+	}
+
+	// Store domain
+	k.Keeper.SetDomain(ctx, domain)
 
 	return &types.MsgRegisterDomainResponse{}, nil
 }
 
-func (k msgServer) RegisterTLD(goCtx context.Context, domain types.Domain) (err error) {
+func (k msgServer) RegisterTopLevelDomainValidate(ctx sdk.Context, domain types.Domain) (err error) {
+	// TODO: check the validator is alive and send token as registration fee
 	return err
 }
 
-func (k msgServer) RegisterRootDomain(goCtx context.Context, domain types.Domain) (err error) {
+func (k msgServer) RegisterSecondLevelDomainValidate(ctx sdk.Context, domain types.Domain) (err error) {
+	// TODO: send token as registration fee
 	return err
 }
 
-func (k msgServer) RegisterSubDomain(goCtx context.Context, domain types.Domain) (err error) {
+func (k msgServer) RegisterSubDomainValidate(ctx sdk.Context, domain types.Domain) (err error) {
+	// TODO: no fee
 	return err
 }
