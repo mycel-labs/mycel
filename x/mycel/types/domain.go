@@ -13,7 +13,7 @@ const (
 )
 
 func (domain Domain) ValidateDomainName() (err error) {
-	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+$)|(^$)`, NamePattern))
+	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+$)`, NamePattern))
 	if !regex.MatchString(domain.Name) {
 		return sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", domain.Name)), ErrorDomainNameIsInvalid.Error())
 	}

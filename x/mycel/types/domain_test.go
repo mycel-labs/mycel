@@ -7,98 +7,96 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func GetValidDomains() []Domain {
-	return []Domain{
-		{Name: "foo", Parent: "myc"},
-		{Name: "", Parent: "myc"},
-		{Name: "foo", Parent: ""},
-		{Name: "bar", Parent: "foo.myc"},
-		{Name: "🍭", Parent: "foo.🍭"},
+type DomainTest struct {
+	Domain       Domain
+	IsTLD        bool
+	IsRootDomain bool
+}
+
+func GetValidDomains() []DomainTest {
+	return []DomainTest{
+		{Domain: Domain{Name: "foo", Parent: "myc"}, IsTLD: false, IsRootDomain: true},
+		{Domain: Domain{Name: "foo", Parent: ""}, IsTLD: true, IsRootDomain: false},
+		{Domain: Domain{Name: "bar", Parent: "foo.myc"}, IsTLD: false, IsRootDomain: false},
+		{Domain: Domain{Name: "🍭", Parent: "foo.🍭"}, IsTLD: false, IsRootDomain: false},
 	}
 }
 
 // Name is invalid
-func GetInvalidNameDomains() []Domain {
-	return []Domain{
-		{Name: ".foo", Parent: "myc"},
-		{Name: "bar.foo", Parent: "myc"},
-		{Name: ".", Parent: "myc"},
-		{Name: "##", Parent: "myc"},
+func GetInvalidNameDomains() []DomainTest {
+	return []DomainTest{
+		{Domain: Domain{Name: ".foo", Parent: "myc"}, IsTLD: false, IsRootDomain: true},
+		{Domain: Domain{Name: "", Parent: "myc"}, IsTLD: false, IsRootDomain: true},
+		{Domain: Domain{Name: "bar.foo", Parent: "myc"}, IsTLD: false, IsRootDomain: true},
+		{Domain: Domain{Name: ".", Parent: "myc"}, IsTLD: false, IsRootDomain: true},
+		{Domain: Domain{Name: "##", Parent: "myc"}, IsTLD: false, IsRootDomain: true},
 	}
 }
 
 // Parent is invalid
-func GetInvalidParentDomains() []Domain {
-	return []Domain{
-		{Name: "foo", Parent: ".##"},
-		{Name: "foo", Parent: ".myc"},
-		{Name: "foo", Parent: ".foo.myc"},
+func GetInvalidParentDomains() []DomainTest {
+	return []DomainTest{
+		{Domain: Domain{Name: "foo", Parent: ".##"}, IsTLD: false, IsRootDomain: false},
+		{Domain: Domain{Name: "foo", Parent: ".myc"}, IsTLD: false, IsRootDomain: false},
+		{Domain: Domain{Name: "foo", Parent: ".foo.myc"}, IsTLD: false, IsRootDomain: false},
 	}
 }
 
 func TestValidateDomainNameSuccess(t *testing.T) {
 	for _, v := range GetValidDomains() {
-		err := v.ValidateDomainName()
+		err := v.Domain.ValidateDomain()
 		require.Nil(t, err)
 	}
 }
 func TestValidateDomainNameFailure(t *testing.T) {
 	for _, v := range GetInvalidNameDomains() {
-		err := v.ValidateDomainName()
-		require.EqualError(t, err, fmt.Sprintf("name is invalid: %s", v.Name))
+		err := v.Domain.ValidateDomainName()
+		require.EqualError(t, err, fmt.Sprintf("name is invalid: %s", v.Domain.Name))
 	}
 }
 
 func TestValidateDomainParentSuccess(t *testing.T) {
 	for _, v := range GetValidDomains() {
-		err := v.ValidateDomainParent()
+		err := v.Domain.ValidateDomainParent()
 		require.Nil(t, err)
 	}
 }
 
 func TestValidateDomainParentFailure(t *testing.T) {
 	for _, v := range GetInvalidParentDomains() {
-		err := v.ValidateDomainParent()
-		require.EqualError(t, err, fmt.Sprintf("parent is invalid: %s", v.Parent))
+		err := v.Domain.ValidateDomainParent()
+		require.EqualError(t, err, fmt.Sprintf("parent is invalid: %s", v.Domain.Parent))
 	}
 }
 
 func TestGetIsRootDomain(t *testing.T) {
-	for i, v := range GetValidDomains() {
-		isRootDomain := v.GetIsRootDomain()
-		if i < 2 {
-			require.Equal(t, isRootDomain, true)
-		} else {
-			require.Equal(t, isRootDomain, false)
-		}
+	for _, v := range GetValidDomains() {
+		isRootDomain := v.Domain.GetIsRootDomain()
+		require.Equal(t, isRootDomain, v.IsRootDomain)
 	}
 }
 
 func TestGetIsTLD(t *testing.T) {
-	for i, v := range GetValidDomains() {
-		isTLD := v.GetIsTLD()
-		if i == 2 {
-			require.Equal(t, isTLD, true)
-		} else {
-			require.Equal(t, isTLD, false)
-		}
+	for _, v := range GetValidDomains() {
+		isTLD := v.Domain.GetIsTLD()
+		require.Equal(t, isTLD, v.IsTLD)
 	}
 }
 
 func TestValidateDomainSuccess(t *testing.T) {
 	for _, v := range GetValidDomains() {
-		err := v.ValidateDomain()
+		err := v.Domain.ValidateDomain()
 		require.Nil(t, err)
 	}
 }
 
 func TestValidateDomainFailure(t *testing.T) {
 	for _, v := range GetInvalidNameDomains() {
-		err := v.ValidateDomain()
-		require.EqualError(t, err, fmt.Sprintf("name is invalid: %s", v.Name))
+		err := v.Domain.ValidateDomain()
+		require.EqualError(t, err, fmt.Sprintf("name is invalid: %s", v.Domain.Name))
 	}
 	for _, v := range GetInvalidParentDomains() {
-		err := v.ValidateDomainParent()
-		require.EqualError(t, err, fmt.Sprintf("parent is invalid: %s", v.Parent))
+		err := v.Domain.ValidateDomainParent()
+		require.EqualError(t, err, fmt.Sprintf("parent is invalid: %s", v.Domain.Parent))
 	}
 }
