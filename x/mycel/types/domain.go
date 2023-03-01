@@ -4,6 +4,7 @@ import (
 	"errors"
 	fmt "fmt"
 	"regexp"
+	"strings"
 
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -28,26 +29,6 @@ func (domain Domain) ValidateDomainParent() (err error) {
 	return err
 }
 
-func (domain Domain) GetIsTLD() (isTLD bool) {
-	if domain.Parent == "" {
-		isTLD = true
-	}
-	return isTLD
-}
-
-func (domain Domain) GetIsRootDomain() (isRootDomain bool) {
-	regex := regexp.MustCompile(fmt.Sprintf(`^[%s]+$`, NamePattern))
-	if regex.MatchString(domain.Parent) {
-		isRootDomain = true
-	}
-	return isRootDomain
-}
-
-func (domain Domain) GetIsSubDomain() (isSubDomain bool) {
-	isSubDomain = !domain.GetIsTLD() && !domain.GetIsRootDomain()
-	return isSubDomain
-}
-
 func (domain Domain) ValidateDomain() (err error) {
 	err = domain.ValidateDomainName()
 	if err != nil {
@@ -58,4 +39,13 @@ func (domain Domain) ValidateDomain() (err error) {
 		return err
 	}
 	return err
+}
+
+func (domain Domain) GetDomainLevel() (domainLevel int) {
+	if domain.Parent == "" {
+		domainLevel = 1
+	} else {
+		domainLevel = len(strings.Split(domain.Parent, ".")) + 1
+	}
+	return domainLevel
 }

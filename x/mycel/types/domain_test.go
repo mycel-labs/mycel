@@ -8,18 +8,17 @@ import (
 )
 
 type DomainTest struct {
-	Domain       Domain
-	IsTLD        bool
-	IsRootDomain bool
-	IsSubDomain  bool
+	Domain      Domain
+	DomainLevel int
 }
 
 func GetValidDomains() []DomainTest {
 	return []DomainTest{
-		{Domain: Domain{Name: "foo", Parent: "myc"}, IsTLD: false, IsRootDomain: true, IsSubDomain: false},
-		{Domain: Domain{Name: "foo", Parent: ""}, IsTLD: true, IsRootDomain: false, IsSubDomain: false},
-		{Domain: Domain{Name: "bar", Parent: "foo.myc"}, IsTLD: false, IsRootDomain: false, IsSubDomain: true},
-		{Domain: Domain{Name: "🍭", Parent: "foo.🍭"}, IsTLD: false, IsRootDomain: false, IsSubDomain: true},
+		{Domain: Domain{Name: "foo", Parent: "myc"}, DomainLevel: 2},
+		{Domain: Domain{Name: "foo", Parent: ""}, DomainLevel: 1},
+		{Domain: Domain{Name: "bar", Parent: "foo.myc"}, DomainLevel: 3},
+		{Domain: Domain{Name: "🍭", Parent: "foo.🍭"}, DomainLevel: 3},
+		{Domain: Domain{Name: "🍭", Parent: "foo.🍭.myc"}, DomainLevel: 4},
 	}
 }
 
@@ -70,28 +69,6 @@ func TestValidateDomainParentFailure(t *testing.T) {
 	}
 }
 
-func TestGetIsRootDomain(t *testing.T) {
-	for _, v := range GetValidDomains() {
-		isRootDomain := v.Domain.GetIsRootDomain()
-		require.Equal(t, isRootDomain, v.IsRootDomain)
-	}
-}
-
-func TestGetIsTLD(t *testing.T) {
-	for _, v := range GetValidDomains() {
-		isTLD := v.Domain.GetIsTLD()
-		require.Equal(t, isTLD, v.IsTLD)
-	}
-}
-
-func TestGetIsSubDomain(t *testing.T) {
-	for _, v := range GetValidDomains() {
-		isSubDomain := v.Domain.GetIsSubDomain()
-		require.Equal(t, isSubDomain, v.IsSubDomain)
-	}
-
-}
-
 func TestValidateDomainSuccess(t *testing.T) {
 	for _, v := range GetValidDomains() {
 		err := v.Domain.ValidateDomain()
@@ -107,5 +84,12 @@ func TestValidateDomainFailure(t *testing.T) {
 	for _, v := range GetInvalidParentDomains() {
 		err := v.Domain.ValidateDomainParent()
 		require.EqualError(t, err, fmt.Sprintf("parent is invalid: %s", v.Domain.Parent))
+	}
+}
+
+func TestGetDomainLevel(t *testing.T) {
+	for _, v := range GetValidDomains() {
+		domainLevel := v.Domain.GetDomainLevel()
+		require.Equal(t, domainLevel, v.DomainLevel)
 	}
 }

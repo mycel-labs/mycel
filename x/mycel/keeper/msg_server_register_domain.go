@@ -37,3 +37,15 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 
 	return &types.MsgRegisterDomainResponse{}, nil
 }
+
+func (k msgServer) RegisterTLD(goCtx context.Context, domain types.Domain) (err error) {
+	return err
+}
+
+func (k msgServer) RegisterRootDomain(goCtx context.Context, domain types.Domain) (err error) {
+	return err
+}
+
+func (k msgServer) RegisterSubDomain(goCtx context.Context, domain types.Domain) (err error) {
+	return err
+}
