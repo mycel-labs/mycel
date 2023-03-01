@@ -24,7 +24,12 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 		WalletRecords:  nil,
 		Metadata:       nil,
 	}
-	_, err := k.Keeper.GetIsDomainAlreadyTaken(ctx, newDomain.Name, newDomain.Parent)
+
+	err := newDomain.ValidateDomain()
+	if err != nil {
+		return nil, err
+	}
+	_, err = k.Keeper.GetIsDomainAlreadyTaken(ctx, newDomain.Name, newDomain.Parent)
 	if err != nil {
 		return nil, err
 	}

@@ -11,6 +11,7 @@ func GetValidDomains() []Domain {
 	return []Domain{
 		{Name: "foo", Parent: "myc"},
 		{Name: "", Parent: "myc"},
+		{Name: "foo", Parent: ""},
 		{Name: "bar", Parent: "foo.myc"},
 		{Name: "🍭", Parent: "foo.🍭"},
 	}
@@ -29,7 +30,6 @@ func GetInvalidNameDomains() []Domain {
 // Parent is invalid
 func GetInvalidParentDomains() []Domain {
 	return []Domain{
-		{Name: "foo", Parent: ""},
 		{Name: "foo", Parent: ".##"},
 		{Name: "foo", Parent: ".myc"},
 		{Name: "foo", Parent: ".foo.myc"},
@@ -63,6 +63,28 @@ func TestValidateDomainParentFailure(t *testing.T) {
 	}
 }
 
+func TestGetIsRootDomain(t *testing.T) {
+	for i, v := range GetValidDomains() {
+		isRootDomain := v.GetIsRootDomain()
+		if i < 2 {
+			require.Equal(t, isRootDomain, true)
+		} else {
+			require.Equal(t, isRootDomain, false)
+		}
+	}
+}
+
+func TestGetIsTLD(t *testing.T) {
+	for i, v := range GetValidDomains() {
+		isTLD := v.GetIsTLD()
+		if i == 2 {
+			require.Equal(t, isTLD, true)
+		} else {
+			require.Equal(t, isTLD, false)
+		}
+	}
+}
+
 func TestValidateDomainSuccess(t *testing.T) {
 	for _, v := range GetValidDomains() {
 		err := v.ValidateDomain()
@@ -78,17 +100,5 @@ func TestValidateDomainFailure(t *testing.T) {
 	for _, v := range GetInvalidParentDomains() {
 		err := v.ValidateDomainParent()
 		require.EqualError(t, err, fmt.Sprintf("parent is invalid: %s", v.Parent))
-	}
-}
-
-func TestGetIsRootDomain(t *testing.T) {
-	for i, v := range GetValidDomains() {
-		isRootDomain, err := v.GetIsRootDomain()
-		require.Nil(t, err)
-		if i < 2 {
-			require.Equal(t, isRootDomain, true)
-		} else {
-			require.Equal(t, isRootDomain, false)
-		}
 	}
 }
