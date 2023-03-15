@@ -1,0 +1,51 @@
+syntax = "proto3";
+package mycel.mycel;
+
+option go_package = "mycel/x/mycel/types";
+
+enum DNSRecordType {
+  A = 0;
+  AAAA = 1;
+  CNAME = 2;
+  NS = 3;
+  MX = 4;
+  PTR = 5;
+  SOA = 6;
+  SRV = 7;
+  TXT = 8;
+}
+
+enum WalletRecordType {
+  ETHEREUM_MAINNET = 0;
+  ETHEREUM_GOERLI = 1;
+  POLYGON_MAINNET = 2;
+  POLYGON_MUMBAI = 3;
+}
+
+enum WalletAddressFormat {
+  ETHEREUM = 0;
+  IBC = 1;
+}
+
+message DNSRecord {
+  DNSRecordType DNSRecordType = 1;
+  string value = 2;
+  map<string, string> metadata = 3;
+}
+
+message WalletRecord {
+  WalletRecordType walletRecordType = 1;
+  WalletAddressFormat WalletAddressFormat = 2;
+  string value = 3;
+  map<string, string> metadata = 4;
+
+}
+message Domain {
+  string name = 1; 
+  string parent = 2; 
+  string owner = 3; 
+  int64 expirationDate = 4; 
+  map<string, DNSRecord> DNSRecords = 5;
+  map<string, WalletRecord> walletRecords = 6;
+  map<string, string> metadata = 7;
+}
