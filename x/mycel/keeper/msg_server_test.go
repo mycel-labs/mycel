@@ -4,13 +4,16 @@ import (
 	"context"
 	"testing"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	keepertest "mycel/testutil/keeper"
+	"mycel/x/mycel"
 	"mycel/x/mycel/keeper"
 	"mycel/x/mycel/types"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func setupMsgServer(t testing.TB) (types.MsgServer, context.Context) {
+func setupMsgServer(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
 	k, ctx := keepertest.MycelKeeper(t)
-	return keeper.NewMsgServerImpl(*k), sdk.WrapSDKContext(ctx)
+	mycel.InitGenesis(ctx, *k, *types.DefaultGenesis())
+	return keeper.NewMsgServerImpl(*k), *k, sdk.WrapSDKContext(ctx)
 }
