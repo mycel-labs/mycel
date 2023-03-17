@@ -11,7 +11,7 @@ import (
 func (k msgServer) UpdateWalletRecord(goCtx context.Context, msg *types.MsgUpdateWalletRecord) (*types.MsgUpdateWalletRecordResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	domain, isFound := k.GetDomain(ctx, msg.Name, msg.Parent)
+	domain, isFound := k.Keeper.GetDomain(ctx, msg.Name, msg.Parent)
 	if !isFound {
 		return nil, types.ErrDomainNotFound
 	}
@@ -22,6 +22,7 @@ func (k msgServer) UpdateWalletRecord(goCtx context.Context, msg *types.MsgUpdat
 	}
 
 	domain.UpdateWalletRecord(msg.WalletRecordType, msg.Value)
+	k.Keeper.SetDomain(ctx, domain)
 
 	return &types.MsgUpdateWalletRecordResponse{}, nil
 }

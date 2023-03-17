@@ -17,7 +17,7 @@ func CmdUpdateWalletRecord() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "update-wallet-record [name] [parent] [wallet-record-type] [value]",
 		Short: "Broadcast message updateWalletRecord",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argName := args[0]
 			argParent := args[1]

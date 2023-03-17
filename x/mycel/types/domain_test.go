@@ -158,6 +158,7 @@ func TestUpdateWalletRecordSuccess(t *testing.T) {
 	domains := GetValidDomains()
 	for _, walletRecord := range GetValidUpdateWalletRecords() {
 		err := domains[0].Domain.UpdateWalletRecord(walletRecord.walletRecordType, walletRecord.address)
+		require.Equal(t, walletRecord.address, domains[0].Domain.WalletRecords[walletRecord.walletRecordType].Value)
 		require.Nil(t, err)
 	}
 }

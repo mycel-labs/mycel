@@ -45331,7 +45331,6 @@ paths:
                             type: string
                             enum:
                               - ETHEREUM
-                              - IBC
                             default: ETHEREUM
                           value:
                             type: string
@@ -45511,7 +45510,6 @@ paths:
                           type: string
                           enum:
                             - ETHEREUM
-                            - IBC
                           default: ETHEREUM
                         value:
                           type: string
@@ -75325,7 +75323,6 @@ definitions:
               type: string
               enum:
                 - ETHEREUM
-                - IBC
               default: ETHEREUM
             value:
               type: string
@@ -75402,7 +75399,6 @@ definitions:
                     type: string
                     enum:
                       - ETHEREUM
-                      - IBC
                     default: ETHEREUM
                   value:
                     type: string
@@ -75496,7 +75492,6 @@ definitions:
                   type: string
                   enum:
                     - ETHEREUM
-                    - IBC
                   default: ETHEREUM
                 value:
                   type: string
@@ -75519,7 +75514,6 @@ definitions:
     type: string
     enum:
       - ETHEREUM
-      - IBC
     default: ETHEREUM
   mycel.mycel.WalletRecord:
     type: object
@@ -75536,7 +75530,6 @@ definitions:
         type: string
         enum:
           - ETHEREUM
-          - IBC
         default: ETHEREUM
       value:
         type: string
