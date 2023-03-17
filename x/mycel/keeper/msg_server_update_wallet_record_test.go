@@ -1,10 +1,12 @@
 package keeper_test
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
 	"mycel/testutil"
+	"mycel/x/mycel/keeper"
 	"mycel/x/mycel/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -91,7 +93,7 @@ func GetInvalidMsgUpdateWalletRecords() []TestMsgUpdateWalletRecord {
 	}
 }
 
-func TestUpdateWalletRecordSuccess(t *testing.T) {
+func setupMsgServerUpdateRecord(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
 	msgServer, keeper, context := setupMsgServer(t)
 
 	// Register domain
@@ -99,10 +101,18 @@ func TestUpdateWalletRecordSuccess(t *testing.T) {
 	_, err := msgServer.RegisterDomain(context, domain)
 	require.Nil(t, err)
 
+	return msgServer, keeper, context
+}
+
+func TestUpdateWalletRecordSuccess(t *testing.T) {
+	msgServer, keeper, context := setupMsgServerUpdateRecord(t)
+
 	for _, record := range GetValidMsgUpdateWalletRecords() {
 		// Update wallet record
-		_, err = msgServer.UpdateWalletRecord(context, &record.MsgUpdateWalletRecord)
+		_, err := msgServer.UpdateWalletRecord(context, &record.MsgUpdateWalletRecord)
 		require.Nil(t, err)
+
+		domain := GetMsgRegisterDomain()
 
 		// Check if wallet record is UpdateWalletRecord
 		ctx := sdk.UnwrapSDKContext(context)
@@ -113,12 +123,7 @@ func TestUpdateWalletRecordSuccess(t *testing.T) {
 }
 
 func TestUpdateWalletRecordDomainNotFoundFailure(t *testing.T) {
-	msgServer, _, context := setupMsgServer(t)
-
-	// Register domain
-	domain := GetMsgRegisterDomain()
-	_, err := msgServer.RegisterDomain(context, domain)
-	require.Nil(t, err)
+	msgServer, _, context := setupMsgServerUpdateRecord(t)
 
 	for _, record := range GetInvalidMsgUpdateWalletRecords() {
 		if record.IsInvalidDomain {
@@ -129,12 +134,7 @@ func TestUpdateWalletRecordDomainNotFoundFailure(t *testing.T) {
 }
 
 func TestUpdateWalletRecordNotOwnerFailure(t *testing.T) {
-	msgServer, _, context := setupMsgServer(t)
-
-	// Register domain
-	domain := GetMsgRegisterDomain()
-	_, err := msgServer.RegisterDomain(context, domain)
-	require.Nil(t, err)
+	msgServer, _, context := setupMsgServerUpdateRecord(t)
 
 	for _, record := range GetInvalidMsgUpdateWalletRecords() {
 		if record.IsInvalidOwner {
