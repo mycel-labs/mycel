@@ -9,12 +9,13 @@ const TypeMsgUpdateWalletRecord = "update_wallet_record"
 
 var _ sdk.Msg = &MsgUpdateWalletRecord{}
 
-func NewMsgUpdateWalletRecord(creator string, name string, parent string, walletRecordType string) *MsgUpdateWalletRecord {
+func NewMsgUpdateWalletRecord(creator string, name string, parent string, walletRecordType string, value string) *MsgUpdateWalletRecord {
 	return &MsgUpdateWalletRecord{
 		Creator:          creator,
 		Name:             name,
 		Parent:           parent,
 		WalletRecordType: walletRecordType,
+		Value:            value,
 	}
 }
 

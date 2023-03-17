@@ -82,7 +82,7 @@ func GetWalletAddressFormat(walletRecordType string) (walletAddressFormat string
 	return walletAddressFormat, err
 }
 
-func (domain Domain) updateWalletRecord(walletRecordType string, address string) (err error) {
+func (domain Domain) UpdateWalletRecord(walletRecordType string, address string) (err error) {
 
 	// Get wallet address format from wallet record type
 	walletAddressFormat, err := GetWalletAddressFormat(walletRecordType)

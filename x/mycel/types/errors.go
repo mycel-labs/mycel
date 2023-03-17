@@ -15,4 +15,5 @@ var (
 	ErrDomainNotFound          = sdkerrors.Register(ModuleName, 1104, "domain is not found")
 	ErrInvalidWalletAddress    = sdkerrors.Register(ModuleName, 1105, "invalid wallet address")
 	ErrInvalidWalletRecordType = sdkerrors.Register(ModuleName, 1106, "invalid wallet record type")
+	ErrDomainNotOwned          = sdkerrors.Register(ModuleName, 1108, "domain is not owned by the user")
 )

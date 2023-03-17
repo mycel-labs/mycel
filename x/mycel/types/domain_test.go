@@ -157,7 +157,7 @@ func TestValidateWalletRecordTypeFailure(t *testing.T) {
 func TestUpdateWalletRecordSuccess(t *testing.T) {
 	domains := GetValidDomains()
 	for _, walletRecord := range GetValidUpdateWalletRecords() {
-		err := domains[0].Domain.updateWalletRecord(walletRecord.walletRecordType, walletRecord.address)
+		err := domains[0].Domain.UpdateWalletRecord(walletRecord.walletRecordType, walletRecord.address)
 		require.Nil(t, err)
 	}
 }
@@ -165,7 +165,7 @@ func TestUpdateWalletRecordSuccess(t *testing.T) {
 func TestUpdateWalletRecordFailure(t *testing.T) {
 	domains := GetValidDomains()
 	for _, walletRecord := range GetInvalidUpdateWalletRecords() {
-		err := domains[0].Domain.updateWalletRecord(walletRecord.walletRecordType, walletRecord.address)
+		err := domains[0].Domain.UpdateWalletRecord(walletRecord.walletRecordType, walletRecord.address)
 		if walletRecord.isInvalidRecordType {
 			require.EqualError(t, err, fmt.Sprintf("invalid wallet record type: %s", walletRecord.walletRecordType))
 		} else if walletRecord.isInvalidValue {
