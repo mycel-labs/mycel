@@ -75339,6 +75339,8 @@ definitions:
           type: string
   mycel.mycel.MsgRegisterDomainResponse:
     type: object
+  mycel.mycel.MsgUpdateWalletRecordResponse:
+    type: object
   mycel.mycel.Params:
     type: object
     description: Params defines the parameters for the module.
