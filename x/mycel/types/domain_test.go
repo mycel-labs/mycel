@@ -13,10 +13,10 @@ type DomainTest struct {
 }
 
 type WalletRecordTest struct {
-	walletRecordType    string
-	address             string
-	isInvalidRecordType bool
-	isInvalidValue      bool
+	WalletRecordType    string
+	Address             string
+	IsInvalidRecordType bool
+	IsInvalidValue      bool
 }
 
 func GetValidDomains() []DomainTest {
@@ -51,17 +51,17 @@ func GetInvalidParentDomains() []DomainTest {
 
 func GetValidUpdateWalletRecords() []WalletRecordTest {
 	return []WalletRecordTest{
-		{walletRecordType: "ETHEREUM_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
-		{walletRecordType: "ETHEREUM_GOERLI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
-		{walletRecordType: "POLYGON_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
-		{walletRecordType: "POLYGON_MUMBAI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{WalletRecordType: "ETHEREUM_MAINNET", Address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{WalletRecordType: "ETHEREUM_GOERLI", Address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{WalletRecordType: "POLYGON_MAINNET", Address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{WalletRecordType: "POLYGON_MUMBAI", Address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
 	}
 }
 func GetInvalidUpdateWalletRecords() []WalletRecordTest {
 	return []WalletRecordTest{
-		{walletRecordType: "ETHEREUM_MUMBAI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", isInvalidRecordType: true},
-		{walletRecordType: "ETHEREUM_GOERLI", address: "0xf9Fd6e51aad88F6F4ce6aB8827279cffFb92266", isInvalidValue: true},
-		{walletRecordType: "ETHEREUM_GOERLI", address: "cosmos1jyc4rrtz5f93n80uuj378dq7x3v7z09j0h6dqx", isInvalidValue: true},
+		{WalletRecordType: "ETHEREUM_MUMBAI", Address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", IsInvalidRecordType: true},
+		{WalletRecordType: "ETHEREUM_GOERLI", Address: "0xf9Fd6e51aad88F6F4ce6aB8827279cffFb92266", IsInvalidValue: true},
+		{WalletRecordType: "ETHEREUM_GOERLI", Address: "cosmos1jyc4rrtz5f93n80uuj378dq7x3v7z09j0h6dqx", IsInvalidValue: true},
 	}
 }
 
@@ -119,37 +119,37 @@ func TestGetDomainLevel(t *testing.T) {
 
 func TestValidateWalletAddressSuccess(t *testing.T) {
 	for _, walletRecord := range GetValidUpdateWalletRecords() {
-		addressFormat, errAddressFormat := GetWalletAddressFormat(walletRecord.walletRecordType)
+		addressFormat, errAddressFormat := GetWalletAddressFormat(walletRecord.WalletRecordType)
 		require.Nil(t, errAddressFormat)
-		err := ValidateWalletAddress(addressFormat, walletRecord.address)
+		err := ValidateWalletAddress(addressFormat, walletRecord.Address)
 		require.Nil(t, err)
 	}
 }
 
 func TestValidateWalletAddressFailure(t *testing.T) {
 	for _, walletRecord := range GetInvalidUpdateWalletRecords() {
-		addressFormat, errAddressFormat := GetWalletAddressFormat(walletRecord.walletRecordType)
-		if walletRecord.isInvalidRecordType {
-			require.EqualError(t, errAddressFormat, fmt.Sprintf("invalid wallet record type: %s", walletRecord.walletRecordType))
-		} else if walletRecord.isInvalidValue {
-			err := ValidateWalletAddress(addressFormat, walletRecord.address)
-			require.EqualError(t, err, fmt.Sprintf("invalid wallet address: %s %s", addressFormat, walletRecord.address))
+		addressFormat, errAddressFormat := GetWalletAddressFormat(walletRecord.WalletRecordType)
+		if walletRecord.IsInvalidRecordType {
+			require.EqualError(t, errAddressFormat, fmt.Sprintf("invalid wallet record type: %s", walletRecord.WalletRecordType))
+		} else if walletRecord.IsInvalidValue {
+			err := ValidateWalletAddress(addressFormat, walletRecord.Address)
+			require.EqualError(t, err, fmt.Sprintf("invalid wallet address: %s %s", addressFormat, walletRecord.Address))
 		}
 	}
 }
 
 func TestValidateWalletRecordTypeSuccess(t *testing.T) {
 	for _, walletRecord := range GetValidUpdateWalletRecords() {
-		err := ValidateWalletRecordType(walletRecord.walletRecordType)
+		err := ValidateWalletRecordType(walletRecord.WalletRecordType)
 		require.Nil(t, err)
 	}
 }
 
 func TestValidateWalletRecordTypeFailure(t *testing.T) {
 	for _, walletRecord := range GetInvalidUpdateWalletRecords() {
-		err := ValidateWalletRecordType(walletRecord.walletRecordType)
-		if walletRecord.isInvalidRecordType {
-			require.EqualError(t, err, fmt.Sprintf("invalid wallet record type: %s", walletRecord.walletRecordType))
+		err := ValidateWalletRecordType(walletRecord.WalletRecordType)
+		if walletRecord.IsInvalidRecordType {
+			require.EqualError(t, err, fmt.Sprintf("invalid wallet record type: %s", walletRecord.WalletRecordType))
 		}
 	}
 }
@@ -157,8 +157,8 @@ func TestValidateWalletRecordTypeFailure(t *testing.T) {
 func TestUpdateWalletRecordSuccess(t *testing.T) {
 	domains := GetValidDomains()
 	for _, walletRecord := range GetValidUpdateWalletRecords() {
-		err := domains[0].Domain.UpdateWalletRecord(walletRecord.walletRecordType, walletRecord.address)
-		require.Equal(t, walletRecord.address, domains[0].Domain.WalletRecords[walletRecord.walletRecordType].Value)
+		err := domains[0].Domain.UpdateWalletRecord(walletRecord.WalletRecordType, walletRecord.Address)
+		require.Equal(t, walletRecord.Address, domains[0].Domain.WalletRecords[walletRecord.WalletRecordType].Value)
 		require.Nil(t, err)
 	}
 }
@@ -166,12 +166,12 @@ func TestUpdateWalletRecordSuccess(t *testing.T) {
 func TestUpdateWalletRecordFailure(t *testing.T) {
 	domains := GetValidDomains()
 	for _, walletRecord := range GetInvalidUpdateWalletRecords() {
-		err := domains[0].Domain.UpdateWalletRecord(walletRecord.walletRecordType, walletRecord.address)
-		if walletRecord.isInvalidRecordType {
-			require.EqualError(t, err, fmt.Sprintf("invalid wallet record type: %s", walletRecord.walletRecordType))
-		} else if walletRecord.isInvalidValue {
-			addressFormat, _ := GetWalletAddressFormat(walletRecord.walletRecordType)
-			require.EqualError(t, err, fmt.Sprintf("invalid wallet address: %s %s", addressFormat, walletRecord.address))
+		err := domains[0].Domain.UpdateWalletRecord(walletRecord.WalletRecordType, walletRecord.Address)
+		if walletRecord.IsInvalidRecordType {
+			require.EqualError(t, err, fmt.Sprintf("invalid wallet record type: %s", walletRecord.WalletRecordType))
+		} else if walletRecord.IsInvalidValue {
+			addressFormat, _ := GetWalletAddressFormat(walletRecord.WalletRecordType)
+			require.EqualError(t, err, fmt.Sprintf("invalid wallet address: %s %s", addressFormat, walletRecord.Address))
 		}
 	}
 }
