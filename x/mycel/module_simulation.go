@@ -29,6 +29,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgRegisterDomain int = 100
 
+	opWeightMsgUpdateWalletRecord = "op_weight_msg_update_wallet_record"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgUpdateWalletRecord int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -72,6 +76,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgRegisterDomain,
 		mycelsimulation.SimulateMsgRegisterDomain(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgUpdateWalletRecord int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUpdateWalletRecord, &weightMsgUpdateWalletRecord, nil,
+		func(_ *rand.Rand) {
+			weightMsgUpdateWalletRecord = defaultWeightMsgUpdateWalletRecord
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUpdateWalletRecord,
+		mycelsimulation.SimulateMsgUpdateWalletRecord(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

@@ -75,7 +75,7 @@ func (k Keeper) GetIsDomainAlreadyTaken(ctx sdk.Context, name string, parent str
 	domain, isDomainAlreadyTaken := k.GetDomain(ctx, name, parent)
 	if isDomainAlreadyTaken {
 		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s.%s", domain.Name, domain.Parent)),
-			types.ErrorDomainIsAlreadyTaken.Error())
+			types.ErrDomainIsAlreadyTaken.Error())
 	}
 	return isDomainAlreadyTaken, err
 }
