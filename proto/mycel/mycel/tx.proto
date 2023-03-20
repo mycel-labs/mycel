@@ -6,9 +6,9 @@ option go_package = "mycel/x/mycel/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc RegisterDomain (MsgRegisterDomain) returns (MsgRegisterDomainResponse);
+  rpc RegisterDomain     (MsgRegisterDomain    ) returns (MsgRegisterDomainResponse    );
+  rpc UpdateWalletRecord (MsgUpdateWalletRecord) returns (MsgUpdateWalletRecordResponse);
 }
-
 message MsgRegisterDomain {
   string creator                  = 1;
   string name                     = 2;
@@ -17,4 +17,14 @@ message MsgRegisterDomain {
 }
 
 message MsgRegisterDomainResponse {}
+
+message MsgUpdateWalletRecord {
+  string creator          = 1;
+  string name             = 2;
+  string parent           = 3;
+  string walletRecordType = 4;
+  string value = 5;
+}
+
+message MsgUpdateWalletRecordResponse {}
 

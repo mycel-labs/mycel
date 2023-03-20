@@ -24,7 +24,6 @@ enum WalletRecordType {
 
 enum WalletAddressFormat {
   ETHEREUM = 0;
-  IBC = 1;
 }
 
 message DNSRecord {
