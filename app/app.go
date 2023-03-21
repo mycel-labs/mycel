@@ -106,6 +106,9 @@ import (
 	mycelmodule "mycel/x/mycel"
 	mycelmodulekeeper "mycel/x/mycel/keeper"
 	mycelmoduletypes "mycel/x/mycel/types"
+	registrymodule "mycel/x/registry"
+	registrymodulekeeper "mycel/x/registry/keeper"
+	registrymoduletypes "mycel/x/registry/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	appparams "mycel/app/params"
@@ -165,6 +168,7 @@ var (
 		ica.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		mycelmodule.AppModuleBasic{},
+		registrymodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -178,6 +182,7 @@ var (
 		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
 		govtypes.ModuleName:            {authtypes.Burner},
 		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
+		registrymoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 )
@@ -239,6 +244,8 @@ type App struct {
 	ScopedICAHostKeeper  capabilitykeeper.ScopedKeeper
 
 	MycelKeeper mycelmodulekeeper.Keeper
+
+	RegistryKeeper registrymodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -284,6 +291,7 @@ func New(
 		ibctransfertypes.StoreKey, icahosttypes.StoreKey, capabilitytypes.StoreKey, group.StoreKey,
 		icacontrollertypes.StoreKey,
 		mycelmoduletypes.StoreKey,
+		registrymoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -503,6 +511,16 @@ func New(
 	)
 	mycelModule := mycelmodule.NewAppModule(appCodec, app.MycelKeeper, app.AccountKeeper, app.BankKeeper)
 
+	app.RegistryKeeper = *registrymodulekeeper.NewKeeper(
+		appCodec,
+		keys[registrymoduletypes.StoreKey],
+		keys[registrymoduletypes.MemStoreKey],
+		app.GetSubspace(registrymoduletypes.ModuleName),
+
+		app.BankKeeper,
+	)
+	registryModule := registrymodule.NewAppModule(appCodec, app.RegistryKeeper, app.AccountKeeper, app.BankKeeper)
+
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	/**** IBC Routing ****/
@@ -569,6 +587,7 @@ func New(
 		transferModule,
 		icaModule,
 		mycelModule,
+		registryModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -599,6 +618,7 @@ func New(
 		paramstypes.ModuleName,
 		vestingtypes.ModuleName,
 		mycelmoduletypes.ModuleName,
+		registrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -624,6 +644,7 @@ func New(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		mycelmoduletypes.ModuleName,
+		registrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -654,6 +675,7 @@ func New(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		mycelmoduletypes.ModuleName,
+		registrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
@@ -684,6 +706,7 @@ func New(
 		ibc.NewAppModule(app.IBCKeeper),
 		transferModule,
 		mycelModule,
+		registryModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
@@ -889,6 +912,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(icacontrollertypes.SubModuleName)
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
 	paramsKeeper.Subspace(mycelmoduletypes.ModuleName)
+	paramsKeeper.Subspace(registrymoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper

@@ -1,0 +1,12 @@
+syntax = "proto3";
+package mycel.registry;
+
+import "gogoproto/gogo.proto";
+import "mycel/registry/params.proto";
+
+option go_package = "mycel/x/registry/types";
+
+// GenesisState defines the registry module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}
