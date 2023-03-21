@@ -103,12 +103,10 @@ import (
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
 
-	mycelmodule "mycel/x/mycel"
-	mycelmodulekeeper "mycel/x/mycel/keeper"
-	mycelmoduletypes "mycel/x/mycel/types"
 	registrymodule "mycel/x/registry"
 	registrymodulekeeper "mycel/x/registry/keeper"
 	registrymoduletypes "mycel/x/registry/types"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	appparams "mycel/app/params"
@@ -167,7 +165,6 @@ var (
 		transfer.AppModuleBasic{},
 		ica.AppModuleBasic{},
 		vesting.AppModuleBasic{},
-		mycelmodule.AppModuleBasic{},
 		registrymodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
@@ -243,8 +240,6 @@ type App struct {
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
 	ScopedICAHostKeeper  capabilitykeeper.ScopedKeeper
 
-	MycelKeeper mycelmodulekeeper.Keeper
-
 	RegistryKeeper registrymodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
@@ -290,7 +285,6 @@ func New(
 		paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey, feegrant.StoreKey, evidencetypes.StoreKey,
 		ibctransfertypes.StoreKey, icahosttypes.StoreKey, capabilitytypes.StoreKey, group.StoreKey,
 		icacontrollertypes.StoreKey,
-		mycelmoduletypes.StoreKey,
 		registrymoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
@@ -503,14 +497,6 @@ func New(
 		govConfig,
 	)
 
-	app.MycelKeeper = *mycelmodulekeeper.NewKeeper(
-		appCodec,
-		keys[mycelmoduletypes.StoreKey],
-		keys[mycelmoduletypes.MemStoreKey],
-		app.GetSubspace(mycelmoduletypes.ModuleName),
-	)
-	mycelModule := mycelmodule.NewAppModule(appCodec, app.MycelKeeper, app.AccountKeeper, app.BankKeeper)
-
 	app.RegistryKeeper = *registrymodulekeeper.NewKeeper(
 		appCodec,
 		keys[registrymoduletypes.StoreKey],
@@ -586,7 +572,6 @@ func New(
 		params.NewAppModule(app.ParamsKeeper),
 		transferModule,
 		icaModule,
-		mycelModule,
 		registryModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
@@ -617,7 +602,6 @@ func New(
 		group.ModuleName,
 		paramstypes.ModuleName,
 		vestingtypes.ModuleName,
-		mycelmoduletypes.ModuleName,
 		registrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
@@ -643,7 +627,6 @@ func New(
 		paramstypes.ModuleName,
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
-		mycelmoduletypes.ModuleName,
 		registrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
@@ -674,7 +657,6 @@ func New(
 		paramstypes.ModuleName,
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
-		mycelmoduletypes.ModuleName,
 		registrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
@@ -705,7 +687,6 @@ func New(
 		evidence.NewAppModule(app.EvidenceKeeper),
 		ibc.NewAppModule(app.IBCKeeper),
 		transferModule,
-		mycelModule,
 		registryModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
@@ -911,7 +892,6 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	paramsKeeper.Subspace(icacontrollertypes.SubModuleName)
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
-	paramsKeeper.Subspace(mycelmoduletypes.ModuleName)
 	paramsKeeper.Subspace(registrymoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
