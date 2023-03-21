@@ -10,7 +10,7 @@ const DefaultIndex uint64 = 1
 // Default TLD Names
 func GetDefaultTLDNames() []string {
 	// Define default TLD names here
-	return []string{"myc"}
+	return []string{"cel"}
 }
 
 // Get default TLDs

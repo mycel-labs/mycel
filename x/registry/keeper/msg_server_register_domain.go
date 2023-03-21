@@ -30,7 +30,7 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 	if err != nil {
 		return nil, err
 	}
-	_, err = k.Keeper.GetIsDomainAlreadyTaken(ctx, domain.Name, domain.Parent)
+	err = k.Keeper.ValidateIsDomainAlreadyTaken(ctx, domain)
 	if err != nil {
 		return nil, err
 	}
@@ -40,30 +40,16 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 
 	switch domainLevel {
 	case 1:
-		k.RegisterSubDomainValidate(ctx, domain)
-	case 2:
-		k.RegisterSecondLevelDomainValidate(ctx, domain)
+		err = k.Keeper.ValidateRegisterTLD(ctx, domain)
 	default:
-		k.RegisterSubDomainValidate(ctx, domain)
+		err = k.Keeper.ValidateRegsiterSLD(ctx, domain)
+	}
+	if err != nil {
+		return nil, err
 	}
 
 	// Store domain
 	k.Keeper.SetDomain(ctx, domain)
 
 	return &types.MsgRegisterDomainResponse{}, nil
-}
-
-func (k msgServer) RegisterTopLevelDomainValidate(ctx sdk.Context, domain types.Domain) (err error) {
-	// TODO: check the validator is alive and send token as registration fee
-	return err
-}
-
-func (k msgServer) RegisterSecondLevelDomainValidate(ctx sdk.Context, domain types.Domain) (err error) {
-	// TODO: send token as registration fee
-	return err
-}
-
-func (k msgServer) RegisterSubDomainValidate(ctx sdk.Context, domain types.Domain) (err error) {
-	// TODO: no fee
-	return err
 }

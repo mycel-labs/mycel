@@ -24,8 +24,8 @@ func GetValidMsgUpdateWalletRecords() []TestMsgUpdateWalletRecord {
 		{
 			MsgUpdateWalletRecord: types.MsgUpdateWalletRecord{
 				Creator:          testutil.Alice,
-				Name:             "poyo",
-				Parent:           "ninniku",
+				Name:             "foo",
+				Parent:           "cel",
 				WalletRecordType: "ETHEREUM_MAINNET",
 				Value:            "0x1234567890123456789012345678901234567890",
 			},
@@ -33,8 +33,8 @@ func GetValidMsgUpdateWalletRecords() []TestMsgUpdateWalletRecord {
 		{
 			MsgUpdateWalletRecord: types.MsgUpdateWalletRecord{
 				Creator:          testutil.Alice,
-				Name:             "poyo",
-				Parent:           "ninniku",
+				Name:             "foo",
+				Parent:           "cel",
 				WalletRecordType: "ETHEREUM_MAINNET",
 				Value:            "0x1234567890123456789012345678901234567891",
 			},
@@ -42,8 +42,8 @@ func GetValidMsgUpdateWalletRecords() []TestMsgUpdateWalletRecord {
 		{
 			MsgUpdateWalletRecord: types.MsgUpdateWalletRecord{
 				Creator:          testutil.Alice,
-				Name:             "poyo",
-				Parent:           "ninniku",
+				Name:             "foo",
+				Parent:           "cel",
 				WalletRecordType: "ETHEREUM_GOERLI",
 				Value:            "0x1234567890123456789012345678901234567890",
 			},
@@ -51,8 +51,8 @@ func GetValidMsgUpdateWalletRecords() []TestMsgUpdateWalletRecord {
 		{
 			MsgUpdateWalletRecord: types.MsgUpdateWalletRecord{
 				Creator:          testutil.Alice,
-				Name:             "poyo",
-				Parent:           "ninniku",
+				Name:             "foo",
+				Parent:           "cel",
 				WalletRecordType: "POLYGON_MAINNET",
 				Value:            "0x1234567890123456789012345678901234567890",
 			},
@@ -60,8 +60,8 @@ func GetValidMsgUpdateWalletRecords() []TestMsgUpdateWalletRecord {
 		{
 			MsgUpdateWalletRecord: types.MsgUpdateWalletRecord{
 				Creator:          testutil.Alice,
-				Name:             "poyo",
-				Parent:           "ninniku",
+				Name:             "foo",
+				Parent:           "cel",
 				WalletRecordType: "POLYGON_MUMBAI",
 				Value:            "0x1234567890123456789012345678901234567890",
 			},
@@ -83,8 +83,8 @@ func GetInvalidMsgUpdateWalletRecords() []TestMsgUpdateWalletRecord {
 		{
 			MsgUpdateWalletRecord: types.MsgUpdateWalletRecord{
 				Creator:          testutil.Bob,
-				Name:             "poyo",
-				Parent:           "ninniku",
+				Name:             "foo",
+				Parent:           "cel",
 				WalletRecordType: "ETHEREUM_MAINNET",
 				Value:            "0x1234567890123456789012345678901234567890",
 			},
