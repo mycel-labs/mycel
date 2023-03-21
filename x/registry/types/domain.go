@@ -50,6 +50,19 @@ func (domain Domain) GetDomainLevel() (domainLevel int) {
 	return domainLevel
 }
 
+func (domain Domain) ParseParent() (name string, parent string) {
+	if domain.Parent != "" {
+		split := strings.Split(domain.Parent, ".")
+		if len(split) == 1 {
+			name = split[0]
+		} else {
+			parent = split[len(split)-1]
+			name = strings.Join(split[:len(split)-1], ".")
+		}
+	}
+	return name, parent
+}
+
 func ValidateWalletAddress(walletAddressFormat string, address string) (err error) {
 	walletAddressRegex, isFound := WalletAddressRegex()[walletAddressFormat]
 	if !isFound {

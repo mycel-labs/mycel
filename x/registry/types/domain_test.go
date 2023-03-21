@@ -8,8 +8,9 @@ import (
 )
 
 type DomainTest struct {
-	Domain      Domain
-	DomainLevel int
+	Domain       Domain
+	DomainLevel  int
+	DomainParent Domain
 }
 
 type WalletRecordTest struct {
@@ -21,11 +22,11 @@ type WalletRecordTest struct {
 
 func GetValidDomains() []DomainTest {
 	return []DomainTest{
-		{Domain: Domain{Name: "foo", Parent: "myc"}, DomainLevel: 2},
-		{Domain: Domain{Name: "foo", Parent: ""}, DomainLevel: 1},
-		{Domain: Domain{Name: "bar", Parent: "foo.myc"}, DomainLevel: 3},
-		{Domain: Domain{Name: "🍭", Parent: "foo.🍭"}, DomainLevel: 3},
-		{Domain: Domain{Name: "🍭", Parent: "foo.🍭.myc"}, DomainLevel: 4},
+		{Domain: Domain{Name: "foo", Parent: "myc"}, DomainLevel: 2, DomainParent: Domain{Name: "myc", Parent: ""}},
+		{Domain: Domain{Name: "foo", Parent: ""}, DomainLevel: 1, DomainParent: Domain{Name: "", Parent: ""}},
+		{Domain: Domain{Name: "bar", Parent: "foo.myc"}, DomainLevel: 3, DomainParent: Domain{Name: "foo", Parent: "myc"}},
+		{Domain: Domain{Name: "🍭", Parent: "foo.🍭"}, DomainLevel: 3, DomainParent: Domain{Name: "foo", Parent: "🍭"}},
+		{Domain: Domain{Name: "🍭", Parent: "foo.🍭.myc"}, DomainLevel: 4, DomainParent: Domain{Name: "foo.🍭", Parent: "myc"}},
 	}
 }
 
@@ -114,6 +115,14 @@ func TestGetDomainLevel(t *testing.T) {
 	for _, v := range GetValidDomains() {
 		domainLevel := v.Domain.GetDomainLevel()
 		require.Equal(t, domainLevel, v.DomainLevel)
+	}
+}
+
+func TestGetDomainParent(t *testing.T) {
+	for _, v := range GetValidDomains() {
+		name, parent := v.Domain.ParseParent()
+		require.Equal(t, v.DomainParent.Name, name)
+		require.Equal(t, v.DomainParent.Parent, parent)
 	}
 }
 
