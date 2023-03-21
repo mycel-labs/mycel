@@ -4,12 +4,13 @@ import (
 	"strconv"
 	"testing"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/stretchr/testify/require"
 	keepertest "mycel/testutil/keeper"
 	"mycel/testutil/nullify"
 	"mycel/x/registry/keeper"
 	"mycel/x/registry/types"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/stretchr/testify/require"
 )
 
 // Prevent strconv unused error
