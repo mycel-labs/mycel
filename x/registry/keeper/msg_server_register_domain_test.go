@@ -13,8 +13,8 @@ import (
 func GetMsgRegisterDomain() *types.MsgRegisterDomain {
 	return &types.MsgRegisterDomain{
 		Creator:                  testutil.Alice,
-		Name:                     "poyo",
-		Parent:                   "ninniku",
+		Name:                     "foo",
+		Parent:                   "cel",
 		RegistrationPeriodInYear: 1,
 	}
 }
