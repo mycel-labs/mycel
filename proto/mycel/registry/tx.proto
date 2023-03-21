@@ -1,7 +1,20 @@
 syntax = "proto3";
+
 package mycel.registry;
 
 option go_package = "mycel/x/registry/types";
 
 // Msg defines the Msg service.
-service Msg {}
+service Msg {
+  rpc UpdateWalletRecord (MsgUpdateWalletRecord) returns (MsgUpdateWalletRecordResponse);
+}
+message MsgUpdateWalletRecord {
+  string creator          = 1;
+  string name             = 2;
+  string parent           = 3;
+  string walletRecordType = 4;
+  string value            = 5;
+}
+
+message MsgUpdateWalletRecordResponse {}
+
