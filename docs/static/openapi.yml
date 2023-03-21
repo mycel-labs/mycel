@@ -75935,6 +75935,8 @@ definitions:
         type: object
         additionalProperties:
           type: string
+  mycel.registry.MsgRegisterDomainResponse:
+    type: object
   mycel.registry.MsgUpdateWalletRecordResponse:
     type: object
   mycel.registry.Params:
