@@ -7,6 +7,7 @@ import (
 	"mycel/testutil"
 	"mycel/x/registry/types"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -21,8 +22,25 @@ func GetMsgRegisterDomain() *types.MsgRegisterDomain {
 
 func TestRegisterDomainSuccess(t *testing.T) {
 	msgServer, _, context := setupMsgServer(t)
-	_, err := msgServer.RegisterDomain(context, GetMsgRegisterDomain())
+	domain := GetMsgRegisterDomain()
+	_, err := msgServer.RegisterDomain(context, domain)
 	require.Nil(t, err)
+
+	// Event emitted
+	ctx := sdk.UnwrapSDKContext(context)
+	require.NotNil(t, ctx)
+	events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
+	require.Len(t, events, 1)
+	require.EqualValues(t, sdk.StringEvent{
+		Type: types.EventTypeRegsterDomain,
+		Attributes: []sdk.Attribute{
+			{Key: types.AttributeRegisterDomainEventName, Value: domain.Name},
+			{Key: types.AttributeRegisterDomainEventParent, Value: domain.Parent},
+			{Key: types.AttributeRegisterDomainEventRegistrationPeriodInYear, Value: fmt.Sprintf("%d", domain.RegistrationPeriodInYear)},
+			{Key: types.AttributeRegisterDomainEventExpirationDate, Value: events[0].Attributes[3].Value},
+			{Key: types.AttributeRegisterDomainLevel, Value: "2"},
+		},
+	}, events[0])
 
 }
 

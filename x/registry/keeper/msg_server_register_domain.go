@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"strconv"
 	"time"
 
 	"mycel/x/registry/types"
@@ -50,6 +51,17 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 
 	// Store domain
 	k.Keeper.SetDomain(ctx, domain)
+
+	// Emit event
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(types.EventTypeRegsterDomain,
+			sdk.NewAttribute(types.AttributeRegisterDomainEventName, domain.Name),
+			sdk.NewAttribute(types.AttributeRegisterDomainEventParent, domain.Parent),
+			sdk.NewAttribute(types.AttributeRegisterDomainEventRegistrationPeriodInYear, strconv.Itoa(int(msg.RegistrationPeriodInYear))),
+			sdk.NewAttribute(types.AttributeRegisterDomainEventExpirationDate, strconv.FormatInt(domain.ExpirationDate, 10)),
+			sdk.NewAttribute(types.AttributeRegisterDomainLevel, strconv.Itoa(domainLevel)),
+		),
+	)
 
 	return &types.MsgRegisterDomainResponse{}, nil
 }
