@@ -108,3 +108,9 @@ func (k Keeper) ValidateRegsiterSLD(ctx sdk.Context, domain types.Domain) (err e
 	}
 	return err
 }
+
+func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.Domain) (err error) {
+	fee := domain.GetRegistrationFee()
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, types.ModuleName, fee)
+	return err
+}
