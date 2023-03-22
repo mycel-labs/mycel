@@ -97,9 +97,50 @@ List all domain
 ```
 myceld q regisry list-domain
 ```
+An example output:
+```
+domain:
+- DNSRecords: {}
+  expirationDate: "0"
+  metadata: {}
+  name: cel
+  owner: ""
+  parent: ""
+  walletRecords: {}
+- DNSRecords: {}
+  expirationDate: "1711123442987026000"
+  metadata: {}
+  name: foo
+  owner: cosmos1tk8gg20pcdp9alnnn6a84tdycf7pa2rjg8kwmc
+  parent: cel
+  walletRecords: {}
+pagination:
+  next_key: null
+  total: "0"
+```
 
 ### show-domain
 ```
 myceld q regisry show-domain [name] [parent]
 ```
 
+exmaple:  
+Query `foo.cel`  
+```
+myceld q registry show-domain foo cel
+```
+Output: 
+```
+domain:
+  DNSRecords: {}
+  expirationDate: "1711123442987026000"
+  metadata: {}
+  name: foo
+  owner: cosmos1tk8gg20pcdp9alnnn6a84tdycf7pa2rjg8kwmc
+  parent: cel
+  walletRecords:
+    ETHEREUM_MAINNET:
+      WalletAddressFormat: ETHEREUM
+      value: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+      walletRecordType: ETHEREUM_MAINNET
+```
