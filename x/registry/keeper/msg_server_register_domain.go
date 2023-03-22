@@ -58,7 +58,7 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 			sdk.NewAttribute(types.AttributeRegisterDomainEventName, domain.Name),
 			sdk.NewAttribute(types.AttributeRegisterDomainEventParent, domain.Parent),
 			sdk.NewAttribute(types.AttributeRegisterDomainEventRegistrationPeriodInYear, strconv.Itoa(int(msg.RegistrationPeriodInYear))),
-			sdk.NewAttribute(types.AttributeRegisterDomainEventExpireationDate, strconv.FormatInt(domain.ExpirationDate, 10)),
+			sdk.NewAttribute(types.AttributeRegisterDomainEventExpirationDate, strconv.FormatInt(domain.ExpirationDate, 10)),
 			sdk.NewAttribute(types.AttributeRegisterDomainLevel, strconv.Itoa(domainLevel)),
 		),
 	)
