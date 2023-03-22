@@ -94,7 +94,9 @@ func GetInvalidMsgUpdateWalletRecords() []TestMsgUpdateWalletRecord {
 }
 
 func setupMsgServerUpdateRecord(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
-	msgServer, keeper, context := setupMsgServer(t)
+	msgServer, keeper, context, ctrl, escrow := setupMsgServerWithMock(t)
+	defer ctrl.Finish()
+	escrow.ExpectAny(context)
 
 	// Register domain
 	domain := GetMsgRegisterDomain()
