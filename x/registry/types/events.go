@@ -7,7 +7,7 @@ const (
 	AttributeRegisterDomainEventName                     = "name"
 	AttributeRegisterDomainEventParent                   = "parent"
 	AttributeRegisterDomainEventRegistrationPeriodInYear = "regstration-period-in-year"
-	AttributeRegisterDomainEventExpireationDate          = "expireation-date"
+	AttributeRegisterDomainEventExpirationDate           = "expiration-date"
 	AttributeRegisterDomainLevel                         = "domain-level"
 )
 
