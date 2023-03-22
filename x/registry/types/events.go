@@ -2,7 +2,7 @@ package types
 
 // Register domain event
 const (
-	EventTypeRegsterDomain = "register_domain"
+	EventTypeRegsterDomain = "register-domain"
 
 	AttributeRegisterDomainEventName                     = "name"
 	AttributeRegisterDomainEventParent                   = "parent"
@@ -13,8 +13,10 @@ const (
 
 // Update wallet record event
 const (
-	EventTypeUpdateWalletRecord = "update_wallet_record"
+	EventTypeUpdateWalletRecord = "update-wallet-record"
 
+	AttributeUpdateWalletRecordEventDomainName       = "name"
+	AttributeUpdateWalletRecordEventDomainParent     = "parent"
 	AttributeUpdateWalletRecordEventWalletRecordType = "wallet-record-type"
 	AttributeUpdateWalletRecordEventValue            = "value"
 )

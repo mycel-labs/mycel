@@ -107,7 +107,7 @@ func setupMsgServerUpdateRecord(t testing.TB) (types.MsgServer, keeper.Keeper, c
 func TestUpdateWalletRecordSuccess(t *testing.T) {
 	msgServer, keeper, context := setupMsgServerUpdateRecord(t)
 
-	for _, record := range GetValidMsgUpdateWalletRecords() {
+	for i, record := range GetValidMsgUpdateWalletRecords() {
 		// Update wallet record
 		_, err := msgServer.UpdateWalletRecord(context, &record.MsgUpdateWalletRecord)
 		require.Nil(t, err)
@@ -116,8 +116,22 @@ func TestUpdateWalletRecordSuccess(t *testing.T) {
 
 		// Check if wallet record is UpdateWalletRecord
 		ctx := sdk.UnwrapSDKContext(context)
+		require.NotNil(t, ctx)
 		res, _ := keeper.GetDomain(ctx, domain.Name, domain.Parent)
 		require.Equal(t, record.MsgUpdateWalletRecord.Value, res.WalletRecords[record.MsgUpdateWalletRecord.WalletRecordType].Value)
+
+		// Event check
+		events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
+		require.Len(t, events, 2)
+		require.EqualValues(t,
+			[]sdk.Attribute{
+				{Key: types.AttributeUpdateWalletRecordEventDomainName, Value: domain.Name},
+				{Key: types.AttributeUpdateWalletRecordEventDomainParent, Value: domain.Parent},
+				{Key: types.AttributeUpdateWalletRecordEventWalletRecordType, Value: record.MsgUpdateWalletRecord.WalletRecordType},
+				{Key: types.AttributeUpdateWalletRecordEventValue, Value: record.MsgUpdateWalletRecord.Value},
+			},
+			events[1].Attributes[i*4:])
+
 	}
 
 }
