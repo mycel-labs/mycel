@@ -13,6 +13,11 @@ import (
 func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterDomain) (*types.MsgRegisterDomainResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
 	currentTime := time.Now()
 	expirationDate := currentTime.AddDate(int(msg.RegistrationPeriodInYear), 0, 0)
 
@@ -27,7 +32,7 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 	}
 
 	// Validate domain
-	err := domain.ValidateDomain()
+	err = domain.ValidateDomain()
 	if err != nil {
 		return nil, err
 	}
@@ -41,14 +46,24 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 
 	switch domainLevel {
 	case 1:
+		// Validate TLD
 		err = k.Keeper.ValidateRegisterTLD(ctx, domain)
+		if err != nil {
+			return nil, err
+		}
+		// TODO: Pay TLD registration fee
 	default:
+		// Validate SLD
 		err = k.Keeper.ValidateRegsiterSLD(ctx, domain)
+		if err != nil {
+			return nil, err
+		}
+		// Pay SLD registration fee
+		err = k.Keeper.PaySLDRegstrationFee(ctx, creatorAddress, domain)
+		if err != nil {
+			return nil, err
+		}
 	}
-	if err != nil {
-		return nil, err
-	}
-
 	// Store domain
 	k.Keeper.SetDomain(ctx, domain)
 

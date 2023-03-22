@@ -136,7 +136,7 @@ func (domain *Domain) GetRegistrationFee() (amt sdk.Coins) {
 	} else {
 		fee = BaseFee * int(math.Pow(10, float64((5-nameLen))))
 	}
-	amt = sdk.NewCoins(sdk.NewCoin("MYCEL", sdk.NewInt(int64(fee))))
+	amt = sdk.NewCoins(sdk.NewCoin(MycelTokenDenom, sdk.NewInt(int64(fee))))
 
 	return amt
 }
