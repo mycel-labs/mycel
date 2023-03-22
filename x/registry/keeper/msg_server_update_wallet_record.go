@@ -29,6 +29,15 @@ func (k msgServer) UpdateWalletRecord(goCtx context.Context, msg *types.MsgUpdat
 		return nil, err
 	}
 	k.Keeper.SetDomain(ctx, domain)
+	// Emit event
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(types.EventTypeUpdateWalletRecord,
+			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventDomainName, msg.Name),
+			sdk.NewAttribute(types.AttributeRegisterDomainEventParent, msg.Parent),
+			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventWalletRecordType, msg.WalletRecordType),
+			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventValue, msg.Value),
+		),
+	)
 
 	return &types.MsgUpdateWalletRecordResponse{}, nil
 }
