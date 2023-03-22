@@ -67,7 +67,7 @@ Attributes:
 - `domain-level`: Domain level
 
 ### UpdateWalletRecord
-Event Type: `update-wallet-record'  
+Event Type: `update-wallet-record`  
 Attributes:
 - `name`: Domain name
 - `parent`: Domain parent
