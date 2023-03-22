@@ -57,9 +57,22 @@ message Domain {
 ## Events
 Registry module emits the following events:
 
-### MsgRegsiterDomain
+### RegisterDomain
+Event Type: `register-domain`  
+Attributes:
+- `name`: Domain name
+- `parent`: Domain parent
+- `registration-period-in-year`:  Registration period in year
+- `expiration-date`: Expiration date in Unix time
+- `domain-level`: Domain level
 
-### MsgUpdateWalletRecord
+### UpdateWalletRecord
+Event Type: `update-wallet-record'  
+Attributes:
+- `name`: Domain name
+- `parent`: Domain parent
+- `wallet-record-type`: Wallet record type
+- `value`: Wallet address
 
 
 ## Transactions
@@ -68,7 +81,6 @@ Register domain to mycel
 
 ```
 myceld tx registry register-domain [name] [parent] [registration-period-in-year]
-
 ```
 
 ### update-wallet-record
