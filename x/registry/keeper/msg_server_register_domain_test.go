@@ -1,13 +1,18 @@
 package keeper_test
 
 import (
+	"context"
 	"fmt"
 	"testing"
 
-	"mycel/testutil"
+	keepertest "mycel/testutil/keeper"
+	"mycel/x/registry"
+	"mycel/x/registry/keeper"
+	"mycel/x/registry/testutil"
 	"mycel/x/registry/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 )
 
@@ -20,8 +25,21 @@ func GetMsgRegisterDomain() *types.MsgRegisterDomain {
 	}
 }
 
+func setupMsgServerWithMock(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context,
+	*gomock.Controller, *testutil.MockBankKeeper) {
+	ctrl := gomock.NewController(t)
+	bankMock := testutil.NewMockBankKeeper(ctrl)
+	k, ctx := keepertest.RegistryKepperWithMocks(t, bankMock)
+	registry.InitGenesis(ctx, *k, *types.DefaultGenesis())
+	server := keeper.NewMsgServerImpl(*k)
+	context := sdk.WrapSDKContext(ctx)
+	return server, *k, context, ctrl, bankMock
+}
+
 func TestRegisterDomainSuccess(t *testing.T) {
-	msgServer, _, context := setupMsgServer(t)
+	msgServer, _, context, ctrl, escrow := setupMsgServerWithMock(t)
+	defer ctrl.Finish()
+	escrow.ExpectAny(context)
 	domain := GetMsgRegisterDomain()
 	_, err := msgServer.RegisterDomain(context, domain)
 	require.Nil(t, err)
@@ -45,7 +63,9 @@ func TestRegisterDomainSuccess(t *testing.T) {
 }
 
 func TestRegisterDomainIsDomainAlreadyTakenFailure(t *testing.T) {
-	msgServer, _, context := setupMsgServer(t)
+	msgServer, _, context, ctrl, escrow := setupMsgServerWithMock(t)
+	defer ctrl.Finish()
+	escrow.ExpectAny(context)
 	domain := GetMsgRegisterDomain()
 	_, err1 := msgServer.RegisterDomain(context, domain)
 	require.Nil(t, err1)
