@@ -1,0 +1,12 @@
+syntax = "proto3";
+package mycel.epochs;
+
+import "gogoproto/gogo.proto";
+import "mycel/epochs/params.proto";
+
+option go_package = "mycel/x/epochs/types";
+
+// GenesisState defines the epochs module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}
