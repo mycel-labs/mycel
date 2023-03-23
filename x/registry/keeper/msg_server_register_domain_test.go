@@ -54,8 +54,7 @@ func TestRegisterDomainSuccess(t *testing.T) {
 		Attributes: []sdk.Attribute{
 			{Key: types.AttributeRegisterDomainEventName, Value: domain.Name},
 			{Key: types.AttributeRegisterDomainEventParent, Value: domain.Parent},
-			{Key: types.AttributeRegisterDomainEventRegistrationPeriodInYear, Value: fmt.Sprintf("%d", domain.RegistrationPeriodInYear)},
-			{Key: types.AttributeRegisterDomainEventExpirationDate, Value: events[0].Attributes[3].Value},
+			{Key: types.AttributeRegisterDomainEventExpirationDate, Value: events[0].Attributes[2].Value},
 			{Key: types.AttributeRegisterDomainLevel, Value: "2"},
 		},
 	}, events[0])

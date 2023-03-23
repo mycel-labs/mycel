@@ -1,13 +1,10 @@
 package keeper
 
 import (
-	"errors"
-	"fmt"
 	"mycel/x/registry/types"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // SetDomain set a specific domain in the store from its index
@@ -69,48 +66,4 @@ func (k Keeper) GetAllDomain(ctx sdk.Context) (list []types.Domain) {
 	}
 
 	return
-}
-
-func (k Keeper) GetIsDomainAlreadyTaken(ctx sdk.Context, domain types.Domain) (isDomainAlreadyTaken bool) {
-	_, isDomainAlreadyTaken = k.GetDomain(ctx, domain.Name, domain.Parent)
-	return isDomainAlreadyTaken
-}
-
-func (k Keeper) GetIsParentDomainExist(ctx sdk.Context, domain types.Domain) (isParentDomainExist bool) {
-	name, parent := domain.ParseParent()
-	_, isParentDomainExist = k.GetDomain(ctx, name, parent)
-	return isParentDomainExist
-}
-
-func (k Keeper) ValidateIsDomainAlreadyTaken(ctx sdk.Context, domain types.Domain) (err error) {
-	isDomainAlreadyTaken := k.GetIsDomainAlreadyTaken(ctx, domain)
-	if isDomainAlreadyTaken {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s.%s", domain.Name, domain.Parent)),
-			types.ErrDomainIsAlreadyTaken.Error())
-	}
-	return err
-}
-
-func (k Keeper) ValidateRegisterTLD(ctx sdk.Context, domain types.Domain) (err error) {
-	if domain.Parent != "" {
-		err = sdkerrors.Wrapf(errors.New(domain.Parent),
-			types.ErrParentDomainMustBeEmpty.Error())
-	}
-	// TODO: Is Staked enough to register TLD
-	return err
-}
-
-func (k Keeper) ValidateRegsiterSLD(ctx sdk.Context, domain types.Domain) (err error) {
-	isParentDomainExist := k.GetIsParentDomainExist(ctx, domain)
-	if !isParentDomainExist {
-		err = sdkerrors.Wrapf(errors.New(domain.Parent),
-			types.ErrParentDomainDoesNotExist.Error())
-	}
-	return err
-}
-
-func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.Domain) (err error) {
-	fee := domain.GetRegistrationFee()
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, types.ModuleName, fee)
-	return err
 }

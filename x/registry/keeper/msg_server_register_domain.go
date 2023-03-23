@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"strconv"
 	"time"
 
 	"mycel/x/registry/types"
@@ -18,7 +17,7 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 		return nil, err
 	}
 
-	currentTime := time.Now()
+	currentTime := time.Now().In(time.UTC)
 	expirationDate := currentTime.AddDate(int(msg.RegistrationPeriodInYear), 0, 0)
 
 	domain := types.Domain{
@@ -31,52 +30,10 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 		Metadata:       nil,
 	}
 
-	// Validate domain
-	err = domain.ValidateDomain()
+	err = k.Keeper.RegisterDomain(ctx, domain, creatorAddress)
 	if err != nil {
 		return nil, err
 	}
-	err = k.Keeper.ValidateIsDomainAlreadyTaken(ctx, domain)
-	if err != nil {
-		return nil, err
-	}
-
-	// Register domain
-	domainLevel := domain.GetDomainLevel()
-
-	switch domainLevel {
-	case 1:
-		// Validate TLD
-		err = k.Keeper.ValidateRegisterTLD(ctx, domain)
-		if err != nil {
-			return nil, err
-		}
-		// TODO: Pay TLD registration fee
-	default:
-		// Validate SLD
-		err = k.Keeper.ValidateRegsiterSLD(ctx, domain)
-		if err != nil {
-			return nil, err
-		}
-		// Pay SLD registration fee
-		err = k.Keeper.PaySLDRegstrationFee(ctx, creatorAddress, domain)
-		if err != nil {
-			return nil, err
-		}
-	}
-	// Store domain
-	k.Keeper.SetDomain(ctx, domain)
-
-	// Emit event
-	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(types.EventTypeRegsterDomain,
-			sdk.NewAttribute(types.AttributeRegisterDomainEventName, domain.Name),
-			sdk.NewAttribute(types.AttributeRegisterDomainEventParent, domain.Parent),
-			sdk.NewAttribute(types.AttributeRegisterDomainEventRegistrationPeriodInYear, strconv.Itoa(int(msg.RegistrationPeriodInYear))),
-			sdk.NewAttribute(types.AttributeRegisterDomainEventExpirationDate, strconv.FormatInt(domain.ExpirationDate, 10)),
-			sdk.NewAttribute(types.AttributeRegisterDomainLevel, strconv.Itoa(domainLevel)),
-		),
-	)
 
 	return &types.MsgRegisterDomainResponse{}, nil
 }
