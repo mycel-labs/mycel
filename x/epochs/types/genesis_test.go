@@ -3,8 +3,9 @@ package types_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	"mycel/x/epochs/types"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestGenesisState_Validate(t *testing.T) {
@@ -22,7 +23,7 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
-				EpochInfoList: []types.EpochInfo{
+				Epochs: []types.EpochInfo{
 					{
 						Identifier: "0",
 					},
@@ -37,7 +38,7 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc: "duplicated epochInfo",
 			genState: &types.GenesisState{
-				EpochInfoList: []types.EpochInfo{
+				Epochs: []types.EpochInfo{
 					{
 						Identifier: "0",
 					},
