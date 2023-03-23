@@ -3,18 +3,17 @@ package epochs_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	keepertest "mycel/testutil/keeper"
 	"mycel/testutil/nullify"
 	"mycel/x/epochs"
 	"mycel/x/epochs/types"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestGenesis(t *testing.T) {
 	genesisState := types.GenesisState{
-		Params: types.DefaultParams(),
-
-		EpochInfoList: []types.EpochInfo{
+		Epochs: []types.EpochInfo{
 			{
 				Identifier: "0",
 			},
@@ -33,6 +32,6 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(&genesisState)
 	nullify.Fill(got)
 
-	require.ElementsMatch(t, genesisState.EpochInfoList, got.EpochInfoList)
+	require.ElementsMatch(t, genesisState.Epochs, got.Epochs)
 	// this line is used by starport scaffolding # genesis/test/assert
 }
