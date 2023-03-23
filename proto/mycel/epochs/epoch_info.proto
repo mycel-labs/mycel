@@ -20,13 +20,13 @@ message EpochInfo {
     (gogoproto.jsontag) = "duration,omitempty",
     (gogoproto.moretags) = "yaml:\"duration\""
   ]; 
-  uint64 currentEpoch = 4; 
+  int64 currentEpoch = 4; 
   google.protobuf.Timestamp currentEpochStartTime = 5[
     (gogoproto.stdtime) = true,
     (gogoproto.nullable) = false,
     (gogoproto.moretags) = "yaml:\"current_epoch_start_time\""
   ]; 
   bool epochCountingStarted = 6; 
-  uint64 currentEpochStartHeight = 7; 
+  int64 currentEpochStartHeight = 7; 
 }
 
