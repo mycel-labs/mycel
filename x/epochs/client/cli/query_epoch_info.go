@@ -3,10 +3,11 @@ package cli
 import (
 	"context"
 
+	"mycel/x/epochs/types"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cobra"
-	"mycel/x/epochs/types"
 )
 
 func CmdListEpochInfo() *cobra.Command {

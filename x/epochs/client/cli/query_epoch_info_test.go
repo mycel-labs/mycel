@@ -32,12 +32,12 @@ func networkWithEpochInfoObjects(t *testing.T, n int) (*network.Network, []types
 			Identifier: strconv.Itoa(i),
 		}
 		nullify.Fill(&epochInfo)
-		state.EpochInfoList = append(state.EpochInfoList, epochInfo)
+		state.Epochs = append(state.Epochs, epochInfo)
 	}
 	buf, err := cfg.Codec.MarshalJSON(&state)
 	require.NoError(t, err)
 	cfg.GenesisState[types.ModuleName] = buf
-	return network.New(t, cfg), state.EpochInfoList
+	return network.New(t, cfg), state.Epochs
 }
 
 func TestShowEpochInfo(t *testing.T) {
