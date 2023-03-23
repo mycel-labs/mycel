@@ -19,12 +19,34 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid:    true,
 		},
 		{
-			desc:     "valid genesis state",
+			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
+				IncentiveList: []types.Incentive{
+					{
+						Epoch: 0,
+					},
+					{
+						Epoch: 1,
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
+		},
+		{
+			desc: "duplicated incentive",
+			genState: &types.GenesisState{
+				IncentiveList: []types.Incentive{
+					{
+						Epoch: 0,
+					},
+					{
+						Epoch: 0,
+					},
+				},
+			},
+			valid: false,
 		},
 		// this line is used by starport scaffolding # types/genesis/testcase
 	} {
