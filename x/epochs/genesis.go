@@ -3,15 +3,23 @@ package epochs
 import (
 	"mycel/x/epochs/keeper"
 	"mycel/x/epochs/types"
+	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
-	// Set all the epochInfo
-	for _, elem := range genState.Epochs {
-		k.SetEpochInfo(ctx, elem)
+	// set epoch info from genesis
+	for _, epoch := range genState.Epochs {
+		// Initialize empty epoch values via Cosmos SDK
+		if epoch.StartTime.Equal(time.Time{}) || epoch.StartTime.IsZero() {
+			epoch.StartTime = ctx.BlockTime()
+		}
+
+		epoch.CurrentEpochStartHeight = ctx.BlockHeight()
+
+		k.SetEpochInfo(ctx, epoch)
 	}
 	// this line is used by starport scaffolding # genesis/module/init
 }

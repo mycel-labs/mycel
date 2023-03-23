@@ -1,16 +1,32 @@
 package types
 
 import (
-	"fmt"
+	"errors"
+	"time"
+
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // DefaultIndex is the default global index
-const DefaultIndex uint64 = 1
+
+func NewGenesisState(epochs []EpochInfo) *GenesisState {
+	return &GenesisState{Epochs: epochs}
+}
 
 // DefaultGenesis returns the default genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		Epochs: []EpochInfo{},
+		Epochs: []EpochInfo{
+			{
+				Identifier:              WeeklyEpochId,
+				StartTime:               time.Time{},
+				Duration:                time.Hour * 24 * 7,
+				CurrentEpoch:            0,
+				CurrentEpochStartHeight: 0,
+				CurrentEpochStartTime:   time.Time{},
+				EpochCountingStarted:    false,
+			},
+		},
 	}
 }
 
@@ -18,16 +34,16 @@ func DefaultGenesis() *GenesisState {
 // failure.
 func (gs GenesisState) Validate() error {
 	// Check for duplicated index in epochInfo
-	epochInfoIndexMap := make(map[string]struct{})
+	epochIdentifiers := make(map[string]bool)
 
-	for _, elem := range gs.Epochs {
-		index := string(EpochInfoKey(elem.Identifier))
-		if _, ok := epochInfoIndexMap[index]; ok {
-			return fmt.Errorf("duplicated index for epochInfo")
+	for _, epoch := range gs.Epochs {
+		if epochIdentifiers[epoch.Identifier] {
+			return sdkerrors.Wrapf(errors.New(epoch.Identifier), ErrDuplicatedEpochEntry.Error())
 		}
-		epochInfoIndexMap[index] = struct{}{}
+		if err := epoch.Validate(); err != nil {
+			return err
+		}
+		epochIdentifiers[epoch.Identifier] = true
 	}
-	// this line is used by starport scaffolding # genesis/types/validate
-
 	return nil
 }

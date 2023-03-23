@@ -1,63 +1,90 @@
-package types_test
+package types
 
 import (
 	"testing"
+	"time"
 
-	"mycel/x/epochs/types"
-
-	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 )
 
-func TestGenesisState_Validate(t *testing.T) {
-	for _, tc := range []struct {
-		desc     string
-		genState *types.GenesisState
-		valid    bool
+type GenesisTestSuite struct {
+	suite.Suite
+}
+
+func TestGenesisTestSuite(t *testing.T) {
+	suite.Run(t, new(GenesisTestSuite))
+}
+
+func (suite *GenesisTestSuite) TestValidateGenesis() {
+	testCases := []struct {
+		err      error
+		genState *GenesisState
+		expPass  bool
 	}{
 		{
-			desc:     "default is valid",
-			genState: types.DefaultGenesis(),
-			valid:    true,
+			nil,
+			DefaultGenesis(),
+			true,
 		},
 		{
-			desc: "valid genesis state",
-			genState: &types.GenesisState{
+			nil,
+			&GenesisState{
+				Epochs: []EpochInfo{},
+			},
+			true,
+		},
+		{
+			nil,
+			&GenesisState{
+				Epochs: []EpochInfo{
+					{
+						Identifier:              WeeklyEpochId,
+						StartTime:               time.Time{},
+						Duration:                time.Hour * 24 * 7,
+						CurrentEpoch:            0,
+						CurrentEpochStartHeight: 0,
+						CurrentEpochStartTime:   time.Time{},
+						EpochCountingStarted:    false,
+					},
+				},
+			},
+			true,
+		},
+		{
+			ErrDuplicatedEpochEntry,
+			&GenesisState{
+				Epochs: []EpochInfo{
+					{
+						Identifier:              WeeklyEpochId,
+						StartTime:               time.Time{},
+						Duration:                time.Hour * 24 * 7,
+						CurrentEpoch:            0,
+						CurrentEpochStartHeight: 0,
+						CurrentEpochStartTime:   time.Time{},
+						EpochCountingStarted:    false,
+					},
+					{
+						Identifier:              WeeklyEpochId,
+						StartTime:               time.Time{},
+						Duration:                time.Hour * 24 * 7,
+						CurrentEpoch:            0,
+						CurrentEpochStartHeight: 0,
+						CurrentEpochStartTime:   time.Time{},
+						EpochCountingStarted:    false,
+					},
+				},
+			},
+			false,
+		},
+	}
 
-				Epochs: []types.EpochInfo{
-					{
-						Identifier: "0",
-					},
-					{
-						Identifier: "1",
-					},
-				},
-				// this line is used by starport scaffolding # types/genesis/validField
-			},
-			valid: true,
-		},
-		{
-			desc: "duplicated epochInfo",
-			genState: &types.GenesisState{
-				Epochs: []types.EpochInfo{
-					{
-						Identifier: "0",
-					},
-					{
-						Identifier: "0",
-					},
-				},
-			},
-			valid: false,
-		},
-		// this line is used by starport scaffolding # types/genesis/testcase
-	} {
-		t.Run(tc.desc, func(t *testing.T) {
-			err := tc.genState.Validate()
-			if tc.valid {
-				require.NoError(t, err)
-			} else {
-				require.Error(t, err)
-			}
-		})
+	for _, tc := range testCases {
+		tc := tc
+		err := tc.genState.Validate()
+		if tc.expPass {
+			suite.Require().NoError(err, tc.err)
+		} else {
+			suite.Require().Error(err, tc.err)
+		}
 	}
 }
