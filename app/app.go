@@ -103,13 +103,17 @@ import (
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
 
+	// Registry
 	registrymodule "mycel/x/registry"
 	registrymodulekeeper "mycel/x/registry/keeper"
 	registrymoduletypes "mycel/x/registry/types"
 
+	// Epochs
 	epochsmodule "mycel/x/epochs"
 	epochsmodulekeeper "mycel/x/epochs/keeper"
 	epochsmoduletypes "mycel/x/epochs/types"
+
+	// Incentives
 	incentivesmodule "mycel/x/incentives"
 	incentivesmodulekeeper "mycel/x/incentives/keeper"
 	incentivesmoduletypes "mycel/x/incentives/types"
@@ -191,6 +195,7 @@ var (
 		registrymoduletypes.ModuleName:   {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		incentivesmoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
+		epochsmoduletypes.ModuleName: nil,
 	}
 )
 
@@ -560,12 +565,16 @@ func NewApp(
 	)
 	incentivesModule := incentivesmodule.NewAppModule(appCodec, app.IncentivesKeeper, app.AccountKeeper, app.BankKeeper)
 
-	app.EpochsKeeper = *epochsmodulekeeper.NewKeeper(
+	epochsKeeper := *epochsmodulekeeper.NewKeeper(
 		appCodec,
 		keys[epochsmoduletypes.StoreKey],
 		keys[epochsmoduletypes.MemStoreKey],
 		app.GetSubspace(epochsmoduletypes.ModuleName),
 	)
+	app.EpochsKeeper = *epochsKeeper.SetHooks(epochsmodulekeeper.NewMultiEpochHooks(
+	// insert hooks here
+	))
+
 	epochsModule := epochsmodule.NewAppModule(appCodec, app.EpochsKeeper, app.AccountKeeper, app.BankKeeper)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition

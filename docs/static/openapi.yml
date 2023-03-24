@@ -45285,18 +45285,20 @@ paths:
                       type: string
                     startTime:
                       type: string
+                      format: date-time
                     duration:
                       type: string
                     currentEpoch:
                       type: string
-                      format: uint64
+                      format: int64
                     currentEpochStartTime:
                       type: string
+                      format: date-time
                     epochCountingStarted:
                       type: boolean
                     currentEpochStartHeight:
                       type: string
-                      format: uint64
+                      format: int64
               pagination:
                 type: object
                 properties:
@@ -45419,18 +45421,20 @@ paths:
                     type: string
                   startTime:
                     type: string
+                    format: date-time
                   duration:
                     type: string
                   currentEpoch:
                     type: string
-                    format: uint64
+                    format: int64
                   currentEpochStartTime:
                     type: string
+                    format: date-time
                   epochCountingStarted:
                     type: boolean
                   currentEpochStartHeight:
                     type: string
-                    format: uint64
+                    format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -75657,18 +75661,20 @@ definitions:
         type: string
       startTime:
         type: string
+        format: date-time
       duration:
         type: string
       currentEpoch:
         type: string
-        format: uint64
+        format: int64
       currentEpochStartTime:
         type: string
+        format: date-time
       epochCountingStarted:
         type: boolean
       currentEpochStartHeight:
         type: string
-        format: uint64
+        format: int64
   mycel.epochs.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -75684,18 +75690,20 @@ definitions:
               type: string
             startTime:
               type: string
+              format: date-time
             duration:
               type: string
             currentEpoch:
               type: string
-              format: uint64
+              format: int64
             currentEpochStartTime:
               type: string
+              format: date-time
             epochCountingStarted:
               type: boolean
             currentEpochStartHeight:
               type: string
-              format: uint64
+              format: int64
       pagination:
         type: object
         properties:
@@ -75732,18 +75740,20 @@ definitions:
             type: string
           startTime:
             type: string
+            format: date-time
           duration:
             type: string
           currentEpoch:
             type: string
-            format: uint64
+            format: int64
           currentEpochStartTime:
             type: string
+            format: date-time
           epochCountingStarted:
             type: boolean
           currentEpochStartHeight:
             type: string
-            format: uint64
+            format: int64
   mycel.epochs.QueryParamsResponse:
     type: object
     properties:

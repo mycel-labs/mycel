@@ -1,9 +1,10 @@
 package keeper
 
 import (
+	"mycel/x/epochs/types"
+
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"mycel/x/epochs/types"
 )
 
 // SetEpochInfo set a specific epochInfo in the store from its index
@@ -60,4 +61,26 @@ func (k Keeper) GetAllEpochInfo(ctx sdk.Context) (list []types.EpochInfo) {
 	}
 
 	return
+}
+
+// Iterate though epochs
+func (k Keeper) IterateEpochInfo(ctx sdk.Context, fn func(index int64, epochInfo types.EpochInfo) (stop bool)) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochInfoKeyPrefix))
+
+	iterator := sdk.KVStorePrefixIterator(store, nil)
+	defer iterator.Close()
+
+	i := int64(0)
+
+	for ; iterator.Valid(); iterator.Next() {
+		epoch := types.EpochInfo{}
+		k.cdc.MustUnmarshal(iterator.Value(), &epoch)
+
+		stop := fn(i, epoch)
+
+		if stop {
+			break
+		}
+		i++
+	}
 }
