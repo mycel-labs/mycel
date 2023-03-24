@@ -36,6 +36,10 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
+
+	epochstypes "mycel/x/epochs/types"
+	incentivestypes "mycel/x/incentives/types"
+	registrytypes "mycel/x/registry/types"
 )
 
 // DefaultConsensusParams defines the default Tendermint consensus params used in
@@ -220,6 +224,18 @@ func SetupWithGenesisValSet(t *testing.T, valSet *tmtypes.ValidatorSet, genAccs 
 
 	stateBytes, err := json.MarshalIndent(genesisState, "", " ")
 	require.NoError(t, err)
+
+	// registry genesis
+	registryGenesis := registrytypes.DefaultGenesis()
+	genesisState[registrytypes.ModuleName] = app.AppCodec().MustMarshalJSON(registryGenesis)
+
+	// incentives genesis
+	incentivesGenesis := incentivestypes.DefaultGenesis()
+	genesisState[incentivestypes.ModuleName] = app.AppCodec().MustMarshalJSON(incentivesGenesis)
+
+	// epochs genesis
+	epochsGenesis := epochstypes.DefaultGenesis()
+	genesisState[epochstypes.ModuleName] = app.AppCodec().MustMarshalJSON(epochsGenesis)
 
 	// init chain will set the validator set and initialize the genesis accounts
 	app.InitChain(
