@@ -113,6 +113,7 @@ import (
 	incentivesmodule "mycel/x/incentives"
 	incentivesmodulekeeper "mycel/x/incentives/keeper"
 	incentivesmoduletypes "mycel/x/incentives/types"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	appparams "mycel/app/params"
@@ -276,6 +277,33 @@ func New(
 	encodingConfig appparams.EncodingConfig,
 	appOpts servertypes.AppOptions,
 	baseAppOptions ...func(*baseapp.BaseApp),
+) *App {
+	return NewApp(
+		logger,
+		db,
+		traceStore,
+		loadLatest,
+		skipUpgradeHeights,
+		homePath,
+		invCheckPeriod,
+		encodingConfig,
+		appOpts,
+		baseAppOptions...,
+	)
+}
+
+func NewApp(
+	logger log.Logger,
+	db dbm.DB,
+	traceStore io.Writer,
+	loadLatest bool,
+	skipUpgradeHeights map[int64]bool,
+	homePath string,
+	invCheckPeriod uint,
+	encodingConfig appparams.EncodingConfig,
+	appOpts servertypes.AppOptions,
+	baseAppOptions ...func(*baseapp.BaseApp),
+
 ) *App {
 	appCodec := encodingConfig.Marshaler
 	cdc := encodingConfig.Amino
