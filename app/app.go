@@ -562,6 +562,7 @@ func NewApp(
 		app.GetSubspace(incentivesmoduletypes.ModuleName),
 
 		app.BankKeeper,
+		app.EpochsKeeper,
 	)
 	incentivesModule := incentivesmodule.NewAppModule(appCodec, app.IncentivesKeeper, app.AccountKeeper, app.BankKeeper)
 

@@ -1,9 +1,10 @@
 package keeper
 
 import (
+	"mycel/x/incentives/types"
+
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"mycel/x/incentives/types"
 )
 
 // SetIncentive set a specific incentive in the store from its index
