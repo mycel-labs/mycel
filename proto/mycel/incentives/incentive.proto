@@ -1,11 +1,16 @@
 syntax = "proto3";
 package mycel.incentives;
 
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
 option go_package = "mycel/x/incentives/types";
 
 message Incentive {
-  uint64 epoch = 1; 
-  uint64 amount = 2; 
-  
+  int64 epoch = 1; 
+  repeated cosmos.base.v1beta1.Coin amount = 2 [
+      (gogoproto.nullable) = false,
+      (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+      ];
 }
 
