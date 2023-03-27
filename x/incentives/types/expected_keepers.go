@@ -1,6 +1,8 @@
 package types
 
 import (
+	epochstypes "mycel/x/epochs/types"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 )
@@ -15,4 +17,9 @@ type AccountKeeper interface {
 type BankKeeper interface {
 	SpendableCoins(ctx sdk.Context, addr sdk.AccAddress) sdk.Coins
 	// Methods imported from bank should be defined here
+	SendCoinsFromAccountToModule(ctx sdk.Context, senderAddr sdk.AccAddress, recipientModule string, amt sdk.Coins) error
+}
+
+type EpochsKeeper interface {
+	GetEpochInfo(ctx sdk.Context, identifier string) (val epochstypes.EpochInfo, found bool)
 }
