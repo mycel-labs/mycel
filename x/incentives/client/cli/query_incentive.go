@@ -3,11 +3,12 @@ package cli
 import (
 	"context"
 
+	"mycel/x/incentives/types"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
-	"mycel/x/incentives/types"
 )
 
 func CmdListIncentive() *cobra.Command {
@@ -53,7 +54,7 @@ func CmdShowIncentive() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argEpoch, err := cast.ToUint64E(args[0])
+			argEpoch, err := cast.ToInt64E(args[0])
 			if err != nil {
 				return err
 			}

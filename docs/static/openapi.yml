@@ -45512,10 +45512,25 @@ paths:
                   properties:
                     epoch:
                       type: string
-                      format: uint64
+                      format: int64
                     amount:
-                      type: string
-                      format: uint64
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          denom:
+                            type: string
+                          amount:
+                            type: string
+                        description: >-
+                          Coin defines a token with a denomination and an
+                          amount.
+
+
+                          NOTE: The amount field is an Int which implements the
+                          custom method
+
+                          signatures required by gogoproto.
               pagination:
                 type: object
                 properties:
@@ -45636,10 +45651,24 @@ paths:
                 properties:
                   epoch:
                     type: string
-                    format: uint64
+                    format: int64
                   amount:
-                    type: string
-                    format: uint64
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        denom:
+                          type: string
+                        amount:
+                          type: string
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
         default:
           description: An unexpected error response.
           schema:
@@ -45663,7 +45692,7 @@ paths:
           in: path
           required: true
           type: string
-          format: uint64
+          format: int64
       tags:
         - Query
   /mycel/incentives/params:
@@ -75766,10 +75795,21 @@ definitions:
     properties:
       epoch:
         type: string
-        format: uint64
+        format: int64
       amount:
-        type: string
-        format: uint64
+        type: array
+        items:
+          type: object
+          properties:
+            denom:
+              type: string
+            amount:
+              type: string
+          description: |-
+            Coin defines a token with a denomination and an amount.
+
+            NOTE: The amount field is an Int which implements the custom method
+            signatures required by gogoproto.
   mycel.incentives.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -75783,10 +75823,24 @@ definitions:
           properties:
             epoch:
               type: string
-              format: uint64
+              format: int64
             amount:
-              type: string
-              format: uint64
+              type: array
+              items:
+                type: object
+                properties:
+                  denom:
+                    type: string
+                  amount:
+                    type: string
+                description: >-
+                  Coin defines a token with a denomination and an amount.
+
+
+                  NOTE: The amount field is an Int which implements the custom
+                  method
+
+                  signatures required by gogoproto.
       pagination:
         type: object
         properties:
@@ -75821,10 +75875,24 @@ definitions:
         properties:
           epoch:
             type: string
-            format: uint64
+            format: int64
           amount:
-            type: string
-            format: uint64
+            type: array
+            items:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
   mycel.incentives.QueryParamsResponse:
     type: object
     properties:

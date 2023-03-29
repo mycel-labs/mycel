@@ -40,7 +40,7 @@ message QueryParamsResponse {
 }
 
 message QueryGetIncentiveRequest {
-  uint64 epoch = 1;
+  int64 epoch = 1;
 }
 
 message QueryGetIncentiveResponse {
