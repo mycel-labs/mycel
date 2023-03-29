@@ -19,7 +19,7 @@ func (k Keeper) SetIncentive(ctx sdk.Context, incentive types.Incentive) {
 // GetIncentive returns a incentive from its index
 func (k Keeper) GetIncentive(
 	ctx sdk.Context,
-	epoch uint64,
+	epoch int64,
 
 ) (val types.Incentive, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.IncentiveKeyPrefix))
@@ -38,7 +38,7 @@ func (k Keeper) GetIncentive(
 // RemoveIncentive removes a incentive from the store
 func (k Keeper) RemoveIncentive(
 	ctx sdk.Context,
-	epoch uint64,
+	epoch int64,
 
 ) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.IncentiveKeyPrefix))

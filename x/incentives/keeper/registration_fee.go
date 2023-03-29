@@ -20,9 +20,16 @@ func (k Keeper) SetIncentivesOnRegistration(ctx sdk.Context, registrationPeriodI
 
 	// Set incentives store
 	for i := nextEpoch; i <= nextEpoch+int64(registrationPeriodInWeek); i++ {
-		incentive := types.Incentive{
-			Epoch:  i,
-			Amount: sdk.NewCoins(sdk.NewCoin(registrytypes.MycelDenom, amountByEpoch)),
+		incentive, found := k.GetIncentive(ctx, i)
+		amount := sdk.NewCoin(registrytypes.MycelDenom, amountByEpoch)
+
+		if !found {
+			incentive = types.Incentive{
+				Epoch:  i,
+				Amount: sdk.NewCoins(amount),
+			}
+		} else {
+			incentive.Amount = incentive.Amount.Add(amount)
 		}
 		k.SetIncentive(ctx, incentive)
 	}

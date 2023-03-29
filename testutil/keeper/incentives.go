@@ -3,6 +3,10 @@ package keeper
 import (
 	"testing"
 
+	"mycel/x/incentives/keeper"
+	"mycel/x/incentives/testutil"
+	"mycel/x/incentives/types"
+
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/store"
@@ -13,11 +17,13 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmdb "github.com/tendermint/tm-db"
-	"mycel/x/incentives/keeper"
-	"mycel/x/incentives/types"
 )
 
 func IncentivesKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
+	return IncentivesKeeperWithMocks(t, nil)
+}
+
+func IncentivesKeeperWithMocks(t testing.TB, epochs *testutil.MockEpochsKeeper) (*keeper.Keeper, sdk.Context) {
 	storeKey := sdk.NewKVStoreKey(types.StoreKey)
 	memStoreKey := storetypes.NewMemoryStoreKey(types.MemStoreKey)
 
@@ -42,6 +48,7 @@ func IncentivesKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		memStoreKey,
 		paramsSubspace,
 		nil,
+		epochs,
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
