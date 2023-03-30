@@ -4,11 +4,10 @@ package types
 const (
 	EventTypeRegsterDomain = "register-domain"
 
-	AttributeRegisterDomainEventName                     = "name"
-	AttributeRegisterDomainEventParent                   = "parent"
-	AttributeRegisterDomainEventRegistrationPeriodInYear = "regstration-period-in-year"
-	AttributeRegisterDomainEventExpirationDate           = "expiration-date"
-	AttributeRegisterDomainLevel                         = "domain-level"
+	AttributeRegisterDomainEventName           = "name"
+	AttributeRegisterDomainEventParent         = "parent"
+	AttributeRegisterDomainEventExpirationDate = "expiration-date"
+	AttributeRegisterDomainLevel               = "domain-level"
 )
 
 // Update wallet record event

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"testing"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -11,6 +12,7 @@ type DomainTest struct {
 	Domain       Domain
 	DomainLevel  int
 	DomainParent Domain
+	DomainPrice  sdk.Coins
 }
 
 type WalletRecordTest struct {
@@ -22,11 +24,34 @@ type WalletRecordTest struct {
 
 func GetValidDomains() []DomainTest {
 	return []DomainTest{
-		{Domain: Domain{Name: "foo", Parent: "myc"}, DomainLevel: 2, DomainParent: Domain{Name: "myc", Parent: ""}},
-		{Domain: Domain{Name: "foo", Parent: ""}, DomainLevel: 1, DomainParent: Domain{Name: "", Parent: ""}},
-		{Domain: Domain{Name: "bar", Parent: "foo.myc"}, DomainLevel: 3, DomainParent: Domain{Name: "foo", Parent: "myc"}},
-		{Domain: Domain{Name: "🍭", Parent: "foo.🍭"}, DomainLevel: 3, DomainParent: Domain{Name: "foo", Parent: "🍭"}},
-		{Domain: Domain{Name: "🍭", Parent: "foo.🍭.myc"}, DomainLevel: 4, DomainParent: Domain{Name: "foo.🍭", Parent: "myc"}},
+		{Domain: Domain{Name: "foo", Parent: "myc"},
+			DomainLevel:  2,
+			DomainParent: Domain{Name: "myc", Parent: ""},
+			DomainPrice:  sdk.NewCoins(sdk.NewCoin("MYCEL", sdk.NewInt(30300)))},
+		{Domain: Domain{Name: "12345", Parent: ""},
+			DomainLevel:  1,
+			DomainParent: Domain{Name: "", Parent: ""},
+			DomainPrice:  sdk.NewCoins(sdk.NewCoin("MYCEL", sdk.NewInt(303)))},
+		{Domain: Domain{Name: "1234", Parent: "foo.myc"},
+			DomainLevel:  3,
+			DomainParent: Domain{Name: "foo", Parent: "myc"},
+			DomainPrice:  sdk.NewCoins(sdk.NewCoin("MYCEL", sdk.NewInt(3030)))},
+		{Domain: Domain{Name: "123", Parent: "foo.myc"},
+			DomainLevel:  3,
+			DomainParent: Domain{Name: "foo", Parent: "myc"},
+			DomainPrice:  sdk.NewCoins(sdk.NewCoin("MYCEL", sdk.NewInt(30300)))},
+		{Domain: Domain{Name: "12", Parent: "foo.myc"},
+			DomainLevel:  3,
+			DomainParent: Domain{Name: "foo", Parent: "myc"},
+			DomainPrice:  sdk.NewCoins(sdk.NewCoin("MYCEL", sdk.NewInt(303000)))},
+		{Domain: Domain{Name: "🍭", Parent: "foo.🍭"},
+			DomainLevel:  3,
+			DomainParent: Domain{Name: "foo", Parent: "🍭"},
+			DomainPrice:  sdk.NewCoins(sdk.NewCoin("MYCEL", sdk.NewInt(3030000)))},
+		{Domain: Domain{Name: "🍭", Parent: "foo.🍭.myc"},
+			DomainLevel:  4,
+			DomainParent: Domain{Name: "foo.🍭", Parent: "myc"},
+			DomainPrice:  sdk.NewCoins(sdk.NewCoin("MYCEL", sdk.NewInt(3030000)))},
 	}
 }
 
@@ -182,5 +207,12 @@ func TestUpdateWalletRecordFailure(t *testing.T) {
 			addressFormat, _ := GetWalletAddressFormat(walletRecord.WalletRecordType)
 			require.EqualError(t, err, fmt.Sprintf("invalid wallet address: %s %s", addressFormat, walletRecord.Address))
 		}
+	}
+}
+
+func TestGetRegistrationFee(t *testing.T) {
+	for _, domain := range GetValidDomains() {
+		fee := domain.Domain.GetRegistrationFee()
+		require.Equal(t, domain.DomainPrice, fee)
 	}
 }

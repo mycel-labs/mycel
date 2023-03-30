@@ -3,6 +3,9 @@ package keeper
 import (
 	"testing"
 
+	"mycel/x/registry/keeper"
+	"mycel/x/registry/types"
+
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/store"
@@ -13,8 +16,6 @@ import (
 	"github.com/tendermint/tendermint/libs/log"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmdb "github.com/tendermint/tm-db"
-	"mycel/x/registry/keeper"
-	"mycel/x/registry/types"
 )
 
 func RegistryKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
@@ -41,6 +42,7 @@ func RegistryKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 		storeKey,
 		memStoreKey,
 		paramsSubspace,
+		nil,
 		nil,
 	)
 

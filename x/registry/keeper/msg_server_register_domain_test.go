@@ -1,54 +1,92 @@
 package keeper_test
 
 import (
+	"errors"
 	"fmt"
-	"testing"
 
 	"mycel/testutil"
 	"mycel/x/registry/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/stretchr/testify/require"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-func GetMsgRegisterDomain() *types.MsgRegisterDomain {
-	return &types.MsgRegisterDomain{
-		Creator:                  testutil.Alice,
-		Name:                     "foo",
-		Parent:                   "cel",
-		RegistrationPeriodInYear: 1,
-	}
-}
-
-func TestRegisterDomainSuccess(t *testing.T) {
-	msgServer, _, context := setupMsgServer(t)
-	domain := GetMsgRegisterDomain()
-	_, err := msgServer.RegisterDomain(context, domain)
-	require.Nil(t, err)
-
-	// Event emitted
-	ctx := sdk.UnwrapSDKContext(context)
-	require.NotNil(t, ctx)
-	events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
-	require.Len(t, events, 1)
-	require.EqualValues(t, sdk.StringEvent{
-		Type: types.EventTypeRegsterDomain,
-		Attributes: []sdk.Attribute{
-			{Key: types.AttributeRegisterDomainEventName, Value: domain.Name},
-			{Key: types.AttributeRegisterDomainEventParent, Value: domain.Parent},
-			{Key: types.AttributeRegisterDomainEventRegistrationPeriodInYear, Value: fmt.Sprintf("%d", domain.RegistrationPeriodInYear)},
-			{Key: types.AttributeRegisterDomainEventExpirationDate, Value: events[0].Attributes[3].Value},
-			{Key: types.AttributeRegisterDomainLevel, Value: "2"},
+func (suite *KeeperTestSuite) TestRegisterDomain() {
+	testCases := []struct {
+		creator                  string
+		name                     string
+		parent                   string
+		registrationPeriodInYear uint64
+		domainLevel              string
+		expErr                   error
+		fn                       func()
+	}{
+		{
+			creator:                  testutil.Alice,
+			name:                     "foo",
+			parent:                   "cel",
+			registrationPeriodInYear: 1,
+			domainLevel:              "2",
+			expErr:                   nil,
+			fn:                       func() {},
 		},
-	}, events[0])
+		{
+			creator:                  testutil.Alice,
+			name:                     "foo",
+			parent:                   "cel",
+			registrationPeriodInYear: 1,
+			domainLevel:              "2",
+			expErr:                   sdkerrors.Wrapf(errors.New(fmt.Sprintf("foo.cel")), types.ErrDomainIsAlreadyTaken.Error()),
+			fn: func() {
+				// Register domain once
+				domain := &types.MsgRegisterDomain{
+					Creator:                  testutil.Alice,
+					Name:                     "foo",
+					Parent:                   "cel",
+					RegistrationPeriodInYear: 1,
+				}
+				_, err := suite.msgServer.RegisterDomain(suite.ctx, domain)
+				suite.Require().Nil(err)
+			},
+		},
+	}
 
-}
+	for i, tc := range testCases {
+		suite.Run(fmt.Sprintf("Case %d", i), func() {
+			suite.SetupTest()
 
-func TestRegisterDomainIsDomainAlreadyTakenFailure(t *testing.T) {
-	msgServer, _, context := setupMsgServer(t)
-	domain := GetMsgRegisterDomain()
-	_, err1 := msgServer.RegisterDomain(context, domain)
-	require.Nil(t, err1)
-	_, err2 := msgServer.RegisterDomain(context, domain)
-	require.EqualError(t, err2, fmt.Sprintf("domain is already taken: %s.%s", domain.Name, domain.Parent))
+			domain := &types.MsgRegisterDomain{
+				Creator:                  tc.creator,
+				Name:                     tc.name,
+				Parent:                   tc.parent,
+				RegistrationPeriodInYear: tc.registrationPeriodInYear,
+			}
+
+			// Run test case function
+			tc.fn()
+
+			// Register domain
+			_, err := suite.msgServer.RegisterDomain(suite.ctx, domain)
+
+			if tc.expErr == nil {
+				// Evalute events
+				suite.Require().Nil(err)
+				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())
+				eventIndex := len(events) - 2
+				suite.Require().EqualValues(sdk.StringEvent{
+					Type: types.EventTypeRegsterDomain,
+					Attributes: []sdk.Attribute{
+						{Key: types.AttributeRegisterDomainEventName, Value: tc.name},
+						{Key: types.AttributeRegisterDomainEventParent, Value: tc.parent},
+						{Key: types.AttributeRegisterDomainEventExpirationDate, Value: events[3].Attributes[2].Value},
+						{Key: types.AttributeRegisterDomainLevel, Value: tc.domainLevel},
+					},
+				}, events[eventIndex])
+			} else {
+				suite.Require().EqualError(err, tc.expErr.Error())
+			}
+
+		})
+	}
+
 }

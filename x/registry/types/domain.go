@@ -3,14 +3,18 @@ package types
 import (
 	"errors"
 	fmt "fmt"
+	math "math"
 	"regexp"
 	"strings"
+	"unicode/utf8"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 const (
 	NamePattern = `-a-z0-9\p{So}\p{Sk}`
+	BaseFee     = 303
 )
 
 func (domain Domain) ValidateDomainName() (err error) {
@@ -122,4 +126,17 @@ func (domain *Domain) UpdateWalletRecord(walletRecordType string, address string
 	domain.WalletRecords[walletRecordType] = walletRecord
 
 	return err
+}
+
+func (domain *Domain) GetRegistrationFee() (fee sdk.Coin) {
+	nameLen := utf8.RuneCountInString(domain.Name)
+	amount := 0
+	if nameLen >= 5 {
+		amount = BaseFee
+	} else {
+		amount = BaseFee * int(math.Pow(10, float64((5-nameLen))))
+	}
+	fee = sdk.NewCoin(MycelDenom, sdk.NewInt(int64(amount)))
+
+	return fee
 }
