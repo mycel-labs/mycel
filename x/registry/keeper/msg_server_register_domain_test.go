@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"mycel/x/registry/testutil"
+	"mycel/testutil"
 	"mycel/x/registry/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -72,6 +72,7 @@ func (suite *KeeperTestSuite) TestRegisterDomain() {
 				// Evalute events
 				suite.Require().Nil(err)
 				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())
+				eventIndex := len(events) - 2
 				suite.Require().EqualValues(sdk.StringEvent{
 					Type: types.EventTypeRegsterDomain,
 					Attributes: []sdk.Attribute{
@@ -80,7 +81,7 @@ func (suite *KeeperTestSuite) TestRegisterDomain() {
 						{Key: types.AttributeRegisterDomainEventExpirationDate, Value: events[3].Attributes[2].Value},
 						{Key: types.AttributeRegisterDomainLevel, Value: tc.domainLevel},
 					},
-				}, events[3])
+				}, events[eventIndex])
 			} else {
 				suite.Require().EqualError(err, tc.expErr.Error())
 			}

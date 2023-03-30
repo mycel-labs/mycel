@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"mycel/x/registry/keeper"
-	"mycel/x/registry/testutil"
 	"mycel/x/registry/types"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -20,10 +19,6 @@ import (
 )
 
 func RegistryKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
-	return RegistryKepperWithMocks(t, nil, nil)
-}
-
-func RegistryKepperWithMocks(t testing.TB, bank *testutil.MockBankKeeper, incentives *testutil.MockIncentivesKeeper) (*keeper.Keeper, sdk.Context) {
 	storeKey := sdk.NewKVStoreKey(types.StoreKey)
 	memStoreKey := storetypes.NewMemoryStoreKey(types.MemStoreKey)
 
@@ -47,8 +42,8 @@ func RegistryKepperWithMocks(t testing.TB, bank *testutil.MockBankKeeper, incent
 		storeKey,
 		memStoreKey,
 		paramsSubspace,
-		bank,
-		incentives,
+		nil,
+		nil,
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())
@@ -57,5 +52,4 @@ func RegistryKepperWithMocks(t testing.TB, bank *testutil.MockBankKeeper, incent
 	k.SetParams(ctx, types.DefaultParams())
 
 	return k, ctx
-
 }
