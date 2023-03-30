@@ -128,15 +128,15 @@ func (domain *Domain) UpdateWalletRecord(walletRecordType string, address string
 	return err
 }
 
-func (domain *Domain) GetRegistrationFee() (amt sdk.Coins) {
+func (domain *Domain) GetRegistrationFee() (fee sdk.Coin) {
 	nameLen := utf8.RuneCountInString(domain.Name)
-	fee := 0
+	amount := 0
 	if nameLen >= 5 {
-		fee = BaseFee
+		amount = BaseFee
 	} else {
-		fee = BaseFee * int(math.Pow(10, float64((5-nameLen))))
+		amount = BaseFee * int(math.Pow(10, float64((5-nameLen))))
 	}
-	amt = sdk.NewCoins(sdk.NewCoin(MycelDenom, sdk.NewInt(int64(fee))))
+	fee = sdk.NewCoin(MycelDenom, sdk.NewInt(int64(amount)))
 
-	return amt
+	return fee
 }

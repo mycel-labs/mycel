@@ -94,19 +94,20 @@ func (k Keeper) ValidateDomain(ctx sdk.Context, domain types.Domain) (err error)
 }
 
 // Pay SLD registration fee
-func (k Keeper) PayTLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.Domain) (err error) {
+func (k Keeper) PayTLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.Domain, registrationPeriodInWeek uint) (err error) {
 	// TODO: Pay TLD registration fee
 	return err
 }
 
 // Pay SLD registration fee
-func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.Domain) (err error) {
+func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.Domain, registrationPeriodInWeek uint) (err error) {
 	fee := domain.GetRegistrationFee()
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, types.ModuleName, fee)
+	k.incentivesKeeper.SetIncentivesOnRegistration(ctx, registrationPeriodInWeek, fee)
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, types.ModuleName, sdk.NewCoins(fee))
 	return err
 }
 
-func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.AccAddress) (err error) {
+func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.AccAddress, registrationPeriodInWeek uint) (err error) {
 	// Validate domain
 	err = k.ValidateDomain(ctx, domain)
 	if err != nil {
@@ -118,13 +119,13 @@ func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.A
 	switch domainLevel {
 	case 1: // TLD
 		// Pay TLD registration fee
-		err = k.PayTLDRegstrationFee(ctx, owner, domain)
+		err = k.PayTLDRegstrationFee(ctx, owner, domain, registrationPeriodInWeek)
 		if err != nil {
 			return err
 		}
 	case 2: // TLD
 		// Pay SLD registration fee
-		err = k.PaySLDRegstrationFee(ctx, owner, domain)
+		err = k.PaySLDRegstrationFee(ctx, owner, domain, registrationPeriodInWeek)
 		if err != nil {
 			return err
 		}
