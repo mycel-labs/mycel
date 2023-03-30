@@ -21,4 +21,5 @@ type BankKeeper interface {
 }
 
 type IncentivesKeeper interface {
+	SetIncentivesOnRegistration(ctx sdk.Context, registrationPeriodInWeek uint, fee sdk.Coin)
 }

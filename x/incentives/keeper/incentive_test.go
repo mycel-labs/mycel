@@ -120,7 +120,7 @@ func (suite *KeeperTestSuite) TestSetIncentivesOnRegistration() {
 			}
 
 			// Set incentives
-			suite.app.IncentivesKeeper.SetIncentivesOnRegistration(suite.ctx, tc.regestrationPeriodInWeek, tc.amount)
+			suite.app.IncentivesKeeper.SetIncentivesOnRegistration(suite.ctx, tc.regestrationPeriodInWeek, sdk.NewCoin(registrytypes.MycelDenom, tc.amount))
 
 			// Check incentive start epoch
 			incentives := suite.app.IncentivesKeeper.GetAllIncentive(suite.ctx)

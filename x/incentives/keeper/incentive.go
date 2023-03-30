@@ -3,7 +3,6 @@ package keeper
 import (
 	epochstypes "mycel/x/epochs/types"
 	"mycel/x/incentives/types"
-	registrytypes "mycel/x/registry/types"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -65,13 +64,15 @@ func (k Keeper) GetAllIncentive(ctx sdk.Context) (list []types.Incentive) {
 	return
 }
 
-func (k Keeper) SetIncentivesOnRegistration(ctx sdk.Context, registrationPeriodInWeek uint, amount sdk.Int) {
+func (k Keeper) SetIncentivesOnRegistration(ctx sdk.Context, registrationPeriodInWeek uint, fee sdk.Coin) {
 	//Get current epoch
 	epoch, found := k.epochsKeeper.GetEpochInfo(ctx, epochstypes.WeeklyEpochId)
 	if !found {
 		panic("current epoch not found")
 	}
 	nextEpoch := epoch.CurrentEpoch + 1
+
+	amount := fee.Amount
 
 	// Calculate amount to be distributed per epoch
 	quotient := amount.QuoRaw(int64(registrationPeriodInWeek))
@@ -89,7 +90,7 @@ func (k Keeper) SetIncentivesOnRegistration(ctx sdk.Context, registrationPeriodI
 	// Set incentives
 	for i, amountPerEpoch := range amounts {
 		incentive, found := k.GetIncentive(ctx, nextEpoch+int64(i))
-		amount := sdk.NewCoin(registrytypes.MycelDenom, amountPerEpoch)
+		amount := sdk.NewCoin(fee.Denom, amountPerEpoch)
 
 		if !found {
 			incentive = types.Incentive{
