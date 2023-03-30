@@ -2,9 +2,11 @@ package keeper_test
 
 import (
 	mycelapp "mycel/app"
-	"mycel/x/epochs/types"
+	"mycel/x/incentives/types"
 	"testing"
 	"time"
+
+	epochstypes "mycel/x/epochs/types"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -36,11 +38,11 @@ func (suite *KeeperTestSuite) SetupTest() {
 	suite.ctx = ctx
 
 	queryHelper := baseapp.NewQueryServerTestHelper(suite.ctx, suite.app.InterfaceRegistry())
-	types.RegisterQueryServer(queryHelper, suite.app.EpochsKeeper)
+	types.RegisterQueryServer(queryHelper, suite.app.IncentivesKeeper)
 	suite.queryClient = types.NewQueryClient(queryHelper)
 
 	// Setup epochs
-	identifiers := []string{types.WeeklyEpochId}
+	identifiers := []string{epochstypes.WeeklyEpochId}
 	for _, identifier := range identifiers {
 		epoch, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, identifier)
 		suite.Require().True(found)

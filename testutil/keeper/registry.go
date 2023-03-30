@@ -20,10 +20,10 @@ import (
 )
 
 func RegistryKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
-	return RegistryKepperWithMocks(t, nil)
+	return RegistryKepperWithMocks(t, nil, nil)
 }
 
-func RegistryKepperWithMocks(t testing.TB, bank *testutil.MockBankKeeper) (*keeper.Keeper, sdk.Context) {
+func RegistryKepperWithMocks(t testing.TB, bank *testutil.MockBankKeeper, incentives *testutil.MockIncentivesKeeper) (*keeper.Keeper, sdk.Context) {
 	storeKey := sdk.NewKVStoreKey(types.StoreKey)
 	memStoreKey := storetypes.NewMemoryStoreKey(types.MemStoreKey)
 
@@ -48,6 +48,7 @@ func RegistryKepperWithMocks(t testing.TB, bank *testutil.MockBankKeeper) (*keep
 		memStoreKey,
 		paramsSubspace,
 		bank,
+		incentives,
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())

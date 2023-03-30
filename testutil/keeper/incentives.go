@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"mycel/x/incentives/keeper"
-	"mycel/x/incentives/testutil"
 	"mycel/x/incentives/types"
 
 	"github.com/cosmos/cosmos-sdk/codec"
@@ -20,10 +19,6 @@ import (
 )
 
 func IncentivesKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
-	return IncentivesKeeperWithMocks(t, nil)
-}
-
-func IncentivesKeeperWithMocks(t testing.TB, epochs *testutil.MockEpochsKeeper) (*keeper.Keeper, sdk.Context) {
 	storeKey := sdk.NewKVStoreKey(types.StoreKey)
 	memStoreKey := storetypes.NewMemoryStoreKey(types.MemStoreKey)
 
@@ -48,7 +43,7 @@ func IncentivesKeeperWithMocks(t testing.TB, epochs *testutil.MockEpochsKeeper) 
 		memStoreKey,
 		paramsSubspace,
 		nil,
-		epochs,
+		nil,
 	)
 
 	ctx := sdk.NewContext(stateStore, tmproto.Header{}, false, log.NewNopLogger())

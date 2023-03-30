@@ -5,6 +5,7 @@
 package testutil
 
 import (
+	types1 "mycel/x/incentives/types"
 	reflect "reflect"
 
 	types "github.com/cosmos/cosmos-sdk/types"
@@ -126,4 +127,51 @@ func (m *MockBankKeeper) SpendableCoins(ctx types.Context, addr types.AccAddress
 func (mr *MockBankKeeperMockRecorder) SpendableCoins(ctx, addr interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SpendableCoins", reflect.TypeOf((*MockBankKeeper)(nil).SpendableCoins), ctx, addr)
+}
+
+// MockIncentivesKeeper is a mock of IncentivesKeeper interface.
+type MockIncentivesKeeper struct {
+	ctrl     *gomock.Controller
+	recorder *MockIncentivesKeeperMockRecorder
+}
+
+// MockIncentivesKeeperMockRecorder is the mock recorder for MockIncentivesKeeper.
+type MockIncentivesKeeperMockRecorder struct {
+	mock *MockIncentivesKeeper
+}
+
+// NewMockIncentivesKeeper creates a new mock instance.
+func NewMockIncentivesKeeper(ctrl *gomock.Controller) *MockIncentivesKeeper {
+	mock := &MockIncentivesKeeper{ctrl: ctrl}
+	mock.recorder = &MockIncentivesKeeperMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockIncentivesKeeper) EXPECT() *MockIncentivesKeeperMockRecorder {
+	return m.recorder
+}
+
+// SetIncentive mocks base method.
+func (m *MockIncentivesKeeper) SetIncentive(ctx types.Context, incentive types1.Incentive) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "SetIncentive", ctx, incentive)
+}
+
+// SetIncentive indicates an expected call of SetIncentive.
+func (mr *MockIncentivesKeeperMockRecorder) SetIncentive(ctx, incentive interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetIncentive", reflect.TypeOf((*MockIncentivesKeeper)(nil).SetIncentive), ctx, incentive)
+}
+
+// SetIncentivesOnRegistration mocks base method.
+func (m *MockIncentivesKeeper) SetIncentivesOnRegistration(ctx types.Context, registrationPeriodInWeek uint, amount types.Int) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "SetIncentivesOnRegistration", ctx, registrationPeriodInWeek, amount)
+}
+
+// SetIncentivesOnRegistration indicates an expected call of SetIncentivesOnRegistration.
+func (mr *MockIncentivesKeeperMockRecorder) SetIncentivesOnRegistration(ctx, registrationPeriodInWeek, amount interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetIncentivesOnRegistration", reflect.TypeOf((*MockIncentivesKeeper)(nil).SetIncentivesOnRegistration), ctx, registrationPeriodInWeek, amount)
 }

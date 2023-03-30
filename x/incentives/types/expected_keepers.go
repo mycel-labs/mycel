@@ -21,5 +21,5 @@ type BankKeeper interface {
 }
 
 type EpochsKeeper interface {
-	GetEpochInfo(ctx sdk.Context, identifier string) (val epochstypes.EpochInfo, found bool)
+	GetEpochInfo(ctx sdk.Context, identifier string) (epochstypes.EpochInfo, bool)
 }

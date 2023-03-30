@@ -5,3 +5,9 @@ const (
 	Bob   = "cosmos1xyxs3skf3f4jfqeuv89yyaqvjc6lffavxqhc8g"
 	Carol = "cosmos1e0w5t53nrq7p66fye6c8p0ynyhf6y24l4yuxd7"
 )
+
+const (
+	balAlice = 50000000
+	balBob   = 20000000
+	balCarol = 10000000
+)
