@@ -3,6 +3,7 @@ package keeper
 import (
 	"errors"
 	"fmt"
+	incentivestypes "mycel/x/incentives/types"
 	"mycel/x/registry/types"
 	"strconv"
 
@@ -103,7 +104,7 @@ func (k Keeper) PayTLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, doma
 func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.Domain, registrationPeriodInWeek uint) (err error) {
 	fee := domain.GetRegistrationFee()
 	k.incentivesKeeper.SetIncentivesOnRegistration(ctx, registrationPeriodInWeek, fee)
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, types.ModuleName, sdk.NewCoins(fee))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, incentivestypes.ModuleName, sdk.NewCoins(fee))
 	return err
 }
 
