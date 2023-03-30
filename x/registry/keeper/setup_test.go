@@ -45,6 +45,8 @@ func (suite *KeeperTestSuite) SetupTest() {
 	suite.queryClient = types.NewQueryClient(queryHelper)
 
 	suite.msgServer = keeper.NewMsgServerImpl(suite.app.RegistryKeeper)
+
+	// Init bank keeper
 	suite.app.BankKeeper.InitGenesis(suite.ctx, getBankGenesis())
 
 }

@@ -1,186 +1,142 @@
 package keeper_test
 
 import (
-	"context"
+	"errors"
 	"fmt"
-	"testing"
 
-	keepertest "mycel/testutil/keeper"
-	"mycel/x/registry"
-	"mycel/x/registry/keeper"
 	"mycel/x/registry/types"
 
-	"mycel/x/registry/testutil"
+	"mycel/testutil"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/golang/mock/gomock"
-	"github.com/stretchr/testify/require"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-func GetMsgRegisterDomain() *types.MsgRegisterDomain {
-	return &types.MsgRegisterDomain{
-		Creator:                  testutil.Alice,
-		Name:                     "foo",
-		Parent:                   "cel",
-		RegistrationPeriodInYear: 1,
-	}
-}
-
-func setupMsgServerWithMock(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context,
-	*gomock.Controller, *testutil.MockBankKeeper) {
-	ctrl := gomock.NewController(t)
-	bankMock := testutil.NewMockBankKeeper(ctrl)
-	incentivesMock := testutil.NewMockIncentivesKeeper(ctrl)
-	k, ctx := keepertest.RegistryKepperWithMocks(t, bankMock, incentivesMock)
-	registry.InitGenesis(ctx, *k, *types.DefaultGenesis())
-	server := keeper.NewMsgServerImpl(*k)
-	context := sdk.WrapSDKContext(ctx)
-	return server, *k, context, ctrl, bankMock
-}
-
-type TestMsgUpdateWalletRecord struct {
-	MsgUpdateWalletRecord types.MsgUpdateWalletRecord
-	IsInvalidDomain       bool
-	IsInvalidOwner        bool
-}
-
-func GetValidMsgUpdateWalletRecords() []TestMsgUpdateWalletRecord {
-	return []TestMsgUpdateWalletRecord{
+func (suite *KeeperTestSuite) TestUpdateWaletRecord() {
+	testCases := []struct {
+		creator          string
+		name             string
+		parent           string
+		walletRecordType string
+		value            string
+		expErr           error
+		fn               func()
+	}{
 		{
-			MsgUpdateWalletRecord: types.MsgUpdateWalletRecord{
-				Creator:          testutil.Alice,
-				Name:             "foo",
-				Parent:           "cel",
-				WalletRecordType: "ETHEREUM_MAINNET",
-				Value:            "0x1234567890123456789012345678901234567890",
-			},
+			creator:          testutil.Alice,
+			name:             "foo",
+			parent:           "cel",
+			walletRecordType: "ETHEREUM_MAINNET",
+			value:            "0x1234567890123456789012345678901234567890",
+			expErr:           nil,
+			fn:               func() {},
 		},
 		{
-			MsgUpdateWalletRecord: types.MsgUpdateWalletRecord{
-				Creator:          testutil.Alice,
-				Name:             "foo",
-				Parent:           "cel",
-				WalletRecordType: "ETHEREUM_MAINNET",
-				Value:            "0x1234567890123456789012345678901234567891",
-			},
+			creator:          testutil.Alice,
+			name:             "foo",
+			parent:           "cel",
+			walletRecordType: "ETHEREUM_MAINNET",
+			value:            "0x1234567890123456789012345678901234567891",
+			expErr:           nil,
+			fn:               func() {},
 		},
 		{
-			MsgUpdateWalletRecord: types.MsgUpdateWalletRecord{
-				Creator:          testutil.Alice,
-				Name:             "foo",
-				Parent:           "cel",
-				WalletRecordType: "ETHEREUM_GOERLI",
-				Value:            "0x1234567890123456789012345678901234567890",
-			},
+			creator:          testutil.Alice,
+			name:             "foo",
+			parent:           "cel",
+			walletRecordType: "ETHEREUM_GOERLI",
+			value:            "0x1234567890123456789012345678901234567890",
+			expErr:           nil,
+			fn:               func() {},
 		},
 		{
-			MsgUpdateWalletRecord: types.MsgUpdateWalletRecord{
-				Creator:          testutil.Alice,
-				Name:             "foo",
-				Parent:           "cel",
-				WalletRecordType: "POLYGON_MAINNET",
-				Value:            "0x1234567890123456789012345678901234567890",
-			},
+			creator:          testutil.Alice,
+			name:             "foo",
+			parent:           "cel",
+			walletRecordType: "POLYGON_MAINNET",
+			value:            "0x1234567890123456789012345678901234567890",
+			expErr:           nil,
+			fn:               func() {},
 		},
 		{
-			MsgUpdateWalletRecord: types.MsgUpdateWalletRecord{
-				Creator:          testutil.Alice,
-				Name:             "foo",
-				Parent:           "cel",
-				WalletRecordType: "POLYGON_MUMBAI",
-				Value:            "0x1234567890123456789012345678901234567890",
-			},
-		},
-	}
-}
-func GetInvalidMsgUpdateWalletRecords() []TestMsgUpdateWalletRecord {
-	return []TestMsgUpdateWalletRecord{
-		{
-			MsgUpdateWalletRecord: types.MsgUpdateWalletRecord{
-				Creator:          testutil.Alice,
-				Name:             "hoge",
-				Parent:           "fuga",
-				WalletRecordType: "ETHEREUM_MAINNET",
-				Value:            "0x1234567890123456789012345678901234567890",
-			},
-			IsInvalidDomain: true,
+			creator:          testutil.Alice,
+			name:             "foo",
+			parent:           "cel",
+			walletRecordType: "POLYGON_MUMBAI",
+			value:            "0x1234567890123456789012345678901234567890",
+			expErr:           nil,
+			fn:               func() {},
 		},
 		{
-			MsgUpdateWalletRecord: types.MsgUpdateWalletRecord{
-				Creator:          testutil.Bob,
-				Name:             "foo",
-				Parent:           "cel",
-				WalletRecordType: "ETHEREUM_MAINNET",
-				Value:            "0x1234567890123456789012345678901234567890",
-			},
-			IsInvalidOwner: true,
+			creator:          testutil.Alice,
+			name:             "hoge",
+			parent:           "fuga",
+			walletRecordType: "ETHEREUM_MAINNET",
+			value:            "0x1234567890123456789012345678901234567890",
+			expErr:           sdkerrors.Wrapf(errors.New(fmt.Sprintf("hoge.fuga")), types.ErrDomainNotFound.Error()),
+			fn:               func() {},
+		},
+		{
+			creator:          testutil.Bob,
+			name:             "foo",
+			parent:           "cel",
+			walletRecordType: "ETHEREUM_MAINNET",
+			value:            "0x1234567890123456789012345678901234567890",
+			expErr:           sdkerrors.Wrapf(errors.New(fmt.Sprintf("foo.cel")), types.ErrDomainNotOwned.Error()),
+			fn:               func() {},
 		},
 	}
-}
+	for i, tc := range testCases {
+		suite.Run(fmt.Sprintf("Case %d", i), func() {
+			suite.SetupTest()
 
-func setupMsgServerUpdateRecord(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
-	msgServer, keeper, context, ctrl, escrow := setupMsgServerWithMock(t)
-	defer ctrl.Finish()
-	escrow.ExpectAny(context)
+			// Register domain
+			domain := &types.MsgRegisterDomain{
+				Creator:                  testutil.Alice,
+				Name:                     "foo",
+				Parent:                   "cel",
+				RegistrationPeriodInYear: 1,
+			}
+			_, err := suite.msgServer.RegisterDomain(suite.ctx, domain)
+			suite.Require().Nil(err)
+			// Run test case function
+			tc.fn()
 
-	// Register domain
-	domain := GetMsgRegisterDomain()
-	_, err := msgServer.RegisterDomain(context, domain)
-	require.Nil(t, err)
+			// Update wallet record
+			msgUpdateRecord := &types.MsgUpdateWalletRecord{
+				Creator:          tc.creator,
+				Name:             tc.name,
+				Parent:           tc.parent,
+				WalletRecordType: tc.walletRecordType,
+				Value:            tc.value,
+			}
+			_, err = suite.msgServer.UpdateWalletRecord(suite.ctx, msgUpdateRecord)
 
-	return msgServer, keeper, context
-}
+			if tc.expErr == nil {
+				// Evalute events
+				suite.Require().Nil(err)
+				res, _ := suite.app.RegistryKeeper.GetDomain(suite.ctx, domain.Name, domain.Parent)
+				suite.Require().Equal(tc.value, res.WalletRecords[tc.walletRecordType].Value)
 
-func TestUpdateWalletRecordSuccess(t *testing.T) {
-	msgServer, keeper, context := setupMsgServerUpdateRecord(t)
+				// Event check
+				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())
+				eventIndex := len(events) - 1
+				suite.Require().EqualValues(sdk.StringEvent{
+					Type: types.EventTypeUpdateWalletRecord,
+					Attributes: []sdk.Attribute{
+						{Key: types.AttributeUpdateWalletRecordEventDomainName, Value: tc.name},
+						{Key: types.AttributeUpdateWalletRecordEventDomainParent, Value: tc.parent},
+						{Key: types.AttributeUpdateWalletRecordEventWalletRecordType, Value: tc.walletRecordType},
+						{Key: types.AttributeUpdateWalletRecordEventValue, Value: tc.value},
+					},
+				},
+					events[eventIndex])
 
-	for i, record := range GetValidMsgUpdateWalletRecords() {
-		// Update wallet record
-		_, err := msgServer.UpdateWalletRecord(context, &record.MsgUpdateWalletRecord)
-		require.Nil(t, err)
+			} else {
+				suite.Require().EqualError(err, tc.expErr.Error())
+			}
 
-		domain := GetMsgRegisterDomain()
-
-		// Check if wallet record is UpdateWalletRecord
-		ctx := sdk.UnwrapSDKContext(context)
-		require.NotNil(t, ctx)
-		res, _ := keeper.GetDomain(ctx, domain.Name, domain.Parent)
-		require.Equal(t, record.MsgUpdateWalletRecord.Value, res.WalletRecords[record.MsgUpdateWalletRecord.WalletRecordType].Value)
-
-		// Event check
-		events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
-		require.Len(t, events, 2)
-		require.EqualValues(t,
-			[]sdk.Attribute{
-				{Key: types.AttributeUpdateWalletRecordEventDomainName, Value: domain.Name},
-				{Key: types.AttributeUpdateWalletRecordEventDomainParent, Value: domain.Parent},
-				{Key: types.AttributeUpdateWalletRecordEventWalletRecordType, Value: record.MsgUpdateWalletRecord.WalletRecordType},
-				{Key: types.AttributeUpdateWalletRecordEventValue, Value: record.MsgUpdateWalletRecord.Value},
-			},
-			events[1].Attributes[i*4:])
-
+		})
 	}
 
-}
-
-func TestUpdateWalletRecordDomainNotFoundFailure(t *testing.T) {
-	msgServer, _, context := setupMsgServerUpdateRecord(t)
-
-	for _, record := range GetInvalidMsgUpdateWalletRecords() {
-		if record.IsInvalidDomain {
-			_, err := msgServer.UpdateWalletRecord(context, &record.MsgUpdateWalletRecord)
-			require.EqualError(t, err, fmt.Sprintf("domain not found: %s.%s", record.MsgUpdateWalletRecord.Name, record.MsgUpdateWalletRecord.Parent))
-		}
-	}
-}
-
-func TestUpdateWalletRecordNotOwnerFailure(t *testing.T) {
-	msgServer, _, context := setupMsgServerUpdateRecord(t)
-
-	for _, record := range GetInvalidMsgUpdateWalletRecords() {
-		if record.IsInvalidOwner {
-			_, err := msgServer.UpdateWalletRecord(context, &record.MsgUpdateWalletRecord)
-			require.EqualError(t, err, fmt.Sprintf("domain not owned by msg creator: %s.%s", record.MsgUpdateWalletRecord.Name, record.MsgUpdateWalletRecord.Parent))
-		}
-	}
 }
