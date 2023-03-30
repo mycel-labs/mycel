@@ -103,9 +103,20 @@ import (
 	tmos "github.com/tendermint/tendermint/libs/os"
 	dbm "github.com/tendermint/tm-db"
 
+	// Registry
 	registrymodule "mycel/x/registry"
 	registrymodulekeeper "mycel/x/registry/keeper"
 	registrymoduletypes "mycel/x/registry/types"
+
+	// Epochs
+	epochsmodule "mycel/x/epochs"
+	epochsmodulekeeper "mycel/x/epochs/keeper"
+	epochsmoduletypes "mycel/x/epochs/types"
+
+	// Incentives
+	incentivesmodule "mycel/x/incentives"
+	incentivesmodulekeeper "mycel/x/incentives/keeper"
+	incentivesmoduletypes "mycel/x/incentives/types"
 
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
@@ -166,20 +177,23 @@ var (
 		ica.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		registrymodule.AppModuleBasic{},
+		incentivesmodule.AppModuleBasic{},
+		epochsmodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
 	// module account permissions
 	maccPerms = map[string][]string{
-		authtypes.FeeCollectorName:     nil,
-		distrtypes.ModuleName:          nil,
-		icatypes.ModuleName:            nil,
-		minttypes.ModuleName:           {authtypes.Minter},
-		stakingtypes.BondedPoolName:    {authtypes.Burner, authtypes.Staking},
-		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
-		govtypes.ModuleName:            {authtypes.Burner},
-		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
-		registrymoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+		authtypes.FeeCollectorName:       nil,
+		distrtypes.ModuleName:            nil,
+		icatypes.ModuleName:              nil,
+		minttypes.ModuleName:             {authtypes.Minter},
+		stakingtypes.BondedPoolName:      {authtypes.Burner, authtypes.Staking},
+		stakingtypes.NotBondedPoolName:   {authtypes.Burner, authtypes.Staking},
+		govtypes.ModuleName:              {authtypes.Burner},
+		ibctransfertypes.ModuleName:      {authtypes.Minter, authtypes.Burner},
+		registrymoduletypes.ModuleName:   {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+		incentivesmoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 )
@@ -241,6 +255,10 @@ type App struct {
 	ScopedICAHostKeeper  capabilitykeeper.ScopedKeeper
 
 	RegistryKeeper registrymodulekeeper.Keeper
+
+	IncentivesKeeper incentivesmodulekeeper.Keeper
+
+	EpochsKeeper epochsmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -264,6 +282,33 @@ func New(
 	appOpts servertypes.AppOptions,
 	baseAppOptions ...func(*baseapp.BaseApp),
 ) *App {
+	return NewApp(
+		logger,
+		db,
+		traceStore,
+		loadLatest,
+		skipUpgradeHeights,
+		homePath,
+		invCheckPeriod,
+		encodingConfig,
+		appOpts,
+		baseAppOptions...,
+	)
+}
+
+func NewApp(
+	logger log.Logger,
+	db dbm.DB,
+	traceStore io.Writer,
+	loadLatest bool,
+	skipUpgradeHeights map[int64]bool,
+	homePath string,
+	invCheckPeriod uint,
+	encodingConfig appparams.EncodingConfig,
+	appOpts servertypes.AppOptions,
+	baseAppOptions ...func(*baseapp.BaseApp),
+
+) *App {
 	appCodec := encodingConfig.Marshaler
 	cdc := encodingConfig.Amino
 	interfaceRegistry := encodingConfig.InterfaceRegistry
@@ -286,6 +331,8 @@ func New(
 		ibctransfertypes.StoreKey, icahosttypes.StoreKey, capabilitytypes.StoreKey, group.StoreKey,
 		icacontrollertypes.StoreKey,
 		registrymoduletypes.StoreKey,
+		incentivesmoduletypes.StoreKey,
+		epochsmoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -497,6 +544,25 @@ func New(
 		govConfig,
 	)
 
+	app.EpochsKeeper = *epochsmodulekeeper.NewKeeper(
+		appCodec,
+		keys[epochsmoduletypes.StoreKey],
+		keys[epochsmoduletypes.MemStoreKey],
+		app.GetSubspace(epochsmoduletypes.ModuleName),
+	)
+	epochsModule := epochsmodule.NewAppModule(appCodec, app.EpochsKeeper, app.AccountKeeper, app.BankKeeper)
+
+	app.IncentivesKeeper = *incentivesmodulekeeper.NewKeeper(
+		appCodec,
+		keys[incentivesmoduletypes.StoreKey],
+		keys[incentivesmoduletypes.MemStoreKey],
+		app.GetSubspace(incentivesmoduletypes.ModuleName),
+
+		app.BankKeeper,
+		app.EpochsKeeper,
+	)
+	incentivesModule := incentivesmodule.NewAppModule(appCodec, app.IncentivesKeeper, app.AccountKeeper, app.BankKeeper)
+
 	app.RegistryKeeper = *registrymodulekeeper.NewKeeper(
 		appCodec,
 		keys[registrymoduletypes.StoreKey],
@@ -504,8 +570,9 @@ func New(
 		app.GetSubspace(registrymoduletypes.ModuleName),
 
 		app.BankKeeper,
+		app.IncentivesKeeper,
 	)
-	registryModule := registrymodule.NewAppModule(appCodec, app.RegistryKeeper, app.AccountKeeper, app.BankKeeper)
+	registryModule := registrymodule.NewAppModule(appCodec, app.RegistryKeeper, app.AccountKeeper, app.BankKeeper, app.IncentivesKeeper)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
@@ -538,6 +605,12 @@ func New(
 		// insert governance hooks receivers here
 		),
 	)
+
+	app.EpochsKeeper.SetHooks(
+		epochsmodulekeeper.NewMultiEpochHooks(
+			// insert hooks here
+			app.IncentivesKeeper.Hooks(),
+		))
 
 	/**** Module Options ****/
 
@@ -573,6 +646,8 @@ func New(
 		transferModule,
 		icaModule,
 		registryModule,
+		incentivesModule,
+		epochsModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -603,6 +678,8 @@ func New(
 		paramstypes.ModuleName,
 		vestingtypes.ModuleName,
 		registrymoduletypes.ModuleName,
+		incentivesmoduletypes.ModuleName,
+		epochsmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -628,6 +705,8 @@ func New(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		registrymoduletypes.ModuleName,
+		incentivesmoduletypes.ModuleName,
+		epochsmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -658,6 +737,8 @@ func New(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		registrymoduletypes.ModuleName,
+		incentivesmoduletypes.ModuleName,
+		epochsmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
@@ -688,6 +769,8 @@ func New(
 		ibc.NewAppModule(app.IBCKeeper),
 		transferModule,
 		registryModule,
+		incentivesModule,
+		epochsModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
@@ -893,6 +976,8 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(icacontrollertypes.SubModuleName)
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
 	paramsKeeper.Subspace(registrymoduletypes.ModuleName)
+	paramsKeeper.Subspace(incentivesmoduletypes.ModuleName)
+	paramsKeeper.Subspace(epochsmoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper

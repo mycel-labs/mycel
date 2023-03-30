@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package mycel.incentives;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "mycel/incentives/params.proto";
+import "mycel/incentives/incentive.proto";
+
+option go_package = "mycel/x/incentives/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  
+  // Parameters queries the parameters of the module.
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/mycel/incentives/params";
+  
+  }
+  
+  // Queries a list of Incentive items.
+  rpc Incentive    (QueryGetIncentiveRequest) returns (QueryGetIncentiveResponse) {
+    option (google.api.http).get = "/mycel/incentives/incentive/{epoch}";
+  
+  }
+  rpc IncentiveAll (QueryAllIncentiveRequest) returns (QueryAllIncentiveResponse) {
+    option (google.api.http).get = "/mycel/incentives/incentive";
+  
+  }
+}
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetIncentiveRequest {
+  int64 epoch = 1;
+}
+
+message QueryGetIncentiveResponse {
+  Incentive incentive = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllIncentiveRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllIncentiveResponse {
+  repeated Incentive                              incentive  = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+

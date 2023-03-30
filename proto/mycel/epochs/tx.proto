@@ -1,0 +1,7 @@
+syntax = "proto3";
+package mycel.epochs;
+
+option go_package = "mycel/x/epochs/types";
+
+// Msg defines the Msg service.
+service Msg {}

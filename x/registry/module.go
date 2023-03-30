@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+
 	// this line is used by starport scaffolding # 1
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
@@ -11,14 +12,15 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
+	"mycel/x/registry/client/cli"
+	"mycel/x/registry/keeper"
+	"mycel/x/registry/types"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"mycel/x/registry/client/cli"
-	"mycel/x/registry/keeper"
-	"mycel/x/registry/types"
 )
 
 var (
@@ -91,9 +93,10 @@ func (AppModuleBasic) GetQueryCmd() *cobra.Command {
 type AppModule struct {
 	AppModuleBasic
 
-	keeper        keeper.Keeper
-	accountKeeper types.AccountKeeper
-	bankKeeper    types.BankKeeper
+	keeper           keeper.Keeper
+	accountKeeper    types.AccountKeeper
+	bankKeeper       types.BankKeeper
+	incentivesKeeper types.IncentivesKeeper
 }
 
 func NewAppModule(
@@ -101,12 +104,14 @@ func NewAppModule(
 	keeper keeper.Keeper,
 	accountKeeper types.AccountKeeper,
 	bankKeeper types.BankKeeper,
+	incentivesKeeper types.IncentivesKeeper,
 ) AppModule {
 	return AppModule{
-		AppModuleBasic: NewAppModuleBasic(cdc),
-		keeper:         keeper,
-		accountKeeper:  accountKeeper,
-		bankKeeper:     bankKeeper,
+		AppModuleBasic:   NewAppModuleBasic(cdc),
+		keeper:           keeper,
+		accountKeeper:    accountKeeper,
+		bankKeeper:       bankKeeper,
+		incentivesKeeper: incentivesKeeper,
 	}
 }
 
