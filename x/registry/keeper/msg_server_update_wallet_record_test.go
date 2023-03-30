@@ -5,13 +5,38 @@ import (
 	"fmt"
 	"testing"
 
-	"mycel/testutil"
+	keepertest "mycel/testutil/keeper"
+	"mycel/x/registry"
 	"mycel/x/registry/keeper"
 	"mycel/x/registry/types"
 
+	"mycel/x/registry/testutil"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/require"
 )
+
+func GetMsgRegisterDomain() *types.MsgRegisterDomain {
+	return &types.MsgRegisterDomain{
+		Creator:                  testutil.Alice,
+		Name:                     "foo",
+		Parent:                   "cel",
+		RegistrationPeriodInYear: 1,
+	}
+}
+
+func setupMsgServerWithMock(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context,
+	*gomock.Controller, *testutil.MockBankKeeper) {
+	ctrl := gomock.NewController(t)
+	bankMock := testutil.NewMockBankKeeper(ctrl)
+	incentivesMock := testutil.NewMockIncentivesKeeper(ctrl)
+	k, ctx := keepertest.RegistryKepperWithMocks(t, bankMock, incentivesMock)
+	registry.InitGenesis(ctx, *k, *types.DefaultGenesis())
+	server := keeper.NewMsgServerImpl(*k)
+	context := sdk.WrapSDKContext(ctx)
+	return server, *k, context, ctrl, bankMock
+}
 
 type TestMsgUpdateWalletRecord struct {
 	MsgUpdateWalletRecord types.MsgUpdateWalletRecord
