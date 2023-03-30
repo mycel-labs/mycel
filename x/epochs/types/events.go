@@ -2,9 +2,9 @@ package types
 
 // epochs events
 const (
-	EventTypeEpochEnd   = "epoch_end"
-	EventTypeEpochStart = "epoch_start"
+	EventTypeEpochEnd   = "epoch-end"
+	EventTypeEpochStart = "epoch-start"
 
-	AttributeEpochNumber    = "epoch_number"
-	AttributeEpochStartTime = "start_time"
+	AttributeEpochNumber    = "epoch-number"
+	AttributeEpochStartTime = "start-time"
 )
