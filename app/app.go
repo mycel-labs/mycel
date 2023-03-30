@@ -195,7 +195,6 @@ var (
 		registrymoduletypes.ModuleName:   {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		incentivesmoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
-		epochsmoduletypes.ModuleName: nil,
 	}
 )
 
@@ -545,15 +544,13 @@ func NewApp(
 		govConfig,
 	)
 
-	app.RegistryKeeper = *registrymodulekeeper.NewKeeper(
+	app.EpochsKeeper = *epochsmodulekeeper.NewKeeper(
 		appCodec,
-		keys[registrymoduletypes.StoreKey],
-		keys[registrymoduletypes.MemStoreKey],
-		app.GetSubspace(registrymoduletypes.ModuleName),
-
-		app.BankKeeper,
+		keys[epochsmoduletypes.StoreKey],
+		keys[epochsmoduletypes.MemStoreKey],
+		app.GetSubspace(epochsmoduletypes.ModuleName),
 	)
-	registryModule := registrymodule.NewAppModule(appCodec, app.RegistryKeeper, app.AccountKeeper, app.BankKeeper)
+	epochsModule := epochsmodule.NewAppModule(appCodec, app.EpochsKeeper, app.AccountKeeper, app.BankKeeper)
 
 	app.IncentivesKeeper = *incentivesmodulekeeper.NewKeeper(
 		appCodec,
@@ -566,17 +563,16 @@ func NewApp(
 	)
 	incentivesModule := incentivesmodule.NewAppModule(appCodec, app.IncentivesKeeper, app.AccountKeeper, app.BankKeeper)
 
-	epochsKeeper := *epochsmodulekeeper.NewKeeper(
+	app.RegistryKeeper = *registrymodulekeeper.NewKeeper(
 		appCodec,
-		keys[epochsmoduletypes.StoreKey],
-		keys[epochsmoduletypes.MemStoreKey],
-		app.GetSubspace(epochsmoduletypes.ModuleName),
-	)
-	app.EpochsKeeper = *epochsKeeper.SetHooks(epochsmodulekeeper.NewMultiEpochHooks(
-	// insert hooks here
-	))
+		keys[registrymoduletypes.StoreKey],
+		keys[registrymoduletypes.MemStoreKey],
+		app.GetSubspace(registrymoduletypes.ModuleName),
 
-	epochsModule := epochsmodule.NewAppModule(appCodec, app.EpochsKeeper, app.AccountKeeper, app.BankKeeper)
+		app.BankKeeper,
+		app.IncentivesKeeper,
+	)
+	registryModule := registrymodule.NewAppModule(appCodec, app.RegistryKeeper, app.AccountKeeper, app.BankKeeper, app.IncentivesKeeper)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
@@ -609,6 +605,12 @@ func NewApp(
 		// insert governance hooks receivers here
 		),
 	)
+
+	app.EpochsKeeper.SetHooks(
+		epochsmodulekeeper.NewMultiEpochHooks(
+			// insert hooks here
+			app.IncentivesKeeper.Hooks(),
+		))
 
 	/**** Module Options ****/
 
