@@ -57,7 +57,7 @@ func (k Keeper) ValidateRegsiterSubdomain(ctx sdk.Context, domain types.Domain) 
 // Validate domain
 func (k Keeper) ValidateDomain(ctx sdk.Context, domain types.Domain) (err error) {
 	// Type check
-	err = domain.ValidateDomain()
+	err = domain.Validate()
 	if err != nil {
 		return err
 	}
