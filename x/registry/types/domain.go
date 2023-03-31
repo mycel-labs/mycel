@@ -17,7 +17,7 @@ const (
 	BaseFee     = 303
 )
 
-func (domain Domain) ValidateDomainName() (err error) {
+func (domain Domain) ValidateName() (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+$)`, NamePattern))
 	if !regex.MatchString(domain.Name) {
 		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", domain.Name)), ErrInvalidDomainName.Error())
@@ -25,7 +25,7 @@ func (domain Domain) ValidateDomainName() (err error) {
 	return err
 }
 
-func (domain Domain) ValidateDomainParent() (err error) {
+func (domain Domain) ValidateParent() (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+[%[1]s\.]*[%[1]s]$)|^$`, NamePattern))
 	if !regex.MatchString(domain.Parent) {
 		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", domain.Parent)), ErrInvalidDomainParent.Error())
@@ -33,12 +33,12 @@ func (domain Domain) ValidateDomainParent() (err error) {
 	return err
 }
 
-func (domain Domain) ValidateDomain() (err error) {
-	err = domain.ValidateDomainName()
+func (domain Domain) Validate() (err error) {
+	err = domain.ValidateName()
 	if err != nil {
 		return err
 	}
-	err = domain.ValidateDomainParent()
+	err = domain.ValidateParent()
 	if err != nil {
 		return err
 	}

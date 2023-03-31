@@ -106,7 +106,7 @@ func TestDomainValidate(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		err := tc.domain.ValidateDomain()
+		err := tc.domain.Validate()
 		if tc.expErr == "" {
 			require.Nil(t, err)
 			// Check domain level
