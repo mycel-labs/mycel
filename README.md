@@ -14,6 +14,22 @@ ignite chain serve
 
 `serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
 
+### Test
+Test a specific module  
+```
+make test-module-{MODULE_NAME}
+```
+
+Test all keepers
+```
+make test-all-keepers
+```
+
+Test all types
+```
+make test-all-types
+```
+
 ### Configure
 
 Your blockchain in development can be configured with `config.yml`. To learn more, see the [Ignite CLI docs](https://docs.ignite.com).
