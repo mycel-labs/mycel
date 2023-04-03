@@ -10,7 +10,8 @@ const DefaultIndex uint64 = 1
 // DefaultGenesis returns the default genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		EpochIncentiveList: []EpochIncentive{},
+		EpochIncentiveList:     []EpochIncentive{},
+		ValidatorIncentiveList: []ValidatorIncentive{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -28,6 +29,16 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated index for epochIncentive")
 		}
 		epochIncentiveIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in validatorIncentive
+	validatorIncentiveIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.ValidatorIncentiveList {
+		index := string(ValidatorIncentiveKey(elem.Address))
+		if _, ok := validatorIncentiveIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for validatorIncentive")
+		}
+		validatorIncentiveIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

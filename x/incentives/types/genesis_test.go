@@ -31,6 +31,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Epoch: 1,
 					},
 				},
+				ValidatorIncentiveList: []types.ValidatorIncentive{
+					{
+						Address: "0",
+					},
+					{
+						Address: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -49,6 +57,20 @@ func TestGenesisState_Validate(t *testing.T) {
 					},
 					{
 						Epoch: 0,
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated validatorIncentive",
+			genState: &types.GenesisState{
+				ValidatorIncentiveList: []types.ValidatorIncentive{
+					{
+						Address: "0",
+					},
+					{
+						Address: "0",
 					},
 				},
 			},

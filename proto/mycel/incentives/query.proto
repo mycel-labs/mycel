@@ -7,6 +7,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "mycel/incentives/params.proto";
 import "mycel/incentives/epoch_incentive.proto";
+import "mycel/incentives/validator_incentive.proto";
 
 option go_package = "mycel/x/incentives/types";
 
@@ -18,7 +19,7 @@ service Query {
     option (google.api.http).get = "/mycel/incentives/params";
   
   }
- 
+  
   // Queries a list of EpochIncentive items.
   rpc EpochIncentive    (QueryGetEpochIncentiveRequest) returns (QueryGetEpochIncentiveResponse) {
     option (google.api.http).get = "/mycel/incentives/epoch_incentive/{epoch}";
@@ -26,6 +27,16 @@ service Query {
   }
   rpc EpochIncentiveAll (QueryAllEpochIncentiveRequest) returns (QueryAllEpochIncentiveResponse) {
     option (google.api.http).get = "/mycel/incentives/epoch_incentive";
+  
+  }
+  
+  // Queries a list of ValidatorIncentive items.
+  rpc ValidatorIncentive    (QueryGetValidatorIncentiveRequest) returns (QueryGetValidatorIncentiveResponse) {
+    option (google.api.http).get = "/mycel/incentives/validator_incentive/{address}";
+  
+  }
+  rpc ValidatorIncentiveAll (QueryAllValidatorIncentiveRequest) returns (QueryAllValidatorIncentiveResponse) {
+    option (google.api.http).get = "/mycel/incentives/validator_incentive";
   
   }
 }
@@ -54,5 +65,22 @@ message QueryAllEpochIncentiveRequest {
 message QueryAllEpochIncentiveResponse {
   repeated EpochIncentive                         epochIncentive = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination     = 2;
+}
+
+message QueryGetValidatorIncentiveRequest {
+  string address = 1;
+}
+
+message QueryGetValidatorIncentiveResponse {
+  ValidatorIncentive validatorIncentive = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllValidatorIncentiveRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllValidatorIncentiveResponse {
+  repeated ValidatorIncentive                     validatorIncentive = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination         = 2;
 }
 
