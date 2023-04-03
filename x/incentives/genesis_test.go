@@ -3,25 +3,18 @@ package incentives_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	keepertest "mycel/testutil/keeper"
 	"mycel/testutil/nullify"
 	"mycel/x/incentives"
 	"mycel/x/incentives/types"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestGenesis(t *testing.T) {
 	genesisState := types.GenesisState{
 		Params: types.DefaultParams(),
 
-		IncentiveList: []types.Incentive{
-			{
-				Epoch: 0,
-			},
-			{
-				Epoch: 1,
-			},
-		},
 		EpochIncentiveList: []types.EpochIncentive{
 			{
 				Epoch: 0,
@@ -41,7 +34,6 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(&genesisState)
 	nullify.Fill(got)
 
-	require.ElementsMatch(t, genesisState.IncentiveList, got.IncentiveList)
 	require.ElementsMatch(t, genesisState.EpochIncentiveList, got.EpochIncentiveList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

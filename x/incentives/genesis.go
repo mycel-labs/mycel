@@ -1,17 +1,14 @@
 package incentives
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"mycel/x/incentives/keeper"
 	"mycel/x/incentives/types"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
-	// Set all the incentive
-	for _, elem := range genState.IncentiveList {
-		k.SetIncentive(ctx, elem)
-	}
 	// Set all the epochIncentive
 	for _, elem := range genState.EpochIncentiveList {
 		k.SetEpochIncentive(ctx, elem)
@@ -25,7 +22,6 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 	genesis.Params = k.GetParams(ctx)
 
-	genesis.IncentiveList = k.GetAllIncentive(ctx)
 	genesis.EpochIncentiveList = k.GetAllEpochIncentive(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
