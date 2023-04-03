@@ -5,7 +5,7 @@ Incentive module provides the following feature:
 - Store incentives for each epochs
 
 ## Stores
-### incentives.proto
+### epoch_incentives.proto
 ```proto
 message Incentive {
   int64 epoch = 1; 
@@ -13,6 +13,7 @@ message Incentive {
       (gogoproto.nullable) = false,
       (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
       ];
+  bool isDistributed = 3; 
 }
 ```
 
@@ -21,13 +22,13 @@ This module emits the following events:
 
 ## Queries
 
-### list-incentive
-List all incentive
+### list-epoch-incentive
+List all epoch incentive
 ```
-myceld q incentives list-domain
+myceld q incentives list-epoch-incentive
 ```
 
 ### show-incentive
 ```
-myceld q incentives show-incentive [epoch]
+myceld q incentives show-epoch-incentive [epoch]
 ```
