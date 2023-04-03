@@ -11,12 +11,12 @@ const (
 
 // EpochIncentiveKey returns the store key to retrieve a EpochIncentive from the index fields
 func EpochIncentiveKey(
-	epoch int32,
+	epoch int64,
 ) []byte {
 	var key []byte
 
-	epochBytes := make([]byte, 4)
-	binary.BigEndian.PutUint32(epochBytes, uint32(epoch))
+	epochBytes := make([]byte, 8)
+	binary.BigEndian.PutUint64(epochBytes, uint64(epoch))
 	key = append(key, epochBytes...)
 	key = append(key, []byte("/")...)
 

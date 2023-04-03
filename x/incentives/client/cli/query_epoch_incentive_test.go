@@ -29,7 +29,7 @@ func networkWithEpochIncentiveObjects(t *testing.T, n int) (*network.Network, []
 
 	for i := 0; i < n; i++ {
 		epochIncentive := types.EpochIncentive{
-			Epoch: int32(i),
+			Epoch: int64(i),
 		}
 		nullify.Fill(&epochIncentive)
 		state.EpochIncentiveList = append(state.EpochIncentiveList, epochIncentive)
@@ -49,7 +49,7 @@ func TestShowEpochIncentive(t *testing.T) {
 	}
 	for _, tc := range []struct {
 		desc    string
-		idEpoch int32
+		idEpoch int64
 
 		args []string
 		err  error
