@@ -22,6 +22,14 @@ func TestGenesis(t *testing.T) {
 				Epoch: 1,
 			},
 		},
+		EpochIncentiveList: []types.EpochIncentive{
+			{
+				Epoch: 0,
+			},
+			{
+				Epoch: 1,
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -34,5 +42,6 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(got)
 
 	require.ElementsMatch(t, genesisState.IncentiveList, got.IncentiveList)
+	require.ElementsMatch(t, genesisState.EpochIncentiveList, got.EpochIncentiveList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

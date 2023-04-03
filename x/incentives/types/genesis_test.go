@@ -30,6 +30,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Epoch: 1,
 					},
 				},
+				EpochIncentiveList: []types.EpochIncentive{
+					{
+						Epoch: 0,
+					},
+					{
+						Epoch: 1,
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -38,6 +46,20 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "duplicated incentive",
 			genState: &types.GenesisState{
 				IncentiveList: []types.Incentive{
+					{
+						Epoch: 0,
+					},
+					{
+						Epoch: 0,
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated epochIncentive",
+			genState: &types.GenesisState{
+				EpochIncentiveList: []types.EpochIncentive{
 					{
 						Epoch: 0,
 					},
