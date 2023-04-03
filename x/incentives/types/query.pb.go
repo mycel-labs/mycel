@@ -481,6 +481,190 @@ func (m *QueryAllValidatorIncentiveResponse) GetPagination() *query.PageResponse
 	return nil
 }
 
+type QueryGetDelegetorIncentiveRequest struct {
+	Address string `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
+}
+
+func (m *QueryGetDelegetorIncentiveRequest) Reset()         { *m = QueryGetDelegetorIncentiveRequest{} }
+func (m *QueryGetDelegetorIncentiveRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetDelegetorIncentiveRequest) ProtoMessage()    {}
+func (*QueryGetDelegetorIncentiveRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8205a02596de1d57, []int{10}
+}
+func (m *QueryGetDelegetorIncentiveRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetDelegetorIncentiveRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetDelegetorIncentiveRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetDelegetorIncentiveRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetDelegetorIncentiveRequest.Merge(m, src)
+}
+func (m *QueryGetDelegetorIncentiveRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetDelegetorIncentiveRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetDelegetorIncentiveRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetDelegetorIncentiveRequest proto.InternalMessageInfo
+
+func (m *QueryGetDelegetorIncentiveRequest) GetAddress() string {
+	if m != nil {
+		return m.Address
+	}
+	return ""
+}
+
+type QueryGetDelegetorIncentiveResponse struct {
+	DelegetorIncentive DelegetorIncentive `protobuf:"bytes,1,opt,name=delegetorIncentive,proto3" json:"delegetorIncentive"`
+}
+
+func (m *QueryGetDelegetorIncentiveResponse) Reset()         { *m = QueryGetDelegetorIncentiveResponse{} }
+func (m *QueryGetDelegetorIncentiveResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetDelegetorIncentiveResponse) ProtoMessage()    {}
+func (*QueryGetDelegetorIncentiveResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8205a02596de1d57, []int{11}
+}
+func (m *QueryGetDelegetorIncentiveResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetDelegetorIncentiveResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetDelegetorIncentiveResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetDelegetorIncentiveResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetDelegetorIncentiveResponse.Merge(m, src)
+}
+func (m *QueryGetDelegetorIncentiveResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetDelegetorIncentiveResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetDelegetorIncentiveResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetDelegetorIncentiveResponse proto.InternalMessageInfo
+
+func (m *QueryGetDelegetorIncentiveResponse) GetDelegetorIncentive() DelegetorIncentive {
+	if m != nil {
+		return m.DelegetorIncentive
+	}
+	return DelegetorIncentive{}
+}
+
+type QueryAllDelegetorIncentiveRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllDelegetorIncentiveRequest) Reset()         { *m = QueryAllDelegetorIncentiveRequest{} }
+func (m *QueryAllDelegetorIncentiveRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllDelegetorIncentiveRequest) ProtoMessage()    {}
+func (*QueryAllDelegetorIncentiveRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8205a02596de1d57, []int{12}
+}
+func (m *QueryAllDelegetorIncentiveRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllDelegetorIncentiveRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllDelegetorIncentiveRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllDelegetorIncentiveRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllDelegetorIncentiveRequest.Merge(m, src)
+}
+func (m *QueryAllDelegetorIncentiveRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllDelegetorIncentiveRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllDelegetorIncentiveRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllDelegetorIncentiveRequest proto.InternalMessageInfo
+
+func (m *QueryAllDelegetorIncentiveRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllDelegetorIncentiveResponse struct {
+	DelegetorIncentive []DelegetorIncentive `protobuf:"bytes,1,rep,name=delegetorIncentive,proto3" json:"delegetorIncentive"`
+	Pagination         *query.PageResponse  `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllDelegetorIncentiveResponse) Reset()         { *m = QueryAllDelegetorIncentiveResponse{} }
+func (m *QueryAllDelegetorIncentiveResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllDelegetorIncentiveResponse) ProtoMessage()    {}
+func (*QueryAllDelegetorIncentiveResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8205a02596de1d57, []int{13}
+}
+func (m *QueryAllDelegetorIncentiveResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllDelegetorIncentiveResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllDelegetorIncentiveResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllDelegetorIncentiveResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllDelegetorIncentiveResponse.Merge(m, src)
+}
+func (m *QueryAllDelegetorIncentiveResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllDelegetorIncentiveResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllDelegetorIncentiveResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllDelegetorIncentiveResponse proto.InternalMessageInfo
+
+func (m *QueryAllDelegetorIncentiveResponse) GetDelegetorIncentive() []DelegetorIncentive {
+	if m != nil {
+		return m.DelegetorIncentive
+	}
+	return nil
+}
+
+func (m *QueryAllDelegetorIncentiveResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "mycel.incentives.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "mycel.incentives.QueryParamsResponse")
@@ -492,52 +676,62 @@ func init() {
 	proto.RegisterType((*QueryGetValidatorIncentiveResponse)(nil), "mycel.incentives.QueryGetValidatorIncentiveResponse")
 	proto.RegisterType((*QueryAllValidatorIncentiveRequest)(nil), "mycel.incentives.QueryAllValidatorIncentiveRequest")
 	proto.RegisterType((*QueryAllValidatorIncentiveResponse)(nil), "mycel.incentives.QueryAllValidatorIncentiveResponse")
+	proto.RegisterType((*QueryGetDelegetorIncentiveRequest)(nil), "mycel.incentives.QueryGetDelegetorIncentiveRequest")
+	proto.RegisterType((*QueryGetDelegetorIncentiveResponse)(nil), "mycel.incentives.QueryGetDelegetorIncentiveResponse")
+	proto.RegisterType((*QueryAllDelegetorIncentiveRequest)(nil), "mycel.incentives.QueryAllDelegetorIncentiveRequest")
+	proto.RegisterType((*QueryAllDelegetorIncentiveResponse)(nil), "mycel.incentives.QueryAllDelegetorIncentiveResponse")
 }
 
 func init() { proto.RegisterFile("mycel/incentives/query.proto", fileDescriptor_8205a02596de1d57) }
 
 var fileDescriptor_8205a02596de1d57 = []byte{
-	// 637 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x95, 0x4f, 0x6b, 0x13, 0x4f,
-	0x18, 0xc7, 0x33, 0xcd, 0xaf, 0xf9, 0xe1, 0x08, 0x45, 0xc7, 0x08, 0x61, 0x69, 0xd7, 0x74, 0xb4,
-	0xad, 0x55, 0xdc, 0x31, 0x89, 0x7f, 0x4e, 0x1e, 0x52, 0xd0, 0xe2, 0x41, 0xa9, 0x39, 0x78, 0xe8,
-	0x45, 0x26, 0xc9, 0xb0, 0x2e, 0x6e, 0x76, 0xb6, 0xd9, 0x6d, 0x34, 0x94, 0x82, 0xf8, 0x0a, 0x04,
-	0x5f, 0x81, 0x17, 0xef, 0xde, 0x14, 0x7c, 0x01, 0xf5, 0x56, 0xf0, 0xe2, 0x49, 0x24, 0xf1, 0x85,
-	0x48, 0x66, 0x66, 0x6d, 0x37, 0x93, 0xc9, 0xa6, 0xda, 0x5b, 0x32, 0xcf, 0xbf, 0xcf, 0xf7, 0x79,
-	0x66, 0x9e, 0x85, 0x8b, 0x9d, 0x7e, 0x8b, 0xf9, 0xc4, 0x0b, 0x5a, 0x2c, 0x88, 0xbd, 0x1e, 0x8b,
-	0xc8, 0xce, 0x2e, 0xeb, 0xf6, 0x9d, 0xb0, 0xcb, 0x63, 0x8e, 0xce, 0x09, 0xab, 0x73, 0x64, 0xb5,
-	0x8a, 0x2e, 0x77, 0xb9, 0x30, 0x92, 0xd1, 0x2f, 0xe9, 0x67, 0x2d, 0xba, 0x9c, 0xbb, 0x3e, 0x23,
-	0x34, 0xf4, 0x08, 0x0d, 0x02, 0x1e, 0xd3, 0xd8, 0xe3, 0x41, 0xa4, 0xac, 0xd7, 0x5a, 0x3c, 0xea,
-	0xf0, 0x88, 0x34, 0x69, 0xc4, 0x64, 0x7a, 0xd2, 0xab, 0x34, 0x59, 0x4c, 0x2b, 0x24, 0xa4, 0xae,
-	0x17, 0x08, 0x67, 0xe5, 0xbb, 0xa4, 0xf1, 0x84, 0xb4, 0x4b, 0x3b, 0x49, 0xaa, 0x55, 0xcd, 0xcc,
-	0x42, 0xde, 0x7a, 0xfe, 0xec, 0xcf, 0x41, 0x52, 0x52, 0xf3, 0xeb, 0x51, 0xdf, 0x6b, 0xd3, 0x98,
-	0x77, 0xc7, 0x7d, 0x71, 0x11, 0xa2, 0x27, 0x23, 0xa8, 0x2d, 0x51, 0xa8, 0xc1, 0x76, 0x76, 0x59,
-	0x14, 0xe3, 0x47, 0xf0, 0x42, 0xea, 0x34, 0x0a, 0x79, 0x10, 0x31, 0x74, 0x07, 0x16, 0x24, 0x50,
-	0x09, 0x94, 0xc1, 0xd5, 0xb3, 0xd5, 0x92, 0x33, 0xde, 0x22, 0x47, 0x46, 0x6c, 0xfc, 0x77, 0xf0,
-	0xe3, 0x52, 0xae, 0xa1, 0xbc, 0xf1, 0x6d, 0xb8, 0x24, 0xd2, 0x6d, 0xb2, 0xf8, 0xfe, 0x88, 0xf8,
-	0x61, 0xe2, 0xaf, 0xea, 0xa1, 0x22, 0x9c, 0x17, 0x52, 0x44, 0xde, 0x7c, 0x43, 0xfe, 0xc1, 0x21,
-	0xb4, 0x4d, 0x61, 0x0a, 0xe8, 0x31, 0x5c, 0x60, 0x29, 0x8b, 0x02, 0x2b, 0xeb, 0x60, 0xe9, 0x0c,
-	0x0a, 0x70, 0x2c, 0x1a, 0xbb, 0x0a, 0xb4, 0xee, 0xfb, 0x93, 0x41, 0x1f, 0x40, 0x78, 0x34, 0x35,
-	0x55, 0x6c, 0xd5, 0x91, 0x23, 0x76, 0x46, 0x23, 0x76, 0xe4, 0x0d, 0x52, 0x23, 0x76, 0xb6, 0xa8,
-	0x9b, 0xc4, 0x36, 0x8e, 0x45, 0xe2, 0xcf, 0x40, 0x69, 0x9b, 0x50, 0x69, 0x8a, 0xb6, 0xfc, 0xdf,
-	0x6b, 0x43, 0x9b, 0x29, 0xf4, 0x39, 0x81, 0xbe, 0x96, 0x89, 0x2e, 0x61, 0x52, 0xec, 0xf7, 0xe0,
-	0x72, 0x32, 0x96, 0xa7, 0xc9, 0xbd, 0xd2, 0x1a, 0x55, 0x82, 0xff, 0xd3, 0x76, 0xbb, 0xcb, 0x22,
-	0x79, 0x57, 0xce, 0x34, 0x92, 0xbf, 0xf8, 0x35, 0x80, 0x78, 0x5a, 0xbc, 0x92, 0xbf, 0x0d, 0x51,
-	0x4f, 0xb3, 0xaa, 0x8e, 0x5f, 0xd1, 0x5b, 0xa0, 0x67, 0x52, 0x6d, 0x98, 0x90, 0x05, 0xbf, 0x50,
-	0x0a, 0xea, 0xbe, 0x6f, 0x56, 0x70, 0x5a, 0xa3, 0xfe, 0x9a, 0xe8, 0x35, 0x54, 0xcb, 0xd0, 0x9b,
-	0xff, 0x77, 0xbd, 0xa7, 0x36, 0xfa, 0xea, 0x97, 0x02, 0x9c, 0x17, 0x5a, 0xd0, 0x4b, 0x58, 0x90,
-	0x4f, 0x1d, 0x4d, 0x80, 0xd3, 0x37, 0x8a, 0xb5, 0x92, 0xe1, 0x25, 0x8b, 0xe1, 0xf2, 0x9b, 0x6f,
-	0xbf, 0xde, 0xcd, 0x59, 0xa8, 0x44, 0x0c, 0xab, 0x10, 0x7d, 0x00, 0x70, 0x21, 0x7d, 0xdf, 0x11,
-	0x31, 0xe4, 0x36, 0xad, 0x1b, 0xeb, 0xe6, 0xec, 0x01, 0x8a, 0xab, 0x22, 0xb8, 0xae, 0xa3, 0x75,
-	0x92, 0xb5, 0x83, 0xc9, 0x9e, 0x38, 0xd8, 0x47, 0xef, 0x01, 0x3c, 0x9f, 0xce, 0x56, 0xf7, 0x7d,
-	0x23, 0xab, 0x69, 0xe3, 0x18, 0x59, 0x8d, 0x8b, 0x03, 0xaf, 0x0b, 0xd6, 0xcb, 0x68, 0x39, 0x93,
-	0x15, 0x7d, 0x02, 0x10, 0xe9, 0x37, 0x09, 0xd5, 0xcc, 0xfd, 0x31, 0xbe, 0x17, 0xeb, 0xd6, 0xc9,
-	0x82, 0x14, 0xec, 0x5d, 0x01, 0x5b, 0x41, 0x84, 0xcc, 0xf2, 0xd1, 0x22, 0x7b, 0x6a, 0x8b, 0xec,
-	0xa3, 0x8f, 0x00, 0x5e, 0xd4, 0xf3, 0x8e, 0x5a, 0x5c, 0x33, 0x77, 0xec, 0xe4, 0xf4, 0x53, 0x1f,
-	0x2d, 0xbe, 0x21, 0xe8, 0xd7, 0xd0, 0xca, 0x4c, 0xf4, 0x1b, 0xd5, 0x83, 0x81, 0x0d, 0x0e, 0x07,
-	0x36, 0xf8, 0x39, 0xb0, 0xc1, 0xdb, 0xa1, 0x9d, 0x3b, 0x1c, 0xda, 0xb9, 0xef, 0x43, 0x3b, 0xb7,
-	0x5d, 0x92, 0xf1, 0xaf, 0x8e, 0x67, 0x88, 0xfb, 0x21, 0x8b, 0x9a, 0x05, 0xf1, 0x9d, 0xae, 0xfd,
-	0x0e, 0x00, 0x00, 0xff, 0xff, 0x78, 0x24, 0x20, 0x23, 0xac, 0x08, 0x00, 0x00,
+	// 722 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x96, 0x4f, 0x6f, 0xd3, 0x3e,
+	0x18, 0xc7, 0x9b, 0xf5, 0xb7, 0xfd, 0x34, 0x23, 0x4d, 0x60, 0x86, 0x54, 0x45, 0x5b, 0xd8, 0x0c,
+	0xdb, 0x18, 0x88, 0x98, 0x6e, 0xfc, 0x39, 0x71, 0xd8, 0x04, 0x4c, 0x1c, 0x40, 0xa3, 0x07, 0x0e,
+	0xbb, 0x20, 0xaf, 0xb5, 0x42, 0x44, 0x1a, 0x67, 0x4d, 0x56, 0xa8, 0xa6, 0x49, 0x88, 0x57, 0x80,
+	0xc4, 0x2b, 0xe0, 0xc2, 0x85, 0x13, 0x37, 0x78, 0x07, 0xe3, 0x36, 0x89, 0x0b, 0x27, 0x84, 0x5a,
+	0x5e, 0x08, 0xaa, 0xed, 0xd0, 0xa6, 0x8e, 0x93, 0xb6, 0xdb, 0x6e, 0x4d, 0xfc, 0x3c, 0x8f, 0x3f,
+	0xdf, 0xef, 0xe3, 0x3e, 0x0e, 0x98, 0xab, 0xb7, 0xaa, 0xd4, 0xc3, 0xae, 0x5f, 0xa5, 0x7e, 0xe4,
+	0x36, 0x69, 0x88, 0xf7, 0xf6, 0x69, 0xa3, 0x65, 0x07, 0x0d, 0x16, 0x31, 0x78, 0x9e, 0xaf, 0xda,
+	0xbd, 0x55, 0x73, 0xd6, 0x61, 0x0e, 0xe3, 0x8b, 0xb8, 0xfb, 0x4b, 0xc4, 0x99, 0x73, 0x0e, 0x63,
+	0x8e, 0x47, 0x31, 0x09, 0x5c, 0x4c, 0x7c, 0x9f, 0x45, 0x24, 0x72, 0x99, 0x1f, 0xca, 0xd5, 0xeb,
+	0x55, 0x16, 0xd6, 0x59, 0x88, 0x77, 0x49, 0x48, 0x45, 0x79, 0xdc, 0x2c, 0xef, 0xd2, 0x88, 0x94,
+	0x71, 0x40, 0x1c, 0xd7, 0xe7, 0xc1, 0x32, 0x76, 0x5e, 0xe1, 0x09, 0x48, 0x83, 0xd4, 0xe3, 0x52,
+	0xcb, 0xca, 0x32, 0x0d, 0x58, 0xf5, 0xe5, 0x8b, 0x7f, 0x2f, 0xe2, 0x2d, 0x95, 0xb8, 0x26, 0xf1,
+	0xdc, 0x1a, 0x89, 0x58, 0x63, 0x88, 0xd8, 0x1a, 0xf5, 0xa8, 0x43, 0x53, 0x62, 0xd1, 0x2c, 0x80,
+	0xcf, 0xba, 0x02, 0xb6, 0x39, 0x54, 0x85, 0xee, 0xed, 0xd3, 0x30, 0x42, 0x4f, 0xc0, 0xc5, 0xc4,
+	0xdb, 0x30, 0x60, 0x7e, 0x48, 0xe1, 0x5d, 0x30, 0x25, 0xe0, 0x4b, 0xc6, 0x82, 0x71, 0xed, 0xdc,
+	0x5a, 0xc9, 0x1e, 0xb4, 0xd3, 0x16, 0x19, 0x9b, 0xff, 0x1d, 0xfd, 0xba, 0x5c, 0xa8, 0xc8, 0x68,
+	0x74, 0x07, 0xcc, 0xf3, 0x72, 0x5b, 0x34, 0x7a, 0xd8, 0x55, 0xf7, 0x38, 0x8e, 0x97, 0xfb, 0xc1,
+	0x59, 0x30, 0xc9, 0x65, 0xf3, 0xba, 0xc5, 0x8a, 0x78, 0x40, 0x01, 0xb0, 0x74, 0x69, 0x12, 0xe8,
+	0x29, 0x98, 0xa1, 0x89, 0x15, 0x09, 0xb6, 0xa0, 0x82, 0x25, 0x2b, 0x48, 0xc0, 0x81, 0x6c, 0xe4,
+	0x48, 0xd0, 0x0d, 0xcf, 0x4b, 0x07, 0x7d, 0x04, 0x40, 0xaf, 0xc3, 0x72, 0xb3, 0x65, 0x5b, 0x1c,
+	0x07, 0xbb, 0x7b, 0x1c, 0x6c, 0x71, 0xda, 0xe4, 0x71, 0xb0, 0xb7, 0x89, 0x13, 0xe7, 0x56, 0xfa,
+	0x32, 0xd1, 0x37, 0x43, 0x6a, 0x4b, 0xd9, 0x29, 0x43, 0x5b, 0x71, 0x7c, 0x6d, 0x70, 0x2b, 0x81,
+	0x3e, 0xc1, 0xd1, 0x57, 0x72, 0xd1, 0x05, 0x4c, 0x82, 0xfd, 0x3e, 0x58, 0x8c, 0xdb, 0xf2, 0x3c,
+	0x3e, 0x83, 0x8a, 0x51, 0x25, 0xf0, 0x3f, 0xa9, 0xd5, 0x1a, 0x34, 0x14, 0x67, 0x65, 0xba, 0x12,
+	0x3f, 0xa2, 0xb7, 0x06, 0x40, 0x59, 0xf9, 0x52, 0xfe, 0x0e, 0x80, 0x4d, 0x65, 0x55, 0x3a, 0x7e,
+	0x55, 0xb5, 0x40, 0xad, 0x24, 0x6d, 0x48, 0xa9, 0x82, 0x5e, 0x49, 0x05, 0x1b, 0x9e, 0xa7, 0x57,
+	0x70, 0x5a, 0xad, 0xfe, 0x1e, 0xeb, 0xd5, 0xec, 0x96, 0xa3, 0xb7, 0x78, 0x72, 0xbd, 0x67, 0xd2,
+	0xfa, 0x07, 0xf1, 0x48, 0x19, 0xb3, 0xf5, 0x69, 0xf9, 0x3d, 0x2b, 0x6a, 0xca, 0xaa, 0xbe, 0xf5,
+	0x6a, 0xa5, 0xd8, 0x0a, 0xb5, 0x4a, 0x7f, 0xeb, 0xf5, 0x0a, 0xce, 0xa2, 0xf5, 0x63, 0xe8, 0x2d,
+	0x9e, 0x5c, 0xef, 0xa9, 0xb5, 0x7e, 0xed, 0xf3, 0x34, 0x98, 0xe4, 0x5a, 0xe0, 0x6b, 0x30, 0x25,
+	0xa6, 0x3c, 0x4c, 0x81, 0x53, 0x2f, 0x13, 0x73, 0x29, 0x27, 0x4a, 0x6c, 0x86, 0x16, 0xde, 0xfd,
+	0xf8, 0xf3, 0x61, 0xc2, 0x84, 0x25, 0xac, 0xb9, 0x31, 0xe1, 0x27, 0x03, 0xcc, 0x24, 0x47, 0x1d,
+	0xc4, 0x9a, 0xda, 0xba, 0x9b, 0xc6, 0xbc, 0x35, 0x7c, 0x82, 0xe4, 0x2a, 0x73, 0xae, 0x1b, 0x70,
+	0x15, 0xe7, 0x5d, 0xd5, 0xf8, 0x80, 0xbf, 0x38, 0x84, 0x1f, 0x0d, 0x70, 0x21, 0x59, 0x6d, 0xc3,
+	0xf3, 0xb4, 0xac, 0xba, 0xcb, 0x46, 0xcb, 0xaa, 0xbd, 0x33, 0xd0, 0x2a, 0x67, 0xbd, 0x02, 0x17,
+	0x73, 0x59, 0xe1, 0x57, 0x03, 0x40, 0x75, 0x88, 0xc0, 0x75, 0xbd, 0x3f, 0xda, 0x51, 0x69, 0xde,
+	0x1e, 0x2d, 0x49, 0xc2, 0xde, 0xe3, 0xb0, 0x65, 0x88, 0xf1, 0x30, 0xdf, 0x36, 0xf8, 0x40, 0x4e,
+	0x91, 0x43, 0xf8, 0xc5, 0x00, 0x97, 0xd4, 0xba, 0x5d, 0x8b, 0xd7, 0xf5, 0x8e, 0x8d, 0x4e, 0x9f,
+	0x39, 0xaf, 0xd1, 0x4d, 0x4e, 0xbf, 0x02, 0x97, 0x86, 0xa2, 0xe7, 0x76, 0xab, 0x7f, 0xdc, 0x2c,
+	0xbb, 0xb5, 0xe3, 0x29, 0xcb, 0x6e, 0xfd, 0x94, 0xc9, 0xb2, 0x3b, 0xe5, 0xf3, 0x70, 0xc0, 0x6e,
+	0xb5, 0x6e, 0x8e, 0xdd, 0xa3, 0xd3, 0x67, 0xce, 0xc8, 0x2c, 0xbb, 0x53, 0xe8, 0x37, 0xd7, 0x8e,
+	0xda, 0x96, 0x71, 0xdc, 0xb6, 0x8c, 0xdf, 0x6d, 0xcb, 0x78, 0xdf, 0xb1, 0x0a, 0xc7, 0x1d, 0xab,
+	0xf0, 0xb3, 0x63, 0x15, 0x76, 0x4a, 0x22, 0xff, 0x4d, 0x7f, 0x85, 0xa8, 0x15, 0xd0, 0x70, 0x77,
+	0x8a, 0x7f, 0x11, 0xaf, 0xff, 0x0d, 0x00, 0x00, 0xff, 0xff, 0xa3, 0xc6, 0x30, 0xaa, 0x42, 0x0c,
+	0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -560,6 +754,9 @@ type QueryClient interface {
 	// Queries a list of ValidatorIncentive items.
 	ValidatorIncentive(ctx context.Context, in *QueryGetValidatorIncentiveRequest, opts ...grpc.CallOption) (*QueryGetValidatorIncentiveResponse, error)
 	ValidatorIncentiveAll(ctx context.Context, in *QueryAllValidatorIncentiveRequest, opts ...grpc.CallOption) (*QueryAllValidatorIncentiveResponse, error)
+	// Queries a list of DelegetorIncentive items.
+	DelegetorIncentive(ctx context.Context, in *QueryGetDelegetorIncentiveRequest, opts ...grpc.CallOption) (*QueryGetDelegetorIncentiveResponse, error)
+	DelegetorIncentiveAll(ctx context.Context, in *QueryAllDelegetorIncentiveRequest, opts ...grpc.CallOption) (*QueryAllDelegetorIncentiveResponse, error)
 }
 
 type queryClient struct {
@@ -615,6 +812,24 @@ func (c *queryClient) ValidatorIncentiveAll(ctx context.Context, in *QueryAllVal
 	return out, nil
 }
 
+func (c *queryClient) DelegetorIncentive(ctx context.Context, in *QueryGetDelegetorIncentiveRequest, opts ...grpc.CallOption) (*QueryGetDelegetorIncentiveResponse, error) {
+	out := new(QueryGetDelegetorIncentiveResponse)
+	err := c.cc.Invoke(ctx, "/mycel.incentives.Query/DelegetorIncentive", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) DelegetorIncentiveAll(ctx context.Context, in *QueryAllDelegetorIncentiveRequest, opts ...grpc.CallOption) (*QueryAllDelegetorIncentiveResponse, error) {
+	out := new(QueryAllDelegetorIncentiveResponse)
+	err := c.cc.Invoke(ctx, "/mycel.incentives.Query/DelegetorIncentiveAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
@@ -625,6 +840,9 @@ type QueryServer interface {
 	// Queries a list of ValidatorIncentive items.
 	ValidatorIncentive(context.Context, *QueryGetValidatorIncentiveRequest) (*QueryGetValidatorIncentiveResponse, error)
 	ValidatorIncentiveAll(context.Context, *QueryAllValidatorIncentiveRequest) (*QueryAllValidatorIncentiveResponse, error)
+	// Queries a list of DelegetorIncentive items.
+	DelegetorIncentive(context.Context, *QueryGetDelegetorIncentiveRequest) (*QueryGetDelegetorIncentiveResponse, error)
+	DelegetorIncentiveAll(context.Context, *QueryAllDelegetorIncentiveRequest) (*QueryAllDelegetorIncentiveResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -645,6 +863,12 @@ func (*UnimplementedQueryServer) ValidatorIncentive(ctx context.Context, req *Qu
 }
 func (*UnimplementedQueryServer) ValidatorIncentiveAll(ctx context.Context, req *QueryAllValidatorIncentiveRequest) (*QueryAllValidatorIncentiveResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValidatorIncentiveAll not implemented")
+}
+func (*UnimplementedQueryServer) DelegetorIncentive(ctx context.Context, req *QueryGetDelegetorIncentiveRequest) (*QueryGetDelegetorIncentiveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DelegetorIncentive not implemented")
+}
+func (*UnimplementedQueryServer) DelegetorIncentiveAll(ctx context.Context, req *QueryAllDelegetorIncentiveRequest) (*QueryAllDelegetorIncentiveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DelegetorIncentiveAll not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -741,6 +965,42 @@ func _Query_ValidatorIncentiveAll_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_DelegetorIncentive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetDelegetorIncentiveRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).DelegetorIncentive(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mycel.incentives.Query/DelegetorIncentive",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).DelegetorIncentive(ctx, req.(*QueryGetDelegetorIncentiveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_DelegetorIncentiveAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllDelegetorIncentiveRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).DelegetorIncentiveAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mycel.incentives.Query/DelegetorIncentiveAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).DelegetorIncentiveAll(ctx, req.(*QueryAllDelegetorIncentiveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "mycel.incentives.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -764,6 +1024,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ValidatorIncentiveAll",
 			Handler:    _Query_ValidatorIncentiveAll_Handler,
+		},
+		{
+			MethodName: "DelegetorIncentive",
+			Handler:    _Query_DelegetorIncentive_Handler,
+		},
+		{
+			MethodName: "DelegetorIncentiveAll",
+			Handler:    _Query_DelegetorIncentiveAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1118,6 +1386,153 @@ func (m *QueryAllValidatorIncentiveResponse) MarshalToSizedBuffer(dAtA []byte) (
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryGetDelegetorIncentiveRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetDelegetorIncentiveRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetDelegetorIncentiveRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Address) > 0 {
+		i -= len(m.Address)
+		copy(dAtA[i:], m.Address)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Address)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetDelegetorIncentiveResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetDelegetorIncentiveResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetDelegetorIncentiveResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.DelegetorIncentive.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllDelegetorIncentiveRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllDelegetorIncentiveRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllDelegetorIncentiveRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllDelegetorIncentiveResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllDelegetorIncentiveResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllDelegetorIncentiveResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.DelegetorIncentive) > 0 {
+		for iNdEx := len(m.DelegetorIncentive) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.DelegetorIncentive[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -1249,6 +1664,62 @@ func (m *QueryAllValidatorIncentiveResponse) Size() (n int) {
 	_ = l
 	if len(m.ValidatorIncentive) > 0 {
 		for _, e := range m.ValidatorIncentive {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetDelegetorIncentiveRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Address)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetDelegetorIncentiveResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.DelegetorIncentive.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllDelegetorIncentiveRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllDelegetorIncentiveResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.DelegetorIncentive) > 0 {
+		for _, e := range m.DelegetorIncentive {
 			l = e.Size()
 			n += 1 + l + sovQuery(uint64(l))
 		}
@@ -2068,6 +2539,377 @@ func (m *QueryAllValidatorIncentiveResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.ValidatorIncentive = append(m.ValidatorIncentive, ValidatorIncentive{})
 			if err := m.ValidatorIncentive[len(m.ValidatorIncentive)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetDelegetorIncentiveRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetDelegetorIncentiveRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetDelegetorIncentiveRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Address", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Address = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetDelegetorIncentiveResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetDelegetorIncentiveResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetDelegetorIncentiveResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DelegetorIncentive", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.DelegetorIncentive.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllDelegetorIncentiveRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllDelegetorIncentiveRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllDelegetorIncentiveRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllDelegetorIncentiveResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllDelegetorIncentiveResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllDelegetorIncentiveResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DelegetorIncentive", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DelegetorIncentive = append(m.DelegetorIncentive, DelegetorIncentive{})
+			if err := m.DelegetorIncentive[len(m.DelegetorIncentive)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

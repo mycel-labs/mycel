@@ -8,6 +8,7 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "mycel/incentives/params.proto";
 import "mycel/incentives/epoch_incentive.proto";
 import "mycel/incentives/validator_incentive.proto";
+import "mycel/incentives/delegetor_incentive.proto";
 
 option go_package = "mycel/x/incentives/types";
 
@@ -37,6 +38,16 @@ service Query {
   }
   rpc ValidatorIncentiveAll (QueryAllValidatorIncentiveRequest) returns (QueryAllValidatorIncentiveResponse) {
     option (google.api.http).get = "/mycel/incentives/validator_incentive";
+  
+  }
+  
+  // Queries a list of DelegetorIncentive items.
+  rpc DelegetorIncentive    (QueryGetDelegetorIncentiveRequest) returns (QueryGetDelegetorIncentiveResponse) {
+    option (google.api.http).get = "/mycel/incentives/delegetor_incentive/{address}";
+  
+  }
+  rpc DelegetorIncentiveAll (QueryAllDelegetorIncentiveRequest) returns (QueryAllDelegetorIncentiveResponse) {
+    option (google.api.http).get = "/mycel/incentives/delegetor_incentive";
   
   }
 }
@@ -81,6 +92,23 @@ message QueryAllValidatorIncentiveRequest {
 
 message QueryAllValidatorIncentiveResponse {
   repeated ValidatorIncentive                     validatorIncentive = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination         = 2;
+}
+
+message QueryGetDelegetorIncentiveRequest {
+  string address = 1;
+}
+
+message QueryGetDelegetorIncentiveResponse {
+  DelegetorIncentive delegetorIncentive = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllDelegetorIncentiveRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllDelegetorIncentiveResponse {
+  repeated DelegetorIncentive                     delegetorIncentive = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination         = 2;
 }
 

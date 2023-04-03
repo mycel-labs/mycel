@@ -17,6 +17,10 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for _, elem := range genState.ValidatorIncentiveList {
 		k.SetValidatorIncentive(ctx, elem)
 	}
+	// Set all the delegetorIncentive
+	for _, elem := range genState.DelegetorIncentiveList {
+		k.SetDelegetorIncentive(ctx, elem)
+	}
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -28,6 +32,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 
 	genesis.EpochIncentiveList = k.GetAllEpochIncentive(ctx)
 	genesis.ValidatorIncentiveList = k.GetAllValidatorIncentive(ctx)
+	genesis.DelegetorIncentiveList = k.GetAllDelegetorIncentive(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

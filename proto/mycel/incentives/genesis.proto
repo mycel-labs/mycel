@@ -6,6 +6,7 @@ import "gogoproto/gogo.proto";
 import "mycel/incentives/params.proto";
 import "mycel/incentives/epoch_incentive.proto";
 import "mycel/incentives/validator_incentive.proto";
+import "mycel/incentives/delegetor_incentive.proto";
 
 option go_package = "mycel/x/incentives/types";
 
@@ -14,5 +15,6 @@ message GenesisState {
            Params             params                 = 1 [(gogoproto.nullable) = false];
   repeated EpochIncentive     epochIncentiveList     = 2 [(gogoproto.nullable) = false];
   repeated ValidatorIncentive validatorIncentiveList = 3 [(gogoproto.nullable) = false];
+  repeated DelegetorIncentive delegetorIncentiveList = 4 [(gogoproto.nullable) = false];
 }
 
