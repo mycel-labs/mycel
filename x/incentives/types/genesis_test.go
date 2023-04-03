@@ -39,6 +39,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Address: "1",
 					},
 				},
+				DelegetorIncentiveList: []types.DelegetorIncentive{
+					{
+						Address: "0",
+					},
+					{
+						Address: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -66,6 +74,20 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "duplicated validatorIncentive",
 			genState: &types.GenesisState{
 				ValidatorIncentiveList: []types.ValidatorIncentive{
+					{
+						Address: "0",
+					},
+					{
+						Address: "0",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated delegetorIncentive",
+			genState: &types.GenesisState{
+				DelegetorIncentiveList: []types.DelegetorIncentive{
 					{
 						Address: "0",
 					},
