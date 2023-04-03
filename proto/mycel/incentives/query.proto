@@ -68,7 +68,7 @@ message QueryAllIncentiveResponse {
 }
 
 message QueryGetEpochIncentiveRequest {
-  int32 epoch = 1;
+  int64 epoch = 1;
 }
 
 message QueryGetEpochIncentiveResponse {

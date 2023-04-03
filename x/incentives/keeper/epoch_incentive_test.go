@@ -4,12 +4,13 @@ import (
 	"strconv"
 	"testing"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/stretchr/testify/require"
 	keepertest "mycel/testutil/keeper"
 	"mycel/testutil/nullify"
 	"mycel/x/incentives/keeper"
 	"mycel/x/incentives/types"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/stretchr/testify/require"
 )
 
 // Prevent strconv unused error
@@ -18,7 +19,7 @@ var _ = strconv.IntSize
 func createNEpochIncentive(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.EpochIncentive {
 	items := make([]types.EpochIncentive, n)
 	for i := range items {
-		items[i].Epoch = int32(i)
+		items[i].Epoch = int64(i)
 
 		keeper.SetEpochIncentive(ctx, items[i])
 	}

@@ -1,9 +1,10 @@
 package keeper
 
 import (
+	"mycel/x/incentives/types"
+
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"mycel/x/incentives/types"
 )
 
 // SetEpochIncentive set a specific epochIncentive in the store from its index
@@ -18,7 +19,7 @@ func (k Keeper) SetEpochIncentive(ctx sdk.Context, epochIncentive types.EpochInc
 // GetEpochIncentive returns a epochIncentive from its index
 func (k Keeper) GetEpochIncentive(
 	ctx sdk.Context,
-	epoch int32,
+	epoch int64,
 
 ) (val types.EpochIncentive, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochIncentiveKeyPrefix))
@@ -37,7 +38,7 @@ func (k Keeper) GetEpochIncentive(
 // RemoveEpochIncentive removes a epochIncentive from the store
 func (k Keeper) RemoveEpochIncentive(
 	ctx sdk.Context,
-	epoch int32,
+	epoch int64,
 
 ) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochIncentiveKeyPrefix))
