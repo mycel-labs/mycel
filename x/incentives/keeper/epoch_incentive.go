@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	epochstypes "mycel/x/epochs/types"
 	"mycel/x/incentives/types"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
@@ -62,3 +63,44 @@ func (k Keeper) GetAllEpochIncentive(ctx sdk.Context) (list []types.EpochIncenti
 
 	return
 }
+func (k Keeper) SetEpochIncentivesOnRegistration(ctx sdk.Context, registrationPeriodInWeek uint, fee sdk.Coin) {
+	//Get current epoch
+	epoch, found := k.epochsKeeper.GetEpochInfo(ctx, epochstypes.WeeklyEpochId)
+	if !found {
+		panic("current epoch not found")
+	}
+	nextEpoch := epoch.CurrentEpoch + 1
+
+	amount := fee.Amount
+
+	// Calculate amount to be distributed per epoch
+	quotient := amount.QuoRaw(int64(registrationPeriodInWeek))
+	remainder := amount.ModRaw(int64(registrationPeriodInWeek))
+
+	amounts := make([]sdk.Int, registrationPeriodInWeek)
+
+	for i := 0; i < int(registrationPeriodInWeek); i++ {
+		amounts[i] = quotient
+	}
+	for i := 0; i < int(remainder.Int64()); i++ {
+		amounts[i] = amounts[i].AddRaw(1)
+	}
+
+	// Set incentives
+	for i, amountPerEpoch := range amounts {
+		incentive, found := k.GetEpochIncentive(ctx, nextEpoch+int64(i))
+		amount := sdk.NewCoin(fee.Denom, amountPerEpoch)
+
+		if !found {
+			incentive = types.EpochIncentive{
+				Epoch:  nextEpoch + int64(i),
+				Amount: sdk.NewCoins(amount),
+			}
+		} else {
+			incentive.Amount = incentive.Amount.Add(amount)
+		}
+		k.SetEpochIncentive(ctx, incentive)
+	}
+}
+
+func (k Keeper) SendRegistrationFeeToIncentiveModule(ctx sdk.Context) {}

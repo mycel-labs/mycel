@@ -103,7 +103,7 @@ func (k Keeper) PayTLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, doma
 // Pay SLD registration fee
 func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.Domain, registrationPeriodInWeek uint) (err error) {
 	fee := domain.GetRegistrationFee()
-	k.incentivesKeeper.SetIncentivesOnRegistration(ctx, registrationPeriodInWeek, fee)
+	k.incentivesKeeper.SetEpochIncentivesOnRegistration(ctx, registrationPeriodInWeek, fee)
 	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, incentivestypes.ModuleName, sdk.NewCoins(fee))
 	return err
 }
