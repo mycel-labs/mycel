@@ -52,11 +52,6 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid: true,
 		},
 		{
-			desc:     "duplicated incentive",
-			genState: &types.GenesisState{},
-			valid:    false,
-		},
-		{
 			desc: "duplicated epochIncentive",
 			genState: &types.GenesisState{
 				EpochIncentiveList: []types.EpochIncentive{
