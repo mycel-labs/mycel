@@ -45511,11 +45511,26 @@ paths:
                   type: object
                   properties:
                     epoch:
-                      type: integer
-                      format: int32
+                      type: string
+                      format: int64
                     amount:
-                      type: integer
-                      format: int32
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          denom:
+                            type: string
+                          amount:
+                            type: string
+                        description: >-
+                          Coin defines a token with a denomination and an
+                          amount.
+
+
+                          NOTE: The amount field is an Int which implements the
+                          custom method
+
+                          signatures required by gogoproto.
                     isDistributed:
                       type: boolean
               pagination:
@@ -45637,11 +45652,25 @@ paths:
                 type: object
                 properties:
                   epoch:
-                    type: integer
-                    format: int32
+                    type: string
+                    format: int64
                   amount:
-                    type: integer
-                    format: int32
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        denom:
+                          type: string
+                        amount:
+                          type: string
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
                   isDistributed:
                     type: boolean
         default:
@@ -45666,45 +45695,64 @@ paths:
         - name: epoch
           in: path
           required: true
-          type: integer
-          format: int32
+          type: string
+          format: int64
       tags:
         - Query
-  /mycel/incentives/incentive:
+  /mycel/incentives/params:
     get:
-      operationId: MycelIncentivesIncentiveAll
+      summary: Parameters queries the parameters of the module.
+      operationId: MycelIncentivesParams
       responses:
         '200':
           description: A successful response.
           schema:
             type: object
             properties:
-              incentive:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
                 type: array
                 items:
                   type: object
                   properties:
-                    epoch:
+                    '@type':
                       type: string
-                      format: int64
+                  additionalProperties: {}
+      tags:
+        - Query
+  /mycel/incentives/validator_incentive:
+    get:
+      operationId: MycelIncentivesValidatorIncentiveAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              validatorIncentive:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    address:
+                      type: string
                     amount:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          denom:
-                            type: string
-                          amount:
-                            type: string
-                        description: >-
-                          Coin defines a token with a denomination and an
-                          amount.
-
-
-                          NOTE: The amount field is an Int which implements the
-                          custom method
-
-                          signatures required by gogoproto.
+                      type: string
               pagination:
                 type: object
                 properties:
@@ -45810,39 +45858,23 @@ paths:
           type: boolean
       tags:
         - Query
-  /mycel/incentives/incentive/{epoch}:
+  /mycel/incentives/validator_incentive/{address}:
     get:
-      summary: Queries a list of Incentive items.
-      operationId: MycelIncentivesIncentive
+      summary: Queries a list of ValidatorIncentive items.
+      operationId: MycelIncentivesValidatorIncentive
       responses:
         '200':
           description: A successful response.
           schema:
             type: object
             properties:
-              incentive:
+              validatorIncentive:
                 type: object
                 properties:
-                  epoch:
+                  address:
                     type: string
-                    format: int64
                   amount:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        denom:
-                          type: string
-                        amount:
-                          type: string
-                      description: >-
-                        Coin defines a token with a denomination and an amount.
-
-
-                        NOTE: The amount field is an Int which implements the
-                        custom method
-
-                        signatures required by gogoproto.
+                    type: string
         default:
           description: An unexpected error response.
           schema:
@@ -45862,47 +45894,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: epoch
+        - name: address
           in: path
           required: true
           type: string
-          format: int64
-      tags:
-        - Query
-  /mycel/incentives/params:
-    get:
-      summary: Parameters queries the parameters of the module.
-      operationId: MycelIncentivesParams
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              params:
-                description: params holds all the parameters of this module.
-                type: object
-            description: >-
-              QueryParamsResponse is response type for the Query/Params RPC
-              method.
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
       tags:
         - Query
   /mycel/registry/domain:
@@ -75968,17 +75963,6 @@ definitions:
     type: object
     properties:
       epoch:
-        type: integer
-        format: int32
-      amount:
-        type: integer
-        format: int32
-      isDistributed:
-        type: boolean
-  mycel.incentives.Incentive:
-    type: object
-    properties:
-      epoch:
         type: string
         format: int64
       amount:
@@ -75995,6 +75979,8 @@ definitions:
 
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
+      isDistributed:
+        type: boolean
   mycel.incentives.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -76007,11 +75993,25 @@ definitions:
           type: object
           properties:
             epoch:
-              type: integer
-              format: int32
+              type: string
+              format: int64
             amount:
-              type: integer
-              format: int32
+              type: array
+              items:
+                type: object
+                properties:
+                  denom:
+                    type: string
+                  amount:
+                    type: string
+                description: >-
+                  Coin defines a token with a denomination and an amount.
+
+
+                  NOTE: The amount field is an Int which implements the custom
+                  method
+
+                  signatures required by gogoproto.
             isDistributed:
               type: boolean
       pagination:
@@ -76040,34 +76040,18 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  mycel.incentives.QueryAllIncentiveResponse:
+  mycel.incentives.QueryAllValidatorIncentiveResponse:
     type: object
     properties:
-      incentive:
+      validatorIncentive:
         type: array
         items:
           type: object
           properties:
-            epoch:
+            address:
               type: string
-              format: int64
             amount:
-              type: array
-              items:
-                type: object
-                properties:
-                  denom:
-                    type: string
-                  amount:
-                    type: string
-                description: >-
-                  Coin defines a token with a denomination and an amount.
-
-
-                  NOTE: The amount field is an Int which implements the custom
-                  method
-
-                  signatures required by gogoproto.
+              type: string
       pagination:
         type: object
         properties:
@@ -76101,20 +76085,6 @@ definitions:
         type: object
         properties:
           epoch:
-            type: integer
-            format: int32
-          amount:
-            type: integer
-            format: int32
-          isDistributed:
-            type: boolean
-  mycel.incentives.QueryGetIncentiveResponse:
-    type: object
-    properties:
-      incentive:
-        type: object
-        properties:
-          epoch:
             type: string
             format: int64
           amount:
@@ -76134,6 +76104,18 @@ definitions:
                 method
 
                 signatures required by gogoproto.
+          isDistributed:
+            type: boolean
+  mycel.incentives.QueryGetValidatorIncentiveResponse:
+    type: object
+    properties:
+      validatorIncentive:
+        type: object
+        properties:
+          address:
+            type: string
+          amount:
+            type: string
   mycel.incentives.QueryParamsResponse:
     type: object
     properties:
@@ -76141,6 +76123,13 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  mycel.incentives.ValidatorIncentive:
+    type: object
+    properties:
+      address:
+        type: string
+      amount:
+        type: string
   mycel.registry.DNSRecord:
     type: object
     properties:
