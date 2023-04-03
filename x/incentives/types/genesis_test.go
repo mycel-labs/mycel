@@ -3,8 +3,9 @@ package types_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	"mycel/x/incentives/types"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestGenesisState_Validate(t *testing.T) {
@@ -22,14 +23,6 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
-				IncentiveList: []types.Incentive{
-					{
-						Epoch: 0,
-					},
-					{
-						Epoch: 1,
-					},
-				},
 				EpochIncentiveList: []types.EpochIncentive{
 					{
 						Epoch: 0,
@@ -43,18 +36,9 @@ func TestGenesisState_Validate(t *testing.T) {
 			valid: true,
 		},
 		{
-			desc: "duplicated incentive",
-			genState: &types.GenesisState{
-				IncentiveList: []types.Incentive{
-					{
-						Epoch: 0,
-					},
-					{
-						Epoch: 0,
-					},
-				},
-			},
-			valid: false,
+			desc:     "duplicated incentive",
+			genState: &types.GenesisState{},
+			valid:    false,
 		},
 		{
 			desc: "duplicated epochIncentive",
