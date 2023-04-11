@@ -17,6 +17,6 @@ FROM ubuntu
 RUN apt update \
  && apt install -y ca-certificates vim
 WORKDIR /root/
-COPY --from=builder /build/myceld ./
-CMD ["./myceld", "start"]
+COPY --from=builder /build/myceld /usr/local/bin
+CMD ["myceld", "start"]
 
