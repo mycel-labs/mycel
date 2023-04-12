@@ -15,6 +15,12 @@ enum DNSRecordType {
   TXT = 8;
 }
 
+enum DNSRecordFormat {
+  IPV4 = 0;
+  IPV6 = 1;
+  FQDN = 2;
+}
+
 enum WalletRecordType {
   ETHEREUM_MAINNET = 0;
   ETHEREUM_GOERLI = 1;
@@ -28,7 +34,8 @@ enum WalletAddressFormat {
 
 message DNSRecord {
   DNSRecordType DNSRecordType = 1;
-  string value = 2;
+  DNSRecordFormat DNSRecordFormat = 2;
+  string value = 3;
 }
 
 message WalletRecord {
