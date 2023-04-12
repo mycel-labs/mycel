@@ -128,7 +128,7 @@ func TestDomainValidate(t *testing.T) {
 
 }
 
-func TestDomainUpdateRecord(t *testing.T) {
+func TestDomainUpdateWalletRecord(t *testing.T) {
 	testCases := []struct {
 		walletRecordType string
 		address          string
@@ -165,6 +165,49 @@ func TestDomainUpdateRecord(t *testing.T) {
 		if tc.expErr == "" {
 			require.Nil(t, err)
 			require.Equal(t, tc.address, domain.WalletRecords[tc.walletRecordType].Value)
+		} else {
+			require.EqualError(t, err, tc.expErr)
+		}
+	}
+}
+
+func TestDomainUpdateDNSRecord(t *testing.T) {
+	testCases := []struct {
+		dnsRecordType string
+		value         string
+		expErr        string
+	}{
+		// Valid wallet records
+		{dnsRecordType: "A", value: "10.0.0.1"},
+		{dnsRecordType: "A", value: "192.168.0.1"},
+		{dnsRecordType: "AAAA", value: "2001:0db8:85a3:0000:0000:8a2e:0370:7334"},
+		{dnsRecordType: "CNAME", value: "example.com."},
+
+		// Invalid record type
+		{
+			dnsRecordType: "FOO", value: "192.168.0.1",
+			expErr: fmt.Sprintf("invalid dns record type: FOO"),
+		},
+		{
+			dnsRecordType: "BAR", value: "192.168.0.1",
+			expErr: fmt.Sprintf("invalid dns record type: BAR"),
+		},
+		// Invalid value
+		{
+			dnsRecordType: "A", value: "2001:0db8:85a3:0000:0000:8a2e:0370:7334",
+			expErr: fmt.Sprintf("invalid dns record value: IPV4 2001:0db8:85a3:0000:0000:8a2e:0370:7334"),
+		},
+		{
+			dnsRecordType: "AAAA", value: "192.168.0.1",
+			expErr: fmt.Sprintf("invalid dns record value: IPV6 192.168.0.1"),
+		},
+	}
+	for _, tc := range testCases {
+		domain := Domain{Name: "foo", Parent: "myc"}
+		err := domain.UpdateDNSRecord(tc.dnsRecordType, tc.value)
+		if tc.expErr == "" {
+			require.Nil(t, err)
+			require.Equal(t, tc.value, domain.DNSRecords[tc.dnsRecordType].Value)
 		} else {
 			require.EqualError(t, err, tc.expErr)
 		}
