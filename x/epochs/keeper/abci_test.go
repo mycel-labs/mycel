@@ -2,8 +2,8 @@ package keeper_test
 
 import (
 	"fmt"
-	"mycel/x/epochs"
-	"mycel/x/epochs/types"
+	"github.com/mycel-domain/mycel/x/epochs"
+	"github.com/mycel-domain/mycel/x/epochs/types"
 	"time"
 )
 

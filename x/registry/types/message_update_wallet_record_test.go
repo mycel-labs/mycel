@@ -5,7 +5,7 @@ import (
 
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
-	"mycel/testutil/sample"
+	"github.com/mycel-domain/mycel/testutil/sample"
 )
 
 func TestMsgUpdateWalletRecord_ValidateBasic(t *testing.T) {

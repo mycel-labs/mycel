@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	epochstypes "mycel/x/epochs/types"
+	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

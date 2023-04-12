@@ -1,7 +1,7 @@
 package types
 
 import (
-	epochstypes "mycel/x/epochs/types"
+	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"

@@ -16,9 +16,9 @@ import (
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"mycel/x/epochs/client/cli"
-	"mycel/x/epochs/keeper"
-	"mycel/x/epochs/types"
+	"github.com/mycel-domain/mycel/x/epochs/client/cli"
+	"github.com/mycel-domain/mycel/x/epochs/keeper"
+	"github.com/mycel-domain/mycel/x/epochs/types"
 )
 
 var (
