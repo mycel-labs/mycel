@@ -3,8 +3,8 @@ package keeper
 import (
 	"errors"
 	"fmt"
-	incentivestypes "mycel/x/incentives/types"
-	"mycel/x/registry/types"
+	incentivestypes "github.com/mycel-domain/mycel/x/incentives/types"
+	"github.com/mycel-domain/mycel/x/registry/types"
 	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"

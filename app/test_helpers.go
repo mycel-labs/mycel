@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"math/rand"
-	appparams "mycel/app/params"
+	appparams "github.com/mycel-domain/mycel/app/params"
 	"strconv"
 	"testing"
 	"time"
@@ -37,9 +37,9 @@ import (
 	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	epochstypes "mycel/x/epochs/types"
-	incentivestypes "mycel/x/incentives/types"
-	registrytypes "mycel/x/registry/types"
+	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
+	incentivestypes "github.com/mycel-domain/mycel/x/incentives/types"
+	registrytypes "github.com/mycel-domain/mycel/x/registry/types"
 )
 
 // DefaultConsensusParams defines the default Tendermint consensus params used in

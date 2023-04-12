@@ -6,7 +6,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-// x/mycel module sentinel errors
+// x/github.com/mycel-domain/mycel module sentinel errors
 var (
 	ErrSample                   = sdkerrors.Register(ModuleName, 1100, "sample error")
 	ErrDomainIsAlreadyTaken     = sdkerrors.Register(ModuleName, 1101, "domain is already taken")

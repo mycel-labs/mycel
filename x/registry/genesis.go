@@ -2,8 +2,8 @@ package registry
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"mycel/x/registry/keeper"
-	"mycel/x/registry/types"
+	"github.com/mycel-domain/mycel/x/registry/keeper"
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

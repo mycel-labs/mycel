@@ -9,9 +9,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
-	"mycel/testutil/sample"
-	incentivessimulation "mycel/x/incentives/simulation"
-	"mycel/x/incentives/types"
+	"github.com/mycel-domain/mycel/testutil/sample"
+	incentivessimulation "github.com/mycel-domain/mycel/x/incentives/simulation"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 )
 
 // avoid unused import issue

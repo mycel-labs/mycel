@@ -3,8 +3,8 @@ package keeper
 import (
 	"testing"
 
-	"mycel/x/registry/keeper"
-	"mycel/x/registry/types"
+	"github.com/mycel-domain/mycel/x/registry/keeper"
+	"github.com/mycel-domain/mycel/x/registry/types"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
