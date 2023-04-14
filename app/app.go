@@ -104,24 +104,24 @@ import (
 	dbm "github.com/tendermint/tm-db"
 
 	// Registry
-	registrymodule "mycel/x/registry"
-	registrymodulekeeper "mycel/x/registry/keeper"
-	registrymoduletypes "mycel/x/registry/types"
+	registrymodule "github.com/mycel-domain/mycel/x/registry"
+	registrymodulekeeper "github.com/mycel-domain/mycel/x/registry/keeper"
+	registrymoduletypes "github.com/mycel-domain/mycel/x/registry/types"
 
 	// Epochs
-	epochsmodule "mycel/x/epochs"
-	epochsmodulekeeper "mycel/x/epochs/keeper"
-	epochsmoduletypes "mycel/x/epochs/types"
+	epochsmodule "github.com/mycel-domain/mycel/x/epochs"
+	epochsmodulekeeper "github.com/mycel-domain/mycel/x/epochs/keeper"
+	epochsmoduletypes "github.com/mycel-domain/mycel/x/epochs/types"
 
 	// Incentives
-	incentivesmodule "mycel/x/incentives"
-	incentivesmodulekeeper "mycel/x/incentives/keeper"
-	incentivesmoduletypes "mycel/x/incentives/types"
+	incentivesmodule "github.com/mycel-domain/mycel/x/incentives"
+	incentivesmodulekeeper "github.com/mycel-domain/mycel/x/incentives/keeper"
+	incentivesmoduletypes "github.com/mycel-domain/mycel/x/incentives/types"
 
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
-	appparams "mycel/app/params"
-	"mycel/docs"
+	appparams "github.com/mycel-domain/mycel/app/params"
+	"github.com/mycel-domain/mycel/docs"
 )
 
 const (

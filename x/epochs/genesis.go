@@ -1,8 +1,8 @@
 package epochs
 
 import (
-	"mycel/x/epochs/keeper"
-	"mycel/x/epochs/types"
+	"github.com/mycel-domain/mycel/x/epochs/keeper"
+	"github.com/mycel-domain/mycel/x/epochs/types"
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"

@@ -1,4 +1,4 @@
-module mycel
+module github.com/mycel-domain/mycel
 
 go 1.19
 

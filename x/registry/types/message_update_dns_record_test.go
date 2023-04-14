@@ -3,26 +3,27 @@ package types
 import (
 	"testing"
 
+	"mycel/testutil/sample"
+
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
-	"github.com/mycel-domain/mycel/testutil/sample"
 )
 
-func TestMsgUpdateWalletRecord_ValidateBasic(t *testing.T) {
+func TestMsgUpdateDnsRecord_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgUpdateWalletRecord
+		msg  MsgUpdateDnsRecord
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgUpdateWalletRecord{
+			msg: MsgUpdateDnsRecord{
 				Creator: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgUpdateWalletRecord{
+			msg: MsgUpdateDnsRecord{
 				Creator: sample.AccAddress(),
 			},
 		},

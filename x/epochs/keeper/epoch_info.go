@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"mycel/x/epochs/types"
+	"github.com/mycel-domain/mycel/x/epochs/types"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"

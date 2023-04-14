@@ -1,12 +1,12 @@
 package keeper_test
 
 import (
-	mycelapp "mycel/app"
-	"mycel/x/incentives/types"
+	mycelapp "github.com/mycel-domain/mycel/app"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 	"testing"
 	"time"
 
-	epochstypes "mycel/x/epochs/types"
+	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"

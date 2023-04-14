@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"mycel/x/incentives/types"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 )
 
 type msgServer struct {

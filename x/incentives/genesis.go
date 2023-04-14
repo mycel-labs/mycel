@@ -2,8 +2,8 @@ package incentives
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"mycel/x/incentives/keeper"
-	"mycel/x/incentives/types"
+	"github.com/mycel-domain/mycel/x/incentives/keeper"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 )
 
 // InitGenesis initializes the module's state from a provided genesis state.

@@ -11,7 +11,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-func (k msgServer) UpdateWalletRecord(goCtx context.Context, msg *types.MsgUpdateWalletRecord) (*types.MsgUpdateWalletRecordResponse, error) {
+func (k msgServer) UpdateDnsRecord(goCtx context.Context, msg *types.MsgUpdateDnsRecord) (*types.MsgUpdateDnsRecordResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	domain, isFound := k.Keeper.GetDomain(ctx, msg.Name, msg.Parent)
@@ -24,20 +24,20 @@ func (k msgServer) UpdateWalletRecord(goCtx context.Context, msg *types.MsgUpdat
 		return nil, sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s.%s", msg.Name, msg.Parent)), types.ErrDomainNotOwned.Error())
 	}
 
-	err := domain.UpdateWalletRecord(msg.WalletRecordType, msg.Value)
+	err := domain.UpdateDNSRecord(msg.DnsRecordType, msg.Value)
 	if err != nil {
 		return nil, err
 	}
 	k.Keeper.SetDomain(ctx, domain)
 	// Emit event
 	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(types.EventTypeUpdateWalletRecord,
-			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventDomainName, msg.Name),
-			sdk.NewAttribute(types.AttributeRegisterDomainEventParent, msg.Parent),
-			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventWalletRecordType, msg.WalletRecordType),
-			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventValue, msg.Value),
+		sdk.NewEvent(types.EventTypeUpdateDNSRecord,
+			sdk.NewAttribute(types.AttributeUpdateDNSRecordEventDomainName, msg.Name),
+			sdk.NewAttribute(types.AttributeUpdateDNSRecordEventDomainParent, msg.Parent),
+			sdk.NewAttribute(types.AttributeUpdateDNSRecordEventDNSRecordType, msg.DnsRecordType),
+			sdk.NewAttribute(types.AttributeUpdateDNSRecordEventValue, msg.Value),
 		),
 	)
 
-	return &types.MsgUpdateWalletRecordResponse{}, nil
+	return &types.MsgUpdateDnsRecordResponse{}, nil
 }

@@ -46,6 +46,66 @@ npm run serve
 
 The frontend app is built using the `@starport/vue` and `@starport/vuex` packages. For details, see the [monorepo for Ignite front-end development](https://github.com/ignite/web).
 
+## Get started with docker
+### single node
+build
+```
+docker build . -t mycel
+```
+
+run
+```
+docker run -it --rm \
+    -p26657:26657 \
+    -p1317:1317 \
+    -p4500:4500 \
+    -v ~/.mycel:/root/.mycel \
+    mycel
+```
+you can generate your `.mycel` config directory with `ignite chain init`
+
+### multiple nodes
+use docker compose
+```
+docker compose up
+
+# initialize node2
+docker compose exec node2 myceld init node2
+
+# copy genesis.json
+docker compose cp node1:/root/.mycel/config/genesis.json /tmp/genesis.json
+docker compose cp /tmp/genesis.json node2:/root/.mycel/config/genesis.json
+
+# update config.toml
+docker compose exec node2 sed -i "s/persistent_peers = \"\"/persistent_peers = \"$(docker compose exec node1 myceld tendermint show-node-id)@node1:26656\"/g" /root/.mycel/config/config.toml
+
+# setup key
+docker compose exec node2 myceld keys add validator
+NODE2_ADDR=$(docker compose exec node2 myceld keys show validator --output json | jq -r '.address') # enter password
+
+# send stake token from node1
+docker compose exec node1 myceld tx bank send alice $NODE2_ADDR 50000000stake
+
+# stake
+docker compose exec node2 myceld tx staking create-validator \
+    --amount 50000000stake \
+    --from validator --pubkey=$(docker compose exec node2 myceld tendermint show-validator) \
+    --moniker="node2" \
+    --commission-rate="0.1" \
+    --commission-max-rate="0.2" \
+    --commission-max-change-rate="0.01" \
+    --min-self-delegation="50000000" \
+    --node tcp://node1:26657
+
+# check validators
+docker compose exec node1 myceld q staking validators
+
+# start node2
+docker compose exec node2 myceld start
+```
+
+
+
 ## Release
 To release a new version of your blockchain, create and push a new tag with `v` prefix. A new draft release with the configured targets will be created.
 
