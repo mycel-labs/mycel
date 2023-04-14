@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"mycel/app"
+	"github.com/mycel-domain/mycel/app"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/crypto/hd"

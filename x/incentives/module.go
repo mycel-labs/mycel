@@ -12,9 +12,9 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"mycel/x/incentives/client/cli"
-	"mycel/x/incentives/keeper"
-	"mycel/x/incentives/types"
+	"github.com/mycel-domain/mycel/x/incentives/client/cli"
+	"github.com/mycel-domain/mycel/x/incentives/keeper"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"

@@ -3,8 +3,8 @@ package keeper
 import (
 	"testing"
 
-	"mycel/x/epochs/keeper"
-	"mycel/x/epochs/types"
+	"github.com/mycel-domain/mycel/x/epochs/keeper"
+	"github.com/mycel-domain/mycel/x/epochs/types"
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"

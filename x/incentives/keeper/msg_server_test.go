@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	keepertest "mycel/testutil/keeper"
-	"mycel/x/incentives/keeper"
-	"mycel/x/incentives/types"
+	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
+	"github.com/mycel-domain/mycel/x/incentives/keeper"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 )
 
 func setupMsgServer(t testing.TB) (types.MsgServer, context.Context) {
