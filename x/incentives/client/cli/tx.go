@@ -8,7 +8,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	// "github.com/cosmos/cosmos-sdk/client/flags"
-	"mycel/x/incentives/types"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 )
 
 var (

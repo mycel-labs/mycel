@@ -4,10 +4,10 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	keepertest "mycel/testutil/keeper"
-	"mycel/testutil/nullify"
-	"mycel/x/incentives"
-	"mycel/x/incentives/types"
+	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
+	"github.com/mycel-domain/mycel/testutil/nullify"
+	"github.com/mycel-domain/mycel/x/incentives"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 )
 
 func TestGenesis(t *testing.T) {

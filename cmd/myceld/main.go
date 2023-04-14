@@ -6,8 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/server"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	"mycel/app"
-	"mycel/cmd/myceld/cmd"
+	"github.com/mycel-domain/mycel/app"
+	"github.com/mycel-domain/mycel/cmd/myceld/cmd"
 )
 
 func main() {

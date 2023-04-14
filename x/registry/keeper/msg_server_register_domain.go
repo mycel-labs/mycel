@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"mycel/x/registry/types"
+	"github.com/mycel-domain/mycel/x/registry/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

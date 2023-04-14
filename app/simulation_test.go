@@ -13,7 +13,7 @@ import (
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmtypes "github.com/tendermint/tendermint/types"
 
-	"mycel/app"
+	"github.com/mycel-domain/mycel/app"
 )
 
 func init() {

@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	testkeeper "mycel/testutil/keeper"
-	"mycel/x/registry/types"
+	testkeeper "github.com/mycel-domain/mycel/testutil/keeper"
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 func TestGetParams(t *testing.T) {
