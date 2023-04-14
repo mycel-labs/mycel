@@ -10,7 +10,7 @@ import (
 	// "github.com/cosmos/cosmos-sdk/client/flags"
 	// sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"mycel/x/registry/types"
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module

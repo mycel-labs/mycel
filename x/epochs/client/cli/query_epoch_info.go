@@ -3,7 +3,7 @@ package cli
 import (
 	"context"
 
-	"mycel/x/epochs/types"
+	"github.com/mycel-domain/mycel/x/epochs/types"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"

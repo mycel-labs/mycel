@@ -1,13 +1,13 @@
 package keeper_test
 
 import (
-	mycelapp "mycel/app"
-	"mycel/x/registry/keeper"
-	"mycel/x/registry/types"
+	mycelapp "github.com/mycel-domain/mycel/app"
+	"github.com/mycel-domain/mycel/x/registry/keeper"
+	"github.com/mycel-domain/mycel/x/registry/types"
 	"testing"
 	"time"
 
-	"mycel/testutil"
+	"github.com/mycel-domain/mycel/testutil"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"

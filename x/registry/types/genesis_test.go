@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"mycel/x/registry/types"
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 func TestGenesisState_Validate(t *testing.T) {
