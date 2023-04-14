@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"os"
 	"errors"
 	"fmt"
 	incentivestypes "github.com/mycel-domain/mycel/x/incentives/types"
@@ -39,8 +40,9 @@ func (k Keeper) ValidateRegisterTLD(ctx sdk.Context, domain types.Domain) (err e
 
 func (k Keeper) HookOnEthDomainRegistered(ctx sdk.Context, domain types.Domain) (err error) {
 
-	client, err := ethclient.Dial("https://goerli.infura.io/v3/fbcf2360d15644a1a9923a024e659117")
-	
+	//os.Getenv("RPC_ENDPOINT_ETHEREUM_MAINNET")
+	client, err := ethclient.Dial(os.Getenv("RPC_ENDPOINT_ETHEREUM_GOERLI"))
+
 	if err != nil {
         return err
 	}
@@ -74,6 +76,21 @@ func (k Keeper) ValidateRegsiterSLD(ctx sdk.Context, domain types.Domain) (err e
 		err = sdkerrors.Wrapf(errors.New(domain.Parent),
 			types.ErrParentDomainDoesNotExist.Error())
 	}
+
+    // FIXME: special handler for eth
+	if domain.GetParent() == "eth" {
+        client, err := ethclient.Dial(os.Getenv("RPC_ENDPOINT_ETHEREUM_GOERLI"))
+
+		if err != nil {
+			return err
+		}
+
+		_, err = ens.Resolve(client, domain.Name + ".eth")
+		if err != nil {
+			return err
+		}
+	}
+
 	return err
 }
 
@@ -179,6 +196,7 @@ func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.A
 		),
 	)
 
+    // FIXME: special handler for eth
 	parent := domain.GetParent()
 	if parent == "eth" {
 		err = k.HookOnEthDomainRegistered(ctx, domain)
