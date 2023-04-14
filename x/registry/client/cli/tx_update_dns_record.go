@@ -1,7 +1,7 @@
 package cli
 
 import (
-	"mycel/x/registry/types"
+	"github.com/mycel-domain/mycel/x/registry/types"
 	"strconv"
 
 	"github.com/cosmos/cosmos-sdk/client"
