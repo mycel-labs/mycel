@@ -2,16 +2,9 @@ import { useEffect, useState } from "react";
 import { useClient } from "../hooks/useClient";
 import { RegistryDomain } from "mycel-client-ts/mycel.registry/rest";
 import { IgntButton } from "@ignt/react-library";
+import { getNameAndParent } from "../utils/getNameAndParent";
 
-const getNameAndParent = (domain: string) => {
-  const s = domain.split(".");
-  if (s.length === 1) {
-    return { name: "", parent: s[0] };
-  }
-  return { name: s[0], parent: s.slice(1).join(".") }
-}
-
-export default function DataView() {
+export default function ResolveView() {
   const client = useClient();
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
@@ -40,7 +33,6 @@ export default function DataView() {
     <div className="w-3/4 mx-auto">
       {/* Uncomment the following component to add a form for a `modelName` -*/}
       {/* (<IgntCrud storeName="OrgRepoModule" itemName="modelName" />) */}
-      <h2 className=" text-2xl">Resolve Domain</h2>
       <div className="flex mt-2 p-2 justify-between">
         <input
           className="mr-6 mt-1 py-2 px-4 h-14 bg-gray-100 w-full border-xs text-base leading-tight rounded-xl outline-0"
@@ -72,7 +64,7 @@ export default function DataView() {
             <div className=" table-row">
               <div className="table-cell p-2">{domain?.name}.{domain?.parent}</div>
               <div className="table-cell p-2">{domain?.owner}</div>
-              <div className="table-cell p-2">{(new Date(Math.round(parseInt(domain?.expirationDate || "0") / 1000000))).toUTCString()}</div>
+              <div className="table-cell p-2">{domain?.expirationDate ? (new Date(Math.round(parseInt(domain?.expirationDate) / 1000000))).toUTCString() : ("")}</div>
             </div>
           </div>
         </div>
