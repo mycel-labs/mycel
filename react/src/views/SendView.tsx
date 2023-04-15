@@ -5,13 +5,19 @@ import { useDebounce } from "use-debounce";
 import { Web3Button } from "@web3modal/react";
 import { IgntButton } from "@ignt/react-library";
 import { useClient } from "../hooks/useClient";
-import { RegistryDomain } from "mycel-client-ts/mycel.registry/rest";
-import { getNameAndParent } from "../utils/getNameAndParent";
+import { RegistryDomain, RegistryWalletRecordType } from "mycel-client-ts/mycel.registry/rest";
+import { convertToNameAndParent } from "../utils/domainName";
+import { useRegistryDomain } from "../def-hooks/useRegistryDomain";
+
+const getWalletAddr = (domain: RegistryDomain, recordType: RegistryWalletRecordType) => {
+  return domain?.walletRecords ? domain.walletRecords[recordType].value || "" : ""
+}
 
 export default function SendView() {
-  const client = useClient();
+  const {registryDomain, isLoading: isLoadingRegistryDomain, updateRegistryDomain} = useRegistryDomain();
   const [domainName, setDomainName] = useState("")
-  const [debouncedDomainName] = useDebounce(domainName, 300)
+  const [targetWalletRecordType, _] = useState(RegistryWalletRecordType.ETHEREUM_MAINNET)
+  const [debouncedDomainName] = useDebounce(domainName, 500)
   const [to, setTo] = useState("")
 
   const [amount, setAmount] = useState("")
@@ -25,31 +31,25 @@ export default function SendView() {
   })
   const { data, sendTransactionAsync } = useSendTransaction(config)
 
-  const { isLoading, isSuccess } = useWaitForTransaction({
+  const { isLoading: isLoadingTx, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   })
 
-  const getDomain = async (name: string, parent: string): Promise<RegistryDomain | null> => {
-    try {
-      const domain = await client.MycelRegistry.query.queryDomain(name, parent);
-      return domain.data.domain || null
-    } catch (e) {
-      console.error(e);
-      return null;
+  useEffect(() => {
+    if (registryDomain) {
+      const walletAddr = registryDomain ? getWalletAddr(registryDomain, targetWalletRecordType) : ""
+      setTo(walletAddr || "")
+    } else {
+      setTo("")
     }
-  }
-
-  const convertToWalletAddr = async () => {
-    const {name, parent} = getNameAndParent(domainName)
-    const domain = await getDomain(name, parent)
-    const walletAddr = domain?.walletRecords ? domain.walletRecords["ETHEREUM_MAINNET"].value || "" : ""
-    setTo(walletAddr || "")
-  }
+  }, [registryDomain])
 
   useEffect(() => {
-    convertToWalletAddr()
+    updateRegistryDomain(domainName)
       .then(() => {})
-      .catch(e => {console.log(e)})
+      .catch(e => {
+        console.error(e)
+      })
   }, [debouncedDomainName])
 
   return (
@@ -59,7 +59,7 @@ export default function SendView() {
       </div>
       <div className="flex-row m-4">
         <input
-          className="mr-6 my-2 py-2 px-4 h-14 bg-gray-100 w-full border-xs text-base leading-tight rounded-xl outline-0"
+          className="mr-6 mt-2 py-2 px-4 h-14 bg-gray-100 w-full border-xs text-base leading-tight rounded-xl outline-0"
           aria-label="Recipient"
           onChange={async (e) => {
             setDomainName(e.target.value)
@@ -67,6 +67,13 @@ export default function SendView() {
           placeholder="Recipient Mycel Domain Name(e.g. your-name.foo.cel)"
           value={domainName}
         />
+        {
+          to ? (
+            <p className="m-2 text-sm text-gray-700"><span className="italic">{domainName}</span> in <span className="italic">{targetWalletRecordType}</span> is <span className="italic">{to}</span>.</p>
+          ) : (
+            <p className="m-2 text-sm text-red-500"><span className="italic">{domainName}</span> doesn't exists in registry.</p>
+          )
+        }
         <input
           className="mr-6 my-2 py-2 px-4 h-14 bg-gray-100 w-full border-xs text-base leading-tight rounded-xl outline-0"
           aria-label="Amount (ether)"
@@ -80,16 +87,16 @@ export default function SendView() {
             const res = await sendTransactionAsync?.()
             console.log("%o", res)
           }}
-          busy={isLoading}
-          disabled={isLoading || !sendTransactionAsync || !to || !amount}
+          busy={isLoadingTx || isLoadingRegistryDomain}
+          disabled={isLoadingTx || isLoadingRegistryDomain || !sendTransactionAsync || !to || !amount}
         >
-          {isLoading ? 'Sending...' : 'Send'}
+          {isLoadingTx ? 'Sending...' : 'Send'}
         </IgntButton>
         {isSuccess && (
           <div className="m-4">
-            Successfully sent {amount} ether to {to}
+            <p>Successfully sent {amount} ether to {to}</p>
             <div>
-              <a href={`https://goerli.etherscan.io/tx/${data?.hash}`}>Etherscan</a>
+              <a className=" underline" href={`https://goerli.etherscan.io/tx/${data?.hash}`}>Etherscan Result Link</a>
             </div>
           </div>
         )}
