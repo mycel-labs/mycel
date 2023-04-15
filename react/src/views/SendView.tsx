@@ -16,7 +16,7 @@ const getWalletAddr = (domain: RegistryDomain, recordType: RegistryWalletRecordT
 export default function SendView() {
   const {registryDomain, isLoading: isLoadingRegistryDomain, updateRegistryDomain} = useRegistryDomain();
   const [domainName, setDomainName] = useState("")
-  const [targetWalletRecordType, _] = useState(RegistryWalletRecordType.ETHEREUM_MAINNET)
+  const [targetWalletRecordType, _] = useState(RegistryWalletRecordType.ETHEREUM_GOERLI)
   const [debouncedDomainName] = useDebounce(domainName, 500)
   const [to, setTo] = useState("")
 
