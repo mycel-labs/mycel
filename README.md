@@ -9,6 +9,8 @@
 ## Get started
 
 ```
+# for register .eth domain
+export RPC_ENDPOINT_ETHEREUM_GOERLI="https://goerli.infura.io/v3/<YOUR_API_KEY>"
 ignite chain serve
 ```
 
