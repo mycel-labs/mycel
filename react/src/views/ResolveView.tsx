@@ -3,10 +3,14 @@ import { useClient } from "../hooks/useClient";
 import { RegistryDomain } from "mycel-client-ts/mycel.registry/rest";
 import { IgntButton } from "@ignt/react-library";
 import { getNameAndParent } from "../utils/getNameAndParent";
+import { useLocation } from 'react-router-dom';
 
 export default function ResolveView() {
+  const search = useLocation().search;
+  const query = new URLSearchParams(search);
   const client = useClient();
   const [isLoading, setIsLoading] = useState(false);
+  const [inputName, setInputName] = useState("");
   const [name, setName] = useState("");
   const [parent, setParent] = useState("");
   const [domain, setDomain] = useState<RegistryDomain | null>(null)
@@ -27,7 +31,20 @@ export default function ResolveView() {
   }
 
   useEffect(() => {
-  }, [name, parent])
+    const name = query.get("name") || ""
+    const parent = query.get("parent") || ""
+    if (inputName !== "" || name === "" || parent === "") {
+      return
+    }
+
+    setInputName(name + "." + parent)
+    setName(name)
+    setParent(parent)
+
+    getDomain(name, parent)
+      .then(() => { })
+      .catch(e => { })
+  }, [])
 
   return (
     <div className="w-3/4 mx-auto">
@@ -39,13 +56,16 @@ export default function ResolveView() {
           placeholder="Mycel Domain"
           onChange={(event) => {
             const { name, parent } = getNameAndParent(event.target.value);
+            setInputName(event.target.value);
             setName(name);
             setParent(parent);
           }}
           onKeyDown={async (event) => {
             if (event.nativeEvent.isComposing || event.key !== 'Enter') return
             await getDomain(name, parent);
+            console.log("enter!")
           }}
+          value={inputName}
         />
         <IgntButton className="mt-1 h-14 w-48"
           onClick={async () => { await getDomain(name, parent) }} busy={isLoading}>
