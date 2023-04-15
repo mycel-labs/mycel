@@ -1,13 +1,29 @@
-import { useMemo } from "react";
-import useCosmosBankV1Beta1 from "../hooks/useCosmosBankV1Beta1";
-import { useAddressContext } from "./addressContext";
-import useMycelRegistry from "../hooks/useMycelRegistry";
+import { useState } from "react";
+import { useClient } from "../hooks/useClient";
+import { RegistryDomain } from "mycel-client-ts/mycel.registry/rest";
+import { convertToNameAndParent } from "../utils/domainName";
 
-export const useRegistryDomain = (name: string, parent: string) => {
-  if (name === "" || parent === "") {
-    return { domain: undefined, isLoading: true};
+export const useRegistryDomain = () => {
+  const client = useClient();
+  const [isLoading, setIsLoading] = useState(false);
+  const [registryDomain, setRegistryDomain] = useState<RegistryDomain | null>(null)
+
+  const updateRegistryDomain = async (domainName: string) => {
+    const { name, parent } = convertToNameAndParent(domainName);
+    setIsLoading(true);
+    try {
+      if (!name || !parent) {
+        throw new Error("name or parent are empty")
+      }
+      const domain = await client.MycelRegistry.query.queryDomain(name, parent);
+      setRegistryDomain(domain.data.domain || null);
+    } catch (e) {
+      console.error(e);
+      setRegistryDomain(null);
+      setIsLoading(false);
+    }
+    setIsLoading(false);
   }
-  const { QueryDomain } = useMycelRegistry()
-  const query = QueryDomain(name, parent, {});
-  return { domain: query.data?.domain, isLoading: query.isLoading };
+
+  return {registryDomain, isLoading, updateRegistryDomain}
 };
