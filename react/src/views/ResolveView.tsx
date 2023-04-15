@@ -61,49 +61,49 @@ export default function DataView() {
         </IgntButton>
       </div>
       <div className="m-2">
-        <div className="my-2">
-          <h2 className=" text-center text-2xl m-2 font-semibold">Basic Information</h2>
-          <div className="table w-full border-collapse border">
-            <div className="table-header-group text-center">
-              <div className=" table-cell w-4/12 p-2 border">Domain Name</div>
-              <div className=" table-cell w-5/12 p-2 border">Owner Address</div>
-              <div className=" table-cell w-3/12 p-2 border">Expiration Date</div>
+        <div className="my-8">
+          <h2 className=" text-2xl m-2 font-semibold">Basic Information</h2>
+          <div className="table w-full border-collapse">
+            <div className="table-header-group border-b font-medium">
+              <div className=" table-cell w-4/12 p-2">Domain Name</div>
+              <div className=" table-cell w-5/12 p-2">Owner Address</div>
+              <div className=" table-cell w-3/12 p-2">Expiration Date</div>
             </div>
-            <div className=" table-row text-justify">
-              <div className="table-cell p-2 border">{domain?.name}.{domain?.parent}</div>
-              <div className="table-cell p-2 border">{domain?.owner}</div>
-              <div className="table-cell p-2 border">{(new Date(Math.round(parseInt(domain?.expirationDate || "0") / 1000000))).toUTCString()}</div>
+            <div className=" table-row">
+              <div className="table-cell p-2">{domain?.name}.{domain?.parent}</div>
+              <div className="table-cell p-2">{domain?.owner}</div>
+              <div className="table-cell p-2">{(new Date(Math.round(parseInt(domain?.expirationDate || "0") / 1000000))).toUTCString()}</div>
             </div>
           </div>
         </div>
-        <div className="my-4">
-          <h2 className=" text-center text-2xl m-2 font-semibold">DNS Records</h2>
-          <div className="table w-full">
-            <div className="table-header-group">
-              <div className=" table-cell p-2 border">DNS Record Type</div>
-              <div className=" table-cell p-2 border">Value</div>
+        <div className="my-8">
+          <h2 className=" text-2xl m-2 font-semibold">DNS Records</h2>
+          <div className="table w-full border-collapse">
+            <div className="table-header-group border-b font-medium">
+              <div className=" table-cell p-2">DNS Record Type</div>
+              <div className=" table-cell p-2">Value</div>
             </div>
             {Object.values(domain?.DNSRecords || []).map((v, i) => {
-              return <div key={i} className=" table-row text-justify">
-                <div className="table-cell p-2 border">{v.DNSRecordType}</div>
-                <div className="table-cell p-2 border">{v.value}</div>
+              return <div key={i} className="table-row text-justify">
+                <div className="table-cell p-2">{v.DNSRecordType}</div>
+                <div className="table-cell p-2">{v.value}</div>
               </div>
             })}
           </div>
         </div>
-        <div className="my-2">
-          <h2 className=" text-center text-2xl m-2 font-semibold">Wallet Records</h2>
-          <div className="table w-full">
-            <div className="table-header-group">
-              <div className=" table-cell p-2 border">Wallet Record Type</div>
-              <div className=" table-cell p-2 border">Wallet Address Format</div>
-              <div className=" table-cell p-2 border">Value</div>
+        <div className="my-8">
+          <h2 className="text-2xl m-2 font-semibold">Wallet Records</h2>
+          <div className="table w-full border-collapse">
+            <div className="table-header-group border-b font-medium">
+              <div className=" table-cell p-2">Wallet Record Type</div>
+              <div className=" table-cell p-2">Wallet Address Format</div>
+              <div className=" table-cell p-2">Value</div>
             </div>
             {Object.values(domain?.walletRecords || []).map((v, i) => {
               return <div key={i} className=" table-row text-justify">
-                <div className="table-cell p-2 border">{v.walletRecordType}</div>
-                <div className="table-cell p-2 border">{v.WalletAddressFormat}</div>
-                <div className="table-cell p-2 border">{v.value}</div>
+                <div className="table-cell p-2">{v.walletRecordType}</div>
+                <div className="table-cell p-2">{v.WalletAddressFormat}</div>
+                <div className="table-cell p-2">{v.value}</div>
               </div>
             })}
           </div>
