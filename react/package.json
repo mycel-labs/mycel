@@ -14,6 +14,7 @@
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.6",
     "ethers": "^5",
+    "fuse.js": "^6.6.2",
     "gradient-avatar": "^1.0.2",
     "long": "^5.2.0",
     "mycel-client-ts": "../ts-client",
