@@ -36,15 +36,14 @@ Your blockchain in development can be configured with `config.yml`. To learn mor
 
 ### Web Frontend
 
-Ignite CLI has scaffolded a Vue.js-based web app in the `vue` directory. Run the following commands to install dependencies and start the app:
+Ignite CLI has scaffolded a React-based web app in the `react` directory. Run the following commands to install dependencies and start the app:
 
 ```
-cd vue
-npm install
-npm run serve
+cd react
+yarn
+yarn dev
 ```
-
-The frontend app is built using the `@starport/vue` and `@starport/vuex` packages. For details, see the [monorepo for Ignite front-end development](https://github.com/ignite/web).
+For details, see the [monorepo for Ignite front-end development](https://github.com/ignite/web).
 
 ## Get started with docker
 ### single node
