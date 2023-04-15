@@ -4,6 +4,7 @@ import IgntHeader from "../components/IgntHeader";
 import DataView from "../views/ResolveView";
 import PortfolioView from "../views/PortfolioView";
 import ResolveView from "../views/ResolveView";
+import SendView from "../views/SendView";
 
 const items = [
   {
@@ -11,8 +12,12 @@ const items = [
     to: "/",
   },
   {
-    label: "Resolve",
+    label: "Resolve Domain",
     to: "/resolve",
+  },
+  {
+    label: "Send Transaction",
+    to: "/send",
   },
 ];
 const Layout = () => {
@@ -30,6 +35,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <PortfolioView /> },
       { path: "/resolve", element: <ResolveView /> },
+      { path: "/send", element: <SendView /> },
     ],
   },
 ]);
