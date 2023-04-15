@@ -69,7 +69,7 @@ export default function ExploreView() {
         {result.map(e => 
           <div className="w-full flex justify-between my-4" key={(e.name + '.' + e.parent)}>
             <h2 className=" text-2xl m-2 font-semibold">{e.name + '.' + e.parent}</h2>
-              <a href={"/resolve?q=" + e.name + '.' + e.parent}>
+              <a href={"/resolve?name=" + e.name + '&parent=' + e.parent}>
                 <IgntButton className="mt-1 h-10 w-48">
                   Resolve
                 </IgntButton>
