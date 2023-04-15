@@ -5,6 +5,7 @@ import DataView from "../views/ResolveView";
 import PortfolioView from "../views/PortfolioView";
 import ResolveView from "../views/ResolveView";
 import SendView from "../views/SendView";
+import ExploreView from "../views/ExploreView";
 
 const items = [
   {
@@ -19,6 +20,10 @@ const items = [
     label: "Send Transaction",
     to: "/send",
   },
+  {
+    label: "Explore",
+    to: "/explore"
+  }
 ];
 const Layout = () => {
   return (
@@ -36,6 +41,7 @@ const router = createBrowserRouter([
       { path: "/", element: <PortfolioView /> },
       { path: "/resolve", element: <ResolveView /> },
       { path: "/send", element: <SendView /> },
+      { path: "/explore", element: <ExploreView /> }
     ],
   },
 ]);
