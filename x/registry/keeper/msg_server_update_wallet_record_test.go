@@ -12,7 +12,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-func (suite *KeeperTestSuite) TestUpdateWaletRecord() {
+func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 	testCases := []struct {
 		creator          string
 		name             string
