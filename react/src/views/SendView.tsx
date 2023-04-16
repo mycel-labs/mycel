@@ -54,6 +54,7 @@ export default function SendView() {
 
   return (
     <div className="w-3/4 mx-auto">
+      <h2 className=" text-2xl">Send GoerliETH DEMO</h2>
       <div className="m-4">
         <Web3Button />
       </div>
