@@ -3,7 +3,7 @@ package mycel.epochs;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "mycel/x/epochs/types";
+option go_package = "github.com/mycel-domain/mycel/x/epochs/types";
 
 // Params defines the parameters for the module.
 message Params {

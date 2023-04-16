@@ -8,7 +8,7 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "mycel/incentives/params.proto";
 import "mycel/incentives/incentive.proto";
 
-option go_package = "mycel/x/incentives/types";
+option go_package = "github.com/mycel-domain/mycel/x/incentives/types";
 
 // Query defines the gRPC querier service.
 service Query {

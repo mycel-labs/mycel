@@ -1,7 +1,7 @@
 syntax = "proto3";
 package mycel.incentives;
 
-option go_package = "mycel/x/incentives/types";
+option go_package = "github.com/mycel-domain/mycel/x/incentives/types";
 
 // Msg defines the Msg service.
 service Msg {}

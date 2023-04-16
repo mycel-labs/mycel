@@ -8,7 +8,7 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "mycel/epochs/params.proto";
 import "mycel/epochs/epoch_info.proto";
 
-option go_package = "mycel/x/epochs/types";
+option go_package = "github.com/mycel-domain/mycel/x/epochs/types";
 
 // Query defines the gRPC querier service.
 service Query {
