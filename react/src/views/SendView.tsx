@@ -1,22 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { useAccount, usePrepareSendTransaction, useSendTransaction, useWaitForTransaction } from "wagmi";
+import { useAccount, useConnect, usePrepareSendTransaction, useSendTransaction, useWaitForTransaction } from "wagmi";
 import { parseEther } from "ethers/lib/utils.js";
 import { useDebounce } from "use-debounce";
 import { Web3Button } from "@web3modal/react";
 import { IgntButton } from "@ignt/react-library";
-import { useClient } from "../hooks/useClient";
 import { RegistryDomain, RegistryWalletRecordType } from "mycel-client-ts/mycel.registry/rest";
-import { convertToNameAndParent } from "../utils/domainName";
 import { useRegistryDomain } from "../def-hooks/useRegistryDomain";
+import { mainnet, polygon, goerli, polygonMumbai, gnosisChiado } from 'wagmi/chains'
 
 const getWalletAddr = (domain: RegistryDomain, recordType: RegistryWalletRecordType) => {
   return domain?.walletRecords ? domain.walletRecords[recordType]?.value || "" : ""
 }
 
+const getConnectedWalletRecordType = (chainID: number) => {
+  switch(chainID) {
+    case mainnet.id:
+      return RegistryWalletRecordType.ETHEREUM_MAINNET
+    case polygon.id:
+      return RegistryWalletRecordType.POLYGON_MAINNET
+    case goerli.id:
+      return RegistryWalletRecordType.ETHEREUM_GOERLI
+    case polygonMumbai.id:
+      return RegistryWalletRecordType.POLYGON_MUMBAI
+    case gnosisChiado.id:
+      throw new Error("Not implemented yet")
+    default:
+      throw new Error(`Unknown chainID: ${chainID}`)
+  }
+}
+
 export default function SendView() {
+  const { connector: activeConnector, isConnected } = useAccount()
+  // const { connect, connectors, error, isLoading, pendingConnector } = useConnect()
   const {registryDomain, isLoading: isLoadingRegistryDomain, updateRegistryDomain} = useRegistryDomain();
   const [domainName, setDomainName] = useState("")
+<<<<<<< Updated upstream
   const [targetWalletRecordType, _] = useState(RegistryWalletRecordType.ETHEREUM_GOERLI)
+=======
+  const [targetWalletRecordType, setTargetWalletRecordType] = useState(RegistryWalletRecordType.ETHEREUM_MAINNET)
+>>>>>>> Stashed changes
   const [debouncedDomainName] = useDebounce(domainName, 500)
   const [to, setTo] = useState("")
 
@@ -34,6 +56,23 @@ export default function SendView() {
   const { isLoading: isLoadingTx, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   })
+
+  useEffect(() => {
+    const updateTargetWalletRecordType = async () => {
+      if (isConnected) {
+        const chainID = await activeConnector?.getChainId()
+        if (!chainID) {
+          return
+        }
+        setTargetWalletRecordType(getConnectedWalletRecordType(chainID))
+      }
+    }
+    updateTargetWalletRecordType()
+      .then(() => {})
+      .catch(e => {
+        console.log(e)
+      })
+  }, [activeConnector])
 
   useEffect(() => {
     if (registryDomain) {
