@@ -9,7 +9,7 @@ import { useRegistryDomain } from "../def-hooks/useRegistryDomain";
 import { mainnet, polygon, goerli, polygonMumbai, gnosisChiado } from 'wagmi/chains'
 
 const getWalletAddr = (domain: RegistryDomain, recordType: RegistryWalletRecordType) => {
-  return domain?.walletRecords ? domain.walletRecords[recordType]?.value || "" : ""
+  return domain?.walletRecords ? domain.walletRecords[recordType].value || "" : ""
 }
 
 const getConnectedWalletRecordType = (chainID: number) => {
@@ -34,11 +34,7 @@ export default function SendView() {
   // const { connect, connectors, error, isLoading, pendingConnector } = useConnect()
   const {registryDomain, isLoading: isLoadingRegistryDomain, updateRegistryDomain} = useRegistryDomain();
   const [domainName, setDomainName] = useState("")
-<<<<<<< Updated upstream
-  const [targetWalletRecordType, _] = useState(RegistryWalletRecordType.ETHEREUM_GOERLI)
-=======
   const [targetWalletRecordType, setTargetWalletRecordType] = useState(RegistryWalletRecordType.ETHEREUM_MAINNET)
->>>>>>> Stashed changes
   const [debouncedDomainName] = useDebounce(domainName, 500)
   const [to, setTo] = useState("")
 
@@ -93,7 +89,6 @@ export default function SendView() {
 
   return (
     <div className="w-3/4 mx-auto">
-      <h2 className=" text-2xl">Send GoerliETH DEMO</h2>
       <div className="m-4">
         <Web3Button />
       </div>
