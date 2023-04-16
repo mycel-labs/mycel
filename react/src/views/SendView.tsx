@@ -10,7 +10,7 @@ import { convertToNameAndParent } from "../utils/domainName";
 import { useRegistryDomain } from "../def-hooks/useRegistryDomain";
 
 const getWalletAddr = (domain: RegistryDomain, recordType: RegistryWalletRecordType) => {
-  return domain?.walletRecords ? domain.walletRecords[recordType].value || "" : ""
+  return domain?.walletRecords ? domain.walletRecords[recordType]?.value || "" : ""
 }
 
 export default function SendView() {
