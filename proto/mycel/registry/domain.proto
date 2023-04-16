@@ -26,6 +26,8 @@ enum WalletRecordType {
   ETHEREUM_GOERLI = 1;
   POLYGON_MAINNET = 2;
   POLYGON_MUMBAI = 3;
+  GNOSIS_MAINNET = 4;
+  GNOSIS_CHIADO = 5;
 }
 
 enum WalletAddressFormat {
