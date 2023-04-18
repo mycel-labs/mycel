@@ -3,7 +3,7 @@ package types
 import (
 	"testing"
 
-	"mycel/testutil/sample"
+	"github.com/mycel-domain/mycel/testutil/sample"
 
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
