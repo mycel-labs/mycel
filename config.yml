@@ -4,7 +4,7 @@ accounts:
   coins:
   - 20000token
   - 200000000stake
-  - 300000000MYCEL
+  - 30000000mycel
 - name: bob
   coins:
   - 10000token
