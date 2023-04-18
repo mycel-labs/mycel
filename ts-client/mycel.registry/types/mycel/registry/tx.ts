@@ -15,6 +15,17 @@ export interface MsgUpdateWalletRecord {
 export interface MsgUpdateWalletRecordResponse {
 }
 
+export interface MsgUpdateDnsRecord {
+  creator: string;
+  name: string;
+  parent: string;
+  dnsRecordType: string;
+  value: string;
+}
+
+export interface MsgUpdateDnsRecordResponse {
+}
+
 export interface MsgRegisterDomain {
   creator: string;
   name: string;
@@ -149,6 +160,130 @@ export const MsgUpdateWalletRecordResponse = {
   },
 };
 
+function createBaseMsgUpdateDnsRecord(): MsgUpdateDnsRecord {
+  return { creator: "", name: "", parent: "", dnsRecordType: "", value: "" };
+}
+
+export const MsgUpdateDnsRecord = {
+  encode(message: MsgUpdateDnsRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.name !== "") {
+      writer.uint32(18).string(message.name);
+    }
+    if (message.parent !== "") {
+      writer.uint32(26).string(message.parent);
+    }
+    if (message.dnsRecordType !== "") {
+      writer.uint32(34).string(message.dnsRecordType);
+    }
+    if (message.value !== "") {
+      writer.uint32(42).string(message.value);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateDnsRecord {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUpdateDnsRecord();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.name = reader.string();
+          break;
+        case 3:
+          message.parent = reader.string();
+          break;
+        case 4:
+          message.dnsRecordType = reader.string();
+          break;
+        case 5:
+          message.value = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgUpdateDnsRecord {
+    return {
+      creator: isSet(object.creator) ? String(object.creator) : "",
+      name: isSet(object.name) ? String(object.name) : "",
+      parent: isSet(object.parent) ? String(object.parent) : "",
+      dnsRecordType: isSet(object.dnsRecordType) ? String(object.dnsRecordType) : "",
+      value: isSet(object.value) ? String(object.value) : "",
+    };
+  },
+
+  toJSON(message: MsgUpdateDnsRecord): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.name !== undefined && (obj.name = message.name);
+    message.parent !== undefined && (obj.parent = message.parent);
+    message.dnsRecordType !== undefined && (obj.dnsRecordType = message.dnsRecordType);
+    message.value !== undefined && (obj.value = message.value);
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgUpdateDnsRecord>, I>>(object: I): MsgUpdateDnsRecord {
+    const message = createBaseMsgUpdateDnsRecord();
+    message.creator = object.creator ?? "";
+    message.name = object.name ?? "";
+    message.parent = object.parent ?? "";
+    message.dnsRecordType = object.dnsRecordType ?? "";
+    message.value = object.value ?? "";
+    return message;
+  },
+};
+
+function createBaseMsgUpdateDnsRecordResponse(): MsgUpdateDnsRecordResponse {
+  return {};
+}
+
+export const MsgUpdateDnsRecordResponse = {
+  encode(_: MsgUpdateDnsRecordResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateDnsRecordResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMsgUpdateDnsRecordResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgUpdateDnsRecordResponse {
+    return {};
+  },
+
+  toJSON(_: MsgUpdateDnsRecordResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MsgUpdateDnsRecordResponse>, I>>(_: I): MsgUpdateDnsRecordResponse {
+    const message = createBaseMsgUpdateDnsRecordResponse();
+    return message;
+  },
+};
+
 function createBaseMsgRegisterDomain(): MsgRegisterDomain {
   return { creator: "", name: "", parent: "", registrationPeriodInYear: 0 };
 }
@@ -268,6 +403,7 @@ export const MsgRegisterDomainResponse = {
 /** Msg defines the Msg service. */
 export interface Msg {
   UpdateWalletRecord(request: MsgUpdateWalletRecord): Promise<MsgUpdateWalletRecordResponse>;
+  UpdateDnsRecord(request: MsgUpdateDnsRecord): Promise<MsgUpdateDnsRecordResponse>;
   RegisterDomain(request: MsgRegisterDomain): Promise<MsgRegisterDomainResponse>;
 }
 
@@ -276,12 +412,19 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.UpdateWalletRecord = this.UpdateWalletRecord.bind(this);
+    this.UpdateDnsRecord = this.UpdateDnsRecord.bind(this);
     this.RegisterDomain = this.RegisterDomain.bind(this);
   }
   UpdateWalletRecord(request: MsgUpdateWalletRecord): Promise<MsgUpdateWalletRecordResponse> {
     const data = MsgUpdateWalletRecord.encode(request).finish();
     const promise = this.rpc.request("mycel.registry.Msg", "UpdateWalletRecord", data);
     return promise.then((data) => MsgUpdateWalletRecordResponse.decode(new _m0.Reader(data)));
+  }
+
+  UpdateDnsRecord(request: MsgUpdateDnsRecord): Promise<MsgUpdateDnsRecordResponse> {
+    const data = MsgUpdateDnsRecord.encode(request).finish();
+    const promise = this.rpc.request("mycel.registry.Msg", "UpdateDnsRecord", data);
+    return promise.then((data) => MsgUpdateDnsRecordResponse.decode(new _m0.Reader(data)));
   }
 
   RegisterDomain(request: MsgRegisterDomain): Promise<MsgRegisterDomainResponse> {

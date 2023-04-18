@@ -13,12 +13,19 @@ export interface ProtobufAny {
   "@type"?: string;
 }
 
-export interface RegistryDNSRecord {
-  DNSRecordType?: RegistryDNSRecordType;
+export interface RegistryDnsRecord {
+  DnsRecordType?: RegistryDnsRecordType;
+  DnsRecordFormat?: RegistryDnsRecordFormat;
   value?: string;
 }
 
-export enum RegistryDNSRecordType {
+export enum RegistryDnsRecordFormat {
+  IPV4 = "IPV4",
+  IPV6 = "IPV6",
+  FQDN = "FQDN",
+}
+
+export enum RegistryDnsRecordType {
   A = "A",
   AAAA = "AAAA",
   CNAME = "CNAME",
@@ -37,12 +44,14 @@ export interface RegistryDomain {
 
   /** @format int64 */
   expirationDate?: string;
-  DNSRecords?: Record<string, RegistryDNSRecord>;
-  walletRecords?: Record<string, RegistryWalletRecord>;
-  metadata?: Record<string, string>;
+  DnsRecords?: Record<string, RegistryDnsRecord>;
+  WalletRecords?: Record<string, RegistryWalletRecord>;
+  Metadata?: Record<string, string>;
 }
 
 export type RegistryMsgRegisterDomainResponse = object;
+
+export type RegistryMsgUpdateDnsRecordResponse = object;
 
 export type RegistryMsgUpdateWalletRecordResponse = object;
 
@@ -83,7 +92,7 @@ export enum RegistryWalletAddressFormat {
 }
 
 export interface RegistryWalletRecord {
-  walletRecordType?: RegistryWalletRecordType;
+  WalletRecordType?: RegistryWalletRecordType;
   WalletAddressFormat?: RegistryWalletAddressFormat;
   value?: string;
 }
@@ -93,6 +102,8 @@ export enum RegistryWalletRecordType {
   ETHEREUM_GOERLI = "ETHEREUM_GOERLI",
   POLYGON_MAINNET = "POLYGON_MAINNET",
   POLYGON_MUMBAI = "POLYGON_MUMBAI",
+  GNOSIS_MAINNET = "GNOSIS_MAINNET",
+  GNOSIS_CHIADO = "GNOSIS_CHIADO",
 }
 
 export interface RpcStatus {
