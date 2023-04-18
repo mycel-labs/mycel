@@ -41,7 +41,7 @@ message DNSRecord {
 }
 
 message WalletRecord {
-  WalletRecordType walletRecordType = 1;
+  WalletRecordType WalletRecordType = 1;
   WalletAddressFormat WalletAddressFormat = 2;
   string value = 3;
 }
@@ -52,7 +52,7 @@ message Domain {
   string owner = 3; 
   int64 expirationDate = 4; 
   map<string, DNSRecord> DNSRecords = 5;
-  map<string, WalletRecord> walletRecords = 6;
-  map<string, string> metadata = 7;
+  map<string, WalletRecord> WalletRecords = 6;
+  map<string, string> Metadata = 7;
 }
 
