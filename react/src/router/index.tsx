@@ -22,8 +22,8 @@ const items = [
   },
   {
     label: "Explore",
-    to: "/explore"
-  }
+    to: "/explore",
+  },
 ];
 const Layout = () => {
   return (
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
       { path: "/", element: <PortfolioView /> },
       { path: "/resolve", element: <ResolveView /> },
       { path: "/send", element: <SendView /> },
-      { path: "/explore", element: <ExploreView /> }
+      { path: "/explore", element: <ExploreView /> },
     ],
   },
 ]);

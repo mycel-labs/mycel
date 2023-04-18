@@ -2,45 +2,45 @@ import { useEffect, useState } from "react";
 import { useClient } from "../hooks/useClient";
 import { IgntButton } from "@ignt/react-library";
 import { convertToDomainName, convertToNameAndParent } from "../utils/domainName";
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from "react-router-dom";
 import { useRegistryDomain } from "../def-hooks/useRegistryDomain";
 
 export default function ResolveView() {
   const [query, setQuery] = useSearchParams({});
   const [inputtedDomainName, setInputtedDomainName] = useState("");
-  const {registryDomain, isLoading, updateRegistryDomain} = useRegistryDomain();
+  const { registryDomain, isLoading, updateRegistryDomain } = useRegistryDomain();
 
   const updateRegistryHandler = async (domainName: string) => {
     try {
-      await updateRegistryDomain(domainName)
+      await updateRegistryDomain(domainName);
       // Update query
       const { name, parent } = convertToNameAndParent(domainName);
-      query.set("name", name)
-      query.set("parent", parent)
-      setQuery(query)
-    } catch(e) {
-      console.log(e)
+      query.set("name", name);
+      query.set("parent", parent);
+      setQuery(query);
+    } catch (e) {
+      console.log(e);
       // Clear query
-      query.delete("name")
-      query.delete("parent")
-      setQuery(query)
+      query.delete("name");
+      query.delete("parent");
+      setQuery(query);
     }
-  }
+  };
 
   useEffect(() => {
-    const name = query.get("name") || ""
-    const parent = query.get("parent") || ""
+    const name = query.get("name") || "";
+    const parent = query.get("parent") || "";
     if (inputtedDomainName || !name || !parent) {
-      return
+      return;
     }
-    const domainName = convertToDomainName(name, parent)
-    setInputtedDomainName(domainName)
+    const domainName = convertToDomainName(name, parent);
+    setInputtedDomainName(domainName);
     updateRegistryHandler(domainName)
       .then(() => {})
-      .catch(e => {
-        console.log(e)
-      })
-  }, [])
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 
   return (
     <div className="w-3/4 mx-auto">
@@ -54,15 +54,18 @@ export default function ResolveView() {
             setInputtedDomainName(event.target.value);
           }}
           onKeyDown={async (event) => {
-            if (event.nativeEvent.isComposing || event.key !== 'Enter') return
-            updateRegistryHandler(inputtedDomainName)
+            if (event.nativeEvent.isComposing || event.key !== "Enter") return;
+            updateRegistryHandler(inputtedDomainName);
           }}
           value={inputtedDomainName}
         />
-        <IgntButton className="mt-1 h-14 w-48"
+        <IgntButton
+          className="mt-1 h-14 w-48"
           onClick={async () => {
-            updateRegistryHandler(inputtedDomainName)
-          }} busy={isLoading}>
+            updateRegistryHandler(inputtedDomainName);
+          }}
+          busy={isLoading}
+        >
           Resolve
         </IgntButton>
       </div>
@@ -78,7 +81,11 @@ export default function ResolveView() {
             <div className=" table-row">
               <div className="table-cell p-2">{convertToDomainName(registryDomain?.name, registryDomain?.parent)}</div>
               <div className="table-cell p-2">{registryDomain?.owner}</div>
-              <div className="table-cell p-2">{registryDomain?.expirationDate ? (new Date(Math.round(parseInt(registryDomain?.expirationDate) / 1000000))).toUTCString() : ("")}</div>
+              <div className="table-cell p-2">
+                {registryDomain?.expirationDate
+                  ? new Date(Math.round(parseInt(registryDomain?.expirationDate) / 1000000)).toUTCString()
+                  : ""}
+              </div>
             </div>
           </div>
         </div>
@@ -90,10 +97,12 @@ export default function ResolveView() {
               <div className=" table-cell p-2">Value</div>
             </div>
             {Object.values(registryDomain?.DNSRecords || []).map((v, i) => {
-              return <div key={i} className="table-row text-justify">
-                <div className="table-cell p-2">{v.DNSRecordType}</div>
-                <div className="table-cell p-2">{v.value}</div>
-              </div>
+              return (
+                <div key={i} className="table-row text-justify">
+                  <div className="table-cell p-2">{v.DNSRecordType}</div>
+                  <div className="table-cell p-2">{v.value}</div>
+                </div>
+              );
             })}
           </div>
         </div>
@@ -106,11 +115,13 @@ export default function ResolveView() {
               <div className=" table-cell p-2">Value</div>
             </div>
             {Object.values(registryDomain?.walletRecords || []).map((v, i) => {
-              return <div key={i} className=" table-row text-justify">
-                <div className="table-cell p-2">{v.walletRecordType}</div>
-                <div className="table-cell p-2">{v.WalletAddressFormat}</div>
-                <div className="table-cell p-2">{v.value}</div>
-              </div>
+              return (
+                <div key={i} className=" table-row text-justify">
+                  <div className="table-cell p-2">{v.walletRecordType}</div>
+                  <div className="table-cell p-2">{v.WalletAddressFormat}</div>
+                  <div className="table-cell p-2">{v.value}</div>
+                </div>
+              );
             })}
           </div>
         </div>
