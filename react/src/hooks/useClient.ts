@@ -1,4 +1,4 @@
-import { Client } from "mycel-client-ts";
+import { Client } from "mycel-domain-mycel-client-ts";
 import { env } from "../env";
 
 const useClientInstance = () => {
