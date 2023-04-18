@@ -4,7 +4,7 @@ import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "mycel.registry";
 
-export enum DNSRecordType {
+export enum DnsRecordType {
   A = 0,
   AAAA = 1,
   CNAME = 2,
@@ -17,63 +17,102 @@ export enum DNSRecordType {
   UNRECOGNIZED = -1,
 }
 
-export function dNSRecordTypeFromJSON(object: any): DNSRecordType {
+export function dnsRecordTypeFromJSON(object: any): DnsRecordType {
   switch (object) {
     case 0:
     case "A":
-      return DNSRecordType.A;
+      return DnsRecordType.A;
     case 1:
     case "AAAA":
-      return DNSRecordType.AAAA;
+      return DnsRecordType.AAAA;
     case 2:
     case "CNAME":
-      return DNSRecordType.CNAME;
+      return DnsRecordType.CNAME;
     case 3:
     case "NS":
-      return DNSRecordType.NS;
+      return DnsRecordType.NS;
     case 4:
     case "MX":
-      return DNSRecordType.MX;
+      return DnsRecordType.MX;
     case 5:
     case "PTR":
-      return DNSRecordType.PTR;
+      return DnsRecordType.PTR;
     case 6:
     case "SOA":
-      return DNSRecordType.SOA;
+      return DnsRecordType.SOA;
     case 7:
     case "SRV":
-      return DNSRecordType.SRV;
+      return DnsRecordType.SRV;
     case 8:
     case "TXT":
-      return DNSRecordType.TXT;
+      return DnsRecordType.TXT;
     case -1:
     case "UNRECOGNIZED":
     default:
-      return DNSRecordType.UNRECOGNIZED;
+      return DnsRecordType.UNRECOGNIZED;
   }
 }
 
-export function dNSRecordTypeToJSON(object: DNSRecordType): string {
+export function dnsRecordTypeToJSON(object: DnsRecordType): string {
   switch (object) {
-    case DNSRecordType.A:
+    case DnsRecordType.A:
       return "A";
-    case DNSRecordType.AAAA:
+    case DnsRecordType.AAAA:
       return "AAAA";
-    case DNSRecordType.CNAME:
+    case DnsRecordType.CNAME:
       return "CNAME";
-    case DNSRecordType.NS:
+    case DnsRecordType.NS:
       return "NS";
-    case DNSRecordType.MX:
+    case DnsRecordType.MX:
       return "MX";
-    case DNSRecordType.PTR:
+    case DnsRecordType.PTR:
       return "PTR";
-    case DNSRecordType.SOA:
+    case DnsRecordType.SOA:
       return "SOA";
-    case DNSRecordType.SRV:
+    case DnsRecordType.SRV:
       return "SRV";
-    case DNSRecordType.TXT:
+    case DnsRecordType.TXT:
       return "TXT";
-    case DNSRecordType.UNRECOGNIZED:
+    case DnsRecordType.UNRECOGNIZED:
+    default:
+      return "UNRECOGNIZED";
+  }
+}
+
+export enum DnsRecordFormat {
+  IPV4 = 0,
+  IPV6 = 1,
+  FQDN = 2,
+  UNRECOGNIZED = -1,
+}
+
+export function dnsRecordFormatFromJSON(object: any): DnsRecordFormat {
+  switch (object) {
+    case 0:
+    case "IPV4":
+      return DnsRecordFormat.IPV4;
+    case 1:
+    case "IPV6":
+      return DnsRecordFormat.IPV6;
+    case 2:
+    case "FQDN":
+      return DnsRecordFormat.FQDN;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return DnsRecordFormat.UNRECOGNIZED;
+  }
+}
+
+export function dnsRecordFormatToJSON(object: DnsRecordFormat): string {
+  switch (object) {
+    case DnsRecordFormat.IPV4:
+      return "IPV4";
+    case DnsRecordFormat.IPV6:
+      return "IPV6";
+    case DnsRecordFormat.FQDN:
+      return "FQDN";
+    case DnsRecordFormat.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
@@ -84,6 +123,8 @@ export enum WalletRecordType {
   ETHEREUM_GOERLI = 1,
   POLYGON_MAINNET = 2,
   POLYGON_MUMBAI = 3,
+  GNOSIS_MAINNET = 4,
+  GNOSIS_CHIADO = 5,
   UNRECOGNIZED = -1,
 }
 
@@ -101,6 +142,12 @@ export function walletRecordTypeFromJSON(object: any): WalletRecordType {
     case 3:
     case "POLYGON_MUMBAI":
       return WalletRecordType.POLYGON_MUMBAI;
+    case 4:
+    case "GNOSIS_MAINNET":
+      return WalletRecordType.GNOSIS_MAINNET;
+    case 5:
+    case "GNOSIS_CHIADO":
+      return WalletRecordType.GNOSIS_CHIADO;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -118,6 +165,10 @@ export function walletRecordTypeToJSON(object: WalletRecordType): string {
       return "POLYGON_MAINNET";
     case WalletRecordType.POLYGON_MUMBAI:
       return "POLYGON_MUMBAI";
+    case WalletRecordType.GNOSIS_MAINNET:
+      return "GNOSIS_MAINNET";
+    case WalletRecordType.GNOSIS_CHIADO:
+      return "GNOSIS_CHIADO";
     case WalletRecordType.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
@@ -151,13 +202,14 @@ export function walletAddressFormatToJSON(object: WalletAddressFormat): string {
   }
 }
 
-export interface DNSRecord {
-  DNSRecordType: DNSRecordType;
+export interface DnsRecord {
+  DnsRecordType: DnsRecordType;
+  DnsRecordFormat: DnsRecordFormat;
   value: string;
 }
 
 export interface WalletRecord {
-  walletRecordType: WalletRecordType;
+  WalletRecordType: WalletRecordType;
   WalletAddressFormat: WalletAddressFormat;
   value: string;
 }
@@ -167,14 +219,14 @@ export interface Domain {
   parent: string;
   owner: string;
   expirationDate: number;
-  DNSRecords: { [key: string]: DNSRecord };
-  walletRecords: { [key: string]: WalletRecord };
-  metadata: { [key: string]: string };
+  DnsRecords: { [key: string]: DnsRecord };
+  WalletRecords: { [key: string]: WalletRecord };
+  Metadata: { [key: string]: string };
 }
 
-export interface Domain_DNSRecordsEntry {
+export interface Domain_DnsRecordsEntry {
   key: string;
-  value: DNSRecord | undefined;
+  value: DnsRecord | undefined;
 }
 
 export interface Domain_WalletRecordsEntry {
@@ -187,32 +239,38 @@ export interface Domain_MetadataEntry {
   value: string;
 }
 
-function createBaseDNSRecord(): DNSRecord {
-  return { DNSRecordType: 0, value: "" };
+function createBaseDnsRecord(): DnsRecord {
+  return { DnsRecordType: 0, DnsRecordFormat: 0, value: "" };
 }
 
-export const DNSRecord = {
-  encode(message: DNSRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.DNSRecordType !== 0) {
-      writer.uint32(8).int32(message.DNSRecordType);
+export const DnsRecord = {
+  encode(message: DnsRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.DnsRecordType !== 0) {
+      writer.uint32(8).int32(message.DnsRecordType);
+    }
+    if (message.DnsRecordFormat !== 0) {
+      writer.uint32(16).int32(message.DnsRecordFormat);
     }
     if (message.value !== "") {
-      writer.uint32(18).string(message.value);
+      writer.uint32(26).string(message.value);
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): DNSRecord {
+  decode(input: _m0.Reader | Uint8Array, length?: number): DnsRecord {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseDNSRecord();
+    const message = createBaseDnsRecord();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.DNSRecordType = reader.int32() as any;
+          message.DnsRecordType = reader.int32() as any;
           break;
         case 2:
+          message.DnsRecordFormat = reader.int32() as any;
+          break;
+        case 3:
           message.value = reader.string();
           break;
         default:
@@ -223,36 +281,39 @@ export const DNSRecord = {
     return message;
   },
 
-  fromJSON(object: any): DNSRecord {
+  fromJSON(object: any): DnsRecord {
     return {
-      DNSRecordType: isSet(object.DNSRecordType) ? dNSRecordTypeFromJSON(object.DNSRecordType) : 0,
+      DnsRecordType: isSet(object.DnsRecordType) ? dnsRecordTypeFromJSON(object.DnsRecordType) : 0,
+      DnsRecordFormat: isSet(object.DnsRecordFormat) ? dnsRecordFormatFromJSON(object.DnsRecordFormat) : 0,
       value: isSet(object.value) ? String(object.value) : "",
     };
   },
 
-  toJSON(message: DNSRecord): unknown {
+  toJSON(message: DnsRecord): unknown {
     const obj: any = {};
-    message.DNSRecordType !== undefined && (obj.DNSRecordType = dNSRecordTypeToJSON(message.DNSRecordType));
+    message.DnsRecordType !== undefined && (obj.DnsRecordType = dnsRecordTypeToJSON(message.DnsRecordType));
+    message.DnsRecordFormat !== undefined && (obj.DnsRecordFormat = dnsRecordFormatToJSON(message.DnsRecordFormat));
     message.value !== undefined && (obj.value = message.value);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<DNSRecord>, I>>(object: I): DNSRecord {
-    const message = createBaseDNSRecord();
-    message.DNSRecordType = object.DNSRecordType ?? 0;
+  fromPartial<I extends Exact<DeepPartial<DnsRecord>, I>>(object: I): DnsRecord {
+    const message = createBaseDnsRecord();
+    message.DnsRecordType = object.DnsRecordType ?? 0;
+    message.DnsRecordFormat = object.DnsRecordFormat ?? 0;
     message.value = object.value ?? "";
     return message;
   },
 };
 
 function createBaseWalletRecord(): WalletRecord {
-  return { walletRecordType: 0, WalletAddressFormat: 0, value: "" };
+  return { WalletRecordType: 0, WalletAddressFormat: 0, value: "" };
 }
 
 export const WalletRecord = {
   encode(message: WalletRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.walletRecordType !== 0) {
-      writer.uint32(8).int32(message.walletRecordType);
+    if (message.WalletRecordType !== 0) {
+      writer.uint32(8).int32(message.WalletRecordType);
     }
     if (message.WalletAddressFormat !== 0) {
       writer.uint32(16).int32(message.WalletAddressFormat);
@@ -271,7 +332,7 @@ export const WalletRecord = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.walletRecordType = reader.int32() as any;
+          message.WalletRecordType = reader.int32() as any;
           break;
         case 2:
           message.WalletAddressFormat = reader.int32() as any;
@@ -289,7 +350,7 @@ export const WalletRecord = {
 
   fromJSON(object: any): WalletRecord {
     return {
-      walletRecordType: isSet(object.walletRecordType) ? walletRecordTypeFromJSON(object.walletRecordType) : 0,
+      WalletRecordType: isSet(object.WalletRecordType) ? walletRecordTypeFromJSON(object.WalletRecordType) : 0,
       WalletAddressFormat: isSet(object.WalletAddressFormat)
         ? walletAddressFormatFromJSON(object.WalletAddressFormat)
         : 0,
@@ -299,7 +360,7 @@ export const WalletRecord = {
 
   toJSON(message: WalletRecord): unknown {
     const obj: any = {};
-    message.walletRecordType !== undefined && (obj.walletRecordType = walletRecordTypeToJSON(message.walletRecordType));
+    message.WalletRecordType !== undefined && (obj.WalletRecordType = walletRecordTypeToJSON(message.WalletRecordType));
     message.WalletAddressFormat !== undefined
       && (obj.WalletAddressFormat = walletAddressFormatToJSON(message.WalletAddressFormat));
     message.value !== undefined && (obj.value = message.value);
@@ -308,7 +369,7 @@ export const WalletRecord = {
 
   fromPartial<I extends Exact<DeepPartial<WalletRecord>, I>>(object: I): WalletRecord {
     const message = createBaseWalletRecord();
-    message.walletRecordType = object.walletRecordType ?? 0;
+    message.WalletRecordType = object.WalletRecordType ?? 0;
     message.WalletAddressFormat = object.WalletAddressFormat ?? 0;
     message.value = object.value ?? "";
     return message;
@@ -316,7 +377,7 @@ export const WalletRecord = {
 };
 
 function createBaseDomain(): Domain {
-  return { name: "", parent: "", owner: "", expirationDate: 0, DNSRecords: {}, walletRecords: {}, metadata: {} };
+  return { name: "", parent: "", owner: "", expirationDate: 0, DnsRecords: {}, WalletRecords: {}, Metadata: {} };
 }
 
 export const Domain = {
@@ -333,13 +394,13 @@ export const Domain = {
     if (message.expirationDate !== 0) {
       writer.uint32(32).int64(message.expirationDate);
     }
-    Object.entries(message.DNSRecords).forEach(([key, value]) => {
-      Domain_DNSRecordsEntry.encode({ key: key as any, value }, writer.uint32(42).fork()).ldelim();
+    Object.entries(message.DnsRecords).forEach(([key, value]) => {
+      Domain_DnsRecordsEntry.encode({ key: key as any, value }, writer.uint32(42).fork()).ldelim();
     });
-    Object.entries(message.walletRecords).forEach(([key, value]) => {
+    Object.entries(message.WalletRecords).forEach(([key, value]) => {
       Domain_WalletRecordsEntry.encode({ key: key as any, value }, writer.uint32(50).fork()).ldelim();
     });
-    Object.entries(message.metadata).forEach(([key, value]) => {
+    Object.entries(message.Metadata).forEach(([key, value]) => {
       Domain_MetadataEntry.encode({ key: key as any, value }, writer.uint32(58).fork()).ldelim();
     });
     return writer;
@@ -365,21 +426,21 @@ export const Domain = {
           message.expirationDate = longToNumber(reader.int64() as Long);
           break;
         case 5:
-          const entry5 = Domain_DNSRecordsEntry.decode(reader, reader.uint32());
+          const entry5 = Domain_DnsRecordsEntry.decode(reader, reader.uint32());
           if (entry5.value !== undefined) {
-            message.DNSRecords[entry5.key] = entry5.value;
+            message.DnsRecords[entry5.key] = entry5.value;
           }
           break;
         case 6:
           const entry6 = Domain_WalletRecordsEntry.decode(reader, reader.uint32());
           if (entry6.value !== undefined) {
-            message.walletRecords[entry6.key] = entry6.value;
+            message.WalletRecords[entry6.key] = entry6.value;
           }
           break;
         case 7:
           const entry7 = Domain_MetadataEntry.decode(reader, reader.uint32());
           if (entry7.value !== undefined) {
-            message.metadata[entry7.key] = entry7.value;
+            message.Metadata[entry7.key] = entry7.value;
           }
           break;
         default:
@@ -396,20 +457,20 @@ export const Domain = {
       parent: isSet(object.parent) ? String(object.parent) : "",
       owner: isSet(object.owner) ? String(object.owner) : "",
       expirationDate: isSet(object.expirationDate) ? Number(object.expirationDate) : 0,
-      DNSRecords: isObject(object.DNSRecords)
-        ? Object.entries(object.DNSRecords).reduce<{ [key: string]: DNSRecord }>((acc, [key, value]) => {
-          acc[key] = DNSRecord.fromJSON(value);
+      DnsRecords: isObject(object.DnsRecords)
+        ? Object.entries(object.DnsRecords).reduce<{ [key: string]: DnsRecord }>((acc, [key, value]) => {
+          acc[key] = DnsRecord.fromJSON(value);
           return acc;
         }, {})
         : {},
-      walletRecords: isObject(object.walletRecords)
-        ? Object.entries(object.walletRecords).reduce<{ [key: string]: WalletRecord }>((acc, [key, value]) => {
+      WalletRecords: isObject(object.WalletRecords)
+        ? Object.entries(object.WalletRecords).reduce<{ [key: string]: WalletRecord }>((acc, [key, value]) => {
           acc[key] = WalletRecord.fromJSON(value);
           return acc;
         }, {})
         : {},
-      metadata: isObject(object.metadata)
-        ? Object.entries(object.metadata).reduce<{ [key: string]: string }>((acc, [key, value]) => {
+      Metadata: isObject(object.Metadata)
+        ? Object.entries(object.Metadata).reduce<{ [key: string]: string }>((acc, [key, value]) => {
           acc[key] = String(value);
           return acc;
         }, {})
@@ -423,22 +484,22 @@ export const Domain = {
     message.parent !== undefined && (obj.parent = message.parent);
     message.owner !== undefined && (obj.owner = message.owner);
     message.expirationDate !== undefined && (obj.expirationDate = Math.round(message.expirationDate));
-    obj.DNSRecords = {};
-    if (message.DNSRecords) {
-      Object.entries(message.DNSRecords).forEach(([k, v]) => {
-        obj.DNSRecords[k] = DNSRecord.toJSON(v);
+    obj.DnsRecords = {};
+    if (message.DnsRecords) {
+      Object.entries(message.DnsRecords).forEach(([k, v]) => {
+        obj.DnsRecords[k] = DnsRecord.toJSON(v);
       });
     }
-    obj.walletRecords = {};
-    if (message.walletRecords) {
-      Object.entries(message.walletRecords).forEach(([k, v]) => {
-        obj.walletRecords[k] = WalletRecord.toJSON(v);
+    obj.WalletRecords = {};
+    if (message.WalletRecords) {
+      Object.entries(message.WalletRecords).forEach(([k, v]) => {
+        obj.WalletRecords[k] = WalletRecord.toJSON(v);
       });
     }
-    obj.metadata = {};
-    if (message.metadata) {
-      Object.entries(message.metadata).forEach(([k, v]) => {
-        obj.metadata[k] = v;
+    obj.Metadata = {};
+    if (message.Metadata) {
+      Object.entries(message.Metadata).forEach(([k, v]) => {
+        obj.Metadata[k] = v;
       });
     }
     return obj;
@@ -450,16 +511,16 @@ export const Domain = {
     message.parent = object.parent ?? "";
     message.owner = object.owner ?? "";
     message.expirationDate = object.expirationDate ?? 0;
-    message.DNSRecords = Object.entries(object.DNSRecords ?? {}).reduce<{ [key: string]: DNSRecord }>(
+    message.DnsRecords = Object.entries(object.DnsRecords ?? {}).reduce<{ [key: string]: DnsRecord }>(
       (acc, [key, value]) => {
         if (value !== undefined) {
-          acc[key] = DNSRecord.fromPartial(value);
+          acc[key] = DnsRecord.fromPartial(value);
         }
         return acc;
       },
       {},
     );
-    message.walletRecords = Object.entries(object.walletRecords ?? {}).reduce<{ [key: string]: WalletRecord }>(
+    message.WalletRecords = Object.entries(object.WalletRecords ?? {}).reduce<{ [key: string]: WalletRecord }>(
       (acc, [key, value]) => {
         if (value !== undefined) {
           acc[key] = WalletRecord.fromPartial(value);
@@ -468,7 +529,7 @@ export const Domain = {
       },
       {},
     );
-    message.metadata = Object.entries(object.metadata ?? {}).reduce<{ [key: string]: string }>((acc, [key, value]) => {
+    message.Metadata = Object.entries(object.Metadata ?? {}).reduce<{ [key: string]: string }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = String(value);
       }
@@ -478,25 +539,25 @@ export const Domain = {
   },
 };
 
-function createBaseDomain_DNSRecordsEntry(): Domain_DNSRecordsEntry {
+function createBaseDomain_DnsRecordsEntry(): Domain_DnsRecordsEntry {
   return { key: "", value: undefined };
 }
 
-export const Domain_DNSRecordsEntry = {
-  encode(message: Domain_DNSRecordsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const Domain_DnsRecordsEntry = {
+  encode(message: Domain_DnsRecordsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
     if (message.value !== undefined) {
-      DNSRecord.encode(message.value, writer.uint32(18).fork()).ldelim();
+      DnsRecord.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): Domain_DNSRecordsEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): Domain_DnsRecordsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseDomain_DNSRecordsEntry();
+    const message = createBaseDomain_DnsRecordsEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -504,7 +565,7 @@ export const Domain_DNSRecordsEntry = {
           message.key = reader.string();
           break;
         case 2:
-          message.value = DNSRecord.decode(reader, reader.uint32());
+          message.value = DnsRecord.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -514,25 +575,25 @@ export const Domain_DNSRecordsEntry = {
     return message;
   },
 
-  fromJSON(object: any): Domain_DNSRecordsEntry {
+  fromJSON(object: any): Domain_DnsRecordsEntry {
     return {
       key: isSet(object.key) ? String(object.key) : "",
-      value: isSet(object.value) ? DNSRecord.fromJSON(object.value) : undefined,
+      value: isSet(object.value) ? DnsRecord.fromJSON(object.value) : undefined,
     };
   },
 
-  toJSON(message: Domain_DNSRecordsEntry): unknown {
+  toJSON(message: Domain_DnsRecordsEntry): unknown {
     const obj: any = {};
     message.key !== undefined && (obj.key = message.key);
-    message.value !== undefined && (obj.value = message.value ? DNSRecord.toJSON(message.value) : undefined);
+    message.value !== undefined && (obj.value = message.value ? DnsRecord.toJSON(message.value) : undefined);
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<Domain_DNSRecordsEntry>, I>>(object: I): Domain_DNSRecordsEntry {
-    const message = createBaseDomain_DNSRecordsEntry();
+  fromPartial<I extends Exact<DeepPartial<Domain_DnsRecordsEntry>, I>>(object: I): Domain_DnsRecordsEntry {
+    const message = createBaseDomain_DnsRecordsEntry();
     message.key = object.key ?? "";
     message.value = (object.value !== undefined && object.value !== null)
-      ? DNSRecord.fromPartial(object.value)
+      ? DnsRecord.fromPartial(object.value)
       : undefined;
     return message;
   },
