@@ -24,7 +24,7 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 		Owner:          msg.Creator,
 		ExpirationDate: expirationDate.UnixNano(),
 		Parent:         msg.Parent,
-		DNSRecords:     nil,
+		DnsRecords:     nil,
 		WalletRecords:  nil,
 		Metadata:       nil,
 	}

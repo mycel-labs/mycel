@@ -97,18 +97,18 @@ func (suite *KeeperTestSuite) TestUpdateDnsRecord() {
 				// Evalute events
 				suite.Require().Nil(err)
 				res, _ := suite.app.RegistryKeeper.GetDomain(suite.ctx, domain.Name, domain.Parent)
-				suite.Require().Equal(tc.value, res.DNSRecords[tc.dnsRecordType].Value)
+				suite.Require().Equal(tc.value, res.DnsRecords[tc.dnsRecordType].Value)
 
 				// Event check
 				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())
 				eventIndex := len(events) - 1
 				suite.Require().EqualValues(sdk.StringEvent{
-					Type: types.EventTypeUpdateDNSRecord,
+					Type: types.EventTypeUpdateDnsRecord,
 					Attributes: []sdk.Attribute{
-						{Key: types.AttributeUpdateDNSRecordEventDomainName, Value: tc.name},
-						{Key: types.AttributeUpdateDNSRecordEventDomainParent, Value: tc.parent},
-						{Key: types.AttributeUpdateDNSRecordEventDNSRecordType, Value: tc.dnsRecordType},
-						{Key: types.AttributeUpdateDNSRecordEventValue, Value: tc.value},
+						{Key: types.AttributeUpdateDnsRecordEventDomainName, Value: tc.name},
+						{Key: types.AttributeUpdateDnsRecordEventDomainParent, Value: tc.parent},
+						{Key: types.AttributeUpdateDnsRecordEventDnsRecordType, Value: tc.dnsRecordType},
+						{Key: types.AttributeUpdateDnsRecordEventValue, Value: tc.value},
 					},
 				},
 					events[eventIndex])
