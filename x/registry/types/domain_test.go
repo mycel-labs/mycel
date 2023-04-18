@@ -171,7 +171,7 @@ func TestDomainUpdateWalletRecord(t *testing.T) {
 	}
 }
 
-func TestDomainUpdateDNSRecord(t *testing.T) {
+func TestDomainUpdateDnsRecord(t *testing.T) {
 	testCases := []struct {
 		dnsRecordType string
 		value         string
@@ -204,10 +204,10 @@ func TestDomainUpdateDNSRecord(t *testing.T) {
 	}
 	for _, tc := range testCases {
 		domain := Domain{Name: "foo", Parent: "myc"}
-		err := domain.UpdateDNSRecord(tc.dnsRecordType, tc.value)
+		err := domain.UpdateDnsRecord(tc.dnsRecordType, tc.value)
 		if tc.expErr == "" {
 			require.Nil(t, err)
-			require.Equal(t, tc.value, domain.DNSRecords[tc.dnsRecordType].Value)
+			require.Equal(t, tc.value, domain.DnsRecords[tc.dnsRecordType].Value)
 		} else {
 			require.EqualError(t, err, tc.expErr)
 		}

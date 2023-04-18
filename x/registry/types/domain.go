@@ -128,63 +128,63 @@ func (domain *Domain) UpdateWalletRecord(walletRecordType string, address string
 	return err
 }
 
-func ValidateDNSRecordValue(dnsRecordFormat string, address string) (err error) {
-	dnsRecordRegex, isFound := DNSRecordValueRegex()[dnsRecordFormat]
+func ValidateDnsRecordValue(dnsRecordFormat string, address string) (err error) {
+	dnsRecordRegex, isFound := DnsRecordValueRegex()[dnsRecordFormat]
 	if !isFound {
-		panic(fmt.Sprintf("DNS record value format %s is not found in DNSRecordValueRegex", dnsRecordFormat))
+		panic(fmt.Sprintf("Dns record value format %s is not found in DnsRecordValueRegex", dnsRecordFormat))
 	}
 	regex := regexp.MustCompile(dnsRecordRegex)
 	if !regex.MatchString(address) {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s %s", dnsRecordFormat, address)), ErrInvalidDNSRecordValue.Error())
+		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s %s", dnsRecordFormat, address)), ErrInvalidDnsRecordValue.Error())
 	}
 	return err
 }
 
-func ValidateDNSRecordType(dnsRecordType string) (err error) {
-	_, isFound := DNSRecordType_value[dnsRecordType]
+func ValidateDnsRecordType(dnsRecordType string) (err error) {
+	_, isFound := DnsRecordType_value[dnsRecordType]
 	if !isFound {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", dnsRecordType)), ErrInvalidDNSRecordType.Error())
+		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", dnsRecordType)), ErrInvalidDnsRecordType.Error())
 	}
 	return err
 }
 
-func GetDNSRecordValueFormat(dnsRecordType string) (dnsRecordTypeFormat string, err error) {
-	err = ValidateDNSRecordType(dnsRecordType)
+func GetDnsRecordValueFormat(dnsRecordType string) (dnsRecordTypeFormat string, err error) {
+	err = ValidateDnsRecordType(dnsRecordType)
 	if err != nil {
 		return "", err
 	}
-	dnsRecordTypeFormat, isFound := DNSRecordTypeFormats()[dnsRecordType]
+	dnsRecordTypeFormat, isFound := DnsRecordTypeFormats()[dnsRecordType]
 	if !isFound {
-		panic(fmt.Sprintf("DNS record type %s is not found in DNSRecordFormats", dnsRecordType))
+		panic(fmt.Sprintf("Dns record type %s is not found in DnsRecordFormats", dnsRecordType))
 	}
 	return dnsRecordTypeFormat, err
 }
 
-func (domain *Domain) UpdateDNSRecord(dnsRecordType string, value string) (err error) {
+func (domain *Domain) UpdateDnsRecord(dnsRecordType string, value string) (err error) {
 
 	// Get wallet address format from dns record type
-	dnsRecordFormat, err := GetDNSRecordValueFormat(dnsRecordType)
+	dnsRecordFormat, err := GetDnsRecordValueFormat(dnsRecordType)
 	if err != nil {
 		return err
 	}
 
-	err = ValidateDNSRecordValue(dnsRecordFormat, value)
+	err = ValidateDnsRecordValue(dnsRecordFormat, value)
 	if err != nil {
 		return err
 	}
 
-	dnsRecord := &DNSRecord{
-		DNSRecordType:   DNSRecordType(DNSRecordType_value[dnsRecordType]),
-		DNSRecordFormat: DNSRecordFormat(DNSRecordFormat_value[dnsRecordFormat]),
+	dnsRecord := &DnsRecord{
+		DnsRecordType:   DnsRecordType(DnsRecordType_value[dnsRecordType]),
+		DnsRecordFormat: DnsRecordFormat(DnsRecordFormat_value[dnsRecordFormat]),
 		Value:           value,
 	}
 
 	// Initialize WalletRecords map if it is nil
-	if domain.DNSRecords == nil {
-		domain.DNSRecords = make(map[string]*DNSRecord)
+	if domain.DnsRecords == nil {
+		domain.DnsRecords = make(map[string]*DnsRecord)
 	}
 
-	domain.DNSRecords[dnsRecordType] = dnsRecord
+	domain.DnsRecords[dnsRecordType] = dnsRecord
 
 	return err
 }

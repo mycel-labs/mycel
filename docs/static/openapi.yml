@@ -34463,12 +34463,12 @@ paths:
                     expirationDate:
                       type: string
                       format: int64
-                    DNSRecords:
+                    DnsRecords:
                       type: object
                       additionalProperties:
                         type: object
                         properties:
-                          DNSRecordType:
+                          DnsRecordType:
                             type: string
                             enum:
                               - A
@@ -34481,7 +34481,7 @@ paths:
                               - SRV
                               - TXT
                             default: A
-                          DNSRecordFormat:
+                          DnsRecordFormat:
                             type: string
                             enum:
                               - IPV4
@@ -34643,12 +34643,12 @@ paths:
                   expirationDate:
                     type: string
                     format: int64
-                  DNSRecords:
+                  DnsRecords:
                     type: object
                     additionalProperties:
                       type: object
                       properties:
-                        DNSRecordType:
+                        DnsRecordType:
                           type: string
                           enum:
                             - A
@@ -34661,7 +34661,7 @@ paths:
                             - SRV
                             - TXT
                           default: A
-                        DNSRecordFormat:
+                        DnsRecordFormat:
                           type: string
                           enum:
                             - IPV4
@@ -60009,10 +60009,10 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  mycel.registry.DNSRecord:
+  mycel.registry.DnsRecord:
     type: object
     properties:
-      DNSRecordType:
+      DnsRecordType:
         type: string
         enum:
           - A
@@ -60025,7 +60025,7 @@ definitions:
           - SRV
           - TXT
         default: A
-      DNSRecordFormat:
+      DnsRecordFormat:
         type: string
         enum:
           - IPV4
@@ -60034,14 +60034,14 @@ definitions:
         default: IPV4
       value:
         type: string
-  mycel.registry.DNSRecordFormat:
+  mycel.registry.DnsRecordFormat:
     type: string
     enum:
       - IPV4
       - IPV6
       - FQDN
     default: IPV4
-  mycel.registry.DNSRecordType:
+  mycel.registry.DnsRecordType:
     type: string
     enum:
       - A
@@ -60066,12 +60066,12 @@ definitions:
       expirationDate:
         type: string
         format: int64
-      DNSRecords:
+      DnsRecords:
         type: object
         additionalProperties:
           type: object
           properties:
-            DNSRecordType:
+            DnsRecordType:
               type: string
               enum:
                 - A
@@ -60084,7 +60084,7 @@ definitions:
                 - SRV
                 - TXT
               default: A
-            DNSRecordFormat:
+            DnsRecordFormat:
               type: string
               enum:
                 - IPV4
@@ -60145,12 +60145,12 @@ definitions:
             expirationDate:
               type: string
               format: int64
-            DNSRecords:
+            DnsRecords:
               type: object
               additionalProperties:
                 type: object
                 properties:
-                  DNSRecordType:
+                  DnsRecordType:
                     type: string
                     enum:
                       - A
@@ -60163,7 +60163,7 @@ definitions:
                       - SRV
                       - TXT
                     default: A
-                  DNSRecordFormat:
+                  DnsRecordFormat:
                     type: string
                     enum:
                       - IPV4
@@ -60239,12 +60239,12 @@ definitions:
           expirationDate:
             type: string
             format: int64
-          DNSRecords:
+          DnsRecords:
             type: object
             additionalProperties:
               type: object
               properties:
-                DNSRecordType:
+                DnsRecordType:
                   type: string
                   enum:
                     - A
@@ -60257,7 +60257,7 @@ definitions:
                     - SRV
                     - TXT
                   default: A
-                DNSRecordFormat:
+                DnsRecordFormat:
                   type: string
                   enum:
                     - IPV4
