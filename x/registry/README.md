@@ -8,7 +8,7 @@ Registry module provides the following feature:
 ## Stores
 ### domain.proto
 ```proto
-enum DNSRecordType {
+enum DnsRecordType {
   A = 0;
   AAAA = 1;
   CNAME = 2;
@@ -20,24 +20,33 @@ enum DNSRecordType {
   TXT = 8;
 }
 
+enum DnsRecordFormat {
+  IPV4 = 0;
+  IPV6 = 1;
+  FQDN = 2;
+}
+
 enum WalletRecordType {
   ETHEREUM_MAINNET = 0;
   ETHEREUM_GOERLI = 1;
   POLYGON_MAINNET = 2;
   POLYGON_MUMBAI = 3;
+  GNOSIS_MAINNET = 4;
+  GNOSIS_CHIADO = 5;
 }
 
 enum WalletAddressFormat {
   ETHEREUM = 0;
 }
 
-message DNSRecord {
-  DNSRecordType DNSRecordType = 1;
-  string value = 2;
+message DnsRecord {
+  DnsRecordType DnsRecordType = 1;
+  DnsRecordFormat DnsRecordFormat = 2;
+  string value = 3;
 }
 
 message WalletRecord {
-  WalletRecordType walletRecordType = 1;
+  WalletRecordType WalletRecordType = 1;
   WalletAddressFormat WalletAddressFormat = 2;
   string value = 3;
 }
@@ -47,11 +56,10 @@ message Domain {
   string parent = 2; 
   string owner = 3; 
   int64 expirationDate = 4; 
-  map<string, DNSRecord> DNSRecords = 5;
-  map<string, WalletRecord> walletRecords = 6;
-  map<string, string> metadata = 7;
+  map<string, DnsRecord> DnsRecords = 5;
+  map<string, WalletRecord> WalletRecords = 6;
+  map<string, string> Metadata = 7;
 }
-
 ```
 
 ## Events
@@ -74,6 +82,13 @@ Attributes:
 - `wallet-record-type`: Wallet record type
 - `value`: Wallet address
 
+### UpdateDNSRecord
+Event Type: `update-dns-record`  
+Attributes:
+- `name`: Domain name
+- `parent`: Domain parent
+- `dns-record-type`: Wallet record type
+- `value`: Wallet address
 
 ## Transactions
 ### register-domain
