@@ -90,6 +90,14 @@ Update wallet address record
 myceld tx registry update-wallet-record [name] [parent] [wallet-record-type] [value]
 ```
 
+### update-dns-record
+Update DNS record  
+
+```
+myceld tx registry update-dns-record [name] [parent] [dns-record-type] [value]
+```
+
+
 ## Queries
 
 ### list-domain
