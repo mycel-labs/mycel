@@ -4,20 +4,25 @@ accounts:
   coins:
   - 20000token
   - 200000000stake
-  - 300000000MYCEL
+  - 30000000mycel
 - name: bob
   coins:
   - 10000token
-  - 100000000stake
-client:
-  openapi:
-    path: docs/static/openapi.yml
+  - 1000000000stake
+  - 100000000mycel
 faucet:
   name: bob
   coins:
   - 5token
   - 100000stake
-  - 100000MYCEL
+  - 100000mycel
+client:
+  typescript:
+    path: ts-client
+  hooks:
+    path: react/src/hooks
+  openapi:
+    path: docs/static/openapi.yml
 validators:
 - name: alice
   bonded: 100000000stake

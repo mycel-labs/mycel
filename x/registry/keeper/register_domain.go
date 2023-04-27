@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"os"
 	"errors"
 	"fmt"
 	incentivestypes "github.com/mycel-domain/mycel/x/incentives/types"
@@ -9,6 +10,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+
+    "github.com/ethereum/go-ethereum/ethclient"
+    ens "github.com/wealdtech/go-ens/v3"
 )
 
 // Get is domain already taken
@@ -34,6 +38,37 @@ func (k Keeper) ValidateRegisterTLD(ctx sdk.Context, domain types.Domain) (err e
 	return err
 }
 
+func (k Keeper) HookOnEthDomainRegistered(ctx sdk.Context, domain types.Domain) (err error) {
+
+	//os.Getenv("RPC_ENDPOINT_ETHEREUM_MAINNET")
+	client, err := ethclient.Dial(os.Getenv("RPC_ENDPOINT_ETHEREUM_GOERLI"))
+
+	if err != nil {
+        return err
+	}
+
+	address, err := ens.Resolve(client, domain.Name + ".eth")
+	if err != nil {
+        return err
+	}
+	fmt.Printf("Address of %s is %s\n", domain.Name, address.Hex())
+
+    err = domain.UpdateWalletRecord("ETHEREUM_GOERLI", address.Hex())
+	if err != nil {
+        return err
+	}
+	k.SetDomain(ctx, domain)
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(types.EventTypeUpdateWalletRecord,
+			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventDomainName, domain.Name),
+			sdk.NewAttribute(types.AttributeRegisterDomainEventParent, domain.Parent),
+			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventWalletRecordType, "ETHEREUM_GOERLI"),
+			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventValue, address.Hex()),
+		),
+	)
+    return nil
+}
+
 // Validate SLD registration
 func (k Keeper) ValidateRegsiterSLD(ctx sdk.Context, domain types.Domain) (err error) {
 	isParentDomainExist := k.GetIsParentDomainExist(ctx, domain)
@@ -41,6 +76,21 @@ func (k Keeper) ValidateRegsiterSLD(ctx sdk.Context, domain types.Domain) (err e
 		err = sdkerrors.Wrapf(errors.New(domain.Parent),
 			types.ErrParentDomainDoesNotExist.Error())
 	}
+
+    // FIXME: special handler for eth
+	if domain.GetParent() == "eth" {
+        client, err := ethclient.Dial(os.Getenv("RPC_ENDPOINT_ETHEREUM_GOERLI"))
+
+		if err != nil {
+			return err
+		}
+
+		_, err = ens.Resolve(client, domain.Name + ".eth")
+		if err != nil {
+			return err
+		}
+	}
+
 	return err
 }
 
@@ -145,5 +195,12 @@ func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.A
 			sdk.NewAttribute(types.AttributeRegisterDomainLevel, strconv.Itoa(domainLevel)),
 		),
 	)
+
+    // FIXME: special handler for eth
+	parent := domain.GetParent()
+	if parent == "eth" {
+		err = k.HookOnEthDomainRegistered(ctx, domain)
+	}
+
 	return err
 }

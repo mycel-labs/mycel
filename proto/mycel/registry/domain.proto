@@ -1,9 +1,9 @@
 syntax = "proto3";
 package mycel.registry;
 
-option go_package = "mycel/x/registry/types";
+option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
-enum DNSRecordType {
+enum DnsRecordType {
   A = 0;
   AAAA = 1;
   CNAME = 2;
@@ -15,7 +15,7 @@ enum DNSRecordType {
   TXT = 8;
 }
 
-enum DNSRecordFormat {
+enum DnsRecordFormat {
   IPV4 = 0;
   IPV6 = 1;
   FQDN = 2;
@@ -26,20 +26,22 @@ enum WalletRecordType {
   ETHEREUM_GOERLI = 1;
   POLYGON_MAINNET = 2;
   POLYGON_MUMBAI = 3;
+  GNOSIS_MAINNET = 4;
+  GNOSIS_CHIADO = 5;
 }
 
 enum WalletAddressFormat {
   ETHEREUM = 0;
 }
 
-message DNSRecord {
-  DNSRecordType DNSRecordType = 1;
-  DNSRecordFormat DNSRecordFormat = 2;
+message DnsRecord {
+  DnsRecordType DnsRecordType = 1;
+  DnsRecordFormat DnsRecordFormat = 2;
   string value = 3;
 }
 
 message WalletRecord {
-  WalletRecordType walletRecordType = 1;
+  WalletRecordType WalletRecordType = 1;
   WalletAddressFormat WalletAddressFormat = 2;
   string value = 3;
 }
@@ -49,8 +51,8 @@ message Domain {
   string parent = 2; 
   string owner = 3; 
   int64 expirationDate = 4; 
-  map<string, DNSRecord> DNSRecords = 5;
-  map<string, WalletRecord> walletRecords = 6;
-  map<string, string> metadata = 7;
+  map<string, DnsRecord> DnsRecords = 5;
+  map<string, WalletRecord> WalletRecords = 6;
+  map<string, string> Metadata = 7;
 }
 

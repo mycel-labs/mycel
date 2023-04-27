@@ -6,7 +6,7 @@ import "gogoproto/gogo.proto";
 import "mycel/registry/params.proto";
 import "mycel/registry/domain.proto";
 
-option go_package = "mycel/x/registry/types";
+option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 // GenesisState defines the registry module's genesis state.
 message GenesisState {
