@@ -24,18 +24,18 @@ func (k msgServer) UpdateDnsRecord(goCtx context.Context, msg *types.MsgUpdateDn
 		return nil, sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s.%s", msg.Name, msg.Parent)), types.ErrDomainNotOwned.Error())
 	}
 
-	err := domain.UpdateDNSRecord(msg.DnsRecordType, msg.Value)
+	err := domain.UpdateDnsRecord(msg.DnsRecordType, msg.Value)
 	if err != nil {
 		return nil, err
 	}
 	k.Keeper.SetDomain(ctx, domain)
 	// Emit event
 	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(types.EventTypeUpdateDNSRecord,
-			sdk.NewAttribute(types.AttributeUpdateDNSRecordEventDomainName, msg.Name),
-			sdk.NewAttribute(types.AttributeUpdateDNSRecordEventDomainParent, msg.Parent),
-			sdk.NewAttribute(types.AttributeUpdateDNSRecordEventDNSRecordType, msg.DnsRecordType),
-			sdk.NewAttribute(types.AttributeUpdateDNSRecordEventValue, msg.Value),
+		sdk.NewEvent(types.EventTypeUpdateDnsRecord,
+			sdk.NewAttribute(types.AttributeUpdateDnsRecordEventDomainName, msg.Name),
+			sdk.NewAttribute(types.AttributeUpdateDnsRecordEventDomainParent, msg.Parent),
+			sdk.NewAttribute(types.AttributeUpdateDnsRecordEventDnsRecordType, msg.DnsRecordType),
+			sdk.NewAttribute(types.AttributeUpdateDnsRecordEventValue, msg.Value),
 		),
 	)
 

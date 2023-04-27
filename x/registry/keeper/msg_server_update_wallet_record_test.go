@@ -12,7 +12,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-func (suite *KeeperTestSuite) TestUpdateWaletRecord() {
+func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 	testCases := []struct {
 		creator          string
 		name             string
@@ -63,6 +63,24 @@ func (suite *KeeperTestSuite) TestUpdateWaletRecord() {
 			name:             "foo",
 			parent:           "cel",
 			walletRecordType: "POLYGON_MUMBAI",
+			value:            "0x1234567890123456789012345678901234567890",
+			expErr:           nil,
+			fn:               func() {},
+		},
+		{
+			creator:          testutil.Alice,
+			name:             "foo",
+			parent:           "cel",
+			walletRecordType: "GNOSIS_MAINNET",
+			value:            "0x1234567890123456789012345678901234567890",
+			expErr:           nil,
+			fn:               func() {},
+		},
+		{
+			creator:          testutil.Alice,
+			name:             "foo",
+			parent:           "cel",
+			walletRecordType: "GNOSIS_CHIADO",
 			value:            "0x1234567890123456789012345678901234567890",
 			expErr:           nil,
 			fn:               func() {},

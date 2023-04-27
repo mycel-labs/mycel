@@ -22,10 +22,10 @@ const (
 
 // Update dns record event
 const (
-	EventTypeUpdateDNSRecord = "update-dns-record"
+	EventTypeUpdateDnsRecord = "update-dns-record"
 
-	AttributeUpdateDNSRecordEventDomainName    = "name"
-	AttributeUpdateDNSRecordEventDomainParent  = "parent"
-	AttributeUpdateDNSRecordEventDNSRecordType = "dns-record-type"
-	AttributeUpdateDNSRecordEventValue         = "value"
+	AttributeUpdateDnsRecordEventDomainName    = "name"
+	AttributeUpdateDnsRecordEventDomainParent  = "parent"
+	AttributeUpdateDnsRecordEventDnsRecordType = "dns-record-type"
+	AttributeUpdateDnsRecordEventValue         = "value"
 )

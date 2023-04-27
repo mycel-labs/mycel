@@ -6,7 +6,7 @@ import "gogoproto/gogo.proto";
 import "mycel/incentives/params.proto";
 import "mycel/incentives/incentive.proto";
 
-option go_package = "mycel/x/incentives/types";
+option go_package = "github.com/mycel-domain/mycel/x/incentives/types";
 
 // GenesisState defines the incentives module's genesis state.
 message GenesisState {

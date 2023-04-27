@@ -8,7 +8,9 @@
 
 ## Get started
 
+for register .eth domain
 ```
+export RPC_ENDPOINT_ETHEREUM_GOERLI="https://goerli.infura.io/v3/<YOUR_API_KEY>"
 ignite chain serve
 ```
 
@@ -34,20 +36,20 @@ make test-all-types
 
 Your blockchain in development can be configured with `config.yml`. To learn more, see the [Ignite CLI docs](https://docs.ignite.com).
 
-### Web Frontend
+<!-- ### Web Frontend
 
-Ignite CLI has scaffolded a Vue.js-based web app in the `vue` directory. Run the following commands to install dependencies and start the app:
+Ignite CLI has scaffolded a React-based web app in the `react` directory. Run the following commands to install dependencies and start the app:
 
 ```
-cd vue
-npm install
-npm run serve
-```
+cd react
+yarn
+yarn dev
+``` -->
 
-The frontend app is built using the `@starport/vue` and `@starport/vuex` packages. For details, see the [monorepo for Ignite front-end development](https://github.com/ignite/web).
+For details, see the [monorepo for Ignite front-end development](https://github.com/ignite/web).
 
 ## Get started with docker
-### single node
+### Single node
 build
 ```
 docker build . -t mycel
@@ -62,31 +64,39 @@ docker run -it --rm \
     -v ~/.mycel:/root/.mycel \
     mycel
 ```
-you can generate your `.mycel` config directory with `ignite chain init`
+You can generate your `.mycel` config directory with `ignite chain init`
 
-### multiple nodes
-use docker compose
+### Multiple nodes
+#### Setup node1 using `docker compose`:
 ```
 docker compose up
+```
 
-# initialize node2
+#### Setup node2:  
+Initialize node2
+```
 docker compose exec node2 myceld init node2
-
-# copy genesis.json
+```
+Copy genesis.json
+```
 docker compose cp node1:/root/.mycel/config/genesis.json /tmp/genesis.json
 docker compose cp /tmp/genesis.json node2:/root/.mycel/config/genesis.json
-
-# update config.toml
+```
+Update config.toml
+```
 docker compose exec node2 sed -i "s/persistent_peers = \"\"/persistent_peers = \"$(docker compose exec node1 myceld tendermint show-node-id)@node1:26656\"/g" /root/.mycel/config/config.toml
-
-# setup key
+```
+Setup key
+```
 docker compose exec node2 myceld keys add validator
 NODE2_ADDR=$(docker compose exec node2 myceld keys show validator --output json | jq -r '.address') # enter password
-
-# send stake token from node1
+```
+Send stake token from node1
+```
 docker compose exec node1 myceld tx bank send alice $NODE2_ADDR 50000000stake
-
-# stake
+```
+Stake
+```
 docker compose exec node2 myceld tx staking create-validator \
     --amount 50000000stake \
     --from validator --pubkey=$(docker compose exec node2 myceld tendermint show-validator) \
@@ -96,11 +106,14 @@ docker compose exec node2 myceld tx staking create-validator \
     --commission-max-change-rate="0.01" \
     --min-self-delegation="50000000" \
     --node tcp://node1:26657
+```
 
-# check validators
+Check validators
+```
 docker compose exec node1 myceld q staking validators
-
-# start node2
+```
+Start node2
+```
 docker compose exec node2 myceld start
 ```
 
@@ -120,7 +133,7 @@ After a draft release is created, make your final changes from the release page 
 To install the latest version of your blockchain node's binary, execute the following command on your machine:
 
 ```
-curl https://get.ignite.com/username/mycel@latest! | sudo bash
+curl https://get.ignite.com/mycel-domain/mycel@latest! | sudo bash
 ```
 `username/mycel` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/allinbits/starport-installer).
 

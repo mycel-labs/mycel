@@ -35,44 +35,44 @@ func TestDomainValidate(t *testing.T) {
 			domain:          Domain{Name: "foo", Parent: "myc"},
 			expDomainLevel:  2,
 			expDomainParent: Domain{Name: "myc", Parent: ""},
-			expDomainPrice:  sdk.NewCoin("MYCEL", sdk.NewInt(30_300)),
+			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(30_300)),
 		},
 		{
 			domain:          Domain{Name: "12345", Parent: ""},
 			expDomainLevel:  1,
 			expDomainParent: Domain{Name: "", Parent: ""},
-			expDomainPrice:  sdk.NewCoin("MYCEL", sdk.NewInt(303)),
+			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(303)),
 			expErr:          "",
 		},
 		{
 			domain:          Domain{Name: "1234", Parent: "foo.myc"},
 			expDomainLevel:  3,
 			expDomainParent: Domain{Name: "foo", Parent: "myc"},
-			expDomainPrice:  sdk.NewCoin("MYCEL", sdk.NewInt(3_030)),
+			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(3_030)),
 		},
 		{
 			domain:          Domain{Name: "123", Parent: "foo.myc"},
 			expDomainLevel:  3,
 			expDomainParent: Domain{Name: "foo", Parent: "myc"},
-			expDomainPrice:  sdk.NewCoin("MYCEL", sdk.NewInt(30_300)),
+			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(30_300)),
 		},
 		{
 			domain:          Domain{Name: "12", Parent: "foo.myc"},
 			expDomainLevel:  3,
 			expDomainParent: Domain{Name: "foo", Parent: "myc"},
-			expDomainPrice:  sdk.NewCoin("MYCEL", sdk.NewInt(303_000)),
+			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(303_000)),
 		},
 		{
 			domain:          Domain{Name: "🍭", Parent: "foo.🍭"},
 			expDomainLevel:  3,
 			expDomainParent: Domain{Name: "foo", Parent: "🍭"},
-			expDomainPrice:  sdk.NewCoin("MYCEL", sdk.NewInt(3_030_000)),
+			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(3_030_000)),
 		},
 		{
 			domain:          Domain{Name: "🍭", Parent: "foo.🍭.myc"},
 			expDomainLevel:  4,
 			expDomainParent: Domain{Name: "foo.🍭", Parent: "myc"},
-			expDomainPrice:  sdk.NewCoin("MYCEL", sdk.NewInt(3_030_000)),
+			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(3_030_000)),
 		},
 		// Invalid name
 		{domain: Domain{Name: ".foo", Parent: "myc"},
@@ -171,7 +171,7 @@ func TestDomainUpdateWalletRecord(t *testing.T) {
 	}
 }
 
-func TestDomainUpdateDNSRecord(t *testing.T) {
+func TestDomainUpdateDnsRecord(t *testing.T) {
 	testCases := []struct {
 		dnsRecordType string
 		value         string
@@ -204,10 +204,10 @@ func TestDomainUpdateDNSRecord(t *testing.T) {
 	}
 	for _, tc := range testCases {
 		domain := Domain{Name: "foo", Parent: "myc"}
-		err := domain.UpdateDNSRecord(tc.dnsRecordType, tc.value)
+		err := domain.UpdateDnsRecord(tc.dnsRecordType, tc.value)
 		if tc.expErr == "" {
 			require.Nil(t, err)
-			require.Equal(t, tc.value, domain.DNSRecords[tc.dnsRecordType].Value)
+			require.Equal(t, tc.value, domain.DnsRecords[tc.dnsRecordType].Value)
 		} else {
 			require.EqualError(t, err, tc.expErr)
 		}
