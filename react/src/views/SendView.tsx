@@ -12,15 +12,15 @@ import { parseEther } from "ethers/lib/utils.js";
 import { useDebounce } from "use-debounce";
 import { Web3Button } from "@web3modal/react";
 import { IgntButton } from "@ignt/react-library";
-import { RegistryDomain, RegistryWalletRecordType } from "mycel-client-ts/mycel.registry/rest";
+import { RegistryDomain, RegistryWalletRecordType } from "mycel-domain-mycel-client-ts/mycel.registry/rest";
 import { useRegistryDomain } from "../def-hooks/useRegistryDomain";
 import { mainnet, polygon, goerli, polygonMumbai, gnosisChiado } from "wagmi/chains";
 
 const getWalletAddr = (domain: RegistryDomain, recordType: RegistryWalletRecordType) => {
-  if (!domain || !domain.walletRecords || !domain.walletRecords[recordType]) {
+  if (!domain || !domain.WalletRecords || !domain.WalletRecords[recordType]) {
     return "";
   }
-  return domain.walletRecords[recordType].value;
+  return domain.WalletRecords[recordType].value;
 };
 
 const getConnectedWalletRecordType = (chainId: number) => {
@@ -88,7 +88,7 @@ export default function SendView() {
 
   useEffect(() => {
     updateRegistryDomain(domainName)
-      .then(() => {})
+      .then()
       .catch((e) => {
         console.error(e);
       });
@@ -116,7 +116,7 @@ export default function SendView() {
           </p>
         ) : (
           <p className="m-2 text-sm text-red-500">
-            <span className="italic">{domainName}</span> doesn't exists in registry.
+            <span className="italic">{domainName}</span> doesn&apos;t exists in registry.
           </p>
         )}
         <input

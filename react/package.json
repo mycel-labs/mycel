@@ -65,7 +65,7 @@
   "scripts": {
     "build": "tsc \u0026\u0026 vite build",
     "dev": "vite",
-    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "postinstall": "node postinstall.cjs",
     "prepare": "node prepare.cjs",
     "preview": "vite preview"

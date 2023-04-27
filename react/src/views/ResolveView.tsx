@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useClient } from "../hooks/useClient";
 import { IgntButton } from "@ignt/react-library";
 import { convertToDomainName, convertToNameAndParent } from "../utils/domainName";
 import { useSearchParams } from "react-router-dom";
@@ -36,7 +35,7 @@ export default function ResolveView() {
     const domainName = convertToDomainName(name, parent);
     setInputtedDomainName(domainName);
     updateRegistryHandler(domainName)
-      .then(() => {})
+      .then()
       .catch((e) => {
         console.log(e);
       });
@@ -96,10 +95,10 @@ export default function ResolveView() {
               <div className=" table-cell p-2">DNS Record Type</div>
               <div className=" table-cell p-2">Value</div>
             </div>
-            {Object.values(registryDomain?.DNSRecords || []).map((v, i) => {
+            {Object.values(registryDomain?.DnsRecords || []).map((v, i) => {
               return (
                 <div key={i} className="table-row text-justify">
-                  <div className="table-cell p-2">{v.DNSRecordType}</div>
+                  <div className="table-cell p-2">{v.DnsRecordType}</div>
                   <div className="table-cell p-2">{v.value}</div>
                 </div>
               );
@@ -114,10 +113,10 @@ export default function ResolveView() {
               <div className=" table-cell p-2">Wallet Address Format</div>
               <div className=" table-cell p-2">Value</div>
             </div>
-            {Object.values(registryDomain?.walletRecords || []).map((v, i) => {
+            {Object.values(registryDomain?.WalletRecords || []).map((v, i) => {
               return (
                 <div key={i} className=" table-row text-justify">
-                  <div className="table-cell p-2">{v.walletRecordType}</div>
+                  <div className="table-cell p-2">{v.WalletRecordType}</div>
                   <div className="table-cell p-2">{v.WalletAddressFormat}</div>
                   <div className="table-cell p-2">{v.value}</div>
                 </div>
