@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { useClient } from "../hooks/useClient";
-import type { RegistryDomain } from "mycel-client-ts/mycel.registry/rest";
+import { RegistryDomain } from "mycel-domain-mycel-client-ts/mycel.registry/rest";
 import { IgntButton } from "@ignt/react-library";
 
 import Fuse from "fuse.js";

@@ -57,13 +57,13 @@
     "vite": "^3.2.1"
   },
   "engines": {
-    "node": "\u003e=16.0.0",
-    "npm": "\u003e=8.0.0"
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
   },
   "name": "@ignt/react-template",
   "private": true,
   "scripts": {
-    "build": "tsc \u0026\u0026 vite build",
+    "build": "tsc && vite build",
     "dev": "vite",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "postinstall": "node postinstall.cjs",
