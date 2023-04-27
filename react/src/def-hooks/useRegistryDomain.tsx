@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useClient } from "../hooks/useClient";
-import { RegistryDomain } from "mycel-client-ts/mycel.registry/rest";
+import { RegistryDomain } from "mycel-domain-mycel-client-ts/mycel.registry/rest";
 import { convertToNameAndParent } from "../utils/domainName";
 
 export const useRegistryDomain = () => {

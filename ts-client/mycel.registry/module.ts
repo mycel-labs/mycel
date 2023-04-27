@@ -7,22 +7,16 @@ import { msgTypes } from './registry';
 import { IgniteClient } from "../client"
 import { MissingWalletError } from "../helpers"
 import { Api } from "./rest";
-import { MsgUpdateDnsRecord } from "./types/mycel/registry/tx";
 import { MsgUpdateWalletRecord } from "./types/mycel/registry/tx";
 import { MsgRegisterDomain } from "./types/mycel/registry/tx";
+import { MsgUpdateDnsRecord } from "./types/mycel/registry/tx";
 
 import { DnsRecord as typeDnsRecord} from "./types"
 import { WalletRecord as typeWalletRecord} from "./types"
 import { Domain as typeDomain} from "./types"
 import { Params as typeParams} from "./types"
 
-export { MsgUpdateDnsRecord, MsgUpdateWalletRecord, MsgRegisterDomain };
-
-type sendMsgUpdateDnsRecordParams = {
-  value: MsgUpdateDnsRecord,
-  fee?: StdFee,
-  memo?: string
-};
+export { MsgUpdateWalletRecord, MsgRegisterDomain, MsgUpdateDnsRecord };
 
 type sendMsgUpdateWalletRecordParams = {
   value: MsgUpdateWalletRecord,
@@ -36,10 +30,12 @@ type sendMsgRegisterDomainParams = {
   memo?: string
 };
 
-
-type msgUpdateDnsRecordParams = {
+type sendMsgUpdateDnsRecordParams = {
   value: MsgUpdateDnsRecord,
+  fee?: StdFee,
+  memo?: string
 };
+
 
 type msgUpdateWalletRecordParams = {
   value: MsgUpdateWalletRecord,
@@ -47,6 +43,10 @@ type msgUpdateWalletRecordParams = {
 
 type msgRegisterDomainParams = {
   value: MsgRegisterDomain,
+};
+
+type msgUpdateDnsRecordParams = {
+  value: MsgUpdateDnsRecord,
 };
 
 
@@ -79,20 +79,6 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 
   return {
 		
-		async sendMsgUpdateDnsRecord({ value, fee, memo }: sendMsgUpdateDnsRecordParams): Promise<DeliverTxResponse> {
-			if (!signer) {
-					throw new Error('TxClient:sendMsgUpdateDnsRecord: Unable to sign Tx. Signer is not present.')
-			}
-			try {			
-				const { address } = (await signer.getAccounts())[0]; 
-				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
-				let msg = this.msgUpdateDnsRecord({ value: MsgUpdateDnsRecord.fromPartial(value) })
-				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
-			} catch (e: any) {
-				throw new Error('TxClient:sendMsgUpdateDnsRecord: Could not broadcast Tx: '+ e.message)
-			}
-		},
-		
 		async sendMsgUpdateWalletRecord({ value, fee, memo }: sendMsgUpdateWalletRecordParams): Promise<DeliverTxResponse> {
 			if (!signer) {
 					throw new Error('TxClient:sendMsgUpdateWalletRecord: Unable to sign Tx. Signer is not present.')
@@ -121,14 +107,20 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 			}
 		},
 		
-		
-		msgUpdateDnsRecord({ value }: msgUpdateDnsRecordParams): EncodeObject {
-			try {
-				return { typeUrl: "/mycel.registry.MsgUpdateDnsRecord", value: MsgUpdateDnsRecord.fromPartial( value ) }  
+		async sendMsgUpdateDnsRecord({ value, fee, memo }: sendMsgUpdateDnsRecordParams): Promise<DeliverTxResponse> {
+			if (!signer) {
+					throw new Error('TxClient:sendMsgUpdateDnsRecord: Unable to sign Tx. Signer is not present.')
+			}
+			try {			
+				const { address } = (await signer.getAccounts())[0]; 
+				const signingClient = await SigningStargateClient.connectWithSigner(addr,signer,{registry, prefix});
+				let msg = this.msgUpdateDnsRecord({ value: MsgUpdateDnsRecord.fromPartial(value) })
+				return await signingClient.signAndBroadcast(address, [msg], fee ? fee : defaultFee, memo)
 			} catch (e: any) {
-				throw new Error('TxClient:MsgUpdateDnsRecord: Could not create message: ' + e.message)
+				throw new Error('TxClient:sendMsgUpdateDnsRecord: Could not broadcast Tx: '+ e.message)
 			}
 		},
+		
 		
 		msgUpdateWalletRecord({ value }: msgUpdateWalletRecordParams): EncodeObject {
 			try {
@@ -143,6 +135,14 @@ export const txClient = ({ signer, prefix, addr }: TxClientOptions = { addr: "ht
 				return { typeUrl: "/mycel.registry.MsgRegisterDomain", value: MsgRegisterDomain.fromPartial( value ) }  
 			} catch (e: any) {
 				throw new Error('TxClient:MsgRegisterDomain: Could not create message: ' + e.message)
+			}
+		},
+		
+		msgUpdateDnsRecord({ value }: msgUpdateDnsRecordParams): EncodeObject {
+			try {
+				return { typeUrl: "/mycel.registry.MsgUpdateDnsRecord", value: MsgUpdateDnsRecord.fromPartial( value ) }  
+			} catch (e: any) {
+				throw new Error('TxClient:MsgUpdateDnsRecord: Could not create message: ' + e.message)
 			}
 		},
 		
