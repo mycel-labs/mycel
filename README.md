@@ -32,6 +32,23 @@ Test all types
 make test-all-types
 ```
 
+### Build with Docker
+Build Docker Image
+```
+make docker-build
+```
+
+Build chain
+```
+make build
+```
+
+Serve Chains
+```
+make serve
+```
+
+
 ### Configure
 
 Your blockchain in development can be configured with `config.yml`. To learn more, see the [Ignite CLI docs](https://docs.ignite.com).
@@ -48,14 +65,14 @@ yarn dev
 
 For details, see the [monorepo for Ignite front-end development](https://github.com/ignite/web).
 
-## Get started with docker
+## Start Nodes with Docker
 ### Single node
-build
+Build
 ```
-docker build . -t mycel
+docker build . -t mycel -f dockerfile-node
 ```
 
-run
+Run
 ```
 docker run -it --rm \
     -p26657:26657 \
@@ -135,7 +152,6 @@ To install the latest version of your blockchain node's binary, execute the foll
 ```
 curl https://get.ignite.com/mycel-domain/mycel@latest! | sudo bash
 ```
-`username/mycel` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/allinbits/starport-installer).
 
 ## Learn more
 
