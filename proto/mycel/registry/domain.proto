@@ -35,14 +35,14 @@ enum WalletAddressFormat {
 }
 
 message DnsRecord {
-  DnsRecordType DnsRecordType = 1;
-  DnsRecordFormat DnsRecordFormat = 2;
+  DnsRecordType dnsRecordType = 1;
+  DnsRecordFormat dnsRecordFormat = 2;
   string value = 3;
 }
 
 message WalletRecord {
-  WalletRecordType WalletRecordType = 1;
-  WalletAddressFormat WalletAddressFormat = 2;
+  WalletRecordType walletRecordType = 1;
+  WalletAddressFormat walletAddressFormat = 2;
   string value = 3;
 }
 
@@ -51,8 +51,8 @@ message Domain {
   string parent = 2; 
   string owner = 3; 
   int64 expirationDate = 4; 
-  map<string, DnsRecord> DnsRecords = 5;
-  map<string, WalletRecord> WalletRecords = 6;
-  map<string, string> Metadata = 7;
+  map<string, DnsRecord> dnsRecords = 5;
+  map<string, WalletRecord> walletRecords = 6;
+  map<string, string> metadata = 7;
 }
 

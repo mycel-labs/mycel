@@ -1,5 +1,4 @@
 syntax = "proto3";
-
 package mycel.registry;
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
