@@ -23,6 +23,7 @@ validators:
 - name: alice
   bonded: 100000000mycel
 genesis:
+  chain_id: "mycel-local"
   app_state:
     staking:
       params:
