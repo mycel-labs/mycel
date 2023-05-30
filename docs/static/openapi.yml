@@ -44330,7 +44330,7 @@ paths:
         - Query
   /mycel-domain/mycel/registry/domain_ownership:
     get:
-      operationId: MyceldomainMycelRegistryDomainOwnershipAll
+      operationId: MycelRegistryDomainOwnershipAll
       responses:
         '200':
           description: A successful response.
@@ -44456,7 +44456,7 @@ paths:
   /mycel-domain/mycel/registry/domain_ownership/{owner}:
     get:
       summary: Queries a list of DomainOwnership items.
-      operationId: MyceldomainMycelRegistryDomainOwnership
+      operationId: MycelRegistryDomainOwnership
       responses:
         '200':
           description: A successful response.
@@ -44499,7 +44499,7 @@ paths:
         - Query
   /mycel/registry/domain:
     get:
-      operationId: MyceldomainMycelRegistryDomainAll
+      operationId: MycelRegistryDomainAll
       responses:
         '200':
           description: A successful response.
@@ -44681,7 +44681,7 @@ paths:
   /mycel/registry/domain/{name}/{parent}:
     get:
       summary: Queries a list of Domain items.
-      operationId: MyceldomainMycelRegistryDomain
+      operationId: MycelRegistryDomain
       responses:
         '200':
           description: A successful response.
@@ -44785,7 +44785,7 @@ paths:
   /mycel/registry/params:
     get:
       summary: Parameters queries the parameters of the module.
-      operationId: MyceldomainMycelRegistryParams
+      operationId: MycelRegistryParams
       responses:
         '200':
           description: A successful response.
@@ -72569,7 +72569,7 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  myceldomain.mycel.registry.DnsRecord:
+  mycel.registry.DnsRecord:
     type: object
     properties:
       dnsRecordType:
@@ -72594,14 +72594,14 @@ definitions:
         default: IPV4
       value:
         type: string
-  myceldomain.mycel.registry.DnsRecordFormat:
+  mycel.registry.DnsRecordFormat:
     type: string
     enum:
       - IPV4
       - IPV6
       - FQDN
     default: IPV4
-  myceldomain.mycel.registry.DnsRecordType:
+  mycel.registry.DnsRecordType:
     type: string
     enum:
       - A
@@ -72614,7 +72614,7 @@ definitions:
       - SRV
       - TXT
     default: A
-  myceldomain.mycel.registry.Domain:
+  mycel.registry.Domain:
     type: object
     properties:
       name:
@@ -72679,7 +72679,7 @@ definitions:
         type: object
         additionalProperties:
           type: string
-  myceldomain.mycel.registry.DomainOwnership:
+  mycel.registry.DomainOwnership:
     type: object
     properties:
       owner:
@@ -72688,16 +72688,16 @@ definitions:
         type: array
         items:
           type: string
-  myceldomain.mycel.registry.MsgRegisterDomainResponse:
+  mycel.registry.MsgRegisterDomainResponse:
     type: object
-  myceldomain.mycel.registry.MsgUpdateDnsRecordResponse:
+  mycel.registry.MsgUpdateDnsRecordResponse:
     type: object
-  myceldomain.mycel.registry.MsgUpdateWalletRecordResponse:
+  mycel.registry.MsgUpdateWalletRecordResponse:
     type: object
-  myceldomain.mycel.registry.Params:
+  mycel.registry.Params:
     type: object
     description: Params defines the parameters for the module.
-  myceldomain.mycel.registry.QueryAllDomainOwnershipResponse:
+  mycel.registry.QueryAllDomainOwnershipResponse:
     type: object
     properties:
       domainOwnership:
@@ -72737,7 +72737,7 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  myceldomain.mycel.registry.QueryAllDomainResponse:
+  mycel.registry.QueryAllDomainResponse:
     type: object
     properties:
       domain:
@@ -72833,7 +72833,7 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  myceldomain.mycel.registry.QueryGetDomainOwnershipResponse:
+  mycel.registry.QueryGetDomainOwnershipResponse:
     type: object
     properties:
       domainOwnership:
@@ -72845,7 +72845,7 @@ definitions:
             type: array
             items:
               type: string
-  myceldomain.mycel.registry.QueryGetDomainResponse:
+  mycel.registry.QueryGetDomainResponse:
     type: object
     properties:
       domain:
@@ -72913,19 +72913,19 @@ definitions:
             type: object
             additionalProperties:
               type: string
-  myceldomain.mycel.registry.QueryParamsResponse:
+  mycel.registry.QueryParamsResponse:
     type: object
     properties:
       params:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  myceldomain.mycel.registry.WalletAddressFormat:
+  mycel.registry.WalletAddressFormat:
     type: string
     enum:
       - ETHEREUM
     default: ETHEREUM
-  myceldomain.mycel.registry.WalletRecord:
+  mycel.registry.WalletRecord:
     type: object
     properties:
       walletRecordType:
@@ -72945,7 +72945,7 @@ definitions:
         default: ETHEREUM
       value:
         type: string
-  myceldomain.mycel.registry.WalletRecordType:
+  mycel.registry.WalletRecordType:
     type: string
     enum:
       - ETHEREUM_MAINNET

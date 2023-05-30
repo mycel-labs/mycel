@@ -1,5 +1,5 @@
 syntax = "proto3";
-package myceldomain.mycel.registry;
+package mycel.registry;
 
 import "gogoproto/gogo.proto";
 
