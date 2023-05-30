@@ -5,8 +5,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/spf13/cobra"
 	"github.com/mycel-domain/mycel/x/registry/types"
+	"github.com/spf13/cobra"
 )
 
 func CmdListDomain() *cobra.Command {

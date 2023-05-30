@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/stretchr/testify/require"
 	testkeeper "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/x/incentives/types"
+	"github.com/stretchr/testify/require"
 )
 
 func TestParamsQuery(t *testing.T) {

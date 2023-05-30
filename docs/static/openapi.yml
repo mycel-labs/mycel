@@ -44328,9 +44328,178 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
+  /mycel-domain/mycel/registry/domain_ownership:
+    get:
+      operationId: MyceldomainMycelRegistryDomainOwnershipAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              domainOwnership:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    owner:
+                      type: string
+                    domains:
+                      type: array
+                      items:
+                        type: string
+              pagination:
+                type: object
+                properties:
+                  next_key:
+                    type: string
+                    format: byte
+                    description: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently. It will be empty if
+                      there are no more results.
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  /mycel-domain/mycel/registry/domain_ownership/{owner}:
+    get:
+      summary: Queries a list of DomainOwnership items.
+      operationId: MyceldomainMycelRegistryDomainOwnership
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              domainOwnership:
+                type: object
+                properties:
+                  owner:
+                    type: string
+                  domains:
+                    type: array
+                    items:
+                      type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: owner
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /mycel/registry/domain:
     get:
-      operationId: MycelRegistryDomainAll
+      operationId: MyceldomainMycelRegistryDomainAll
       responses:
         '200':
           description: A successful response.
@@ -44351,12 +44520,12 @@ paths:
                     expirationDate:
                       type: string
                       format: int64
-                    DnsRecords:
+                    dnsRecords:
                       type: object
                       additionalProperties:
                         type: object
                         properties:
-                          DnsRecordType:
+                          dnsRecordType:
                             type: string
                             enum:
                               - A
@@ -44369,7 +44538,7 @@ paths:
                               - SRV
                               - TXT
                             default: A
-                          DnsRecordFormat:
+                          dnsRecordFormat:
                             type: string
                             enum:
                               - IPV4
@@ -44378,12 +44547,12 @@ paths:
                             default: IPV4
                           value:
                             type: string
-                    WalletRecords:
+                    walletRecords:
                       type: object
                       additionalProperties:
                         type: object
                         properties:
-                          WalletRecordType:
+                          walletRecordType:
                             type: string
                             enum:
                               - ETHEREUM_MAINNET
@@ -44393,14 +44562,14 @@ paths:
                               - GNOSIS_MAINNET
                               - GNOSIS_CHIADO
                             default: ETHEREUM_MAINNET
-                          WalletAddressFormat:
+                          walletAddressFormat:
                             type: string
                             enum:
                               - ETHEREUM
                             default: ETHEREUM
                           value:
                             type: string
-                    Metadata:
+                    metadata:
                       type: object
                       additionalProperties:
                         type: string
@@ -44512,7 +44681,7 @@ paths:
   /mycel/registry/domain/{name}/{parent}:
     get:
       summary: Queries a list of Domain items.
-      operationId: MycelRegistryDomain
+      operationId: MyceldomainMycelRegistryDomain
       responses:
         '200':
           description: A successful response.
@@ -44531,12 +44700,12 @@ paths:
                   expirationDate:
                     type: string
                     format: int64
-                  DnsRecords:
+                  dnsRecords:
                     type: object
                     additionalProperties:
                       type: object
                       properties:
-                        DnsRecordType:
+                        dnsRecordType:
                           type: string
                           enum:
                             - A
@@ -44549,7 +44718,7 @@ paths:
                             - SRV
                             - TXT
                           default: A
-                        DnsRecordFormat:
+                        dnsRecordFormat:
                           type: string
                           enum:
                             - IPV4
@@ -44558,12 +44727,12 @@ paths:
                           default: IPV4
                         value:
                           type: string
-                  WalletRecords:
+                  walletRecords:
                     type: object
                     additionalProperties:
                       type: object
                       properties:
-                        WalletRecordType:
+                        walletRecordType:
                           type: string
                           enum:
                             - ETHEREUM_MAINNET
@@ -44573,14 +44742,14 @@ paths:
                             - GNOSIS_MAINNET
                             - GNOSIS_CHIADO
                           default: ETHEREUM_MAINNET
-                        WalletAddressFormat:
+                        walletAddressFormat:
                           type: string
                           enum:
                             - ETHEREUM
                           default: ETHEREUM
                         value:
                           type: string
-                  Metadata:
+                  metadata:
                     type: object
                     additionalProperties:
                       type: string
@@ -44616,7 +44785,7 @@ paths:
   /mycel/registry/params:
     get:
       summary: Parameters queries the parameters of the module.
-      operationId: MycelRegistryParams
+      operationId: MyceldomainMycelRegistryParams
       responses:
         '200':
           description: A successful response.
@@ -72400,10 +72569,10 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  mycel.registry.DnsRecord:
+  myceldomain.mycel.registry.DnsRecord:
     type: object
     properties:
-      DnsRecordType:
+      dnsRecordType:
         type: string
         enum:
           - A
@@ -72416,7 +72585,7 @@ definitions:
           - SRV
           - TXT
         default: A
-      DnsRecordFormat:
+      dnsRecordFormat:
         type: string
         enum:
           - IPV4
@@ -72425,14 +72594,14 @@ definitions:
         default: IPV4
       value:
         type: string
-  mycel.registry.DnsRecordFormat:
+  myceldomain.mycel.registry.DnsRecordFormat:
     type: string
     enum:
       - IPV4
       - IPV6
       - FQDN
     default: IPV4
-  mycel.registry.DnsRecordType:
+  myceldomain.mycel.registry.DnsRecordType:
     type: string
     enum:
       - A
@@ -72445,7 +72614,7 @@ definitions:
       - SRV
       - TXT
     default: A
-  mycel.registry.Domain:
+  myceldomain.mycel.registry.Domain:
     type: object
     properties:
       name:
@@ -72457,12 +72626,12 @@ definitions:
       expirationDate:
         type: string
         format: int64
-      DnsRecords:
+      dnsRecords:
         type: object
         additionalProperties:
           type: object
           properties:
-            DnsRecordType:
+            dnsRecordType:
               type: string
               enum:
                 - A
@@ -72475,7 +72644,7 @@ definitions:
                 - SRV
                 - TXT
               default: A
-            DnsRecordFormat:
+            dnsRecordFormat:
               type: string
               enum:
                 - IPV4
@@ -72484,12 +72653,12 @@ definitions:
               default: IPV4
             value:
               type: string
-      WalletRecords:
+      walletRecords:
         type: object
         additionalProperties:
           type: object
           properties:
-            WalletRecordType:
+            walletRecordType:
               type: string
               enum:
                 - ETHEREUM_MAINNET
@@ -72499,27 +72668,76 @@ definitions:
                 - GNOSIS_MAINNET
                 - GNOSIS_CHIADO
               default: ETHEREUM_MAINNET
-            WalletAddressFormat:
+            walletAddressFormat:
               type: string
               enum:
                 - ETHEREUM
               default: ETHEREUM
             value:
               type: string
-      Metadata:
+      metadata:
         type: object
         additionalProperties:
           type: string
-  mycel.registry.MsgRegisterDomainResponse:
+  myceldomain.mycel.registry.DomainOwnership:
     type: object
-  mycel.registry.MsgUpdateDnsRecordResponse:
+    properties:
+      owner:
+        type: string
+      domains:
+        type: array
+        items:
+          type: string
+  myceldomain.mycel.registry.MsgRegisterDomainResponse:
     type: object
-  mycel.registry.MsgUpdateWalletRecordResponse:
+  myceldomain.mycel.registry.MsgUpdateDnsRecordResponse:
     type: object
-  mycel.registry.Params:
+  myceldomain.mycel.registry.MsgUpdateWalletRecordResponse:
+    type: object
+  myceldomain.mycel.registry.Params:
     type: object
     description: Params defines the parameters for the module.
-  mycel.registry.QueryAllDomainResponse:
+  myceldomain.mycel.registry.QueryAllDomainOwnershipResponse:
+    type: object
+    properties:
+      domainOwnership:
+        type: array
+        items:
+          type: object
+          properties:
+            owner:
+              type: string
+            domains:
+              type: array
+              items:
+                type: string
+      pagination:
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            description: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently. It will be empty if
+              there are no more results.
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  myceldomain.mycel.registry.QueryAllDomainResponse:
     type: object
     properties:
       domain:
@@ -72536,12 +72754,12 @@ definitions:
             expirationDate:
               type: string
               format: int64
-            DnsRecords:
+            dnsRecords:
               type: object
               additionalProperties:
                 type: object
                 properties:
-                  DnsRecordType:
+                  dnsRecordType:
                     type: string
                     enum:
                       - A
@@ -72554,7 +72772,7 @@ definitions:
                       - SRV
                       - TXT
                     default: A
-                  DnsRecordFormat:
+                  dnsRecordFormat:
                     type: string
                     enum:
                       - IPV4
@@ -72563,12 +72781,12 @@ definitions:
                     default: IPV4
                   value:
                     type: string
-            WalletRecords:
+            walletRecords:
               type: object
               additionalProperties:
                 type: object
                 properties:
-                  WalletRecordType:
+                  walletRecordType:
                     type: string
                     enum:
                       - ETHEREUM_MAINNET
@@ -72578,14 +72796,14 @@ definitions:
                       - GNOSIS_MAINNET
                       - GNOSIS_CHIADO
                     default: ETHEREUM_MAINNET
-                  WalletAddressFormat:
+                  walletAddressFormat:
                     type: string
                     enum:
                       - ETHEREUM
                     default: ETHEREUM
                   value:
                     type: string
-            Metadata:
+            metadata:
               type: object
               additionalProperties:
                 type: string
@@ -72615,7 +72833,19 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  mycel.registry.QueryGetDomainResponse:
+  myceldomain.mycel.registry.QueryGetDomainOwnershipResponse:
+    type: object
+    properties:
+      domainOwnership:
+        type: object
+        properties:
+          owner:
+            type: string
+          domains:
+            type: array
+            items:
+              type: string
+  myceldomain.mycel.registry.QueryGetDomainResponse:
     type: object
     properties:
       domain:
@@ -72630,12 +72860,12 @@ definitions:
           expirationDate:
             type: string
             format: int64
-          DnsRecords:
+          dnsRecords:
             type: object
             additionalProperties:
               type: object
               properties:
-                DnsRecordType:
+                dnsRecordType:
                   type: string
                   enum:
                     - A
@@ -72648,7 +72878,7 @@ definitions:
                     - SRV
                     - TXT
                   default: A
-                DnsRecordFormat:
+                dnsRecordFormat:
                   type: string
                   enum:
                     - IPV4
@@ -72657,12 +72887,12 @@ definitions:
                   default: IPV4
                 value:
                   type: string
-          WalletRecords:
+          walletRecords:
             type: object
             additionalProperties:
               type: object
               properties:
-                WalletRecordType:
+                walletRecordType:
                   type: string
                   enum:
                     - ETHEREUM_MAINNET
@@ -72672,33 +72902,33 @@ definitions:
                     - GNOSIS_MAINNET
                     - GNOSIS_CHIADO
                   default: ETHEREUM_MAINNET
-                WalletAddressFormat:
+                walletAddressFormat:
                   type: string
                   enum:
                     - ETHEREUM
                   default: ETHEREUM
                 value:
                   type: string
-          Metadata:
+          metadata:
             type: object
             additionalProperties:
               type: string
-  mycel.registry.QueryParamsResponse:
+  myceldomain.mycel.registry.QueryParamsResponse:
     type: object
     properties:
       params:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  mycel.registry.WalletAddressFormat:
+  myceldomain.mycel.registry.WalletAddressFormat:
     type: string
     enum:
       - ETHEREUM
     default: ETHEREUM
-  mycel.registry.WalletRecord:
+  myceldomain.mycel.registry.WalletRecord:
     type: object
     properties:
-      WalletRecordType:
+      walletRecordType:
         type: string
         enum:
           - ETHEREUM_MAINNET
@@ -72708,14 +72938,14 @@ definitions:
           - GNOSIS_MAINNET
           - GNOSIS_CHIADO
         default: ETHEREUM_MAINNET
-      WalletAddressFormat:
+      walletAddressFormat:
         type: string
         enum:
           - ETHEREUM
         default: ETHEREUM
       value:
         type: string
-  mycel.registry.WalletRecordType:
+  myceldomain.mycel.registry.WalletRecordType:
     type: string
     enum:
       - ETHEREUM_MAINNET
