@@ -305,50 +305,248 @@ func (m *QueryAllDomainResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
+type QueryGetDomainOwnershipRequest struct {
+	Owner string `protobuf:"bytes,1,opt,name=owner,proto3" json:"owner,omitempty"`
+}
+
+func (m *QueryGetDomainOwnershipRequest) Reset()         { *m = QueryGetDomainOwnershipRequest{} }
+func (m *QueryGetDomainOwnershipRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetDomainOwnershipRequest) ProtoMessage()    {}
+func (*QueryGetDomainOwnershipRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0f2c8f2d33ba1956, []int{6}
+}
+func (m *QueryGetDomainOwnershipRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetDomainOwnershipRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetDomainOwnershipRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetDomainOwnershipRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetDomainOwnershipRequest.Merge(m, src)
+}
+func (m *QueryGetDomainOwnershipRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetDomainOwnershipRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetDomainOwnershipRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetDomainOwnershipRequest proto.InternalMessageInfo
+
+func (m *QueryGetDomainOwnershipRequest) GetOwner() string {
+	if m != nil {
+		return m.Owner
+	}
+	return ""
+}
+
+type QueryGetDomainOwnershipResponse struct {
+	DomainOwnership DomainOwnership `protobuf:"bytes,1,opt,name=domainOwnership,proto3" json:"domainOwnership"`
+}
+
+func (m *QueryGetDomainOwnershipResponse) Reset()         { *m = QueryGetDomainOwnershipResponse{} }
+func (m *QueryGetDomainOwnershipResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetDomainOwnershipResponse) ProtoMessage()    {}
+func (*QueryGetDomainOwnershipResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0f2c8f2d33ba1956, []int{7}
+}
+func (m *QueryGetDomainOwnershipResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetDomainOwnershipResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetDomainOwnershipResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetDomainOwnershipResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetDomainOwnershipResponse.Merge(m, src)
+}
+func (m *QueryGetDomainOwnershipResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetDomainOwnershipResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetDomainOwnershipResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetDomainOwnershipResponse proto.InternalMessageInfo
+
+func (m *QueryGetDomainOwnershipResponse) GetDomainOwnership() DomainOwnership {
+	if m != nil {
+		return m.DomainOwnership
+	}
+	return DomainOwnership{}
+}
+
+type QueryAllDomainOwnershipRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllDomainOwnershipRequest) Reset()         { *m = QueryAllDomainOwnershipRequest{} }
+func (m *QueryAllDomainOwnershipRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllDomainOwnershipRequest) ProtoMessage()    {}
+func (*QueryAllDomainOwnershipRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0f2c8f2d33ba1956, []int{8}
+}
+func (m *QueryAllDomainOwnershipRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllDomainOwnershipRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllDomainOwnershipRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllDomainOwnershipRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllDomainOwnershipRequest.Merge(m, src)
+}
+func (m *QueryAllDomainOwnershipRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllDomainOwnershipRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllDomainOwnershipRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllDomainOwnershipRequest proto.InternalMessageInfo
+
+func (m *QueryAllDomainOwnershipRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllDomainOwnershipResponse struct {
+	DomainOwnership []DomainOwnership   `protobuf:"bytes,1,rep,name=domainOwnership,proto3" json:"domainOwnership"`
+	Pagination      *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllDomainOwnershipResponse) Reset()         { *m = QueryAllDomainOwnershipResponse{} }
+func (m *QueryAllDomainOwnershipResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllDomainOwnershipResponse) ProtoMessage()    {}
+func (*QueryAllDomainOwnershipResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0f2c8f2d33ba1956, []int{9}
+}
+func (m *QueryAllDomainOwnershipResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllDomainOwnershipResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllDomainOwnershipResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllDomainOwnershipResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllDomainOwnershipResponse.Merge(m, src)
+}
+func (m *QueryAllDomainOwnershipResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllDomainOwnershipResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllDomainOwnershipResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllDomainOwnershipResponse proto.InternalMessageInfo
+
+func (m *QueryAllDomainOwnershipResponse) GetDomainOwnership() []DomainOwnership {
+	if m != nil {
+		return m.DomainOwnership
+	}
+	return nil
+}
+
+func (m *QueryAllDomainOwnershipResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 func init() {
-	proto.RegisterType((*QueryParamsRequest)(nil), "mycel.registry.QueryParamsRequest")
-	proto.RegisterType((*QueryParamsResponse)(nil), "mycel.registry.QueryParamsResponse")
-	proto.RegisterType((*QueryGetDomainRequest)(nil), "mycel.registry.QueryGetDomainRequest")
-	proto.RegisterType((*QueryGetDomainResponse)(nil), "mycel.registry.QueryGetDomainResponse")
-	proto.RegisterType((*QueryAllDomainRequest)(nil), "mycel.registry.QueryAllDomainRequest")
-	proto.RegisterType((*QueryAllDomainResponse)(nil), "mycel.registry.QueryAllDomainResponse")
+	proto.RegisterType((*QueryParamsRequest)(nil), "myceldomain.mycel.registry.QueryParamsRequest")
+	proto.RegisterType((*QueryParamsResponse)(nil), "myceldomain.mycel.registry.QueryParamsResponse")
+	proto.RegisterType((*QueryGetDomainRequest)(nil), "myceldomain.mycel.registry.QueryGetDomainRequest")
+	proto.RegisterType((*QueryGetDomainResponse)(nil), "myceldomain.mycel.registry.QueryGetDomainResponse")
+	proto.RegisterType((*QueryAllDomainRequest)(nil), "myceldomain.mycel.registry.QueryAllDomainRequest")
+	proto.RegisterType((*QueryAllDomainResponse)(nil), "myceldomain.mycel.registry.QueryAllDomainResponse")
+	proto.RegisterType((*QueryGetDomainOwnershipRequest)(nil), "myceldomain.mycel.registry.QueryGetDomainOwnershipRequest")
+	proto.RegisterType((*QueryGetDomainOwnershipResponse)(nil), "myceldomain.mycel.registry.QueryGetDomainOwnershipResponse")
+	proto.RegisterType((*QueryAllDomainOwnershipRequest)(nil), "myceldomain.mycel.registry.QueryAllDomainOwnershipRequest")
+	proto.RegisterType((*QueryAllDomainOwnershipResponse)(nil), "myceldomain.mycel.registry.QueryAllDomainOwnershipResponse")
 }
 
 func init() { proto.RegisterFile("mycel/registry/query.proto", fileDescriptor_0f2c8f2d33ba1956) }
 
 var fileDescriptor_0f2c8f2d33ba1956 = []byte{
-	// 485 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x93, 0x41, 0x6b, 0xd4, 0x40,
-	0x14, 0xc7, 0x37, 0xdb, 0xba, 0xd0, 0x11, 0x3c, 0x8c, 0x35, 0x2c, 0x51, 0xa2, 0x8c, 0xb8, 0x16,
-	0xc1, 0x19, 0x5a, 0xfd, 0x02, 0xad, 0x62, 0x05, 0x41, 0x6a, 0x8e, 0x5e, 0x64, 0xb2, 0x0e, 0x63,
-	0x20, 0xc9, 0x64, 0x33, 0xb3, 0x62, 0x2c, 0x05, 0xf1, 0xe2, 0x55, 0xf0, 0xe0, 0x57, 0xea, 0xb1,
-	0xe0, 0xc5, 0x93, 0xc8, 0xae, 0x1f, 0x44, 0x32, 0x6f, 0xca, 0x6e, 0xd2, 0xc4, 0x7a, 0xcb, 0xce,
-	0xfb, 0xbf, 0xff, 0xff, 0x37, 0xf3, 0xde, 0xa2, 0x20, 0xab, 0xa6, 0x22, 0x65, 0xa5, 0x90, 0x89,
-	0x36, 0x65, 0xc5, 0x66, 0x73, 0x51, 0x56, 0xb4, 0x28, 0x95, 0x51, 0xf8, 0x9a, 0xad, 0xd1, 0xf3,
-	0x5a, 0xb0, 0x2d, 0x95, 0x54, 0xb6, 0xc4, 0xea, 0x2f, 0x50, 0x05, 0xb7, 0xa4, 0x52, 0x32, 0x15,
-	0x8c, 0x17, 0x09, 0xe3, 0x79, 0xae, 0x0c, 0x37, 0x89, 0xca, 0xb5, 0xab, 0x3e, 0x98, 0x2a, 0x9d,
-	0x29, 0xcd, 0x62, 0xae, 0x05, 0x98, 0xb3, 0xf7, 0xbb, 0xb1, 0x30, 0x7c, 0x97, 0x15, 0x5c, 0x26,
-	0xb9, 0x15, 0x3b, 0xed, 0xcd, 0x16, 0x4b, 0xc1, 0x4b, 0x9e, 0xe9, 0x9e, 0xe2, 0x5b, 0x95, 0xf1,
-	0xc4, 0x75, 0x92, 0x6d, 0x84, 0x5f, 0xd5, 0xde, 0x47, 0xb6, 0x23, 0x12, 0xb3, 0xb9, 0xd0, 0x86,
-	0xbc, 0x40, 0xd7, 0x1b, 0xa7, 0xba, 0x50, 0xb9, 0x16, 0xf8, 0x31, 0x1a, 0x81, 0xf3, 0xd8, 0xbb,
-	0xe3, 0xed, 0x5c, 0xdd, 0xf3, 0x69, 0xf3, 0x9e, 0x14, 0xf4, 0x07, 0x9b, 0xa7, 0xbf, 0x6e, 0x0f,
-	0x22, 0xa7, 0x25, 0x4f, 0xd0, 0x0d, 0x6b, 0x76, 0x28, 0xcc, 0x53, 0x1b, 0xed, 0x52, 0x30, 0x46,
-	0x9b, 0x39, 0xcf, 0x84, 0x35, 0xdb, 0x8a, 0xec, 0x37, 0xf6, 0x6d, 0x84, 0xc8, 0xcd, 0x78, 0x68,
-	0x4f, 0xdd, 0x2f, 0xf2, 0x12, 0xf9, 0x6d, 0x93, 0x15, 0x14, 0xdc, 0xa8, 0x0f, 0x0a, 0xf4, 0xe7,
-	0x50, 0xa0, 0x25, 0x6f, 0x1c, 0xd4, 0x7e, 0x9a, 0x36, 0xa1, 0x9e, 0x21, 0xb4, 0x7a, 0x5e, 0x67,
-	0x39, 0xa1, 0x30, 0x0b, 0x5a, 0xcf, 0x82, 0xc2, 0xa0, 0xdd, 0x2c, 0xe8, 0x11, 0x97, 0xc2, 0xf5,
-	0x46, 0x6b, 0x9d, 0xe4, 0xbb, 0xe7, 0x88, 0xd7, 0x12, 0x3a, 0x88, 0x37, 0xfe, 0x97, 0x18, 0x1f,
-	0x36, 0xc0, 0x86, 0x16, 0xec, 0xfe, 0xa5, 0x60, 0x10, 0xb9, 0x4e, 0xb6, 0xf7, 0x69, 0x03, 0x5d,
-	0xb1, 0x64, 0x78, 0x86, 0x46, 0x30, 0x31, 0x4c, 0xda, 0x08, 0x17, 0x97, 0x22, 0xb8, 0xfb, 0x4f,
-	0x0d, 0x04, 0x91, 0xf0, 0xf3, 0x8f, 0x3f, 0xdf, 0x86, 0x63, 0xec, 0xb3, 0xce, 0x95, 0xc4, 0x5f,
-	0x3c, 0x34, 0x82, 0xeb, 0xe1, 0x7b, 0x9d, 0x7e, 0xed, 0x2d, 0x09, 0x26, 0x97, 0xc9, 0x5c, 0x32,
-	0xb5, 0xc9, 0x3b, 0x78, 0xc2, 0x3a, 0xf7, 0x9d, 0x1d, 0xd7, 0xfb, 0x75, 0xc2, 0x8e, 0x61, 0xa1,
-	0x4e, 0xf0, 0x47, 0xb4, 0x05, 0x0e, 0xfb, 0x69, 0xda, 0xc3, 0xd2, 0x5e, 0x8e, 0x1e, 0x96, 0x0b,
-	0x13, 0xee, 0x7f, 0x05, 0x60, 0x39, 0x78, 0x7e, 0xba, 0x08, 0xbd, 0xb3, 0x45, 0xe8, 0xfd, 0x5e,
-	0x84, 0xde, 0xd7, 0x65, 0x38, 0x38, 0x5b, 0x86, 0x83, 0x9f, 0xcb, 0x70, 0xf0, 0x9a, 0xca, 0xc4,
-	0xbc, 0x9b, 0xc7, 0x74, 0xaa, 0x32, 0xe8, 0x7d, 0xe8, 0xf0, 0xc1, 0xe8, 0xc3, 0xca, 0xca, 0x54,
-	0x85, 0xd0, 0xf1, 0xc8, 0xfe, 0x8d, 0x1f, 0xfd, 0x0d, 0x00, 0x00, 0xff, 0xff, 0x10, 0x1a, 0xbb,
-	0xaf, 0x8e, 0x04, 0x00, 0x00,
+	// 644 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x95, 0xcf, 0x6b, 0x13, 0x41,
+	0x14, 0xc7, 0x33, 0x69, 0x1b, 0xe8, 0x78, 0x28, 0x8c, 0x31, 0x84, 0x55, 0xb6, 0xb2, 0x60, 0x2d,
+	0x4a, 0x67, 0x48, 0xa4, 0x0a, 0x15, 0xc1, 0x56, 0xb1, 0xde, 0xac, 0xb9, 0x08, 0xf5, 0x50, 0x26,
+	0xe9, 0xb0, 0x59, 0xd8, 0xdd, 0xd9, 0xee, 0x6c, 0xd4, 0x10, 0xe2, 0xc1, 0x9b, 0x37, 0xd1, 0x3f,
+	0xc0, 0x83, 0xff, 0x8a, 0x60, 0xbd, 0x15, 0xbc, 0x78, 0x51, 0x24, 0xf1, 0x0f, 0x29, 0x99, 0x99,
+	0x34, 0xdd, 0xcd, 0xa6, 0xd9, 0x86, 0xdc, 0x66, 0xf7, 0xfd, 0xfa, 0xbc, 0xef, 0x9b, 0x7d, 0x0b,
+	0x0d, 0xaf, 0xdd, 0x60, 0x2e, 0x09, 0x99, 0xed, 0x88, 0x28, 0x6c, 0x93, 0xa3, 0x16, 0x0b, 0xdb,
+	0x38, 0x08, 0x79, 0xc4, 0x91, 0xb2, 0x1d, 0x72, 0x8f, 0x3a, 0x3e, 0x96, 0x67, 0x3c, 0xf4, 0x33,
+	0x8a, 0x36, 0xb7, 0xb9, 0x74, 0x23, 0x83, 0x93, 0x8a, 0x30, 0x6e, 0xd8, 0x9c, 0xdb, 0x2e, 0x23,
+	0x34, 0x70, 0x08, 0xf5, 0x7d, 0x1e, 0xd1, 0xc8, 0xe1, 0xbe, 0xd0, 0xd6, 0x3b, 0x0d, 0x2e, 0x3c,
+	0x2e, 0x48, 0x9d, 0x0a, 0xa6, 0x0a, 0x91, 0x37, 0x95, 0x3a, 0x8b, 0x68, 0x85, 0x04, 0xd4, 0x76,
+	0x7c, 0xe9, 0xac, 0x7d, 0xaf, 0x27, 0xb8, 0x02, 0x1a, 0x52, 0x4f, 0x4c, 0x30, 0x6a, 0x44, 0x65,
+	0xbc, 0x95, 0x6a, 0x3c, 0xe0, 0x6f, 0x7d, 0x16, 0x8a, 0xa6, 0x13, 0x28, 0x37, 0xab, 0x08, 0xd1,
+	0xcb, 0x01, 0xc2, 0x9e, 0x4c, 0x5c, 0x63, 0x47, 0x2d, 0x26, 0x22, 0xeb, 0x15, 0xbc, 0x1a, 0x7b,
+	0x2b, 0x02, 0xee, 0x0b, 0x86, 0x1e, 0xc3, 0x82, 0x02, 0x28, 0x83, 0x9b, 0x60, 0xfd, 0x4a, 0xd5,
+	0xc2, 0x93, 0xa5, 0xc1, 0x2a, 0x76, 0x67, 0xf1, 0xf8, 0xef, 0x6a, 0xae, 0xa6, 0xe3, 0xac, 0x27,
+	0xf0, 0x9a, 0x4c, 0xbc, 0xcb, 0xa2, 0xa7, 0x32, 0x4a, 0x57, 0x44, 0x08, 0x2e, 0xfa, 0xd4, 0x63,
+	0x32, 0xf1, 0x72, 0x4d, 0x9e, 0x51, 0x49, 0x96, 0x63, 0x7e, 0x54, 0xce, 0xcb, 0xb7, 0xfa, 0xc9,
+	0xda, 0x87, 0xa5, 0x64, 0x92, 0x11, 0xa0, 0x82, 0xc9, 0x02, 0xa8, 0x62, 0x87, 0x80, 0xca, 0xc7,
+	0x3a, 0xd0, 0x80, 0xdb, 0xae, 0x1b, 0x07, 0x7c, 0x06, 0xe1, 0x68, 0x3a, 0x3a, 0xfd, 0x1a, 0x56,
+	0xa3, 0xc4, 0x83, 0x51, 0x62, 0x75, 0x67, 0xf4, 0x28, 0xf1, 0x1e, 0xb5, 0x99, 0x8e, 0xad, 0x9d,
+	0x8b, 0xb4, 0xbe, 0x01, 0x4d, 0x7f, 0xae, 0x42, 0x0a, 0xfd, 0xc2, 0x2c, 0xf4, 0x68, 0x37, 0x06,
+	0x99, 0x97, 0x90, 0xb7, 0xa7, 0x42, 0xaa, 0xf2, 0x31, 0xca, 0xfb, 0xd0, 0x8c, 0x4b, 0xfc, 0x62,
+	0x78, 0x6f, 0x86, 0x7a, 0x14, 0xe1, 0x92, 0xbc, 0x4b, 0x7a, 0x62, 0xea, 0xc1, 0x7a, 0x0f, 0x57,
+	0x27, 0xc6, 0xe9, 0x2e, 0x5f, 0xc3, 0x95, 0xc3, 0xb8, 0x49, 0xab, 0x79, 0x77, 0x7a, 0xbb, 0x67,
+	0x21, 0xba, 0xef, 0x64, 0x26, 0xab, 0xa9, 0xb9, 0xcf, 0xc4, 0x1d, 0xe3, 0x9e, 0xd7, 0x1c, 0x7f,
+	0x00, 0xdd, 0x6a, 0x5a, 0xa9, 0x8b, 0x5a, 0x5d, 0x98, 0x4f, 0xab, 0x73, 0x9b, 0x75, 0xf5, 0x4f,
+	0x01, 0x2e, 0xc9, 0x4e, 0xd0, 0x47, 0x00, 0x0b, 0xea, 0xb3, 0x45, 0xf8, 0x22, 0xc2, 0xf1, 0x8d,
+	0x61, 0x90, 0xcc, 0xfe, 0x8a, 0xc0, 0x32, 0x3f, 0xfc, 0xfa, 0xff, 0x25, 0x5f, 0x46, 0x25, 0x92,
+	0xba, 0xe2, 0xd0, 0x57, 0x00, 0x0b, 0x4a, 0x09, 0x54, 0x99, 0x9a, 0x3b, 0xb9, 0x4e, 0x8c, 0xea,
+	0x65, 0x42, 0x34, 0x11, 0x96, 0x44, 0xeb, 0x68, 0x8d, 0xa4, 0xae, 0x4e, 0xd2, 0x19, 0x2c, 0xa5,
+	0x2e, 0xe9, 0xa8, 0x2d, 0xd4, 0x45, 0x9f, 0x01, 0x5c, 0x56, 0x29, 0xb6, 0x5d, 0x37, 0x03, 0x64,
+	0x72, 0xa5, 0x64, 0x80, 0x1c, 0xdb, 0x11, 0x93, 0x65, 0xd3, 0x1b, 0xe0, 0x27, 0x80, 0x2b, 0x89,
+	0x0b, 0x84, 0xb6, 0xb2, 0x8b, 0x91, 0xfc, 0x5c, 0x8c, 0x87, 0x33, 0xc5, 0x6a, 0xd8, 0x47, 0x12,
+	0xf6, 0x01, 0xda, 0x54, 0xb0, 0x1b, 0x5a, 0xc8, 0x29, 0x7f, 0x26, 0xd2, 0x91, 0xc7, 0x2e, 0xfa,
+	0x0e, 0x20, 0x4a, 0xa4, 0x1e, 0x28, 0xbd, 0x95, 0x5d, 0xb6, 0x19, 0xda, 0x99, 0xfc, 0x39, 0x5b,
+	0x9b, 0xb2, 0x1d, 0x82, 0x36, 0x2e, 0xd5, 0xce, 0xce, 0xf3, 0xe3, 0x9e, 0x09, 0x4e, 0x7a, 0x26,
+	0xf8, 0xd7, 0x33, 0xc1, 0xa7, 0xbe, 0x99, 0x3b, 0xe9, 0x9b, 0xb9, 0xdf, 0x7d, 0x33, 0xb7, 0x8f,
+	0x6d, 0x27, 0x6a, 0xb6, 0xea, 0xb8, 0xc1, 0xbd, 0xb4, 0x94, 0xef, 0x46, 0x49, 0xa3, 0x76, 0xc0,
+	0x44, 0xbd, 0x20, 0xff, 0xd9, 0xf7, 0x4e, 0x03, 0x00, 0x00, 0xff, 0xff, 0x71, 0x23, 0x6c, 0x6f,
+	0xae, 0x08, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -368,6 +566,9 @@ type QueryClient interface {
 	// Queries a list of Domain items.
 	Domain(ctx context.Context, in *QueryGetDomainRequest, opts ...grpc.CallOption) (*QueryGetDomainResponse, error)
 	DomainAll(ctx context.Context, in *QueryAllDomainRequest, opts ...grpc.CallOption) (*QueryAllDomainResponse, error)
+	// Queries a list of DomainOwnership items.
+	DomainOwnership(ctx context.Context, in *QueryGetDomainOwnershipRequest, opts ...grpc.CallOption) (*QueryGetDomainOwnershipResponse, error)
+	DomainOwnershipAll(ctx context.Context, in *QueryAllDomainOwnershipRequest, opts ...grpc.CallOption) (*QueryAllDomainOwnershipResponse, error)
 }
 
 type queryClient struct {
@@ -380,7 +581,7 @@ func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 
 func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
 	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, "/mycel.registry.Query/Params", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/myceldomain.mycel.registry.Query/Params", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -389,7 +590,7 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 
 func (c *queryClient) Domain(ctx context.Context, in *QueryGetDomainRequest, opts ...grpc.CallOption) (*QueryGetDomainResponse, error) {
 	out := new(QueryGetDomainResponse)
-	err := c.cc.Invoke(ctx, "/mycel.registry.Query/Domain", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/myceldomain.mycel.registry.Query/Domain", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -398,7 +599,25 @@ func (c *queryClient) Domain(ctx context.Context, in *QueryGetDomainRequest, opt
 
 func (c *queryClient) DomainAll(ctx context.Context, in *QueryAllDomainRequest, opts ...grpc.CallOption) (*QueryAllDomainResponse, error) {
 	out := new(QueryAllDomainResponse)
-	err := c.cc.Invoke(ctx, "/mycel.registry.Query/DomainAll", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/myceldomain.mycel.registry.Query/DomainAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) DomainOwnership(ctx context.Context, in *QueryGetDomainOwnershipRequest, opts ...grpc.CallOption) (*QueryGetDomainOwnershipResponse, error) {
+	out := new(QueryGetDomainOwnershipResponse)
+	err := c.cc.Invoke(ctx, "/myceldomain.mycel.registry.Query/DomainOwnership", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) DomainOwnershipAll(ctx context.Context, in *QueryAllDomainOwnershipRequest, opts ...grpc.CallOption) (*QueryAllDomainOwnershipResponse, error) {
+	out := new(QueryAllDomainOwnershipResponse)
+	err := c.cc.Invoke(ctx, "/myceldomain.mycel.registry.Query/DomainOwnershipAll", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -412,6 +631,9 @@ type QueryServer interface {
 	// Queries a list of Domain items.
 	Domain(context.Context, *QueryGetDomainRequest) (*QueryGetDomainResponse, error)
 	DomainAll(context.Context, *QueryAllDomainRequest) (*QueryAllDomainResponse, error)
+	// Queries a list of DomainOwnership items.
+	DomainOwnership(context.Context, *QueryGetDomainOwnershipRequest) (*QueryGetDomainOwnershipResponse, error)
+	DomainOwnershipAll(context.Context, *QueryAllDomainOwnershipRequest) (*QueryAllDomainOwnershipResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -426,6 +648,12 @@ func (*UnimplementedQueryServer) Domain(ctx context.Context, req *QueryGetDomain
 }
 func (*UnimplementedQueryServer) DomainAll(ctx context.Context, req *QueryAllDomainRequest) (*QueryAllDomainResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DomainAll not implemented")
+}
+func (*UnimplementedQueryServer) DomainOwnership(ctx context.Context, req *QueryGetDomainOwnershipRequest) (*QueryGetDomainOwnershipResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DomainOwnership not implemented")
+}
+func (*UnimplementedQueryServer) DomainOwnershipAll(ctx context.Context, req *QueryAllDomainOwnershipRequest) (*QueryAllDomainOwnershipResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DomainOwnershipAll not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -442,7 +670,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mycel.registry.Query/Params",
+		FullMethod: "/myceldomain.mycel.registry.Query/Params",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
@@ -460,7 +688,7 @@ func _Query_Domain_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mycel.registry.Query/Domain",
+		FullMethod: "/myceldomain.mycel.registry.Query/Domain",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).Domain(ctx, req.(*QueryGetDomainRequest))
@@ -478,7 +706,7 @@ func _Query_DomainAll_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mycel.registry.Query/DomainAll",
+		FullMethod: "/myceldomain.mycel.registry.Query/DomainAll",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(QueryServer).DomainAll(ctx, req.(*QueryAllDomainRequest))
@@ -486,8 +714,44 @@ func _Query_DomainAll_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_DomainOwnership_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetDomainOwnershipRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).DomainOwnership(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/myceldomain.mycel.registry.Query/DomainOwnership",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).DomainOwnership(ctx, req.(*QueryGetDomainOwnershipRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_DomainOwnershipAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllDomainOwnershipRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).DomainOwnershipAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/myceldomain.mycel.registry.Query/DomainOwnershipAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).DomainOwnershipAll(ctx, req.(*QueryAllDomainOwnershipRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "mycel.registry.Query",
+	ServiceName: "myceldomain.mycel.registry.Query",
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -501,6 +765,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DomainAll",
 			Handler:    _Query_DomainAll_Handler,
+		},
+		{
+			MethodName: "DomainOwnership",
+			Handler:    _Query_DomainOwnership_Handler,
+		},
+		{
+			MethodName: "DomainOwnershipAll",
+			Handler:    _Query_DomainOwnershipAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -717,6 +989,153 @@ func (m *QueryAllDomainResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryGetDomainOwnershipRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetDomainOwnershipRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetDomainOwnershipRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Owner) > 0 {
+		i -= len(m.Owner)
+		copy(dAtA[i:], m.Owner)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Owner)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetDomainOwnershipResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetDomainOwnershipResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetDomainOwnershipResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.DomainOwnership.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllDomainOwnershipRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllDomainOwnershipRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllDomainOwnershipRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllDomainOwnershipResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllDomainOwnershipResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllDomainOwnershipResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.DomainOwnership) > 0 {
+		for iNdEx := len(m.DomainOwnership) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.DomainOwnership[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -797,6 +1216,62 @@ func (m *QueryAllDomainResponse) Size() (n int) {
 	_ = l
 	if len(m.Domain) > 0 {
 		for _, e := range m.Domain {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetDomainOwnershipRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Owner)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetDomainOwnershipResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.DomainOwnership.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllDomainOwnershipRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllDomainOwnershipResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.DomainOwnership) > 0 {
+		for _, e := range m.DomainOwnership {
 			l = e.Size()
 			n += 1 + l + sovQuery(uint64(l))
 		}
@@ -1290,6 +1765,377 @@ func (m *QueryAllDomainResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.Domain = append(m.Domain, Domain{})
 			if err := m.Domain[len(m.Domain)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetDomainOwnershipRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetDomainOwnershipRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetDomainOwnershipRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Owner", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Owner = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetDomainOwnershipResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetDomainOwnershipResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetDomainOwnershipResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DomainOwnership", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.DomainOwnership.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllDomainOwnershipRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllDomainOwnershipRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllDomainOwnershipRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllDomainOwnershipResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllDomainOwnershipResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllDomainOwnershipResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DomainOwnership", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DomainOwnership = append(m.DomainOwnership, DomainOwnership{})
+			if err := m.DomainOwnership[len(m.DomainOwnership)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

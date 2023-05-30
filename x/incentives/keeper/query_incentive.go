@@ -6,9 +6,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"github.com/mycel-domain/mycel/x/incentives/types"
 )
 
 func (k Keeper) IncentiveAll(goCtx context.Context, req *types.QueryAllIncentiveRequest) (*types.QueryAllIncentiveResponse, error) {
