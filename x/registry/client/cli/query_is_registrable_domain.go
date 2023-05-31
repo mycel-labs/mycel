@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 func CmdIsRegistrableDomain() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "is-registrable-domain [name] [parent]",
-		Short: "Query isRegistrableDomain",
+		Short: "query a domain is registrable",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			reqName := args[0]
