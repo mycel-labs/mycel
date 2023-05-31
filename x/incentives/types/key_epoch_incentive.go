@@ -5,12 +5,12 @@ import "encoding/binary"
 var _ binary.ByteOrder
 
 const (
-	// IncentiveKeyPrefix is the prefix to retrieve all Incentive
-	IncentiveKeyPrefix = "Incentive/value/"
+	// EpochIncentiveKeyPrefix is the prefix to retrieve all EpochIncentive
+	EpochIncentiveKeyPrefix = "EpochIncentive/value/"
 )
 
-// IncentiveKey returns the store key to retrieve a Incentive from the index fields
-func IncentiveKey(
+// EpochIncentiveKey returns the store key to retrieve a EpochIncentive from the index fields
+func EpochIncentiveKey(
 	epoch int64,
 ) []byte {
 	var key []byte

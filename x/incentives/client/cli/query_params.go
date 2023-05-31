@@ -5,8 +5,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/mycel-domain/mycel/x/incentives/types"
 	"github.com/spf13/cobra"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 )
 
 func CmdQueryParams() *cobra.Command {

@@ -2,12 +2,13 @@ syntax = "proto3";
 package mycel.incentives;
 
 import "gogoproto/gogo.proto";
+import "cosmos_proto/cosmos.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/incentives/types";
 
-message Incentive {
-  int64 epoch = 1; 
+message DelegetorIncentive {
+  string address = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
   repeated cosmos.base.v1beta1.Coin amount = 2 [
       (gogoproto.nullable) = false,
       (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"

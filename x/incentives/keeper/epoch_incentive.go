@@ -8,24 +8,24 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-// SetIncentive set a specific incentive in the store from its index
-func (k Keeper) SetIncentive(ctx sdk.Context, incentive types.Incentive) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.IncentiveKeyPrefix))
-	b := k.cdc.MustMarshal(&incentive)
-	store.Set(types.IncentiveKey(
-		incentive.Epoch,
+// SetEpochIncentive set a specific epochIncentive in the store from its index
+func (k Keeper) SetEpochIncentive(ctx sdk.Context, epochIncentive types.EpochIncentive) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochIncentiveKeyPrefix))
+	b := k.cdc.MustMarshal(&epochIncentive)
+	store.Set(types.EpochIncentiveKey(
+		epochIncentive.Epoch,
 	), b)
 }
 
-// GetIncentive returns a incentive from its index
-func (k Keeper) GetIncentive(
+// GetEpochIncentive returns a epochIncentive from its index
+func (k Keeper) GetEpochIncentive(
 	ctx sdk.Context,
 	epoch int64,
 
-) (val types.Incentive, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.IncentiveKeyPrefix))
+) (val types.EpochIncentive, found bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochIncentiveKeyPrefix))
 
-	b := store.Get(types.IncentiveKey(
+	b := store.Get(types.EpochIncentiveKey(
 		epoch,
 	))
 	if b == nil {
@@ -36,35 +36,34 @@ func (k Keeper) GetIncentive(
 	return val, true
 }
 
-// RemoveIncentive removes a incentive from the store
-func (k Keeper) RemoveIncentive(
+// RemoveEpochIncentive removes a epochIncentive from the store
+func (k Keeper) RemoveEpochIncentive(
 	ctx sdk.Context,
 	epoch int64,
 
 ) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.IncentiveKeyPrefix))
-	store.Delete(types.IncentiveKey(
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochIncentiveKeyPrefix))
+	store.Delete(types.EpochIncentiveKey(
 		epoch,
 	))
 }
 
-// GetAllIncentive returns all incentive
-func (k Keeper) GetAllIncentive(ctx sdk.Context) (list []types.Incentive) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.IncentiveKeyPrefix))
+// GetAllEpochIncentive returns all epochIncentive
+func (k Keeper) GetAllEpochIncentive(ctx sdk.Context) (list []types.EpochIncentive) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochIncentiveKeyPrefix))
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
 
 	for ; iterator.Valid(); iterator.Next() {
-		var val types.Incentive
+		var val types.EpochIncentive
 		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		list = append(list, val)
 	}
 
 	return
 }
-
-func (k Keeper) SetIncentivesOnRegistration(ctx sdk.Context, registrationPeriodInWeek uint, fee sdk.Coin) {
+func (k Keeper) SetEpochIncentivesOnRegistration(ctx sdk.Context, registrationPeriodInWeek uint, fee sdk.Coin) {
 	//Get current epoch
 	epoch, found := k.epochsKeeper.GetEpochInfo(ctx, epochstypes.WeeklyEpochId)
 	if !found {
@@ -89,18 +88,18 @@ func (k Keeper) SetIncentivesOnRegistration(ctx sdk.Context, registrationPeriodI
 
 	// Set incentives
 	for i, amountPerEpoch := range amounts {
-		incentive, found := k.GetIncentive(ctx, nextEpoch+int64(i))
+		incentive, found := k.GetEpochIncentive(ctx, nextEpoch+int64(i))
 		amount := sdk.NewCoin(fee.Denom, amountPerEpoch)
 
 		if !found {
-			incentive = types.Incentive{
+			incentive = types.EpochIncentive{
 				Epoch:  nextEpoch + int64(i),
 				Amount: sdk.NewCoins(amount),
 			}
 		} else {
 			incentive.Amount = incentive.Amount.Add(amount)
 		}
-		k.SetIncentive(ctx, incentive)
+		k.SetEpochIncentive(ctx, incentive)
 	}
 }
 

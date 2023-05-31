@@ -5,11 +5,11 @@ import (
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/stretchr/testify/require"
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
 	"github.com/mycel-domain/mycel/x/epochs/keeper"
 	"github.com/mycel-domain/mycel/x/epochs/types"
-	"github.com/stretchr/testify/require"
 )
 
 // Prevent strconv unused error
