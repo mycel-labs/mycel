@@ -6,6 +6,7 @@ package types
 import (
 	context "context"
 	fmt "fmt"
+	types "github.com/cosmos/cosmos-sdk/types"
 	query "github.com/cosmos/cosmos-sdk/types/query"
 	_ "github.com/gogo/protobuf/gogoproto"
 	grpc1 "github.com/gogo/protobuf/grpc"
@@ -489,6 +490,206 @@ func (m *QueryAllDomainOwnershipResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
+type QueryDomainRegistrationFeeRequest struct {
+	Name   string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Parent string `protobuf:"bytes,2,opt,name=parent,proto3" json:"parent,omitempty"`
+}
+
+func (m *QueryDomainRegistrationFeeRequest) Reset()         { *m = QueryDomainRegistrationFeeRequest{} }
+func (m *QueryDomainRegistrationFeeRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryDomainRegistrationFeeRequest) ProtoMessage()    {}
+func (*QueryDomainRegistrationFeeRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0f2c8f2d33ba1956, []int{10}
+}
+func (m *QueryDomainRegistrationFeeRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryDomainRegistrationFeeRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryDomainRegistrationFeeRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryDomainRegistrationFeeRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryDomainRegistrationFeeRequest.Merge(m, src)
+}
+func (m *QueryDomainRegistrationFeeRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryDomainRegistrationFeeRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryDomainRegistrationFeeRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryDomainRegistrationFeeRequest proto.InternalMessageInfo
+
+func (m *QueryDomainRegistrationFeeRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *QueryDomainRegistrationFeeRequest) GetParent() string {
+	if m != nil {
+		return m.Parent
+	}
+	return ""
+}
+
+type QueryDomainRegistrationFeeResponse struct {
+	Fee types.Coin `protobuf:"bytes,1,opt,name=fee,proto3" json:"fee"`
+}
+
+func (m *QueryDomainRegistrationFeeResponse) Reset()         { *m = QueryDomainRegistrationFeeResponse{} }
+func (m *QueryDomainRegistrationFeeResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryDomainRegistrationFeeResponse) ProtoMessage()    {}
+func (*QueryDomainRegistrationFeeResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0f2c8f2d33ba1956, []int{11}
+}
+func (m *QueryDomainRegistrationFeeResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryDomainRegistrationFeeResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryDomainRegistrationFeeResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryDomainRegistrationFeeResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryDomainRegistrationFeeResponse.Merge(m, src)
+}
+func (m *QueryDomainRegistrationFeeResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryDomainRegistrationFeeResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryDomainRegistrationFeeResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryDomainRegistrationFeeResponse proto.InternalMessageInfo
+
+func (m *QueryDomainRegistrationFeeResponse) GetFee() types.Coin {
+	if m != nil {
+		return m.Fee
+	}
+	return types.Coin{}
+}
+
+type QueryIsRegistrableDomainRequest struct {
+	Name   string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Parent string `protobuf:"bytes,2,opt,name=parent,proto3" json:"parent,omitempty"`
+}
+
+func (m *QueryIsRegistrableDomainRequest) Reset()         { *m = QueryIsRegistrableDomainRequest{} }
+func (m *QueryIsRegistrableDomainRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryIsRegistrableDomainRequest) ProtoMessage()    {}
+func (*QueryIsRegistrableDomainRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0f2c8f2d33ba1956, []int{12}
+}
+func (m *QueryIsRegistrableDomainRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryIsRegistrableDomainRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryIsRegistrableDomainRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryIsRegistrableDomainRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryIsRegistrableDomainRequest.Merge(m, src)
+}
+func (m *QueryIsRegistrableDomainRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryIsRegistrableDomainRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryIsRegistrableDomainRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryIsRegistrableDomainRequest proto.InternalMessageInfo
+
+func (m *QueryIsRegistrableDomainRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *QueryIsRegistrableDomainRequest) GetParent() string {
+	if m != nil {
+		return m.Parent
+	}
+	return ""
+}
+
+type QueryIsRegistrableDomainResponse struct {
+	IsRegstrable bool   `protobuf:"varint,1,opt,name=isRegstrable,proto3" json:"isRegstrable,omitempty"`
+	ErrorMessage string `protobuf:"bytes,2,opt,name=errorMessage,proto3" json:"errorMessage,omitempty"`
+}
+
+func (m *QueryIsRegistrableDomainResponse) Reset()         { *m = QueryIsRegistrableDomainResponse{} }
+func (m *QueryIsRegistrableDomainResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryIsRegistrableDomainResponse) ProtoMessage()    {}
+func (*QueryIsRegistrableDomainResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0f2c8f2d33ba1956, []int{13}
+}
+func (m *QueryIsRegistrableDomainResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryIsRegistrableDomainResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryIsRegistrableDomainResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryIsRegistrableDomainResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryIsRegistrableDomainResponse.Merge(m, src)
+}
+func (m *QueryIsRegistrableDomainResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryIsRegistrableDomainResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryIsRegistrableDomainResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryIsRegistrableDomainResponse proto.InternalMessageInfo
+
+func (m *QueryIsRegistrableDomainResponse) GetIsRegstrable() bool {
+	if m != nil {
+		return m.IsRegstrable
+	}
+	return false
+}
+
+func (m *QueryIsRegistrableDomainResponse) GetErrorMessage() string {
+	if m != nil {
+		return m.ErrorMessage
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "mycel.registry.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "mycel.registry.QueryParamsResponse")
@@ -500,52 +701,67 @@ func init() {
 	proto.RegisterType((*QueryGetDomainOwnershipResponse)(nil), "mycel.registry.QueryGetDomainOwnershipResponse")
 	proto.RegisterType((*QueryAllDomainOwnershipRequest)(nil), "mycel.registry.QueryAllDomainOwnershipRequest")
 	proto.RegisterType((*QueryAllDomainOwnershipResponse)(nil), "mycel.registry.QueryAllDomainOwnershipResponse")
+	proto.RegisterType((*QueryDomainRegistrationFeeRequest)(nil), "mycel.registry.QueryDomainRegistrationFeeRequest")
+	proto.RegisterType((*QueryDomainRegistrationFeeResponse)(nil), "mycel.registry.QueryDomainRegistrationFeeResponse")
+	proto.RegisterType((*QueryIsRegistrableDomainRequest)(nil), "mycel.registry.QueryIsRegistrableDomainRequest")
+	proto.RegisterType((*QueryIsRegistrableDomainResponse)(nil), "mycel.registry.QueryIsRegistrableDomainResponse")
 }
 
 func init() { proto.RegisterFile("mycel/registry/query.proto", fileDescriptor_0f2c8f2d33ba1956) }
 
 var fileDescriptor_0f2c8f2d33ba1956 = []byte{
-	// 634 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x95, 0x41, 0x6b, 0x13, 0x41,
-	0x14, 0xc7, 0xb3, 0x69, 0x13, 0xe8, 0x08, 0x16, 0xc6, 0x18, 0xc2, 0x2a, 0x1b, 0x19, 0x69, 0x2c,
-	0x42, 0x67, 0x68, 0xb5, 0x7a, 0xf2, 0xd0, 0x2a, 0x56, 0x10, 0x6c, 0xcd, 0xd1, 0x4b, 0x99, 0xa4,
-	0xc3, 0x66, 0x61, 0x77, 0x67, 0xb3, 0xb3, 0x51, 0x63, 0xc8, 0xc5, 0x8b, 0x57, 0xc1, 0x83, 0x5f,
-	0xc2, 0x8b, 0x67, 0xbf, 0x40, 0x8f, 0x05, 0x2f, 0x9e, 0x44, 0x12, 0x3f, 0x88, 0x64, 0x66, 0xb6,
-	0xe9, 0x6e, 0x76, 0x93, 0x58, 0x7a, 0x9b, 0xec, 0xfb, 0xcf, 0x7b, 0xbf, 0xf7, 0xde, 0xbc, 0x17,
-	0x60, 0x7a, 0xfd, 0x36, 0x73, 0x49, 0xc8, 0x6c, 0x47, 0x44, 0x61, 0x9f, 0x74, 0x7b, 0x2c, 0xec,
-	0xe3, 0x20, 0xe4, 0x11, 0x87, 0xd7, 0xa5, 0x0d, 0xc7, 0x36, 0xb3, 0x62, 0x73, 0x9b, 0x4b, 0x13,
-	0x99, 0x9c, 0x94, 0xca, 0xbc, 0x6d, 0x73, 0x6e, 0xbb, 0x8c, 0xd0, 0xc0, 0x21, 0xd4, 0xf7, 0x79,
-	0x44, 0x23, 0x87, 0xfb, 0x42, 0x5b, 0xef, 0xb7, 0xb9, 0xf0, 0xb8, 0x20, 0x2d, 0x2a, 0x98, 0x72,
-	0x4e, 0xde, 0x6e, 0xb7, 0x58, 0x44, 0xb7, 0x49, 0x40, 0x6d, 0xc7, 0x97, 0x62, 0xad, 0xbd, 0x95,
-	0x62, 0x09, 0x68, 0x48, 0x3d, 0x91, 0x63, 0x3c, 0xe1, 0x1e, 0x75, 0xe2, 0x9b, 0x1b, 0x99, 0xc6,
-	0x63, 0xfe, 0xce, 0x67, 0xa1, 0xe8, 0x38, 0x81, 0x92, 0xa1, 0x0a, 0x80, 0xaf, 0x27, 0x08, 0x47,
-	0xd2, 0x71, 0x93, 0x75, 0x7b, 0x4c, 0x44, 0xe8, 0x25, 0xb8, 0x91, 0xf8, 0x2a, 0x02, 0xee, 0x0b,
-	0x06, 0x1f, 0x82, 0xb2, 0x02, 0xa8, 0x19, 0x77, 0x8c, 0xcd, 0x6b, 0x3b, 0x55, 0x9c, 0x2c, 0x07,
-	0x56, 0xfa, 0xfd, 0xd5, 0xd3, 0xdf, 0xf5, 0x42, 0x53, 0x6b, 0xd1, 0x53, 0x70, 0x53, 0x3a, 0x3b,
-	0x60, 0xd1, 0x33, 0x09, 0xa1, 0xa3, 0x40, 0x08, 0x56, 0x7d, 0xea, 0x31, 0xe9, 0x6c, 0xad, 0x29,
-	0xcf, 0xb0, 0x2a, 0x43, 0x30, 0x3f, 0xaa, 0x15, 0xe5, 0x57, 0xfd, 0x0b, 0xbd, 0x02, 0xd5, 0xb4,
-	0x93, 0x29, 0x94, 0xca, 0x2d, 0x0f, 0x4a, 0xe9, 0x63, 0x28, 0xa5, 0x45, 0xc7, 0x1a, 0x6a, 0xcf,
-	0x75, 0x93, 0x50, 0xcf, 0x01, 0x98, 0x76, 0x41, 0xbb, 0x6c, 0x60, 0xd5, 0x32, 0x3c, 0x69, 0x19,
-	0x56, 0xef, 0x41, 0xb7, 0x0c, 0x1f, 0x51, 0x9b, 0xe9, 0xbb, 0xcd, 0x0b, 0x37, 0xd1, 0x57, 0x43,
-	0x13, 0x5f, 0x88, 0x90, 0x41, 0xbc, 0xb2, 0x2c, 0x31, 0x3c, 0x48, 0x80, 0x15, 0x25, 0xd8, 0xbd,
-	0x85, 0x60, 0x2a, 0x64, 0x82, 0xec, 0x11, 0xb0, 0x92, 0xa5, 0x3c, 0x8c, 0xdf, 0x44, 0x5c, 0x83,
-	0x0a, 0x28, 0xc9, 0x77, 0xa2, 0x3b, 0xa3, 0x7e, 0xa0, 0x10, 0xd4, 0x73, 0xef, 0xe9, 0xcc, 0x0e,
-	0xc1, 0xfa, 0x49, 0xd2, 0xa4, 0x2b, 0x58, 0xcf, 0x4e, 0xf1, 0x5c, 0xa6, 0x73, 0x4d, 0xdf, 0x46,
-	0x1d, 0xcd, 0x7a, 0x5e, 0xc4, 0x19, 0xd6, 0xab, 0xea, 0xd7, 0x0f, 0x43, 0xa7, 0x97, 0x15, 0x6a,
-	0x5e, 0x7a, 0x2b, 0x97, 0x4f, 0xef, 0xca, 0x7a, 0xba, 0x33, 0x2e, 0x81, 0x92, 0xa4, 0x87, 0x5d,
-	0x50, 0x56, 0x53, 0x08, 0x51, 0x1a, 0x6a, 0x76, 0xd0, 0xcd, 0xbb, 0x73, 0x35, 0x2a, 0x10, 0xb2,
-	0x3e, 0xfe, 0xfc, 0xfb, 0xa5, 0x58, 0x83, 0x55, 0x92, 0xb9, 0x8d, 0xe0, 0x27, 0x03, 0x94, 0x55,
-	0xc2, 0x70, 0x23, 0xd3, 0x5f, 0x7a, 0xf2, 0xcd, 0xc6, 0x22, 0x99, 0x8e, 0x8c, 0x65, 0xe4, 0x4d,
-	0xd8, 0x20, 0x99, 0xdb, 0x8c, 0x0c, 0x26, 0x3b, 0x63, 0x48, 0x06, 0x6a, 0x49, 0x0c, 0xe1, 0x07,
-	0xb0, 0xa6, 0x3c, 0xec, 0xb9, 0x6e, 0x0e, 0x4b, 0x7a, 0xe0, 0x73, 0x58, 0x66, 0xa6, 0x36, 0xbf,
-	0x0a, 0x7a, 0x3e, 0xbf, 0x1b, 0x60, 0x3d, 0xd5, 0x76, 0x88, 0xe7, 0xe7, 0x99, 0x7e, 0xcc, 0x26,
-	0x59, 0x5a, 0xaf, 0xa1, 0x9e, 0x48, 0xa8, 0xc7, 0x70, 0x57, 0x41, 0x6d, 0xe9, 0xba, 0x2c, 0xd8,
-	0xfd, 0x64, 0x20, 0x8f, 0x43, 0xf8, 0xcd, 0x00, 0x30, 0xe5, 0x7a, 0x52, 0x39, 0x3c, 0xbf, 0x24,
-	0x4b, 0x62, 0xe7, 0x0f, 0x12, 0xda, 0x95, 0xd8, 0x04, 0x6e, 0xfd, 0x17, 0xf6, 0xfe, 0x8b, 0xd3,
-	0x91, 0x65, 0x9c, 0x8d, 0x2c, 0xe3, 0xcf, 0xc8, 0x32, 0x3e, 0x8f, 0xad, 0xc2, 0xd9, 0xd8, 0x2a,
-	0xfc, 0x1a, 0x5b, 0x85, 0x37, 0xd8, 0x76, 0xa2, 0x4e, 0xaf, 0x85, 0xdb, 0xdc, 0xcb, 0x72, 0xf9,
-	0x7e, 0xea, 0x34, 0xea, 0x07, 0x4c, 0xb4, 0xca, 0xf2, 0xdf, 0xef, 0xc1, 0xbf, 0x00, 0x00, 0x00,
-	0xff, 0xff, 0xb1, 0xe1, 0xf1, 0x34, 0xec, 0x07, 0x00, 0x00,
+	// 808 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x96, 0x3b, 0x4f, 0xdc, 0x4a,
+	0x14, 0xc7, 0xd7, 0x3c, 0x56, 0x30, 0xf7, 0xea, 0x22, 0x0d, 0xb0, 0xe2, 0xfa, 0x5e, 0x19, 0x32,
+	0x11, 0x04, 0x45, 0xc2, 0x93, 0x25, 0x21, 0xa9, 0x52, 0xf0, 0x10, 0xe4, 0x45, 0x20, 0xdb, 0x44,
+	0x4a, 0xb3, 0xf2, 0x2e, 0x83, 0x71, 0xe4, 0xf5, 0x2c, 0x1e, 0x93, 0x64, 0x83, 0x68, 0xd2, 0xa4,
+	0x8d, 0x94, 0x22, 0x5f, 0x22, 0x4d, 0xea, 0xb4, 0x29, 0x28, 0x52, 0x20, 0xa5, 0x49, 0x15, 0x45,
+	0x90, 0x2f, 0x91, 0x2e, 0xf2, 0xcc, 0xf1, 0xb2, 0xf6, 0xda, 0x66, 0x41, 0x74, 0x5e, 0x9f, 0x33,
+	0xff, 0xf3, 0x3b, 0xff, 0x99, 0x39, 0x5e, 0xa4, 0x37, 0x5a, 0x75, 0xe6, 0x52, 0x9f, 0xd9, 0x8e,
+	0x08, 0xfc, 0x16, 0xdd, 0xdd, 0x63, 0x7e, 0xcb, 0x6c, 0xfa, 0x3c, 0xe0, 0xf8, 0x1f, 0x19, 0x33,
+	0xa3, 0x98, 0x3e, 0x66, 0x73, 0x9b, 0xcb, 0x10, 0x0d, 0x9f, 0x54, 0x96, 0xfe, 0xbf, 0xcd, 0xb9,
+	0xed, 0x32, 0x6a, 0x35, 0x1d, 0x6a, 0x79, 0x1e, 0x0f, 0xac, 0xc0, 0xe1, 0x9e, 0x80, 0xe8, 0xf5,
+	0x3a, 0x17, 0x0d, 0x2e, 0x68, 0xcd, 0x12, 0x4c, 0x89, 0xd3, 0x17, 0xe5, 0x1a, 0x0b, 0xac, 0x32,
+	0x6d, 0x5a, 0xb6, 0xe3, 0xc9, 0x64, 0xc8, 0xfd, 0x2f, 0xc1, 0xd2, 0xb4, 0x7c, 0xab, 0x21, 0x32,
+	0x82, 0x5b, 0xbc, 0x61, 0x39, 0xd1, 0xca, 0xe9, 0xd4, 0x60, 0x95, 0xbf, 0xf4, 0x98, 0x2f, 0x76,
+	0x9c, 0x26, 0xa4, 0x19, 0x9d, 0x30, 0x11, 0x46, 0x9d, 0x47, 0x32, 0x64, 0x0c, 0xe1, 0x27, 0x21,
+	0xe2, 0xa6, 0x2c, 0x5c, 0x61, 0xbb, 0x7b, 0x4c, 0x04, 0xe4, 0x21, 0x1a, 0x8d, 0xbd, 0x15, 0x4d,
+	0xee, 0x09, 0x86, 0x6f, 0xa1, 0xa2, 0x02, 0x9c, 0xd0, 0xa6, 0xb4, 0xd9, 0xbf, 0xe6, 0x4b, 0x66,
+	0xdc, 0x2e, 0x53, 0xe5, 0x2f, 0x0d, 0x1c, 0xfe, 0x98, 0x2c, 0x54, 0x20, 0x97, 0x2c, 0xa3, 0x71,
+	0x29, 0xb6, 0xc6, 0x82, 0x15, 0x09, 0x09, 0x55, 0x30, 0x46, 0x03, 0x9e, 0xd5, 0x60, 0x52, 0x6c,
+	0xb8, 0x22, 0x9f, 0x71, 0x49, 0x96, 0x60, 0x5e, 0x30, 0xd1, 0x27, 0xdf, 0xc2, 0x2f, 0xf2, 0x18,
+	0x95, 0x92, 0x22, 0xa7, 0x50, 0xaa, 0xf7, 0x2c, 0x28, 0x95, 0x1f, 0x41, 0xa9, 0x5c, 0x52, 0x05,
+	0xa8, 0x45, 0xd7, 0x8d, 0x43, 0xad, 0x22, 0x74, 0xba, 0x4b, 0x20, 0x39, 0x63, 0x2a, 0x17, 0xcd,
+	0xd0, 0x45, 0x53, 0x9d, 0x17, 0xf0, 0xd2, 0xdc, 0xb4, 0x6c, 0x06, 0x6b, 0x2b, 0x1d, 0x2b, 0xc9,
+	0x07, 0x0d, 0x88, 0x3b, 0x2a, 0xa4, 0x10, 0xf7, 0xf7, 0x4a, 0x8c, 0xd7, 0x62, 0x60, 0x7d, 0x12,
+	0xec, 0xda, 0x99, 0x60, 0xaa, 0x64, 0x8c, 0xec, 0x36, 0x32, 0xe2, 0x56, 0x6e, 0x44, 0x67, 0x26,
+	0xf2, 0x60, 0x0c, 0x0d, 0xca, 0x73, 0x04, 0x3b, 0xa3, 0x7e, 0x10, 0x1f, 0x4d, 0x66, 0xae, 0x83,
+	0xce, 0x36, 0xd0, 0xc8, 0x56, 0x3c, 0x04, 0x0e, 0x4e, 0xa6, 0xb7, 0xd8, 0x4e, 0x83, 0x5e, 0x93,
+	0xab, 0xc9, 0x0e, 0xb0, 0xb6, 0x4d, 0xec, 0x62, 0xbd, 0xac, 0xfd, 0xfa, 0xac, 0x41, 0x7b, 0x69,
+	0xa5, 0xf2, 0xda, 0xeb, 0xbf, 0x78, 0x7b, 0x97, 0xb7, 0xa7, 0x1b, 0xe8, 0x8a, 0x84, 0x8f, 0x4e,
+	0x9a, 0xc4, 0x90, 0xa1, 0x55, 0xc6, 0x2e, 0x72, 0xdf, 0x9e, 0x22, 0x92, 0x27, 0x08, 0x86, 0x94,
+	0x51, 0xff, 0x36, 0x63, 0xe0, 0xfa, 0xbf, 0x31, 0xf0, 0x08, 0x79, 0x99, 0xb7, 0x4f, 0x72, 0x98,
+	0x4b, 0xd6, 0xc1, 0xe6, 0xfb, 0x22, 0x12, 0xad, 0xb9, 0xec, 0xe2, 0x73, 0xe1, 0x39, 0x9a, 0xca,
+	0x96, 0x03, 0x4a, 0x82, 0xfe, 0x76, 0xc2, 0x30, 0x44, 0xa5, 0xee, 0x50, 0x25, 0xf6, 0x2e, 0xcc,
+	0x61, 0xbe, 0xcf, 0xfd, 0x75, 0x26, 0x84, 0x65, 0x33, 0xa8, 0x12, 0x7b, 0x37, 0xff, 0x7b, 0x08,
+	0x0d, 0xca, 0x62, 0x78, 0x17, 0x15, 0xd5, 0xa8, 0xc3, 0x24, 0xb9, 0xf3, 0xdd, 0xd3, 0x54, 0xbf,
+	0x9a, 0x9b, 0xa3, 0x20, 0x89, 0xf1, 0xe6, 0xdb, 0xaf, 0xf7, 0x7d, 0x13, 0xb8, 0x44, 0x53, 0x3f,
+	0x09, 0xf8, 0xad, 0x86, 0x8a, 0xaa, 0x2f, 0x3c, 0x9d, 0xaa, 0x97, 0x1c, 0xaf, 0xfa, 0xcc, 0x59,
+	0x69, 0x50, 0xd9, 0x94, 0x95, 0x67, 0xf1, 0x0c, 0x4d, 0xfd, 0xa4, 0xd0, 0xfd, 0x70, 0x03, 0x0e,
+	0xe8, 0xbe, 0x72, 0xfc, 0x00, 0xbf, 0x46, 0xc3, 0x4a, 0x61, 0xd1, 0x75, 0x33, 0x58, 0x92, 0x53,
+	0x35, 0x83, 0xa5, 0x6b, 0x34, 0x66, 0xbb, 0x00, 0x43, 0xf0, 0x93, 0x86, 0x46, 0x12, 0x77, 0x0b,
+	0x9b, 0xf9, 0x7d, 0x26, 0x27, 0x86, 0x4e, 0x7b, 0xce, 0x07, 0xa8, 0xbb, 0x12, 0xea, 0x0e, 0x5e,
+	0x50, 0x50, 0x73, 0xe0, 0xcb, 0x19, 0x1f, 0x60, 0xba, 0x2f, 0x1f, 0x0f, 0xf0, 0x47, 0x0d, 0xe1,
+	0x84, 0x74, 0xe8, 0x9c, 0x99, 0x6f, 0x49, 0x8f, 0xd8, 0xd9, 0xd3, 0x8a, 0x2c, 0x48, 0x6c, 0x8a,
+	0xe7, 0xce, 0x85, 0x8d, 0xbf, 0x6a, 0x68, 0x3c, 0xf5, 0xd6, 0xe3, 0x72, 0x2a, 0x41, 0xde, 0xc8,
+	0xd1, 0xe7, 0xcf, 0xb3, 0x04, 0xb8, 0x1f, 0x49, 0xee, 0x55, 0xbc, 0xd2, 0x0b, 0xb7, 0xdf, 0x21,
+	0x52, 0xdd, 0x66, 0xac, 0xeb, 0xb4, 0x7e, 0xd1, 0xd0, 0x68, 0xca, 0x70, 0xc0, 0xe9, 0x76, 0x66,
+	0x4f, 0x25, 0xfd, 0x46, 0xef, 0x0b, 0xa0, 0x91, 0x07, 0xb2, 0x91, 0x15, 0xbc, 0x94, 0xdb, 0x88,
+	0x23, 0xda, 0x4d, 0xd4, 0x5c, 0x56, 0x4d, 0xbf, 0x74, 0x4b, 0xf7, 0x0e, 0x8f, 0x0d, 0xed, 0xe8,
+	0xd8, 0xd0, 0x7e, 0x1e, 0x1b, 0xda, 0xbb, 0x13, 0xa3, 0x70, 0x74, 0x62, 0x14, 0xbe, 0x9f, 0x18,
+	0x85, 0x67, 0xa6, 0xed, 0x04, 0x3b, 0x7b, 0x35, 0xb3, 0xce, 0x1b, 0x69, 0x75, 0x5e, 0x9d, 0x56,
+	0x0a, 0x5a, 0x4d, 0x26, 0x6a, 0x45, 0xf9, 0xc7, 0xef, 0xe6, 0x9f, 0x00, 0x00, 0x00, 0xff, 0xff,
+	0x46, 0xc0, 0x0f, 0x8d, 0x07, 0x0b, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -568,6 +784,10 @@ type QueryClient interface {
 	// Queries a list of DomainOwnership items.
 	DomainOwnership(ctx context.Context, in *QueryGetDomainOwnershipRequest, opts ...grpc.CallOption) (*QueryGetDomainOwnershipResponse, error)
 	DomainOwnershipAll(ctx context.Context, in *QueryAllDomainOwnershipRequest, opts ...grpc.CallOption) (*QueryAllDomainOwnershipResponse, error)
+	// Queries a list of DomainRegistrationFee items.
+	DomainRegistrationFee(ctx context.Context, in *QueryDomainRegistrationFeeRequest, opts ...grpc.CallOption) (*QueryDomainRegistrationFeeResponse, error)
+	// Queries a list of IsRegistrableDomain items.
+	IsRegistrableDomain(ctx context.Context, in *QueryIsRegistrableDomainRequest, opts ...grpc.CallOption) (*QueryIsRegistrableDomainResponse, error)
 }
 
 type queryClient struct {
@@ -623,6 +843,24 @@ func (c *queryClient) DomainOwnershipAll(ctx context.Context, in *QueryAllDomain
 	return out, nil
 }
 
+func (c *queryClient) DomainRegistrationFee(ctx context.Context, in *QueryDomainRegistrationFeeRequest, opts ...grpc.CallOption) (*QueryDomainRegistrationFeeResponse, error) {
+	out := new(QueryDomainRegistrationFeeResponse)
+	err := c.cc.Invoke(ctx, "/mycel.registry.Query/DomainRegistrationFee", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) IsRegistrableDomain(ctx context.Context, in *QueryIsRegistrableDomainRequest, opts ...grpc.CallOption) (*QueryIsRegistrableDomainResponse, error) {
+	out := new(QueryIsRegistrableDomainResponse)
+	err := c.cc.Invoke(ctx, "/mycel.registry.Query/IsRegistrableDomain", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
@@ -633,6 +871,10 @@ type QueryServer interface {
 	// Queries a list of DomainOwnership items.
 	DomainOwnership(context.Context, *QueryGetDomainOwnershipRequest) (*QueryGetDomainOwnershipResponse, error)
 	DomainOwnershipAll(context.Context, *QueryAllDomainOwnershipRequest) (*QueryAllDomainOwnershipResponse, error)
+	// Queries a list of DomainRegistrationFee items.
+	DomainRegistrationFee(context.Context, *QueryDomainRegistrationFeeRequest) (*QueryDomainRegistrationFeeResponse, error)
+	// Queries a list of IsRegistrableDomain items.
+	IsRegistrableDomain(context.Context, *QueryIsRegistrableDomainRequest) (*QueryIsRegistrableDomainResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -653,6 +895,12 @@ func (*UnimplementedQueryServer) DomainOwnership(ctx context.Context, req *Query
 }
 func (*UnimplementedQueryServer) DomainOwnershipAll(ctx context.Context, req *QueryAllDomainOwnershipRequest) (*QueryAllDomainOwnershipResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DomainOwnershipAll not implemented")
+}
+func (*UnimplementedQueryServer) DomainRegistrationFee(ctx context.Context, req *QueryDomainRegistrationFeeRequest) (*QueryDomainRegistrationFeeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DomainRegistrationFee not implemented")
+}
+func (*UnimplementedQueryServer) IsRegistrableDomain(ctx context.Context, req *QueryIsRegistrableDomainRequest) (*QueryIsRegistrableDomainResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IsRegistrableDomain not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -749,6 +997,42 @@ func _Query_DomainOwnershipAll_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_DomainRegistrationFee_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryDomainRegistrationFeeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).DomainRegistrationFee(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mycel.registry.Query/DomainRegistrationFee",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).DomainRegistrationFee(ctx, req.(*QueryDomainRegistrationFeeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_IsRegistrableDomain_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryIsRegistrableDomainRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).IsRegistrableDomain(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mycel.registry.Query/IsRegistrableDomain",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).IsRegistrableDomain(ctx, req.(*QueryIsRegistrableDomainRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "mycel.registry.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -772,6 +1056,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DomainOwnershipAll",
 			Handler:    _Query_DomainOwnershipAll_Handler,
+		},
+		{
+			MethodName: "DomainRegistrationFee",
+			Handler:    _Query_DomainRegistrationFee_Handler,
+		},
+		{
+			MethodName: "IsRegistrableDomain",
+			Handler:    _Query_IsRegistrableDomain_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1135,6 +1427,153 @@ func (m *QueryAllDomainOwnershipResponse) MarshalToSizedBuffer(dAtA []byte) (int
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryDomainRegistrationFeeRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryDomainRegistrationFeeRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryDomainRegistrationFeeRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Parent) > 0 {
+		i -= len(m.Parent)
+		copy(dAtA[i:], m.Parent)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Parent)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Name) > 0 {
+		i -= len(m.Name)
+		copy(dAtA[i:], m.Name)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Name)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryDomainRegistrationFeeResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryDomainRegistrationFeeResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryDomainRegistrationFeeResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.Fee.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryIsRegistrableDomainRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryIsRegistrableDomainRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryIsRegistrableDomainRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Parent) > 0 {
+		i -= len(m.Parent)
+		copy(dAtA[i:], m.Parent)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Parent)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Name) > 0 {
+		i -= len(m.Name)
+		copy(dAtA[i:], m.Name)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Name)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryIsRegistrableDomainResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryIsRegistrableDomainResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryIsRegistrableDomainResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ErrorMessage) > 0 {
+		i -= len(m.ErrorMessage)
+		copy(dAtA[i:], m.ErrorMessage)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.ErrorMessage)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.IsRegstrable {
+		i--
+		if m.IsRegstrable {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -1277,6 +1716,67 @@ func (m *QueryAllDomainOwnershipResponse) Size() (n int) {
 	}
 	if m.Pagination != nil {
 		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryDomainRegistrationFeeRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	l = len(m.Parent)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryDomainRegistrationFeeResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.Fee.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryIsRegistrableDomainRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	l = len(m.Parent)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryIsRegistrableDomainResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.IsRegstrable {
+		n += 2
+	}
+	l = len(m.ErrorMessage)
+	if l > 0 {
 		n += 1 + l + sovQuery(uint64(l))
 	}
 	return n
@@ -2173,6 +2673,419 @@ func (m *QueryAllDomainOwnershipResponse) Unmarshal(dAtA []byte) error {
 			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryDomainRegistrationFeeRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryDomainRegistrationFeeRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryDomainRegistrationFeeRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Parent", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Parent = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryDomainRegistrationFeeResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryDomainRegistrationFeeResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryDomainRegistrationFeeResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Fee", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.Fee.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryIsRegistrableDomainRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryIsRegistrableDomainRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryIsRegistrableDomainRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Parent", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Parent = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryIsRegistrableDomainResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryIsRegistrableDomainResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryIsRegistrableDomainResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IsRegstrable", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.IsRegstrable = bool(v != 0)
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ErrorMessage", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ErrorMessage = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

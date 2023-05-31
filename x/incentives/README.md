@@ -9,6 +9,7 @@ Incentive module provides the following feature:
 ![overview](https://user-images.githubusercontent.com/19934260/229605154-a9311e6c-1c55-43a5-88a8-2c2dd1020e16.png)
 
 ## Stores
+[proto/mycel/incentives](https://github.com/mycel-domain/mycel/tree/main/proto/mycel/incentives)
 ### epoch_incentive.proto
 ```proto
 message EpochIncentive {

@@ -5,6 +5,7 @@ Epochs module provides the following feature:
 - On-chain Timers that execute at fixed time intervals
 
 ## Stores
+[proto/mycel/epochs](https://github.com/mycel-domain/mycel/tree/main/proto/mycel/epochs)
 ### epoch_info.proto
 ```proto
 message EpochInfo {
