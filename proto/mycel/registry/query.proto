@@ -1,4 +1,5 @@
 syntax = "proto3";
+
 package mycel.registry;
 
 import "gogoproto/gogo.proto";
@@ -7,6 +8,7 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "mycel/registry/params.proto";
 import "mycel/registry/domain.proto";
 import "mycel/registry/domain_ownership.proto";
+import "cosmos/base/v1beta1/coin.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
@@ -36,6 +38,12 @@ service Query {
   }
   rpc DomainOwnershipAll (QueryAllDomainOwnershipRequest) returns (QueryAllDomainOwnershipResponse) {
     option (google.api.http).get = "/mycel-domain/mycel/registry/domain_ownership";
+  
+  }
+  
+  // Queries a list of DomainRegistrationFee items.
+  rpc DomainRegistrationFee (QueryDomainRegistrationFeeRequest) returns (QueryDomainRegistrationFeeResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/registry/domain_registration_fee/{name}/{parent}";
   
   }
 }
@@ -82,5 +90,14 @@ message QueryAllDomainOwnershipRequest {
 message QueryAllDomainOwnershipResponse {
   repeated DomainOwnership                        domainOwnership = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination      = 2;
+}
+
+message QueryDomainRegistrationFeeRequest {
+  string name   = 1;
+  string parent = 2;
+}
+
+message QueryDomainRegistrationFeeResponse {
+  cosmos.base.v1beta1.Coin amount = 1 [(gogoproto.nullable) = false];
 }
 
