@@ -3,11 +3,11 @@ package registry_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
 	"github.com/mycel-domain/mycel/x/registry"
 	"github.com/mycel-domain/mycel/x/registry/types"
+	"github.com/stretchr/testify/require"
 )
 
 func TestGenesis(t *testing.T) {
@@ -24,6 +24,14 @@ func TestGenesis(t *testing.T) {
 				Parent: "1",
 			},
 		},
+		DomainOwnershipList: []types.DomainOwnership{
+			{
+				Owner: "0",
+			},
+			{
+				Owner: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -36,5 +44,6 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(got)
 
 	require.ElementsMatch(t, genesisState.DomainList, got.DomainList)
+	require.ElementsMatch(t, genesisState.DomainOwnershipList, got.DomainOwnershipList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }
