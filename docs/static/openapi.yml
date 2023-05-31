@@ -44903,6 +44903,103 @@ paths:
           type: string
       tags:
         - Query
+  /mycel-domain/mycel/registry/domain_registration_fee/{name}/{parent}:
+    get:
+      summary: Queries a list of DomainRegistrationFee items.
+      operationId: MycelRegistryDomainRegistrationFee
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              fee:
+                type: object
+                properties:
+                  denom:
+                    type: string
+                  amount:
+                    type: string
+                description: >-
+                  Coin defines a token with a denomination and an amount.
+
+
+                  NOTE: The amount field is an Int which implements the custom
+                  method
+
+                  signatures required by gogoproto.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: name
+          in: path
+          required: true
+          type: string
+        - name: parent
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /mycel-domain/mycel/registry/is_registrable_domain/{name}/{parent}:
+    get:
+      summary: Queries a list of IsRegistrableDomain items.
+      operationId: MycelRegistryIsRegistrableDomain
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              isRegstrable:
+                type: boolean
+              errorMessage:
+                type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: name
+          in: path
+          required: true
+          type: string
+        - name: parent
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /mycel/registry/domain:
     get:
       operationId: MycelRegistryDomainAll
@@ -73456,6 +73553,21 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
+  mycel.registry.QueryDomainRegistrationFeeResponse:
+    type: object
+    properties:
+      fee:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
   mycel.registry.QueryGetDomainOwnershipResponse:
     type: object
     properties:
@@ -73541,6 +73653,13 @@ definitions:
             type: object
             additionalProperties:
               type: string
+  mycel.registry.QueryIsRegistrableDomainResponse:
+    type: object
+    properties:
+      isRegstrable:
+        type: boolean
+      errorMessage:
+        type: string
   mycel.registry.QueryParamsResponse:
     type: object
     properties:
