@@ -46,6 +46,12 @@ service Query {
     option (google.api.http).get = "/mycel-domain/mycel/registry/domain_registration_fee/{name}/{parent}";
   
   }
+  
+  // Queries a list of IsRegistrableDomain items.
+  rpc IsRegistrableDomain (QueryIsRegistrableDomainRequest) returns (QueryIsRegistrableDomainResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/registry/is_registrable_domain/{name}/{parent}";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -99,5 +105,15 @@ message QueryDomainRegistrationFeeRequest {
 
 message QueryDomainRegistrationFeeResponse {
   cosmos.base.v1beta1.Coin fee = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryIsRegistrableDomainRequest {
+  string name   = 1;
+  string parent = 2;
+}
+
+message QueryIsRegistrableDomainResponse {
+  bool   isRegstrable = 1;
+  string errorMessage = 2;
 }
 
