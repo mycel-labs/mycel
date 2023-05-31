@@ -44347,7 +44347,12 @@ paths:
                     domains:
                       type: array
                       items:
-                        type: string
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          parent:
+                            type: string
               pagination:
                 type: object
                 properties:
@@ -44471,7 +44476,12 @@ paths:
                   domains:
                     type: array
                     items:
-                      type: string
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        parent:
+                          type: string
         default:
           description: An unexpected error response.
           schema:
@@ -72687,13 +72697,25 @@ definitions:
       domains:
         type: array
         items:
-          type: string
+          type: object
+          properties:
+            name:
+              type: string
+            parent:
+              type: string
   mycel.registry.MsgRegisterDomainResponse:
     type: object
   mycel.registry.MsgUpdateDnsRecordResponse:
     type: object
   mycel.registry.MsgUpdateWalletRecordResponse:
     type: object
+  mycel.registry.OwnedDomain:
+    type: object
+    properties:
+      name:
+        type: string
+      parent:
+        type: string
   mycel.registry.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -72710,7 +72732,12 @@ definitions:
             domains:
               type: array
               items:
-                type: string
+                type: object
+                properties:
+                  name:
+                    type: string
+                  parent:
+                    type: string
       pagination:
         type: object
         properties:
@@ -72844,7 +72871,12 @@ definitions:
           domains:
             type: array
             items:
-              type: string
+              type: object
+              properties:
+                name:
+                  type: string
+                parent:
+                  type: string
   mycel.registry.QueryGetDomainResponse:
     type: object
     properties:
