@@ -181,4 +181,17 @@ Query domain ownership by owner
 myceld q registry show-domain-ownership [owner]    
 ```
 
-
+### domain-registration-fee
+Query domain registration fee
+```
+myceld q registry domain-registration-fee [name] [parent]
+```
+Example:  
+```
+myceld q registry domain-registration-fee hoge cel
+```
+Output:  
+```
+fee:
+  amount: "3030"
+```

@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 func CmdDomainRegistrationFee() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "domain-registration-fee [name] [parent]",
-		Short: "Query domainRegistrationFee",
+		Short: "query domain registration fee",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			reqName := args[0]

@@ -18,6 +18,8 @@ func (k Keeper) DomainRegistrationFee(goCtx context.Context, req *types.QueryDom
 
 	// TODO: Process the query
 	_ = ctx
+	domain := types.Domain{Name: req.Name, Parent: req.Parent}
+	fee := domain.GetRegistrationFee()
 
-	return &types.QueryDomainRegistrationFeeResponse{}, nil
+	return &types.QueryDomainRegistrationFeeResponse{Fee: fee}, nil
 }
