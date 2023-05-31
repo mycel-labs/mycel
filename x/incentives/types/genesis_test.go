@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"mycel/x/incentives/types"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 
 	"github.com/stretchr/testify/require"
 )

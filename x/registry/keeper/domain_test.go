@@ -4,10 +4,10 @@ import (
 	"strconv"
 	"testing"
 
-	keepertest "mycel/testutil/keeper"
-	"mycel/testutil/nullify"
-	"mycel/x/registry/keeper"
-	"mycel/x/registry/types"
+	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
+	"github.com/mycel-domain/mycel/testutil/nullify"
+	"github.com/mycel-domain/mycel/x/registry/keeper"
+	"github.com/mycel-domain/mycel/x/registry/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"

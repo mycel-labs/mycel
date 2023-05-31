@@ -1,8 +1,8 @@
 package incentives
 
 import (
-	"mycel/x/incentives/keeper"
-	"mycel/x/incentives/types"
+	"github.com/mycel-domain/mycel/x/incentives/keeper"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

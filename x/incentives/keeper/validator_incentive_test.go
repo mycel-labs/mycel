@@ -6,10 +6,10 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
-	keepertest "mycel/testutil/keeper"
-	"mycel/testutil/nullify"
-	"mycel/x/incentives/keeper"
-	"mycel/x/incentives/types"
+	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
+	"github.com/mycel-domain/mycel/testutil/nullify"
+	"github.com/mycel-domain/mycel/x/incentives/keeper"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 )
 
 // Prevent strconv unused error

@@ -12,9 +12,9 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 
-	"mycel/x/registry/client/cli"
-	"mycel/x/registry/keeper"
-	"mycel/x/registry/types"
+	"github.com/mycel-domain/mycel/x/registry/client/cli"
+	"github.com/mycel-domain/mycel/x/registry/keeper"
+	"github.com/mycel-domain/mycel/x/registry/types"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"

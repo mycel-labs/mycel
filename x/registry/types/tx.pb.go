@@ -250,7 +250,7 @@ func init() {
 	proto.RegisterType((*MsgRegisterDomainResponse)(nil), "mycel.registry.MsgRegisterDomainResponse")
 }
 
-func init() { proto.RegisterFile("mycel/registry/tx.proto", fileDescriptor_7a4e7619dfc6612f) }
+func init() { proto.RegisterFile("github.com/mycel-domain/mycel/registry/tx.proto", fileDescriptor_7a4e7619dfc6612f) }
 
 var fileDescriptor_7a4e7619dfc6612f = []byte{
 	// 330 bytes of a gzipped FileDescriptorProto
@@ -390,7 +390,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "mycel/registry/tx.proto",
+	Metadata: "github.com/mycel-domain/mycel/registry/tx.proto",
 }
 
 func (m *MsgUpdateWalletRecord) Marshal() (dAtA []byte, err error) {

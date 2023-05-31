@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 
-	"mycel/x/incentives/types"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"

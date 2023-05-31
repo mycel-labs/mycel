@@ -63,7 +63,7 @@ func init() {
 	proto.RegisterType((*Params)(nil), "mycel.registry.Params")
 }
 
-func init() { proto.RegisterFile("mycel/registry/params.proto", fileDescriptor_094deb43283078b0) }
+func init() { proto.RegisterFile("github.com/mycel-domain/mycel/registry/params.proto", fileDescriptor_094deb43283078b0) }
 
 var fileDescriptor_094deb43283078b0 = []byte{
 	// 131 bytes of a gzipped FileDescriptorProto

@@ -12,10 +12,10 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"mycel/testutil/network"
-	"mycel/testutil/nullify"
-	"mycel/x/incentives/client/cli"
-	"mycel/x/incentives/types"
+	"github.com/mycel-domain/mycel/testutil/network"
+	"github.com/mycel-domain/mycel/testutil/nullify"
+	"github.com/mycel-domain/mycel/x/incentives/client/cli"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 )
 
 // Prevent strconv unused error

@@ -3,7 +3,7 @@ package keeper
 import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"mycel/x/incentives/types"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 )
 
 // SetValidatorIncentive set a specific validatorIncentive in the store from its index

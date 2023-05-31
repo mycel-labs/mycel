@@ -337,7 +337,7 @@ func init() {
 	proto.RegisterMapType((map[string]*WalletRecord)(nil), "mycel.registry.Domain.WalletRecordsEntry")
 }
 
-func init() { proto.RegisterFile("mycel/registry/domain.proto", fileDescriptor_cfd012ed897e4b87) }
+func init() { proto.RegisterFile("github.com/mycel-domain/mycel/registry/domain.proto", fileDescriptor_cfd012ed897e4b87) }
 
 var fileDescriptor_cfd012ed897e4b87 = []byte{
 	// 575 bytes of a gzipped FileDescriptorProto

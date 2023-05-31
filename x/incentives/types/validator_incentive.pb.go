@@ -83,7 +83,7 @@ func init() {
 }
 
 func init() {
-	proto.RegisterFile("mycel/incentives/validator_incentive.proto", fileDescriptor_2272d411c1b01db5)
+	proto.RegisterFile("github.com/mycel-domain/mycel/incentives/validator_incentive.proto", fileDescriptor_2272d411c1b01db5)
 }
 
 var fileDescriptor_2272d411c1b01db5 = []byte{

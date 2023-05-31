@@ -3,9 +3,9 @@ package epochs
 import (
 	"math/rand"
 
-	"mycel/testutil/sample"
-	epochssimulation "mycel/x/epochs/simulation"
-	"mycel/x/epochs/types"
+	"github.com/mycel-domain/mycel/testutil/sample"
+	epochssimulation "github.com/mycel-domain/mycel/x/epochs/simulation"
+	"github.com/mycel-domain/mycel/x/epochs/types"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	simappparams "github.com/cosmos/cosmos-sdk/simapp/params"

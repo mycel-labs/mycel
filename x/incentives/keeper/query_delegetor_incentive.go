@@ -8,7 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"mycel/x/incentives/types"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 )
 
 func (k Keeper) DelegetorIncentiveAll(goCtx context.Context, req *types.QueryAllDelegetorIncentiveRequest) (*types.QueryAllDelegetorIncentiveResponse, error) {
