@@ -1,8 +1,8 @@
 package keeper_test
 
 import (
-	mycelapp "mycel/app"
-	"mycel/x/epochs/types"
+	mycelapp "github.com/mycel-domain/mycel/app"
+	"github.com/mycel-domain/mycel/x/epochs/types"
 	"testing"
 	"time"
 

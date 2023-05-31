@@ -306,7 +306,7 @@ func init() {
 	proto.RegisterType((*QueryAllEpochInfoResponse)(nil), "mycel.epochs.QueryAllEpochInfoResponse")
 }
 
-func init() { proto.RegisterFile("mycel/epochs/query.proto", fileDescriptor_4f5ff46a740466ec) }
+func init() { proto.RegisterFile("github.com/mycel-domain/mycel/epochs/query.proto", fileDescriptor_4f5ff46a740466ec) }
 
 var fileDescriptor_4f5ff46a740466ec = []byte{
 	// 482 bytes of a gzipped FileDescriptorProto
@@ -496,7 +496,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "mycel/epochs/query.proto",
+	Metadata: "github.com/mycel-domain/mycel/epochs/query.proto",
 }
 
 func (m *QueryParamsRequest) Marshal() (dAtA []byte, err error) {

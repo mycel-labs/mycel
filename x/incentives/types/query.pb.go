@@ -683,7 +683,7 @@ func init() {
 	proto.RegisterType((*QueryAllDelegetorIncentiveResponse)(nil), "mycel.incentives.QueryAllDelegetorIncentiveResponse")
 }
 
-func init() { proto.RegisterFile("mycel/incentives/query.proto", fileDescriptor_8205a02596de1d57) }
+func init() { proto.RegisterFile("github.com/mycel-domain/mycel/incentives/query.proto", fileDescriptor_8205a02596de1d57) }
 
 var fileDescriptor_8205a02596de1d57 = []byte{
 	// 746 bytes of a gzipped FileDescriptorProto
@@ -1037,7 +1037,7 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "mycel/incentives/query.proto",
+	Metadata: "github.com/mycel-domain/mycel/incentives/query.proto",
 }
 
 func (m *QueryParamsRequest) Marshal() (dAtA []byte, err error) {

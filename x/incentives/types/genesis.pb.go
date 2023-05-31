@@ -96,7 +96,7 @@ func init() {
 	proto.RegisterType((*GenesisState)(nil), "mycel.incentives.GenesisState")
 }
 
-func init() { proto.RegisterFile("mycel/incentives/genesis.proto", fileDescriptor_17535e5f7d23ee13) }
+func init() { proto.RegisterFile("github.com/mycel-domain/mycel/incentives/genesis.proto", fileDescriptor_17535e5f7d23ee13) }
 
 var fileDescriptor_17535e5f7d23ee13 = []byte{
 	// 285 bytes of a gzipped FileDescriptorProto

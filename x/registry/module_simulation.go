@@ -9,9 +9,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
-	"mycel/testutil/sample"
-	registrysimulation "mycel/x/registry/simulation"
-	"mycel/x/registry/types"
+	"github.com/mycel-domain/mycel/testutil/sample"
+	registrysimulation "github.com/mycel-domain/mycel/x/registry/simulation"
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 // avoid unused import issue

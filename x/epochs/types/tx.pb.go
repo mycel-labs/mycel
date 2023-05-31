@@ -23,7 +23,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-func init() { proto.RegisterFile("mycel/epochs/tx.proto", fileDescriptor_61c872a7fa5480b2) }
+func init() { proto.RegisterFile("github.com/mycel-domain/mycel/epochs/tx.proto", fileDescriptor_61c872a7fa5480b2) }
 
 var fileDescriptor_61c872a7fa5480b2 = []byte{
 	// 105 bytes of a gzipped FileDescriptorProto
@@ -75,5 +75,5 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MsgServer)(nil),
 	Methods:     []grpc.MethodDesc{},
 	Streams:     []grpc.StreamDesc{},
-	Metadata:    "mycel/epochs/tx.proto",
+	Metadata:    "github.com/mycel-domain/mycel/epochs/tx.proto",
 }

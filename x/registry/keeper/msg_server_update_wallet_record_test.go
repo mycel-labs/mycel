@@ -4,9 +4,9 @@ import (
 	"errors"
 	"fmt"
 
-	"mycel/x/registry/types"
+	"github.com/mycel-domain/mycel/x/registry/types"
 
-	"mycel/testutil"
+	"github.com/mycel-domain/mycel/testutil"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"

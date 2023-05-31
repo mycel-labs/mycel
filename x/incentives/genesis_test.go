@@ -3,10 +3,10 @@ package incentives_test
 import (
 	"testing"
 
-	keepertest "mycel/testutil/keeper"
-	"mycel/testutil/nullify"
-	"mycel/x/incentives"
-	"mycel/x/incentives/types"
+	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
+	"github.com/mycel-domain/mycel/testutil/nullify"
+	"github.com/mycel-domain/mycel/x/incentives"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 
 	"github.com/stretchr/testify/require"
 )
