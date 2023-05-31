@@ -44517,7 +44517,7 @@ paths:
           schema:
             type: object
             properties:
-              amount:
+              fee:
                 type: object
                 properties:
                   denom:
@@ -72917,7 +72917,7 @@ definitions:
   mycel.registry.QueryDomainRegistrationFeeResponse:
     type: object
     properties:
-      amount:
+      fee:
         type: object
         properties:
           denom:
