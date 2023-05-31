@@ -186,12 +186,22 @@ Query domain registration fee
 ```
 myceld q registry domain-registration-fee [name] [parent]
 ```
-Example:  
-```
-myceld q registry domain-registration-fee hoge cel
-```
-Output:  
+Response:  
 ```
 fee:
-  amount: "3030"
+  amount: string
 ```
+
+### is-registrable-domain
+Query a domain is registrable
+```
+myceld q registry is-registrable-domain [name] [parent] 
+```
+Response:  
+```
+errorMessage: string
+isRegstrable: bool
+```
+
+
+
