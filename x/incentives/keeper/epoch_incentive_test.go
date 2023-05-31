@@ -19,21 +19,21 @@ import (
 // Prevent strconv unused error
 var _ = strconv.IntSize
 
-func createNIncentive(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.Incentive {
-	items := make([]types.Incentive, n)
+func createNEpochIncentive(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.EpochIncentive {
+	items := make([]types.EpochIncentive, n)
 	for i := range items {
 		items[i].Epoch = int64(i)
 
-		keeper.SetIncentive(ctx, items[i])
+		keeper.SetEpochIncentive(ctx, items[i])
 	}
 	return items
 }
 
-func TestIncentiveGet(t *testing.T) {
+func TestEpochIncentiveGet(t *testing.T) {
 	keeper, ctx := keepertest.IncentivesKeeper(t)
-	items := createNIncentive(keeper, ctx, 10)
+	items := createNEpochIncentive(keeper, ctx, 10)
 	for _, item := range items {
-		rst, found := keeper.GetIncentive(ctx,
+		rst, found := keeper.GetEpochIncentive(ctx,
 			item.Epoch,
 		)
 		require.True(t, found)
@@ -43,30 +43,29 @@ func TestIncentiveGet(t *testing.T) {
 		)
 	}
 }
-func TestIncentiveRemove(t *testing.T) {
+func TestEpochIncentiveRemove(t *testing.T) {
 	keeper, ctx := keepertest.IncentivesKeeper(t)
-	items := createNIncentive(keeper, ctx, 10)
+	items := createNEpochIncentive(keeper, ctx, 10)
 	for _, item := range items {
-		keeper.RemoveIncentive(ctx,
+		keeper.RemoveEpochIncentive(ctx,
 			item.Epoch,
 		)
-		_, found := keeper.GetIncentive(ctx,
+		_, found := keeper.GetEpochIncentive(ctx,
 			item.Epoch,
 		)
 		require.False(t, found)
 	}
 }
 
-func TestIncentiveGetAll(t *testing.T) {
+func TestEpochIncentiveGetAll(t *testing.T) {
 	keeper, ctx := keepertest.IncentivesKeeper(t)
-	items := createNIncentive(keeper, ctx, 10)
+	items := createNEpochIncentive(keeper, ctx, 10)
 	require.ElementsMatch(t,
 		nullify.Fill(items),
-		nullify.Fill(keeper.GetAllIncentive(ctx)),
+		nullify.Fill(keeper.GetAllEpochIncentive(ctx)),
 	)
 }
-
-func (suite *KeeperTestSuite) TestSetIncentivesOnRegistration() {
+func (suite *KeeperTestSuite) TestSetEpochIncentivesOnRegistration() {
 	now := time.Now()
 	testCases := []struct {
 		amount                   sdk.Int
@@ -113,17 +112,17 @@ func (suite *KeeperTestSuite) TestSetIncentivesOnRegistration() {
 			tc.fn()
 
 			// Before incentives
-			beforeIncentives := suite.app.IncentivesKeeper.GetAllIncentive(suite.ctx)
+			beforeIncentives := suite.app.IncentivesKeeper.GetAllEpochIncentive(suite.ctx)
 			beforeTotalAmount := sdk.NewInt(0)
 			for _, incentive := range beforeIncentives {
 				beforeTotalAmount = beforeTotalAmount.Add(incentive.Amount.AmountOf(registrytypes.MycelDenom))
 			}
 
 			// Set incentives
-			suite.app.IncentivesKeeper.SetIncentivesOnRegistration(suite.ctx, tc.regestrationPeriodInWeek, sdk.NewCoin(registrytypes.MycelDenom, tc.amount))
+			suite.app.IncentivesKeeper.SetEpochIncentivesOnRegistration(suite.ctx, tc.regestrationPeriodInWeek, sdk.NewCoin(registrytypes.MycelDenom, tc.amount))
 
 			// Check incentive start epoch
-			incentives := suite.app.IncentivesKeeper.GetAllIncentive(suite.ctx)
+			incentives := suite.app.IncentivesKeeper.GetAllEpochIncentive(suite.ctx)
 			afterTotalAmount := sdk.NewInt(0)
 			for i, incentive := range incentives {
 				afterTotalAmount = incentive.Amount.AmountOf(registrytypes.MycelDenom).Add(afterTotalAmount)

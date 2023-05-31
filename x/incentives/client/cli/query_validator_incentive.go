@@ -3,18 +3,16 @@ package cli
 import (
 	"context"
 
-	"github.com/mycel-domain/mycel/x/incentives/types"
-
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
+	"github.com/mycel-domain/mycel/x/incentives/types"
 )
 
-func CmdListIncentive() *cobra.Command {
+func CmdListValidatorIncentive() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-incentive",
-		Short: "list all incentive",
+		Use:   "list-validator-incentive",
+		Short: "list all validatorIncentive",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -25,11 +23,11 @@ func CmdListIncentive() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryAllIncentiveRequest{
+			params := &types.QueryAllValidatorIncentiveRequest{
 				Pagination: pageReq,
 			}
 
-			res, err := queryClient.IncentiveAll(context.Background(), params)
+			res, err := queryClient.ValidatorIncentiveAll(context.Background(), params)
 			if err != nil {
 				return err
 			}
@@ -44,26 +42,23 @@ func CmdListIncentive() *cobra.Command {
 	return cmd
 }
 
-func CmdShowIncentive() *cobra.Command {
+func CmdShowValidatorIncentive() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-incentive [epoch]",
-		Short: "shows a incentive",
+		Use:   "show-validator-incentive [address]",
+		Short: "shows a validatorIncentive",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argEpoch, err := cast.ToInt64E(args[0])
-			if err != nil {
-				return err
+			argAddress := args[0]
+
+			params := &types.QueryGetValidatorIncentiveRequest{
+				Address: argAddress,
 			}
 
-			params := &types.QueryGetIncentiveRequest{
-				Epoch: argEpoch,
-			}
-
-			res, err := queryClient.Incentive(context.Background(), params)
+			res, err := queryClient.ValidatorIncentive(context.Background(), params)
 			if err != nil {
 				return err
 			}

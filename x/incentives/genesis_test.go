@@ -14,12 +14,28 @@ func TestGenesis(t *testing.T) {
 	genesisState := types.GenesisState{
 		Params: types.DefaultParams(),
 
-		IncentiveList: []types.Incentive{
+		EpochIncentiveList: []types.EpochIncentive{
 			{
 				Epoch: 0,
 			},
 			{
 				Epoch: 1,
+			},
+		},
+		ValidatorIncentiveList: []types.ValidatorIncentive{
+			{
+				Address: "0",
+			},
+			{
+				Address: "1",
+			},
+		},
+		DelegetorIncentiveList: []types.DelegetorIncentive{
+			{
+				Address: "0",
+			},
+			{
+				Address: "1",
 			},
 		},
 		// this line is used by starport scaffolding # genesis/test/state
@@ -33,6 +49,8 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(&genesisState)
 	nullify.Fill(got)
 
-	require.ElementsMatch(t, genesisState.IncentiveList, got.IncentiveList)
+	require.ElementsMatch(t, genesisState.EpochIncentiveList, got.EpochIncentiveList)
+	require.ElementsMatch(t, genesisState.ValidatorIncentiveList, got.ValidatorIncentiveList)
+	require.ElementsMatch(t, genesisState.DelegetorIncentiveList, got.DelegetorIncentiveList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

@@ -6,6 +6,7 @@ package types
 import (
 	context "context"
 	fmt "fmt"
+	_ "github.com/cosmos/cosmos-proto"
 	query "github.com/cosmos/cosmos-sdk/types/query"
 	_ "github.com/gogo/protobuf/gogoproto"
 	grpc1 "github.com/gogo/protobuf/grpc"
@@ -113,22 +114,22 @@ func (m *QueryParamsResponse) GetParams() Params {
 	return Params{}
 }
 
-type QueryGetIncentiveRequest struct {
+type QueryGetEpochIncentiveRequest struct {
 	Epoch int64 `protobuf:"varint,1,opt,name=epoch,proto3" json:"epoch,omitempty"`
 }
 
-func (m *QueryGetIncentiveRequest) Reset()         { *m = QueryGetIncentiveRequest{} }
-func (m *QueryGetIncentiveRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryGetIncentiveRequest) ProtoMessage()    {}
-func (*QueryGetIncentiveRequest) Descriptor() ([]byte, []int) {
+func (m *QueryGetEpochIncentiveRequest) Reset()         { *m = QueryGetEpochIncentiveRequest{} }
+func (m *QueryGetEpochIncentiveRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetEpochIncentiveRequest) ProtoMessage()    {}
+func (*QueryGetEpochIncentiveRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_8205a02596de1d57, []int{2}
 }
-func (m *QueryGetIncentiveRequest) XXX_Unmarshal(b []byte) error {
+func (m *QueryGetEpochIncentiveRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryGetIncentiveRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryGetEpochIncentiveRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryGetIncentiveRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryGetEpochIncentiveRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -138,41 +139,41 @@ func (m *QueryGetIncentiveRequest) XXX_Marshal(b []byte, deterministic bool) ([]
 		return b[:n], nil
 	}
 }
-func (m *QueryGetIncentiveRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryGetIncentiveRequest.Merge(m, src)
+func (m *QueryGetEpochIncentiveRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetEpochIncentiveRequest.Merge(m, src)
 }
-func (m *QueryGetIncentiveRequest) XXX_Size() int {
+func (m *QueryGetEpochIncentiveRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryGetIncentiveRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryGetIncentiveRequest.DiscardUnknown(m)
+func (m *QueryGetEpochIncentiveRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetEpochIncentiveRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryGetIncentiveRequest proto.InternalMessageInfo
+var xxx_messageInfo_QueryGetEpochIncentiveRequest proto.InternalMessageInfo
 
-func (m *QueryGetIncentiveRequest) GetEpoch() int64 {
+func (m *QueryGetEpochIncentiveRequest) GetEpoch() int64 {
 	if m != nil {
 		return m.Epoch
 	}
 	return 0
 }
 
-type QueryGetIncentiveResponse struct {
-	Incentive Incentive `protobuf:"bytes,1,opt,name=incentive,proto3" json:"incentive"`
+type QueryGetEpochIncentiveResponse struct {
+	EpochIncentive EpochIncentive `protobuf:"bytes,1,opt,name=epochIncentive,proto3" json:"epochIncentive"`
 }
 
-func (m *QueryGetIncentiveResponse) Reset()         { *m = QueryGetIncentiveResponse{} }
-func (m *QueryGetIncentiveResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryGetIncentiveResponse) ProtoMessage()    {}
-func (*QueryGetIncentiveResponse) Descriptor() ([]byte, []int) {
+func (m *QueryGetEpochIncentiveResponse) Reset()         { *m = QueryGetEpochIncentiveResponse{} }
+func (m *QueryGetEpochIncentiveResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetEpochIncentiveResponse) ProtoMessage()    {}
+func (*QueryGetEpochIncentiveResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_8205a02596de1d57, []int{3}
 }
-func (m *QueryGetIncentiveResponse) XXX_Unmarshal(b []byte) error {
+func (m *QueryGetEpochIncentiveResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryGetIncentiveResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryGetEpochIncentiveResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryGetIncentiveResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryGetEpochIncentiveResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -182,41 +183,41 @@ func (m *QueryGetIncentiveResponse) XXX_Marshal(b []byte, deterministic bool) ([
 		return b[:n], nil
 	}
 }
-func (m *QueryGetIncentiveResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryGetIncentiveResponse.Merge(m, src)
+func (m *QueryGetEpochIncentiveResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetEpochIncentiveResponse.Merge(m, src)
 }
-func (m *QueryGetIncentiveResponse) XXX_Size() int {
+func (m *QueryGetEpochIncentiveResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryGetIncentiveResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryGetIncentiveResponse.DiscardUnknown(m)
+func (m *QueryGetEpochIncentiveResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetEpochIncentiveResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryGetIncentiveResponse proto.InternalMessageInfo
+var xxx_messageInfo_QueryGetEpochIncentiveResponse proto.InternalMessageInfo
 
-func (m *QueryGetIncentiveResponse) GetIncentive() Incentive {
+func (m *QueryGetEpochIncentiveResponse) GetEpochIncentive() EpochIncentive {
 	if m != nil {
-		return m.Incentive
+		return m.EpochIncentive
 	}
-	return Incentive{}
+	return EpochIncentive{}
 }
 
-type QueryAllIncentiveRequest struct {
+type QueryAllEpochIncentiveRequest struct {
 	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
-func (m *QueryAllIncentiveRequest) Reset()         { *m = QueryAllIncentiveRequest{} }
-func (m *QueryAllIncentiveRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryAllIncentiveRequest) ProtoMessage()    {}
-func (*QueryAllIncentiveRequest) Descriptor() ([]byte, []int) {
+func (m *QueryAllEpochIncentiveRequest) Reset()         { *m = QueryAllEpochIncentiveRequest{} }
+func (m *QueryAllEpochIncentiveRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllEpochIncentiveRequest) ProtoMessage()    {}
+func (*QueryAllEpochIncentiveRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_8205a02596de1d57, []int{4}
 }
-func (m *QueryAllIncentiveRequest) XXX_Unmarshal(b []byte) error {
+func (m *QueryAllEpochIncentiveRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryAllIncentiveRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryAllEpochIncentiveRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryAllIncentiveRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryAllEpochIncentiveRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -226,42 +227,42 @@ func (m *QueryAllIncentiveRequest) XXX_Marshal(b []byte, deterministic bool) ([]
 		return b[:n], nil
 	}
 }
-func (m *QueryAllIncentiveRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryAllIncentiveRequest.Merge(m, src)
+func (m *QueryAllEpochIncentiveRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllEpochIncentiveRequest.Merge(m, src)
 }
-func (m *QueryAllIncentiveRequest) XXX_Size() int {
+func (m *QueryAllEpochIncentiveRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryAllIncentiveRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryAllIncentiveRequest.DiscardUnknown(m)
+func (m *QueryAllEpochIncentiveRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllEpochIncentiveRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryAllIncentiveRequest proto.InternalMessageInfo
+var xxx_messageInfo_QueryAllEpochIncentiveRequest proto.InternalMessageInfo
 
-func (m *QueryAllIncentiveRequest) GetPagination() *query.PageRequest {
+func (m *QueryAllEpochIncentiveRequest) GetPagination() *query.PageRequest {
 	if m != nil {
 		return m.Pagination
 	}
 	return nil
 }
 
-type QueryAllIncentiveResponse struct {
-	Incentive  []Incentive         `protobuf:"bytes,1,rep,name=incentive,proto3" json:"incentive"`
-	Pagination *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+type QueryAllEpochIncentiveResponse struct {
+	EpochIncentive []EpochIncentive    `protobuf:"bytes,1,rep,name=epochIncentive,proto3" json:"epochIncentive"`
+	Pagination     *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
-func (m *QueryAllIncentiveResponse) Reset()         { *m = QueryAllIncentiveResponse{} }
-func (m *QueryAllIncentiveResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryAllIncentiveResponse) ProtoMessage()    {}
-func (*QueryAllIncentiveResponse) Descriptor() ([]byte, []int) {
+func (m *QueryAllEpochIncentiveResponse) Reset()         { *m = QueryAllEpochIncentiveResponse{} }
+func (m *QueryAllEpochIncentiveResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllEpochIncentiveResponse) ProtoMessage()    {}
+func (*QueryAllEpochIncentiveResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_8205a02596de1d57, []int{5}
 }
-func (m *QueryAllIncentiveResponse) XXX_Unmarshal(b []byte) error {
+func (m *QueryAllEpochIncentiveResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryAllIncentiveResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryAllEpochIncentiveResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryAllIncentiveResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryAllEpochIncentiveResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -271,26 +272,394 @@ func (m *QueryAllIncentiveResponse) XXX_Marshal(b []byte, deterministic bool) ([
 		return b[:n], nil
 	}
 }
-func (m *QueryAllIncentiveResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryAllIncentiveResponse.Merge(m, src)
+func (m *QueryAllEpochIncentiveResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllEpochIncentiveResponse.Merge(m, src)
 }
-func (m *QueryAllIncentiveResponse) XXX_Size() int {
+func (m *QueryAllEpochIncentiveResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryAllIncentiveResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryAllIncentiveResponse.DiscardUnknown(m)
+func (m *QueryAllEpochIncentiveResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllEpochIncentiveResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryAllIncentiveResponse proto.InternalMessageInfo
+var xxx_messageInfo_QueryAllEpochIncentiveResponse proto.InternalMessageInfo
 
-func (m *QueryAllIncentiveResponse) GetIncentive() []Incentive {
+func (m *QueryAllEpochIncentiveResponse) GetEpochIncentive() []EpochIncentive {
 	if m != nil {
-		return m.Incentive
+		return m.EpochIncentive
 	}
 	return nil
 }
 
-func (m *QueryAllIncentiveResponse) GetPagination() *query.PageResponse {
+func (m *QueryAllEpochIncentiveResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryGetValidatorIncentiveRequest struct {
+	Address string `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
+}
+
+func (m *QueryGetValidatorIncentiveRequest) Reset()         { *m = QueryGetValidatorIncentiveRequest{} }
+func (m *QueryGetValidatorIncentiveRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetValidatorIncentiveRequest) ProtoMessage()    {}
+func (*QueryGetValidatorIncentiveRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8205a02596de1d57, []int{6}
+}
+func (m *QueryGetValidatorIncentiveRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetValidatorIncentiveRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetValidatorIncentiveRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetValidatorIncentiveRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetValidatorIncentiveRequest.Merge(m, src)
+}
+func (m *QueryGetValidatorIncentiveRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetValidatorIncentiveRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetValidatorIncentiveRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetValidatorIncentiveRequest proto.InternalMessageInfo
+
+func (m *QueryGetValidatorIncentiveRequest) GetAddress() string {
+	if m != nil {
+		return m.Address
+	}
+	return ""
+}
+
+type QueryGetValidatorIncentiveResponse struct {
+	ValidatorIncentive ValidatorIncentive `protobuf:"bytes,1,opt,name=validatorIncentive,proto3" json:"validatorIncentive"`
+}
+
+func (m *QueryGetValidatorIncentiveResponse) Reset()         { *m = QueryGetValidatorIncentiveResponse{} }
+func (m *QueryGetValidatorIncentiveResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetValidatorIncentiveResponse) ProtoMessage()    {}
+func (*QueryGetValidatorIncentiveResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8205a02596de1d57, []int{7}
+}
+func (m *QueryGetValidatorIncentiveResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetValidatorIncentiveResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetValidatorIncentiveResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetValidatorIncentiveResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetValidatorIncentiveResponse.Merge(m, src)
+}
+func (m *QueryGetValidatorIncentiveResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetValidatorIncentiveResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetValidatorIncentiveResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetValidatorIncentiveResponse proto.InternalMessageInfo
+
+func (m *QueryGetValidatorIncentiveResponse) GetValidatorIncentive() ValidatorIncentive {
+	if m != nil {
+		return m.ValidatorIncentive
+	}
+	return ValidatorIncentive{}
+}
+
+type QueryAllValidatorIncentiveRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllValidatorIncentiveRequest) Reset()         { *m = QueryAllValidatorIncentiveRequest{} }
+func (m *QueryAllValidatorIncentiveRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllValidatorIncentiveRequest) ProtoMessage()    {}
+func (*QueryAllValidatorIncentiveRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8205a02596de1d57, []int{8}
+}
+func (m *QueryAllValidatorIncentiveRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllValidatorIncentiveRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllValidatorIncentiveRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllValidatorIncentiveRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllValidatorIncentiveRequest.Merge(m, src)
+}
+func (m *QueryAllValidatorIncentiveRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllValidatorIncentiveRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllValidatorIncentiveRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllValidatorIncentiveRequest proto.InternalMessageInfo
+
+func (m *QueryAllValidatorIncentiveRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllValidatorIncentiveResponse struct {
+	ValidatorIncentive []ValidatorIncentive `protobuf:"bytes,1,rep,name=validatorIncentive,proto3" json:"validatorIncentive"`
+	Pagination         *query.PageResponse  `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllValidatorIncentiveResponse) Reset()         { *m = QueryAllValidatorIncentiveResponse{} }
+func (m *QueryAllValidatorIncentiveResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllValidatorIncentiveResponse) ProtoMessage()    {}
+func (*QueryAllValidatorIncentiveResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8205a02596de1d57, []int{9}
+}
+func (m *QueryAllValidatorIncentiveResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllValidatorIncentiveResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllValidatorIncentiveResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllValidatorIncentiveResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllValidatorIncentiveResponse.Merge(m, src)
+}
+func (m *QueryAllValidatorIncentiveResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllValidatorIncentiveResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllValidatorIncentiveResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllValidatorIncentiveResponse proto.InternalMessageInfo
+
+func (m *QueryAllValidatorIncentiveResponse) GetValidatorIncentive() []ValidatorIncentive {
+	if m != nil {
+		return m.ValidatorIncentive
+	}
+	return nil
+}
+
+func (m *QueryAllValidatorIncentiveResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryGetDelegetorIncentiveRequest struct {
+	Address string `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
+}
+
+func (m *QueryGetDelegetorIncentiveRequest) Reset()         { *m = QueryGetDelegetorIncentiveRequest{} }
+func (m *QueryGetDelegetorIncentiveRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetDelegetorIncentiveRequest) ProtoMessage()    {}
+func (*QueryGetDelegetorIncentiveRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8205a02596de1d57, []int{10}
+}
+func (m *QueryGetDelegetorIncentiveRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetDelegetorIncentiveRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetDelegetorIncentiveRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetDelegetorIncentiveRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetDelegetorIncentiveRequest.Merge(m, src)
+}
+func (m *QueryGetDelegetorIncentiveRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetDelegetorIncentiveRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetDelegetorIncentiveRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetDelegetorIncentiveRequest proto.InternalMessageInfo
+
+func (m *QueryGetDelegetorIncentiveRequest) GetAddress() string {
+	if m != nil {
+		return m.Address
+	}
+	return ""
+}
+
+type QueryGetDelegetorIncentiveResponse struct {
+	DelegetorIncentive DelegetorIncentive `protobuf:"bytes,1,opt,name=delegetorIncentive,proto3" json:"delegetorIncentive"`
+}
+
+func (m *QueryGetDelegetorIncentiveResponse) Reset()         { *m = QueryGetDelegetorIncentiveResponse{} }
+func (m *QueryGetDelegetorIncentiveResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetDelegetorIncentiveResponse) ProtoMessage()    {}
+func (*QueryGetDelegetorIncentiveResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8205a02596de1d57, []int{11}
+}
+func (m *QueryGetDelegetorIncentiveResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetDelegetorIncentiveResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetDelegetorIncentiveResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetDelegetorIncentiveResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetDelegetorIncentiveResponse.Merge(m, src)
+}
+func (m *QueryGetDelegetorIncentiveResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetDelegetorIncentiveResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetDelegetorIncentiveResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetDelegetorIncentiveResponse proto.InternalMessageInfo
+
+func (m *QueryGetDelegetorIncentiveResponse) GetDelegetorIncentive() DelegetorIncentive {
+	if m != nil {
+		return m.DelegetorIncentive
+	}
+	return DelegetorIncentive{}
+}
+
+type QueryAllDelegetorIncentiveRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllDelegetorIncentiveRequest) Reset()         { *m = QueryAllDelegetorIncentiveRequest{} }
+func (m *QueryAllDelegetorIncentiveRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllDelegetorIncentiveRequest) ProtoMessage()    {}
+func (*QueryAllDelegetorIncentiveRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8205a02596de1d57, []int{12}
+}
+func (m *QueryAllDelegetorIncentiveRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllDelegetorIncentiveRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllDelegetorIncentiveRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllDelegetorIncentiveRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllDelegetorIncentiveRequest.Merge(m, src)
+}
+func (m *QueryAllDelegetorIncentiveRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllDelegetorIncentiveRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllDelegetorIncentiveRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllDelegetorIncentiveRequest proto.InternalMessageInfo
+
+func (m *QueryAllDelegetorIncentiveRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllDelegetorIncentiveResponse struct {
+	DelegetorIncentive []DelegetorIncentive `protobuf:"bytes,1,rep,name=delegetorIncentive,proto3" json:"delegetorIncentive"`
+	Pagination         *query.PageResponse  `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllDelegetorIncentiveResponse) Reset()         { *m = QueryAllDelegetorIncentiveResponse{} }
+func (m *QueryAllDelegetorIncentiveResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllDelegetorIncentiveResponse) ProtoMessage()    {}
+func (*QueryAllDelegetorIncentiveResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8205a02596de1d57, []int{13}
+}
+func (m *QueryAllDelegetorIncentiveResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllDelegetorIncentiveResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllDelegetorIncentiveResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllDelegetorIncentiveResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllDelegetorIncentiveResponse.Merge(m, src)
+}
+func (m *QueryAllDelegetorIncentiveResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllDelegetorIncentiveResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllDelegetorIncentiveResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllDelegetorIncentiveResponse proto.InternalMessageInfo
+
+func (m *QueryAllDelegetorIncentiveResponse) GetDelegetorIncentive() []DelegetorIncentive {
+	if m != nil {
+		return m.DelegetorIncentive
+	}
+	return nil
+}
+
+func (m *QueryAllDelegetorIncentiveResponse) GetPagination() *query.PageResponse {
 	if m != nil {
 		return m.Pagination
 	}
@@ -300,47 +669,72 @@ func (m *QueryAllIncentiveResponse) GetPagination() *query.PageResponse {
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "mycel.incentives.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "mycel.incentives.QueryParamsResponse")
-	proto.RegisterType((*QueryGetIncentiveRequest)(nil), "mycel.incentives.QueryGetIncentiveRequest")
-	proto.RegisterType((*QueryGetIncentiveResponse)(nil), "mycel.incentives.QueryGetIncentiveResponse")
-	proto.RegisterType((*QueryAllIncentiveRequest)(nil), "mycel.incentives.QueryAllIncentiveRequest")
-	proto.RegisterType((*QueryAllIncentiveResponse)(nil), "mycel.incentives.QueryAllIncentiveResponse")
+	proto.RegisterType((*QueryGetEpochIncentiveRequest)(nil), "mycel.incentives.QueryGetEpochIncentiveRequest")
+	proto.RegisterType((*QueryGetEpochIncentiveResponse)(nil), "mycel.incentives.QueryGetEpochIncentiveResponse")
+	proto.RegisterType((*QueryAllEpochIncentiveRequest)(nil), "mycel.incentives.QueryAllEpochIncentiveRequest")
+	proto.RegisterType((*QueryAllEpochIncentiveResponse)(nil), "mycel.incentives.QueryAllEpochIncentiveResponse")
+	proto.RegisterType((*QueryGetValidatorIncentiveRequest)(nil), "mycel.incentives.QueryGetValidatorIncentiveRequest")
+	proto.RegisterType((*QueryGetValidatorIncentiveResponse)(nil), "mycel.incentives.QueryGetValidatorIncentiveResponse")
+	proto.RegisterType((*QueryAllValidatorIncentiveRequest)(nil), "mycel.incentives.QueryAllValidatorIncentiveRequest")
+	proto.RegisterType((*QueryAllValidatorIncentiveResponse)(nil), "mycel.incentives.QueryAllValidatorIncentiveResponse")
+	proto.RegisterType((*QueryGetDelegetorIncentiveRequest)(nil), "mycel.incentives.QueryGetDelegetorIncentiveRequest")
+	proto.RegisterType((*QueryGetDelegetorIncentiveResponse)(nil), "mycel.incentives.QueryGetDelegetorIncentiveResponse")
+	proto.RegisterType((*QueryAllDelegetorIncentiveRequest)(nil), "mycel.incentives.QueryAllDelegetorIncentiveRequest")
+	proto.RegisterType((*QueryAllDelegetorIncentiveResponse)(nil), "mycel.incentives.QueryAllDelegetorIncentiveResponse")
 }
 
 func init() { proto.RegisterFile("mycel/incentives/query.proto", fileDescriptor_8205a02596de1d57) }
 
 var fileDescriptor_8205a02596de1d57 = []byte{
-	// 493 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x93, 0x41, 0x6f, 0xd3, 0x30,
-	0x14, 0xc7, 0xeb, 0x95, 0x55, 0x9a, 0xe1, 0x80, 0x4c, 0x0f, 0x21, 0xdb, 0x42, 0xe5, 0x31, 0x40,
-	0x9b, 0xb0, 0xb7, 0x21, 0x71, 0x45, 0xdb, 0x81, 0x09, 0x24, 0xa4, 0x91, 0x23, 0xe2, 0xe2, 0x04,
-	0x2b, 0x8b, 0x94, 0xd8, 0x59, 0xed, 0x0e, 0x2a, 0xc4, 0x85, 0x33, 0x07, 0x10, 0x1f, 0x01, 0xf1,
-	0x5d, 0x76, 0x9c, 0xc4, 0x85, 0x13, 0x42, 0x2d, 0x1f, 0x04, 0xd5, 0x76, 0xd3, 0x96, 0x24, 0x14,
-	0x6e, 0x69, 0xdf, 0xff, 0xff, 0x7f, 0xbf, 0x97, 0xf7, 0x02, 0x37, 0xf2, 0x61, 0xcc, 0x33, 0x9a,
-	0x8a, 0x98, 0x0b, 0x9d, 0x9e, 0x73, 0x45, 0xcf, 0x06, 0xbc, 0x3f, 0x24, 0x45, 0x5f, 0x6a, 0x89,
-	0xae, 0x9b, 0x2a, 0x99, 0x55, 0xfd, 0x6e, 0x22, 0x13, 0x69, 0x8a, 0x74, 0xf2, 0x64, 0x75, 0xfe,
-	0x46, 0x22, 0x65, 0x92, 0x71, 0xca, 0x8a, 0x94, 0x32, 0x21, 0xa4, 0x66, 0x3a, 0x95, 0x42, 0xb9,
-	0xea, 0x4e, 0x2c, 0x55, 0x2e, 0x15, 0x8d, 0x98, 0xe2, 0x36, 0x9e, 0x9e, 0xef, 0x47, 0x5c, 0xb3,
-	0x7d, 0x5a, 0xb0, 0x24, 0x15, 0x46, 0xec, 0xb4, 0x9b, 0x15, 0x9e, 0x82, 0xf5, 0x59, 0x3e, 0x8d,
-	0xea, 0x55, 0xca, 0xe5, 0xa3, 0x55, 0xe0, 0x2e, 0x44, 0xcf, 0x27, 0x2d, 0x4e, 0x8c, 0x2d, 0xe4,
-	0x67, 0x03, 0xae, 0x34, 0x7e, 0x06, 0x6f, 0x2c, 0xfc, 0xab, 0x0a, 0x29, 0x14, 0x47, 0x0f, 0x61,
-	0xc7, 0xc6, 0x7b, 0xa0, 0x07, 0xee, 0x5d, 0x3d, 0xf0, 0xc8, 0x9f, 0x03, 0x13, 0xeb, 0x38, 0xba,
-	0x72, 0xf1, 0xe3, 0x56, 0x2b, 0x74, 0x6a, 0xbc, 0x07, 0x3d, 0x13, 0x77, 0xcc, 0xf5, 0x93, 0xa9,
-	0xd4, 0xb5, 0x42, 0x5d, 0xb8, 0xca, 0x0b, 0x19, 0x9f, 0x9a, 0xc8, 0x76, 0x68, 0x7f, 0xe0, 0x97,
-	0xf0, 0x66, 0x8d, 0xc3, 0x61, 0x3c, 0x82, 0x6b, 0x65, 0x47, 0x47, 0xb2, 0x5e, 0x25, 0x29, 0x7d,
-	0x0e, 0x66, 0xe6, 0xc1, 0x91, 0xe3, 0x39, 0xcc, 0xb2, 0x0a, 0xcf, 0x63, 0x08, 0x67, 0x6f, 0xd9,
-	0xa5, 0xdf, 0x21, 0x76, 0x25, 0x64, 0xb2, 0x12, 0x62, 0x37, 0xee, 0x56, 0x42, 0x4e, 0x58, 0x32,
-	0xf5, 0x86, 0x73, 0x4e, 0xfc, 0x15, 0xb8, 0x11, 0x16, 0x9b, 0xd4, 0x8f, 0xd0, 0xfe, 0xdf, 0x11,
-	0xd0, 0xf1, 0x02, 0xe6, 0x8a, 0xc1, 0xbc, 0xbb, 0x14, 0xd3, 0x76, 0x9f, 0xe7, 0x3c, 0xf8, 0xd2,
-	0x86, 0xab, 0x86, 0x13, 0xbd, 0x86, 0x1d, 0xbb, 0x3d, 0x74, 0xbb, 0x8a, 0x52, 0x3d, 0x12, 0x7f,
-	0x7b, 0x89, 0xca, 0x36, 0xc3, 0xbd, 0xf7, 0xdf, 0x7e, 0x7d, 0x5e, 0xf1, 0x91, 0x47, 0x1b, 0x6e,
-	0x15, 0x7d, 0x02, 0x70, 0xad, 0x1c, 0x15, 0xed, 0x34, 0xc4, 0xd6, 0x1c, 0x8f, 0xbf, 0xfb, 0x4f,
-	0x5a, 0x07, 0xb2, 0x6b, 0x40, 0xb6, 0xd1, 0x16, 0x6d, 0xfe, 0x2a, 0xe8, 0x5b, 0x73, 0x7f, 0xef,
-	0xd0, 0x07, 0x00, 0xaf, 0x95, 0x11, 0x87, 0x59, 0xd6, 0x88, 0x55, 0x73, 0x43, 0x8d, 0x58, 0x75,
-	0xa7, 0x80, 0xb7, 0x0c, 0xd6, 0x26, 0x5a, 0xff, 0x0b, 0xd6, 0xd1, 0xd3, 0x8b, 0x51, 0x00, 0x2e,
-	0x47, 0x01, 0xf8, 0x39, 0x0a, 0xc0, 0xc7, 0x71, 0xd0, 0xba, 0x1c, 0x07, 0xad, 0xef, 0xe3, 0xa0,
-	0xf5, 0x62, 0x2f, 0x49, 0xf5, 0xe9, 0x20, 0x22, 0xb1, 0xcc, 0x6d, 0xc0, 0xfd, 0x57, 0x32, 0x67,
-	0xa9, 0x70, 0x69, 0x6f, 0xe6, 0xf3, 0xf4, 0xb0, 0xe0, 0x2a, 0xea, 0x98, 0x2f, 0xff, 0xc1, 0xef,
-	0x00, 0x00, 0x00, 0xff, 0xff, 0xe3, 0x3a, 0x63, 0x94, 0xcc, 0x04, 0x00, 0x00,
+	// 761 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x96, 0x4d, 0x4f, 0xd4, 0x40,
+	0x18, 0xc7, 0xb7, 0xac, 0x60, 0x18, 0x13, 0xa2, 0xe3, 0x9a, 0xac, 0x1b, 0xa8, 0x30, 0x0a, 0x88,
+	0x86, 0x0e, 0x0b, 0xbe, 0x9c, 0x97, 0xa8, 0x44, 0x13, 0x0d, 0xae, 0x89, 0x26, 0x5c, 0xc8, 0xec,
+	0xee, 0xa4, 0x34, 0x76, 0x3b, 0xa5, 0x2d, 0xab, 0x84, 0x90, 0x18, 0x3f, 0x81, 0x89, 0x9f, 0xc0,
+	0x8b, 0x17, 0x4f, 0x26, 0x1e, 0xf4, 0x1b, 0xe0, 0x8d, 0xe8, 0xc5, 0x93, 0x31, 0xe0, 0x07, 0x31,
+	0x3b, 0x33, 0x15, 0xca, 0x74, 0xda, 0xe5, 0xed, 0xb6, 0xed, 0xf3, 0xcc, 0x7f, 0x7e, 0xcf, 0x7f,
+	0x9e, 0x7d, 0xa6, 0x60, 0xb8, 0xbd, 0xde, 0xa4, 0x2e, 0x76, 0xbc, 0x26, 0xf5, 0x22, 0xa7, 0x43,
+	0x43, 0xbc, 0xba, 0x46, 0x83, 0x75, 0xcb, 0x0f, 0x58, 0xc4, 0xe0, 0x79, 0x1e, 0xb5, 0xf6, 0xa2,
+	0x95, 0x92, 0xcd, 0x6c, 0xc6, 0x83, 0xb8, 0xfb, 0x4b, 0xe4, 0x55, 0x86, 0x6d, 0xc6, 0x6c, 0x97,
+	0x62, 0xe2, 0x3b, 0x98, 0x78, 0x1e, 0x8b, 0x48, 0xe4, 0x30, 0x2f, 0x94, 0xd1, 0x1b, 0x4d, 0x16,
+	0xb6, 0x59, 0x88, 0x1b, 0x24, 0xa4, 0x42, 0x1e, 0x77, 0xaa, 0x0d, 0x1a, 0x91, 0x2a, 0xf6, 0x89,
+	0xed, 0x78, 0x3c, 0x59, 0xe6, 0x5e, 0x16, 0xb9, 0xcb, 0x62, 0x0b, 0xf1, 0x20, 0x43, 0x23, 0x0a,
+	0xaa, 0x4f, 0x02, 0xd2, 0x8e, 0xc3, 0x13, 0x4a, 0x98, 0xfa, 0xac, 0xb9, 0xb2, 0xfc, 0xff, 0x45,
+	0x4c, 0xa3, 0xe4, 0x75, 0x88, 0xeb, 0xb4, 0x48, 0xc4, 0x82, 0x1e, 0x72, 0x5b, 0xd4, 0xa5, 0x36,
+	0x4d, 0xc9, 0x45, 0x25, 0x00, 0x9f, 0x76, 0x6b, 0x5b, 0xe4, 0x50, 0x75, 0xba, 0xba, 0x46, 0xc3,
+	0x08, 0x3d, 0x06, 0x17, 0x13, 0x6f, 0x43, 0x9f, 0x79, 0x21, 0x85, 0x77, 0xc0, 0x80, 0x80, 0x2f,
+	0x1b, 0xa3, 0xc6, 0xf5, 0x73, 0xb3, 0x65, 0xeb, 0xa0, 0xd3, 0x96, 0x58, 0x31, 0x7f, 0x66, 0xeb,
+	0xf7, 0x95, 0x42, 0x5d, 0x66, 0xa3, 0xdb, 0x60, 0x84, 0xcb, 0x2d, 0xd0, 0xe8, 0x7e, 0xb7, 0xba,
+	0x87, 0x71, 0xbe, 0xdc, 0x0f, 0x96, 0x40, 0x3f, 0x2f, 0x9b, 0xeb, 0x16, 0xeb, 0xe2, 0x01, 0xf9,
+	0xc0, 0xd4, 0x2d, 0x93, 0x40, 0x4f, 0xc0, 0x10, 0x4d, 0x44, 0x24, 0xd8, 0xa8, 0x0a, 0x96, 0x54,
+	0x90, 0x80, 0x07, 0x56, 0x23, 0x5b, 0x82, 0xd6, 0x5c, 0x37, 0x1d, 0xf4, 0x01, 0x00, 0x7b, 0x87,
+	0x2f, 0x37, 0x9b, 0xb0, 0xe4, 0x81, 0x77, 0x3b, 0xc5, 0x12, 0x8d, 0x28, 0x3b, 0xc5, 0x5a, 0x24,
+	0x76, 0xbc, 0xb6, 0xbe, 0x6f, 0x25, 0xfa, 0x66, 0xc8, 0xda, 0x52, 0x76, 0xca, 0xa8, 0xad, 0x78,
+	0xf4, 0xda, 0xe0, 0x42, 0x02, 0xbd, 0x8f, 0xa3, 0x4f, 0xe6, 0xa2, 0x0b, 0x98, 0x04, 0xfb, 0x0b,
+	0x30, 0x16, 0x1f, 0xcb, 0xf3, 0xb8, 0x07, 0x15, 0xa3, 0x66, 0xc1, 0x59, 0xd2, 0x6a, 0x05, 0x34,
+	0x14, 0xbd, 0x32, 0x38, 0x5f, 0xfe, 0xf1, 0x65, 0xba, 0x24, 0x77, 0xab, 0x89, 0xc8, 0xb3, 0x28,
+	0x70, 0x3c, 0xbb, 0x1e, 0x27, 0xa2, 0x37, 0x06, 0x40, 0x59, 0xca, 0xd2, 0x98, 0x25, 0x00, 0x3b,
+	0x4a, 0x54, 0x9e, 0xc5, 0x35, 0xd5, 0x1c, 0x55, 0x49, 0x1a, 0x94, 0xa2, 0x82, 0x5e, 0xca, 0xda,
+	0x6a, 0xae, 0xab, 0xaf, 0xed, 0xa4, 0x9a, 0xe0, 0x7b, 0x5c, 0xaf, 0x66, 0xb7, 0x9c, 0x7a, 0x8b,
+	0xc7, 0xaf, 0xf7, 0x54, 0x9a, 0xe2, 0x5e, 0x3c, 0x6c, 0x4e, 0xbc, 0x29, 0xd2, 0x94, 0xf7, 0x4c,
+	0x6a, 0x29, 0x51, 0x7d, 0x53, 0xa8, 0x4a, 0xb1, 0x49, 0xaa, 0xca, 0xfe, 0xa6, 0xd0, 0xd7, 0x76,
+	0x1a, 0x4d, 0x71, 0x84, 0x7a, 0x8b, 0xc7, 0xaf, 0xf7, 0xc4, 0x9a, 0x62, 0xf6, 0xd3, 0x20, 0xe8,
+	0xe7, 0xb5, 0xc0, 0x57, 0x60, 0x40, 0xdc, 0x0c, 0x30, 0x05, 0x4e, 0xbd, 0x80, 0x2a, 0xe3, 0x39,
+	0x59, 0x62, 0x33, 0x34, 0xfa, 0xf6, 0xe7, 0xdf, 0xf7, 0x7d, 0x15, 0x58, 0xc6, 0x9a, 0x5b, 0x16,
+	0x7e, 0x34, 0xc0, 0x50, 0x72, 0x3c, 0x42, 0xac, 0xd1, 0xd6, 0xdd, 0x4e, 0x95, 0x99, 0xde, 0x17,
+	0x48, 0xae, 0x2a, 0xe7, 0xba, 0x09, 0xa7, 0x70, 0xde, 0xf5, 0x8e, 0x37, 0xf8, 0x8b, 0x4d, 0xf8,
+	0xc1, 0x00, 0x17, 0x92, 0x6a, 0x35, 0xd7, 0xd5, 0xb2, 0xea, 0x2e, 0x28, 0x2d, 0xab, 0xf6, 0x9e,
+	0x41, 0x53, 0x9c, 0xf5, 0x2a, 0x1c, 0xcb, 0x65, 0x85, 0x5f, 0x0d, 0x00, 0xd5, 0xf1, 0x02, 0xe7,
+	0xf4, 0xfe, 0x68, 0x87, 0x68, 0xe5, 0xd6, 0xe1, 0x16, 0x49, 0xd8, 0xbb, 0x1c, 0xb6, 0x0a, 0x31,
+	0xee, 0xe5, 0x7b, 0x08, 0x6f, 0xc8, 0x29, 0xb2, 0x09, 0x3f, 0x1b, 0xe0, 0x92, 0xaa, 0xdb, 0xb5,
+	0x78, 0x4e, 0xef, 0xd8, 0xe1, 0xe9, 0x33, 0x27, 0x39, 0x9a, 0xe6, 0xf4, 0x93, 0x70, 0xbc, 0x27,
+	0x7a, 0x6e, 0xb7, 0xfa, 0xc7, 0xcd, 0xb2, 0x5b, 0x3b, 0x9e, 0xb2, 0xec, 0xd6, 0x4f, 0x99, 0x2c,
+	0xbb, 0x53, 0x3e, 0x29, 0x0f, 0xd8, 0xad, 0xea, 0xe6, 0xd8, 0x7d, 0x78, 0xfa, 0xcc, 0x19, 0x99,
+	0x65, 0x77, 0x0a, 0xfd, 0xfc, 0xa3, 0xad, 0x1d, 0xd3, 0xd8, 0xde, 0x31, 0x8d, 0x3f, 0x3b, 0xa6,
+	0xf1, 0x6e, 0xd7, 0x2c, 0x6c, 0xef, 0x9a, 0x85, 0x5f, 0xbb, 0x66, 0x61, 0x69, 0xc6, 0x76, 0xa2,
+	0x95, 0xb5, 0x86, 0xd5, 0x64, 0x6d, 0x21, 0x35, 0xdd, 0x62, 0x6d, 0xe2, 0x78, 0x52, 0xf7, 0xf5,
+	0x7e, 0xe5, 0x68, 0xdd, 0xa7, 0x61, 0x63, 0x80, 0x7f, 0x5d, 0xcf, 0xfd, 0x0b, 0x00, 0x00, 0xff,
+	0xff, 0xb8, 0xe4, 0x36, 0x3f, 0xa9, 0x0c, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -357,9 +751,15 @@ const _ = grpc.SupportPackageIsVersion4
 type QueryClient interface {
 	// Parameters queries the parameters of the module.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
-	// Queries a list of Incentive items.
-	Incentive(ctx context.Context, in *QueryGetIncentiveRequest, opts ...grpc.CallOption) (*QueryGetIncentiveResponse, error)
-	IncentiveAll(ctx context.Context, in *QueryAllIncentiveRequest, opts ...grpc.CallOption) (*QueryAllIncentiveResponse, error)
+	// Queries a list of EpochIncentive items.
+	EpochIncentive(ctx context.Context, in *QueryGetEpochIncentiveRequest, opts ...grpc.CallOption) (*QueryGetEpochIncentiveResponse, error)
+	EpochIncentiveAll(ctx context.Context, in *QueryAllEpochIncentiveRequest, opts ...grpc.CallOption) (*QueryAllEpochIncentiveResponse, error)
+	// Queries a list of ValidatorIncentive items.
+	ValidatorIncentive(ctx context.Context, in *QueryGetValidatorIncentiveRequest, opts ...grpc.CallOption) (*QueryGetValidatorIncentiveResponse, error)
+	ValidatorIncentiveAll(ctx context.Context, in *QueryAllValidatorIncentiveRequest, opts ...grpc.CallOption) (*QueryAllValidatorIncentiveResponse, error)
+	// Queries a list of DelegetorIncentive items.
+	DelegetorIncentive(ctx context.Context, in *QueryGetDelegetorIncentiveRequest, opts ...grpc.CallOption) (*QueryGetDelegetorIncentiveResponse, error)
+	DelegetorIncentiveAll(ctx context.Context, in *QueryAllDelegetorIncentiveRequest, opts ...grpc.CallOption) (*QueryAllDelegetorIncentiveResponse, error)
 }
 
 type queryClient struct {
@@ -379,18 +779,54 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 	return out, nil
 }
 
-func (c *queryClient) Incentive(ctx context.Context, in *QueryGetIncentiveRequest, opts ...grpc.CallOption) (*QueryGetIncentiveResponse, error) {
-	out := new(QueryGetIncentiveResponse)
-	err := c.cc.Invoke(ctx, "/mycel.incentives.Query/Incentive", in, out, opts...)
+func (c *queryClient) EpochIncentive(ctx context.Context, in *QueryGetEpochIncentiveRequest, opts ...grpc.CallOption) (*QueryGetEpochIncentiveResponse, error) {
+	out := new(QueryGetEpochIncentiveResponse)
+	err := c.cc.Invoke(ctx, "/mycel.incentives.Query/EpochIncentive", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *queryClient) IncentiveAll(ctx context.Context, in *QueryAllIncentiveRequest, opts ...grpc.CallOption) (*QueryAllIncentiveResponse, error) {
-	out := new(QueryAllIncentiveResponse)
-	err := c.cc.Invoke(ctx, "/mycel.incentives.Query/IncentiveAll", in, out, opts...)
+func (c *queryClient) EpochIncentiveAll(ctx context.Context, in *QueryAllEpochIncentiveRequest, opts ...grpc.CallOption) (*QueryAllEpochIncentiveResponse, error) {
+	out := new(QueryAllEpochIncentiveResponse)
+	err := c.cc.Invoke(ctx, "/mycel.incentives.Query/EpochIncentiveAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) ValidatorIncentive(ctx context.Context, in *QueryGetValidatorIncentiveRequest, opts ...grpc.CallOption) (*QueryGetValidatorIncentiveResponse, error) {
+	out := new(QueryGetValidatorIncentiveResponse)
+	err := c.cc.Invoke(ctx, "/mycel.incentives.Query/ValidatorIncentive", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) ValidatorIncentiveAll(ctx context.Context, in *QueryAllValidatorIncentiveRequest, opts ...grpc.CallOption) (*QueryAllValidatorIncentiveResponse, error) {
+	out := new(QueryAllValidatorIncentiveResponse)
+	err := c.cc.Invoke(ctx, "/mycel.incentives.Query/ValidatorIncentiveAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) DelegetorIncentive(ctx context.Context, in *QueryGetDelegetorIncentiveRequest, opts ...grpc.CallOption) (*QueryGetDelegetorIncentiveResponse, error) {
+	out := new(QueryGetDelegetorIncentiveResponse)
+	err := c.cc.Invoke(ctx, "/mycel.incentives.Query/DelegetorIncentive", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) DelegetorIncentiveAll(ctx context.Context, in *QueryAllDelegetorIncentiveRequest, opts ...grpc.CallOption) (*QueryAllDelegetorIncentiveResponse, error) {
+	out := new(QueryAllDelegetorIncentiveResponse)
+	err := c.cc.Invoke(ctx, "/mycel.incentives.Query/DelegetorIncentiveAll", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -401,9 +837,15 @@ func (c *queryClient) IncentiveAll(ctx context.Context, in *QueryAllIncentiveReq
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
-	// Queries a list of Incentive items.
-	Incentive(context.Context, *QueryGetIncentiveRequest) (*QueryGetIncentiveResponse, error)
-	IncentiveAll(context.Context, *QueryAllIncentiveRequest) (*QueryAllIncentiveResponse, error)
+	// Queries a list of EpochIncentive items.
+	EpochIncentive(context.Context, *QueryGetEpochIncentiveRequest) (*QueryGetEpochIncentiveResponse, error)
+	EpochIncentiveAll(context.Context, *QueryAllEpochIncentiveRequest) (*QueryAllEpochIncentiveResponse, error)
+	// Queries a list of ValidatorIncentive items.
+	ValidatorIncentive(context.Context, *QueryGetValidatorIncentiveRequest) (*QueryGetValidatorIncentiveResponse, error)
+	ValidatorIncentiveAll(context.Context, *QueryAllValidatorIncentiveRequest) (*QueryAllValidatorIncentiveResponse, error)
+	// Queries a list of DelegetorIncentive items.
+	DelegetorIncentive(context.Context, *QueryGetDelegetorIncentiveRequest) (*QueryGetDelegetorIncentiveResponse, error)
+	DelegetorIncentiveAll(context.Context, *QueryAllDelegetorIncentiveRequest) (*QueryAllDelegetorIncentiveResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -413,11 +855,23 @@ type UnimplementedQueryServer struct {
 func (*UnimplementedQueryServer) Params(ctx context.Context, req *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
 }
-func (*UnimplementedQueryServer) Incentive(ctx context.Context, req *QueryGetIncentiveRequest) (*QueryGetIncentiveResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Incentive not implemented")
+func (*UnimplementedQueryServer) EpochIncentive(ctx context.Context, req *QueryGetEpochIncentiveRequest) (*QueryGetEpochIncentiveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EpochIncentive not implemented")
 }
-func (*UnimplementedQueryServer) IncentiveAll(ctx context.Context, req *QueryAllIncentiveRequest) (*QueryAllIncentiveResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method IncentiveAll not implemented")
+func (*UnimplementedQueryServer) EpochIncentiveAll(ctx context.Context, req *QueryAllEpochIncentiveRequest) (*QueryAllEpochIncentiveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EpochIncentiveAll not implemented")
+}
+func (*UnimplementedQueryServer) ValidatorIncentive(ctx context.Context, req *QueryGetValidatorIncentiveRequest) (*QueryGetValidatorIncentiveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValidatorIncentive not implemented")
+}
+func (*UnimplementedQueryServer) ValidatorIncentiveAll(ctx context.Context, req *QueryAllValidatorIncentiveRequest) (*QueryAllValidatorIncentiveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValidatorIncentiveAll not implemented")
+}
+func (*UnimplementedQueryServer) DelegetorIncentive(ctx context.Context, req *QueryGetDelegetorIncentiveRequest) (*QueryGetDelegetorIncentiveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DelegetorIncentive not implemented")
+}
+func (*UnimplementedQueryServer) DelegetorIncentiveAll(ctx context.Context, req *QueryAllDelegetorIncentiveRequest) (*QueryAllDelegetorIncentiveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DelegetorIncentiveAll not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -442,38 +896,110 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_Incentive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryGetIncentiveRequest)
+func _Query_EpochIncentive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetEpochIncentiveRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).Incentive(ctx, in)
+		return srv.(QueryServer).EpochIncentive(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mycel.incentives.Query/Incentive",
+		FullMethod: "/mycel.incentives.Query/EpochIncentive",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).Incentive(ctx, req.(*QueryGetIncentiveRequest))
+		return srv.(QueryServer).EpochIncentive(ctx, req.(*QueryGetEpochIncentiveRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_IncentiveAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryAllIncentiveRequest)
+func _Query_EpochIncentiveAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllEpochIncentiveRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).IncentiveAll(ctx, in)
+		return srv.(QueryServer).EpochIncentiveAll(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mycel.incentives.Query/IncentiveAll",
+		FullMethod: "/mycel.incentives.Query/EpochIncentiveAll",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).IncentiveAll(ctx, req.(*QueryAllIncentiveRequest))
+		return srv.(QueryServer).EpochIncentiveAll(ctx, req.(*QueryAllEpochIncentiveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_ValidatorIncentive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetValidatorIncentiveRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ValidatorIncentive(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mycel.incentives.Query/ValidatorIncentive",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ValidatorIncentive(ctx, req.(*QueryGetValidatorIncentiveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_ValidatorIncentiveAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllValidatorIncentiveRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ValidatorIncentiveAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mycel.incentives.Query/ValidatorIncentiveAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ValidatorIncentiveAll(ctx, req.(*QueryAllValidatorIncentiveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_DelegetorIncentive_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetDelegetorIncentiveRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).DelegetorIncentive(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mycel.incentives.Query/DelegetorIncentive",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).DelegetorIncentive(ctx, req.(*QueryGetDelegetorIncentiveRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_DelegetorIncentiveAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllDelegetorIncentiveRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).DelegetorIncentiveAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mycel.incentives.Query/DelegetorIncentiveAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).DelegetorIncentiveAll(ctx, req.(*QueryAllDelegetorIncentiveRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -487,12 +1013,28 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Query_Params_Handler,
 		},
 		{
-			MethodName: "Incentive",
-			Handler:    _Query_Incentive_Handler,
+			MethodName: "EpochIncentive",
+			Handler:    _Query_EpochIncentive_Handler,
 		},
 		{
-			MethodName: "IncentiveAll",
-			Handler:    _Query_IncentiveAll_Handler,
+			MethodName: "EpochIncentiveAll",
+			Handler:    _Query_EpochIncentiveAll_Handler,
+		},
+		{
+			MethodName: "ValidatorIncentive",
+			Handler:    _Query_ValidatorIncentive_Handler,
+		},
+		{
+			MethodName: "ValidatorIncentiveAll",
+			Handler:    _Query_ValidatorIncentiveAll_Handler,
+		},
+		{
+			MethodName: "DelegetorIncentive",
+			Handler:    _Query_DelegetorIncentive_Handler,
+		},
+		{
+			MethodName: "DelegetorIncentiveAll",
+			Handler:    _Query_DelegetorIncentiveAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -555,7 +1097,7 @@ func (m *QueryParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryGetIncentiveRequest) Marshal() (dAtA []byte, err error) {
+func (m *QueryGetEpochIncentiveRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -565,12 +1107,12 @@ func (m *QueryGetIncentiveRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryGetIncentiveRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryGetEpochIncentiveRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryGetIncentiveRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryGetEpochIncentiveRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -583,7 +1125,7 @@ func (m *QueryGetIncentiveRequest) MarshalToSizedBuffer(dAtA []byte) (int, error
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryGetIncentiveResponse) Marshal() (dAtA []byte, err error) {
+func (m *QueryGetEpochIncentiveResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -593,18 +1135,18 @@ func (m *QueryGetIncentiveResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryGetIncentiveResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryGetEpochIncentiveResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryGetIncentiveResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryGetEpochIncentiveResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
 	{
-		size, err := m.Incentive.MarshalToSizedBuffer(dAtA[:i])
+		size, err := m.EpochIncentive.MarshalToSizedBuffer(dAtA[:i])
 		if err != nil {
 			return 0, err
 		}
@@ -616,7 +1158,7 @@ func (m *QueryGetIncentiveResponse) MarshalToSizedBuffer(dAtA []byte) (int, erro
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryAllIncentiveRequest) Marshal() (dAtA []byte, err error) {
+func (m *QueryAllEpochIncentiveRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -626,12 +1168,12 @@ func (m *QueryAllIncentiveRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryAllIncentiveRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryAllEpochIncentiveRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryAllIncentiveRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryAllEpochIncentiveRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -651,7 +1193,7 @@ func (m *QueryAllIncentiveRequest) MarshalToSizedBuffer(dAtA []byte) (int, error
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryAllIncentiveResponse) Marshal() (dAtA []byte, err error) {
+func (m *QueryAllEpochIncentiveResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -661,12 +1203,12 @@ func (m *QueryAllIncentiveResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryAllIncentiveResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryAllEpochIncentiveResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryAllIncentiveResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryAllEpochIncentiveResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -683,10 +1225,304 @@ func (m *QueryAllIncentiveResponse) MarshalToSizedBuffer(dAtA []byte) (int, erro
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.Incentive) > 0 {
-		for iNdEx := len(m.Incentive) - 1; iNdEx >= 0; iNdEx-- {
+	if len(m.EpochIncentive) > 0 {
+		for iNdEx := len(m.EpochIncentive) - 1; iNdEx >= 0; iNdEx-- {
 			{
-				size, err := m.Incentive[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				size, err := m.EpochIncentive[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetValidatorIncentiveRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetValidatorIncentiveRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetValidatorIncentiveRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Address) > 0 {
+		i -= len(m.Address)
+		copy(dAtA[i:], m.Address)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Address)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetValidatorIncentiveResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetValidatorIncentiveResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetValidatorIncentiveResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.ValidatorIncentive.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllValidatorIncentiveRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllValidatorIncentiveRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllValidatorIncentiveRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllValidatorIncentiveResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllValidatorIncentiveResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllValidatorIncentiveResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.ValidatorIncentive) > 0 {
+		for iNdEx := len(m.ValidatorIncentive) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.ValidatorIncentive[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetDelegetorIncentiveRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetDelegetorIncentiveRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetDelegetorIncentiveRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Address) > 0 {
+		i -= len(m.Address)
+		copy(dAtA[i:], m.Address)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Address)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetDelegetorIncentiveResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetDelegetorIncentiveResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetDelegetorIncentiveResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.DelegetorIncentive.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllDelegetorIncentiveRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllDelegetorIncentiveRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllDelegetorIncentiveRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllDelegetorIncentiveResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllDelegetorIncentiveResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllDelegetorIncentiveResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.DelegetorIncentive) > 0 {
+		for iNdEx := len(m.DelegetorIncentive) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.DelegetorIncentive[iNdEx].MarshalToSizedBuffer(dAtA[:i])
 				if err != nil {
 					return 0, err
 				}
@@ -731,7 +1567,7 @@ func (m *QueryParamsResponse) Size() (n int) {
 	return n
 }
 
-func (m *QueryGetIncentiveRequest) Size() (n int) {
+func (m *QueryGetEpochIncentiveRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -743,18 +1579,18 @@ func (m *QueryGetIncentiveRequest) Size() (n int) {
 	return n
 }
 
-func (m *QueryGetIncentiveResponse) Size() (n int) {
+func (m *QueryGetEpochIncentiveResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = m.Incentive.Size()
+	l = m.EpochIncentive.Size()
 	n += 1 + l + sovQuery(uint64(l))
 	return n
 }
 
-func (m *QueryAllIncentiveRequest) Size() (n int) {
+func (m *QueryAllEpochIncentiveRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -767,14 +1603,126 @@ func (m *QueryAllIncentiveRequest) Size() (n int) {
 	return n
 }
 
-func (m *QueryAllIncentiveResponse) Size() (n int) {
+func (m *QueryAllEpochIncentiveResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	if len(m.Incentive) > 0 {
-		for _, e := range m.Incentive {
+	if len(m.EpochIncentive) > 0 {
+		for _, e := range m.EpochIncentive {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetValidatorIncentiveRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Address)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetValidatorIncentiveResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.ValidatorIncentive.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllValidatorIncentiveRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllValidatorIncentiveResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.ValidatorIncentive) > 0 {
+		for _, e := range m.ValidatorIncentive {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetDelegetorIncentiveRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Address)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetDelegetorIncentiveResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.DelegetorIncentive.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllDelegetorIncentiveRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllDelegetorIncentiveResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.DelegetorIncentive) > 0 {
+		for _, e := range m.DelegetorIncentive {
 			l = e.Size()
 			n += 1 + l + sovQuery(uint64(l))
 		}
@@ -925,7 +1873,7 @@ func (m *QueryParamsResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryGetIncentiveRequest) Unmarshal(dAtA []byte) error {
+func (m *QueryGetEpochIncentiveRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -948,10 +1896,10 @@ func (m *QueryGetIncentiveRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryGetIncentiveRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryGetEpochIncentiveRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryGetIncentiveRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryGetEpochIncentiveRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -994,7 +1942,7 @@ func (m *QueryGetIncentiveRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryGetIncentiveResponse) Unmarshal(dAtA []byte) error {
+func (m *QueryGetEpochIncentiveResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1017,15 +1965,15 @@ func (m *QueryGetIncentiveResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryGetIncentiveResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryGetEpochIncentiveResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryGetIncentiveResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryGetEpochIncentiveResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Incentive", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field EpochIncentive", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -1052,7 +2000,7 @@ func (m *QueryGetIncentiveResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if err := m.Incentive.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.EpochIncentive.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
@@ -1077,7 +2025,7 @@ func (m *QueryGetIncentiveResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryAllIncentiveRequest) Unmarshal(dAtA []byte) error {
+func (m *QueryAllEpochIncentiveRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1100,10 +2048,10 @@ func (m *QueryAllIncentiveRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryAllIncentiveRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryAllEpochIncentiveRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryAllIncentiveRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryAllEpochIncentiveRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1163,7 +2111,7 @@ func (m *QueryAllIncentiveRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryAllIncentiveResponse) Unmarshal(dAtA []byte) error {
+func (m *QueryAllEpochIncentiveResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1186,15 +2134,15 @@ func (m *QueryAllIncentiveResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryAllIncentiveResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryAllEpochIncentiveResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryAllIncentiveResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryAllEpochIncentiveResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Incentive", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field EpochIncentive", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -1221,8 +2169,750 @@ func (m *QueryAllIncentiveResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Incentive = append(m.Incentive, Incentive{})
-			if err := m.Incentive[len(m.Incentive)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			m.EpochIncentive = append(m.EpochIncentive, EpochIncentive{})
+			if err := m.EpochIncentive[len(m.EpochIncentive)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetValidatorIncentiveRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetValidatorIncentiveRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetValidatorIncentiveRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Address", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Address = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetValidatorIncentiveResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetValidatorIncentiveResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetValidatorIncentiveResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValidatorIncentive", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.ValidatorIncentive.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllValidatorIncentiveRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllValidatorIncentiveRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllValidatorIncentiveRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllValidatorIncentiveResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllValidatorIncentiveResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllValidatorIncentiveResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValidatorIncentive", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ValidatorIncentive = append(m.ValidatorIncentive, ValidatorIncentive{})
+			if err := m.ValidatorIncentive[len(m.ValidatorIncentive)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetDelegetorIncentiveRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetDelegetorIncentiveRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetDelegetorIncentiveRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Address", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Address = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetDelegetorIncentiveResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetDelegetorIncentiveResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetDelegetorIncentiveResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DelegetorIncentive", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.DelegetorIncentive.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllDelegetorIncentiveRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllDelegetorIncentiveRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllDelegetorIncentiveRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllDelegetorIncentiveResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllDelegetorIncentiveResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllDelegetorIncentiveResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DelegetorIncentive", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DelegetorIncentive = append(m.DelegetorIncentive, DelegetorIncentive{})
+			if err := m.DelegetorIncentive[len(m.DelegetorIncentive)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

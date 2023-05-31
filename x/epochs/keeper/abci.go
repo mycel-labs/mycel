@@ -1,10 +1,9 @@
 package keeper
 
 import (
+	"github.com/mycel-domain/mycel/x/epochs/types"
 	"strconv"
 	"time"
-
-	"github.com/mycel-domain/mycel/x/epochs/types"
 
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
