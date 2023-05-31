@@ -143,6 +143,7 @@ pagination:
 ```
 
 ### show-domain
+Query domain records by domain
 ```
 myceld q regisry show-domain [name] [parent]
 ```
@@ -167,3 +168,17 @@ domain:
       value: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
       walletRecordType: ETHEREUM_MAINNET
 ```
+
+### list-domain-ownership
+List all domain ownership
+```
+myceld q registry list-domain-ownership
+```
+
+### show-domain-ownership
+Query domain ownership by owner
+```
+myceld q registry show-domain-ownership [owner]    
+```
+
+

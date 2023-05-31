@@ -109,6 +109,16 @@ func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, doma
 	return err
 }
 
+func (k Keeper) AppendToOwnedDomain(ctx sdk.Context, owner string, name string, parent string) {
+	domainOwnership, found := k.GetDomainOwnership(ctx, owner)
+	if found {
+		domainOwnership.Domains = append(domainOwnership.Domains, &types.OwnedDomain{Name: name, Parent: parent})
+		k.SetDomainOwnership(ctx, domainOwnership)
+	} else {
+		k.SetDomainOwnership(ctx, types.DomainOwnership{Owner: owner, Domains: []*types.OwnedDomain{{Name: name, Parent: parent}}})
+	}
+}
+
 func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.AccAddress, registrationPeriodInWeek uint) (err error) {
 	// Validate domain
 	err = k.ValidateDomain(ctx, domain)
@@ -133,6 +143,9 @@ func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.A
 		}
 	default: // Subdomain
 	}
+
+	// Append to owned domain
+	k.AppendToOwnedDomain(ctx, owner.String(), domain.Name, domain.Parent)
 
 	// Set domain
 	k.SetDomain(ctx, domain)

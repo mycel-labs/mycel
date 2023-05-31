@@ -9,10 +9,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func CmdListDomain() *cobra.Command {
+func CmdListDomainOwnership() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-domain",
-		Short: "list all domain",
+		Use:   "list-domain-ownership",
+		Short: "list all domainOwnership",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -23,11 +23,11 @@ func CmdListDomain() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryAllDomainRequest{
+			params := &types.QueryAllDomainOwnershipRequest{
 				Pagination: pageReq,
 			}
 
-			res, err := queryClient.DomainAll(context.Background(), params)
+			res, err := queryClient.DomainOwnershipAll(context.Background(), params)
 			if err != nil {
 				return err
 			}
@@ -42,25 +42,23 @@ func CmdListDomain() *cobra.Command {
 	return cmd
 }
 
-func CmdShowDomain() *cobra.Command {
+func CmdShowDomainOwnership() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-domain [name] [parent]",
-		Short: "shows a domain",
-		Args:  cobra.ExactArgs(2),
+		Use:   "show-domain-ownership [owner]",
+		Short: "shows a domainOwnership",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argName := args[0]
-			argParent := args[1]
+			argOwner := args[0]
 
-			params := &types.QueryGetDomainRequest{
-				Name:   argName,
-				Parent: argParent,
+			params := &types.QueryGetDomainOwnershipRequest{
+				Owner: argOwner,
 			}
 
-			res, err := queryClient.Domain(context.Background(), params)
+			res, err := queryClient.DomainOwnership(context.Background(), params)
 			if err != nil {
 				return err
 			}

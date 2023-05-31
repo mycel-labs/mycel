@@ -3,11 +3,11 @@ package incentives_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
 	"github.com/mycel-domain/mycel/x/incentives"
 	"github.com/mycel-domain/mycel/x/incentives/types"
+	"github.com/stretchr/testify/require"
 )
 
 func TestGenesis(t *testing.T) {
