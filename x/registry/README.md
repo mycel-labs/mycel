@@ -6,6 +6,7 @@ Registry module provides the following feature:
 - Update name records
 
 ## Stores
+[proto/mycel/registry](https://github.com/mycel-domain/mycel/tree/main/proto/mycel/registry)
 ### domain.proto
 ```proto
 enum DnsRecordType {
@@ -180,5 +181,28 @@ Query domain ownership by owner
 ```
 myceld q registry show-domain-ownership [owner]    
 ```
+
+### domain-registration-fee
+Query domain registration fee
+```
+myceld q registry domain-registration-fee [name] [parent]
+```
+Response:  
+```
+fee:
+  amount: string
+```
+
+### is-registrable-domain
+Query a domain is registrable
+```
+myceld q registry is-registrable-domain [name] [parent] 
+```
+Response:  
+```
+errorMessage: string
+isRegstrable: bool
+```
+
 
 

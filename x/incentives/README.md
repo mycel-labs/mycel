@@ -5,6 +5,7 @@ Incentive module provides the following feature:
 - Store incentives for each epochs
 
 ## Stores
+[proto/mycel/incentives](https://github.com/mycel-domain/mycel/tree/main/proto/mycel/incentives)
 ### incentives.proto
 ```proto
 message Incentive {
