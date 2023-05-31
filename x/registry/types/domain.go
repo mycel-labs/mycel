@@ -128,6 +128,67 @@ func (domain *Domain) UpdateWalletRecord(walletRecordType string, address string
 	return err
 }
 
+func ValidateDnsRecordValue(dnsRecordFormat string, address string) (err error) {
+	dnsRecordRegex, isFound := DnsRecordValueRegex()[dnsRecordFormat]
+	if !isFound {
+		panic(fmt.Sprintf("Dns record value format %s is not found in DnsRecordValueRegex", dnsRecordFormat))
+	}
+	regex := regexp.MustCompile(dnsRecordRegex)
+	if !regex.MatchString(address) {
+		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s %s", dnsRecordFormat, address)), ErrInvalidDnsRecordValue.Error())
+	}
+	return err
+}
+
+func ValidateDnsRecordType(dnsRecordType string) (err error) {
+	_, isFound := DnsRecordType_value[dnsRecordType]
+	if !isFound {
+		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", dnsRecordType)), ErrInvalidDnsRecordType.Error())
+	}
+	return err
+}
+
+func GetDnsRecordValueFormat(dnsRecordType string) (dnsRecordTypeFormat string, err error) {
+	err = ValidateDnsRecordType(dnsRecordType)
+	if err != nil {
+		return "", err
+	}
+	dnsRecordTypeFormat, isFound := DnsRecordTypeFormats()[dnsRecordType]
+	if !isFound {
+		panic(fmt.Sprintf("Dns record type %s is not found in DnsRecordFormats", dnsRecordType))
+	}
+	return dnsRecordTypeFormat, err
+}
+
+func (domain *Domain) UpdateDnsRecord(dnsRecordType string, value string) (err error) {
+
+	// Get wallet address format from dns record type
+	dnsRecordFormat, err := GetDnsRecordValueFormat(dnsRecordType)
+	if err != nil {
+		return err
+	}
+
+	err = ValidateDnsRecordValue(dnsRecordFormat, value)
+	if err != nil {
+		return err
+	}
+
+	dnsRecord := &DnsRecord{
+		DnsRecordType:   DnsRecordType(DnsRecordType_value[dnsRecordType]),
+		DnsRecordFormat: DnsRecordFormat(DnsRecordFormat_value[dnsRecordFormat]),
+		Value:           value,
+	}
+
+	// Initialize WalletRecords map if it is nil
+	if domain.DnsRecords == nil {
+		domain.DnsRecords = make(map[string]*DnsRecord)
+	}
+
+	domain.DnsRecords[dnsRecordType] = dnsRecord
+
+	return err
+}
+
 func (domain *Domain) GetRegistrationFee() (fee sdk.Coin) {
 	nameLen := utf8.RuneCountInString(domain.Name)
 	amount := 0

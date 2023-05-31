@@ -6,6 +6,8 @@ func WalletRecordFormats() map[string]string {
 		"ETHEREUM_GOERLI":  "ETHEREUM",
 		"POLYGON_MAINNET":  "ETHEREUM",
 		"POLYGON_MUMBAI":   "ETHEREUM",
+		"GNOSIS_MAINNET":   "ETHEREUM",
+		"GNOSIS_CHIADO":    "ETHEREUM",
 	}
 }
 

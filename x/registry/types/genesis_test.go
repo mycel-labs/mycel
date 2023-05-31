@@ -3,8 +3,8 @@ package types_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	"github.com/mycel-domain/mycel/x/registry/types"
+	"github.com/stretchr/testify/require"
 )
 
 func TestGenesisState_Validate(t *testing.T) {
@@ -32,6 +32,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Parent: "1",
 					},
 				},
+				DomainOwnershipList: []types.DomainOwnership{
+					{
+						Owner: "0",
+					},
+					{
+						Owner: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -47,6 +55,20 @@ func TestGenesisState_Validate(t *testing.T) {
 					{
 						Name:   "0",
 						Parent: "0",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated domainOwnership",
+			genState: &types.GenesisState{
+				DomainOwnershipList: []types.DomainOwnership{
+					{
+						Owner: "0",
+					},
+					{
+						Owner: "0",
 					},
 				},
 			},

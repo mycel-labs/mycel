@@ -18,6 +18,7 @@ func (suite *KeeperTestSuite) TestRegisterDomain() {
 		parent                   string
 		registrationPeriodInYear uint64
 		domainLevel              string
+		domainOwnership          types.DomainOwnership
 		expErr                   error
 		fn                       func()
 	}{
@@ -27,8 +28,12 @@ func (suite *KeeperTestSuite) TestRegisterDomain() {
 			parent:                   "cel",
 			registrationPeriodInYear: 1,
 			domainLevel:              "2",
-			expErr:                   nil,
-			fn:                       func() {},
+			domainOwnership: types.DomainOwnership{
+				Owner:   testutil.Alice,
+				Domains: []*types.OwnedDomain{{Name: "foo", Parent: "cel"}},
+			},
+			expErr: nil,
+			fn:     func() {},
 		},
 		{
 			creator:                  testutil.Alice,
@@ -69,6 +74,11 @@ func (suite *KeeperTestSuite) TestRegisterDomain() {
 			_, err := suite.msgServer.RegisterDomain(suite.ctx, domain)
 
 			if tc.expErr == nil {
+				// Evalute domain ownership
+				domainOwnership, found := suite.app.RegistryKeeper.GetDomainOwnership(suite.ctx, tc.creator)
+				suite.Require().True(found)
+				suite.Require().Equal(tc.domainOwnership, domainOwnership)
+
 				// Evalute events
 				suite.Require().Nil(err)
 				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())

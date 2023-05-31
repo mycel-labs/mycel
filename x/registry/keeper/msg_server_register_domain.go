@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"time"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
 
@@ -17,7 +16,7 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 		return nil, err
 	}
 
-	currentTime := time.Now().In(time.UTC)
+	currentTime := ctx.BlockTime()
 	expirationDate := currentTime.AddDate(int(msg.RegistrationPeriodInYear), 0, 0)
 
 	domain := types.Domain{
@@ -25,7 +24,7 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 		Owner:          msg.Creator,
 		ExpirationDate: expirationDate.UnixNano(),
 		Parent:         msg.Parent,
-		DNSRecords:     nil,
+		DnsRecords:     nil,
 		WalletRecords:  nil,
 		Metadata:       nil,
 	}

@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/mycel-domain/mycel/x/incentives/types"
-
 	"github.com/stretchr/testify/require"
 )
 

@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  node1:
+    build: .
+    networks:
+      - mycelnet
+    ports:
+      - "1317:1317"
+      - "4500:4500"
+      - "26657:26657"
+    volumes:
+      - "~/.mycel:/root/.mycel"
+  node2:
+    build: .
+    networks:
+      - mycelnet
+    command: bash
+    tty: true
+
+networks:
+  mycelnet:
+

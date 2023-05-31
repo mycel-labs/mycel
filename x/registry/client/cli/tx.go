@@ -31,6 +31,7 @@ func GetTxCmd() *cobra.Command {
 	}
 
 	cmd.AddCommand(CmdUpdateWalletRecord())
+	cmd.AddCommand(CmdUpdateDnsRecord())
 	cmd.AddCommand(CmdRegisterDomain())
 	// this line is used by starport scaffolding # 1
 
