@@ -19,3 +19,13 @@ const (
 	AttributeUpdateWalletRecordEventWalletRecordType = "wallet-record-type"
 	AttributeUpdateWalletRecordEventValue            = "value"
 )
+
+// Update dns record event
+const (
+	EventTypeUpdateDnsRecord = "update-dns-record"
+
+	AttributeUpdateDnsRecordEventDomainName    = "name"
+	AttributeUpdateDnsRecordEventDomainParent  = "parent"
+	AttributeUpdateDnsRecordEventDnsRecordType = "dns-record-type"
+	AttributeUpdateDnsRecordEventValue         = "value"
+)

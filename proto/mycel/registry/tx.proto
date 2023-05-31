@@ -1,5 +1,4 @@
 syntax = "proto3";
-
 package mycel.registry;
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
@@ -7,6 +6,7 @@ option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 // Msg defines the Msg service.
 service Msg {
   rpc UpdateWalletRecord (MsgUpdateWalletRecord) returns (MsgUpdateWalletRecordResponse);
+  rpc UpdateDnsRecord    (MsgUpdateDnsRecord   ) returns (MsgUpdateDnsRecordResponse   );
   rpc RegisterDomain     (MsgRegisterDomain    ) returns (MsgRegisterDomainResponse    );
 }
 message MsgUpdateWalletRecord {
@@ -18,6 +18,16 @@ message MsgUpdateWalletRecord {
 }
 
 message MsgUpdateWalletRecordResponse {}
+
+message MsgUpdateDnsRecord {
+  string creator          = 1;
+  string name             = 2;
+  string parent           = 3;
+  string dnsRecordType    = 4;
+  string value            = 5;
+}
+
+message MsgUpdateDnsRecordResponse {}
 
 message MsgRegisterDomain {
   string creator                  = 1;

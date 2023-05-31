@@ -1,5 +1,4 @@
 syntax = "proto3";
-
 package mycel.incentives;
 
 import "gogoproto/gogo.proto";

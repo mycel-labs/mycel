@@ -7,7 +7,6 @@ import (
 	"github.com/mycel-domain/mycel/testutil/nullify"
 	"github.com/mycel-domain/mycel/x/incentives"
 	"github.com/mycel-domain/mycel/x/incentives/types"
-
 	"github.com/stretchr/testify/require"
 )
 

@@ -1,5 +1,4 @@
 syntax = "proto3";
-
 package mycel.registry;
 
 import "gogoproto/gogo.proto";
@@ -7,6 +6,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "mycel/registry/params.proto";
 import "mycel/registry/domain.proto";
+import "mycel/registry/domain_ownership.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
@@ -26,6 +26,16 @@ service Query {
   }
   rpc DomainAll (QueryAllDomainRequest) returns (QueryAllDomainResponse) {
     option (google.api.http).get = "/mycel/registry/domain";
+  
+  }
+  
+  // Queries a list of DomainOwnership items.
+  rpc DomainOwnership    (QueryGetDomainOwnershipRequest) returns (QueryGetDomainOwnershipResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/registry/domain_ownership/{owner}";
+  
+  }
+  rpc DomainOwnershipAll (QueryAllDomainOwnershipRequest) returns (QueryAllDomainOwnershipResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/registry/domain_ownership";
   
   }
 }
@@ -55,5 +65,22 @@ message QueryAllDomainRequest {
 message QueryAllDomainResponse {
   repeated Domain                                 domain     = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetDomainOwnershipRequest {
+  string owner = 1;
+}
+
+message QueryGetDomainOwnershipResponse {
+  DomainOwnership domainOwnership = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllDomainOwnershipRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllDomainOwnershipResponse {
+  repeated DomainOwnership                        domainOwnership = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination      = 2;
 }
 

@@ -35,44 +35,44 @@ func TestDomainValidate(t *testing.T) {
 			domain:          Domain{Name: "foo", Parent: "myc"},
 			expDomainLevel:  2,
 			expDomainParent: Domain{Name: "myc", Parent: ""},
-			expDomainPrice:  sdk.NewCoin("MYCEL", sdk.NewInt(30_300)),
+			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(30_300)),
 		},
 		{
 			domain:          Domain{Name: "12345", Parent: ""},
 			expDomainLevel:  1,
 			expDomainParent: Domain{Name: "", Parent: ""},
-			expDomainPrice:  sdk.NewCoin("MYCEL", sdk.NewInt(303)),
+			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(303)),
 			expErr:          "",
 		},
 		{
 			domain:          Domain{Name: "1234", Parent: "foo.myc"},
 			expDomainLevel:  3,
 			expDomainParent: Domain{Name: "foo", Parent: "myc"},
-			expDomainPrice:  sdk.NewCoin("MYCEL", sdk.NewInt(3_030)),
+			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(3_030)),
 		},
 		{
 			domain:          Domain{Name: "123", Parent: "foo.myc"},
 			expDomainLevel:  3,
 			expDomainParent: Domain{Name: "foo", Parent: "myc"},
-			expDomainPrice:  sdk.NewCoin("MYCEL", sdk.NewInt(30_300)),
+			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(30_300)),
 		},
 		{
 			domain:          Domain{Name: "12", Parent: "foo.myc"},
 			expDomainLevel:  3,
 			expDomainParent: Domain{Name: "foo", Parent: "myc"},
-			expDomainPrice:  sdk.NewCoin("MYCEL", sdk.NewInt(303_000)),
+			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(303_000)),
 		},
 		{
 			domain:          Domain{Name: "🍭", Parent: "foo.🍭"},
 			expDomainLevel:  3,
 			expDomainParent: Domain{Name: "foo", Parent: "🍭"},
-			expDomainPrice:  sdk.NewCoin("MYCEL", sdk.NewInt(3_030_000)),
+			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(3_030_000)),
 		},
 		{
 			domain:          Domain{Name: "🍭", Parent: "foo.🍭.myc"},
 			expDomainLevel:  4,
 			expDomainParent: Domain{Name: "foo.🍭", Parent: "myc"},
-			expDomainPrice:  sdk.NewCoin("MYCEL", sdk.NewInt(3_030_000)),
+			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(3_030_000)),
 		},
 		// Invalid name
 		{domain: Domain{Name: ".foo", Parent: "myc"},
@@ -128,7 +128,7 @@ func TestDomainValidate(t *testing.T) {
 
 }
 
-func TestDomainUpdateRecord(t *testing.T) {
+func TestDomainUpdateWalletRecord(t *testing.T) {
 	testCases := []struct {
 		walletRecordType string
 		address          string
@@ -165,6 +165,49 @@ func TestDomainUpdateRecord(t *testing.T) {
 		if tc.expErr == "" {
 			require.Nil(t, err)
 			require.Equal(t, tc.address, domain.WalletRecords[tc.walletRecordType].Value)
+		} else {
+			require.EqualError(t, err, tc.expErr)
+		}
+	}
+}
+
+func TestDomainUpdateDnsRecord(t *testing.T) {
+	testCases := []struct {
+		dnsRecordType string
+		value         string
+		expErr        string
+	}{
+		// Valid wallet records
+		{dnsRecordType: "A", value: "10.0.0.1"},
+		{dnsRecordType: "A", value: "192.168.0.1"},
+		{dnsRecordType: "AAAA", value: "2001:0db8:85a3:0000:0000:8a2e:0370:7334"},
+		{dnsRecordType: "CNAME", value: "example.com."},
+
+		// Invalid record type
+		{
+			dnsRecordType: "FOO", value: "192.168.0.1",
+			expErr: fmt.Sprintf("invalid dns record type: FOO"),
+		},
+		{
+			dnsRecordType: "BAR", value: "192.168.0.1",
+			expErr: fmt.Sprintf("invalid dns record type: BAR"),
+		},
+		// Invalid value
+		{
+			dnsRecordType: "A", value: "2001:0db8:85a3:0000:0000:8a2e:0370:7334",
+			expErr: fmt.Sprintf("invalid dns record value: IPV4 2001:0db8:85a3:0000:0000:8a2e:0370:7334"),
+		},
+		{
+			dnsRecordType: "AAAA", value: "192.168.0.1",
+			expErr: fmt.Sprintf("invalid dns record value: IPV6 192.168.0.1"),
+		},
+	}
+	for _, tc := range testCases {
+		domain := Domain{Name: "foo", Parent: "myc"}
+		err := domain.UpdateDnsRecord(tc.dnsRecordType, tc.value)
+		if tc.expErr == "" {
+			require.Nil(t, err)
+			require.Equal(t, tc.value, domain.DnsRecords[tc.dnsRecordType].Value)
 		} else {
 			require.EqualError(t, err, tc.expErr)
 		}
