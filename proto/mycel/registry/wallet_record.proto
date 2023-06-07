@@ -1,0 +1,20 @@
+syntax = "proto3";
+package mycel.registry;
+
+option go_package = "github.com/mycel-domain/mycel/x/registry/types";
+
+enum WalletRecordType {
+  ETHEREUM_MAINNET = 0;
+  ETHEREUM_GOERLI = 1;
+  POLYGON_MAINNET = 2;
+  POLYGON_MUMBAI = 3;
+}
+
+enum WalletAddressFormat {
+  ETHEREUM = 0;
+  BITCOIN = 1;
+  MOVE = 2;
+  SOLANA = 3;
+}
+
+

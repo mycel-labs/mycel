@@ -1,38 +1,11 @@
 syntax = "proto3";
 package mycel.registry;
 
+import "mycel/registry/dns_record.proto";
+import "mycel/registry/wallet_record.proto";
+
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
-enum DnsRecordType {
-  A = 0;
-  AAAA = 1;
-  CNAME = 2;
-  NS = 3;
-  MX = 4;
-  PTR = 5;
-  SOA = 6;
-  SRV = 7;
-  TXT = 8;
-}
-
-enum DnsRecordFormat {
-  IPV4 = 0;
-  IPV6 = 1;
-  FQDN = 2;
-}
-
-enum WalletRecordType {
-  ETHEREUM_MAINNET = 0;
-  ETHEREUM_GOERLI = 1;
-  POLYGON_MAINNET = 2;
-  POLYGON_MUMBAI = 3;
-  GNOSIS_MAINNET = 4;
-  GNOSIS_CHIADO = 5;
-}
-
-enum WalletAddressFormat {
-  ETHEREUM = 0;
-}
 
 message DnsRecord {
   DnsRecordType dnsRecordType = 1;

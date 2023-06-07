@@ -45062,13 +45062,14 @@ paths:
                               - ETHEREUM_GOERLI
                               - POLYGON_MAINNET
                               - POLYGON_MUMBAI
-                              - GNOSIS_MAINNET
-                              - GNOSIS_CHIADO
                             default: ETHEREUM_MAINNET
                           walletAddressFormat:
                             type: string
                             enum:
                               - ETHEREUM
+                              - BITCOIN
+                              - MOVE
+                              - SOLANA
                             default: ETHEREUM
                           value:
                             type: string
@@ -45242,13 +45243,14 @@ paths:
                             - ETHEREUM_GOERLI
                             - POLYGON_MAINNET
                             - POLYGON_MUMBAI
-                            - GNOSIS_MAINNET
-                            - GNOSIS_CHIADO
                           default: ETHEREUM_MAINNET
                         walletAddressFormat:
                           type: string
                           enum:
                             - ETHEREUM
+                            - BITCOIN
+                            - MOVE
+                            - SOLANA
                           default: ETHEREUM
                         value:
                           type: string
@@ -73368,13 +73370,14 @@ definitions:
                 - ETHEREUM_GOERLI
                 - POLYGON_MAINNET
                 - POLYGON_MUMBAI
-                - GNOSIS_MAINNET
-                - GNOSIS_CHIADO
               default: ETHEREUM_MAINNET
             walletAddressFormat:
               type: string
               enum:
                 - ETHEREUM
+                - BITCOIN
+                - MOVE
+                - SOLANA
               default: ETHEREUM
             value:
               type: string
@@ -73513,13 +73516,14 @@ definitions:
                       - ETHEREUM_GOERLI
                       - POLYGON_MAINNET
                       - POLYGON_MUMBAI
-                      - GNOSIS_MAINNET
-                      - GNOSIS_CHIADO
                     default: ETHEREUM_MAINNET
                   walletAddressFormat:
                     type: string
                     enum:
                       - ETHEREUM
+                      - BITCOIN
+                      - MOVE
+                      - SOLANA
                     default: ETHEREUM
                   value:
                     type: string
@@ -73639,13 +73643,14 @@ definitions:
                     - ETHEREUM_GOERLI
                     - POLYGON_MAINNET
                     - POLYGON_MUMBAI
-                    - GNOSIS_MAINNET
-                    - GNOSIS_CHIADO
                   default: ETHEREUM_MAINNET
                 walletAddressFormat:
                   type: string
                   enum:
                     - ETHEREUM
+                    - BITCOIN
+                    - MOVE
+                    - SOLANA
                   default: ETHEREUM
                 value:
                   type: string
@@ -73671,6 +73676,9 @@ definitions:
     type: string
     enum:
       - ETHEREUM
+      - BITCOIN
+      - MOVE
+      - SOLANA
     default: ETHEREUM
   mycel.registry.WalletRecord:
     type: object
@@ -73682,13 +73690,14 @@ definitions:
           - ETHEREUM_GOERLI
           - POLYGON_MAINNET
           - POLYGON_MUMBAI
-          - GNOSIS_MAINNET
-          - GNOSIS_CHIADO
         default: ETHEREUM_MAINNET
       walletAddressFormat:
         type: string
         enum:
           - ETHEREUM
+          - BITCOIN
+          - MOVE
+          - SOLANA
         default: ETHEREUM
       value:
         type: string
@@ -73699,6 +73708,4 @@ definitions:
       - ETHEREUM_GOERLI
       - POLYGON_MAINNET
       - POLYGON_MUMBAI
-      - GNOSIS_MAINNET
-      - GNOSIS_CHIADO
     default: ETHEREUM_MAINNET

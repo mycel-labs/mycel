@@ -1,5 +1,7 @@
 vue/node_modules
 vue/dist
+react/
+ts-client/
 release/
 .idea/
 .vscode/
