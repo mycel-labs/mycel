@@ -45058,18 +45058,33 @@ paths:
                           walletRecordType:
                             type: string
                             enum:
+                              - BITCOIN_MAINNET
+                              - BITCOIN_TESTNET
                               - ETHEREUM_MAINNET
                               - ETHEREUM_GOERLI
+                              - ETHEREUM_SEPOLIA
                               - POLYGON_MAINNET
                               - POLYGON_MUMBAI
-                              - GNOSIS_MAINNET
-                              - GNOSIS_CHIADO
-                            default: ETHEREUM_MAINNET
+                              - APTOS_MAINNET
+                              - APTOS_TESTNET
+                              - SUI_MAINNET
+                              - SUI_TESTNET
+                              - SOLANA_MAINNET
+                              - SOLANA_TESTNET
+                            default: BITCOIN_MAINNET
+                            title: |-
+                              - BITCOIN_MAINNET: BTC 0xxx
+                               - ETHEREUM_MAINNET: EVM 1xxxx
+                               - APTOS_MAINNET: MOVE 2xxxx
+                               - SOLANA_MAINNET: SOLANA 3xxxx
                           walletAddressFormat:
                             type: string
                             enum:
+                              - BITCOIN
                               - ETHEREUM
-                            default: ETHEREUM
+                              - MOVE
+                              - SOLANA
+                            default: BITCOIN
                           value:
                             type: string
                     metadata:
@@ -45238,18 +45253,33 @@ paths:
                         walletRecordType:
                           type: string
                           enum:
+                            - BITCOIN_MAINNET
+                            - BITCOIN_TESTNET
                             - ETHEREUM_MAINNET
                             - ETHEREUM_GOERLI
+                            - ETHEREUM_SEPOLIA
                             - POLYGON_MAINNET
                             - POLYGON_MUMBAI
-                            - GNOSIS_MAINNET
-                            - GNOSIS_CHIADO
-                          default: ETHEREUM_MAINNET
+                            - APTOS_MAINNET
+                            - APTOS_TESTNET
+                            - SUI_MAINNET
+                            - SUI_TESTNET
+                            - SOLANA_MAINNET
+                            - SOLANA_TESTNET
+                          default: BITCOIN_MAINNET
+                          title: |-
+                            - BITCOIN_MAINNET: BTC 0xxx
+                             - ETHEREUM_MAINNET: EVM 1xxxx
+                             - APTOS_MAINNET: MOVE 2xxxx
+                             - SOLANA_MAINNET: SOLANA 3xxxx
                         walletAddressFormat:
                           type: string
                           enum:
+                            - BITCOIN
                             - ETHEREUM
-                          default: ETHEREUM
+                            - MOVE
+                            - SOLANA
+                          default: BITCOIN
                         value:
                           type: string
                   metadata:
@@ -73364,18 +73394,33 @@ definitions:
             walletRecordType:
               type: string
               enum:
+                - BITCOIN_MAINNET
+                - BITCOIN_TESTNET
                 - ETHEREUM_MAINNET
                 - ETHEREUM_GOERLI
+                - ETHEREUM_SEPOLIA
                 - POLYGON_MAINNET
                 - POLYGON_MUMBAI
-                - GNOSIS_MAINNET
-                - GNOSIS_CHIADO
-              default: ETHEREUM_MAINNET
+                - APTOS_MAINNET
+                - APTOS_TESTNET
+                - SUI_MAINNET
+                - SUI_TESTNET
+                - SOLANA_MAINNET
+                - SOLANA_TESTNET
+              default: BITCOIN_MAINNET
+              title: |-
+                - BITCOIN_MAINNET: BTC 0xxx
+                 - ETHEREUM_MAINNET: EVM 1xxxx
+                 - APTOS_MAINNET: MOVE 2xxxx
+                 - SOLANA_MAINNET: SOLANA 3xxxx
             walletAddressFormat:
               type: string
               enum:
+                - BITCOIN
                 - ETHEREUM
-              default: ETHEREUM
+                - MOVE
+                - SOLANA
+              default: BITCOIN
             value:
               type: string
       metadata:
@@ -73509,18 +73554,33 @@ definitions:
                   walletRecordType:
                     type: string
                     enum:
+                      - BITCOIN_MAINNET
+                      - BITCOIN_TESTNET
                       - ETHEREUM_MAINNET
                       - ETHEREUM_GOERLI
+                      - ETHEREUM_SEPOLIA
                       - POLYGON_MAINNET
                       - POLYGON_MUMBAI
-                      - GNOSIS_MAINNET
-                      - GNOSIS_CHIADO
-                    default: ETHEREUM_MAINNET
+                      - APTOS_MAINNET
+                      - APTOS_TESTNET
+                      - SUI_MAINNET
+                      - SUI_TESTNET
+                      - SOLANA_MAINNET
+                      - SOLANA_TESTNET
+                    default: BITCOIN_MAINNET
+                    title: |-
+                      - BITCOIN_MAINNET: BTC 0xxx
+                       - ETHEREUM_MAINNET: EVM 1xxxx
+                       - APTOS_MAINNET: MOVE 2xxxx
+                       - SOLANA_MAINNET: SOLANA 3xxxx
                   walletAddressFormat:
                     type: string
                     enum:
+                      - BITCOIN
                       - ETHEREUM
-                    default: ETHEREUM
+                      - MOVE
+                      - SOLANA
+                    default: BITCOIN
                   value:
                     type: string
             metadata:
@@ -73635,18 +73695,33 @@ definitions:
                 walletRecordType:
                   type: string
                   enum:
+                    - BITCOIN_MAINNET
+                    - BITCOIN_TESTNET
                     - ETHEREUM_MAINNET
                     - ETHEREUM_GOERLI
+                    - ETHEREUM_SEPOLIA
                     - POLYGON_MAINNET
                     - POLYGON_MUMBAI
-                    - GNOSIS_MAINNET
-                    - GNOSIS_CHIADO
-                  default: ETHEREUM_MAINNET
+                    - APTOS_MAINNET
+                    - APTOS_TESTNET
+                    - SUI_MAINNET
+                    - SUI_TESTNET
+                    - SOLANA_MAINNET
+                    - SOLANA_TESTNET
+                  default: BITCOIN_MAINNET
+                  title: |-
+                    - BITCOIN_MAINNET: BTC 0xxx
+                     - ETHEREUM_MAINNET: EVM 1xxxx
+                     - APTOS_MAINNET: MOVE 2xxxx
+                     - SOLANA_MAINNET: SOLANA 3xxxx
                 walletAddressFormat:
                   type: string
                   enum:
+                    - BITCOIN
                     - ETHEREUM
-                  default: ETHEREUM
+                    - MOVE
+                    - SOLANA
+                  default: BITCOIN
                 value:
                   type: string
           metadata:
@@ -73670,35 +73745,65 @@ definitions:
   mycel.registry.WalletAddressFormat:
     type: string
     enum:
+      - BITCOIN
       - ETHEREUM
-    default: ETHEREUM
+      - MOVE
+      - SOLANA
+    default: BITCOIN
   mycel.registry.WalletRecord:
     type: object
     properties:
       walletRecordType:
         type: string
         enum:
+          - BITCOIN_MAINNET
+          - BITCOIN_TESTNET
           - ETHEREUM_MAINNET
           - ETHEREUM_GOERLI
+          - ETHEREUM_SEPOLIA
           - POLYGON_MAINNET
           - POLYGON_MUMBAI
-          - GNOSIS_MAINNET
-          - GNOSIS_CHIADO
-        default: ETHEREUM_MAINNET
+          - APTOS_MAINNET
+          - APTOS_TESTNET
+          - SUI_MAINNET
+          - SUI_TESTNET
+          - SOLANA_MAINNET
+          - SOLANA_TESTNET
+        default: BITCOIN_MAINNET
+        title: |-
+          - BITCOIN_MAINNET: BTC 0xxx
+           - ETHEREUM_MAINNET: EVM 1xxxx
+           - APTOS_MAINNET: MOVE 2xxxx
+           - SOLANA_MAINNET: SOLANA 3xxxx
       walletAddressFormat:
         type: string
         enum:
+          - BITCOIN
           - ETHEREUM
-        default: ETHEREUM
+          - MOVE
+          - SOLANA
+        default: BITCOIN
       value:
         type: string
   mycel.registry.WalletRecordType:
     type: string
     enum:
+      - BITCOIN_MAINNET
+      - BITCOIN_TESTNET
       - ETHEREUM_MAINNET
       - ETHEREUM_GOERLI
+      - ETHEREUM_SEPOLIA
       - POLYGON_MAINNET
       - POLYGON_MUMBAI
-      - GNOSIS_MAINNET
-      - GNOSIS_CHIADO
-    default: ETHEREUM_MAINNET
+      - APTOS_MAINNET
+      - APTOS_TESTNET
+      - SUI_MAINNET
+      - SUI_TESTNET
+      - SOLANA_MAINNET
+      - SOLANA_TESTNET
+    default: BITCOIN_MAINNET
+    title: |-
+      - BITCOIN_MAINNET: BTC 0xxx
+       - ETHEREUM_MAINNET: EVM 1xxxx
+       - APTOS_MAINNET: MOVE 2xxxx
+       - SOLANA_MAINNET: SOLANA 3xxxx
