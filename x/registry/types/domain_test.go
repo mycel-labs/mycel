@@ -135,10 +135,16 @@ func TestDomainUpdateWalletRecord(t *testing.T) {
 		expErr           string
 	}{
 		// Valid wallet records
+		{walletRecordType: "BITCOIN_MAINNET", address: "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2"},
+		{walletRecordType: "BITCOIN_MAINNET", address: "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy"},
+		{walletRecordType: "BITCOIN_MAINNET", address: "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq"},
 		{walletRecordType: "ETHEREUM_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
 		{walletRecordType: "ETHEREUM_GOERLI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
 		{walletRecordType: "POLYGON_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
 		{walletRecordType: "POLYGON_MUMBAI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "APTOS_MAINNET", address: "0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b"},
+		{walletRecordType: "SOLANA_MAINNET", address: "HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe4YWrH"},
+
 
 		// Invalid record type
 		{
@@ -157,6 +163,15 @@ func TestDomainUpdateWalletRecord(t *testing.T) {
 		{
 			walletRecordType: "ETHEREUM_GOERLI", address: "cosmos1jyc4rrtz5f93n80uuj378dq7x3v7z09j0h6dqx",
 			expErr: fmt.Sprintf("invalid wallet address: ETHEREUM cosmos1jyc4rrtz5f93n80uuj378dq7x3v7z09j0h6dqx"),
+		},
+
+		{
+			walletRecordType: "SOLANA_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+			expErr: fmt.Sprintf("invalid wallet address: SOLANA 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"),
+		},
+		{
+			walletRecordType: "BITCOIN_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+			expErr: fmt.Sprintf("invalid wallet address: BITCOIN 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"),
 		},
 	}
 	for _, tc := range testCases {

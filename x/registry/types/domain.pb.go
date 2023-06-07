@@ -125,14 +125,14 @@ func (m *WalletRecord) GetWalletRecordType() WalletRecordType {
 	if m != nil {
 		return m.WalletRecordType
 	}
-	return WalletRecordType_ETHEREUM_MAINNET
+	return WalletRecordType_BITCOIN_MAINNET
 }
 
 func (m *WalletRecord) GetWalletAddressFormat() WalletAddressFormat {
 	if m != nil {
 		return m.WalletAddressFormat
 	}
-	return WalletAddressFormat_ETHEREUM
+	return WalletAddressFormat_BITCOIN
 }
 
 func (m *WalletRecord) GetValue() string {
