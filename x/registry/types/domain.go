@@ -67,18 +67,6 @@ func (domain Domain) ParseParent() (name string, parent string) {
 	return name, parent
 }
 
-func ValidateWalletAddress(walletAddressFormat string, address string) (err error) {
-	walletAddressRegex, isFound := WalletAddressRegex()[walletAddressFormat]
-	if !isFound {
-		panic(fmt.Sprintf("Wallet address format %s is not found in WalletAddressRegex", walletAddressFormat))
-	}
-	regex := regexp.MustCompile(walletAddressRegex)
-	if !regex.MatchString(address) {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s %s", walletAddressFormat, address)), ErrInvalidWalletAddress.Error())
-	}
-	return err
-}
-
 func ValidateWalletRecordType(walletRecordType string) (err error) {
 	_, isFound := WalletRecordType_value[walletRecordType]
 	if !isFound {
