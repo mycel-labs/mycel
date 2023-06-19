@@ -77,7 +77,9 @@ func getBankGenesis() *banktypes.GenesisState {
 		banktypes.DefaultParams(),
 		coins,
 		supply.Total,
-		[]banktypes.Metadata{})
+		[]banktypes.Metadata{},
+		[]banktypes.SendEnabled{},
+	)
 
 	return state
 }

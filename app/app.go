@@ -625,12 +625,6 @@ func NewApp(
 		),
 	)
 
-	app.GovKeeper.SetHooks(
-		govtypes.NewMultiGovHooks(
-		// insert governance hooks receivers here
-		),
-	)
-
 	app.EpochsKeeper.SetHooks(
 		epochsmodulekeeper.NewMultiEpochHooks(
 			// insert hooks here
@@ -706,6 +700,8 @@ func NewApp(
 		group.ModuleName,
 		paramstypes.ModuleName,
 		vestingtypes.ModuleName,
+		consensusparamtypes.ModuleName,
+		// my modules
 		registrymoduletypes.ModuleName,
 		incentivesmoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
@@ -733,6 +729,8 @@ func NewApp(
 		paramstypes.ModuleName,
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
+		consensusparamtypes.ModuleName,
+		// my modules
 		registrymoduletypes.ModuleName,
 		incentivesmoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
@@ -767,6 +765,7 @@ func NewApp(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
+		// my modules
 		registrymoduletypes.ModuleName,
 		incentivesmoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
@@ -800,10 +799,6 @@ func NewApp(
 	app.MountKVStores(keys)
 	app.MountTransientStores(tkeys)
 	app.MountMemoryStores(memKeys)
-
-	// initialize BaseApp
-	app.SetInitChainer(app.InitChainer)
-	app.SetBeginBlocker(app.BeginBlocker)
 
 	anteHandler, err := ante.NewAnteHandler(
 		ante.HandlerOptions{
@@ -859,6 +854,10 @@ func (app *App) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.Res
 	return app.mm.InitGenesis(ctx, app.appCodec, genesisState)
 }
 
+// Configurator get app configurator
+func (app *App) Configurator() module.Configurator {
+	return app.configurator
+}
 // LoadHeight loads a particular height
 func (app *App) LoadHeight(height int64) error {
 	return app.LoadVersion(height)
