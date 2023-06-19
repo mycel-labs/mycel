@@ -97,11 +97,11 @@ import (
 	ibchost "github.com/cosmos/ibc-go/v6/modules/core/24-host"
 	ibckeeper "github.com/cosmos/ibc-go/v6/modules/core/keeper"
 	"github.com/spf13/cast"
-	abci "github.com/tendermint/tendermint/abci/types"
-	tmjson "github.com/tendermint/tendermint/libs/json"
-	"github.com/tendermint/tendermint/libs/log"
-	tmos "github.com/tendermint/tendermint/libs/os"
-	dbm "github.com/tendermint/tm-db"
+	abci "github.com/cometbft/cometbft/abci/types"
+	tmjson "github.com/cometbft/cometbft/libs/json"
+	"github.com/cometbft/cometbft/libs/log"
+	tmos "github.com/cometbft/cometbft/libs/os"
+	dbm "github.com/cometbft/cometbft-db"
 
 	// Registry
 	registrymodule "github.com/mycel-domain/mycel/x/registry"
