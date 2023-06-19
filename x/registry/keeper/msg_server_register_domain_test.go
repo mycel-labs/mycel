@@ -82,13 +82,13 @@ func (suite *KeeperTestSuite) TestRegisterDomain() {
 				// Evalute events
 				suite.Require().Nil(err)
 				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())
-				eventIndex := len(events) - 2
+				eventIndex := len(events) - 1
 				suite.Require().EqualValues(sdk.StringEvent{
 					Type: types.EventTypeRegsterDomain,
 					Attributes: []sdk.Attribute{
 						{Key: types.AttributeRegisterDomainEventName, Value: tc.name},
 						{Key: types.AttributeRegisterDomainEventParent, Value: tc.parent},
-						{Key: types.AttributeRegisterDomainEventExpirationDate, Value: events[3].Attributes[2].Value},
+						{Key: types.AttributeRegisterDomainEventExpirationDate, Value: events[eventIndex].Attributes[2].Value},
 						{Key: types.AttributeRegisterDomainLevel, Value: tc.domainLevel},
 					},
 				}, events[eventIndex])
