@@ -344,6 +344,7 @@ func NewApp(
 		govtypes.StoreKey, paramstypes.StoreKey, ibcexported.StoreKey, upgradetypes.StoreKey,
 		feegrant.StoreKey, evidencetypes.StoreKey, ibctransfertypes.StoreKey, icahosttypes.StoreKey,
 		capabilitytypes.StoreKey, group.StoreKey, icacontrollertypes.StoreKey, consensusparamtypes.StoreKey,
+
 		registrymoduletypes.StoreKey,
 		incentivesmoduletypes.StoreKey,
 		epochsmoduletypes.StoreKey,
