@@ -2,6 +2,7 @@ vue/node_modules
 vue/dist
 react/
 ts-client/
+typescript/
 release/
 .idea/
 .vscode/

@@ -14,9 +14,9 @@ faucet:
   - 100000mycel
 client:
   typescript:
-    path: ts-client
+    path: typescript/ts-client
   hooks:
-    path: react/src/hooks
+    path: typescript/hooks
   openapi:
     path: docs/static/openapi.yml
 validators:
