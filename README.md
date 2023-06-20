@@ -3,8 +3,8 @@
 
 ## Dependencies
 - Go `1.20.2`
-- Ignite CLI `v0.26.1`
-- Cosmos SDK `v0.46.7`
+- Ignite CLI `v0.27.1`
+- Cosmos SDK `v0.47.3`
 
 ## Get started
 
