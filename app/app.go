@@ -667,6 +667,8 @@ func NewApp(
 		params.NewAppModule(app.ParamsKeeper),
 		transferModule,
 		icaModule,
+
+		// my modules
 		registryModule,
 		incentivesModule,
 		epochsModule,
