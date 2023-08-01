@@ -1,5 +1,5 @@
 package types
 
 const (
-	MycelDenom = "mycel"
+	MycelDenom = "umycel"
 )

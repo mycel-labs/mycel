@@ -2,11 +2,11 @@ version: 1
 accounts:
 - name: alice
   coins:
-  - 1000000000mycel
+  - 1000000000000000umycel
   mnemonic: album unlock fence mixture little chest concert limb when melody outdoor tool romance kid throw spread bean exercise squeeze syrup saddle year change alone
 - name: bob
   coins:
-  - 500000000mycel
+  - 500000000000000umycel
   mnemonic: holiday coil vicious hunt hybrid maximum post spread stomach input more demise garbage slim mouse relief cage hat interest armed promote nerve craft solar
 faucet:
   name: bob
@@ -27,4 +27,4 @@ genesis:
   app_state:
     staking:
       params:
-        bond_denom: "mycel"
+        bond_denom: "umycel"
