@@ -68,7 +68,7 @@ func (domain Domain) ParseParent() (name string, parent string) {
 }
 
 func ValidateWalletRecordType(walletRecordType string) (err error) {
-	_, isFound := WalletRecordType_value[walletRecordType]
+	_, isFound := NetworkName_value[walletRecordType]
 	if !isFound {
 		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", walletRecordType)), ErrInvalidWalletRecordType.Error())
 	}
@@ -76,10 +76,12 @@ func ValidateWalletRecordType(walletRecordType string) (err error) {
 }
 
 func GetWalletAddressFormat(walletRecordType string) (walletAddressFormat string, err error) {
+	// Validate wallet record type
 	err = ValidateWalletRecordType(walletRecordType)
 	if err != nil {
 		return "", err
 	}
+	// Get wallet address format from wallet record type
 	walletAddressFormat, isFound := WalletRecordFormats()[walletRecordType]
 	if !isFound {
 		panic(fmt.Sprintf("Wallet record type %s is not found in WalletRecordFormats", walletRecordType))
@@ -101,9 +103,8 @@ func (domain *Domain) UpdateWalletRecord(walletRecordType string, address string
 	}
 
 	walletRecord := &WalletRecord{
-		WalletRecordType:    WalletRecordType(WalletRecordType_value[walletRecordType]),
+		WalletRecordType:    NetworkName(NetworkName_value[walletRecordType]),
 		Value:               address,
-		WalletAddressFormat: WalletAddressFormat(WalletAddressFormat_value[walletAddressFormat]),
 	}
 
 	// Initialize WalletRecords map if it is nil
@@ -163,7 +164,6 @@ func (domain *Domain) UpdateDnsRecord(dnsRecordType string, value string) (err e
 
 	dnsRecord := &DnsRecord{
 		DnsRecordType:   DnsRecordType(DnsRecordType_value[dnsRecordType]),
-		DnsRecordFormat: DnsRecordFormat(DnsRecordFormat_value[dnsRecordFormat]),
 		Value:           value,
 	}
 
