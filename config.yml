@@ -11,7 +11,7 @@ accounts:
 faucet:
   name: bob
   coins:
-  - 100000mycel
+  - 100000umycel
 client:
   typescript:
     path: typescript/ts-client
@@ -21,7 +21,7 @@ client:
     path: docs/static/openapi.yml
 validators:
 - name: alice
-  bonded: 100000000mycel
+  bonded: 100000000umycel
 genesis:
   chain_id: "mycel-local"
   app_state:
