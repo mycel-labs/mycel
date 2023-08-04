@@ -1,0 +1,25 @@
+syntax = "proto3";
+package mycel.registry;
+
+import "cosmos/base/v1beta1/coin.proto";
+
+option go_package = "github.com/mycel-domain/mycel/x/registry/types";
+
+
+message SubdomainRegistrationFees {
+  map<int64, Fee> feeByLength = 1;
+  map<string, Fee> feeByName = 2;
+  cosmos.base.v1beta1.Coin defaultFee = 3; 
+}
+
+message Fee {
+  bool isRegistrable = 1;
+  cosmos.base.v1beta1.Coin fee = 2;
+}
+
+message SubdomainRegistrationConfig {
+  uint64 maxSubdomainRegistrations = 1;
+  SubdomainRegistrationFees subdomainRegistrationFees = 2;
+}
+
+
