@@ -7,7 +7,7 @@ option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 
 message SubdomainRegistrationFees {
-  map<int64, Fee> feeByLength = 1;
+  map<uint32, Fee> feeByLength = 1;
   map<string, Fee> feeByName = 2;
   cosmos.base.v1beta1.Coin defaultFee = 3; 
 }

@@ -2,11 +2,7 @@ package types
 
 import (
 	fmt "fmt"
-	math "math"
 	"strings"
-	"unicode/utf8"
-
-	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 const (
@@ -116,18 +112,3 @@ func (domain *Domain) UpdateDnsRecord(dnsRecordType string, value string) (err e
 
 	return err
 }
-
-func (domain *Domain) GetRegistrationFee() (fee sdk.Coin) {
-	nameLen := utf8.RuneCountInString(domain.Name)
-	amount := 0
-	if nameLen >= 5 {
-		amount = BaseFee
-	} else {
-		amount = BaseFee * int(math.Pow(10, float64((5-nameLen))))
-	}
-	fee = sdk.NewCoin(MycelDenom, sdk.NewInt(int64(amount)))
-
-	return fee
-}
-
-
