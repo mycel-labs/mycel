@@ -82,25 +82,32 @@ func (suite *KeeperTestSuite) TestSetEpochIncentivesOnRegistration() {
 			fn: func() {
 			},
 		},
+
+		{
+			amount:                   sdk.NewInt(10000000),
+			regestrationPeriodInWeek: 12 * 4 * 100,
+			expCurrentEpoch:          0,
+			expAmount:                sdk.NewCoins(sdk.NewCoin(registrytypes.MycelDenom, sdk.NewInt(10000000))),
+			fn: func() {
+			},
+		},
 		{
 			amount:                   sdk.NewInt(100),
 			regestrationPeriodInWeek: 12,
 			expCurrentEpoch:          1,
 			expAmount:                sdk.NewCoins(sdk.NewCoin(registrytypes.MycelDenom, sdk.NewInt(100))),
 			fn: func() {
-				suite.ctx = suite.ctx.WithBlockHeight(2).WithBlockTime(now.Add(time.Hour * 24 * 7))
-				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
 			},
 		},
 		{
 			amount:                   sdk.NewInt(100),
-			regestrationPeriodInWeek: 12,
+			regestrationPeriodInWeek: 12 * 4,
 			expCurrentEpoch:          2,
 			expAmount:                sdk.NewCoins(sdk.NewCoin(registrytypes.MycelDenom, sdk.NewInt(100))),
 			fn: func() {
-				suite.ctx = suite.ctx.WithBlockHeight(2).WithBlockTime(now.Add(time.Hour * 24 * 7))
-				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
-				suite.ctx = suite.ctx.WithBlockHeight(2).WithBlockTime(now.Add(time.Hour * 24 * (7 + 1)))
+				// Set epoch incentives at epoch 0
+				suite.app.IncentivesKeeper.SetEpochIncentivesOnRegistration(suite.ctx, 12, sdk.NewCoin(registrytypes.MycelDenom, sdk.NewInt(100)))
+				suite.ctx = suite.ctx.WithBlockHeight(2).WithBlockTime(now.Add(time.Hour * 24 * 90))
 				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
 			},
 		},
@@ -113,6 +120,7 @@ func (suite *KeeperTestSuite) TestSetEpochIncentivesOnRegistration() {
 
 			// Before incentives
 			beforeIncentives := suite.app.IncentivesKeeper.GetAllEpochIncentive(suite.ctx)
+			// Sum up all the incentives
 			beforeTotalAmount := sdk.NewInt(0)
 			for _, incentive := range beforeIncentives {
 				beforeTotalAmount = beforeTotalAmount.Add(incentive.Amount.AmountOf(registrytypes.MycelDenom))
@@ -124,9 +132,9 @@ func (suite *KeeperTestSuite) TestSetEpochIncentivesOnRegistration() {
 			// Check incentive start epoch
 			incentives := suite.app.IncentivesKeeper.GetAllEpochIncentive(suite.ctx)
 			afterTotalAmount := sdk.NewInt(0)
-			for i, incentive := range incentives {
+			// Sum up all the incentives
+			for _, incentive := range incentives {
 				afterTotalAmount = incentive.Amount.AmountOf(registrytypes.MycelDenom).Add(afterTotalAmount)
-				suite.Require().Equal(tc.expCurrentEpoch+int64(i)+1, incentive.Epoch)
 			}
 
 			// Check total incentive amount

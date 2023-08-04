@@ -22,7 +22,7 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
-				DomainList: []types.Domain{
+				Domains: []types.Domain{
 					{
 						Name:   "0",
 						Parent: "0",
@@ -32,7 +32,7 @@ func TestGenesisState_Validate(t *testing.T) {
 						Parent: "1",
 					},
 				},
-				DomainOwnershipList: []types.DomainOwnership{
+				DomainOwnerships: []types.DomainOwnership{
 					{
 						Owner: "0",
 					},
@@ -47,7 +47,7 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc: "duplicated domain",
 			genState: &types.GenesisState{
-				DomainList: []types.Domain{
+				Domains: []types.Domain{
 					{
 						Name:   "0",
 						Parent: "0",
@@ -63,7 +63,7 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc: "duplicated domainOwnership",
 			genState: &types.GenesisState{
-				DomainOwnershipList: []types.DomainOwnership{
+				DomainOwnerships: []types.DomainOwnership{
 					{
 						Owner: "0",
 					},

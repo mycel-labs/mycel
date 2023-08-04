@@ -9,11 +9,11 @@ import (
 // InitGenesis initializes the module's state from a provided genesis state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	// Set all the domain
-	for _, elem := range genState.DomainList {
+	for _, elem := range genState.Domains {
 		k.SetDomain(ctx, elem)
 	}
 	// Set all the domainOwnership
-	for _, elem := range genState.DomainOwnershipList {
+	for _, elem := range genState.DomainOwnerships {
 		k.SetDomainOwnership(ctx, elem)
 	}
 	// this line is used by starport scaffolding # genesis/module/init
@@ -25,8 +25,8 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 	genesis.Params = k.GetParams(ctx)
 
-	genesis.DomainList = k.GetAllDomain(ctx)
-	genesis.DomainOwnershipList = k.GetAllDomainOwnership(ctx)
+	genesis.Domains = k.GetAllDomain(ctx)
+	genesis.DomainOwnerships = k.GetAllDomainOwnership(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

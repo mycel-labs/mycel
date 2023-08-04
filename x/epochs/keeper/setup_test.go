@@ -39,7 +39,7 @@ func (suite *KeeperTestSuite) SetupTest() {
 	types.RegisterQueryServer(queryHelper, suite.app.EpochsKeeper)
 	suite.queryClient = types.NewQueryClient(queryHelper)
 
-	identifiers := []string{types.WeeklyEpochId}
+	identifiers := []string{types.IncentiveEpochId}
 	for _, identifier := range identifiers {
 		epoch, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, identifier)
 		suite.Require().True(found)

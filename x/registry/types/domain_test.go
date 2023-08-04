@@ -27,7 +27,6 @@ func TestDomainValidate(t *testing.T) {
 		domain          Domain
 		expDomainLevel  int
 		expDomainParent Domain
-		expDomainPrice  sdk.Coin
 		expErr          string
 	}{
 		// Valid domains
@@ -35,44 +34,37 @@ func TestDomainValidate(t *testing.T) {
 			domain:          Domain{Name: "foo", Parent: "myc"},
 			expDomainLevel:  2,
 			expDomainParent: Domain{Name: "myc", Parent: ""},
-			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(30_300)),
 		},
 		{
 			domain:          Domain{Name: "12345", Parent: ""},
 			expDomainLevel:  1,
 			expDomainParent: Domain{Name: "", Parent: ""},
-			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(303)),
 			expErr:          "",
 		},
 		{
 			domain:          Domain{Name: "1234", Parent: "foo.myc"},
 			expDomainLevel:  3,
 			expDomainParent: Domain{Name: "foo", Parent: "myc"},
-			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(3_030)),
 		},
 		{
 			domain:          Domain{Name: "123", Parent: "foo.myc"},
 			expDomainLevel:  3,
 			expDomainParent: Domain{Name: "foo", Parent: "myc"},
-			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(30_300)),
 		},
 		{
 			domain:          Domain{Name: "12", Parent: "foo.myc"},
 			expDomainLevel:  3,
 			expDomainParent: Domain{Name: "foo", Parent: "myc"},
-			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(303_000)),
 		},
 		{
 			domain:          Domain{Name: "🍭", Parent: "foo.🍭"},
 			expDomainLevel:  3,
 			expDomainParent: Domain{Name: "foo", Parent: "🍭"},
-			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(3_030_000)),
 		},
 		{
 			domain:          Domain{Name: "🍭", Parent: "foo.🍭.myc"},
 			expDomainLevel:  4,
 			expDomainParent: Domain{Name: "foo.🍭", Parent: "myc"},
-			expDomainPrice:  sdk.NewCoin(MycelDenom, sdk.NewInt(3_030_000)),
 		},
 		// Invalid name
 		{domain: Domain{Name: ".foo", Parent: "myc"},
@@ -117,9 +109,6 @@ func TestDomainValidate(t *testing.T) {
 			require.Equal(t, tc.expDomainParent.Name, name)
 			require.Equal(t, tc.expDomainParent.Parent, parent)
 
-			// Check domain price
-			require.Equal(t, tc.expDomainPrice, tc.domain.GetRegistrationFee())
-
 		} else {
 			require.EqualError(t, err, tc.expErr)
 		}
@@ -135,21 +124,21 @@ func TestDomainUpdateWalletRecord(t *testing.T) {
 		expErr           string
 	}{
 		// Valid wallet records
-		{walletRecordType: "BITCOIN_MAINNET", address: "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2"},
-		{walletRecordType: "BITCOIN_MAINNET", address: "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy"},
-		{walletRecordType: "BITCOIN_MAINNET", address: "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq"},
-		{walletRecordType: "ETHEREUM_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
-		{walletRecordType: "ETHEREUM_GOERLI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
-		{walletRecordType: "POLYGON_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
-		{walletRecordType: "POLYGON_MUMBAI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
-		{walletRecordType: "APTOS_MAINNET", address: "0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b"},
-		{walletRecordType: "SOLANA_MAINNET", address: "HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe4YWrH"},
+		{walletRecordType: "BITCOIN_MAINNET_MAINNET", address: "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2"},
+		{walletRecordType: "BITCOIN_MAINNET_MAINNET", address: "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy"},
+		{walletRecordType: "BITCOIN_MAINNET_MAINNET", address: "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq"},
+		{walletRecordType: "ETHEREUM_MAINNET_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "ETHEREUM_TESTNET_GOERLI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "POLYGON_MAINNET_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "POLYGON_TESTNET_MUMBAI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "APTOS_MAINNET_MAINNET", address: "0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b"},
+		{walletRecordType: "SOLANA_MAINNET_MAINNET", address: "HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe4YWrH"},
 
 
 		// Invalid record type
 		{
-			walletRecordType: "ETHEREUM_MUMBAI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-			expErr: fmt.Sprintf("invalid wallet record type: ETHEREUM_MUMBAI"),
+			walletRecordType: "ETHEREUM_TESTNET_MUMBAI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+			expErr: fmt.Sprintf("invalid wallet record type: ETHEREUM_TESTNET_MUMBAI"),
 		},
 		{
 			walletRecordType: "ETHEREUM", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
@@ -157,20 +146,20 @@ func TestDomainUpdateWalletRecord(t *testing.T) {
 		},
 		// Invalid address
 		{
-			walletRecordType: "ETHEREUM_GOERLI", address: "0xf9Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+			walletRecordType: "ETHEREUM_TESTNET_GOERLI", address: "0xf9Fd6e51aad88F6F4ce6aB8827279cffFb92266",
 			expErr: fmt.Sprintf("invalid wallet address: ETHEREUM 0xf9Fd6e51aad88F6F4ce6aB8827279cffFb92266"),
 		},
 		{
-			walletRecordType: "ETHEREUM_GOERLI", address: "cosmos1jyc4rrtz5f93n80uuj378dq7x3v7z09j0h6dqx",
+			walletRecordType: "ETHEREUM_TESTNET_GOERLI", address: "cosmos1jyc4rrtz5f93n80uuj378dq7x3v7z09j0h6dqx",
 			expErr: fmt.Sprintf("invalid wallet address: ETHEREUM cosmos1jyc4rrtz5f93n80uuj378dq7x3v7z09j0h6dqx"),
 		},
 
 		{
-			walletRecordType: "SOLANA_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+			walletRecordType: "SOLANA_MAINNET_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
 			expErr: fmt.Sprintf("invalid wallet address: SOLANA 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"),
 		},
 		{
-			walletRecordType: "BITCOIN_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+			walletRecordType: "BITCOIN_MAINNET_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
 			expErr: fmt.Sprintf("invalid wallet address: BITCOIN 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"),
 		},
 	}

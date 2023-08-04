@@ -38,7 +38,7 @@ func (suite *GenesisTestSuite) TestValidateGenesis() {
 			&GenesisState{
 				Epochs: []EpochInfo{
 					{
-						Identifier:              WeeklyEpochId,
+						Identifier:              IncentiveEpochId,
 						StartTime:               time.Time{},
 						Duration:                time.Hour * 24 * 7,
 						CurrentEpoch:            0,
@@ -55,7 +55,7 @@ func (suite *GenesisTestSuite) TestValidateGenesis() {
 			&GenesisState{
 				Epochs: []EpochInfo{
 					{
-						Identifier:              WeeklyEpochId,
+						Identifier:              IncentiveEpochId,
 						StartTime:               time.Time{},
 						Duration:                time.Hour * 24 * 7,
 						CurrentEpoch:            0,
@@ -64,7 +64,7 @@ func (suite *GenesisTestSuite) TestValidateGenesis() {
 						EpochCountingStarted:    false,
 					},
 					{
-						Identifier:              WeeklyEpochId,
+						Identifier:              IncentiveEpochId,
 						StartTime:               time.Time{},
 						Duration:                time.Hour * 24 * 7,
 						CurrentEpoch:            0,

@@ -18,9 +18,9 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		Epochs: []EpochInfo{
 			{
-				Identifier:              WeeklyEpochId,
+				Identifier:              IncentiveEpochId,
 				StartTime:               time.Time{},
-				Duration:                time.Hour * 24 * 7,
+				Duration:                time.Hour * 24 * 7 * 90,
 				CurrentEpoch:            0,
 				CurrentEpochStartHeight: 0,
 				CurrentEpochStartTime:   time.Time{},

@@ -11,7 +11,7 @@ option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 // GenesisState defines the registry module's genesis state.
 message GenesisState {
            Params          params              = 1 [(gogoproto.nullable) = false];
-  repeated Domain          domainList          = 2 [(gogoproto.nullable) = false];
-  repeated DomainOwnership domainOwnershipList = 3 [(gogoproto.nullable) = false];
+  repeated Domain          domains          = 2 [(gogoproto.nullable) = false];
+  repeated DomainOwnership domainOwnerships = 3 [(gogoproto.nullable) = false];
 }
 

@@ -52,7 +52,7 @@ func (suite *EpochInfoTestSuite) TestValidateEpochInfo() {
 		{
 			ErrEpochDurationCannotBeZero,
 			EpochInfo{
-				WeeklyEpochId,
+				IncentiveEpochId,
 				time.Now(),
 				time.Hour * 0,
 				1,
@@ -65,7 +65,7 @@ func (suite *EpochInfoTestSuite) TestValidateEpochInfo() {
 		{
 			ErrCurrentEpochCannotBeNegative,
 			EpochInfo{
-				WeeklyEpochId,
+				IncentiveEpochId,
 				time.Now(),
 				time.Hour * 24,
 				-1,
@@ -78,7 +78,7 @@ func (suite *EpochInfoTestSuite) TestValidateEpochInfo() {
 		{
 			ErrCurrentEpochStartHeightCannotBeNegative,
 			EpochInfo{
-				WeeklyEpochId,
+				IncentiveEpochId,
 				time.Now(),
 				time.Hour * 24,
 				1,
@@ -91,7 +91,7 @@ func (suite *EpochInfoTestSuite) TestValidateEpochInfo() {
 		{
 			nil,
 			EpochInfo{
-				WeeklyEpochId,
+				IncentiveEpochId,
 				time.Now(),
 				time.Hour * 24,
 				1,

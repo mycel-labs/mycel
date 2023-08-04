@@ -14,9 +14,3 @@ enum DnsRecordType {
   SRV = 7;
   TXT = 8;
 }
-
-enum DnsRecordFormat {
-  IPV4 = 0;
-  IPV6 = 1;
-  FQDN = 2;
-}

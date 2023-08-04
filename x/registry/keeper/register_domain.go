@@ -11,101 +11,40 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-// Get is domain already taken
-func (k Keeper) GetIsDomainAlreadyTaken(ctx sdk.Context, domain types.Domain) (isDomainAlreadyTaken bool) {
-	_, isDomainAlreadyTaken = k.GetDomain(ctx, domain.Name, domain.Parent)
-	return isDomainAlreadyTaken
-}
-
-// Get is parent domain exist
-func (k Keeper) GetIsParentDomainExist(ctx sdk.Context, domain types.Domain) (isParentDomainExist bool) {
-	name, parent := domain.ParseParent()
-	_, isParentDomainExist = k.GetDomain(ctx, name, parent)
-	return isParentDomainExist
-}
-
-// Validate TLD registration
-func (k Keeper) ValidateRegisterTLD(ctx sdk.Context, domain types.Domain) (err error) {
-	if domain.Parent != "" {
-		err = sdkerrors.Wrapf(errors.New(domain.Parent),
-			types.ErrParentDomainMustBeEmpty.Error())
+func (k Keeper) GetParentDomain(ctx sdk.Context, domain types.Domain) (parentDomain types.Domain, found bool) {
+	// Check if domain is not TLD
+	level := domain.GetDomainLevel()
+	if level == 1 {
+		found = false
+	} else {
+		// Get parent domain
+		parentsName, parentsParent := domain.ParseParent()
+		parentDomain, found = k.GetDomain(ctx, parentsName, parentsParent)
 	}
-	// TODO: Is Staked enough to register TLD
-	return err
+	return parentDomain, found
 }
 
-// Validate SLD registration
-func (k Keeper) ValidateRegsiterSLD(ctx sdk.Context, domain types.Domain) (err error) {
-	isParentDomainExist := k.GetIsParentDomainExist(ctx, domain)
-	if !isParentDomainExist {
-		err = sdkerrors.Wrapf(errors.New(domain.Parent),
-			types.ErrParentDomainDoesNotExist.Error())
+func (k Keeper) GetParentsSubdomainRegistraionConfig(ctx sdk.Context, domain types.Domain) types.SubdomainRegistrationConfig {
+	// Get parent domain
+	parentDomain, found := k.GetParentDomain(ctx, domain)
+	if !found || parentDomain.SubdomainRegistrationConfig == nil {
+		panic("parent domain or config not found")
 	}
-
-	return err
+	return *parentDomain.SubdomainRegistrationConfig
 }
 
-// Validate subdomain GetRegistrationFee
-func (k Keeper) ValidateRegsiterSubdomain(ctx sdk.Context, domain types.Domain) (err error) {
-	isParentDomainExist := k.GetIsParentDomainExist(ctx, domain)
-	if !isParentDomainExist {
-		err = sdkerrors.Wrapf(errors.New(domain.Parent),
-			types.ErrParentDomainDoesNotExist.Error())
-	}
-	return err
-}
+// Pay SLD registration fee
+func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.Domain, registrationPeriodInYear uint64) (err error) {
+	config := k.GetParentsSubdomainRegistraionConfig(ctx, domain)
 
-// Validate domain
-func (k Keeper) ValidateDomain(ctx sdk.Context, domain types.Domain) (err error) {
-	// Type check
-	err = domain.Validate()
+	fee, err := config.GetRegistrationFee(domain.Name, registrationPeriodInYear)
 	if err != nil {
 		return err
 	}
-	// Check if domain is already taken
-	isDomainAlreadyTaken := k.GetIsDomainAlreadyTaken(ctx, domain)
-	if isDomainAlreadyTaken {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s.%s", domain.Name, domain.Parent)),
-			types.ErrDomainIsAlreadyTaken.Error())
-		return err
-	}
+	registrationPeriodInQuarter := uint(registrationPeriodInYear * 4)
 
-	domainLevel := domain.GetDomainLevel()
-	switch domainLevel {
-	case 1: // TLD
-		// Validate TLD
-		err = k.ValidateRegisterTLD(ctx, domain)
-		if err != nil {
-			return err
-		}
-	case 2: // TLD
-		// Validate SLD
-		err = k.ValidateRegsiterSLD(ctx, domain)
-		if err != nil {
-			return err
-		}
-	default: // Subdomain
-		// Validate Subdomain
-		err = k.ValidateRegsiterSubdomain(ctx, domain)
-		if err != nil {
-			return err
-		}
-	}
-
-	return err
-}
-
-// Pay SLD registration fee
-func (k Keeper) PayTLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.Domain, registrationPeriodInWeek uint) (err error) {
-	// TODO: Pay TLD registration fee
-	return err
-}
-
-// Pay SLD registration fee
-func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.Domain, registrationPeriodInWeek uint) (err error) {
-	fee := domain.GetRegistrationFee()
-	k.incentivesKeeper.SetEpochIncentivesOnRegistration(ctx, registrationPeriodInWeek, fee)
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, incentivestypes.ModuleName, sdk.NewCoins(fee))
+	k.incentivesKeeper.SetEpochIncentivesOnRegistration(ctx, registrationPeriodInQuarter, *fee)
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, incentivestypes.ModuleName, sdk.NewCoins(*fee))
 	return err
 }
 
@@ -119,7 +58,24 @@ func (k Keeper) AppendToOwnedDomain(ctx sdk.Context, owner string, name string, 
 	}
 }
 
-func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.AccAddress, registrationPeriodInWeek uint) (err error) {
+func (k Keeper) IncrementParentsSubdomainCount(ctx sdk.Context, domain types.Domain) {
+	// Check if domain is not TLD
+	level := domain.GetDomainLevel()
+	if level == 1 {
+		panic("domain is TLD")
+	}
+
+	// Increment parent's subdomain count
+	parentsName, parentsParent := domain.ParseParent()
+	parentDomain, found := k.GetDomain(ctx, parentsName, parentsParent)
+	if !found {
+		panic("parent not found")
+	}
+	parentDomain.SubdomainCount++
+	k.SetDomain(ctx, parentDomain)
+}
+
+func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.AccAddress, registrationPeriodIYear uint64) (err error) {
 	// Validate domain
 	err = k.ValidateDomain(ctx, domain)
 	if err != nil {
@@ -130,18 +86,36 @@ func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.A
 	domainLevel := domain.GetDomainLevel()
 	switch domainLevel {
 	case 1: // TLD
-		// Pay TLD registration fee
-		err = k.PayTLDRegstrationFee(ctx, owner, domain, registrationPeriodInWeek)
-		if err != nil {
+		// TODO: Register TLD
+		return
+	case 2: // SLD
+		parentDomain, found := k.GetParentDomain(ctx, domain)
+
+		if !found {
+			panic("parent not found")
+		}
+
+		// Check if parent domain has subdomain registration config
+		if parentDomain.SubdomainRegistrationConfig.MaxSubdomainRegistrations <= parentDomain.SubdomainCount {
+			err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%d", parentDomain.SubdomainCount)), types.ErrMaxSubdomainCountReached.Error())
 			return err
 		}
-	case 2: // TLD
+
+		// Set subdomain registration config
+		domain.SubdomainRegistrationConfig = &types.SubdomainRegistrationConfig{
+			MaxSubdomainRegistrations: 100,
+		}
+
+		// Increment parents subdomain SubdomainCount
+		k.IncrementParentsSubdomainCount(ctx, domain)
 		// Pay SLD registration fee
-		err = k.PaySLDRegstrationFee(ctx, owner, domain, registrationPeriodInWeek)
+		err = k.PaySLDRegstrationFee(ctx, owner, domain, registrationPeriodIYear)
 		if err != nil {
 			return err
 		}
 	default: // Subdomain
+		// Increment parents subdomain SubdomainCount
+		k.IncrementParentsSubdomainCount(ctx, domain)
 	}
 
 	// Append to owned domain
