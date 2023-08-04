@@ -1,5 +1,5 @@
 package types
 
 const (
-	WeeklyEpochId = "weekly"
+	IncentiveEpochId = "incentive"
 )

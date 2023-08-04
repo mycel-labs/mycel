@@ -22,4 +22,5 @@ var (
 	ErrParentDomainMustBeEmpty  = sdkerrors.Register(ModuleName, 1111, "parent domain must be empty")
 	ErrDomainNotRegistrable	 = sdkerrors.Register(ModuleName, 1112, "domain is not registrable")
 	ErrMaxSubdomainCountReached = sdkerrors.Register(ModuleName, 1113, "max subdomain count reached")
+	ErrInvalidRegistrationPeriod = sdkerrors.Register(ModuleName, 1114, "invalid registration period")
 )

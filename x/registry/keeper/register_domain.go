@@ -41,9 +41,9 @@ func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, doma
 	if err != nil {
 		return err
 	}
-	registrationPeriodInWeek := uint(registrationPeriodInYear * 12 * 4)
+	registrationPeriodInQuarter := uint(registrationPeriodInYear * 4)
 
-	k.incentivesKeeper.SetEpochIncentivesOnRegistration(ctx, registrationPeriodInWeek, *fee)
+	k.incentivesKeeper.SetEpochIncentivesOnRegistration(ctx, registrationPeriodInQuarter, *fee)
 	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, incentivestypes.ModuleName, sdk.NewCoins(*fee))
 	return err
 }

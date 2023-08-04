@@ -97,8 +97,6 @@ func (suite *KeeperTestSuite) TestSetEpochIncentivesOnRegistration() {
 			expCurrentEpoch:          1,
 			expAmount:                sdk.NewCoins(sdk.NewCoin(registrytypes.MycelDenom, sdk.NewInt(100))),
 			fn: func() {
-				suite.ctx = suite.ctx.WithBlockHeight(2).WithBlockTime(now.Add(time.Hour * 24 * 7))
-				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
 			},
 		},
 		{
@@ -109,11 +107,7 @@ func (suite *KeeperTestSuite) TestSetEpochIncentivesOnRegistration() {
 			fn: func() {
 				// Set epoch incentives at epoch 0
 				suite.app.IncentivesKeeper.SetEpochIncentivesOnRegistration(suite.ctx, 12, sdk.NewCoin(registrytypes.MycelDenom, sdk.NewInt(100)))
-				// Begin new epoch
-				suite.ctx = suite.ctx.WithBlockHeight(2).WithBlockTime(now.Add(time.Hour * 24 * 7))
-				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
-				// Begin new epoch
-				suite.ctx = suite.ctx.WithBlockHeight(2).WithBlockTime(now.Add(time.Hour * 24 * (7 + 1)))
+				suite.ctx = suite.ctx.WithBlockHeight(2).WithBlockTime(now.Add(time.Hour * 24 * 90))
 				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
 			},
 		},

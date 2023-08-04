@@ -63,9 +63,9 @@ func (k Keeper) GetAllEpochIncentive(ctx sdk.Context) (list []types.EpochIncenti
 
 	return
 }
-func (k Keeper) SetEpochIncentivesOnRegistration(ctx sdk.Context, registrationPeriodInWeek uint, fee sdk.Coin) {
+func (k Keeper) SetEpochIncentivesOnRegistration(ctx sdk.Context, registrationPeriodInQuarter uint, fee sdk.Coin) {
 	//Get current epoch
-	epoch, found := k.epochsKeeper.GetEpochInfo(ctx, epochstypes.WeeklyEpochId)
+	epoch, found := k.epochsKeeper.GetEpochInfo(ctx, epochstypes.IncentiveEpochId)
 	if !found {
 		panic("current epoch not found")
 	}
@@ -74,12 +74,12 @@ func (k Keeper) SetEpochIncentivesOnRegistration(ctx sdk.Context, registrationPe
 	amount := fee.Amount
 
 	// Calculate amount to be distributed per epoch
-	quotient := amount.QuoRaw(int64(registrationPeriodInWeek))
-	remainder := amount.ModRaw(int64(registrationPeriodInWeek))
+	quotient := amount.QuoRaw(int64(registrationPeriodInQuarter))
+	remainder := amount.ModRaw(int64(registrationPeriodInQuarter))
 
-	amounts := make([]sdk.Int, registrationPeriodInWeek)
+	amounts := make([]sdk.Int, registrationPeriodInQuarter)
 
-	for i := 0; i < int(registrationPeriodInWeek); i++ {
+	for i := 0; i < int(registrationPeriodInQuarter); i++ {
 		amounts[i] = quotient
 	}
 	for i := 0; i < int(remainder.Int64()); i++ {
