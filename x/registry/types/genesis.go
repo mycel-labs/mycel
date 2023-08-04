@@ -24,8 +24,8 @@ func GetDefaultTLDs() (defaultTLDs []Domain) {
 // DefaultGenesis returns the default genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		DomainList:          GetDefaultTLDs(),
-		DomainOwnershipList: []DomainOwnership{},
+		Domains:          GetDefaultTLDs(),
+		DomainOwnerships: []DomainOwnership{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -37,7 +37,7 @@ func (gs GenesisState) Validate() error {
 	// Check for duplicated index in domain
 	domainIndexMap := make(map[string]struct{})
 
-	for _, elem := range gs.DomainList {
+	for _, elem := range gs.Domains {
 		index := string(DomainKey(elem.Name, elem.Parent))
 		if _, ok := domainIndexMap[index]; ok {
 			return fmt.Errorf("duplicated index for domain")
@@ -47,7 +47,7 @@ func (gs GenesisState) Validate() error {
 	// Check for duplicated index in domainOwnership
 	domainOwnershipIndexMap := make(map[string]struct{})
 
-	for _, elem := range gs.DomainOwnershipList {
+	for _, elem := range gs.DomainOwnerships {
 		index := string(DomainOwnershipKey(elem.Owner))
 		if _, ok := domainOwnershipIndexMap[index]; ok {
 			return fmt.Errorf("duplicated index for domainOwnership")

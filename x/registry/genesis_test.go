@@ -14,7 +14,7 @@ func TestGenesis(t *testing.T) {
 	genesisState := types.GenesisState{
 		Params: types.DefaultParams(),
 
-		DomainList: []types.Domain{
+		Domains: []types.Domain{
 			{
 				Name:   "0",
 				Parent: "0",
@@ -24,7 +24,7 @@ func TestGenesis(t *testing.T) {
 				Parent: "1",
 			},
 		},
-		DomainOwnershipList: []types.DomainOwnership{
+		DomainOwnerships: []types.DomainOwnership{
 			{
 				Owner: "0",
 			},
@@ -43,7 +43,7 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(&genesisState)
 	nullify.Fill(got)
 
-	require.ElementsMatch(t, genesisState.DomainList, got.DomainList)
-	require.ElementsMatch(t, genesisState.DomainOwnershipList, got.DomainOwnershipList)
+	require.ElementsMatch(t, genesisState.Domains, got.DomainList)
+	require.ElementsMatch(t, genesisState.DomainOwnerships, got.DomainOwnershipList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }
