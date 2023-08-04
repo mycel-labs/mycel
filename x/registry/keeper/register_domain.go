@@ -34,14 +34,16 @@ func (k Keeper) GetParentsSubdomainRegistraionConfig(ctx sdk.Context, domain typ
 }
 
 // Pay SLD registration fee
-func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.Domain, registrationPeriodInWeek uint) (err error) {
+func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.Domain, registrationPeriodInYear uint64) (err error) {
 	config := k.GetParentsSubdomainRegistraionConfig(ctx, domain)
 
-	fee, err := config.GetRegistrationFee(domain.Name, registrationPeriodInWeek/4/12)
+	fee, err := config.GetRegistrationFee(domain.Name, registrationPeriodInYear)
 	if err != nil {
 		return err
 	}
-// 	k.incentivesKeeper.SetEpochIncentivesOnRegistration(ctx, registrationPeriodInWeek, *fee)
+	registrationPeriodInWeek := uint(registrationPeriodInYear * 12 * 4)
+
+	k.incentivesKeeper.SetEpochIncentivesOnRegistration(ctx, registrationPeriodInWeek, *fee)
 	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, incentivestypes.ModuleName, sdk.NewCoins(*fee))
 	return err
 }
@@ -73,7 +75,7 @@ func (k Keeper) IncrementParentsSubdomainCount(ctx sdk.Context, domain types.Dom
 	k.SetDomain(ctx, parentDomain)
 }
 
-func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.AccAddress, registrationPeriodInWeek uint) (err error) {
+func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.AccAddress, registrationPeriodIYear uint64) (err error) {
 	// Validate domain
 	err = k.ValidateDomain(ctx, domain)
 	if err != nil {
@@ -107,7 +109,7 @@ func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.A
 		// Increment parents subdomain SubdomainCount
 		k.IncrementParentsSubdomainCount(ctx, domain)
 		// Pay SLD registration fee
-		err = k.PaySLDRegstrationFee(ctx, owner, domain, registrationPeriodInWeek)
+		err = k.PaySLDRegstrationFee(ctx, owner, domain, registrationPeriodIYear)
 		if err != nil {
 			return err
 		}

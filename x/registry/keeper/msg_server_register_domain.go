@@ -29,9 +29,7 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 		Metadata:       nil,
 	}
 
-	registrationPeriodInWeek := uint(msg.RegistrationPeriodInYear * 12 * 4)
-
-	err = k.Keeper.RegisterDomain(ctx, domain, creatorAddress, registrationPeriodInWeek)
+	err = k.Keeper.RegisterDomain(ctx, domain, creatorAddress, msg.RegistrationPeriodInYear)
 	if err != nil {
 		return nil, err
 	}

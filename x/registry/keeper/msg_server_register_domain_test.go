@@ -92,6 +92,13 @@ func (suite *KeeperTestSuite) TestRegisterSubdomain() {
 			// Run test case function
 			tc.fn()
 
+			// Before incentives
+			beforeIncentives := suite.app.IncentivesKeeper.GetAllEpochIncentive(suite.ctx)
+			beforeTotalAmount := sdk.NewInt(0)
+			for _, incentive := range beforeIncentives {
+				beforeTotalAmount = beforeTotalAmount.Add(incentive.Amount.AmountOf(types.MycelDenom))
+			}
+
 			// Register domain
 			_, err := suite.msgServer.RegisterDomain(suite.ctx, registerMsg)
 
@@ -110,6 +117,17 @@ func (suite *KeeperTestSuite) TestRegisterSubdomain() {
 				suite.Require().True(found)
 				afterSubdomainCount := parent.SubdomainCount
 				suite.Require().Equal(beforeSubdomainCount+1, afterSubdomainCount)
+
+				// Check if the total amount is increased by the fee
+				incentives := suite.app.IncentivesKeeper.GetAllEpochIncentive(suite.ctx)
+				afterTotalAmount := sdk.NewInt(0)
+				for _, incentive := range incentives {
+					afterTotalAmount = incentive.Amount.AmountOf(types.MycelDenom).Add(afterTotalAmount)
+				}
+				expFee, err := parent.SubdomainRegistrationConfig.GetRegistrationFee(tc.name, tc.registrationPeriodInYear)
+				suite.Require().Nil(err)
+				// Compare the total amount before and after
+				suite.Require().Equal(beforeTotalAmount.Add(expFee.Amount), afterTotalAmount)
 
 				// Evalute events
 				suite.Require().Nil(err)
