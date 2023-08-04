@@ -1,7 +1,9 @@
 package types
 
 import (
+	"errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	math "math"
 )
 
@@ -10,7 +12,7 @@ func GetDefaultSubdomainRegistrationConfig(baseFee int64) SubdomainRegistrationC
 	fees := GetFeeByNameLength(10, int(baseFee))
 
 	return SubdomainRegistrationConfig{
-		MaxSubdomainRegistrations: 100,
+		MaxSubdomainRegistrations: math.MaxUint64,
 		SubdomainRegistrationFees: &SubdomainRegistrationFees{
 			FeeByLength: fees,
 			DefaultFee:  &defaultFee,
@@ -29,4 +31,30 @@ func GetFeeByNameLength(base int, baseFee int) map[uint32]*Fee {
 		}
 	}
 	return fees
+}
+
+func (config *SubdomainRegistrationConfig) GetRegistrationFee(name string, registrationPeriodInYear uint) (amount *sdk.Coin, err error) {
+	amount = config.SubdomainRegistrationFees.DefaultFee
+
+	// Set amout if bylength found
+	if config.SubdomainRegistrationFees.FeeByName[name] != nil {
+		if config.SubdomainRegistrationFees.FeeByName[name].IsRegistrable {
+			amount = config.SubdomainRegistrationFees.FeeByName[name].Fee
+		} else {
+			err = sdkerrors.Wrap(errors.New(name), ErrDomainNotRegistrable.Error())
+		}
+	}
+
+	// Set amout if byname found
+	if config.SubdomainRegistrationFees.FeeByLength[uint32(len(name))] != nil {
+		if config.SubdomainRegistrationFees.FeeByLength[uint32(len(name))].IsRegistrable {
+			amount = config.SubdomainRegistrationFees.FeeByLength[uint32(len(name))].Fee
+		} else {
+			err = sdkerrors.Wrap(errors.New(name), ErrDomainNotRegistrable.Error())
+		}
+	}
+
+	amount.Amount = amount.Amount.Mul(sdk.NewInt(int64(registrationPeriodInYear)))
+
+	return amount, err
 }
