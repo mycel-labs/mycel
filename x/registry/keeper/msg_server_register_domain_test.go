@@ -11,7 +11,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-func (suite *KeeperTestSuite) TestRegisterDomain() {
+func (suite *KeeperTestSuite) TestRegisterSubdomain() {
 	testCases := []struct {
 		creator                  string
 		name                     string
@@ -60,24 +60,43 @@ func (suite *KeeperTestSuite) TestRegisterDomain() {
 		suite.Run(fmt.Sprintf("Case %d", i), func() {
 			suite.SetupTest()
 
-			domain := &types.MsgRegisterDomain{
+			registerMsg := &types.MsgRegisterDomain{
 				Creator:                  tc.creator,
 				Name:                     tc.name,
 				Parent:                   tc.parent,
 				RegistrationPeriodInYear: tc.registrationPeriodInYear,
 			}
 
+			domain := &types.Domain{
+				Name:   tc.name,
+				Parent: tc.parent,
+			}
+			parentsName, parentsParent := domain.ParseParent()
+			parent, found := suite.app.RegistryKeeper.GetDomain(suite.ctx, parentsName, parentsParent)
+			suite.Require().True(found)
+			beforeSubdomainCount := parent.SubdomainCount
+
 			// Run test case function
 			tc.fn()
 
 			// Register domain
-			_, err := suite.msgServer.RegisterDomain(suite.ctx, domain)
+			_, err := suite.msgServer.RegisterDomain(suite.ctx, registerMsg)
 
 			if tc.expErr == nil {
 				// Evalute domain ownership
 				domainOwnership, found := suite.app.RegistryKeeper.GetDomainOwnership(suite.ctx, tc.creator)
 				suite.Require().True(found)
 				suite.Require().Equal(tc.domainOwnership, domainOwnership)
+
+				// Evalute if domain is registered
+				_, found = suite.app.RegistryKeeper.GetDomain(suite.ctx, tc.name, tc.parent)
+				suite.Require().True(found)
+
+				// Evalute if parent's subdomainCount is increased
+				parent, found = suite.app.RegistryKeeper.GetDomain(suite.ctx, parentsName, parentsParent)
+				suite.Require().True(found)
+				afterSubdomainCount := parent.SubdomainCount
+				suite.Require().Equal(beforeSubdomainCount+1, afterSubdomainCount)
 
 				// Evalute events
 				suite.Require().Nil(err)
