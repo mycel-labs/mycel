@@ -45065,6 +45065,17 @@ paths:
                               - ETHEREUM_SEPOLIA
                               - POLYGON_MAINNET
                               - POLYGON_MUMBAI
+                              - BNB_MAINNET
+                              - BNB_TESTNET
+                              - AVALANCHE_CCHAIN
+                              - AVALANCHE_FUJI
+                              - GNOSIS_MAINNET
+                              - GNOSIS_CHIADO
+                              - OPTIMISM_MAINNET
+                              - OPTIMISM_GOERLI
+                              - ARBITRUM_MAINNET
+                              - ARBITRUM_GOERLI
+                              - SHARDEUM_BETANET
                               - APTOS_MAINNET
                               - APTOS_TESTNET
                               - SUI_MAINNET
@@ -45075,6 +45086,15 @@ paths:
                             title: |-
                               - BITCOIN_MAINNET: BTC 0xxx
                                - ETHEREUM_MAINNET: EVM 1xxxx
+                               - POLYGON_MAINNET: Polygon
+                               - BNB_MAINNET: BNB Chain
+                               - AVALANCHE_CCHAIN: Avalanche
+                               - GNOSIS_MAINNET: Gnosis
+                               - OPTIMISM_MAINNET: Optimism
+                               - ARBITRUM_MAINNET: Arbitrum
+                               - SHARDEUM_BETANET: Shardeum
+                              SHARDEUM_MAINNET = 10015;
+                              SHARDEUM_TESTNET = 10016;
                                - APTOS_MAINNET: MOVE 2xxxx
                                - SOLANA_MAINNET: SOLANA 3xxxx
                           walletAddressFormat:
@@ -45260,6 +45280,17 @@ paths:
                             - ETHEREUM_SEPOLIA
                             - POLYGON_MAINNET
                             - POLYGON_MUMBAI
+                            - BNB_MAINNET
+                            - BNB_TESTNET
+                            - AVALANCHE_CCHAIN
+                            - AVALANCHE_FUJI
+                            - GNOSIS_MAINNET
+                            - GNOSIS_CHIADO
+                            - OPTIMISM_MAINNET
+                            - OPTIMISM_GOERLI
+                            - ARBITRUM_MAINNET
+                            - ARBITRUM_GOERLI
+                            - SHARDEUM_BETANET
                             - APTOS_MAINNET
                             - APTOS_TESTNET
                             - SUI_MAINNET
@@ -45270,6 +45301,15 @@ paths:
                           title: |-
                             - BITCOIN_MAINNET: BTC 0xxx
                              - ETHEREUM_MAINNET: EVM 1xxxx
+                             - POLYGON_MAINNET: Polygon
+                             - BNB_MAINNET: BNB Chain
+                             - AVALANCHE_CCHAIN: Avalanche
+                             - GNOSIS_MAINNET: Gnosis
+                             - OPTIMISM_MAINNET: Optimism
+                             - ARBITRUM_MAINNET: Arbitrum
+                             - SHARDEUM_BETANET: Shardeum
+                            SHARDEUM_MAINNET = 10015;
+                            SHARDEUM_TESTNET = 10016;
                              - APTOS_MAINNET: MOVE 2xxxx
                              - SOLANA_MAINNET: SOLANA 3xxxx
                         walletAddressFormat:
@@ -73401,6 +73441,17 @@ definitions:
                 - ETHEREUM_SEPOLIA
                 - POLYGON_MAINNET
                 - POLYGON_MUMBAI
+                - BNB_MAINNET
+                - BNB_TESTNET
+                - AVALANCHE_CCHAIN
+                - AVALANCHE_FUJI
+                - GNOSIS_MAINNET
+                - GNOSIS_CHIADO
+                - OPTIMISM_MAINNET
+                - OPTIMISM_GOERLI
+                - ARBITRUM_MAINNET
+                - ARBITRUM_GOERLI
+                - SHARDEUM_BETANET
                 - APTOS_MAINNET
                 - APTOS_TESTNET
                 - SUI_MAINNET
@@ -73411,6 +73462,15 @@ definitions:
               title: |-
                 - BITCOIN_MAINNET: BTC 0xxx
                  - ETHEREUM_MAINNET: EVM 1xxxx
+                 - POLYGON_MAINNET: Polygon
+                 - BNB_MAINNET: BNB Chain
+                 - AVALANCHE_CCHAIN: Avalanche
+                 - GNOSIS_MAINNET: Gnosis
+                 - OPTIMISM_MAINNET: Optimism
+                 - ARBITRUM_MAINNET: Arbitrum
+                 - SHARDEUM_BETANET: Shardeum
+                SHARDEUM_MAINNET = 10015;
+                SHARDEUM_TESTNET = 10016;
                  - APTOS_MAINNET: MOVE 2xxxx
                  - SOLANA_MAINNET: SOLANA 3xxxx
             walletAddressFormat:
@@ -73561,6 +73621,17 @@ definitions:
                       - ETHEREUM_SEPOLIA
                       - POLYGON_MAINNET
                       - POLYGON_MUMBAI
+                      - BNB_MAINNET
+                      - BNB_TESTNET
+                      - AVALANCHE_CCHAIN
+                      - AVALANCHE_FUJI
+                      - GNOSIS_MAINNET
+                      - GNOSIS_CHIADO
+                      - OPTIMISM_MAINNET
+                      - OPTIMISM_GOERLI
+                      - ARBITRUM_MAINNET
+                      - ARBITRUM_GOERLI
+                      - SHARDEUM_BETANET
                       - APTOS_MAINNET
                       - APTOS_TESTNET
                       - SUI_MAINNET
@@ -73571,6 +73642,15 @@ definitions:
                     title: |-
                       - BITCOIN_MAINNET: BTC 0xxx
                        - ETHEREUM_MAINNET: EVM 1xxxx
+                       - POLYGON_MAINNET: Polygon
+                       - BNB_MAINNET: BNB Chain
+                       - AVALANCHE_CCHAIN: Avalanche
+                       - GNOSIS_MAINNET: Gnosis
+                       - OPTIMISM_MAINNET: Optimism
+                       - ARBITRUM_MAINNET: Arbitrum
+                       - SHARDEUM_BETANET: Shardeum
+                      SHARDEUM_MAINNET = 10015;
+                      SHARDEUM_TESTNET = 10016;
                        - APTOS_MAINNET: MOVE 2xxxx
                        - SOLANA_MAINNET: SOLANA 3xxxx
                   walletAddressFormat:
@@ -73702,6 +73782,17 @@ definitions:
                     - ETHEREUM_SEPOLIA
                     - POLYGON_MAINNET
                     - POLYGON_MUMBAI
+                    - BNB_MAINNET
+                    - BNB_TESTNET
+                    - AVALANCHE_CCHAIN
+                    - AVALANCHE_FUJI
+                    - GNOSIS_MAINNET
+                    - GNOSIS_CHIADO
+                    - OPTIMISM_MAINNET
+                    - OPTIMISM_GOERLI
+                    - ARBITRUM_MAINNET
+                    - ARBITRUM_GOERLI
+                    - SHARDEUM_BETANET
                     - APTOS_MAINNET
                     - APTOS_TESTNET
                     - SUI_MAINNET
@@ -73712,6 +73803,15 @@ definitions:
                   title: |-
                     - BITCOIN_MAINNET: BTC 0xxx
                      - ETHEREUM_MAINNET: EVM 1xxxx
+                     - POLYGON_MAINNET: Polygon
+                     - BNB_MAINNET: BNB Chain
+                     - AVALANCHE_CCHAIN: Avalanche
+                     - GNOSIS_MAINNET: Gnosis
+                     - OPTIMISM_MAINNET: Optimism
+                     - ARBITRUM_MAINNET: Arbitrum
+                     - SHARDEUM_BETANET: Shardeum
+                    SHARDEUM_MAINNET = 10015;
+                    SHARDEUM_TESTNET = 10016;
                      - APTOS_MAINNET: MOVE 2xxxx
                      - SOLANA_MAINNET: SOLANA 3xxxx
                 walletAddressFormat:
@@ -73763,6 +73863,17 @@ definitions:
           - ETHEREUM_SEPOLIA
           - POLYGON_MAINNET
           - POLYGON_MUMBAI
+          - BNB_MAINNET
+          - BNB_TESTNET
+          - AVALANCHE_CCHAIN
+          - AVALANCHE_FUJI
+          - GNOSIS_MAINNET
+          - GNOSIS_CHIADO
+          - OPTIMISM_MAINNET
+          - OPTIMISM_GOERLI
+          - ARBITRUM_MAINNET
+          - ARBITRUM_GOERLI
+          - SHARDEUM_BETANET
           - APTOS_MAINNET
           - APTOS_TESTNET
           - SUI_MAINNET
@@ -73773,6 +73884,15 @@ definitions:
         title: |-
           - BITCOIN_MAINNET: BTC 0xxx
            - ETHEREUM_MAINNET: EVM 1xxxx
+           - POLYGON_MAINNET: Polygon
+           - BNB_MAINNET: BNB Chain
+           - AVALANCHE_CCHAIN: Avalanche
+           - GNOSIS_MAINNET: Gnosis
+           - OPTIMISM_MAINNET: Optimism
+           - ARBITRUM_MAINNET: Arbitrum
+           - SHARDEUM_BETANET: Shardeum
+          SHARDEUM_MAINNET = 10015;
+          SHARDEUM_TESTNET = 10016;
            - APTOS_MAINNET: MOVE 2xxxx
            - SOLANA_MAINNET: SOLANA 3xxxx
       walletAddressFormat:
@@ -73795,6 +73915,17 @@ definitions:
       - ETHEREUM_SEPOLIA
       - POLYGON_MAINNET
       - POLYGON_MUMBAI
+      - BNB_MAINNET
+      - BNB_TESTNET
+      - AVALANCHE_CCHAIN
+      - AVALANCHE_FUJI
+      - GNOSIS_MAINNET
+      - GNOSIS_CHIADO
+      - OPTIMISM_MAINNET
+      - OPTIMISM_GOERLI
+      - ARBITRUM_MAINNET
+      - ARBITRUM_GOERLI
+      - SHARDEUM_BETANET
       - APTOS_MAINNET
       - APTOS_TESTNET
       - SUI_MAINNET
@@ -73805,5 +73936,14 @@ definitions:
     title: |-
       - BITCOIN_MAINNET: BTC 0xxx
        - ETHEREUM_MAINNET: EVM 1xxxx
+       - POLYGON_MAINNET: Polygon
+       - BNB_MAINNET: BNB Chain
+       - AVALANCHE_CCHAIN: Avalanche
+       - GNOSIS_MAINNET: Gnosis
+       - OPTIMISM_MAINNET: Optimism
+       - ARBITRUM_MAINNET: Arbitrum
+       - SHARDEUM_BETANET: Shardeum
+      SHARDEUM_MAINNET = 10015;
+      SHARDEUM_TESTNET = 10016;
        - APTOS_MAINNET: MOVE 2xxxx
        - SOLANA_MAINNET: SOLANA 3xxxx

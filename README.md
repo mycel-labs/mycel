@@ -1,5 +1,5 @@
-# mycel
-**mycel** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli).
+# Mycel
+**Mycel** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli).
 
 ## Dependencies
 - Go `1.20.2`
