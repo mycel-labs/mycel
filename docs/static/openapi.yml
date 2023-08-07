@@ -45068,11 +45068,11 @@ paths:
                               - BNB_MAINNET
                               - BNB_TESTNET
                               - AVALANCHE_CCHAIN
-                              - AVAX_FUJI
+                              - AVALANCHE_FUJI
                               - GNOSIS_MAINNET
                               - GNOSIS_CHIADO
-                              - Optimism_MAINNET
-                              - Optimism_GOERLI
+                              - OPTIMISM_MAINNET
+                              - OPTIMISM_GOERLI
                               - ARBITRUM_MAINNET
                               - ARBITRUM_GOERLI
                               - SHARDEUM_BETANET
@@ -45090,7 +45090,7 @@ paths:
                                - BNB_MAINNET: BNB Chain
                                - AVALANCHE_CCHAIN: Avalanche
                                - GNOSIS_MAINNET: Gnosis
-                               - Optimism_MAINNET: Optimism
+                               - OPTIMISM_MAINNET: Optimism
                                - ARBITRUM_MAINNET: Arbitrum
                                - SHARDEUM_BETANET: Shardeum
                               SHARDEUM_MAINNET = 10015;
@@ -45283,11 +45283,11 @@ paths:
                             - BNB_MAINNET
                             - BNB_TESTNET
                             - AVALANCHE_CCHAIN
-                            - AVAX_FUJI
+                            - AVALANCHE_FUJI
                             - GNOSIS_MAINNET
                             - GNOSIS_CHIADO
-                            - Optimism_MAINNET
-                            - Optimism_GOERLI
+                            - OPTIMISM_MAINNET
+                            - OPTIMISM_GOERLI
                             - ARBITRUM_MAINNET
                             - ARBITRUM_GOERLI
                             - SHARDEUM_BETANET
@@ -45305,7 +45305,7 @@ paths:
                              - BNB_MAINNET: BNB Chain
                              - AVALANCHE_CCHAIN: Avalanche
                              - GNOSIS_MAINNET: Gnosis
-                             - Optimism_MAINNET: Optimism
+                             - OPTIMISM_MAINNET: Optimism
                              - ARBITRUM_MAINNET: Arbitrum
                              - SHARDEUM_BETANET: Shardeum
                             SHARDEUM_MAINNET = 10015;
@@ -73444,11 +73444,11 @@ definitions:
                 - BNB_MAINNET
                 - BNB_TESTNET
                 - AVALANCHE_CCHAIN
-                - AVAX_FUJI
+                - AVALANCHE_FUJI
                 - GNOSIS_MAINNET
                 - GNOSIS_CHIADO
-                - Optimism_MAINNET
-                - Optimism_GOERLI
+                - OPTIMISM_MAINNET
+                - OPTIMISM_GOERLI
                 - ARBITRUM_MAINNET
                 - ARBITRUM_GOERLI
                 - SHARDEUM_BETANET
@@ -73466,7 +73466,7 @@ definitions:
                  - BNB_MAINNET: BNB Chain
                  - AVALANCHE_CCHAIN: Avalanche
                  - GNOSIS_MAINNET: Gnosis
-                 - Optimism_MAINNET: Optimism
+                 - OPTIMISM_MAINNET: Optimism
                  - ARBITRUM_MAINNET: Arbitrum
                  - SHARDEUM_BETANET: Shardeum
                 SHARDEUM_MAINNET = 10015;
@@ -73624,11 +73624,11 @@ definitions:
                       - BNB_MAINNET
                       - BNB_TESTNET
                       - AVALANCHE_CCHAIN
-                      - AVAX_FUJI
+                      - AVALANCHE_FUJI
                       - GNOSIS_MAINNET
                       - GNOSIS_CHIADO
-                      - Optimism_MAINNET
-                      - Optimism_GOERLI
+                      - OPTIMISM_MAINNET
+                      - OPTIMISM_GOERLI
                       - ARBITRUM_MAINNET
                       - ARBITRUM_GOERLI
                       - SHARDEUM_BETANET
@@ -73646,7 +73646,7 @@ definitions:
                        - BNB_MAINNET: BNB Chain
                        - AVALANCHE_CCHAIN: Avalanche
                        - GNOSIS_MAINNET: Gnosis
-                       - Optimism_MAINNET: Optimism
+                       - OPTIMISM_MAINNET: Optimism
                        - ARBITRUM_MAINNET: Arbitrum
                        - SHARDEUM_BETANET: Shardeum
                       SHARDEUM_MAINNET = 10015;
@@ -73785,11 +73785,11 @@ definitions:
                     - BNB_MAINNET
                     - BNB_TESTNET
                     - AVALANCHE_CCHAIN
-                    - AVAX_FUJI
+                    - AVALANCHE_FUJI
                     - GNOSIS_MAINNET
                     - GNOSIS_CHIADO
-                    - Optimism_MAINNET
-                    - Optimism_GOERLI
+                    - OPTIMISM_MAINNET
+                    - OPTIMISM_GOERLI
                     - ARBITRUM_MAINNET
                     - ARBITRUM_GOERLI
                     - SHARDEUM_BETANET
@@ -73807,7 +73807,7 @@ definitions:
                      - BNB_MAINNET: BNB Chain
                      - AVALANCHE_CCHAIN: Avalanche
                      - GNOSIS_MAINNET: Gnosis
-                     - Optimism_MAINNET: Optimism
+                     - OPTIMISM_MAINNET: Optimism
                      - ARBITRUM_MAINNET: Arbitrum
                      - SHARDEUM_BETANET: Shardeum
                     SHARDEUM_MAINNET = 10015;
@@ -73866,11 +73866,11 @@ definitions:
           - BNB_MAINNET
           - BNB_TESTNET
           - AVALANCHE_CCHAIN
-          - AVAX_FUJI
+          - AVALANCHE_FUJI
           - GNOSIS_MAINNET
           - GNOSIS_CHIADO
-          - Optimism_MAINNET
-          - Optimism_GOERLI
+          - OPTIMISM_MAINNET
+          - OPTIMISM_GOERLI
           - ARBITRUM_MAINNET
           - ARBITRUM_GOERLI
           - SHARDEUM_BETANET
@@ -73888,7 +73888,7 @@ definitions:
            - BNB_MAINNET: BNB Chain
            - AVALANCHE_CCHAIN: Avalanche
            - GNOSIS_MAINNET: Gnosis
-           - Optimism_MAINNET: Optimism
+           - OPTIMISM_MAINNET: Optimism
            - ARBITRUM_MAINNET: Arbitrum
            - SHARDEUM_BETANET: Shardeum
           SHARDEUM_MAINNET = 10015;
@@ -73918,11 +73918,11 @@ definitions:
       - BNB_MAINNET
       - BNB_TESTNET
       - AVALANCHE_CCHAIN
-      - AVAX_FUJI
+      - AVALANCHE_FUJI
       - GNOSIS_MAINNET
       - GNOSIS_CHIADO
-      - Optimism_MAINNET
-      - Optimism_GOERLI
+      - OPTIMISM_MAINNET
+      - OPTIMISM_GOERLI
       - ARBITRUM_MAINNET
       - ARBITRUM_GOERLI
       - SHARDEUM_BETANET
@@ -73940,7 +73940,7 @@ definitions:
        - BNB_MAINNET: BNB Chain
        - AVALANCHE_CCHAIN: Avalanche
        - GNOSIS_MAINNET: Gnosis
-       - Optimism_MAINNET: Optimism
+       - OPTIMISM_MAINNET: Optimism
        - ARBITRUM_MAINNET: Arbitrum
        - SHARDEUM_BETANET: Shardeum
       SHARDEUM_MAINNET = 10015;
