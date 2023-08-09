@@ -47634,13 +47634,14 @@ paths:
                               - BNB_MAINNET_MAINNET
                               - BNB_TESTNET_TESTNET
                               - AVALANCHE_MAINNET_CCHAIN
-                              - AVAX_TESTNET_FUJI
+                              - AVALANCHE_TESTNET_FUJI
                               - GNOSIS_MAINNET_MAINNET
                               - GNOSIS_TESTNET_CHIADO
-                              - Optimism_MAINNET_MAINNET
-                              - Optimism_TESTNET_GOERLI
+                              - OPTIMISM_MAINNET_MAINNET
+                              - OPTIMISM_TESTNET_GOERLI
                               - ARBITRUM_MAINNET_MAINNET
                               - ARBITRUM_TESTNET_GOERLI
+                              - SHARDEUM_BETANET_SPHINX
                               - APTOS_MAINNET_MAINNET
                               - APTOS_TESTNET_TESTNET
                               - SUI_MAINNET_MAINNET
@@ -47656,8 +47657,11 @@ paths:
                                - BNB_MAINNET_MAINNET: BNB Chain
                                - AVALANCHE_MAINNET_CCHAIN: Avalanche
                                - GNOSIS_MAINNET_MAINNET: Gnosis
-                               - Optimism_MAINNET_MAINNET: Optimism
+                               - OPTIMISM_MAINNET_MAINNET: Optimism
                                - ARBITRUM_MAINNET_MAINNET: Arbitrum
+                               - SHARDEUM_BETANET_SPHINX: Shardeum
+                              SHARDEUM_MAINNET_ = 10015;
+                              SHARDEUM_TESTNET_ = 10016;
                                - APTOS_MAINNET_MAINNET: MOVE 2xxxx
                               Aptos
                                - SUI_MAINNET_MAINNET: Sui
@@ -47908,13 +47912,14 @@ paths:
                             - BNB_MAINNET_MAINNET
                             - BNB_TESTNET_TESTNET
                             - AVALANCHE_MAINNET_CCHAIN
-                            - AVAX_TESTNET_FUJI
+                            - AVALANCHE_TESTNET_FUJI
                             - GNOSIS_MAINNET_MAINNET
                             - GNOSIS_TESTNET_CHIADO
-                            - Optimism_MAINNET_MAINNET
-                            - Optimism_TESTNET_GOERLI
+                            - OPTIMISM_MAINNET_MAINNET
+                            - OPTIMISM_TESTNET_GOERLI
                             - ARBITRUM_MAINNET_MAINNET
                             - ARBITRUM_TESTNET_GOERLI
+                            - SHARDEUM_BETANET_SPHINX
                             - APTOS_MAINNET_MAINNET
                             - APTOS_TESTNET_TESTNET
                             - SUI_MAINNET_MAINNET
@@ -47930,8 +47935,11 @@ paths:
                              - BNB_MAINNET_MAINNET: BNB Chain
                              - AVALANCHE_MAINNET_CCHAIN: Avalanche
                              - GNOSIS_MAINNET_MAINNET: Gnosis
-                             - Optimism_MAINNET_MAINNET: Optimism
+                             - OPTIMISM_MAINNET_MAINNET: Optimism
                              - ARBITRUM_MAINNET_MAINNET: Arbitrum
+                             - SHARDEUM_BETANET_SPHINX: Shardeum
+                            SHARDEUM_MAINNET_ = 10015;
+                            SHARDEUM_TESTNET_ = 10016;
                              - APTOS_MAINNET_MAINNET: MOVE 2xxxx
                             Aptos
                              - SUI_MAINNET_MAINNET: Sui
@@ -77319,13 +77327,14 @@ definitions:
                 - BNB_MAINNET_MAINNET
                 - BNB_TESTNET_TESTNET
                 - AVALANCHE_MAINNET_CCHAIN
-                - AVAX_TESTNET_FUJI
+                - AVALANCHE_TESTNET_FUJI
                 - GNOSIS_MAINNET_MAINNET
                 - GNOSIS_TESTNET_CHIADO
-                - Optimism_MAINNET_MAINNET
-                - Optimism_TESTNET_GOERLI
+                - OPTIMISM_MAINNET_MAINNET
+                - OPTIMISM_TESTNET_GOERLI
                 - ARBITRUM_MAINNET_MAINNET
                 - ARBITRUM_TESTNET_GOERLI
+                - SHARDEUM_BETANET_SPHINX
                 - APTOS_MAINNET_MAINNET
                 - APTOS_TESTNET_TESTNET
                 - SUI_MAINNET_MAINNET
@@ -77341,8 +77350,11 @@ definitions:
                  - BNB_MAINNET_MAINNET: BNB Chain
                  - AVALANCHE_MAINNET_CCHAIN: Avalanche
                  - GNOSIS_MAINNET_MAINNET: Gnosis
-                 - Optimism_MAINNET_MAINNET: Optimism
+                 - OPTIMISM_MAINNET_MAINNET: Optimism
                  - ARBITRUM_MAINNET_MAINNET: Arbitrum
+                 - SHARDEUM_BETANET_SPHINX: Shardeum
+                SHARDEUM_MAINNET_ = 10015;
+                SHARDEUM_TESTNET_ = 10016;
                  - APTOS_MAINNET_MAINNET: MOVE 2xxxx
                 Aptos
                  - SUI_MAINNET_MAINNET: Sui
@@ -77475,13 +77487,14 @@ definitions:
       - BNB_MAINNET_MAINNET
       - BNB_TESTNET_TESTNET
       - AVALANCHE_MAINNET_CCHAIN
-      - AVAX_TESTNET_FUJI
+      - AVALANCHE_TESTNET_FUJI
       - GNOSIS_MAINNET_MAINNET
       - GNOSIS_TESTNET_CHIADO
-      - Optimism_MAINNET_MAINNET
-      - Optimism_TESTNET_GOERLI
+      - OPTIMISM_MAINNET_MAINNET
+      - OPTIMISM_TESTNET_GOERLI
       - ARBITRUM_MAINNET_MAINNET
       - ARBITRUM_TESTNET_GOERLI
+      - SHARDEUM_BETANET_SPHINX
       - APTOS_MAINNET_MAINNET
       - APTOS_TESTNET_TESTNET
       - SUI_MAINNET_MAINNET
@@ -77497,8 +77510,11 @@ definitions:
        - BNB_MAINNET_MAINNET: BNB Chain
        - AVALANCHE_MAINNET_CCHAIN: Avalanche
        - GNOSIS_MAINNET_MAINNET: Gnosis
-       - Optimism_MAINNET_MAINNET: Optimism
+       - OPTIMISM_MAINNET_MAINNET: Optimism
        - ARBITRUM_MAINNET_MAINNET: Arbitrum
+       - SHARDEUM_BETANET_SPHINX: Shardeum
+      SHARDEUM_MAINNET_ = 10015;
+      SHARDEUM_TESTNET_ = 10016;
        - APTOS_MAINNET_MAINNET: MOVE 2xxxx
       Aptos
        - SUI_MAINNET_MAINNET: Sui
@@ -77614,13 +77630,14 @@ definitions:
                       - BNB_MAINNET_MAINNET
                       - BNB_TESTNET_TESTNET
                       - AVALANCHE_MAINNET_CCHAIN
-                      - AVAX_TESTNET_FUJI
+                      - AVALANCHE_TESTNET_FUJI
                       - GNOSIS_MAINNET_MAINNET
                       - GNOSIS_TESTNET_CHIADO
-                      - Optimism_MAINNET_MAINNET
-                      - Optimism_TESTNET_GOERLI
+                      - OPTIMISM_MAINNET_MAINNET
+                      - OPTIMISM_TESTNET_GOERLI
                       - ARBITRUM_MAINNET_MAINNET
                       - ARBITRUM_TESTNET_GOERLI
+                      - SHARDEUM_BETANET_SPHINX
                       - APTOS_MAINNET_MAINNET
                       - APTOS_TESTNET_TESTNET
                       - SUI_MAINNET_MAINNET
@@ -77636,8 +77653,11 @@ definitions:
                        - BNB_MAINNET_MAINNET: BNB Chain
                        - AVALANCHE_MAINNET_CCHAIN: Avalanche
                        - GNOSIS_MAINNET_MAINNET: Gnosis
-                       - Optimism_MAINNET_MAINNET: Optimism
+                       - OPTIMISM_MAINNET_MAINNET: Optimism
                        - ARBITRUM_MAINNET_MAINNET: Arbitrum
+                       - SHARDEUM_BETANET_SPHINX: Shardeum
+                      SHARDEUM_MAINNET_ = 10015;
+                      SHARDEUM_TESTNET_ = 10016;
                        - APTOS_MAINNET_MAINNET: MOVE 2xxxx
                       Aptos
                        - SUI_MAINNET_MAINNET: Sui
@@ -77833,13 +77853,14 @@ definitions:
                     - BNB_MAINNET_MAINNET
                     - BNB_TESTNET_TESTNET
                     - AVALANCHE_MAINNET_CCHAIN
-                    - AVAX_TESTNET_FUJI
+                    - AVALANCHE_TESTNET_FUJI
                     - GNOSIS_MAINNET_MAINNET
                     - GNOSIS_TESTNET_CHIADO
-                    - Optimism_MAINNET_MAINNET
-                    - Optimism_TESTNET_GOERLI
+                    - OPTIMISM_MAINNET_MAINNET
+                    - OPTIMISM_TESTNET_GOERLI
                     - ARBITRUM_MAINNET_MAINNET
                     - ARBITRUM_TESTNET_GOERLI
+                    - SHARDEUM_BETANET_SPHINX
                     - APTOS_MAINNET_MAINNET
                     - APTOS_TESTNET_TESTNET
                     - SUI_MAINNET_MAINNET
@@ -77855,8 +77876,11 @@ definitions:
                      - BNB_MAINNET_MAINNET: BNB Chain
                      - AVALANCHE_MAINNET_CCHAIN: Avalanche
                      - GNOSIS_MAINNET_MAINNET: Gnosis
-                     - Optimism_MAINNET_MAINNET: Optimism
+                     - OPTIMISM_MAINNET_MAINNET: Optimism
                      - ARBITRUM_MAINNET_MAINNET: Arbitrum
+                     - SHARDEUM_BETANET_SPHINX: Shardeum
+                    SHARDEUM_MAINNET_ = 10015;
+                    SHARDEUM_TESTNET_ = 10016;
                      - APTOS_MAINNET_MAINNET: MOVE 2xxxx
                     Aptos
                      - SUI_MAINNET_MAINNET: Sui
@@ -78098,13 +78122,14 @@ definitions:
           - BNB_MAINNET_MAINNET
           - BNB_TESTNET_TESTNET
           - AVALANCHE_MAINNET_CCHAIN
-          - AVAX_TESTNET_FUJI
+          - AVALANCHE_TESTNET_FUJI
           - GNOSIS_MAINNET_MAINNET
           - GNOSIS_TESTNET_CHIADO
-          - Optimism_MAINNET_MAINNET
-          - Optimism_TESTNET_GOERLI
+          - OPTIMISM_MAINNET_MAINNET
+          - OPTIMISM_TESTNET_GOERLI
           - ARBITRUM_MAINNET_MAINNET
           - ARBITRUM_TESTNET_GOERLI
+          - SHARDEUM_BETANET_SPHINX
           - APTOS_MAINNET_MAINNET
           - APTOS_TESTNET_TESTNET
           - SUI_MAINNET_MAINNET
@@ -78120,8 +78145,11 @@ definitions:
            - BNB_MAINNET_MAINNET: BNB Chain
            - AVALANCHE_MAINNET_CCHAIN: Avalanche
            - GNOSIS_MAINNET_MAINNET: Gnosis
-           - Optimism_MAINNET_MAINNET: Optimism
+           - OPTIMISM_MAINNET_MAINNET: Optimism
            - ARBITRUM_MAINNET_MAINNET: Arbitrum
+           - SHARDEUM_BETANET_SPHINX: Shardeum
+          SHARDEUM_MAINNET_ = 10015;
+          SHARDEUM_TESTNET_ = 10016;
            - APTOS_MAINNET_MAINNET: MOVE 2xxxx
           Aptos
            - SUI_MAINNET_MAINNET: Sui

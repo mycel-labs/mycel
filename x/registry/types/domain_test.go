@@ -127,13 +127,26 @@ func TestDomainUpdateWalletRecord(t *testing.T) {
 		{walletRecordType: "BITCOIN_MAINNET_MAINNET", address: "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2"},
 		{walletRecordType: "BITCOIN_MAINNET_MAINNET", address: "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy"},
 		{walletRecordType: "BITCOIN_MAINNET_MAINNET", address: "bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq"},
+
+		// EVM
 		{walletRecordType: "ETHEREUM_MAINNET_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
 		{walletRecordType: "ETHEREUM_TESTNET_GOERLI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
 		{walletRecordType: "POLYGON_MAINNET_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
 		{walletRecordType: "POLYGON_TESTNET_MUMBAI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "BNB_MAINNET_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "BNB_TESTNET_TESTNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "AVALANCHE_MAINNET_CCHAIN", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "AVALANCHE_TESTNET_FUJI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "GNOSIS_MAINNET_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "GNOSIS_TESTNET_CHIADO", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "OPTIMISM_MAINNET_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "OPTIMISM_TESTNET_GOERLI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "ARBITRUM_MAINNET_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "ARBITRUM_TESTNET_GOERLI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+		{walletRecordType: "SHARDEUM_BETANET_SPHINX", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"},
+
 		{walletRecordType: "APTOS_MAINNET_MAINNET", address: "0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b"},
 		{walletRecordType: "SOLANA_MAINNET_MAINNET", address: "HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe4YWrH"},
-
 
 		// Invalid record type
 		{
