@@ -34,6 +34,8 @@ func WalletRecordFormats() map[string]string {
 		// 		"SHARDEUM_MAINNET":  "ETHEREUM",
 		// 		"SHARDEUM_TESTNET":  "ETHEREUM",
 		"SHARDEUM_BETANET": "ETHEREUM",
+		// 		"ZETA_MAINNET":     "ETHEREUM",
+		"ZETA_TESTNET": "ETHEREUM",
 
 		// Move
 		"APTOS_MAINNET": "MOVE",

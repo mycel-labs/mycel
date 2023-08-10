@@ -34,6 +34,9 @@ enum WalletRecordType {
   // SHARDEUM_MAINNET = 10015;
   // SHARDEUM_TESTNET = 10016;
   SHARDEUM_BETANET = 10017;
+  // Zeta
+  // ZETA_MAINNET = 10018;
+  ZETA_TESTNET = 10019;
 
 
   // MOVE 2xxxx

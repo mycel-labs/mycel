@@ -45076,6 +45076,7 @@ paths:
                               - ARBITRUM_MAINNET
                               - ARBITRUM_GOERLI
                               - SHARDEUM_BETANET
+                              - ZETA_TESTNET
                               - APTOS_MAINNET
                               - APTOS_TESTNET
                               - SUI_MAINNET
@@ -45095,6 +45096,8 @@ paths:
                                - SHARDEUM_BETANET: Shardeum
                               SHARDEUM_MAINNET = 10015;
                               SHARDEUM_TESTNET = 10016;
+                               - ZETA_TESTNET: Zeta
+                              ZETA_MAINNET = 10018;
                                - APTOS_MAINNET: MOVE 2xxxx
                                - SOLANA_MAINNET: SOLANA 3xxxx
                           walletAddressFormat:
@@ -45291,6 +45294,7 @@ paths:
                             - ARBITRUM_MAINNET
                             - ARBITRUM_GOERLI
                             - SHARDEUM_BETANET
+                            - ZETA_TESTNET
                             - APTOS_MAINNET
                             - APTOS_TESTNET
                             - SUI_MAINNET
@@ -45310,6 +45314,8 @@ paths:
                              - SHARDEUM_BETANET: Shardeum
                             SHARDEUM_MAINNET = 10015;
                             SHARDEUM_TESTNET = 10016;
+                             - ZETA_TESTNET: Zeta
+                            ZETA_MAINNET = 10018;
                              - APTOS_MAINNET: MOVE 2xxxx
                              - SOLANA_MAINNET: SOLANA 3xxxx
                         walletAddressFormat:
@@ -73452,6 +73458,7 @@ definitions:
                 - ARBITRUM_MAINNET
                 - ARBITRUM_GOERLI
                 - SHARDEUM_BETANET
+                - ZETA_TESTNET
                 - APTOS_MAINNET
                 - APTOS_TESTNET
                 - SUI_MAINNET
@@ -73471,6 +73478,8 @@ definitions:
                  - SHARDEUM_BETANET: Shardeum
                 SHARDEUM_MAINNET = 10015;
                 SHARDEUM_TESTNET = 10016;
+                 - ZETA_TESTNET: Zeta
+                ZETA_MAINNET = 10018;
                  - APTOS_MAINNET: MOVE 2xxxx
                  - SOLANA_MAINNET: SOLANA 3xxxx
             walletAddressFormat:
@@ -73632,6 +73641,7 @@ definitions:
                       - ARBITRUM_MAINNET
                       - ARBITRUM_GOERLI
                       - SHARDEUM_BETANET
+                      - ZETA_TESTNET
                       - APTOS_MAINNET
                       - APTOS_TESTNET
                       - SUI_MAINNET
@@ -73651,6 +73661,8 @@ definitions:
                        - SHARDEUM_BETANET: Shardeum
                       SHARDEUM_MAINNET = 10015;
                       SHARDEUM_TESTNET = 10016;
+                       - ZETA_TESTNET: Zeta
+                      ZETA_MAINNET = 10018;
                        - APTOS_MAINNET: MOVE 2xxxx
                        - SOLANA_MAINNET: SOLANA 3xxxx
                   walletAddressFormat:
@@ -73793,6 +73805,7 @@ definitions:
                     - ARBITRUM_MAINNET
                     - ARBITRUM_GOERLI
                     - SHARDEUM_BETANET
+                    - ZETA_TESTNET
                     - APTOS_MAINNET
                     - APTOS_TESTNET
                     - SUI_MAINNET
@@ -73812,6 +73825,8 @@ definitions:
                      - SHARDEUM_BETANET: Shardeum
                     SHARDEUM_MAINNET = 10015;
                     SHARDEUM_TESTNET = 10016;
+                     - ZETA_TESTNET: Zeta
+                    ZETA_MAINNET = 10018;
                      - APTOS_MAINNET: MOVE 2xxxx
                      - SOLANA_MAINNET: SOLANA 3xxxx
                 walletAddressFormat:
@@ -73874,6 +73889,7 @@ definitions:
           - ARBITRUM_MAINNET
           - ARBITRUM_GOERLI
           - SHARDEUM_BETANET
+          - ZETA_TESTNET
           - APTOS_MAINNET
           - APTOS_TESTNET
           - SUI_MAINNET
@@ -73893,6 +73909,8 @@ definitions:
            - SHARDEUM_BETANET: Shardeum
           SHARDEUM_MAINNET = 10015;
           SHARDEUM_TESTNET = 10016;
+           - ZETA_TESTNET: Zeta
+          ZETA_MAINNET = 10018;
            - APTOS_MAINNET: MOVE 2xxxx
            - SOLANA_MAINNET: SOLANA 3xxxx
       walletAddressFormat:
@@ -73926,6 +73944,7 @@ definitions:
       - ARBITRUM_MAINNET
       - ARBITRUM_GOERLI
       - SHARDEUM_BETANET
+      - ZETA_TESTNET
       - APTOS_MAINNET
       - APTOS_TESTNET
       - SUI_MAINNET
@@ -73945,5 +73964,7 @@ definitions:
        - SHARDEUM_BETANET: Shardeum
       SHARDEUM_MAINNET = 10015;
       SHARDEUM_TESTNET = 10016;
+       - ZETA_TESTNET: Zeta
+      ZETA_MAINNET = 10018;
        - APTOS_MAINNET: MOVE 2xxxx
        - SOLANA_MAINNET: SOLANA 3xxxx
