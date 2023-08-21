@@ -20,7 +20,6 @@ type (
 		paramstore paramtypes.Subspace
 
 		bankKeeper       types.BankKeeper
-		incentivesKeeper types.IncentivesKeeper
 	}
 )
 
@@ -31,7 +30,6 @@ func NewKeeper(
 	ps paramtypes.Subspace,
 
 	bankKeeper types.BankKeeper,
-	incentivesKeeper types.IncentivesKeeper,
 ) *Keeper {
 	// set KeyTable if it has not already been set
 	if !ps.HasKeyTable() {
@@ -45,7 +43,6 @@ func NewKeeper(
 		paramstore: ps,
 
 		bankKeeper:       bankKeeper,
-		incentivesKeeper: incentivesKeeper,
 	}
 }
 

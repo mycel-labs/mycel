@@ -47642,6 +47642,7 @@ paths:
                               - ARBITRUM_MAINNET_MAINNET
                               - ARBITRUM_TESTNET_GOERLI
                               - SHARDEUM_BETANET_SPHINX
+                              - ZETA_TESTNET_ATHENS
                               - APTOS_MAINNET_MAINNET
                               - APTOS_TESTNET_TESTNET
                               - SUI_MAINNET_MAINNET
@@ -47662,6 +47663,8 @@ paths:
                                - SHARDEUM_BETANET_SPHINX: Shardeum
                               SHARDEUM_MAINNET_ = 10015;
                               SHARDEUM_TESTNET_ = 10016;
+                               - ZETA_TESTNET_ATHENS: Zetachain
+                              ZETA_MAINNET_MAINNET = 10018;
                                - APTOS_MAINNET_MAINNET: MOVE 2xxxx
                               Aptos
                                - SUI_MAINNET_MAINNET: Sui
@@ -47920,6 +47923,7 @@ paths:
                             - ARBITRUM_MAINNET_MAINNET
                             - ARBITRUM_TESTNET_GOERLI
                             - SHARDEUM_BETANET_SPHINX
+                            - ZETA_TESTNET_ATHENS
                             - APTOS_MAINNET_MAINNET
                             - APTOS_TESTNET_TESTNET
                             - SUI_MAINNET_MAINNET
@@ -47940,6 +47944,8 @@ paths:
                              - SHARDEUM_BETANET_SPHINX: Shardeum
                             SHARDEUM_MAINNET_ = 10015;
                             SHARDEUM_TESTNET_ = 10016;
+                             - ZETA_TESTNET_ATHENS: Zetachain
+                            ZETA_MAINNET_MAINNET = 10018;
                              - APTOS_MAINNET_MAINNET: MOVE 2xxxx
                             Aptos
                              - SUI_MAINNET_MAINNET: Sui
@@ -77335,6 +77341,7 @@ definitions:
                 - ARBITRUM_MAINNET_MAINNET
                 - ARBITRUM_TESTNET_GOERLI
                 - SHARDEUM_BETANET_SPHINX
+                - ZETA_TESTNET_ATHENS
                 - APTOS_MAINNET_MAINNET
                 - APTOS_TESTNET_TESTNET
                 - SUI_MAINNET_MAINNET
@@ -77355,6 +77362,8 @@ definitions:
                  - SHARDEUM_BETANET_SPHINX: Shardeum
                 SHARDEUM_MAINNET_ = 10015;
                 SHARDEUM_TESTNET_ = 10016;
+                 - ZETA_TESTNET_ATHENS: Zetachain
+                ZETA_MAINNET_MAINNET = 10018;
                  - APTOS_MAINNET_MAINNET: MOVE 2xxxx
                 Aptos
                  - SUI_MAINNET_MAINNET: Sui
@@ -77495,6 +77504,7 @@ definitions:
       - ARBITRUM_MAINNET_MAINNET
       - ARBITRUM_TESTNET_GOERLI
       - SHARDEUM_BETANET_SPHINX
+      - ZETA_TESTNET_ATHENS
       - APTOS_MAINNET_MAINNET
       - APTOS_TESTNET_TESTNET
       - SUI_MAINNET_MAINNET
@@ -77515,6 +77525,8 @@ definitions:
        - SHARDEUM_BETANET_SPHINX: Shardeum
       SHARDEUM_MAINNET_ = 10015;
       SHARDEUM_TESTNET_ = 10016;
+       - ZETA_TESTNET_ATHENS: Zetachain
+      ZETA_MAINNET_MAINNET = 10018;
        - APTOS_MAINNET_MAINNET: MOVE 2xxxx
       Aptos
        - SUI_MAINNET_MAINNET: Sui
@@ -77638,6 +77650,7 @@ definitions:
                       - ARBITRUM_MAINNET_MAINNET
                       - ARBITRUM_TESTNET_GOERLI
                       - SHARDEUM_BETANET_SPHINX
+                      - ZETA_TESTNET_ATHENS
                       - APTOS_MAINNET_MAINNET
                       - APTOS_TESTNET_TESTNET
                       - SUI_MAINNET_MAINNET
@@ -77658,6 +77671,8 @@ definitions:
                        - SHARDEUM_BETANET_SPHINX: Shardeum
                       SHARDEUM_MAINNET_ = 10015;
                       SHARDEUM_TESTNET_ = 10016;
+                       - ZETA_TESTNET_ATHENS: Zetachain
+                      ZETA_MAINNET_MAINNET = 10018;
                        - APTOS_MAINNET_MAINNET: MOVE 2xxxx
                       Aptos
                        - SUI_MAINNET_MAINNET: Sui
@@ -77861,6 +77876,7 @@ definitions:
                     - ARBITRUM_MAINNET_MAINNET
                     - ARBITRUM_TESTNET_GOERLI
                     - SHARDEUM_BETANET_SPHINX
+                    - ZETA_TESTNET_ATHENS
                     - APTOS_MAINNET_MAINNET
                     - APTOS_TESTNET_TESTNET
                     - SUI_MAINNET_MAINNET
@@ -77881,6 +77897,8 @@ definitions:
                      - SHARDEUM_BETANET_SPHINX: Shardeum
                     SHARDEUM_MAINNET_ = 10015;
                     SHARDEUM_TESTNET_ = 10016;
+                     - ZETA_TESTNET_ATHENS: Zetachain
+                    ZETA_MAINNET_MAINNET = 10018;
                      - APTOS_MAINNET_MAINNET: MOVE 2xxxx
                     Aptos
                      - SUI_MAINNET_MAINNET: Sui
@@ -78130,6 +78148,7 @@ definitions:
           - ARBITRUM_MAINNET_MAINNET
           - ARBITRUM_TESTNET_GOERLI
           - SHARDEUM_BETANET_SPHINX
+          - ZETA_TESTNET_ATHENS
           - APTOS_MAINNET_MAINNET
           - APTOS_TESTNET_TESTNET
           - SUI_MAINNET_MAINNET
@@ -78150,6 +78169,8 @@ definitions:
            - SHARDEUM_BETANET_SPHINX: Shardeum
           SHARDEUM_MAINNET_ = 10015;
           SHARDEUM_TESTNET_ = 10016;
+           - ZETA_TESTNET_ATHENS: Zetachain
+          ZETA_MAINNET_MAINNET = 10018;
            - APTOS_MAINNET_MAINNET: MOVE 2xxxx
           Aptos
            - SUI_MAINNET_MAINNET: Sui

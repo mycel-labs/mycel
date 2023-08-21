@@ -20,6 +20,3 @@ type BankKeeper interface {
 	SendCoinsFromAccountToModule(ctx sdk.Context, senderAddr sdk.AccAddress, recipientModule string, amt sdk.Coins) error
 }
 
-type IncentivesKeeper interface {
-	SetEpochIncentivesOnRegistration(ctx sdk.Context, registrationPeriodInWeek uint, fee sdk.Coin)
-}
