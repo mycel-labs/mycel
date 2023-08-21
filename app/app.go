@@ -120,12 +120,7 @@ import (
 	epochsmodulekeeper "github.com/mycel-domain/mycel/x/epochs/keeper"
 	epochsmoduletypes "github.com/mycel-domain/mycel/x/epochs/types"
 
-	// Incentives
-	incentivesmodule "github.com/mycel-domain/mycel/x/incentives"
-	incentivesmodulekeeper "github.com/mycel-domain/mycel/x/incentives/keeper"
-	incentivesmoduletypes "github.com/mycel-domain/mycel/x/incentives/types"
-
-	// this line is used by starport scaffolding # stargate/app/moduleImport
+		// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	appparams "github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/docs"
@@ -187,7 +182,6 @@ var (
 		consensus.AppModuleBasic{},
 		// my modules
 		registrymodule.AppModuleBasic{},
-		incentivesmodule.AppModuleBasic{},
 		epochsmodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
@@ -203,7 +197,6 @@ var (
 		govtypes.ModuleName:              {authtypes.Burner},
 		ibctransfertypes.ModuleName:      {authtypes.Minter, authtypes.Burner},
 		registrymoduletypes.ModuleName:   {authtypes.Minter, authtypes.Burner, authtypes.Staking},
-		incentivesmoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 )
@@ -267,8 +260,6 @@ type App struct {
 	ScopedICAHostKeeper  capabilitykeeper.ScopedKeeper
 
 	RegistryKeeper registrymodulekeeper.Keeper
-
-	IncentivesKeeper incentivesmodulekeeper.Keeper
 
 	EpochsKeeper epochsmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
@@ -346,7 +337,6 @@ func NewApp(
 		capabilitytypes.StoreKey, group.StoreKey, icacontrollertypes.StoreKey, consensusparamtypes.StoreKey,
 
 		registrymoduletypes.StoreKey,
-		incentivesmoduletypes.StoreKey,
 		epochsmoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
@@ -578,16 +568,6 @@ func NewApp(
 	)
 	epochsModule := epochsmodule.NewAppModule(appCodec, app.EpochsKeeper, app.AccountKeeper, app.BankKeeper)
 
-	app.IncentivesKeeper = *incentivesmodulekeeper.NewKeeper(
-		appCodec,
-		keys[incentivesmoduletypes.StoreKey],
-		keys[incentivesmoduletypes.MemStoreKey],
-		app.GetSubspace(incentivesmoduletypes.ModuleName),
-
-		app.BankKeeper,
-		app.EpochsKeeper,
-	)
-	incentivesModule := incentivesmodule.NewAppModule(appCodec, app.IncentivesKeeper, app.AccountKeeper, app.BankKeeper)
 
 	app.RegistryKeeper = *registrymodulekeeper.NewKeeper(
 		appCodec,
@@ -596,9 +576,8 @@ func NewApp(
 		app.GetSubspace(registrymoduletypes.ModuleName),
 
 		app.BankKeeper,
-		app.IncentivesKeeper,
 	)
-	registryModule := registrymodule.NewAppModule(appCodec, app.RegistryKeeper, app.AccountKeeper, app.BankKeeper, app.IncentivesKeeper)
+	registryModule := registrymodule.NewAppModule(appCodec, app.RegistryKeeper, app.AccountKeeper, app.BankKeeper)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
@@ -629,7 +608,6 @@ func NewApp(
 	app.EpochsKeeper.SetHooks(
 		epochsmodulekeeper.NewMultiEpochHooks(
 			// insert hooks here
-			app.IncentivesKeeper.Hooks(),
 		))
 
 	/**** Module Options ****/
@@ -670,7 +648,6 @@ func NewApp(
 
 		// my modules
 		registryModule,
-		incentivesModule,
 		epochsModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 
@@ -706,7 +683,6 @@ func NewApp(
 		consensusparamtypes.ModuleName,
 		// my modules
 		registrymoduletypes.ModuleName,
-		incentivesmoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
@@ -735,7 +711,6 @@ func NewApp(
 		consensusparamtypes.ModuleName,
 		// my modules
 		registrymoduletypes.ModuleName,
-		incentivesmoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
@@ -770,7 +745,6 @@ func NewApp(
 		consensusparamtypes.ModuleName,
 		// my modules
 		registrymoduletypes.ModuleName,
-		incentivesmoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
@@ -1009,8 +983,8 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(ibcexported.ModuleName)
 	paramsKeeper.Subspace(icacontrollertypes.SubModuleName)
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
+	// my modules
 	paramsKeeper.Subspace(registrymoduletypes.ModuleName)
-	paramsKeeper.Subspace(incentivesmoduletypes.ModuleName)
 	paramsKeeper.Subspace(epochsmoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
