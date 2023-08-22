@@ -40,6 +40,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Owner: "1",
 					},
 				},
+				TopLevelDomainList: []types.TopLevelDomain{
+					{
+						Name: "0",
+					},
+					{
+						Name: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -69,6 +77,20 @@ func TestGenesisState_Validate(t *testing.T) {
 					},
 					{
 						Owner: "0",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated topLevelDomain",
+			genState: &types.GenesisState{
+				TopLevelDomainList: []types.TopLevelDomain{
+					{
+						Name: "0",
+					},
+					{
+						Name: "0",
 					},
 				},
 			},

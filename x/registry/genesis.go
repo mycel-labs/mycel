@@ -16,6 +16,10 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	for _, elem := range genState.DomainOwnerships {
 		k.SetDomainOwnership(ctx, elem)
 	}
+	// Set all the topLevelDomain
+	for _, elem := range genState.TopLevelDomainList {
+		k.SetTopLevelDomain(ctx, elem)
+	}
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
 }
@@ -27,6 +31,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 
 	genesis.Domains = k.GetAllDomain(ctx)
 	genesis.DomainOwnerships = k.GetAllDomainOwnership(ctx)
+	genesis.TopLevelDomainList = k.GetAllTopLevelDomain(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

@@ -9,6 +9,7 @@ import "mycel/registry/params.proto";
 import "mycel/registry/domain.proto";
 import "mycel/registry/domain_ownership.proto";
 import "cosmos/base/v1beta1/coin.proto";
+import "mycel/registry/top_level_domain.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
@@ -50,6 +51,16 @@ service Query {
   // Queries a list of IsRegistrableDomain items.
   rpc IsRegistrableDomain (QueryIsRegistrableDomainRequest) returns (QueryIsRegistrableDomainResponse) {
     option (google.api.http).get = "/mycel-domain/mycel/registry/is_registrable_domain/{name}/{parent}";
+  
+  }
+  
+  // Queries a list of TopLevelDomain items.
+  rpc TopLevelDomain    (QueryGetTopLevelDomainRequest) returns (QueryGetTopLevelDomainResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/registry/top_level_domain/{name}";
+  
+  }
+  rpc TopLevelDomainAll (QueryAllTopLevelDomainRequest) returns (QueryAllTopLevelDomainResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/registry/top_level_domain";
   
   }
 }
@@ -115,5 +126,22 @@ message QueryIsRegistrableDomainRequest {
 message QueryIsRegistrableDomainResponse {
   bool   isRegstrable = 1;
   string errorMessage = 2;
+}
+
+message QueryGetTopLevelDomainRequest {
+  string name = 1;
+}
+
+message QueryGetTopLevelDomainResponse {
+  TopLevelDomain topLevelDomain = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllTopLevelDomainRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllTopLevelDomainResponse {
+  repeated TopLevelDomain                         topLevelDomain = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination     = 2;
 }
 

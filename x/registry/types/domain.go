@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	BaseFee     = 303
+	BaseFee = 303
 )
 
 func (domain Domain) GetDomainLevel() (domainLevel int) {
@@ -59,8 +59,8 @@ func (domain *Domain) UpdateWalletRecord(walletRecordType string, address string
 	}
 
 	walletRecord := &WalletRecord{
-		WalletRecordType:    NetworkName(NetworkName_value[walletRecordType]),
-		Value:               address,
+		WalletRecordType: NetworkName(NetworkName_value[walletRecordType]),
+		Value:            address,
 	}
 
 	// Initialize WalletRecords map if it is nil
@@ -99,8 +99,8 @@ func (domain *Domain) UpdateDnsRecord(dnsRecordType string, value string) (err e
 	}
 
 	dnsRecord := &DnsRecord{
-		DnsRecordType:   DnsRecordType(DnsRecordType_value[dnsRecordType]),
-		Value:           value,
+		DnsRecordType: DnsRecordType(DnsRecordType_value[dnsRecordType]),
+		Value:         value,
 	}
 
 	// Initialize WalletRecords map if it is nil

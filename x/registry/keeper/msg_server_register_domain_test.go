@@ -92,8 +92,6 @@ func (suite *KeeperTestSuite) TestRegisterSubdomain() {
 			// Run test case function
 			tc.fn()
 
-
-
 			// Register domain
 			_, err := suite.msgServer.RegisterDomain(suite.ctx, registerMsg)
 

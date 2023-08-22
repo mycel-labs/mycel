@@ -1,17 +1,20 @@
 syntax = "proto3";
+
 package mycel.registry;
 
 import "gogoproto/gogo.proto";
 import "mycel/registry/params.proto";
 import "mycel/registry/domain.proto";
 import "mycel/registry/domain_ownership.proto";
+import "mycel/registry/top_level_domain.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 // GenesisState defines the registry module's genesis state.
 message GenesisState {
-           Params          params              = 1 [(gogoproto.nullable) = false];
-  repeated Domain          domains          = 2 [(gogoproto.nullable) = false];
-  repeated DomainOwnership domainOwnerships = 3 [(gogoproto.nullable) = false];
+           Params          params             = 1 [(gogoproto.nullable) = false];
+  repeated Domain          domains            = 2 [(gogoproto.nullable) = false];
+  repeated DomainOwnership domainOwnerships   = 3 [(gogoproto.nullable) = false];
+  repeated TopLevelDomain  topLevelDomainList = 4 [(gogoproto.nullable) = false];
 }
 

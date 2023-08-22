@@ -32,6 +32,14 @@ func TestGenesis(t *testing.T) {
 				Owner: "1",
 			},
 		},
+		TopLevelDomainList: []types.TopLevelDomain{
+			{
+				Name: "0",
+			},
+			{
+				Name: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -45,5 +53,6 @@ func TestGenesis(t *testing.T) {
 
 	require.ElementsMatch(t, genesisState.Domains, got.DomainList)
 	require.ElementsMatch(t, genesisState.DomainOwnerships, got.DomainOwnershipList)
+	require.ElementsMatch(t, genesisState.TopLevelDomainList, got.TopLevelDomainList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }
