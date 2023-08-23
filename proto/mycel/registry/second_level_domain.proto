@@ -3,7 +3,6 @@ package mycel.registry;
 
 import "mycel/registry/dns_record.proto";
 import "mycel/registry/network_name.proto";
-import "mycel/registry/subdomain_registration_config.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
@@ -18,6 +17,11 @@ message WalletRecord {
   string value = 2;
 }
 
+message SubdomainRole {
+  string owner = 1;
+  string recordEditor = 2;
+}
+
 message SecondLevelDomain {
   string name = 1;
   string parent = 2;
@@ -26,6 +30,4 @@ message SecondLevelDomain {
   map<string, DnsRecord> dnsRecords = 5;
   map<string, WalletRecord> walletRecords = 6;
   map<string, string> metadata = 7;
-  SubdomainRegistrationConfig subdomainRegistrationConfig = 8;
-  uint64 subdomainCount = 9;
 }

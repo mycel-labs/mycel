@@ -1,9 +1,18 @@
 syntax = "proto3";
 package mycel.registry;
 
+import "mycel/registry/subdomain_config.proto";
+
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
+
+message TopLevelDomainRole {
+  string owner = 1;
+}
 
 message TopLevelDomain {
   string name = 1;
-  uint64 expirationDate = 2;
+  int64 expirationDate = 2;
+  map<string, string> metadata = 3;
+  SubdomainConfig subdomainConfig = 4;
+  uint64 subdomainCount = 5;
 }

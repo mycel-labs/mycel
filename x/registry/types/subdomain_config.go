@@ -7,11 +7,11 @@ import (
 	math "math"
 )
 
-func GetDefaultSubdomainRegistrationConfig(baseFee int64) SubdomainRegistrationConfig {
+func GetDefaultSubdomainConfig(baseFee int64) SubdomainConfig {
 	defaultFee := sdk.NewCoin(MycelDenom, sdk.NewInt(baseFee))
 	fees := GetFeeByNameLength(10, int(baseFee))
 
-	return SubdomainRegistrationConfig{
+	return SubdomainConfig{
 		MaxSubdomainRegistrations: math.MaxUint64,
 		SubdomainRegistrationFees: &SubdomainRegistrationFees{
 			FeeByLength: fees,
@@ -33,11 +33,11 @@ func GetFeeByNameLength(base int, baseFee int) map[uint32]*Fee {
 	return fees
 }
 
-func (config *SubdomainRegistrationConfig) GetRegistrationFee(name string, registrationPeriodInYear uint64) (amount *sdk.Coin, err error) {
-	amount = config.SubdomainRegistrationFees.DefaultFee
+func (config *SubdomainConfig) GetRegistrationFee(name string, registrationPeriodInYear uint64) (amount *sdk.Coin, err error) {
+	amount = config.SubdomainFees.DefaultFee
 
 	// Set amout if bylength found
-	if config.SubdomainRegistrationFees.FeeByName[name] != nil {
+	if config.SubdomainFees.FeeByName[name] != nil {
 		if config.SubdomainRegistrationFees.FeeByName[name].IsRegistrable {
 			amount = config.SubdomainRegistrationFees.FeeByName[name].Fee
 		} else {
