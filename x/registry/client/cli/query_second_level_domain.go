@@ -9,10 +9,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func CmdListDomain() *cobra.Command {
+func CmdListSecondLevelDomain() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-domain",
-		Short: "list all domain",
+		Use:   "list-second-level-domain",
+		Short: "list all secondLevelDomains",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx := client.GetClientContextFromCmd(cmd)
 
@@ -23,11 +23,11 @@ func CmdListDomain() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryAllDomainRequest{
+			params := &types.QueryAllSecondLevelDomainRequest{
 				Pagination: pageReq,
 			}
 
-			res, err := queryClient.DomainAll(context.Background(), params)
+			res, err := queryClient.SecondLevelDomainAll(context.Background(), params)
 			if err != nil {
 				return err
 			}
@@ -42,10 +42,10 @@ func CmdListDomain() *cobra.Command {
 	return cmd
 }
 
-func CmdShowDomain() *cobra.Command {
+func CmdShowSecondLevelDomain() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-domain [name] [parent]",
-		Short: "shows a domain",
+		Use:   "show-second-level-domain [name] [parent]",
+		Short: "shows a secondLevelDomain",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			clientCtx := client.GetClientContextFromCmd(cmd)
@@ -55,12 +55,12 @@ func CmdShowDomain() *cobra.Command {
 			argName := args[0]
 			argParent := args[1]
 
-			params := &types.QueryGetDomainRequest{
+			params := &types.QueryGetSecondLevelDomainRequest{
 				Name:   argName,
 				Parent: argParent,
 			}
 
-			res, err := queryClient.Domain(context.Background(), params)
+			res, err := queryClient.SecondLevelDomain(context.Background(), params)
 			if err != nil {
 				return err
 			}

@@ -34,10 +34,10 @@ service Query {
 
   // Queries a list of SecondLevelDomain items.
   rpc SecondLevelDomain    (QueryGetSecondLevelDomainRequest) returns (QueryGetSecondLevelDomainResponse) {
-    option (google.api.http).get = "/mycel/registry/domain/{name}/{parent}";
+    option (google.api.http).get = "/mycel/registry/second_level_domain/{name}/{parent}";
 
   }
-  rpc DomainAll (QueryAllSecondLevelDomainRequest) returns (QueryAllSecondLevelDomainResponse) {
+  rpc SecondLevelDomainAll (QueryAllSecondLevelDomainRequest) returns (QueryAllSecondLevelDomainResponse) {
     option (google.api.http).get = "/mycel/registry/second_level_domain";
 
   }
