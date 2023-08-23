@@ -22,16 +22,63 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+type TopLevelDomainRole struct {
+	Owner string `protobuf:"bytes,1,opt,name=owner,proto3" json:"owner,omitempty"`
+}
+
+func (m *TopLevelDomainRole) Reset()         { *m = TopLevelDomainRole{} }
+func (m *TopLevelDomainRole) String() string { return proto.CompactTextString(m) }
+func (*TopLevelDomainRole) ProtoMessage()    {}
+func (*TopLevelDomainRole) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0136e389ac8054f7, []int{0}
+}
+func (m *TopLevelDomainRole) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *TopLevelDomainRole) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_TopLevelDomainRole.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *TopLevelDomainRole) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TopLevelDomainRole.Merge(m, src)
+}
+func (m *TopLevelDomainRole) XXX_Size() int {
+	return m.Size()
+}
+func (m *TopLevelDomainRole) XXX_DiscardUnknown() {
+	xxx_messageInfo_TopLevelDomainRole.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TopLevelDomainRole proto.InternalMessageInfo
+
+func (m *TopLevelDomainRole) GetOwner() string {
+	if m != nil {
+		return m.Owner
+	}
+	return ""
+}
+
 type TopLevelDomain struct {
-	Name           string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	ExpirationDate uint64 `protobuf:"varint,2,opt,name=expirationDate,proto3" json:"expirationDate,omitempty"`
+	Name            string            `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	ExpirationDate  int64             `protobuf:"varint,2,opt,name=expirationDate,proto3" json:"expirationDate,omitempty"`
+	Metadata        map[string]string `protobuf:"bytes,3,rep,name=metadata,proto3" json:"metadata,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	SubdomainConfig *SubdomainConfig  `protobuf:"bytes,4,opt,name=subdomainConfig,proto3" json:"subdomainConfig,omitempty"`
+	SubdomainCount  uint64            `protobuf:"varint,5,opt,name=subdomainCount,proto3" json:"subdomainCount,omitempty"`
 }
 
 func (m *TopLevelDomain) Reset()         { *m = TopLevelDomain{} }
 func (m *TopLevelDomain) String() string { return proto.CompactTextString(m) }
 func (*TopLevelDomain) ProtoMessage()    {}
 func (*TopLevelDomain) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0136e389ac8054f7, []int{0}
+	return fileDescriptor_0136e389ac8054f7, []int{1}
 }
 func (m *TopLevelDomain) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -67,15 +114,38 @@ func (m *TopLevelDomain) GetName() string {
 	return ""
 }
 
-func (m *TopLevelDomain) GetExpirationDate() uint64 {
+func (m *TopLevelDomain) GetExpirationDate() int64 {
 	if m != nil {
 		return m.ExpirationDate
 	}
 	return 0
 }
 
+func (m *TopLevelDomain) GetMetadata() map[string]string {
+	if m != nil {
+		return m.Metadata
+	}
+	return nil
+}
+
+func (m *TopLevelDomain) GetSubdomainConfig() *SubdomainConfig {
+	if m != nil {
+		return m.SubdomainConfig
+	}
+	return nil
+}
+
+func (m *TopLevelDomain) GetSubdomainCount() uint64 {
+	if m != nil {
+		return m.SubdomainCount
+	}
+	return 0
+}
+
 func init() {
+	proto.RegisterType((*TopLevelDomainRole)(nil), "mycel.registry.TopLevelDomainRole")
 	proto.RegisterType((*TopLevelDomain)(nil), "mycel.registry.TopLevelDomain")
+	proto.RegisterMapType((map[string]string)(nil), "mycel.registry.TopLevelDomain.MetadataEntry")
 }
 
 func init() {
@@ -83,19 +153,59 @@ func init() {
 }
 
 var fileDescriptor_0136e389ac8054f7 = []byte{
-	// 188 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0xcd, 0xad, 0x4c, 0x4e,
-	0xcd, 0xd1, 0x2f, 0x4a, 0x4d, 0xcf, 0x2c, 0x2e, 0x29, 0xaa, 0xd4, 0x2f, 0xc9, 0x2f, 0x88, 0xcf,
-	0x49, 0x2d, 0x4b, 0xcd, 0x89, 0x4f, 0xc9, 0xcf, 0x4d, 0xcc, 0xcc, 0xd3, 0x2b, 0x28, 0xca, 0x2f,
-	0xc9, 0x17, 0xe2, 0x03, 0x2b, 0xd3, 0x83, 0x29, 0x53, 0xf2, 0xe1, 0xe2, 0x0b, 0xc9, 0x2f, 0xf0,
-	0x01, 0x29, 0x74, 0x01, 0xab, 0x13, 0x12, 0xe2, 0x62, 0xc9, 0x4b, 0xcc, 0x4d, 0x95, 0x60, 0x54,
-	0x60, 0xd4, 0xe0, 0x0c, 0x02, 0xb3, 0x85, 0xd4, 0xb8, 0xf8, 0x52, 0x2b, 0x0a, 0x32, 0x8b, 0x12,
-	0x4b, 0x32, 0xf3, 0xf3, 0x5c, 0x12, 0x4b, 0x52, 0x25, 0x98, 0x14, 0x18, 0x35, 0x58, 0x82, 0xd0,
-	0x44, 0x9d, 0x3c, 0x4e, 0x3c, 0x92, 0x63, 0xbc, 0xf0, 0x48, 0x8e, 0xf1, 0xc1, 0x23, 0x39, 0xc6,
-	0x09, 0x8f, 0xe5, 0x18, 0x2e, 0x3c, 0x96, 0x63, 0xb8, 0xf1, 0x58, 0x8e, 0x21, 0x4a, 0x2f, 0x3d,
-	0xb3, 0x24, 0xa3, 0x34, 0x49, 0x2f, 0x39, 0x3f, 0x57, 0x1f, 0xec, 0x04, 0x5d, 0x88, 0xb3, 0x20,
-	0x1c, 0xfd, 0x0a, 0x24, 0x87, 0x57, 0x16, 0xa4, 0x16, 0x27, 0xb1, 0x81, 0x9d, 0x6b, 0x0c, 0x08,
-	0x00, 0x00, 0xff, 0xff, 0xbf, 0x8e, 0x4e, 0x23, 0xd7, 0x00, 0x00, 0x00,
+	// 339 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x5c, 0x92, 0xc1, 0x4e, 0xc2, 0x40,
+	0x10, 0x86, 0x59, 0x0a, 0x46, 0x96, 0x88, 0x66, 0xe3, 0xa1, 0xe1, 0x50, 0x1b, 0x12, 0x4d, 0x63,
+	0x74, 0x9b, 0xe0, 0xc5, 0xe8, 0x4d, 0x31, 0xc1, 0x44, 0x2f, 0xab, 0x27, 0x2f, 0x64, 0x81, 0x11,
+	0x1b, 0xdb, 0xdd, 0xa6, 0x6c, 0x91, 0xbe, 0x85, 0x4f, 0x65, 0x3c, 0x72, 0xf4, 0x68, 0xe0, 0x45,
+	0x4c, 0x77, 0x91, 0xd0, 0xde, 0x66, 0xa6, 0xdf, 0x3f, 0x33, 0xff, 0x74, 0xf1, 0x71, 0x94, 0x8d,
+	0x20, 0xf4, 0x13, 0x98, 0x04, 0x53, 0x95, 0x64, 0xbe, 0x92, 0xf1, 0x20, 0x84, 0x19, 0x84, 0x83,
+	0xb1, 0x8c, 0x78, 0x20, 0x68, 0x9c, 0x48, 0x25, 0x49, 0x4b, 0x63, 0xf4, 0x1f, 0x6b, 0x97, 0x65,
+	0xd3, 0x74, 0x68, 0xf8, 0xc1, 0x48, 0x8a, 0xd7, 0x60, 0x62, 0x64, 0x9d, 0x53, 0x4c, 0x9e, 0x65,
+	0xfc, 0x90, 0xf7, 0xeb, 0xe9, 0xcf, 0x4c, 0x86, 0x40, 0x0e, 0x71, 0x5d, 0x7e, 0x08, 0x48, 0x6c,
+	0xe4, 0x22, 0xaf, 0xc1, 0x4c, 0xd2, 0xf9, 0xaa, 0xe2, 0x56, 0x11, 0x26, 0x04, 0xd7, 0x04, 0x8f,
+	0x60, 0xcd, 0xe9, 0x98, 0x9c, 0xe0, 0x16, 0xcc, 0xe3, 0x20, 0xe1, 0x2a, 0x90, 0xa2, 0xc7, 0x15,
+	0xd8, 0x55, 0x17, 0x79, 0x16, 0x2b, 0x55, 0x49, 0x1f, 0xef, 0x46, 0xa0, 0xf8, 0x98, 0x2b, 0x6e,
+	0x5b, 0xae, 0xe5, 0x35, 0xbb, 0x67, 0xb4, 0x68, 0x82, 0x16, 0xa7, 0xd1, 0xc7, 0x35, 0x7e, 0x27,
+	0x54, 0x92, 0xb1, 0x8d, 0x9a, 0xdc, 0xe3, 0xfd, 0x8d, 0xbd, 0x5b, 0xed, 0xce, 0xae, 0xb9, 0xc8,
+	0x6b, 0x76, 0x8f, 0xca, 0x0d, 0x9f, 0x8a, 0x18, 0x2b, 0xeb, 0xf2, 0xe5, 0xb7, 0x4a, 0xa9, 0x50,
+	0x76, 0xdd, 0x45, 0x5e, 0x8d, 0x95, 0xaa, 0xed, 0x6b, 0xbc, 0x57, 0xd8, 0x86, 0x1c, 0x60, 0xeb,
+	0x1d, 0xb2, 0xf5, 0x21, 0xf2, 0x30, 0x3f, 0xe2, 0x8c, 0x87, 0xa9, 0xb1, 0xdf, 0x60, 0x26, 0xb9,
+	0xaa, 0x5e, 0xa2, 0x9b, 0xfe, 0xf7, 0xd2, 0x41, 0x8b, 0xa5, 0x83, 0x7e, 0x97, 0x0e, 0xfa, 0x5c,
+	0x39, 0x95, 0xc5, 0xca, 0xa9, 0xfc, 0xac, 0x9c, 0xca, 0x0b, 0x9d, 0x04, 0xea, 0x2d, 0x1d, 0xd2,
+	0x91, 0x8c, 0x7c, 0xbd, 0xfa, 0xb9, 0x19, 0x6a, 0x12, 0x7f, 0xbe, 0xf5, 0x0c, 0xb2, 0x18, 0xa6,
+	0xc3, 0x1d, 0xfd, 0x17, 0x2f, 0xfe, 0x02, 0x00, 0x00, 0xff, 0xff, 0xa1, 0xf7, 0x23, 0x73, 0x25,
+	0x02, 0x00, 0x00,
+}
+
+func (m *TopLevelDomainRole) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *TopLevelDomainRole) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *TopLevelDomainRole) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Owner) > 0 {
+		i -= len(m.Owner)
+		copy(dAtA[i:], m.Owner)
+		i = encodeVarintTopLevelDomain(dAtA, i, uint64(len(m.Owner)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *TopLevelDomain) Marshal() (dAtA []byte, err error) {
@@ -118,6 +228,42 @@ func (m *TopLevelDomain) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.SubdomainCount != 0 {
+		i = encodeVarintTopLevelDomain(dAtA, i, uint64(m.SubdomainCount))
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.SubdomainConfig != nil {
+		{
+			size, err := m.SubdomainConfig.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTopLevelDomain(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.Metadata) > 0 {
+		for k := range m.Metadata {
+			v := m.Metadata[k]
+			baseI := i
+			i -= len(v)
+			copy(dAtA[i:], v)
+			i = encodeVarintTopLevelDomain(dAtA, i, uint64(len(v)))
+			i--
+			dAtA[i] = 0x12
+			i -= len(k)
+			copy(dAtA[i:], k)
+			i = encodeVarintTopLevelDomain(dAtA, i, uint64(len(k)))
+			i--
+			dAtA[i] = 0xa
+			i = encodeVarintTopLevelDomain(dAtA, i, uint64(baseI-i))
+			i--
+			dAtA[i] = 0x1a
+		}
+	}
 	if m.ExpirationDate != 0 {
 		i = encodeVarintTopLevelDomain(dAtA, i, uint64(m.ExpirationDate))
 		i--
@@ -144,6 +290,19 @@ func encodeVarintTopLevelDomain(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *TopLevelDomainRole) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Owner)
+	if l > 0 {
+		n += 1 + l + sovTopLevelDomain(uint64(l))
+	}
+	return n
+}
+
 func (m *TopLevelDomain) Size() (n int) {
 	if m == nil {
 		return 0
@@ -157,6 +316,21 @@ func (m *TopLevelDomain) Size() (n int) {
 	if m.ExpirationDate != 0 {
 		n += 1 + sovTopLevelDomain(uint64(m.ExpirationDate))
 	}
+	if len(m.Metadata) > 0 {
+		for k, v := range m.Metadata {
+			_ = k
+			_ = v
+			mapEntrySize := 1 + len(k) + sovTopLevelDomain(uint64(len(k))) + 1 + len(v) + sovTopLevelDomain(uint64(len(v)))
+			n += mapEntrySize + 1 + sovTopLevelDomain(uint64(mapEntrySize))
+		}
+	}
+	if m.SubdomainConfig != nil {
+		l = m.SubdomainConfig.Size()
+		n += 1 + l + sovTopLevelDomain(uint64(l))
+	}
+	if m.SubdomainCount != 0 {
+		n += 1 + sovTopLevelDomain(uint64(m.SubdomainCount))
+	}
 	return n
 }
 
@@ -165,6 +339,88 @@ func sovTopLevelDomain(x uint64) (n int) {
 }
 func sozTopLevelDomain(x uint64) (n int) {
 	return sovTopLevelDomain(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *TopLevelDomainRole) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTopLevelDomain
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: TopLevelDomainRole: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: TopLevelDomainRole: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Owner", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTopLevelDomain
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTopLevelDomain
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTopLevelDomain
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Owner = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTopLevelDomain(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTopLevelDomain
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *TopLevelDomain) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
@@ -241,7 +497,189 @@ func (m *TopLevelDomain) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ExpirationDate |= uint64(b&0x7F) << shift
+				m.ExpirationDate |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Metadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTopLevelDomain
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTopLevelDomain
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTopLevelDomain
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Metadata == nil {
+				m.Metadata = make(map[string]string)
+			}
+			var mapkey string
+			var mapvalue string
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowTopLevelDomain
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					var stringLenmapkey uint64
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowTopLevelDomain
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						stringLenmapkey |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					intStringLenmapkey := int(stringLenmapkey)
+					if intStringLenmapkey < 0 {
+						return ErrInvalidLengthTopLevelDomain
+					}
+					postStringIndexmapkey := iNdEx + intStringLenmapkey
+					if postStringIndexmapkey < 0 {
+						return ErrInvalidLengthTopLevelDomain
+					}
+					if postStringIndexmapkey > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
+					iNdEx = postStringIndexmapkey
+				} else if fieldNum == 2 {
+					var stringLenmapvalue uint64
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowTopLevelDomain
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						stringLenmapvalue |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					intStringLenmapvalue := int(stringLenmapvalue)
+					if intStringLenmapvalue < 0 {
+						return ErrInvalidLengthTopLevelDomain
+					}
+					postStringIndexmapvalue := iNdEx + intStringLenmapvalue
+					if postStringIndexmapvalue < 0 {
+						return ErrInvalidLengthTopLevelDomain
+					}
+					if postStringIndexmapvalue > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapvalue = string(dAtA[iNdEx:postStringIndexmapvalue])
+					iNdEx = postStringIndexmapvalue
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipTopLevelDomain(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if (skippy < 0) || (iNdEx+skippy) < 0 {
+						return ErrInvalidLengthTopLevelDomain
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.Metadata[mapkey] = mapvalue
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SubdomainConfig", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTopLevelDomain
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTopLevelDomain
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTopLevelDomain
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.SubdomainConfig == nil {
+				m.SubdomainConfig = &SubdomainConfig{}
+			}
+			if err := m.SubdomainConfig.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SubdomainCount", wireType)
+			}
+			m.SubdomainCount = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTopLevelDomain
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SubdomainCount |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
