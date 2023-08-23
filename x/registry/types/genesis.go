@@ -14,10 +14,10 @@ func GetDefaultTLDNames() []string {
 }
 
 // Get default TLDs
-func GetDefaultTLDs() (defaultTLDs []Domain) {
+func GetDefaultTLDs() (defaultTLDs []SecondLevelDomain) {
 	defaultRegistrationConfig := GetDefaultSubdomainRegistrationConfig(3030)
 	for _, v := range GetDefaultTLDNames() {
-		defaultTLDs = append(defaultTLDs, Domain{
+		defaultTLDs = append(defaultTLDs, SecondLevelDomain{
 			Name:                        v,
 			SubdomainRegistrationConfig: &defaultRegistrationConfig,
 		})
@@ -28,9 +28,9 @@ func GetDefaultTLDs() (defaultTLDs []Domain) {
 // DefaultGenesis returns the default genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		Domains:            GetDefaultTLDs(),
+		TopLevelDomains:    []TopLevelDomain{},
+		SecondLevelDomains: GetDefaultTLDs(),
 		DomainOwnerships:   []DomainOwnership{},
-		TopLevelDomainList: []TopLevelDomain{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -39,15 +39,25 @@ func DefaultGenesis() *GenesisState {
 // Validate performs basic genesis state validation returning an error upon any
 // failure.
 func (gs GenesisState) Validate() error {
-	// Check for duplicated index in domain
-	domainIndexMap := make(map[string]struct{})
+	// Check for duplicated index in topLevelDomain
+	topLevelDomainIndexMap := make(map[string]struct{})
 
-	for _, elem := range gs.Domains {
-		index := string(DomainKey(elem.Name, elem.Parent))
-		if _, ok := domainIndexMap[index]; ok {
-			return fmt.Errorf("duplicated index for domain")
+	for _, elem := range gs.TopLevelDomains {
+		index := string(TopLevelDomainKey(elem.Name))
+		if _, ok := topLevelDomainIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for topLevelDomain")
 		}
-		domainIndexMap[index] = struct{}{}
+		topLevelDomainIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in secondLevelDomain
+	secondLevelDomainIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.SecondLevelDomains {
+		index := string(SecondLevelDomainKey(elem.Name, elem.Parent))
+		if _, ok := secondLevelDomainIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for secondLevelDomainIndexMap")
+		}
+		secondLevelDomainIndexMap[index] = struct{}{}
 	}
 	// Check for duplicated index in domainOwnership
 	domainOwnershipIndexMap := make(map[string]struct{})
@@ -58,16 +68,6 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated index for domainOwnership")
 		}
 		domainOwnershipIndexMap[index] = struct{}{}
-	}
-	// Check for duplicated index in topLevelDomain
-	topLevelDomainIndexMap := make(map[string]struct{})
-
-	for _, elem := range gs.TopLevelDomainList {
-		index := string(TopLevelDomainKey(elem.Name))
-		if _, ok := topLevelDomainIndexMap[index]; ok {
-			return fmt.Errorf("duplicated index for topLevelDomain")
-		}
-		topLevelDomainIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

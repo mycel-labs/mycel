@@ -5,12 +5,12 @@ import "encoding/binary"
 var _ binary.ByteOrder
 
 const (
-	// DomainKeyPrefix is the prefix to retrieve all Domain
-	DomainKeyPrefix = "Domain/value/"
+	// SecondLevelDomainKeyPrefix is the prefix to retrieve all Domain
+	SecondLevelDomainKeyPrefix = "SecondLevelDomain/value/"
 )
 
-// DomainKey returns the store key to retrieve a Domain from the index fields
-func DomainKey(
+// SecondLevelDomainKey returns the store key to retrieve a Domain from the index fields
+func SecondLevelDomainKey(
 	name string,
 	parent string,
 ) []byte {

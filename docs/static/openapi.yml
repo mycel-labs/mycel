@@ -47109,7 +47109,248 @@ paths:
           type: string
       tags:
         - Query
-  /mycel/registry/domain:
+  /mycel/registry/domain/{name}/{parent}:
+    get:
+      summary: Queries a list of SecondLevelDomain items.
+      operationId: MycelRegistrySecondLevelDomain
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              secondLevelDomain:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  parent:
+                    type: string
+                  owner:
+                    type: string
+                  expirationDate:
+                    type: string
+                    format: int64
+                  dnsRecords:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        dnsRecordType:
+                          type: string
+                          enum:
+                            - A
+                            - AAAA
+                            - CNAME
+                            - NS
+                            - MX
+                            - PTR
+                            - SOA
+                            - SRV
+                            - TXT
+                          default: A
+                        value:
+                          type: string
+                  walletRecords:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        walletRecordType:
+                          type: string
+                          enum:
+                            - BITCOIN_MAINNET_MAINNET
+                            - BITCOIN_TESTNET_TESTNET
+                            - ETHEREUM_MAINNET_MAINNET
+                            - ETHEREUM_TESTNET_GOERLI
+                            - ETHEREUM_TESTNET_SEPOLIA
+                            - POLYGON_MAINNET_MAINNET
+                            - POLYGON_TESTNET_MUMBAI
+                            - BNB_MAINNET_MAINNET
+                            - BNB_TESTNET_TESTNET
+                            - AVALANCHE_MAINNET_CCHAIN
+                            - AVALANCHE_TESTNET_FUJI
+                            - GNOSIS_MAINNET_MAINNET
+                            - GNOSIS_TESTNET_CHIADO
+                            - OPTIMISM_MAINNET_MAINNET
+                            - OPTIMISM_TESTNET_GOERLI
+                            - ARBITRUM_MAINNET_MAINNET
+                            - ARBITRUM_TESTNET_GOERLI
+                            - SHARDEUM_BETANET_SPHINX
+                            - ZETA_TESTNET_ATHENS
+                            - APTOS_MAINNET_MAINNET
+                            - APTOS_TESTNET_TESTNET
+                            - SUI_MAINNET_MAINNET
+                            - SUI_TESTNET_TESTNET
+                            - SOLANA_MAINNET_MAINNET
+                            - SOLANA_TESTNET_TESTNET
+                          default: BITCOIN_MAINNET_MAINNET
+                          description: |-
+                            - BITCOIN_MAINNET_MAINNET: BTC 0xxx
+                             - ETHEREUM_MAINNET_MAINNET: EVM 1xxxx
+                            Etheruem
+                             - POLYGON_MAINNET_MAINNET: Polygon
+                             - BNB_MAINNET_MAINNET: BNB Chain
+                             - AVALANCHE_MAINNET_CCHAIN: Avalanche
+                             - GNOSIS_MAINNET_MAINNET: Gnosis
+                             - OPTIMISM_MAINNET_MAINNET: Optimism
+                             - ARBITRUM_MAINNET_MAINNET: Arbitrum
+                             - SHARDEUM_BETANET_SPHINX: Shardeum
+                            SHARDEUM_MAINNET_ = 10015;
+                            SHARDEUM_TESTNET_ = 10016;
+                             - ZETA_TESTNET_ATHENS: Zetachain
+                            ZETA_MAINNET_MAINNET = 10018;
+                             - APTOS_MAINNET_MAINNET: MOVE 2xxxx
+                            Aptos
+                             - SUI_MAINNET_MAINNET: Sui
+                             - SOLANA_MAINNET_MAINNET: SOLANA 3xxxx
+                          title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+                        value:
+                          type: string
+                  metadata:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  subdomainRegistrationConfig:
+                    type: object
+                    properties:
+                      maxSubdomainRegistrations:
+                        type: string
+                        format: uint64
+                      subdomainRegistrationFees:
+                        type: object
+                        properties:
+                          feeByLength:
+                            type: object
+                            additionalProperties:
+                              type: object
+                              properties:
+                                isRegistrable:
+                                  type: boolean
+                                fee:
+                                  type: object
+                                  properties:
+                                    denom:
+                                      type: string
+                                    amount:
+                                      type: string
+                                  description: >-
+                                    Coin defines a token with a denomination and
+                                    an amount.
+
+
+                                    NOTE: The amount field is an Int which
+                                    implements the custom method
+
+                                    signatures required by gogoproto.
+                          feeByName:
+                            type: object
+                            additionalProperties:
+                              type: object
+                              properties:
+                                isRegistrable:
+                                  type: boolean
+                                fee:
+                                  type: object
+                                  properties:
+                                    denom:
+                                      type: string
+                                    amount:
+                                      type: string
+                                  description: >-
+                                    Coin defines a token with a denomination and
+                                    an amount.
+
+
+                                    NOTE: The amount field is an Int which
+                                    implements the custom method
+
+                                    signatures required by gogoproto.
+                          defaultFee:
+                            type: object
+                            properties:
+                              denom:
+                                type: string
+                              amount:
+                                type: string
+                            description: >-
+                              Coin defines a token with a denomination and an
+                              amount.
+
+
+                              NOTE: The amount field is an Int which implements
+                              the custom method
+
+                              signatures required by gogoproto.
+                  subdomainCount:
+                    type: string
+                    format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: name
+          in: path
+          required: true
+          type: string
+        - name: parent
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /mycel/registry/params:
+    get:
+      summary: Parameters queries the parameters of the module.
+      operationId: MycelRegistryParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  /mycel/registry/second_level_domain:
     get:
       operationId: MycelRegistryDomainAll
       responses:
@@ -47118,7 +47359,7 @@ paths:
           schema:
             type: object
             properties:
-              domain:
+              secondLevelDomain:
                 type: array
                 items:
                   type: object
@@ -47389,247 +47630,6 @@ paths:
           in: query
           required: false
           type: boolean
-      tags:
-        - Query
-  /mycel/registry/domain/{name}/{parent}:
-    get:
-      summary: Queries a list of Domain items.
-      operationId: MycelRegistryDomain
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              domain:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  parent:
-                    type: string
-                  owner:
-                    type: string
-                  expirationDate:
-                    type: string
-                    format: int64
-                  dnsRecords:
-                    type: object
-                    additionalProperties:
-                      type: object
-                      properties:
-                        dnsRecordType:
-                          type: string
-                          enum:
-                            - A
-                            - AAAA
-                            - CNAME
-                            - NS
-                            - MX
-                            - PTR
-                            - SOA
-                            - SRV
-                            - TXT
-                          default: A
-                        value:
-                          type: string
-                  walletRecords:
-                    type: object
-                    additionalProperties:
-                      type: object
-                      properties:
-                        walletRecordType:
-                          type: string
-                          enum:
-                            - BITCOIN_MAINNET_MAINNET
-                            - BITCOIN_TESTNET_TESTNET
-                            - ETHEREUM_MAINNET_MAINNET
-                            - ETHEREUM_TESTNET_GOERLI
-                            - ETHEREUM_TESTNET_SEPOLIA
-                            - POLYGON_MAINNET_MAINNET
-                            - POLYGON_TESTNET_MUMBAI
-                            - BNB_MAINNET_MAINNET
-                            - BNB_TESTNET_TESTNET
-                            - AVALANCHE_MAINNET_CCHAIN
-                            - AVALANCHE_TESTNET_FUJI
-                            - GNOSIS_MAINNET_MAINNET
-                            - GNOSIS_TESTNET_CHIADO
-                            - OPTIMISM_MAINNET_MAINNET
-                            - OPTIMISM_TESTNET_GOERLI
-                            - ARBITRUM_MAINNET_MAINNET
-                            - ARBITRUM_TESTNET_GOERLI
-                            - SHARDEUM_BETANET_SPHINX
-                            - ZETA_TESTNET_ATHENS
-                            - APTOS_MAINNET_MAINNET
-                            - APTOS_TESTNET_TESTNET
-                            - SUI_MAINNET_MAINNET
-                            - SUI_TESTNET_TESTNET
-                            - SOLANA_MAINNET_MAINNET
-                            - SOLANA_TESTNET_TESTNET
-                          default: BITCOIN_MAINNET_MAINNET
-                          description: |-
-                            - BITCOIN_MAINNET_MAINNET: BTC 0xxx
-                             - ETHEREUM_MAINNET_MAINNET: EVM 1xxxx
-                            Etheruem
-                             - POLYGON_MAINNET_MAINNET: Polygon
-                             - BNB_MAINNET_MAINNET: BNB Chain
-                             - AVALANCHE_MAINNET_CCHAIN: Avalanche
-                             - GNOSIS_MAINNET_MAINNET: Gnosis
-                             - OPTIMISM_MAINNET_MAINNET: Optimism
-                             - ARBITRUM_MAINNET_MAINNET: Arbitrum
-                             - SHARDEUM_BETANET_SPHINX: Shardeum
-                            SHARDEUM_MAINNET_ = 10015;
-                            SHARDEUM_TESTNET_ = 10016;
-                             - ZETA_TESTNET_ATHENS: Zetachain
-                            ZETA_MAINNET_MAINNET = 10018;
-                             - APTOS_MAINNET_MAINNET: MOVE 2xxxx
-                            Aptos
-                             - SUI_MAINNET_MAINNET: Sui
-                             - SOLANA_MAINNET_MAINNET: SOLANA 3xxxx
-                          title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
-                        value:
-                          type: string
-                  metadata:
-                    type: object
-                    additionalProperties:
-                      type: string
-                  subdomainRegistrationConfig:
-                    type: object
-                    properties:
-                      maxSubdomainRegistrations:
-                        type: string
-                        format: uint64
-                      subdomainRegistrationFees:
-                        type: object
-                        properties:
-                          feeByLength:
-                            type: object
-                            additionalProperties:
-                              type: object
-                              properties:
-                                isRegistrable:
-                                  type: boolean
-                                fee:
-                                  type: object
-                                  properties:
-                                    denom:
-                                      type: string
-                                    amount:
-                                      type: string
-                                  description: >-
-                                    Coin defines a token with a denomination and
-                                    an amount.
-
-
-                                    NOTE: The amount field is an Int which
-                                    implements the custom method
-
-                                    signatures required by gogoproto.
-                          feeByName:
-                            type: object
-                            additionalProperties:
-                              type: object
-                              properties:
-                                isRegistrable:
-                                  type: boolean
-                                fee:
-                                  type: object
-                                  properties:
-                                    denom:
-                                      type: string
-                                    amount:
-                                      type: string
-                                  description: >-
-                                    Coin defines a token with a denomination and
-                                    an amount.
-
-
-                                    NOTE: The amount field is an Int which
-                                    implements the custom method
-
-                                    signatures required by gogoproto.
-                          defaultFee:
-                            type: object
-                            properties:
-                              denom:
-                                type: string
-                              amount:
-                                type: string
-                            description: >-
-                              Coin defines a token with a denomination and an
-                              amount.
-
-
-                              NOTE: The amount field is an Int which implements
-                              the custom method
-
-                              signatures required by gogoproto.
-                  subdomainCount:
-                    type: string
-                    format: uint64
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: name
-          in: path
-          required: true
-          type: string
-        - name: parent
-          in: path
-          required: true
-          type: string
-      tags:
-        - Query
-  /mycel/registry/params:
-    get:
-      summary: Parameters queries the parameters of the module.
-      operationId: MycelRegistryParams
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              params:
-                description: params holds all the parameters of this module.
-                type: object
-            description: >-
-              QueryParamsResponse is response type for the Query/Params RPC
-              method.
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
       tags:
         - Query
 definitions:
@@ -76509,169 +76509,6 @@ definitions:
       - SRV
       - TXT
     default: A
-  mycel.registry.Domain:
-    type: object
-    properties:
-      name:
-        type: string
-      parent:
-        type: string
-      owner:
-        type: string
-      expirationDate:
-        type: string
-        format: int64
-      dnsRecords:
-        type: object
-        additionalProperties:
-          type: object
-          properties:
-            dnsRecordType:
-              type: string
-              enum:
-                - A
-                - AAAA
-                - CNAME
-                - NS
-                - MX
-                - PTR
-                - SOA
-                - SRV
-                - TXT
-              default: A
-            value:
-              type: string
-      walletRecords:
-        type: object
-        additionalProperties:
-          type: object
-          properties:
-            walletRecordType:
-              type: string
-              enum:
-                - BITCOIN_MAINNET_MAINNET
-                - BITCOIN_TESTNET_TESTNET
-                - ETHEREUM_MAINNET_MAINNET
-                - ETHEREUM_TESTNET_GOERLI
-                - ETHEREUM_TESTNET_SEPOLIA
-                - POLYGON_MAINNET_MAINNET
-                - POLYGON_TESTNET_MUMBAI
-                - BNB_MAINNET_MAINNET
-                - BNB_TESTNET_TESTNET
-                - AVALANCHE_MAINNET_CCHAIN
-                - AVALANCHE_TESTNET_FUJI
-                - GNOSIS_MAINNET_MAINNET
-                - GNOSIS_TESTNET_CHIADO
-                - OPTIMISM_MAINNET_MAINNET
-                - OPTIMISM_TESTNET_GOERLI
-                - ARBITRUM_MAINNET_MAINNET
-                - ARBITRUM_TESTNET_GOERLI
-                - SHARDEUM_BETANET_SPHINX
-                - ZETA_TESTNET_ATHENS
-                - APTOS_MAINNET_MAINNET
-                - APTOS_TESTNET_TESTNET
-                - SUI_MAINNET_MAINNET
-                - SUI_TESTNET_TESTNET
-                - SOLANA_MAINNET_MAINNET
-                - SOLANA_TESTNET_TESTNET
-              default: BITCOIN_MAINNET_MAINNET
-              description: |-
-                - BITCOIN_MAINNET_MAINNET: BTC 0xxx
-                 - ETHEREUM_MAINNET_MAINNET: EVM 1xxxx
-                Etheruem
-                 - POLYGON_MAINNET_MAINNET: Polygon
-                 - BNB_MAINNET_MAINNET: BNB Chain
-                 - AVALANCHE_MAINNET_CCHAIN: Avalanche
-                 - GNOSIS_MAINNET_MAINNET: Gnosis
-                 - OPTIMISM_MAINNET_MAINNET: Optimism
-                 - ARBITRUM_MAINNET_MAINNET: Arbitrum
-                 - SHARDEUM_BETANET_SPHINX: Shardeum
-                SHARDEUM_MAINNET_ = 10015;
-                SHARDEUM_TESTNET_ = 10016;
-                 - ZETA_TESTNET_ATHENS: Zetachain
-                ZETA_MAINNET_MAINNET = 10018;
-                 - APTOS_MAINNET_MAINNET: MOVE 2xxxx
-                Aptos
-                 - SUI_MAINNET_MAINNET: Sui
-                 - SOLANA_MAINNET_MAINNET: SOLANA 3xxxx
-              title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
-            value:
-              type: string
-      metadata:
-        type: object
-        additionalProperties:
-          type: string
-      subdomainRegistrationConfig:
-        type: object
-        properties:
-          maxSubdomainRegistrations:
-            type: string
-            format: uint64
-          subdomainRegistrationFees:
-            type: object
-            properties:
-              feeByLength:
-                type: object
-                additionalProperties:
-                  type: object
-                  properties:
-                    isRegistrable:
-                      type: boolean
-                    fee:
-                      type: object
-                      properties:
-                        denom:
-                          type: string
-                        amount:
-                          type: string
-                      description: >-
-                        Coin defines a token with a denomination and an amount.
-
-
-                        NOTE: The amount field is an Int which implements the
-                        custom method
-
-                        signatures required by gogoproto.
-              feeByName:
-                type: object
-                additionalProperties:
-                  type: object
-                  properties:
-                    isRegistrable:
-                      type: boolean
-                    fee:
-                      type: object
-                      properties:
-                        denom:
-                          type: string
-                        amount:
-                          type: string
-                      description: >-
-                        Coin defines a token with a denomination and an amount.
-
-
-                        NOTE: The amount field is an Int which implements the
-                        custom method
-
-                        signatures required by gogoproto.
-              defaultFee:
-                type: object
-                properties:
-                  denom:
-                    type: string
-                  amount:
-                    type: string
-                description: >-
-                  Coin defines a token with a denomination and an amount.
-
-
-                  NOTE: The amount field is an Int which implements the custom
-                  method
-
-                  signatures required by gogoproto.
-      subdomainCount:
-        type: string
-        format: uint64
   mycel.registry.DomainOwnership:
     type: object
     properties:
@@ -76813,10 +76650,10 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  mycel.registry.QueryAllDomainResponse:
+  mycel.registry.QueryAllSecondLevelDomainResponse:
     type: object
     properties:
-      domain:
+      secondLevelDomain:
         type: array
         items:
           type: object
@@ -77080,10 +76917,10 @@ definitions:
                   type: string
                 parent:
                   type: string
-  mycel.registry.QueryGetDomainResponse:
+  mycel.registry.QueryGetSecondLevelDomainResponse:
     type: object
     properties:
-      domain:
+      secondLevelDomain:
         type: object
         properties:
           name:
@@ -77273,6 +77110,169 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  mycel.registry.SecondLevelDomain:
+    type: object
+    properties:
+      name:
+        type: string
+      parent:
+        type: string
+      owner:
+        type: string
+      expirationDate:
+        type: string
+        format: int64
+      dnsRecords:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            dnsRecordType:
+              type: string
+              enum:
+                - A
+                - AAAA
+                - CNAME
+                - NS
+                - MX
+                - PTR
+                - SOA
+                - SRV
+                - TXT
+              default: A
+            value:
+              type: string
+      walletRecords:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            walletRecordType:
+              type: string
+              enum:
+                - BITCOIN_MAINNET_MAINNET
+                - BITCOIN_TESTNET_TESTNET
+                - ETHEREUM_MAINNET_MAINNET
+                - ETHEREUM_TESTNET_GOERLI
+                - ETHEREUM_TESTNET_SEPOLIA
+                - POLYGON_MAINNET_MAINNET
+                - POLYGON_TESTNET_MUMBAI
+                - BNB_MAINNET_MAINNET
+                - BNB_TESTNET_TESTNET
+                - AVALANCHE_MAINNET_CCHAIN
+                - AVALANCHE_TESTNET_FUJI
+                - GNOSIS_MAINNET_MAINNET
+                - GNOSIS_TESTNET_CHIADO
+                - OPTIMISM_MAINNET_MAINNET
+                - OPTIMISM_TESTNET_GOERLI
+                - ARBITRUM_MAINNET_MAINNET
+                - ARBITRUM_TESTNET_GOERLI
+                - SHARDEUM_BETANET_SPHINX
+                - ZETA_TESTNET_ATHENS
+                - APTOS_MAINNET_MAINNET
+                - APTOS_TESTNET_TESTNET
+                - SUI_MAINNET_MAINNET
+                - SUI_TESTNET_TESTNET
+                - SOLANA_MAINNET_MAINNET
+                - SOLANA_TESTNET_TESTNET
+              default: BITCOIN_MAINNET_MAINNET
+              description: |-
+                - BITCOIN_MAINNET_MAINNET: BTC 0xxx
+                 - ETHEREUM_MAINNET_MAINNET: EVM 1xxxx
+                Etheruem
+                 - POLYGON_MAINNET_MAINNET: Polygon
+                 - BNB_MAINNET_MAINNET: BNB Chain
+                 - AVALANCHE_MAINNET_CCHAIN: Avalanche
+                 - GNOSIS_MAINNET_MAINNET: Gnosis
+                 - OPTIMISM_MAINNET_MAINNET: Optimism
+                 - ARBITRUM_MAINNET_MAINNET: Arbitrum
+                 - SHARDEUM_BETANET_SPHINX: Shardeum
+                SHARDEUM_MAINNET_ = 10015;
+                SHARDEUM_TESTNET_ = 10016;
+                 - ZETA_TESTNET_ATHENS: Zetachain
+                ZETA_MAINNET_MAINNET = 10018;
+                 - APTOS_MAINNET_MAINNET: MOVE 2xxxx
+                Aptos
+                 - SUI_MAINNET_MAINNET: Sui
+                 - SOLANA_MAINNET_MAINNET: SOLANA 3xxxx
+              title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+            value:
+              type: string
+      metadata:
+        type: object
+        additionalProperties:
+          type: string
+      subdomainRegistrationConfig:
+        type: object
+        properties:
+          maxSubdomainRegistrations:
+            type: string
+            format: uint64
+          subdomainRegistrationFees:
+            type: object
+            properties:
+              feeByLength:
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    isRegistrable:
+                      type: boolean
+                    fee:
+                      type: object
+                      properties:
+                        denom:
+                          type: string
+                        amount:
+                          type: string
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
+              feeByName:
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    isRegistrable:
+                      type: boolean
+                    fee:
+                      type: object
+                      properties:
+                        denom:
+                          type: string
+                        amount:
+                          type: string
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
+              defaultFee:
+                type: object
+                properties:
+                  denom:
+                    type: string
+                  amount:
+                    type: string
+                description: >-
+                  Coin defines a token with a denomination and an amount.
+
+
+                  NOTE: The amount field is an Int which implements the custom
+                  method
+
+                  signatures required by gogoproto.
+      subdomainCount:
+        type: string
+        format: uint64
   mycel.registry.SubdomainRegistrationConfig:
     type: object
     properties:

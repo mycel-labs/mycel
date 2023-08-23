@@ -8,17 +8,17 @@ import (
 
 // InitGenesis initializes the module's state from a provided genesis state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
-	// Set all the domain
-	for _, elem := range genState.Domains {
-		k.SetDomain(ctx, elem)
+	// Set all the topLevelDomain
+	for _, elem := range genState.TopLevelDomains {
+		k.SetTopLevelDomain(ctx, elem)
+	}
+	// Set all the secondLevelDomain
+	for _, elem := range genState.SecondLevelDomains {
+		k.SetSecondLevelDomain(ctx, elem)
 	}
 	// Set all the domainOwnership
 	for _, elem := range genState.DomainOwnerships {
 		k.SetDomainOwnership(ctx, elem)
-	}
-	// Set all the topLevelDomain
-	for _, elem := range genState.TopLevelDomainList {
-		k.SetTopLevelDomain(ctx, elem)
 	}
 	// this line is used by starport scaffolding # genesis/module/init
 	k.SetParams(ctx, genState.Params)
