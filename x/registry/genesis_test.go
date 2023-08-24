@@ -51,8 +51,8 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(&genesisState)
 	nullify.Fill(got)
 
-	require.ElementsMatch(t, genesisState.TopLevelDomains, got.TopLevelDomainList)
-	require.ElementsMatch(t, genesisState.SecondLevelDomains, got.SecondLevelDomainList)
-	require.ElementsMatch(t, genesisState.DomainOwnerships, got.DomainOwnershipList)
+	require.ElementsMatch(t, genesisState.TopLevelDomains, got.TopLevelDomains)
+	require.ElementsMatch(t, genesisState.SecondLevelDomains, got.SecondLevelDomains)
+	require.ElementsMatch(t, genesisState.DomainOwnerships, got.DomainOwnerships)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

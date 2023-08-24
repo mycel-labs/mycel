@@ -17,8 +17,8 @@ func (k Keeper) GetIsDomainAlreadyTaken(ctx sdk.Context, domain types.SecondLeve
 
 // Get is parent domain exist
 func (k Keeper) GetIsParentDomainExist(ctx sdk.Context, domain types.SecondLevelDomain) (isParentDomainExist bool) {
-	name, parent := domain.ParseParent()
-	_, isParentDomainExist = k.GetSecondLevelDomain(ctx, name, parent)
+	parent := domain.ParseParent()
+	_, isParentDomainExist = k.GetTopLevelDomain(ctx, parent)
 	return isParentDomainExist
 }
 

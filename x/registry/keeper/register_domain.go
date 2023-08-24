@@ -60,7 +60,7 @@ func (k Keeper) IncrementParentsSubdomainCount(ctx sdk.Context, domain types.Sec
 		panic("parent not found")
 	}
 	parentDomain.SubdomainCount++
-	k.SetSecondLevelDomain(ctx, parentDomain)
+	k.SetSecondLevelDomain(ctx, domain)
 }
 
 func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.SecondLevelDomain, owner sdk.AccAddress, registrationPeriodIYear uint64) (err error) {
