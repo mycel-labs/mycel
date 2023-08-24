@@ -30,4 +30,5 @@ message SecondLevelDomain {
   map<string, DnsRecord> dnsRecords = 5;
   map<string, WalletRecord> walletRecords = 6;
   map<string, string> metadata = 7;
+  map<string, SubdomainRole> accessControl = 8;
 }

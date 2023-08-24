@@ -18,17 +18,20 @@ func (secondLevelDomain SecondLevelDomain) GetDomainLevel() (domainLevel int) {
 	return domainLevel
 }
 
-func (secondLevelDomain SecondLevelDomain) ParseParent() (name string, parent string) {
+func (secondLevelDomain SecondLevelDomain) ParseParent() (parent string) {
 	if secondLevelDomain.Parent != "" {
 		split := strings.Split(secondLevelDomain.Parent, ".")
-		if len(split) == 1 {
-			name = split[0]
-		} else {
-			parent = split[len(split)-1]
-			name = strings.Join(split[:len(split)-1], ".")
-		}
+		// if len(split) == 1 {
+		// 	name = split[0]
+		// } else {
+		// 	parent = split[len(split)-1]
+		// 	name = strings.Join(split[:len(split)-1], ".")
+		// }
+		// TODO: review logic
+		parent = split[len(split)-1]
+		// name = strings.Join(split[:len(split)-1], ".")
 	}
-	return name, parent
+	return parent
 }
 
 func GetWalletAddressFormat(walletRecordType string) (walletAddressFormat string, err error) {

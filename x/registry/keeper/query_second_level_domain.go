@@ -11,19 +11,19 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (k Keeper) DomainAll(goCtx context.Context, req *types.QueryAllDomainRequest) (*types.QueryAllDomainResponse, error) {
+func (k Keeper) SecondLevelDomainAll(goCtx context.Context, req *types.QueryAllSecondLevelDomainRequest) (*types.QueryAllSecondLevelDomainResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	var domains []types.Domain
+	var domains []types.SecondLevelDomain
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	store := ctx.KVStore(k.storeKey)
-	domainStore := prefix.NewStore(store, types.KeyPrefix(types.DomainKeyPrefix))
+	domainStore := prefix.NewStore(store, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
 
 	pageRes, err := query.Paginate(domainStore, req.Pagination, func(key []byte, value []byte) error {
-		var domain types.Domain
+		var domain types.SecondLevelDomain
 		if err := k.cdc.Unmarshal(value, &domain); err != nil {
 			return err
 		}
@@ -36,16 +36,16 @@ func (k Keeper) DomainAll(goCtx context.Context, req *types.QueryAllDomainReques
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
-	return &types.QueryAllDomainResponse{Domain: domains, Pagination: pageRes}, nil
+	return &types.QueryAllSecondLevelDomainResponse{SecondLevelDomain: domains, Pagination: pageRes}, nil
 }
 
-func (k Keeper) Domain(goCtx context.Context, req *types.QueryGetDomainRequest) (*types.QueryGetDomainResponse, error) {
+func (k Keeper) SecondLevelDomain(goCtx context.Context, req *types.QueryGetSecondLevelDomainRequest) (*types.QueryGetSecondLevelDomainResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	val, found := k.GetDomain(
+	val, found := k.GetSecondLevelDomain(
 		ctx,
 		req.Name,
 		req.Parent,
@@ -54,5 +54,5 @@ func (k Keeper) Domain(goCtx context.Context, req *types.QueryGetDomainRequest) 
 		return nil, status.Error(codes.NotFound, "not found")
 	}
 
-	return &types.QueryGetDomainResponse{Domain: val}, nil
+	return &types.QueryGetSecondLevelDomainResponse{SecondLevelDomain: val}, nil
 }

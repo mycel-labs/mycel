@@ -10,20 +10,20 @@ import (
 )
 
 // Get is domain already taken
-func (k Keeper) GetIsDomainAlreadyTaken(ctx sdk.Context, domain types.Domain) (isDomainAlreadyTaken bool) {
-	_, isDomainAlreadyTaken = k.GetDomain(ctx, domain.Name, domain.Parent)
+func (k Keeper) GetIsDomainAlreadyTaken(ctx sdk.Context, domain types.SecondLevelDomain) (isDomainAlreadyTaken bool) {
+	_, isDomainAlreadyTaken = k.GetSecondLevelDomain(ctx, domain.Name, domain.Parent)
 	return isDomainAlreadyTaken
 }
 
 // Get is parent domain exist
-func (k Keeper) GetIsParentDomainExist(ctx sdk.Context, domain types.Domain) (isParentDomainExist bool) {
+func (k Keeper) GetIsParentDomainExist(ctx sdk.Context, domain types.SecondLevelDomain) (isParentDomainExist bool) {
 	name, parent := domain.ParseParent()
-	_, isParentDomainExist = k.GetDomain(ctx, name, parent)
+	_, isParentDomainExist = k.GetSecondLevelDomain(ctx, name, parent)
 	return isParentDomainExist
 }
 
 // Validate TLD registration
-func (k Keeper) ValidateRegisterTLD(ctx sdk.Context, domain types.Domain) (err error) {
+func (k Keeper) ValidateRegisterTLD(ctx sdk.Context, domain types.SecondLevelDomain) (err error) {
 	if domain.Parent != "" {
 		err = sdkerrors.Wrapf(errors.New(domain.Parent),
 			types.ErrParentDomainMustBeEmpty.Error())
@@ -33,7 +33,7 @@ func (k Keeper) ValidateRegisterTLD(ctx sdk.Context, domain types.Domain) (err e
 }
 
 // Validate SLD registration
-func (k Keeper) ValidateRegisterSLD(ctx sdk.Context, domain types.Domain) (err error) {
+func (k Keeper) ValidateRegisterSLD(ctx sdk.Context, domain types.SecondLevelDomain) (err error) {
 	isParentDomainExist := k.GetIsParentDomainExist(ctx, domain)
 	if !isParentDomainExist {
 		err = sdkerrors.Wrapf(errors.New(domain.Parent),
@@ -44,7 +44,7 @@ func (k Keeper) ValidateRegisterSLD(ctx sdk.Context, domain types.Domain) (err e
 }
 
 // Validate subdomain GetRegistrationFee
-func (k Keeper) ValidateRegsiterSubdomain(ctx sdk.Context, domain types.Domain) (err error) {
+func (k Keeper) ValidateRegsiterSubdomain(ctx sdk.Context, domain types.SecondLevelDomain) (err error) {
 	isParentDomainExist := k.GetIsParentDomainExist(ctx, domain)
 	if !isParentDomainExist {
 		err = sdkerrors.Wrapf(errors.New(domain.Parent),
@@ -54,7 +54,7 @@ func (k Keeper) ValidateRegsiterSubdomain(ctx sdk.Context, domain types.Domain) 
 }
 
 // Validate domain
-func (k Keeper) ValidateDomain(ctx sdk.Context, domain types.Domain) (err error) {
+func (k Keeper) ValidateDomain(ctx sdk.Context, domain types.SecondLevelDomain) (err error) {
 	// Type check
 	err = domain.Validate()
 	if err != nil {

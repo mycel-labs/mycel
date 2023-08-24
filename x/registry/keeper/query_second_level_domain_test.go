@@ -18,35 +18,35 @@ import (
 // Prevent strconv unused error
 var _ = strconv.IntSize
 
-func TestDomainQuerySingle(t *testing.T) {
+func TestSecondLevelDomainQuerySingle(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	wctx := sdk.WrapSDKContext(ctx)
 	msgs := createNDomain(keeper, ctx, 2)
 	for _, tc := range []struct {
 		desc     string
-		request  *types.QueryGetDomainRequest
-		response *types.QueryGetDomainResponse
+		request  *types.QueryGetSecondLevelDomainRequest
+		response *types.QueryGetSecondLevelDomainResponse
 		err      error
 	}{
 		{
 			desc: "First",
-			request: &types.QueryGetDomainRequest{
+			request: &types.QueryGetSecondLevelDomainRequest{
 				Name:   msgs[0].Name,
 				Parent: msgs[0].Parent,
 			},
-			response: &types.QueryGetDomainResponse{Domain: msgs[0]},
+			response: &types.QueryGetSecondLevelDomainResponse{Domain: msgs[0]},
 		},
 		{
 			desc: "Second",
-			request: &types.QueryGetDomainRequest{
+			request: &types.QueryGetSecondLevelDomainRequest{
 				Name:   msgs[1].Name,
 				Parent: msgs[1].Parent,
 			},
-			response: &types.QueryGetDomainResponse{Domain: msgs[1]},
+			response: &types.QueryGetSecondLevelDomainResponse{Domain: msgs[1]},
 		},
 		{
 			desc: "KeyNotFound",
-			request: &types.QueryGetDomainRequest{
+			request: &types.QueryGetSecondLevelDomainRequest{
 				Name:   strconv.Itoa(100000),
 				Parent: strconv.Itoa(100000),
 			},
@@ -72,13 +72,13 @@ func TestDomainQuerySingle(t *testing.T) {
 	}
 }
 
-func TestDomainQueryPaginated(t *testing.T) {
+func TestSecondLevelDomainQueryPaginated(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	wctx := sdk.WrapSDKContext(ctx)
 	msgs := createNDomain(keeper, ctx, 5)
 
 	request := func(next []byte, offset, limit uint64, total bool) *types.QueryAllDomainRequest {
-		return &types.QueryAllDomainRequest{
+		return &types.QueryAllSecondLevelDomainRequest{
 			Pagination: &query.PageRequest{
 				Key:        next,
 				Offset:     offset,
@@ -90,7 +90,7 @@ func TestDomainQueryPaginated(t *testing.T) {
 	t.Run("ByOffset", func(t *testing.T) {
 		step := 2
 		for i := 0; i < len(msgs); i += step {
-			resp, err := keeper.DomainAll(wctx, request(nil, uint64(i), uint64(step), false))
+			resp, err := keeper.SecondLevelDomainAll(wctx, request(nil, uint64(i), uint64(step), false))
 			require.NoError(t, err)
 			require.LessOrEqual(t, len(resp.Domain), step)
 			require.Subset(t,
@@ -103,7 +103,7 @@ func TestDomainQueryPaginated(t *testing.T) {
 		step := 2
 		var next []byte
 		for i := 0; i < len(msgs); i += step {
-			resp, err := keeper.DomainAll(wctx, request(next, 0, uint64(step), false))
+			resp, err := keeper.SecondLevelDomainAll(wctx, request(next, 0, uint64(step), false))
 			require.NoError(t, err)
 			require.LessOrEqual(t, len(resp.Domain), step)
 			require.Subset(t,
@@ -114,7 +114,7 @@ func TestDomainQueryPaginated(t *testing.T) {
 		}
 	})
 	t.Run("Total", func(t *testing.T) {
-		resp, err := keeper.DomainAll(wctx, request(nil, 0, 0, true))
+		resp, err := keeper.SecondLevelDomainAll(wctx, request(nil, 0, 0, true))
 		require.NoError(t, err)
 		require.Equal(t, len(msgs), int(resp.Pagination.Total))
 		require.ElementsMatch(t,
@@ -123,7 +123,7 @@ func TestDomainQueryPaginated(t *testing.T) {
 		)
 	})
 	t.Run("InvalidRequest", func(t *testing.T) {
-		_, err := keeper.DomainAll(wctx, nil)
+		_, err := keeper.SecondLevelDomainAll(wctx, nil)
 		require.ErrorIs(t, err, status.Error(codes.InvalidArgument, "invalid request"))
 	})
 }

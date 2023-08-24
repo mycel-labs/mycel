@@ -7,26 +7,26 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-// SetDomain set a specific domain in the store from its index
-func (k Keeper) SetDomain(ctx sdk.Context, domain types.Domain) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainKeyPrefix))
+// SetSecondLevelDomain set a specific second-level-domain in the store from its index
+func (k Keeper) SetSecondLevelDomain(ctx sdk.Context, domain types.SecondLevelDomain) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
 	b := k.cdc.MustMarshal(&domain)
-	store.Set(types.DomainKey(
+	store.Set(types.SecondLevelDomainKey(
 		domain.Name,
 		domain.Parent,
 	), b)
 }
 
-// GetDomain returns a domain from its index
-func (k Keeper) GetDomain(
+// GetSecondLevelDomain returns a second-level-domain from its index
+func (k Keeper) GetSecondLevelDomain(
 	ctx sdk.Context,
 	name string,
 	parent string,
 
-) (val types.Domain, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainKeyPrefix))
+) (val types.SecondLevelDomain, found bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
 
-	b := store.Get(types.DomainKey(
+	b := store.Get(types.SecondLevelDomainKey(
 		name,
 		parent,
 	))
@@ -38,29 +38,29 @@ func (k Keeper) GetDomain(
 	return val, true
 }
 
-// RemoveDomain removes a domain from the store
-func (k Keeper) RemoveDomain(
+// RemoveSecondLevelDomain removes a second-level-domain from the store
+func (k Keeper) RemoveSecondLevelDomain(
 	ctx sdk.Context,
 	name string,
 	parent string,
 
 ) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainKeyPrefix))
-	store.Delete(types.DomainKey(
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
+	store.Delete(types.SecondLevelDomainKey(
 		name,
 		parent,
 	))
 }
 
-// GetAllDomain returns all domain
-func (k Keeper) GetAllDomain(ctx sdk.Context) (list []types.Domain) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainKeyPrefix))
+// GetAllSecondLevelDomain returns all second-level-domain
+func (k Keeper) GetAllSecondLevelDomain(ctx sdk.Context) (list []types.SecondLevelDomain) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
 
 	for ; iterator.Valid(); iterator.Next() {
-		var val types.Domain
+		var val types.SecondLevelDomain
 		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		list = append(list, val)
 	}

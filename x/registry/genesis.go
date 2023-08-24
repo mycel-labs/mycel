@@ -29,9 +29,9 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 	genesis.Params = k.GetParams(ctx)
 
-	genesis.Domains = k.GetAllDomain(ctx)
+	genesis.TopLevelDomains = k.GetAllTopLevelDomain(ctx)
+	genesis.SecondLevelDomains = k.GetAllSecondLevelDomain(ctx)
 	genesis.DomainOwnerships = k.GetAllDomainOwnership(ctx)
-	genesis.TopLevelDomainList = k.GetAllTopLevelDomain(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

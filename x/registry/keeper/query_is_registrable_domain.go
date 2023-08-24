@@ -18,7 +18,7 @@ func (k Keeper) IsRegistrableDomain(goCtx context.Context, req *types.QueryIsReg
 
 	// TODO: Process the query
 	_ = ctx
-	domain := types.Domain{Name: req.Name, Parent: req.Parent}
+	domain := types.SecondLevelDomain{Name: req.Name, Parent: req.Parent}
 	err := k.ValidateDomain(ctx, domain)
 	if err != nil {
 		return &types.QueryIsRegistrableDomainResponse{IsRegstrable: false, ErrorMessage: err.Error()}, nil

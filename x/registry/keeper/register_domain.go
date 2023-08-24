@@ -10,31 +10,27 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-func (k Keeper) GetParentDomain(ctx sdk.Context, domain types.Domain) (parentDomain types.Domain, found bool) {
-	// Check if domain is not TLD
-	level := domain.GetDomainLevel()
-	if level == 1 {
-		found = false
-	} else {
-		// Get parent domain
-		parentsName, parentsParent := domain.ParseParent()
-		parentDomain, found = k.GetDomain(ctx, parentsName, parentsParent)
-	}
+func (k Keeper) GetParentDomain(ctx sdk.Context, domain types.SecondLevelDomain) (parentDomain types.TopLevelDomain, found bool) {
+	// Get parent domain
+	parentsParent := domain.ParseParent()
+	// TODO: review this
+	// parentDomain, found = k.GetTopLevelDomain(ctx, parentsName, parentsParent)
+	parentDomain, found = k.GetTopLevelDomain(ctx, parentsParent)
 	return parentDomain, found
 }
 
-func (k Keeper) GetParentsSubdomainRegistraionConfig(ctx sdk.Context, domain types.Domain) types.SubdomainRegistrationConfig {
+func (k Keeper) GetParentsSubdomainConfig(ctx sdk.Context, domain types.SecondLevelDomain) types.SubdomainConfig {
 	// Get parent domain
 	parentDomain, found := k.GetParentDomain(ctx, domain)
-	if !found || parentDomain.SubdomainRegistrationConfig == nil {
+	if !found || parentDomain.SubdomainConfig == nil {
 		panic("parent domain or config not found")
 	}
-	return *parentDomain.SubdomainRegistrationConfig
+	return *parentDomain.SubdomainConfig
 }
 
 // Pay SLD registration fee
-func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.Domain, registrationPeriodInYear uint64) (err error) {
-	config := k.GetParentsSubdomainRegistraionConfig(ctx, domain)
+func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.SecondLevelDomain, registrationPeriodInYear uint64) (err error) {
+	config := k.GetParentsSubdomainConfig(ctx, domain)
 
 	fee, err := config.GetRegistrationFee(domain.Name, registrationPeriodInYear)
 	if err != nil {
@@ -56,24 +52,18 @@ func (k Keeper) AppendToOwnedDomain(ctx sdk.Context, owner string, name string, 
 	}
 }
 
-func (k Keeper) IncrementParentsSubdomainCount(ctx sdk.Context, domain types.Domain) {
-	// Check if domain is not TLD
-	level := domain.GetDomainLevel()
-	if level == 1 {
-		panic("domain is TLD")
-	}
-
+func (k Keeper) IncrementParentsSubdomainCount(ctx sdk.Context, domain types.SecondLevelDomain) {
 	// Increment parent's subdomain count
-	parentsName, parentsParent := domain.ParseParent()
-	parentDomain, found := k.GetDomain(ctx, parentsName, parentsParent)
+	parentsParent := domain.ParseParent()
+	parentDomain, found := k.GetTopLevelDomain(ctx, parentsParent)
 	if !found {
 		panic("parent not found")
 	}
 	parentDomain.SubdomainCount++
-	k.SetDomain(ctx, parentDomain)
+	k.SetSecondLevelDomain(ctx, parentDomain)
 }
 
-func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.AccAddress, registrationPeriodIYear uint64) (err error) {
+func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.SecondLevelDomain, owner sdk.AccAddress, registrationPeriodIYear uint64) (err error) {
 	// Validate domain
 	err = k.ValidateDomain(ctx, domain)
 	if err != nil {
@@ -94,13 +84,13 @@ func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.A
 		}
 
 		// Check if parent domain has subdomain registration config
-		if parentDomain.SubdomainRegistrationConfig.MaxSubdomainRegistrations <= parentDomain.SubdomainCount {
+		if parentDomain.SubdomainConfig.MaxSubdomainRegistrations <= parentDomain.SubdomainCount {
 			err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%d", parentDomain.SubdomainCount)), types.ErrMaxSubdomainCountReached.Error())
 			return err
 		}
 
 		// Set subdomain registration config
-		domain.SubdomainRegistrationConfig = &types.SubdomainRegistrationConfig{
+		parentDomain.SubdomainConfig = &types.SubdomainConfig{
 			MaxSubdomainRegistrations: 100,
 		}
 
@@ -120,7 +110,7 @@ func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.Domain, owner sdk.A
 	k.AppendToOwnedDomain(ctx, owner.String(), domain.Name, domain.Parent)
 
 	// Set domain
-	k.SetDomain(ctx, domain)
+	k.SetSecondLevelDomain(ctx, domain)
 
 	// Emit event
 	ctx.EventManager().EmitEvent(
