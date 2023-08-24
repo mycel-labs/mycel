@@ -12,10 +12,8 @@ import (
 
 func (k Keeper) GetParentDomain(ctx sdk.Context, domain types.SecondLevelDomain) (parentDomain types.TopLevelDomain, found bool) {
 	// Get parent domain
-	parentsParent := domain.ParseParent()
-	// TODO: review this
-	// parentDomain, found = k.GetTopLevelDomain(ctx, parentsName, parentsParent)
-	parentDomain, found = k.GetTopLevelDomain(ctx, parentsParent)
+	parent := domain.ParseParent()
+	parentDomain, found = k.GetTopLevelDomain(ctx, parent)
 	return parentDomain, found
 }
 
@@ -54,8 +52,8 @@ func (k Keeper) AppendToOwnedDomain(ctx sdk.Context, owner string, name string, 
 
 func (k Keeper) IncrementParentsSubdomainCount(ctx sdk.Context, domain types.SecondLevelDomain) {
 	// Increment parent's subdomain count
-	parentsParent := domain.ParseParent()
-	parentDomain, found := k.GetTopLevelDomain(ctx, parentsParent)
+	parent := domain.ParseParent()
+	parentDomain, found := k.GetTopLevelDomain(ctx, parent)
 	if !found {
 		panic("parent not found")
 	}
