@@ -9,10 +9,9 @@ import (
 )
 
 type DomainTest struct {
-	Domain       Domain
-	DomainLevel  int
-	DomainParent Domain
-	DomainPrice  sdk.Coins
+	SecondLevelDomain SecondLevelDomain
+	DomainParent      TopLevelDomain
+	DomainPrice       sdk.Coins
 }
 
 type WalletRecordTest struct {
@@ -24,75 +23,74 @@ type WalletRecordTest struct {
 
 func TestDomainValidate(t *testing.T) {
 	testCases := []struct {
-		domain          Domain
-		expDomainLevel  int
-		expDomainParent Domain
+		domain          SecondLevelDomain
+		expDomainParent TopLevelDomain
 		expErr          string
 	}{
 		// Valid domains
 		{
-			domain:          Domain{Name: "foo", Parent: "myc"},
-			expDomainLevel:  2,
-			expDomainParent: Domain{Name: "myc", Parent: ""},
+			domain: SecondLevelDomain{Name: "foo", Parent: "myc"},
+			// expDomainLevel:  2,
+			expDomainParent: TopLevelDomain{Name: "myc"},
 		},
-		{
-			domain:          Domain{Name: "12345", Parent: ""},
-			expDomainLevel:  1,
-			expDomainParent: Domain{Name: "", Parent: ""},
-			expErr:          "",
-		},
-		{
-			domain:          Domain{Name: "1234", Parent: "foo.myc"},
-			expDomainLevel:  3,
-			expDomainParent: Domain{Name: "foo", Parent: "myc"},
-		},
-		{
-			domain:          Domain{Name: "123", Parent: "foo.myc"},
-			expDomainLevel:  3,
-			expDomainParent: Domain{Name: "foo", Parent: "myc"},
-		},
-		{
-			domain:          Domain{Name: "12", Parent: "foo.myc"},
-			expDomainLevel:  3,
-			expDomainParent: Domain{Name: "foo", Parent: "myc"},
-		},
-		{
-			domain:          Domain{Name: "🍭", Parent: "foo.🍭"},
-			expDomainLevel:  3,
-			expDomainParent: Domain{Name: "foo", Parent: "🍭"},
-		},
-		{
-			domain:          Domain{Name: "🍭", Parent: "foo.🍭.myc"},
-			expDomainLevel:  4,
-			expDomainParent: Domain{Name: "foo.🍭", Parent: "myc"},
-		},
+		// {
+		// 	domain: SecondLevelDomain{Name: "12345", Parent: ""},
+		// 	// expDomainLevel:  1,
+		// 	expDomainParent: TopLevelDomain{Name: ""},
+		// 	expErr:          "",
+		// },
+		// {
+		// 	domain: SecondLevelDomain{Name: "1234", Parent: "foo.myc"},
+		// 	expDomainLevel:  3,
+		// 	expDomainParent: TopLevelDomain{Name: "foo"},
+		// },
+		// {
+		// 	domain: SecondLevelDomain{Name: "123", Parent: "foo.myc"},
+		// 	expDomainLevel:  3,
+		// 	expDomainParent: Domain{Name: "foo", Parent: "myc"},
+		// },
+		// {
+		// 	domain: SecondLevelDomain{Name: "12", Parent: "foo.myc"},
+		// 	expDomainLevel:  3,
+		// 	expDomainParent: TopLevelDomain{Name: "foo", Parent: "myc"},
+		// },
+		// {
+		// 	domain: SecondLevelDomain{Name: "🍭", Parent: "foo.🍭"},
+		// 	expDomainLevel:  3,
+		// 	expDomainParent: Domain{Name: "foo", Parent: "🍭"},
+		// },
+		// {
+		// 	domain: SecondLevelDomain{Name: "🍭", Parent: "foo.🍭.myc"},
+		// 	expDomainLevel:  4,
+		// 	expDomainParent: TopLevelDomain{Name: "foo.🍭", Parent: "myc"},
+		// },
 		// Invalid name
-		{domain: Domain{Name: ".foo", Parent: "myc"},
+		{domain: SecondLevelDomain{Name: ".foo", Parent: "myc"},
 			expErr: fmt.Sprintf("invalid name: .foo"),
 		},
-		{domain: Domain{Name: "", Parent: "myc"},
+		{domain: SecondLevelDomain{Name: "", Parent: "myc"},
 			expErr: fmt.Sprintf("invalid name: "),
 		},
-		{domain: Domain{Name: "bar.foo", Parent: "myc"},
+		{domain: SecondLevelDomain{Name: "bar.foo", Parent: "myc"},
 			expErr: fmt.Sprintf("invalid name: bar.foo"),
 		},
-		{domain: Domain{Name: ".", Parent: "myc"},
+		{domain: SecondLevelDomain{Name: ".", Parent: "myc"},
 			expErr: fmt.Sprintf("invalid name: ."),
 		},
-		{domain: Domain{Name: "##", Parent: "myc"},
+		{domain: SecondLevelDomain{Name: "##", Parent: "myc"},
 			expErr: fmt.Sprintf("invalid name: ##"),
 		},
 		// Invalid parent
 		{
-			domain: Domain{Name: "foo", Parent: ".##"},
+			domain: SecondLevelDomain{Name: "foo", Parent: ".##"},
 			expErr: fmt.Sprintf("invalid parent: .##"),
 		},
 		{
-			domain: Domain{Name: "foo", Parent: ".myc"},
+			domain: SecondLevelDomain{Name: "foo", Parent: ".myc"},
 			expErr: fmt.Sprintf("invalid parent: .myc"),
 		},
 		{
-			domain: Domain{Name: "foo", Parent: ".foo.myc"},
+			domain: SecondLevelDomain{Name: "foo", Parent: ".foo.myc"},
 			expErr: fmt.Sprintf("invalid parent: .foo.myc"),
 		},
 	}
@@ -101,13 +99,13 @@ func TestDomainValidate(t *testing.T) {
 		err := tc.domain.Validate()
 		if tc.expErr == "" {
 			require.Nil(t, err)
-			// Check domain level
-			require.Equal(t, tc.expDomainLevel, tc.domain.GetDomainLevel())
 
 			// Check domain parent
-			name, parent := tc.domain.ParseParent()
-			require.Equal(t, tc.expDomainParent.Name, name)
-			require.Equal(t, tc.expDomainParent.Parent, parent)
+			parent := tc.domain.ParseParent()
+			require.Equal(t, tc.expDomainParent.Name, parent)
+			// TODO: review test case
+			// require.Equal(t, tc.expDomainParent.Name, name)
+			// require.Equal(t, tc.expDomainParent.Parent, parent)
 
 		} else {
 			require.EqualError(t, err, tc.expErr)
@@ -179,7 +177,7 @@ func TestDomainUpdateWalletRecord(t *testing.T) {
 		},
 	}
 	for _, tc := range testCases {
-		domain := Domain{Name: "foo", Parent: "myc"}
+		domain := SecondLevelDomain{Name: "foo", Parent: "myc"}
 		err := domain.UpdateWalletRecord(tc.walletRecordType, tc.address)
 		if tc.expErr == "" {
 			require.Nil(t, err)
@@ -222,7 +220,7 @@ func TestDomainUpdateDnsRecord(t *testing.T) {
 		},
 	}
 	for _, tc := range testCases {
-		domain := Domain{Name: "foo", Parent: "myc"}
+		domain := SecondLevelDomain{Name: "foo", Parent: "myc"}
 		err := domain.UpdateDnsRecord(tc.dnsRecordType, tc.value)
 		if tc.expErr == "" {
 			require.Nil(t, err)

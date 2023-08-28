@@ -55,7 +55,7 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc: "duplicated topLevelDomain",
 			genState: &types.GenesisState{
-				TopLevelDomainList: []types.TopLevelDomain{
+				TopLevelDomains: []types.TopLevelDomain{
 					{
 						Name: "0",
 					},

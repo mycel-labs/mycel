@@ -63,45 +63,35 @@ func (k Keeper) IncrementParentsSubdomainCount(ctx sdk.Context, domain types.Sec
 
 func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.SecondLevelDomain, owner sdk.AccAddress, registrationPeriodIYear uint64) (err error) {
 	// Validate domain
-	err = k.ValidateDomain(ctx, domain)
+	err = k.ValidateSecondLevelDomain(ctx, domain)
 	if err != nil {
 		return err
 	}
 
 	// Pay registration fee
-	domainLevel := domain.GetDomainLevel()
-	switch domainLevel {
-	case 1: // TLD
-		// TODO: Register TLD
-		return
-	case 2: // SLD
-		parentDomain, found := k.GetParentDomain(ctx, domain)
+	parentDomain, found := k.GetParentDomain(ctx, domain)
 
-		if !found {
-			panic("parent not found")
-		}
+	if !found {
+		panic("parent not found")
+	}
 
-		// Check if parent domain has subdomain registration config
-		if parentDomain.SubdomainConfig.MaxSubdomainRegistrations <= parentDomain.SubdomainCount {
-			err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%d", parentDomain.SubdomainCount)), types.ErrMaxSubdomainCountReached.Error())
-			return err
-		}
+	// Check if parent domain has subdomain registration config
+	if parentDomain.SubdomainConfig.MaxSubdomainRegistrations <= parentDomain.SubdomainCount {
+		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%d", parentDomain.SubdomainCount)), types.ErrMaxSubdomainCountReached.Error())
+		return err
+	}
 
-		// Set subdomain registration config
-		parentDomain.SubdomainConfig = &types.SubdomainConfig{
-			MaxSubdomainRegistrations: 100,
-		}
+	// Set subdomain registration config
+	parentDomain.SubdomainConfig = &types.SubdomainConfig{
+		MaxSubdomainRegistrations: 100,
+	}
 
-		// Increment parents subdomain SubdomainCount
-		k.IncrementParentsSubdomainCount(ctx, domain)
-		// Pay SLD registration fee
-		err = k.PaySLDRegstrationFee(ctx, owner, domain, registrationPeriodIYear)
-		if err != nil {
-			return err
-		}
-	default: // Subdomain
-		// Increment parents subdomain SubdomainCount
-		k.IncrementParentsSubdomainCount(ctx, domain)
+	// Increment parents subdomain SubdomainCount
+	k.IncrementParentsSubdomainCount(ctx, domain)
+	// Pay SLD registration fee
+	err = k.PaySLDRegstrationFee(ctx, owner, domain, registrationPeriodIYear)
+	if err != nil {
+		return err
 	}
 
 	// Append to owned domain
@@ -116,7 +106,6 @@ func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.SecondLevelDomain, 
 			sdk.NewAttribute(types.AttributeRegisterDomainEventName, domain.Name),
 			sdk.NewAttribute(types.AttributeRegisterDomainEventParent, domain.Parent),
 			sdk.NewAttribute(types.AttributeRegisterDomainEventExpirationDate, strconv.FormatInt(domain.ExpirationDate, 10)),
-			sdk.NewAttribute(types.AttributeRegisterDomainLevel, strconv.Itoa(domainLevel)),
 		),
 	)
 

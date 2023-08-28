@@ -34,7 +34,7 @@ func TestSecondLevelDomainQuerySingle(t *testing.T) {
 				Name:   msgs[0].Name,
 				Parent: msgs[0].Parent,
 			},
-			response: &types.QueryGetSecondLevelDomainResponse{Domain: msgs[0]},
+			response: &types.QueryGetSecondLevelDomainResponse{SecondLevelDomain: msgs[0]},
 		},
 		{
 			desc: "Second",
@@ -42,7 +42,7 @@ func TestSecondLevelDomainQuerySingle(t *testing.T) {
 				Name:   msgs[1].Name,
 				Parent: msgs[1].Parent,
 			},
-			response: &types.QueryGetSecondLevelDomainResponse{Domain: msgs[1]},
+			response: &types.QueryGetSecondLevelDomainResponse{SecondLevelDomain: msgs[1]},
 		},
 		{
 			desc: "KeyNotFound",
@@ -58,7 +58,7 @@ func TestSecondLevelDomainQuerySingle(t *testing.T) {
 		},
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
-			response, err := keeper.Domain(wctx, tc.request)
+			response, err := keeper.SecondLevelDomain(wctx, tc.request)
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {
@@ -77,7 +77,7 @@ func TestSecondLevelDomainQueryPaginated(t *testing.T) {
 	wctx := sdk.WrapSDKContext(ctx)
 	msgs := createNDomain(keeper, ctx, 5)
 
-	request := func(next []byte, offset, limit uint64, total bool) *types.QueryAllDomainRequest {
+	request := func(next []byte, offset, limit uint64, total bool) *types.QueryAllSecondLevelDomainRequest {
 		return &types.QueryAllSecondLevelDomainRequest{
 			Pagination: &query.PageRequest{
 				Key:        next,
@@ -92,10 +92,10 @@ func TestSecondLevelDomainQueryPaginated(t *testing.T) {
 		for i := 0; i < len(msgs); i += step {
 			resp, err := keeper.SecondLevelDomainAll(wctx, request(nil, uint64(i), uint64(step), false))
 			require.NoError(t, err)
-			require.LessOrEqual(t, len(resp.Domain), step)
+			require.LessOrEqual(t, len(resp.SecondLevelDomain), step)
 			require.Subset(t,
 				nullify.Fill(msgs),
-				nullify.Fill(resp.Domain),
+				nullify.Fill(resp.SecondLevelDomain),
 			)
 		}
 	})
@@ -105,10 +105,10 @@ func TestSecondLevelDomainQueryPaginated(t *testing.T) {
 		for i := 0; i < len(msgs); i += step {
 			resp, err := keeper.SecondLevelDomainAll(wctx, request(next, 0, uint64(step), false))
 			require.NoError(t, err)
-			require.LessOrEqual(t, len(resp.Domain), step)
+			require.LessOrEqual(t, len(resp.SecondLevelDomain), step)
 			require.Subset(t,
 				nullify.Fill(msgs),
-				nullify.Fill(resp.Domain),
+				nullify.Fill(resp.SecondLevelDomain),
 			)
 			next = resp.Pagination.NextKey
 		}
@@ -119,7 +119,7 @@ func TestSecondLevelDomainQueryPaginated(t *testing.T) {
 		require.Equal(t, len(msgs), int(resp.Pagination.Total))
 		require.ElementsMatch(t,
 			nullify.Fill(msgs),
-			nullify.Fill(resp.Domain),
+			nullify.Fill(resp.SecondLevelDomain),
 		)
 	})
 	t.Run("InvalidRequest", func(t *testing.T) {

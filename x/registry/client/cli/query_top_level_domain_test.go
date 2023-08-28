@@ -30,12 +30,12 @@ func networkWithTopLevelDomainObjects(t *testing.T, n int) (*network.Network, []
 			Name: strconv.Itoa(i),
 		}
 		nullify.Fill(&topLevelDomain)
-		state.TopLevelDomainList = append(state.TopLevelDomainList, topLevelDomain)
+		state.TopLevelDomains = append(state.TopLevelDomains, topLevelDomain)
 	}
 	buf, err := cfg.Codec.MarshalJSON(&state)
 	require.NoError(t, err)
 	cfg.GenesisState[types.ModuleName] = buf
-	return network.New(t, cfg), state.TopLevelDomainList
+	return network.New(t, cfg), state.TopLevelDomains
 }
 
 func TestShowTopLevelDomain(t *testing.T) {

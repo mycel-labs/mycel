@@ -17,7 +17,6 @@ func (suite *KeeperTestSuite) TestRegisterSubdomain() {
 		name                     string
 		parent                   string
 		registrationPeriodInYear uint64
-		domainLevel              string
 		domainOwnership          types.DomainOwnership
 		expErr                   error
 		fn                       func()
@@ -27,7 +26,6 @@ func (suite *KeeperTestSuite) TestRegisterSubdomain() {
 			name:                     "foo",
 			parent:                   "cel",
 			registrationPeriodInYear: 1,
-			domainLevel:              "2",
 			domainOwnership: types.DomainOwnership{
 				Owner:   testutil.Alice,
 				Domains: []*types.OwnedDomain{{Name: "foo", Parent: "cel"}},
@@ -40,7 +38,6 @@ func (suite *KeeperTestSuite) TestRegisterSubdomain() {
 			name:                     "foo",
 			parent:                   "cel",
 			registrationPeriodInYear: 4,
-			domainLevel:              "2",
 			domainOwnership: types.DomainOwnership{
 				Owner:   testutil.Alice,
 				Domains: []*types.OwnedDomain{{Name: "foo", Parent: "cel"}},
@@ -53,7 +50,6 @@ func (suite *KeeperTestSuite) TestRegisterSubdomain() {
 			name:                     "foo",
 			parent:                   "cel",
 			registrationPeriodInYear: 1,
-			domainLevel:              "2",
 			expErr:                   sdkerrors.Wrapf(errors.New(fmt.Sprintf("foo.cel")), types.ErrDomainIsAlreadyTaken.Error()),
 			fn: func() {
 				// Register domain once
@@ -80,12 +76,12 @@ func (suite *KeeperTestSuite) TestRegisterSubdomain() {
 				RegistrationPeriodInYear: tc.registrationPeriodInYear,
 			}
 
-			domain := &types.Domain{
+			domain := &types.SecondLevelDomain{
 				Name:   tc.name,
 				Parent: tc.parent,
 			}
-			parentsName, parentsParent := domain.ParseParent()
-			parent, found := suite.app.RegistryKeeper.GetDomain(suite.ctx, parentsName, parentsParent)
+			parentsName := domain.ParseParent()
+			parent, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, parentsName)
 			suite.Require().True(found)
 			beforeSubdomainCount := parent.SubdomainCount
 
@@ -102,11 +98,11 @@ func (suite *KeeperTestSuite) TestRegisterSubdomain() {
 				suite.Require().Equal(tc.domainOwnership, domainOwnership)
 
 				// Evalute if domain is registered
-				_, found = suite.app.RegistryKeeper.GetDomain(suite.ctx, tc.name, tc.parent)
+				_, found = suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx,  tc.parent)
 				suite.Require().True(found)
 
 				// Evalute if parent's subdomainCount is increased
-				parent, found = suite.app.RegistryKeeper.GetDomain(suite.ctx, parentsName, parentsParent)
+				parent, found = suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, parentsName)
 				suite.Require().True(found)
 				afterSubdomainCount := parent.SubdomainCount
 				suite.Require().Equal(beforeSubdomainCount+1, afterSubdomainCount)
@@ -121,7 +117,6 @@ func (suite *KeeperTestSuite) TestRegisterSubdomain() {
 						{Key: types.AttributeRegisterDomainEventName, Value: tc.name},
 						{Key: types.AttributeRegisterDomainEventParent, Value: tc.parent},
 						{Key: types.AttributeRegisterDomainEventExpirationDate, Value: events[eventIndex].Attributes[2].Value},
-						{Key: types.AttributeRegisterDomainLevel, Value: tc.domainLevel},
 					},
 				}, events[eventIndex])
 			} else {

@@ -9,27 +9,10 @@ const (
 	BaseFee = 303
 )
 
-func (secondLevelDomain SecondLevelDomain) GetDomainLevel() (domainLevel int) {
-	if secondLevelDomain.Parent == "" {
-		domainLevel = 1
-	} else {
-		domainLevel = len(strings.Split(secondLevelDomain.Parent, ".")) + 1
-	}
-	return domainLevel
-}
-
 func (secondLevelDomain SecondLevelDomain) ParseParent() (parent string) {
 	if secondLevelDomain.Parent != "" {
 		split := strings.Split(secondLevelDomain.Parent, ".")
-		// if len(split) == 1 {
-		// 	name = split[0]
-		// } else {
-		// 	parent = split[len(split)-1]
-		// 	name = strings.Join(split[:len(split)-1], ".")
-		// }
-		// TODO: review logic
 		parent = split[len(split)-1]
-		// name = strings.Join(split[:len(split)-1], ".")
 	}
 	return parent
 }

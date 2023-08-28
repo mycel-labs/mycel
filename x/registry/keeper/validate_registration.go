@@ -53,8 +53,8 @@ func (k Keeper) ValidateRegsiterSubdomain(ctx sdk.Context, domain types.SecondLe
 	return err
 }
 
-// Validate domain
-func (k Keeper) ValidateDomain(ctx sdk.Context, domain types.SecondLevelDomain) (err error) {
+// Validate second-level-domain
+func (k Keeper) ValidateSecondLevelDomain(ctx sdk.Context, domain types.SecondLevelDomain) (err error) {
 	// Type check
 	err = domain.Validate()
 	if err != nil {
@@ -68,27 +68,19 @@ func (k Keeper) ValidateDomain(ctx sdk.Context, domain types.SecondLevelDomain) 
 		return err
 	}
 
-	domainLevel := domain.GetDomainLevel()
-	switch domainLevel {
-	case 1: // TLD
-		// Validate TLD
-		err = k.ValidateRegisterTLD(ctx, domain)
-		if err != nil {
-			return err
-		}
-	case 2: // TLD
-		// Validate SLD
-		err = k.ValidateRegisterSLD(ctx, domain)
-		if err != nil {
-			return err
-		}
-	default: // Subdomain
-		// Validate Subdomain
-		err = k.ValidateRegsiterSubdomain(ctx, domain)
-		if err != nil {
-			return err
-		}
+	// Validate SLD
+	err = k.ValidateRegisterSLD(ctx, domain)
+	if err != nil {
+		return err
 	}
+	// TODO: check is there any subdomain registration case?
+	// default: // Subdomain
+	// 	// Validate Subdomain
+	// 	err = k.ValidateRegsiterSubdomain(ctx, domain)
+	// 	if err != nil {
+	// 		return err
+	// 	}
+	// }
 
 	return err
 }
