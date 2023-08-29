@@ -13,6 +13,8 @@ import (
 
 	"cosmossdk.io/math"
 
+	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	"github.com/cosmos/cosmos-sdk/server"
@@ -27,19 +29,20 @@ import (
 
 // SetupOptions defines arguments that are passed into `Simapp` constructor.
 type SetupOptions struct {
-	Logger  log.Logger
-	DB      *dbm.MemDB
-	AppOpts servertypes.AppOptions
+	Logger   log.Logger
+	DB       *dbm.MemDB
+	AppOpts  servertypes.AppOptions
+	WasmOpts []wasmkeeper.Option
 }
 
-func setup(withGenesis bool, invCheckPeriod uint) (*App, GenesisState) {
+func setup(withGenesis bool, invCheckPeriod uint, wasmOpt ...wasmkeeper.Option) (*App, GenesisState) {
 	db := dbm.NewMemDB()
 	appOptions := make(simtestutil.AppOptionsMap, 0)
 	appOptions[flags.FlagHome] = DefaultNodeHome
 	appOptions[server.FlagInvCheckPeriod] = invCheckPeriod
 
 	encCdc := MakeEncodingConfig()
-	app := NewApp(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, invCheckPeriod, encCdc, EmptyAppOptions{})
+	app := NewApp(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, invCheckPeriod, encCdc, EmptyAppOptions{}, wasmtypes.EnableAllProposals, wasmOpt)
 	if withGenesis {
 		return app, app.DefaultGenesis()
 	}
