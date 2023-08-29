@@ -30,40 +30,8 @@ func TestDomainValidate(t *testing.T) {
 		// Valid domains
 		{
 			domain: SecondLevelDomain{Name: "foo", Parent: "myc"},
-			// expDomainLevel:  2,
 			expDomainParent: TopLevelDomain{Name: "myc"},
 		},
-		// {
-		// 	domain: SecondLevelDomain{Name: "12345", Parent: ""},
-		// 	// expDomainLevel:  1,
-		// 	expDomainParent: TopLevelDomain{Name: ""},
-		// 	expErr:          "",
-		// },
-		// {
-		// 	domain: SecondLevelDomain{Name: "1234", Parent: "foo.myc"},
-		// 	expDomainLevel:  3,
-		// 	expDomainParent: TopLevelDomain{Name: "foo"},
-		// },
-		// {
-		// 	domain: SecondLevelDomain{Name: "123", Parent: "foo.myc"},
-		// 	expDomainLevel:  3,
-		// 	expDomainParent: Domain{Name: "foo", Parent: "myc"},
-		// },
-		// {
-		// 	domain: SecondLevelDomain{Name: "12", Parent: "foo.myc"},
-		// 	expDomainLevel:  3,
-		// 	expDomainParent: TopLevelDomain{Name: "foo", Parent: "myc"},
-		// },
-		// {
-		// 	domain: SecondLevelDomain{Name: "🍭", Parent: "foo.🍭"},
-		// 	expDomainLevel:  3,
-		// 	expDomainParent: Domain{Name: "foo", Parent: "🍭"},
-		// },
-		// {
-		// 	domain: SecondLevelDomain{Name: "🍭", Parent: "foo.🍭.myc"},
-		// 	expDomainLevel:  4,
-		// 	expDomainParent: TopLevelDomain{Name: "foo.🍭", Parent: "myc"},
-		// },
 		// Invalid name
 		{domain: SecondLevelDomain{Name: ".foo", Parent: "myc"},
 			expErr: fmt.Sprintf("invalid name: .foo"),
