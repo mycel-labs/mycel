@@ -135,6 +135,11 @@ import (
 const (
 	AccountAddressPrefix = "mycel"
 	Name                 = "mycel"
+	HumanCoinUnit = "mycel"
+	BaseCoinUnit  = "umycel"
+	MycelExponent  = 6
+
+	DefaultBondDenom = BaseCoinUnit
 
 	// If EnabledSpecificProposals is "", and this is "true", then enable all x/wasm proposals.
 	// If EnabledSpecificProposals is "", and this is not "true", then disable all x/wasm proposals.
@@ -145,6 +150,17 @@ const (
 	EnableSpecificProposals = ""
 )
 
+// RegisterDenoms registers token denoms.
+func RegisterDenoms() {
+	err := sdk.RegisterDenom(HumanCoinUnit, sdk.OneDec())
+	if err != nil {
+		panic(err)
+	}
+	err = sdk.RegisterDenom(BaseCoinUnit, sdk.NewDecWithPrec(1, MycelExponent))
+	if err != nil {
+		panic(err)
+	}
+}
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals
 
 func getGovProposalHandlers() []govclient.ProposalHandler {
