@@ -6,7 +6,8 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "mycel/registry/params.proto";
-import "mycel/registry/domain.proto";
+import "mycel/registry/top_level_domain.proto";
+import "mycel/registry/second_level_domain.proto";
 import "mycel/registry/domain_ownership.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
@@ -14,43 +15,53 @@ option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 // Query defines the gRPC querier service.
 service Query {
-  
+
   // Parameters queries the parameters of the module.
   rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/mycel/registry/params";
-  
+
   }
-  
-  // Queries a list of Domain items.
-  rpc Domain    (QueryGetDomainRequest) returns (QueryGetDomainResponse) {
-    option (google.api.http).get = "/mycel/registry/domain/{name}/{parent}";
-  
+
+  // Queries a list of TopLevelDomain items.
+  rpc TopLevelDomain    (QueryGetTopLevelDomainRequest) returns (QueryGetTopLevelDomainResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/registry/top_level_domain/{name}";
+
   }
-  rpc DomainAll (QueryAllDomainRequest) returns (QueryAllDomainResponse) {
-    option (google.api.http).get = "/mycel/registry/domain";
-  
+  rpc TopLevelDomainAll (QueryAllTopLevelDomainRequest) returns (QueryAllTopLevelDomainResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/registry/top_level_domain";
+
   }
-  
+
+  // Queries a list of SecondLevelDomain items.
+  rpc SecondLevelDomain    (QueryGetSecondLevelDomainRequest) returns (QueryGetSecondLevelDomainResponse) {
+    option (google.api.http).get = "/mycel/registry/second_level_domain/{name}/{parent}";
+
+  }
+  rpc SecondLevelDomainAll (QueryAllSecondLevelDomainRequest) returns (QueryAllSecondLevelDomainResponse) {
+    option (google.api.http).get = "/mycel/registry/second_level_domain";
+
+  }
+
   // Queries a list of DomainOwnership items.
   rpc DomainOwnership    (QueryGetDomainOwnershipRequest) returns (QueryGetDomainOwnershipResponse) {
     option (google.api.http).get = "/mycel-domain/mycel/registry/domain_ownership/{owner}";
-  
+
   }
   rpc DomainOwnershipAll (QueryAllDomainOwnershipRequest) returns (QueryAllDomainOwnershipResponse) {
     option (google.api.http).get = "/mycel-domain/mycel/registry/domain_ownership";
-  
+
   }
-  
+
   // Queries a list of DomainRegistrationFee items.
   rpc DomainRegistrationFee (QueryDomainRegistrationFeeRequest) returns (QueryDomainRegistrationFeeResponse) {
     option (google.api.http).get = "/mycel-domain/mycel/registry/domain_registration_fee/{name}/{parent}";
-  
+
   }
-  
+
   // Queries a list of IsRegistrableDomain items.
   rpc IsRegistrableDomain (QueryIsRegistrableDomainRequest) returns (QueryIsRegistrableDomainResponse) {
     option (google.api.http).get = "/mycel-domain/mycel/registry/is_registrable_domain/{name}/{parent}";
-  
+
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -58,27 +69,44 @@ message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
-  
+
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
 }
 
-message QueryGetDomainRequest {
+message QueryGetTopLevelDomainRequest {
+  string name = 1;
+}
+
+message QueryGetTopLevelDomainResponse {
+  TopLevelDomain topLevelDomain = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllTopLevelDomainRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllTopLevelDomainResponse {
+  repeated TopLevelDomain                         topLevelDomain = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination     = 2;
+}
+
+message QueryGetSecondLevelDomainRequest {
   string name   = 1;
   string parent = 2;
 }
 
-message QueryGetDomainResponse {
-  Domain domain = 1 [(gogoproto.nullable) = false];
+message QueryGetSecondLevelDomainResponse {
+  SecondLevelDomain secondLevelDomain = 1 [(gogoproto.nullable) = false];
 }
 
-message QueryAllDomainRequest {
+message QueryAllSecondLevelDomainRequest {
   cosmos.base.query.v1beta1.PageRequest pagination = 1;
 }
 
-message QueryAllDomainResponse {
-  repeated Domain                                 domain     = 1 [(gogoproto.nullable) = false];
-           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+message QueryAllSecondLevelDomainResponse {
+  repeated SecondLevelDomain                      secondLevelDomain = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination        = 2;
 }
 
 message QueryGetDomainOwnershipRequest {

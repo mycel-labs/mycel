@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
 	"github.com/mycel-domain/mycel/testutil"
+	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
 
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"

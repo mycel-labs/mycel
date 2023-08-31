@@ -120,7 +120,7 @@ import (
 	epochsmodulekeeper "github.com/mycel-domain/mycel/x/epochs/keeper"
 	epochsmoduletypes "github.com/mycel-domain/mycel/x/epochs/types"
 
-		// this line is used by starport scaffolding # stargate/app/moduleImport
+	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	appparams "github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/docs"
@@ -188,15 +188,15 @@ var (
 
 	// module account permissions
 	maccPerms = map[string][]string{
-		authtypes.FeeCollectorName:       nil,
-		distrtypes.ModuleName:            nil,
-		icatypes.ModuleName:              nil,
-		minttypes.ModuleName:             {authtypes.Minter},
-		stakingtypes.BondedPoolName:      {authtypes.Burner, authtypes.Staking},
-		stakingtypes.NotBondedPoolName:   {authtypes.Burner, authtypes.Staking},
-		govtypes.ModuleName:              {authtypes.Burner},
-		ibctransfertypes.ModuleName:      {authtypes.Minter, authtypes.Burner},
-		registrymoduletypes.ModuleName:   {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+		authtypes.FeeCollectorName:     nil,
+		distrtypes.ModuleName:          nil,
+		icatypes.ModuleName:            nil,
+		minttypes.ModuleName:           {authtypes.Minter},
+		stakingtypes.BondedPoolName:    {authtypes.Burner, authtypes.Staking},
+		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
+		govtypes.ModuleName:            {authtypes.Burner},
+		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
+		registrymoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 )
@@ -568,7 +568,6 @@ func NewApp(
 	)
 	epochsModule := epochsmodule.NewAppModule(appCodec, app.EpochsKeeper, app.AccountKeeper, app.BankKeeper)
 
-
 	app.RegistryKeeper = *registrymodulekeeper.NewKeeper(
 		appCodec,
 		keys[registrymoduletypes.StoreKey],
@@ -607,7 +606,7 @@ func NewApp(
 
 	app.EpochsKeeper.SetHooks(
 		epochsmodulekeeper.NewMultiEpochHooks(
-			// insert hooks here
+		// insert hooks here
 		))
 
 	/**** Module Options ****/

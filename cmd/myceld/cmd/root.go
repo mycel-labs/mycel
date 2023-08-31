@@ -138,7 +138,6 @@ func initRootCmd(
 		addModuleInitFlags,
 	)
 
-
 	// add keybase, auxiliary RPC, query, and tx child commands
 	rootCmd.AddCommand(
 		rpc.StatusCommand(),
@@ -336,6 +335,7 @@ func (a appCreator) appExport(
 
 	return app.ExportAppStateAndValidators(forZeroHeight, jailAllowedAddrs, modulesToExport)
 }
+
 // initAppConfig helps to override default appConfig template and configs.
 // return "", nil if no custom configuration is required for the application.
 func initAppConfig() (string, interface{}) {

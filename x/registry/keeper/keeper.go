@@ -3,11 +3,11 @@ package keeper
 import (
 	"fmt"
 
+	"github.com/cometbft/cometbft/libs/log"
 	"github.com/cosmos/cosmos-sdk/codec"
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/cometbft/cometbft/libs/log"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
@@ -19,7 +19,7 @@ type (
 		memKey     storetypes.StoreKey
 		paramstore paramtypes.Subspace
 
-		bankKeeper       types.BankKeeper
+		bankKeeper types.BankKeeper
 	}
 )
 
@@ -42,7 +42,7 @@ func NewKeeper(
 		memKey:     memKey,
 		paramstore: ps,
 
-		bankKeeper:       bankKeeper,
+		bankKeeper: bankKeeper,
 	}
 }
 

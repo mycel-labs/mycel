@@ -14,7 +14,7 @@ import (
 func (k msgServer) UpdateDnsRecord(goCtx context.Context, msg *types.MsgUpdateDnsRecord) (*types.MsgUpdateDnsRecordResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	domain, isFound := k.Keeper.GetDomain(ctx, msg.Name, msg.Parent)
+	domain, isFound := k.Keeper.GetSecondLevelDomain(ctx, msg.Name, msg.Parent)
 	if !isFound {
 		return nil, sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s.%s", msg.Name, msg.Parent)), types.ErrDomainNotFound.Error())
 	}
@@ -28,7 +28,7 @@ func (k msgServer) UpdateDnsRecord(goCtx context.Context, msg *types.MsgUpdateDn
 	if err != nil {
 		return nil, err
 	}
-	k.Keeper.SetDomain(ctx, domain)
+	k.Keeper.SetSecondLevelDomain(ctx, domain)
 	// Emit event
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(types.EventTypeUpdateDnsRecord,

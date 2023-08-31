@@ -39,7 +39,6 @@ import (
 	"github.com/mycel-domain/mycel/app"
 )
 
-
 type storeKeysPrefixes struct {
 	A        storetypes.StoreKey
 	B        storetypes.StoreKey
