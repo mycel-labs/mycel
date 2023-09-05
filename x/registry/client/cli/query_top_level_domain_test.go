@@ -5,10 +5,10 @@ import (
 	"strconv"
 	"testing"
 
+	tmcli "github.com/cometbft/cometbft/libs/cli"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	clitestutil "github.com/cosmos/cosmos-sdk/testutil/cli"
 	"github.com/stretchr/testify/require"
-	tmcli "github.com/cometbft/cometbft/libs/cli"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
@@ -21,86 +21,80 @@ import (
 // Prevent strconv unused error
 var _ = strconv.IntSize
 
-func networkWithDomainObjects(t *testing.T, n int) (*network.Network, []types.Domain) {
+func networkWithTopLevelDomainObjects(t *testing.T, n int) (*network.Network, []types.TopLevelDomain) {
 	t.Helper()
 	cfg := network.DefaultConfig()
 	state := types.GenesisState{}
-	require.NoError(t, cfg.Codec.UnmarshalJSON(cfg.GenesisState[types.ModuleName], &state))
-
 	for i := 0; i < n; i++ {
-		domain := types.Domain{
-			Name:   strconv.Itoa(i),
-			Parent: strconv.Itoa(i),
+		topLevelDomain := types.TopLevelDomain{
+			Name: strconv.Itoa(i),
 		}
-		nullify.Fill(&domain)
-		state.DomainList = append(state.DomainList, domain)
+		nullify.Fill(&topLevelDomain)
+		state.TopLevelDomains = append(state.TopLevelDomains, topLevelDomain)
 	}
 	buf, err := cfg.Codec.MarshalJSON(&state)
 	require.NoError(t, err)
 	cfg.GenesisState[types.ModuleName] = buf
-	return network.New(t, cfg), state.DomainList
+	return network.New(t, cfg), state.TopLevelDomains
 }
 
-func TestShowDomain(t *testing.T) {
-	net, objs := networkWithDomainObjects(t, 2)
+func TestShowTopLevelDomain(t *testing.T) {
+	net, objs := networkWithTopLevelDomainObjects(t, 2)
 
 	ctx := net.Validators[0].ClientCtx
 	common := []string{
 		fmt.Sprintf("--%s=json", tmcli.OutputFlag),
 	}
-	for _, tc := range []struct {
-		desc     string
-		idName   string
-		idParent string
+	tests := []struct {
+		desc   string
+		idName string
 
 		args []string
 		err  error
-		obj  types.Domain
+		obj  types.TopLevelDomain
 	}{
 		{
-			desc:     "found",
-			idName:   objs[0].Name,
-			idParent: objs[0].Parent,
+			desc:   "found",
+			idName: objs[0].Name,
 
 			args: common,
 			obj:  objs[0],
 		},
 		{
-			desc:     "not found",
-			idName:   strconv.Itoa(100000),
-			idParent: strconv.Itoa(100000),
+			desc:   "not found",
+			idName: strconv.Itoa(100000),
 
 			args: common,
 			err:  status.Error(codes.NotFound, "not found"),
 		},
-	} {
+	}
+	for _, tc := range tests {
 		t.Run(tc.desc, func(t *testing.T) {
 			args := []string{
 				tc.idName,
-				tc.idParent,
 			}
 			args = append(args, tc.args...)
-			out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdShowDomain(), args)
+			out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdShowTopLevelDomain(), args)
 			if tc.err != nil {
 				stat, ok := status.FromError(tc.err)
 				require.True(t, ok)
 				require.ErrorIs(t, stat.Err(), tc.err)
 			} else {
 				require.NoError(t, err)
-				var resp types.QueryGetDomainResponse
+				var resp types.QueryGetTopLevelDomainResponse
 				require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
-				require.NotNil(t, resp.Domain)
+				require.NotNil(t, resp.TopLevelDomain)
 				require.Equal(t,
 					nullify.Fill(&tc.obj),
-					nullify.Fill(&resp.Domain),
+					nullify.Fill(&resp.TopLevelDomain),
 				)
 			}
 		})
 	}
 }
 
-func TestListDomain(t *testing.T) {
-	net, objs := networkWithDomainObjects(t, 5)
+func TestListTopLevelDomain(t *testing.T) {
+	net, objs := networkWithTopLevelDomainObjects(t, 5)
 
 	ctx := net.Validators[0].ClientCtx
 	request := func(next []byte, offset, limit uint64, total bool) []string {
@@ -122,14 +116,14 @@ func TestListDomain(t *testing.T) {
 		step := 2
 		for i := 0; i < len(objs); i += step {
 			args := request(nil, uint64(i), uint64(step), false)
-			out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdListDomain(), args)
+			out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdListTopLevelDomain(), args)
 			require.NoError(t, err)
-			var resp types.QueryAllDomainResponse
+			var resp types.QueryAllTopLevelDomainResponse
 			require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
-			require.LessOrEqual(t, len(resp.Domain), step)
+			require.LessOrEqual(t, len(resp.TopLevelDomain), step)
 			require.Subset(t,
 				nullify.Fill(objs),
-				nullify.Fill(resp.Domain),
+				nullify.Fill(resp.TopLevelDomain),
 			)
 		}
 	})
@@ -138,29 +132,29 @@ func TestListDomain(t *testing.T) {
 		var next []byte
 		for i := 0; i < len(objs); i += step {
 			args := request(next, 0, uint64(step), false)
-			out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdListDomain(), args)
+			out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdListTopLevelDomain(), args)
 			require.NoError(t, err)
-			var resp types.QueryAllDomainResponse
+			var resp types.QueryAllTopLevelDomainResponse
 			require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
-			require.LessOrEqual(t, len(resp.Domain), step)
+			require.LessOrEqual(t, len(resp.TopLevelDomain), step)
 			require.Subset(t,
 				nullify.Fill(objs),
-				nullify.Fill(resp.Domain),
+				nullify.Fill(resp.TopLevelDomain),
 			)
 			next = resp.Pagination.NextKey
 		}
 	})
 	t.Run("Total", func(t *testing.T) {
 		args := request(nil, 0, uint64(len(objs)), true)
-		out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdListDomain(), args)
+		out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdListTopLevelDomain(), args)
 		require.NoError(t, err)
-		var resp types.QueryAllDomainResponse
+		var resp types.QueryAllTopLevelDomainResponse
 		require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
 		require.NoError(t, err)
 		require.Equal(t, len(objs), int(resp.Pagination.Total))
 		require.ElementsMatch(t,
 			nullify.Fill(objs),
-			nullify.Fill(resp.Domain),
+			nullify.Fill(resp.TopLevelDomain),
 		)
 	})
 }

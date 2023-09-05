@@ -7,7 +7,6 @@ const (
 	AttributeRegisterDomainEventName           = "name"
 	AttributeRegisterDomainEventParent         = "parent"
 	AttributeRegisterDomainEventExpirationDate = "expiration-date"
-	AttributeRegisterDomainLevel               = "domain-level"
 )
 
 // Update wallet record event

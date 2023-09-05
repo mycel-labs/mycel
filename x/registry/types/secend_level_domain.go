@@ -6,29 +6,15 @@ import (
 )
 
 const (
-	BaseFee     = 303
+	BaseFee = 303
 )
 
-func (domain Domain) GetDomainLevel() (domainLevel int) {
-	if domain.Parent == "" {
-		domainLevel = 1
-	} else {
-		domainLevel = len(strings.Split(domain.Parent, ".")) + 1
+func (secondLevelDomain SecondLevelDomain) ParseParent() (parent string) {
+	if secondLevelDomain.Parent != "" {
+		split := strings.Split(secondLevelDomain.Parent, ".")
+		parent = split[len(split)-1]
 	}
-	return domainLevel
-}
-
-func (domain Domain) ParseParent() (name string, parent string) {
-	if domain.Parent != "" {
-		split := strings.Split(domain.Parent, ".")
-		if len(split) == 1 {
-			name = split[0]
-		} else {
-			parent = split[len(split)-1]
-			name = strings.Join(split[:len(split)-1], ".")
-		}
-	}
-	return name, parent
+	return parent
 }
 
 func GetWalletAddressFormat(walletRecordType string) (walletAddressFormat string, err error) {
@@ -45,7 +31,7 @@ func GetWalletAddressFormat(walletRecordType string) (walletAddressFormat string
 	return walletAddressFormat, err
 }
 
-func (domain *Domain) UpdateWalletRecord(walletRecordType string, address string) (err error) {
+func (secondLevelDomain *SecondLevelDomain) UpdateWalletRecord(walletRecordType string, address string) (err error) {
 
 	// Get wallet address format from wallet record type
 	walletAddressFormat, err := GetWalletAddressFormat(walletRecordType)
@@ -59,16 +45,16 @@ func (domain *Domain) UpdateWalletRecord(walletRecordType string, address string
 	}
 
 	walletRecord := &WalletRecord{
-		WalletRecordType:    NetworkName(NetworkName_value[walletRecordType]),
-		Value:               address,
+		WalletRecordType: NetworkName(NetworkName_value[walletRecordType]),
+		Value:            address,
 	}
 
 	// Initialize WalletRecords map if it is nil
-	if domain.WalletRecords == nil {
-		domain.WalletRecords = make(map[string]*WalletRecord)
+	if secondLevelDomain.WalletRecords == nil {
+		secondLevelDomain.WalletRecords = make(map[string]*WalletRecord)
 	}
 
-	domain.WalletRecords[walletRecordType] = walletRecord
+	secondLevelDomain.WalletRecords[walletRecordType] = walletRecord
 
 	return err
 }
@@ -85,7 +71,7 @@ func GetDnsRecordValueFormat(dnsRecordType string) (dnsRecordTypeFormat string, 
 	return dnsRecordTypeFormat, err
 }
 
-func (domain *Domain) UpdateDnsRecord(dnsRecordType string, value string) (err error) {
+func (secondLevelDomain *SecondLevelDomain) UpdateDnsRecord(dnsRecordType string, value string) (err error) {
 
 	// Get wallet address format from dns record type
 	dnsRecordFormat, err := GetDnsRecordValueFormat(dnsRecordType)
@@ -99,16 +85,16 @@ func (domain *Domain) UpdateDnsRecord(dnsRecordType string, value string) (err e
 	}
 
 	dnsRecord := &DnsRecord{
-		DnsRecordType:   DnsRecordType(DnsRecordType_value[dnsRecordType]),
-		Value:           value,
+		DnsRecordType: DnsRecordType(DnsRecordType_value[dnsRecordType]),
+		Value:         value,
 	}
 
 	// Initialize WalletRecords map if it is nil
-	if domain.DnsRecords == nil {
-		domain.DnsRecords = make(map[string]*DnsRecord)
+	if secondLevelDomain.DnsRecords == nil {
+		secondLevelDomain.DnsRecords = make(map[string]*DnsRecord)
 	}
 
-	domain.DnsRecords[dnsRecordType] = dnsRecord
+	secondLevelDomain.DnsRecords[dnsRecordType] = dnsRecord
 
 	return err
 }

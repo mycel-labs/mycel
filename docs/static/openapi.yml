@@ -49967,110 +49967,30 @@ paths:
           type: string
       tags:
         - Query
-  /mycel/registry/domain:
+  /mycel-domain/mycel/registry/top_level_domain:
     get:
-      operationId: MycelRegistryDomainAll
+      operationId: MycelRegistryTopLevelDomainAll
       responses:
         '200':
           description: A successful response.
           schema:
             type: object
             properties:
-              domain:
+              topLevelDomain:
                 type: array
                 items:
                   type: object
                   properties:
                     name:
                       type: string
-                    parent:
-                      type: string
-                    owner:
-                      type: string
                     expirationDate:
                       type: string
                       format: int64
-                    dnsRecords:
-                      type: object
-                      additionalProperties:
-                        type: object
-                        properties:
-                          dnsRecordType:
-                            type: string
-                            enum:
-                              - A
-                              - AAAA
-                              - CNAME
-                              - NS
-                              - MX
-                              - PTR
-                              - SOA
-                              - SRV
-                              - TXT
-                            default: A
-                          value:
-                            type: string
-                    walletRecords:
-                      type: object
-                      additionalProperties:
-                        type: object
-                        properties:
-                          walletRecordType:
-                            type: string
-                            enum:
-                              - BITCOIN_MAINNET_MAINNET
-                              - BITCOIN_TESTNET_TESTNET
-                              - ETHEREUM_MAINNET_MAINNET
-                              - ETHEREUM_TESTNET_GOERLI
-                              - ETHEREUM_TESTNET_SEPOLIA
-                              - POLYGON_MAINNET_MAINNET
-                              - POLYGON_TESTNET_MUMBAI
-                              - BNB_MAINNET_MAINNET
-                              - BNB_TESTNET_TESTNET
-                              - AVALANCHE_MAINNET_CCHAIN
-                              - AVALANCHE_TESTNET_FUJI
-                              - GNOSIS_MAINNET_MAINNET
-                              - GNOSIS_TESTNET_CHIADO
-                              - OPTIMISM_MAINNET_MAINNET
-                              - OPTIMISM_TESTNET_GOERLI
-                              - ARBITRUM_MAINNET_MAINNET
-                              - ARBITRUM_TESTNET_GOERLI
-                              - SHARDEUM_BETANET_SPHINX
-                              - ZETA_TESTNET_ATHENS
-                              - APTOS_MAINNET_MAINNET
-                              - APTOS_TESTNET_TESTNET
-                              - SUI_MAINNET_MAINNET
-                              - SUI_TESTNET_TESTNET
-                              - SOLANA_MAINNET_MAINNET
-                              - SOLANA_TESTNET_TESTNET
-                            default: BITCOIN_MAINNET_MAINNET
-                            description: |-
-                              - BITCOIN_MAINNET_MAINNET: BTC 0xxx
-                               - ETHEREUM_MAINNET_MAINNET: EVM 1xxxx
-                              Etheruem
-                               - POLYGON_MAINNET_MAINNET: Polygon
-                               - BNB_MAINNET_MAINNET: BNB Chain
-                               - AVALANCHE_MAINNET_CCHAIN: Avalanche
-                               - GNOSIS_MAINNET_MAINNET: Gnosis
-                               - OPTIMISM_MAINNET_MAINNET: Optimism
-                               - ARBITRUM_MAINNET_MAINNET: Arbitrum
-                               - SHARDEUM_BETANET_SPHINX: Shardeum
-                              SHARDEUM_MAINNET_ = 10015;
-                              SHARDEUM_TESTNET_ = 10016;
-                               - ZETA_TESTNET_ATHENS: Zetachain
-                              ZETA_MAINNET_MAINNET = 10018;
-                               - APTOS_MAINNET_MAINNET: MOVE 2xxxx
-                              Aptos
-                               - SUI_MAINNET_MAINNET: Sui
-                               - SOLANA_MAINNET_MAINNET: SOLANA 3xxxx
-                            title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
-                          value:
-                            type: string
                     metadata:
                       type: object
                       additionalProperties:
                         type: string
-                    subdomainRegistrationConfig:
+                    subdomainConfig:
                       type: object
                       properties:
                         maxSubdomainRegistrations:
@@ -50144,6 +50064,13 @@ paths:
                     subdomainCount:
                       type: string
                       format: uint64
+                    accessControl:
+                      type: object
+                      additionalProperties:
+                        type: object
+                        properties:
+                          owner:
+                            type: string
               pagination:
                 type: object
                 properties:
@@ -50249,17 +50176,398 @@ paths:
           type: boolean
       tags:
         - Query
-  /mycel/registry/domain/{name}/{parent}:
+  /mycel-domain/mycel/registry/top_level_domain/{name}:
     get:
-      summary: Queries a list of Domain items.
-      operationId: MycelRegistryDomain
+      summary: Queries a list of TopLevelDomain items.
+      operationId: MycelRegistryTopLevelDomain
       responses:
         '200':
           description: A successful response.
           schema:
             type: object
             properties:
-              domain:
+              topLevelDomain:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  expirationDate:
+                    type: string
+                    format: int64
+                  metadata:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  subdomainConfig:
+                    type: object
+                    properties:
+                      maxSubdomainRegistrations:
+                        type: string
+                        format: uint64
+                      subdomainRegistrationFees:
+                        type: object
+                        properties:
+                          feeByLength:
+                            type: object
+                            additionalProperties:
+                              type: object
+                              properties:
+                                isRegistrable:
+                                  type: boolean
+                                fee:
+                                  type: object
+                                  properties:
+                                    denom:
+                                      type: string
+                                    amount:
+                                      type: string
+                                  description: >-
+                                    Coin defines a token with a denomination and
+                                    an amount.
+
+
+                                    NOTE: The amount field is an Int which
+                                    implements the custom method
+
+                                    signatures required by gogoproto.
+                          feeByName:
+                            type: object
+                            additionalProperties:
+                              type: object
+                              properties:
+                                isRegistrable:
+                                  type: boolean
+                                fee:
+                                  type: object
+                                  properties:
+                                    denom:
+                                      type: string
+                                    amount:
+                                      type: string
+                                  description: >-
+                                    Coin defines a token with a denomination and
+                                    an amount.
+
+
+                                    NOTE: The amount field is an Int which
+                                    implements the custom method
+
+                                    signatures required by gogoproto.
+                          defaultFee:
+                            type: object
+                            properties:
+                              denom:
+                                type: string
+                              amount:
+                                type: string
+                            description: >-
+                              Coin defines a token with a denomination and an
+                              amount.
+
+
+                              NOTE: The amount field is an Int which implements
+                              the custom method
+
+                              signatures required by gogoproto.
+                  subdomainCount:
+                    type: string
+                    format: uint64
+                  accessControl:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        owner:
+                          type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: name
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /mycel/registry/params:
+    get:
+      summary: Parameters queries the parameters of the module.
+      operationId: MycelRegistryParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  /mycel/registry/second_level_domain:
+    get:
+      operationId: MycelRegistrySecondLevelDomainAll
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              secondLevelDomain:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    parent:
+                      type: string
+                    owner:
+                      type: string
+                    expirationDate:
+                      type: string
+                      format: int64
+                    dnsRecords:
+                      type: object
+                      additionalProperties:
+                        type: object
+                        properties:
+                          dnsRecordType:
+                            type: string
+                            enum:
+                              - A
+                              - AAAA
+                              - CNAME
+                              - NS
+                              - MX
+                              - PTR
+                              - SOA
+                              - SRV
+                              - TXT
+                            default: A
+                          value:
+                            type: string
+                    walletRecords:
+                      type: object
+                      additionalProperties:
+                        type: object
+                        properties:
+                          walletRecordType:
+                            type: string
+                            enum:
+                              - BITCOIN_MAINNET_MAINNET
+                              - BITCOIN_TESTNET_TESTNET
+                              - ETHEREUM_MAINNET_MAINNET
+                              - ETHEREUM_TESTNET_GOERLI
+                              - ETHEREUM_TESTNET_SEPOLIA
+                              - POLYGON_MAINNET_MAINNET
+                              - POLYGON_TESTNET_MUMBAI
+                              - BNB_MAINNET_MAINNET
+                              - BNB_TESTNET_TESTNET
+                              - AVALANCHE_MAINNET_CCHAIN
+                              - AVALANCHE_TESTNET_FUJI
+                              - GNOSIS_MAINNET_MAINNET
+                              - GNOSIS_TESTNET_CHIADO
+                              - OPTIMISM_MAINNET_MAINNET
+                              - OPTIMISM_TESTNET_GOERLI
+                              - ARBITRUM_MAINNET_MAINNET
+                              - ARBITRUM_TESTNET_GOERLI
+                              - SHARDEUM_BETANET_SPHINX
+                              - ZETA_TESTNET_ATHENS
+                              - APTOS_MAINNET_MAINNET
+                              - APTOS_TESTNET_TESTNET
+                              - SUI_MAINNET_MAINNET
+                              - SUI_TESTNET_TESTNET
+                              - SOLANA_MAINNET_MAINNET
+                              - SOLANA_TESTNET_TESTNET
+                            default: BITCOIN_MAINNET_MAINNET
+                            description: |-
+                              - BITCOIN_MAINNET_MAINNET: BTC 0xxx
+                               - ETHEREUM_MAINNET_MAINNET: EVM 1xxxx
+                              Etheruem
+                               - POLYGON_MAINNET_MAINNET: Polygon
+                               - BNB_MAINNET_MAINNET: BNB Chain
+                               - AVALANCHE_MAINNET_CCHAIN: Avalanche
+                               - GNOSIS_MAINNET_MAINNET: Gnosis
+                               - OPTIMISM_MAINNET_MAINNET: Optimism
+                               - ARBITRUM_MAINNET_MAINNET: Arbitrum
+                               - SHARDEUM_BETANET_SPHINX: Shardeum
+                              SHARDEUM_MAINNET_ = 10015;
+                              SHARDEUM_TESTNET_ = 10016;
+                               - ZETA_TESTNET_ATHENS: Zetachain
+                              ZETA_MAINNET_MAINNET = 10018;
+                               - APTOS_MAINNET_MAINNET: MOVE 2xxxx
+                              Aptos
+                               - SUI_MAINNET_MAINNET: Sui
+                               - SOLANA_MAINNET_MAINNET: SOLANA 3xxxx
+                            title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+                          value:
+                            type: string
+                    metadata:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    accessControl:
+                      type: object
+                      additionalProperties:
+                        type: object
+                        properties:
+                          owner:
+                            type: string
+                          recordEditor:
+                            type: string
+              pagination:
+                type: object
+                properties:
+                  next_key:
+                    type: string
+                    format: byte
+                    description: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently. It will be empty if
+                      there are no more results.
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.count_total
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  /mycel/registry/second_level_domain/{name}/{parent}:
+    get:
+      summary: Queries a list of SecondLevelDomain items.
+      operationId: MycelRegistrySecondLevelDomain
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              secondLevelDomain:
                 type: object
                 properties:
                   name:
@@ -50351,80 +50659,15 @@ paths:
                     type: object
                     additionalProperties:
                       type: string
-                  subdomainRegistrationConfig:
+                  accessControl:
                     type: object
-                    properties:
-                      maxSubdomainRegistrations:
-                        type: string
-                        format: uint64
-                      subdomainRegistrationFees:
-                        type: object
-                        properties:
-                          feeByLength:
-                            type: object
-                            additionalProperties:
-                              type: object
-                              properties:
-                                isRegistrable:
-                                  type: boolean
-                                fee:
-                                  type: object
-                                  properties:
-                                    denom:
-                                      type: string
-                                    amount:
-                                      type: string
-                                  description: >-
-                                    Coin defines a token with a denomination and
-                                    an amount.
-
-
-                                    NOTE: The amount field is an Int which
-                                    implements the custom method
-
-                                    signatures required by gogoproto.
-                          feeByName:
-                            type: object
-                            additionalProperties:
-                              type: object
-                              properties:
-                                isRegistrable:
-                                  type: boolean
-                                fee:
-                                  type: object
-                                  properties:
-                                    denom:
-                                      type: string
-                                    amount:
-                                      type: string
-                                  description: >-
-                                    Coin defines a token with a denomination and
-                                    an amount.
-
-
-                                    NOTE: The amount field is an Int which
-                                    implements the custom method
-
-                                    signatures required by gogoproto.
-                          defaultFee:
-                            type: object
-                            properties:
-                              denom:
-                                type: string
-                              amount:
-                                type: string
-                            description: >-
-                              Coin defines a token with a denomination and an
-                              amount.
-
-
-                              NOTE: The amount field is an Int which implements
-                              the custom method
-
-                              signatures required by gogoproto.
-                  subdomainCount:
-                    type: string
-                    format: uint64
+                    additionalProperties:
+                      type: object
+                      properties:
+                        owner:
+                          type: string
+                        recordEditor:
+                          type: string
         default:
           description: An unexpected error response.
           schema:
@@ -50452,42 +50695,6 @@ paths:
           in: path
           required: true
           type: string
-      tags:
-        - Query
-  /mycel/registry/params:
-    get:
-      summary: Parameters queries the parameters of the module.
-      operationId: MycelRegistryParams
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              params:
-                description: params holds all the parameters of this module.
-                type: object
-            description: >-
-              QueryParamsResponse is response type for the Query/Params RPC
-              method.
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
       tags:
         - Query
 definitions:
@@ -80265,169 +80472,6 @@ definitions:
       - SRV
       - TXT
     default: A
-  mycel.registry.Domain:
-    type: object
-    properties:
-      name:
-        type: string
-      parent:
-        type: string
-      owner:
-        type: string
-      expirationDate:
-        type: string
-        format: int64
-      dnsRecords:
-        type: object
-        additionalProperties:
-          type: object
-          properties:
-            dnsRecordType:
-              type: string
-              enum:
-                - A
-                - AAAA
-                - CNAME
-                - NS
-                - MX
-                - PTR
-                - SOA
-                - SRV
-                - TXT
-              default: A
-            value:
-              type: string
-      walletRecords:
-        type: object
-        additionalProperties:
-          type: object
-          properties:
-            walletRecordType:
-              type: string
-              enum:
-                - BITCOIN_MAINNET_MAINNET
-                - BITCOIN_TESTNET_TESTNET
-                - ETHEREUM_MAINNET_MAINNET
-                - ETHEREUM_TESTNET_GOERLI
-                - ETHEREUM_TESTNET_SEPOLIA
-                - POLYGON_MAINNET_MAINNET
-                - POLYGON_TESTNET_MUMBAI
-                - BNB_MAINNET_MAINNET
-                - BNB_TESTNET_TESTNET
-                - AVALANCHE_MAINNET_CCHAIN
-                - AVALANCHE_TESTNET_FUJI
-                - GNOSIS_MAINNET_MAINNET
-                - GNOSIS_TESTNET_CHIADO
-                - OPTIMISM_MAINNET_MAINNET
-                - OPTIMISM_TESTNET_GOERLI
-                - ARBITRUM_MAINNET_MAINNET
-                - ARBITRUM_TESTNET_GOERLI
-                - SHARDEUM_BETANET_SPHINX
-                - ZETA_TESTNET_ATHENS
-                - APTOS_MAINNET_MAINNET
-                - APTOS_TESTNET_TESTNET
-                - SUI_MAINNET_MAINNET
-                - SUI_TESTNET_TESTNET
-                - SOLANA_MAINNET_MAINNET
-                - SOLANA_TESTNET_TESTNET
-              default: BITCOIN_MAINNET_MAINNET
-              description: |-
-                - BITCOIN_MAINNET_MAINNET: BTC 0xxx
-                 - ETHEREUM_MAINNET_MAINNET: EVM 1xxxx
-                Etheruem
-                 - POLYGON_MAINNET_MAINNET: Polygon
-                 - BNB_MAINNET_MAINNET: BNB Chain
-                 - AVALANCHE_MAINNET_CCHAIN: Avalanche
-                 - GNOSIS_MAINNET_MAINNET: Gnosis
-                 - OPTIMISM_MAINNET_MAINNET: Optimism
-                 - ARBITRUM_MAINNET_MAINNET: Arbitrum
-                 - SHARDEUM_BETANET_SPHINX: Shardeum
-                SHARDEUM_MAINNET_ = 10015;
-                SHARDEUM_TESTNET_ = 10016;
-                 - ZETA_TESTNET_ATHENS: Zetachain
-                ZETA_MAINNET_MAINNET = 10018;
-                 - APTOS_MAINNET_MAINNET: MOVE 2xxxx
-                Aptos
-                 - SUI_MAINNET_MAINNET: Sui
-                 - SOLANA_MAINNET_MAINNET: SOLANA 3xxxx
-              title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
-            value:
-              type: string
-      metadata:
-        type: object
-        additionalProperties:
-          type: string
-      subdomainRegistrationConfig:
-        type: object
-        properties:
-          maxSubdomainRegistrations:
-            type: string
-            format: uint64
-          subdomainRegistrationFees:
-            type: object
-            properties:
-              feeByLength:
-                type: object
-                additionalProperties:
-                  type: object
-                  properties:
-                    isRegistrable:
-                      type: boolean
-                    fee:
-                      type: object
-                      properties:
-                        denom:
-                          type: string
-                        amount:
-                          type: string
-                      description: >-
-                        Coin defines a token with a denomination and an amount.
-
-
-                        NOTE: The amount field is an Int which implements the
-                        custom method
-
-                        signatures required by gogoproto.
-              feeByName:
-                type: object
-                additionalProperties:
-                  type: object
-                  properties:
-                    isRegistrable:
-                      type: boolean
-                    fee:
-                      type: object
-                      properties:
-                        denom:
-                          type: string
-                        amount:
-                          type: string
-                      description: >-
-                        Coin defines a token with a denomination and an amount.
-
-
-                        NOTE: The amount field is an Int which implements the
-                        custom method
-
-                        signatures required by gogoproto.
-              defaultFee:
-                type: object
-                properties:
-                  denom:
-                    type: string
-                  amount:
-                    type: string
-                description: >-
-                  Coin defines a token with a denomination and an amount.
-
-
-                  NOTE: The amount field is an Int which implements the custom
-                  method
-
-                  signatures required by gogoproto.
-      subdomainCount:
-        type: string
-        format: uint64
   mycel.registry.DomainOwnership:
     type: object
     properties:
@@ -80569,10 +80613,10 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  mycel.registry.QueryAllDomainResponse:
+  mycel.registry.QueryAllSecondLevelDomainResponse:
     type: object
     properties:
-      domain:
+      secondLevelDomain:
         type: array
         items:
           type: object
@@ -80666,7 +80710,59 @@ definitions:
               type: object
               additionalProperties:
                 type: string
-            subdomainRegistrationConfig:
+            accessControl:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  owner:
+                    type: string
+                  recordEditor:
+                    type: string
+      pagination:
+        type: object
+        properties:
+          next_key:
+            type: string
+            format: byte
+            description: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently. It will be empty if
+              there are no more results.
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  mycel.registry.QueryAllTopLevelDomainResponse:
+    type: object
+    properties:
+      topLevelDomain:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            expirationDate:
+              type: string
+              format: int64
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+            subdomainConfig:
               type: object
               properties:
                 maxSubdomainRegistrations:
@@ -80739,6 +80835,13 @@ definitions:
             subdomainCount:
               type: string
               format: uint64
+            accessControl:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  owner:
+                    type: string
       pagination:
         type: object
         properties:
@@ -80797,10 +80900,10 @@ definitions:
                   type: string
                 parent:
                   type: string
-  mycel.registry.QueryGetDomainResponse:
+  mycel.registry.QueryGetSecondLevelDomainResponse:
     type: object
     properties:
-      domain:
+      secondLevelDomain:
         type: object
         properties:
           name:
@@ -80892,7 +80995,31 @@ definitions:
             type: object
             additionalProperties:
               type: string
-          subdomainRegistrationConfig:
+          accessControl:
+            type: object
+            additionalProperties:
+              type: object
+              properties:
+                owner:
+                  type: string
+                recordEditor:
+                  type: string
+  mycel.registry.QueryGetTopLevelDomainResponse:
+    type: object
+    properties:
+      topLevelDomain:
+        type: object
+        properties:
+          name:
+            type: string
+          expirationDate:
+            type: string
+            format: int64
+          metadata:
+            type: object
+            additionalProperties:
+              type: string
+          subdomainConfig:
             type: object
             properties:
               maxSubdomainRegistrations:
@@ -80965,6 +81092,13 @@ definitions:
           subdomainCount:
             type: string
             format: uint64
+          accessControl:
+            type: object
+            additionalProperties:
+              type: object
+              properties:
+                owner:
+                  type: string
   mycel.registry.QueryIsRegistrableDomainResponse:
     type: object
     properties:
@@ -80979,7 +81113,108 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  mycel.registry.SubdomainRegistrationConfig:
+  mycel.registry.SecondLevelDomain:
+    type: object
+    properties:
+      name:
+        type: string
+      parent:
+        type: string
+      owner:
+        type: string
+      expirationDate:
+        type: string
+        format: int64
+      dnsRecords:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            dnsRecordType:
+              type: string
+              enum:
+                - A
+                - AAAA
+                - CNAME
+                - NS
+                - MX
+                - PTR
+                - SOA
+                - SRV
+                - TXT
+              default: A
+            value:
+              type: string
+      walletRecords:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            walletRecordType:
+              type: string
+              enum:
+                - BITCOIN_MAINNET_MAINNET
+                - BITCOIN_TESTNET_TESTNET
+                - ETHEREUM_MAINNET_MAINNET
+                - ETHEREUM_TESTNET_GOERLI
+                - ETHEREUM_TESTNET_SEPOLIA
+                - POLYGON_MAINNET_MAINNET
+                - POLYGON_TESTNET_MUMBAI
+                - BNB_MAINNET_MAINNET
+                - BNB_TESTNET_TESTNET
+                - AVALANCHE_MAINNET_CCHAIN
+                - AVALANCHE_TESTNET_FUJI
+                - GNOSIS_MAINNET_MAINNET
+                - GNOSIS_TESTNET_CHIADO
+                - OPTIMISM_MAINNET_MAINNET
+                - OPTIMISM_TESTNET_GOERLI
+                - ARBITRUM_MAINNET_MAINNET
+                - ARBITRUM_TESTNET_GOERLI
+                - SHARDEUM_BETANET_SPHINX
+                - ZETA_TESTNET_ATHENS
+                - APTOS_MAINNET_MAINNET
+                - APTOS_TESTNET_TESTNET
+                - SUI_MAINNET_MAINNET
+                - SUI_TESTNET_TESTNET
+                - SOLANA_MAINNET_MAINNET
+                - SOLANA_TESTNET_TESTNET
+              default: BITCOIN_MAINNET_MAINNET
+              description: |-
+                - BITCOIN_MAINNET_MAINNET: BTC 0xxx
+                 - ETHEREUM_MAINNET_MAINNET: EVM 1xxxx
+                Etheruem
+                 - POLYGON_MAINNET_MAINNET: Polygon
+                 - BNB_MAINNET_MAINNET: BNB Chain
+                 - AVALANCHE_MAINNET_CCHAIN: Avalanche
+                 - GNOSIS_MAINNET_MAINNET: Gnosis
+                 - OPTIMISM_MAINNET_MAINNET: Optimism
+                 - ARBITRUM_MAINNET_MAINNET: Arbitrum
+                 - SHARDEUM_BETANET_SPHINX: Shardeum
+                SHARDEUM_MAINNET_ = 10015;
+                SHARDEUM_TESTNET_ = 10016;
+                 - ZETA_TESTNET_ATHENS: Zetachain
+                ZETA_MAINNET_MAINNET = 10018;
+                 - APTOS_MAINNET_MAINNET: MOVE 2xxxx
+                Aptos
+                 - SUI_MAINNET_MAINNET: Sui
+                 - SOLANA_MAINNET_MAINNET: SOLANA 3xxxx
+              title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+            value:
+              type: string
+      metadata:
+        type: object
+        additionalProperties:
+          type: string
+      accessControl:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            owner:
+              type: string
+            recordEditor:
+              type: string
+  mycel.registry.SubdomainConfig:
     type: object
     properties:
       maxSubdomainRegistrations:
@@ -81106,6 +81341,108 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
+  mycel.registry.SubdomainRole:
+    type: object
+    properties:
+      owner:
+        type: string
+      recordEditor:
+        type: string
+  mycel.registry.TopLevelDomain:
+    type: object
+    properties:
+      name:
+        type: string
+      expirationDate:
+        type: string
+        format: int64
+      metadata:
+        type: object
+        additionalProperties:
+          type: string
+      subdomainConfig:
+        type: object
+        properties:
+          maxSubdomainRegistrations:
+            type: string
+            format: uint64
+          subdomainRegistrationFees:
+            type: object
+            properties:
+              feeByLength:
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    isRegistrable:
+                      type: boolean
+                    fee:
+                      type: object
+                      properties:
+                        denom:
+                          type: string
+                        amount:
+                          type: string
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
+              feeByName:
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    isRegistrable:
+                      type: boolean
+                    fee:
+                      type: object
+                      properties:
+                        denom:
+                          type: string
+                        amount:
+                          type: string
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
+              defaultFee:
+                type: object
+                properties:
+                  denom:
+                    type: string
+                  amount:
+                    type: string
+                description: >-
+                  Coin defines a token with a denomination and an amount.
+
+
+                  NOTE: The amount field is an Int which implements the custom
+                  method
+
+                  signatures required by gogoproto.
+      subdomainCount:
+        type: string
+        format: uint64
+      accessControl:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            owner:
+              type: string
+  mycel.registry.TopLevelDomainRole:
+    type: object
+    properties:
+      owner:
+        type: string
   mycel.registry.WalletRecord:
     type: object
     properties:

@@ -18,37 +18,34 @@ import (
 // Prevent strconv unused error
 var _ = strconv.IntSize
 
-func TestDomainQuerySingle(t *testing.T) {
+func TestTopLevelDomainQuerySingle(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	wctx := sdk.WrapSDKContext(ctx)
-	msgs := createNDomain(keeper, ctx, 2)
-	for _, tc := range []struct {
+	msgs := createNTopLevelDomain(keeper, ctx, 2)
+	tests := []struct {
 		desc     string
-		request  *types.QueryGetDomainRequest
-		response *types.QueryGetDomainResponse
+		request  *types.QueryGetTopLevelDomainRequest
+		response *types.QueryGetTopLevelDomainResponse
 		err      error
 	}{
 		{
 			desc: "First",
-			request: &types.QueryGetDomainRequest{
-				Name:   msgs[0].Name,
-				Parent: msgs[0].Parent,
+			request: &types.QueryGetTopLevelDomainRequest{
+				Name: msgs[0].Name,
 			},
-			response: &types.QueryGetDomainResponse{Domain: msgs[0]},
+			response: &types.QueryGetTopLevelDomainResponse{TopLevelDomain: msgs[0]},
 		},
 		{
 			desc: "Second",
-			request: &types.QueryGetDomainRequest{
-				Name:   msgs[1].Name,
-				Parent: msgs[1].Parent,
+			request: &types.QueryGetTopLevelDomainRequest{
+				Name: msgs[1].Name,
 			},
-			response: &types.QueryGetDomainResponse{Domain: msgs[1]},
+			response: &types.QueryGetTopLevelDomainResponse{TopLevelDomain: msgs[1]},
 		},
 		{
 			desc: "KeyNotFound",
-			request: &types.QueryGetDomainRequest{
-				Name:   strconv.Itoa(100000),
-				Parent: strconv.Itoa(100000),
+			request: &types.QueryGetTopLevelDomainRequest{
+				Name: strconv.Itoa(100000),
 			},
 			err: status.Error(codes.NotFound, "not found"),
 		},
@@ -56,9 +53,10 @@ func TestDomainQuerySingle(t *testing.T) {
 			desc: "InvalidRequest",
 			err:  status.Error(codes.InvalidArgument, "invalid request"),
 		},
-	} {
+	}
+	for _, tc := range tests {
 		t.Run(tc.desc, func(t *testing.T) {
-			response, err := keeper.Domain(wctx, tc.request)
+			response, err := keeper.TopLevelDomain(wctx, tc.request)
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {
@@ -72,13 +70,13 @@ func TestDomainQuerySingle(t *testing.T) {
 	}
 }
 
-func TestDomainQueryPaginated(t *testing.T) {
+func TestTopLevelDomainQueryPaginated(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	wctx := sdk.WrapSDKContext(ctx)
-	msgs := createNDomain(keeper, ctx, 5)
+	msgs := createNTopLevelDomain(keeper, ctx, 5)
 
-	request := func(next []byte, offset, limit uint64, total bool) *types.QueryAllDomainRequest {
-		return &types.QueryAllDomainRequest{
+	request := func(next []byte, offset, limit uint64, total bool) *types.QueryAllTopLevelDomainRequest {
+		return &types.QueryAllTopLevelDomainRequest{
 			Pagination: &query.PageRequest{
 				Key:        next,
 				Offset:     offset,
@@ -90,12 +88,12 @@ func TestDomainQueryPaginated(t *testing.T) {
 	t.Run("ByOffset", func(t *testing.T) {
 		step := 2
 		for i := 0; i < len(msgs); i += step {
-			resp, err := keeper.DomainAll(wctx, request(nil, uint64(i), uint64(step), false))
+			resp, err := keeper.TopLevelDomainAll(wctx, request(nil, uint64(i), uint64(step), false))
 			require.NoError(t, err)
-			require.LessOrEqual(t, len(resp.Domain), step)
+			require.LessOrEqual(t, len(resp.TopLevelDomain), step)
 			require.Subset(t,
 				nullify.Fill(msgs),
-				nullify.Fill(resp.Domain),
+				nullify.Fill(resp.TopLevelDomain),
 			)
 		}
 	})
@@ -103,27 +101,27 @@ func TestDomainQueryPaginated(t *testing.T) {
 		step := 2
 		var next []byte
 		for i := 0; i < len(msgs); i += step {
-			resp, err := keeper.DomainAll(wctx, request(next, 0, uint64(step), false))
+			resp, err := keeper.TopLevelDomainAll(wctx, request(next, 0, uint64(step), false))
 			require.NoError(t, err)
-			require.LessOrEqual(t, len(resp.Domain), step)
+			require.LessOrEqual(t, len(resp.TopLevelDomain), step)
 			require.Subset(t,
 				nullify.Fill(msgs),
-				nullify.Fill(resp.Domain),
+				nullify.Fill(resp.TopLevelDomain),
 			)
 			next = resp.Pagination.NextKey
 		}
 	})
 	t.Run("Total", func(t *testing.T) {
-		resp, err := keeper.DomainAll(wctx, request(nil, 0, 0, true))
+		resp, err := keeper.TopLevelDomainAll(wctx, request(nil, 0, 0, true))
 		require.NoError(t, err)
 		require.Equal(t, len(msgs), int(resp.Pagination.Total))
 		require.ElementsMatch(t,
 			nullify.Fill(msgs),
-			nullify.Fill(resp.Domain),
+			nullify.Fill(resp.TopLevelDomain),
 		)
 	})
 	t.Run("InvalidRequest", func(t *testing.T) {
-		_, err := keeper.DomainAll(wctx, nil)
+		_, err := keeper.TopLevelDomainAll(wctx, nil)
 		require.ErrorIs(t, err, status.Error(codes.InvalidArgument, "invalid request"))
 	})
 }

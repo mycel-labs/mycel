@@ -1,20 +1,22 @@
 package cli
 
 import (
-	"context"
-
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/mycel-domain/mycel/x/registry/types"
 	"github.com/spf13/cobra"
+
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
-func CmdListDomain() *cobra.Command {
+func CmdListTopLevelDomain() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "list-domain",
-		Short: "list all domain",
+		Use:   "list-top-level-domain",
+		Short: "list all topLevelDomain",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			clientCtx := client.GetClientContextFromCmd(cmd)
+			clientCtx, err := client.GetClientQueryContext(cmd)
+			if err != nil {
+				return err
+			}
 
 			pageReq, err := client.ReadPageRequest(cmd.Flags())
 			if err != nil {
@@ -23,11 +25,11 @@ func CmdListDomain() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryAllDomainRequest{
+			params := &types.QueryAllTopLevelDomainRequest{
 				Pagination: pageReq,
 			}
 
-			res, err := queryClient.DomainAll(context.Background(), params)
+			res, err := queryClient.TopLevelDomainAll(cmd.Context(), params)
 			if err != nil {
 				return err
 			}
@@ -42,25 +44,26 @@ func CmdListDomain() *cobra.Command {
 	return cmd
 }
 
-func CmdShowDomain() *cobra.Command {
+func CmdShowTopLevelDomain() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-domain [name] [parent]",
-		Short: "shows a domain",
-		Args:  cobra.ExactArgs(2),
+		Use:   "show-top-level-domain [name]",
+		Short: "shows a topLevelDomain",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			clientCtx := client.GetClientContextFromCmd(cmd)
+			clientCtx, err := client.GetClientQueryContext(cmd)
+			if err != nil {
+				return err
+			}
 
 			queryClient := types.NewQueryClient(clientCtx)
 
 			argName := args[0]
-			argParent := args[1]
 
-			params := &types.QueryGetDomainRequest{
-				Name:   argName,
-				Parent: argParent,
+			params := &types.QueryGetTopLevelDomainRequest{
+				Name: argName,
 			}
 
-			res, err := queryClient.Domain(context.Background(), params)
+			res, err := queryClient.TopLevelDomain(cmd.Context(), params)
 			if err != nil {
 				return err
 			}

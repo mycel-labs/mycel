@@ -4,36 +4,33 @@ import (
 	"strconv"
 	"testing"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
 	"github.com/mycel-domain/mycel/x/registry/keeper"
 	"github.com/mycel-domain/mycel/x/registry/types"
-
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )
 
 // Prevent strconv unused error
 var _ = strconv.IntSize
 
-func createNDomain(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.Domain {
-	items := make([]types.Domain, n)
+func createNTopLevelDomain(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.TopLevelDomain {
+	items := make([]types.TopLevelDomain, n)
 	for i := range items {
 		items[i].Name = strconv.Itoa(i)
-		items[i].Parent = strconv.Itoa(i)
 
-		keeper.SetDomain(ctx, items[i])
+		keeper.SetTopLevelDomain(ctx, items[i])
 	}
 	return items
 }
 
-func TestDomainGet(t *testing.T) {
+func TestTopLevelDomainGet(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
-	items := createNDomain(keeper, ctx, 10)
+	items := createNTopLevelDomain(keeper, ctx, 10)
 	for _, item := range items {
-		rst, found := keeper.GetDomain(ctx,
+		rst, found := keeper.GetTopLevelDomain(ctx,
 			item.Name,
-			item.Parent,
 		)
 		require.True(t, found)
 		require.Equal(t,
@@ -42,27 +39,25 @@ func TestDomainGet(t *testing.T) {
 		)
 	}
 }
-func TestDomainRemove(t *testing.T) {
+func TestTopLevelDomainRemove(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
-	items := createNDomain(keeper, ctx, 10)
+	items := createNTopLevelDomain(keeper, ctx, 10)
 	for _, item := range items {
-		keeper.RemoveDomain(ctx,
+		keeper.RemoveTopLevelDomain(ctx,
 			item.Name,
-			item.Parent,
 		)
-		_, found := keeper.GetDomain(ctx,
+		_, found := keeper.GetTopLevelDomain(ctx,
 			item.Name,
-			item.Parent,
 		)
 		require.False(t, found)
 	}
 }
 
-func TestDomainGetAll(t *testing.T) {
+func TestTopLevelDomainGetAll(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
-	items := createNDomain(keeper, ctx, 10)
+	items := createNTopLevelDomain(keeper, ctx, 10)
 	require.ElementsMatch(t,
 		nullify.Fill(items),
-		nullify.Fill(keeper.GetAllDomain(ctx)),
+		nullify.Fill(keeper.GetAllTopLevelDomain(ctx)),
 	)
 }

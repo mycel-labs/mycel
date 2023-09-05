@@ -26,7 +26,7 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 	currentTime := ctx.BlockTime()
 	expirationDate := currentTime.AddDate(int(msg.RegistrationPeriodInYear), 0, 0)
 
-	domain := types.Domain{
+	domain := types.SecondLevelDomain{
 		Name:           msg.Name,
 		Owner:          msg.Creator,
 		ExpirationDate: expirationDate.UnixNano(),
