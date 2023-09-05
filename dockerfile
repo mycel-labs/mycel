@@ -7,12 +7,9 @@ RUN apt update \
 RUN curl 'https://get.ignite.com/cli@v0.27.1'! | bash
 RUN ignite chain build \
     --release.targets linux:amd64 \
-#   --release.targets linux:arm64 \
-#   --release.targets darwin:amd64 \
     --output ./release \
-    --release \
- && ls release \
- && tar -zxvf release/mycel_linux_amd64.tar.gz
+    --release
+RUN tar -zxvf release/mycel_linux_amd64.tar.gz
 
 FROM ubuntu
 ENV LD_LIBRARY_PATH=/usr/local/lib
