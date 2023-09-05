@@ -24,7 +24,22 @@ validators:
   bonded: 100000000umycel
 genesis:
   chain_id: "mycel-local"
+  consensus_params:
+    block:
+      max_bytes: "22020096"
+      max_gas: "-1"
   app_state:
+    crisis:
+      constant_fee:
+        denom: umycel
+    gov:
+      params:
+        min_deposit:
+        - amount: '10000000'
+          denom: umycel
+    mint:
+      params:
+        mint_denom: umycel
     staking:
       params:
-        bond_denom: "umycel"
+        bond_denom: umycel

@@ -6,6 +6,18 @@ import (
 	"github.com/mycel-domain/mycel/app"
 )
 
+// RegisterDenoms registers token denoms.
+func RegisterDenoms() {
+	err := sdk.RegisterDenom(app.HumanCoinUnit, sdk.OneDec())
+	if err != nil {
+		panic(err)
+	}
+	err = sdk.RegisterDenom(app.BaseCoinUnit, sdk.NewDecWithPrec(1, app.MycelExponent))
+	if err != nil {
+		panic(err)
+	}
+}
+
 func initSDKConfig() {
 	// Set prefixes
 	accountPubKeyPrefix := app.AccountAddressPrefix + "pub"
@@ -13,6 +25,9 @@ func initSDKConfig() {
 	validatorPubKeyPrefix := app.AccountAddressPrefix + "valoperpub"
 	consNodeAddressPrefix := app.AccountAddressPrefix + "valcons"
 	consNodePubKeyPrefix := app.AccountAddressPrefix + "valconspub"
+
+	// Set Denom
+	RegisterDenoms()
 
 	// Set and seal config
 	config := sdk.GetConfig()

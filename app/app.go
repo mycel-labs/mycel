@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 	reflectionv1 "cosmossdk.io/api/cosmos/reflection/v1"
@@ -110,6 +111,11 @@ import (
 	ibctm "github.com/cosmos/ibc-go/v7/modules/light-clients/07-tendermint"
 	"github.com/spf13/cast"
 
+	// CosmWasm
+	"github.com/CosmWasm/wasmd/x/wasm"
+	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+
 	// Registry
 	registrymodule "github.com/mycel-domain/mycel/x/registry"
 	registrymodulekeeper "github.com/mycel-domain/mycel/x/registry/keeper"
@@ -129,8 +135,32 @@ import (
 const (
 	AccountAddressPrefix = "mycel"
 	Name                 = "mycel"
+	HumanCoinUnit = "mycel"
+	BaseCoinUnit  = "umycel"
+	MycelExponent  = 6
+
+	DefaultBondDenom = BaseCoinUnit
+
+	// If EnabledSpecificProposals is "", and this is "true", then enable all x/wasm proposals.
+	// If EnabledSpecificProposals is "", and this is not "true", then disable all x/wasm proposals.
+	ProposalsEnabled = "false"
+	// If set to non-empty string it must be comma-separated list of values that are all a subset
+	// of "EnableAllProposals" (takes precedence over ProposalsEnabled)
+	// https://github.com/CosmWasm/wasmd/blob/02a54d33ff2c064f3539ae12d75d027d9c665f05/x/wasm/internal/types/proposal.go#L28-L34
+	EnableSpecificProposals = ""
 )
 
+// RegisterDenoms registers token denoms.
+func RegisterDenoms() {
+	err := sdk.RegisterDenom(HumanCoinUnit, sdk.OneDec())
+	if err != nil {
+		panic(err)
+	}
+	err = sdk.RegisterDenom(BaseCoinUnit, sdk.NewDecWithPrec(1, MycelExponent))
+	if err != nil {
+		panic(err)
+	}
+}
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals
 
 func getGovProposalHandlers() []govclient.ProposalHandler {
@@ -147,6 +177,23 @@ func getGovProposalHandlers() []govclient.ProposalHandler {
 	)
 
 	return govProposalHandlers
+}
+
+
+// produce a list of enabled proposals to pass into wasmd app.
+func GetEnabledProposals() []wasmtypes.ProposalType {
+	if EnableSpecificProposals == "" {
+		if ProposalsEnabled == "true" {
+			return wasmtypes.EnableAllProposals
+		}
+		return wasmtypes.DisableAllProposals
+	}
+	chunks := strings.Split(EnableSpecificProposals, ",")
+	proposals, err := wasmtypes.ConvertToProposals(chunks)
+	if err != nil {
+		panic(err)
+	}
+	return proposals
 }
 
 var (
@@ -180,6 +227,8 @@ var (
 		ica.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		consensus.AppModuleBasic{},
+		// CosmWasm
+		wasm.AppModuleBasic{},
 		// my modules
 		registrymodule.AppModuleBasic{},
 		epochsmodule.AppModuleBasic{},
@@ -196,6 +245,9 @@ var (
 		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
 		govtypes.ModuleName:            {authtypes.Burner},
 		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
+		// CosmWasm
+		wasmtypes.ModuleName: {authtypes.Burner},
+		// my modules
 		registrymoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
@@ -259,9 +311,12 @@ type App struct {
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
 	ScopedICAHostKeeper  capabilitykeeper.ScopedKeeper
 
-	RegistryKeeper registrymodulekeeper.Keeper
+	// CosmWasm
+	WasmKeeper wasmkeeper.Keeper
 
-	EpochsKeeper epochsmodulekeeper.Keeper
+	// my mnodules
+	RegistryKeeper registrymodulekeeper.Keeper
+	EpochsKeeper   epochsmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -282,7 +337,9 @@ func New(
 	homePath string,
 	invCheckPeriod uint,
 	encodingConfig appparams.EncodingConfig,
+	enabledProposals []wasmtypes.ProposalType,
 	appOpts servertypes.AppOptions,
+	wasmOpts []wasmkeeper.Option,
 	baseAppOptions ...func(*baseapp.BaseApp),
 ) *App {
 	return NewApp(
@@ -295,6 +352,8 @@ func New(
 		invCheckPeriod,
 		encodingConfig,
 		appOpts,
+		enabledProposals,
+		wasmOpts,
 		baseAppOptions...,
 	)
 }
@@ -309,6 +368,8 @@ func NewApp(
 	invCheckPeriod uint,
 	encodingConfig appparams.EncodingConfig,
 	appOpts servertypes.AppOptions,
+	enabledProposals []wasmtypes.ProposalType,
+	wasmOpts []wasmkeeper.Option,
 	baseAppOptions ...func(*baseapp.BaseApp),
 
 ) *App {
@@ -336,6 +397,10 @@ func NewApp(
 		feegrant.StoreKey, evidencetypes.StoreKey, ibctransfertypes.StoreKey, icahosttypes.StoreKey,
 		capabilitytypes.StoreKey, group.StoreKey, icacontrollertypes.StoreKey, consensusparamtypes.StoreKey,
 
+		// CosmWasm
+		wasmtypes.StoreKey,
+
+		// my modules
 		registrymoduletypes.StoreKey,
 		epochsmoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
@@ -379,6 +444,9 @@ func NewApp(
 	scopedTransferKeeper := app.CapabilityKeeper.ScopeToModule(ibctransfertypes.ModuleName)
 	scopedICAHostKeeper := app.CapabilityKeeper.ScopeToModule(icahosttypes.SubModuleName)
 	// this line is used by starport scaffolding # stargate/app/scopedKeeper
+
+	// CosmWasm
+	scopedWasmKeeper := app.CapabilityKeeper.ScopeToModule(wasmtypes.ModuleName)
 
 	// add keepers
 	app.AccountKeeper = authkeeper.NewAccountKeeper(
@@ -552,6 +620,42 @@ func NewApp(
 		AddRoute(paramproposal.RouterKey, params.NewParamChangeProposalHandler(app.ParamsKeeper)).
 		AddRoute(upgradetypes.RouterKey, upgrade.NewSoftwareUpgradeProposalHandler(app.UpgradeKeeper)).
 		AddRoute(ibcclienttypes.RouterKey, ibcclient.NewClientProposalHandler(app.IBCKeeper.ClientKeeper))
+
+	// CosmWasm
+	wasmDir := filepath.Join(homePath, "wasm")
+	wasmConfig, err := wasm.ReadWasmConfig(appOpts)
+	if err != nil {
+		panic(fmt.Sprintf("error while reading wasm config: %s", err))
+	}
+
+	// The last arguments can contain custom message handlers, and custom query handlers,
+	// if we want to allow any custom callbacks
+	availableCapabilities := strings.Join(AllCapabilities(), ",")
+	app.WasmKeeper = wasmkeeper.NewKeeper(
+		appCodec,
+		keys[wasmtypes.StoreKey],
+		app.AccountKeeper,
+		app.BankKeeper,
+		app.StakingKeeper,
+		distrkeeper.NewQuerier(app.DistrKeeper),
+		app.IBCKeeper.ChannelKeeper,
+		app.IBCKeeper.ChannelKeeper,
+		&app.IBCKeeper.PortKeeper,
+		scopedWasmKeeper,
+		app.TransferKeeper,
+		app.MsgServiceRouter(),
+		app.GRPCQueryRouter(),
+		wasmDir,
+		wasmConfig,
+		availableCapabilities,
+		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
+		wasmOpts...,
+	)
+	// The gov proposal types can be individually enabled
+	if len(enabledProposals) != 0 {
+		govRouter.AddRoute(wasmtypes.RouterKey, wasmkeeper.NewWasmProposalHandler(app.WasmKeeper, enabledProposals)) //nolint:staticcheck
+	}
+
 	govKeeper.SetLegacyRouter(govRouter)
 
 	app.GovKeeper = *govKeeper.SetHooks(
@@ -560,6 +664,7 @@ func NewApp(
 		),
 	)
 
+	// my modules
 	app.EpochsKeeper = *epochsmodulekeeper.NewKeeper(
 		appCodec,
 		keys[epochsmoduletypes.StoreKey],
@@ -644,7 +749,8 @@ func NewApp(
 		params.NewAppModule(app.ParamsKeeper),
 		transferModule,
 		icaModule,
-
+		// CosmWasm
+		wasm.NewAppModule(appCodec, &app.WasmKeeper, app.StakingKeeper, app.AccountKeeper, app.BankKeeper, app.MsgServiceRouter(), app.GetSubspace(wasmtypes.ModuleName)),
 		// my modules
 		registryModule,
 		epochsModule,
@@ -680,6 +786,8 @@ func NewApp(
 		paramstypes.ModuleName,
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
+		// CosmWasm
+		wasmtypes.ModuleName,
 		// my modules
 		registrymoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
@@ -708,6 +816,8 @@ func NewApp(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
+		// CosmWasm
+		wasmtypes.ModuleName,
 		// my modules
 		registrymoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
@@ -742,6 +852,8 @@ func NewApp(
 		upgradetypes.ModuleName,
 		vestingtypes.ModuleName,
 		consensusparamtypes.ModuleName,
+		// CosmWasm
+		wasmtypes.ModuleName,
 		// my modules
 		registrymoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
@@ -776,23 +888,22 @@ func NewApp(
 	app.MountTransientStores(tkeys)
 	app.MountMemoryStores(memKeys)
 
-	anteHandler, err := ante.NewAnteHandler(
-		ante.HandlerOptions{
-			AccountKeeper:   app.AccountKeeper,
-			BankKeeper:      app.BankKeeper,
-			SignModeHandler: encodingConfig.TxConfig.SignModeHandler(),
-			FeegrantKeeper:  app.FeeGrantKeeper,
-			SigGasConsumer:  ante.DefaultSigVerificationGasConsumer,
-		},
-	)
-	if err != nil {
-		panic(fmt.Errorf("failed to create AnteHandler: %w", err))
-	}
-
-	app.SetAnteHandler(anteHandler)
+	app.setAnteHandler(encodingConfig.TxConfig, wasmConfig, keys[wasmtypes.StoreKey])
 	app.SetInitChainer(app.InitChainer)
 	app.SetBeginBlocker(app.BeginBlocker)
 	app.SetEndBlocker(app.EndBlocker)
+
+	// must be before Loading version
+	// requires the snapshot store to be created and registered as a BaseAppOption
+	// see cmd/wasmd/root.go: 206 - 214 approx
+	if manager := app.SnapshotManager(); manager != nil {
+		err := manager.RegisterExtensions(
+			wasmkeeper.NewWasmSnapshotter(app.CommitMultiStore(), &app.WasmKeeper),
+		)
+		if err != nil {
+			panic(fmt.Errorf("failed to register snapshot extension: %s", err))
+		}
+	}
 
 	if loadLatest {
 		if err := app.LoadLatestVersion(); err != nil {
@@ -805,6 +916,27 @@ func NewApp(
 	// this line is used by starport scaffolding # stargate/app/beforeInitReturn
 
 	return app
+}
+
+func (app *App) setAnteHandler(txConfig client.TxConfig, wasmConfig wasmtypes.WasmConfig, txCounterStoreKey storetypes.StoreKey) {
+	anteHandler, err := NewAnteHandler(
+		HandlerOptions{
+			HandlerOptions: ante.HandlerOptions{
+				AccountKeeper:   app.AccountKeeper,
+				BankKeeper:      app.BankKeeper,
+				SignModeHandler: txConfig.SignModeHandler(),
+				FeegrantKeeper:  app.FeeGrantKeeper,
+				SigGasConsumer:  ante.DefaultSigVerificationGasConsumer,
+			},
+			IBCKeeper:         app.IBCKeeper,
+			WasmConfig:        &wasmConfig,
+			TXCounterStoreKey: txCounterStoreKey,
+		},
+	)
+	if err != nil {
+		panic(fmt.Errorf("failed to create AnteHandler: %s", err))
+	}
+	app.SetAnteHandler(anteHandler)
 }
 
 // Name returns the name of the App
@@ -982,6 +1114,8 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(ibcexported.ModuleName)
 	paramsKeeper.Subspace(icacontrollertypes.SubModuleName)
 	paramsKeeper.Subspace(icahosttypes.SubModuleName)
+	// CosmWasm
+	paramsKeeper.Subspace(wasm.ModuleName)
 	// my modules
 	paramsKeeper.Subspace(registrymoduletypes.ModuleName)
 	paramsKeeper.Subspace(epochsmoduletypes.ModuleName)

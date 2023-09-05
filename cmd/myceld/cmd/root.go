@@ -33,10 +33,15 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	// this line is used by starport scaffolding # root/moduleImport
+
+	// CosmWasm
+	wasmcli "github.com/CosmWasm/wasmd/x/wasm/client/cli"
+	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 
 	"github.com/mycel-domain/mycel/app"
 	appparams "github.com/mycel-domain/mycel/app/params"
@@ -107,6 +112,10 @@ func initRootCmd(
 	initSDKConfig()
 
 	gentxModule := app.ModuleBasics[genutiltypes.ModuleName].(genutil.AppModuleBasic)
+
+	// CosmWasm
+	wasmcli.ExtendUnsafeResetAllCmd(rootCmd)
+
 	rootCmd.AddCommand(
 		genutilcli.InitCmd(app.ModuleBasics, app.DefaultNodeHome),
 		genutilcli.CollectGenTxsCmd(banktypes.GenesisBalancesIterator{}, app.DefaultNodeHome, gentxModule.GenTxValidator),
@@ -274,6 +283,11 @@ func (a appCreator) newApp(
 		cast.ToUint32(appOpts.Get(server.FlagStateSyncSnapshotKeepRecent)),
 	)
 
+	var wasmOpts []wasmkeeper.Option
+	if cast.ToBool(appOpts.Get("telemetry.enabled")) {
+		wasmOpts = append(wasmOpts, wasmkeeper.WithVMCacheMetrics(prometheus.DefaultRegisterer))
+	}
+
 	return app.New(
 		logger,
 		db,
@@ -283,7 +297,9 @@ func (a appCreator) newApp(
 		cast.ToString(appOpts.Get(flags.FlagHome)),
 		cast.ToUint(appOpts.Get(server.FlagInvCheckPeriod)),
 		a.encodingConfig,
+		app.GetEnabledProposals(),
 		appOpts,
+		wasmOpts,
 		baseapp.SetPruning(pruningOpts),
 		baseapp.SetMinGasPrices(cast.ToString(appOpts.Get(server.FlagMinGasPrices))),
 		baseapp.SetHaltHeight(cast.ToUint64(appOpts.Get(server.FlagHaltHeight))),
@@ -314,7 +330,7 @@ func (a appCreator) appExport(
 	if !ok || homePath == "" {
 		return servertypes.ExportedApp{}, errors.New("application home not set")
 	}
-
+	var emptyWasmOpts []wasmkeeper.Option
 	app := app.New(
 		logger,
 		db,
@@ -324,7 +340,9 @@ func (a appCreator) appExport(
 		homePath,
 		uint(1),
 		a.encodingConfig,
+		app.GetEnabledProposals(),
 		appOpts,
+		emptyWasmOpts,
 	)
 
 	if height != -1 {
@@ -360,7 +378,7 @@ func initAppConfig() (string, interface{}) {
 	//   own app.toml to override, or use this default value.
 	//
 	// In simapp, we set the min gas prices to 0.
-	srvCfg.MinGasPrices = "0stake"
+	srvCfg.MinGasPrices = "0umycel"
 
 	customAppConfig := CustomAppConfig{
 		Config: *srvCfg,
