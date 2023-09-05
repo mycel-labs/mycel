@@ -11,6 +11,7 @@ RUN ignite chain build \
 #   --release.targets darwin:amd64 \
     --output ./release \
     --release \
+ && ls release \
  && tar -zxvf release/mycel_linux_amd64.tar.gz
 
 FROM ubuntu
