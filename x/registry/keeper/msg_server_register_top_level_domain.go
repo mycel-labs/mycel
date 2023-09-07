@@ -2,16 +2,40 @@ package keeper
 
 import (
 	"context"
+	"errors"
+	"fmt"
+
+	"github.com/mycel-domain/mycel/x/registry/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/mycel-domain/mycel/x/registry/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) RegisterTopLevelDomain(goCtx context.Context, msg *types.MsgRegisterTopLevelDomain) (*types.MsgRegisterTopLevelDomainResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Handling the message
-	_ = ctx
+	if msg.RegistrationPeriodInYear < 1 || msg.RegistrationPeriodInYear > 4 {
+		return nil, sdkerrors.Wrapf(errors.New(fmt.Sprintf("%d year(s)", msg.RegistrationPeriodInYear)), types.ErrInvalidRegistrationPeriod.Error())
+	}
+
+	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
+	currentTime := ctx.BlockTime()
+	expirationDate := currentTime.AddDate(int(msg.RegistrationPeriodInYear), 0, 0)
+
+	domain := types.TopLevelDomain{
+		Name:           msg.Name,
+		ExpirationDate: expirationDate.UnixNano(),
+		Metadata:       nil,
+	}
+
+	err = k.Keeper.RegisterTopLevelDomain(ctx, domain, creatorAddress, msg.RegistrationPeriodInYear)
+	if err != nil {
+		return nil, err
+	}
 
 	return &types.MsgRegisterTopLevelDomainResponse{}, nil
 }
