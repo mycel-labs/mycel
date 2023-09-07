@@ -80505,6 +80505,8 @@ definitions:
           signatures required by gogoproto.
   mycel.registry.MsgRegisterDomainResponse:
     type: object
+  mycel.registry.MsgRegisterTopLevelDomainResponse:
+    type: object
   mycel.registry.MsgUpdateDnsRecordResponse:
     type: object
   mycel.registry.MsgUpdateWalletRecordResponse:

@@ -29,7 +29,7 @@ func TestDomainValidate(t *testing.T) {
 	}{
 		// Valid domains
 		{
-			domain: SecondLevelDomain{Name: "foo", Parent: "myc"},
+			domain:          SecondLevelDomain{Name: "foo", Parent: "myc"},
 			expDomainParent: TopLevelDomain{Name: "myc"},
 		},
 		// Invalid name

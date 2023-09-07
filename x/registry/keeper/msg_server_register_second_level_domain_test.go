@@ -99,7 +99,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 
 			// Register domain
 			_, err := suite.msgServer.RegisterDomain(suite.ctx, registerMsg)
-			fmt.Println("----Case_", i , "---01", err)
+			fmt.Println("----Case_", i, "---01", err)
 
 			if err == nil {
 				// Evalute domain ownership
@@ -108,7 +108,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 				suite.Require().Equal(tc.domainOwnership, domainOwnership)
 
 				// Evalute if domain is registered
-				_, found = suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx,  tc.parent)
+				_, found = suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, tc.parent)
 				suite.Require().True(found)
 
 				// // Evalute if parent's subdomainCount is increased
