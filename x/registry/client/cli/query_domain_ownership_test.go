@@ -32,12 +32,12 @@ func networkWithDomainOwnershipObjects(t *testing.T, n int) (*network.Network, [
 			Owner: strconv.Itoa(i),
 		}
 		nullify.Fill(&domainOwnership)
-		state.DomainOwnershipList = append(state.DomainOwnershipList, domainOwnership)
+		state.DomainOwnerships = append(state.DomainOwnerships, domainOwnership)
 	}
 	buf, err := cfg.Codec.MarshalJSON(&state)
 	require.NoError(t, err)
 	cfg.GenesisState[types.ModuleName] = buf
-	return network.New(t, cfg), state.DomainOwnershipList
+	return network.New(t, cfg), state.DomainOwnerships
 }
 
 func TestShowDomainOwnership(t *testing.T) {

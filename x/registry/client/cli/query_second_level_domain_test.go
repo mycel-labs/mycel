@@ -21,7 +21,7 @@ import (
 // Prevent strconv unused error
 var _ = strconv.IntSize
 
-func networkWithDomainObjects(t *testing.T, n int) (*network.Network, []types.SecondLevelDomain) {
+func networkWithSecondLevelDomainObjects(t *testing.T, n int) (*network.Network, []types.SecondLevelDomain) {
 	t.Helper()
 	cfg := network.DefaultConfig()
 	state := types.GenesisState{}
@@ -33,12 +33,12 @@ func networkWithDomainObjects(t *testing.T, n int) (*network.Network, []types.Se
 			Parent: strconv.Itoa(i),
 		}
 		nullify.Fill(&secondLevelDomain)
-		state.SecondLevelDomainList = append(state.SecondLevelDomainList, secondLevelDomain)
+		state.SecondLevelDomains = append(state.SecondLevelDomains, secondLevelDomain)
 	}
 	buf, err := cfg.Codec.MarshalJSON(&state)
 	require.NoError(t, err)
 	cfg.GenesisState[types.ModuleName] = buf
-	return network.New(t, cfg), state.SecondLevelDomainList
+	return network.New(t, cfg), state.SecondLevelDomains
 }
 
 func TestShowSecondLevelDomain(t *testing.T) {
