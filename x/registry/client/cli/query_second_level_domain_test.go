@@ -29,8 +29,12 @@ func networkWithSecondLevelDomainObjects(t *testing.T, n int) (*network.Network,
 
 	for i := 0; i < n; i++ {
 		secondLevelDomain := types.SecondLevelDomain{
-			Name:   strconv.Itoa(i),
-			Parent: strconv.Itoa(i),
+			Name:          strconv.Itoa(i),
+			Parent:        strconv.Itoa(i),
+			DnsRecords:    make(map[string]*types.DnsRecord),
+			WalletRecords: make(map[string]*types.WalletRecord),
+			Metadata:      make(map[string]string),
+			AccessControl: make(map[string]*types.SubdomainRole),
 		}
 		nullify.Fill(&secondLevelDomain)
 		state.SecondLevelDomains = append(state.SecondLevelDomains, secondLevelDomain)
