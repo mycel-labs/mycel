@@ -28,6 +28,8 @@ func networkWithTopLevelDomainObjects(t *testing.T, n int) (*network.Network, []
 	for i := 0; i < n; i++ {
 		topLevelDomain := types.TopLevelDomain{
 			Name: strconv.Itoa(i),
+			Metadata:      make(map[string]string),
+			AccessControl: make(map[string]*types.TopLevelDomainRole),
 		}
 		nullify.Fill(&topLevelDomain)
 		state.TopLevelDomains = append(state.TopLevelDomains, topLevelDomain)
