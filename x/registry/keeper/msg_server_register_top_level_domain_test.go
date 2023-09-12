@@ -16,34 +16,33 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 		creator                  string
 		name                     string
 		registrationPeriodInYear uint64
-		domainOwnership          types.DomainOwnership
 		expErr                   error
 		fn                       func()
 	}{
 		{
 			creator:                  testutil.Alice,
-			name:                     "cel",
+			name:                     "cel0",
 			registrationPeriodInYear: 1,
 			expErr:                   nil,
 			fn:                       func() {},
 		},
 		{
 			creator:                  testutil.Alice,
-			name:                     "cel",
+			name:                     "cel1",
 			registrationPeriodInYear: 4,
 			expErr:                   nil,
 			fn:                       func() {},
 		},
 		{
 			creator:                  testutil.Alice,
-			name:                     "cel",
+			name:                     "cel2",
 			registrationPeriodInYear: 1,
-			expErr:                   sdkerrors.Wrapf(errors.New(fmt.Sprintf("foo.cel")), types.ErrDomainIsAlreadyTaken.Error()),
+			expErr:                   sdkerrors.Wrapf(errors.New(fmt.Sprintf("cel2")), types.ErrDomainIsAlreadyTaken.Error()),
 			fn: func() {
 				// Register domain once
 				domain := &types.MsgRegisterTopLevelDomain{
 					Creator:                  testutil.Alice,
-					Name:                     "cel",
+					Name:                     "cel2",
 					RegistrationPeriodInYear: 1,
 				}
 				_, err := suite.msgServer.RegisterTopLevelDomain(suite.ctx, domain)
@@ -69,7 +68,7 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 			_, err := suite.msgServer.RegisterTopLevelDomain(suite.ctx, registerMsg)
 			fmt.Println("----Case_", i, "---01", err)
 
-			if err == nil {
+			if tc.expErr == nil {
 				// Evalute if domain is registered
 				_, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, tc.name)
 				suite.Require().True(found)
@@ -79,10 +78,10 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())
 				eventIndex := len(events) - 1
 				suite.Require().EqualValues(sdk.StringEvent{
-					Type: types.EventTypeRegsterDomain,
+					Type: types.EventTypeRegsterTopLevelDomain,
 					Attributes: []sdk.Attribute{
 						{Key: types.AttributeRegisterTopLevelDomainEventName, Value: tc.name},
-						{Key: types.AttributeRegisterTopLevelDomainEventExpirationDate, Value: events[eventIndex].Attributes[2].Value},
+						{Key: types.AttributeRegisterTopLevelDomainEventExpirationDate, Value: events[eventIndex].Attributes[1].Value},
 					},
 				}, events[eventIndex])
 			} else {
