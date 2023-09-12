@@ -21,7 +21,7 @@ import (
 // Prevent strconv unused error
 var _ = strconv.IntSize
 
-func networkWithDomainObjects(t *testing.T, n int) (*network.Network, []types.SecondLevelDomain) {
+func networkWithSecondLevelDomainObjects(t *testing.T, n int) (*network.Network, []types.SecondLevelDomain) {
 	t.Helper()
 	cfg := network.DefaultConfig()
 	state := types.GenesisState{}
@@ -29,16 +29,20 @@ func networkWithDomainObjects(t *testing.T, n int) (*network.Network, []types.Se
 
 	for i := 0; i < n; i++ {
 		secondLevelDomain := types.SecondLevelDomain{
-			Name:   strconv.Itoa(i),
-			Parent: strconv.Itoa(i),
+			Name:          strconv.Itoa(i),
+			Parent:        strconv.Itoa(i),
+			DnsRecords:    make(map[string]*types.DnsRecord),
+			WalletRecords: make(map[string]*types.WalletRecord),
+			Metadata:      make(map[string]string),
+			AccessControl: make(map[string]*types.SubdomainRole),
 		}
 		nullify.Fill(&secondLevelDomain)
-		state.SecondLevelDomainList = append(state.SecondLevelDomainList, secondLevelDomain)
+		state.SecondLevelDomains = append(state.SecondLevelDomains, secondLevelDomain)
 	}
 	buf, err := cfg.Codec.MarshalJSON(&state)
 	require.NoError(t, err)
 	cfg.GenesisState[types.ModuleName] = buf
-	return network.New(t, cfg), state.SecondLevelDomainList
+	return network.New(t, cfg), state.SecondLevelDomains
 }
 
 func TestShowSecondLevelDomain(t *testing.T) {

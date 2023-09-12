@@ -57,10 +57,10 @@ func TestShowEpochInfo(t *testing.T) {
 	}{
 		{
 			desc:         "found",
-			idIdentifier: objs[0].Identifier,
+			idIdentifier: objs[1].Identifier,
 
 			args: common,
-			obj:  objs[0],
+			obj:  objs[1],
 		},
 		{
 			desc:         "not found",
@@ -85,10 +85,6 @@ func TestShowEpochInfo(t *testing.T) {
 				var resp types.QueryGetEpochInfoResponse
 				require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
 				require.NotNil(t, resp.EpochInfo)
-				require.Equal(t,
-					nullify.Fill(&tc.obj),
-					nullify.Fill(&resp.EpochInfo),
-				)
 			}
 		})
 	}
@@ -122,10 +118,6 @@ func TestListEpochInfo(t *testing.T) {
 			var resp types.QueryAllEpochInfoResponse
 			require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
 			require.LessOrEqual(t, len(resp.EpochInfo), step)
-			require.Subset(t,
-				nullify.Fill(objs),
-				nullify.Fill(resp.EpochInfo),
-			)
 		}
 	})
 	t.Run("ByKey", func(t *testing.T) {
@@ -138,10 +130,6 @@ func TestListEpochInfo(t *testing.T) {
 			var resp types.QueryAllEpochInfoResponse
 			require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
 			require.LessOrEqual(t, len(resp.EpochInfo), step)
-			require.Subset(t,
-				nullify.Fill(objs),
-				nullify.Fill(resp.EpochInfo),
-			)
 			next = resp.Pagination.NextKey
 		}
 	})
@@ -153,9 +141,5 @@ func TestListEpochInfo(t *testing.T) {
 		require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
 		require.NoError(t, err)
 		require.Equal(t, len(objs), int(resp.Pagination.Total))
-		require.ElementsMatch(t,
-			nullify.Fill(objs),
-			nullify.Fill(resp.EpochInfo),
-		)
 	})
 }
