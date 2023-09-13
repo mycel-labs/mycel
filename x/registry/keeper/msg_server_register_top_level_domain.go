@@ -26,10 +26,12 @@ func (k msgServer) RegisterTopLevelDomain(goCtx context.Context, msg *types.MsgR
 	currentTime := ctx.BlockTime()
 	expirationDate := currentTime.AddDate(int(msg.RegistrationPeriodInYear), 0, 0)
 
+	defaultRegistrationConfig := types.GetDefaultSubdomainConfig(3030)
 	domain := types.TopLevelDomain{
-		Name:           msg.Name,
-		ExpirationDate: expirationDate.UnixNano(),
-		Metadata:       nil,
+		Name:            msg.Name,
+		ExpirationDate:  expirationDate.UnixNano(),
+		Metadata:        nil,
+		SubdomainConfig: &defaultRegistrationConfig,
 	}
 
 	err = k.Keeper.RegisterTopLevelDomain(ctx, domain, creatorAddress, msg.RegistrationPeriodInYear)
