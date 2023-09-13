@@ -9,9 +9,11 @@ const TypeMsgRegisterTopLevelDomain = "register_top_level_domain"
 
 var _ sdk.Msg = &MsgRegisterTopLevelDomain{}
 
-func NewMsgRegisterTopLevelDomain(creator string) *MsgRegisterTopLevelDomain {
+func NewMsgRegisterTopLevelDomain(creator string, name string, registrationPeriodInYear uint64) *MsgRegisterTopLevelDomain {
 	return &MsgRegisterTopLevelDomain{
-		Creator: creator,
+		Creator:                  creator,
+		Name:                     name,
+		RegistrationPeriodInYear: registrationPeriodInYear,
 	}
 }
 

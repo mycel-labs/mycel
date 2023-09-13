@@ -7,6 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/mycel-domain/mycel/x/registry/types"
+	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
 
@@ -16,8 +17,10 @@ func CmdRegisterTopLevelDomain() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "register-top-level-domain",
 		Short: "Broadcast message registerTopLevelDomain",
-		Args:  cobra.ExactArgs(0),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
+			argName := args[0]
+			argRegistrationPeriodInYear, err := cast.ToUint64E(args[1])
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -26,6 +29,8 @@ func CmdRegisterTopLevelDomain() *cobra.Command {
 
 			msg := types.NewMsgRegisterTopLevelDomain(
 				clientCtx.GetFromAddress().String(),
+				argName,
+				argRegistrationPeriodInYear,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

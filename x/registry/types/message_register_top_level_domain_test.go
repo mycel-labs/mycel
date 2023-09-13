@@ -18,12 +18,16 @@ func TestMsgRegisterTopLevelDomain_ValidateBasic(t *testing.T) {
 			name: "invalid address",
 			msg: MsgRegisterTopLevelDomain{
 				Creator: "invalid_address",
+				Name: "cel",
+				RegistrationPeriodInYear: 1,
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
 			msg: MsgRegisterTopLevelDomain{
 				Creator: sample.AccAddress(),
+				Name: "cel",
+				RegistrationPeriodInYear: 1,
 			},
 		},
 	}
