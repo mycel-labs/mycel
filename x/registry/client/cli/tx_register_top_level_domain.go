@@ -15,7 +15,7 @@ var _ = strconv.Itoa(0)
 
 func CmdRegisterTopLevelDomain() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "register-top-level-domain",
+		Use:   "register-top-level-domain [name] [registration-period-in-year]",
 		Short: "Broadcast message registerTopLevelDomain",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
