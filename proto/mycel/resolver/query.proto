@@ -21,7 +21,7 @@ service Query {
   
   // Queries a list of QueryWalletRecord items.
   rpc QueryWalletRecord (QueryQueryWalletRecordRequest) returns (QueryQueryWalletRecordResponse) {
-    option (google.api.http).get = "/mycel-domain/mycel/resolver/query_wallet_record/{domainName}/{networkName}";
+    option (google.api.http).get = "/mycel-domain/mycel/resolver/query_wallet_record/{domainName}/{domainParent}/{networkName}";
   
   }
 }
@@ -37,7 +37,8 @@ message QueryParamsResponse {
 
 message QueryQueryWalletRecordRequest {
   string domainName  = 1;
-  mycel.registry.NetworkName networkName = 2;
+  string domainParent  = 2;
+  mycel.registry.NetworkName networkName = 3;
 }
 
 message QueryQueryWalletRecordResponse {

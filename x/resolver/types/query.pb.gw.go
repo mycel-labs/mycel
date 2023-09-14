@@ -75,6 +75,17 @@ func request_Query_QueryWalletRecord_0(ctx context.Context, marshaler runtime.Ma
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainName", err)
 	}
 
+	val, ok = pathParams["domainParent"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainParent")
+	}
+
+	protoReq.DomainParent, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainParent", err)
+	}
+
 	val, ok = pathParams["networkName"]
 	if !ok {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "networkName")
@@ -114,6 +125,17 @@ func local_request_Query_QueryWalletRecord_0(ctx context.Context, marshaler runt
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainName", err)
+	}
+
+	val, ok = pathParams["domainParent"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainParent")
+	}
+
+	protoReq.DomainParent, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainParent", err)
 	}
 
 	val, ok = pathParams["networkName"]
@@ -273,7 +295,7 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 var (
 	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"mycel-domain", "mycel", "resolver", "params"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_QueryWalletRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"mycel-domain", "mycel", "resolver", "query_wallet_record", "domainName", "networkName"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_QueryWalletRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "resolver", "query_wallet_record", "domainName", "domainParent", "networkName"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (
