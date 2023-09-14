@@ -20,8 +20,8 @@ service Query {
   }
   
   // Queries a list of QueryWalletRecord items.
-  rpc QueryWalletRecord (QueryQueryWalletRecordRequest) returns (QueryQueryWalletRecordResponse) {
-    option (google.api.http).get = "/mycel-domain/mycel/resolver/query_wallet_record/{domainName}/{domainParent}/{networkName}";
+  rpc QueryWalletRecord (QueryWalletRecordRequest) returns (QueryWalletRecordResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/resolver/wallet_record/{domainName}/{domainParent}/{walletRecordType}";
   
   }
 }
@@ -35,13 +35,13 @@ message QueryParamsResponse {
   Params params = 1 [(gogoproto.nullable) = false];
 }
 
-message QueryQueryWalletRecordRequest {
+message QueryWalletRecordRequest {
   string domainName  = 1;
   string domainParent  = 2;
-  string networkName = 3;
+  string walletRecordType = 3;
 }
 
-message QueryQueryWalletRecordResponse {
+message QueryWalletRecordResponse {
   mycel.registry.WalletRecord value = 1;
 }
 

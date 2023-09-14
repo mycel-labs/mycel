@@ -50733,7 +50733,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /mycel-domain/mycel/resolver/query_wallet_record/{domainName}/{domainParent}/{networkName}:
+  /mycel-domain/mycel/resolver/wallet_record/{domainName}/{domainParent}/{walletRecordType}:
     get:
       summary: Queries a list of QueryWalletRecord items.
       operationId: MycelResolverQueryWalletRecord
@@ -50824,7 +50824,7 @@ paths:
           in: path
           required: true
           type: string
-        - name: networkName
+        - name: walletRecordType
           in: path
           required: true
           type: string
@@ -81642,7 +81642,7 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  mycel.resolver.QueryQueryWalletRecordResponse:
+  mycel.resolver.QueryWalletRecordResponse:
     type: object
     properties:
       value:

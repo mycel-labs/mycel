@@ -11,7 +11,7 @@ import (
 	registrytypes "github.com/mycel-domain/mycel/x/registry/types"
 )
 
-func (k Keeper) QueryWalletRecord(goCtx context.Context, req *types.QueryQueryWalletRecordRequest) (*types.QueryQueryWalletRecordResponse, error) {
+func (k Keeper) QueryWalletRecord(goCtx context.Context, req *types.QueryWalletRecordRequest) (*types.QueryWalletRecordResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
@@ -19,13 +19,12 @@ func (k Keeper) QueryWalletRecord(goCtx context.Context, req *types.QueryQueryWa
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// Validate request parameters
-	walletAddressFormat, err := registrytypes.GetWalletAddressFormat(req.NetworkName)
+	_, err := registrytypes.GetWalletAddressFormat(req.WalletRecordType)
 	if err != nil {
 		return nil, err
 	}
-	_ = walletAddressFormat
 
-	// TODO: Query domain QueryWalletRecord
+	// Query domain QueryWalletRecord
 	_, err = k.registryKeeper.GetValidTopLevelDomain(ctx, req.DomainParent)
 	if err != nil {
 		return nil, err
@@ -35,5 +34,5 @@ func (k Keeper) QueryWalletRecord(goCtx context.Context, req *types.QueryQueryWa
 		return nil, err
 	}
 
-	return &types.QueryQueryWalletRecordResponse{Value: secondLevelDomain.WalletRecords[req.NetworkName]}, nil
+	return &types.QueryWalletRecordResponse{Value: secondLevelDomain.WalletRecords[req.WalletRecordType]}, nil
 }

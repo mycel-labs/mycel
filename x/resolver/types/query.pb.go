@@ -114,24 +114,24 @@ func (m *QueryParamsResponse) GetParams() Params {
 	return Params{}
 }
 
-type QueryQueryWalletRecordRequest struct {
-	DomainName   string `protobuf:"bytes,1,opt,name=domainName,proto3" json:"domainName,omitempty"`
-	DomainParent string `protobuf:"bytes,2,opt,name=domainParent,proto3" json:"domainParent,omitempty"`
-	NetworkName  string `protobuf:"bytes,3,opt,name=networkName,proto3" json:"networkName,omitempty"`
+type QueryWalletRecordRequest struct {
+	DomainName       string `protobuf:"bytes,1,opt,name=domainName,proto3" json:"domainName,omitempty"`
+	DomainParent     string `protobuf:"bytes,2,opt,name=domainParent,proto3" json:"domainParent,omitempty"`
+	WalletRecordType string `protobuf:"bytes,3,opt,name=walletRecordType,proto3" json:"walletRecordType,omitempty"`
 }
 
-func (m *QueryQueryWalletRecordRequest) Reset()         { *m = QueryQueryWalletRecordRequest{} }
-func (m *QueryQueryWalletRecordRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryQueryWalletRecordRequest) ProtoMessage()    {}
-func (*QueryQueryWalletRecordRequest) Descriptor() ([]byte, []int) {
+func (m *QueryWalletRecordRequest) Reset()         { *m = QueryWalletRecordRequest{} }
+func (m *QueryWalletRecordRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryWalletRecordRequest) ProtoMessage()    {}
+func (*QueryWalletRecordRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_b8c2c421969ccc6b, []int{2}
 }
-func (m *QueryQueryWalletRecordRequest) XXX_Unmarshal(b []byte) error {
+func (m *QueryWalletRecordRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryQueryWalletRecordRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryWalletRecordRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryQueryWalletRecordRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryWalletRecordRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -141,55 +141,55 @@ func (m *QueryQueryWalletRecordRequest) XXX_Marshal(b []byte, deterministic bool
 		return b[:n], nil
 	}
 }
-func (m *QueryQueryWalletRecordRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryQueryWalletRecordRequest.Merge(m, src)
+func (m *QueryWalletRecordRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryWalletRecordRequest.Merge(m, src)
 }
-func (m *QueryQueryWalletRecordRequest) XXX_Size() int {
+func (m *QueryWalletRecordRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryQueryWalletRecordRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryQueryWalletRecordRequest.DiscardUnknown(m)
+func (m *QueryWalletRecordRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryWalletRecordRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryQueryWalletRecordRequest proto.InternalMessageInfo
+var xxx_messageInfo_QueryWalletRecordRequest proto.InternalMessageInfo
 
-func (m *QueryQueryWalletRecordRequest) GetDomainName() string {
+func (m *QueryWalletRecordRequest) GetDomainName() string {
 	if m != nil {
 		return m.DomainName
 	}
 	return ""
 }
 
-func (m *QueryQueryWalletRecordRequest) GetDomainParent() string {
+func (m *QueryWalletRecordRequest) GetDomainParent() string {
 	if m != nil {
 		return m.DomainParent
 	}
 	return ""
 }
 
-func (m *QueryQueryWalletRecordRequest) GetNetworkName() string {
+func (m *QueryWalletRecordRequest) GetWalletRecordType() string {
 	if m != nil {
-		return m.NetworkName
+		return m.WalletRecordType
 	}
 	return ""
 }
 
-type QueryQueryWalletRecordResponse struct {
+type QueryWalletRecordResponse struct {
 	Value *types.WalletRecord `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 }
 
-func (m *QueryQueryWalletRecordResponse) Reset()         { *m = QueryQueryWalletRecordResponse{} }
-func (m *QueryQueryWalletRecordResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryQueryWalletRecordResponse) ProtoMessage()    {}
-func (*QueryQueryWalletRecordResponse) Descriptor() ([]byte, []int) {
+func (m *QueryWalletRecordResponse) Reset()         { *m = QueryWalletRecordResponse{} }
+func (m *QueryWalletRecordResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryWalletRecordResponse) ProtoMessage()    {}
+func (*QueryWalletRecordResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_b8c2c421969ccc6b, []int{3}
 }
-func (m *QueryQueryWalletRecordResponse) XXX_Unmarshal(b []byte) error {
+func (m *QueryWalletRecordResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryQueryWalletRecordResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryWalletRecordResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryQueryWalletRecordResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryWalletRecordResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -199,19 +199,19 @@ func (m *QueryQueryWalletRecordResponse) XXX_Marshal(b []byte, deterministic boo
 		return b[:n], nil
 	}
 }
-func (m *QueryQueryWalletRecordResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryQueryWalletRecordResponse.Merge(m, src)
+func (m *QueryWalletRecordResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryWalletRecordResponse.Merge(m, src)
 }
-func (m *QueryQueryWalletRecordResponse) XXX_Size() int {
+func (m *QueryWalletRecordResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryQueryWalletRecordResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryQueryWalletRecordResponse.DiscardUnknown(m)
+func (m *QueryWalletRecordResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryWalletRecordResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryQueryWalletRecordResponse proto.InternalMessageInfo
+var xxx_messageInfo_QueryWalletRecordResponse proto.InternalMessageInfo
 
-func (m *QueryQueryWalletRecordResponse) GetValue() *types.WalletRecord {
+func (m *QueryWalletRecordResponse) GetValue() *types.WalletRecord {
 	if m != nil {
 		return m.Value
 	}
@@ -221,44 +221,44 @@ func (m *QueryQueryWalletRecordResponse) GetValue() *types.WalletRecord {
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "mycel.resolver.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "mycel.resolver.QueryParamsResponse")
-	proto.RegisterType((*QueryQueryWalletRecordRequest)(nil), "mycel.resolver.QueryQueryWalletRecordRequest")
-	proto.RegisterType((*QueryQueryWalletRecordResponse)(nil), "mycel.resolver.QueryQueryWalletRecordResponse")
+	proto.RegisterType((*QueryWalletRecordRequest)(nil), "mycel.resolver.QueryWalletRecordRequest")
+	proto.RegisterType((*QueryWalletRecordResponse)(nil), "mycel.resolver.QueryWalletRecordResponse")
 }
 
 func init() { proto.RegisterFile("mycel/resolver/query.proto", fileDescriptor_b8c2c421969ccc6b) }
 
 var fileDescriptor_b8c2c421969ccc6b = []byte{
-	// 472 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0xd1, 0x6a, 0x13, 0x41,
-	0x14, 0xcd, 0x46, 0x1b, 0x70, 0x2a, 0x82, 0x63, 0x91, 0xb2, 0xd6, 0xb5, 0x6c, 0x11, 0x8a, 0xd2,
-	0x1d, 0x1a, 0xfd, 0x82, 0x3e, 0x09, 0x82, 0xd4, 0x20, 0x08, 0x45, 0x08, 0xb3, 0x9b, 0xcb, 0xba,
-	0xb8, 0x3b, 0x77, 0x3b, 0x33, 0x49, 0x0d, 0x25, 0x3e, 0x08, 0xbe, 0x0b, 0xfe, 0x54, 0x1f, 0x0b,
-	0x82, 0xf8, 0x24, 0x25, 0xf1, 0x43, 0xa4, 0x77, 0x26, 0x36, 0x69, 0xd3, 0xd0, 0x97, 0x65, 0xe7,
-	0xde, 0x33, 0xe7, 0x9e, 0x73, 0xcf, 0xb0, 0xb0, 0x1a, 0x66, 0x50, 0x0a, 0x0d, 0x06, 0xcb, 0x01,
-	0x68, 0x71, 0xd8, 0x07, 0x3d, 0x4c, 0x6a, 0x8d, 0x16, 0xf9, 0x3d, 0xea, 0x25, 0xd3, 0x5e, 0xb8,
-	0x96, 0x63, 0x8e, 0xd4, 0x12, 0xe7, 0x7f, 0x0e, 0x15, 0x6e, 0xe4, 0x88, 0x79, 0x09, 0x42, 0xd6,
-	0x85, 0x90, 0x4a, 0xa1, 0x95, 0xb6, 0x40, 0x65, 0x7c, 0xf7, 0x59, 0x86, 0xa6, 0x42, 0x23, 0x52,
-	0x69, 0xc0, 0x91, 0x8b, 0xc1, 0x6e, 0x0a, 0x56, 0xee, 0x8a, 0x5a, 0xe6, 0x85, 0x22, 0xb0, 0xc7,
-	0x3e, 0xba, 0xa4, 0xa5, 0x96, 0x5a, 0x56, 0x53, 0xa2, 0xed, 0x69, 0x33, 0x2f, 0x8c, 0xd5, 0x43,
-	0x61, 0x20, 0x43, 0xd5, 0xeb, 0x96, 0x30, 0x80, 0xb2, 0xdb, 0xc3, 0x4a, 0x16, 0x9e, 0x26, 0x5e,
-	0x63, 0xfc, 0xed, 0xf9, 0xa0, 0x7d, 0xba, 0xde, 0x81, 0xc3, 0x3e, 0x18, 0x1b, 0xbf, 0x66, 0x0f,
-	0xe6, 0xaa, 0xa6, 0x46, 0x65, 0x80, 0xbf, 0x64, 0x2d, 0x37, 0x66, 0x3d, 0xd8, 0x0c, 0xb6, 0x57,
-	0xdb, 0x0f, 0x93, 0x79, 0xd3, 0x89, 0xc3, 0xef, 0xdd, 0x3e, 0xf9, 0xf3, 0xa4, 0xd1, 0xf1, 0xd8,
-	0xf8, 0x5b, 0xc0, 0x1e, 0x13, 0x1b, 0x7d, 0xde, 0xcb, 0xb2, 0x04, 0xdb, 0x81, 0x0c, 0x75, 0xcf,
-	0x8f, 0xe3, 0x11, 0x63, 0x4e, 0xd4, 0x1b, 0x59, 0x01, 0x71, 0xdf, 0xe9, 0xcc, 0x54, 0x78, 0xcc,
-	0xee, 0xba, 0xd3, 0xbe, 0xd4, 0xa0, 0xec, 0x7a, 0x93, 0x10, 0x73, 0x35, 0xbe, 0xc9, 0x56, 0x15,
-	0xd8, 0x23, 0xd4, 0x9f, 0x88, 0xe4, 0x16, 0x41, 0x66, 0x4b, 0xf1, 0x3b, 0x16, 0x5d, 0x27, 0xc3,
-	0xfb, 0x6b, 0xb3, 0x95, 0x81, 0x2c, 0xfb, 0xe0, 0xed, 0x6d, 0xfc, 0xb7, 0xe7, 0xd6, 0x98, 0xcc,
-	0x5d, 0x72, 0xd0, 0xf6, 0x59, 0x93, 0xad, 0x10, 0x23, 0xff, 0xc2, 0x5a, 0xce, 0x3f, 0x8f, 0x2f,
-	0xef, 0xe5, 0xea, 0x8a, 0xc3, 0xad, 0xa5, 0x18, 0x27, 0x28, 0x7e, 0xfe, 0xf5, 0xe7, 0xdf, 0x1f,
-	0xcd, 0xa7, 0x7c, 0x4b, 0x10, 0x78, 0xc7, 0x39, 0x16, 0x0b, 0xa3, 0xe7, 0xbf, 0x02, 0x76, 0xff,
-	0x8a, 0x37, 0xbe, 0xb3, 0x70, 0xce, 0x75, 0x51, 0x84, 0xc9, 0x4d, 0xe1, 0x5e, 0x61, 0x4a, 0x0a,
-	0x3f, 0xf0, 0x83, 0xa5, 0x0a, 0xe9, 0x2d, 0x77, 0x8f, 0x88, 0xa0, 0xab, 0x89, 0x41, 0x1c, 0x5f,
-	0x04, 0x3c, 0x9a, 0x1e, 0x5c, 0x96, 0x23, 0x71, 0x3c, 0x93, 0xdb, 0x68, 0xef, 0xd5, 0xc9, 0x38,
-	0x0a, 0x4e, 0xc7, 0x51, 0x70, 0x36, 0x8e, 0x82, 0xef, 0x93, 0xa8, 0x71, 0x3a, 0x89, 0x1a, 0xbf,
-	0x27, 0x51, 0xe3, 0x20, 0xc9, 0x0b, 0xfb, 0xb1, 0x9f, 0x26, 0x19, 0x56, 0x8b, 0xe6, 0x7f, 0xbe,
-	0x50, 0x60, 0x87, 0x35, 0x98, 0xb4, 0x45, 0x8f, 0xfe, 0xc5, 0xbf, 0x00, 0x00, 0x00, 0xff, 0xff,
-	0xba, 0x9e, 0xa0, 0x4e, 0xc9, 0x03, 0x00, 0x00,
+	// 467 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0x41, 0x6b, 0xd4, 0x40,
+	0x14, 0xde, 0xac, 0x76, 0xc1, 0x51, 0x44, 0xc7, 0x22, 0x6b, 0x2c, 0x51, 0x52, 0x84, 0xb5, 0x62,
+	0x86, 0xae, 0xfe, 0x82, 0x9e, 0x04, 0x41, 0xeb, 0x22, 0x88, 0x7a, 0x58, 0x66, 0xb3, 0x8f, 0x18,
+	0x98, 0xe4, 0xa5, 0x33, 0xb3, 0xd1, 0x50, 0xd6, 0x83, 0x47, 0x4f, 0x82, 0x7f, 0xaa, 0xe0, 0xa5,
+	0x20, 0x82, 0x27, 0x91, 0x5d, 0x7f, 0x88, 0x74, 0x66, 0x62, 0x9b, 0xdd, 0x50, 0xbc, 0x65, 0xde,
+	0xfb, 0xde, 0xf7, 0xbe, 0xef, 0x7d, 0x21, 0x7e, 0x56, 0xc5, 0x20, 0x98, 0x04, 0x85, 0xa2, 0x04,
+	0xc9, 0x0e, 0x66, 0x20, 0xab, 0xa8, 0x90, 0xa8, 0x91, 0x5e, 0x35, 0xbd, 0xa8, 0xee, 0xf9, 0x9b,
+	0x09, 0x26, 0x68, 0x5a, 0xec, 0xe4, 0xcb, 0xa2, 0xfc, 0xad, 0x04, 0x31, 0x11, 0xc0, 0x78, 0x91,
+	0x32, 0x9e, 0xe7, 0xa8, 0xb9, 0x4e, 0x31, 0x57, 0xae, 0xbb, 0x13, 0xa3, 0xca, 0x50, 0xb1, 0x09,
+	0x57, 0x60, 0xc9, 0x59, 0xb9, 0x3b, 0x01, 0xcd, 0x77, 0x59, 0xc1, 0x93, 0x34, 0x37, 0x60, 0x87,
+	0xbd, 0xbd, 0xa2, 0xa5, 0xe0, 0x92, 0x67, 0x35, 0xd1, 0xa0, 0x6e, 0x26, 0xa9, 0xd2, 0xb2, 0x62,
+	0x0a, 0x62, 0xcc, 0xa7, 0x63, 0x01, 0x25, 0x88, 0xf1, 0x14, 0x33, 0x9e, 0x3a, 0x9a, 0x70, 0x93,
+	0xd0, 0x17, 0x27, 0x8b, 0xf6, 0xcd, 0xf8, 0x08, 0x0e, 0x66, 0xa0, 0x74, 0xf8, 0x94, 0xdc, 0x68,
+	0x54, 0x55, 0x81, 0xb9, 0x02, 0xfa, 0x98, 0xf4, 0xec, 0x9a, 0xbe, 0x77, 0xd7, 0x1b, 0x5c, 0x1e,
+	0xde, 0x8c, 0x9a, 0xa6, 0x23, 0x8b, 0xdf, 0xbb, 0x78, 0xf4, 0xeb, 0x4e, 0x67, 0xe4, 0xb0, 0xe1,
+	0x67, 0x8f, 0xf4, 0x0d, 0xdb, 0x2b, 0x2e, 0x04, 0xe8, 0x11, 0xc4, 0x28, 0xa7, 0x6e, 0x13, 0x0d,
+	0x08, 0xb1, 0x7a, 0x9e, 0xf1, 0x0c, 0x0c, 0xed, 0xa5, 0xd1, 0x99, 0x0a, 0x0d, 0xc9, 0x15, 0xfb,
+	0xda, 0xe7, 0x12, 0x72, 0xdd, 0xef, 0x1a, 0x44, 0xa3, 0x46, 0x77, 0xc8, 0xb5, 0xf7, 0x67, 0xa8,
+	0x5f, 0x56, 0x05, 0xf4, 0x2f, 0x18, 0xdc, 0x5a, 0x3d, 0x7c, 0x4e, 0x6e, 0xb5, 0x68, 0x71, 0xfe,
+	0x86, 0x64, 0xa3, 0xe4, 0x62, 0x06, 0xce, 0xde, 0xd6, 0x3f, 0x7b, 0xf6, 0x8c, 0x51, 0x63, 0xc8,
+	0x42, 0x87, 0x3f, 0xba, 0x64, 0xc3, 0x30, 0xd2, 0x8f, 0xa4, 0x67, 0xfd, 0xd3, 0x70, 0xf5, 0x2e,
+	0xeb, 0x27, 0xf6, 0xb7, 0xcf, 0xc5, 0x58, 0x41, 0xe1, 0x83, 0x4f, 0xdf, 0xff, 0x7c, 0xed, 0xde,
+	0xa3, 0xdb, 0xcc, 0x80, 0x1f, 0x5a, 0xdb, 0xac, 0x35, 0x7a, 0xfa, 0xcd, 0x23, 0xd7, 0xd7, 0xbc,
+	0xd1, 0x41, 0xeb, 0x9e, 0x96, 0x28, 0xfc, 0xfb, 0xff, 0x81, 0x74, 0xba, 0xb8, 0xd1, 0xf5, 0x96,
+	0xbe, 0x3e, 0x57, 0x97, 0x3d, 0xfe, 0x58, 0x9a, 0x59, 0x76, 0x78, 0x9a, 0xea, 0xbc, 0x7e, 0xd8,
+	0x00, 0xe7, 0xec, 0x70, 0x35, 0xa7, 0xf9, 0xde, 0x93, 0xa3, 0x45, 0xe0, 0x1d, 0x2f, 0x02, 0xef,
+	0xf7, 0x22, 0xf0, 0xbe, 0x2c, 0x83, 0xce, 0xf1, 0x32, 0xe8, 0xfc, 0x5c, 0x06, 0x9d, 0x37, 0x51,
+	0x92, 0xea, 0x77, 0xb3, 0x49, 0x14, 0x63, 0xd6, 0xb6, 0xfe, 0xc3, 0xa9, 0x00, 0x5d, 0x15, 0xa0,
+	0x26, 0x3d, 0xf3, 0xa7, 0x3f, 0xfa, 0x1b, 0x00, 0x00, 0xff, 0xff, 0xcb, 0xd7, 0xa7, 0x1d, 0xbe,
+	0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -276,7 +276,7 @@ type QueryClient interface {
 	// Parameters queries the parameters of the module.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
 	// Queries a list of QueryWalletRecord items.
-	QueryWalletRecord(ctx context.Context, in *QueryQueryWalletRecordRequest, opts ...grpc.CallOption) (*QueryQueryWalletRecordResponse, error)
+	QueryWalletRecord(ctx context.Context, in *QueryWalletRecordRequest, opts ...grpc.CallOption) (*QueryWalletRecordResponse, error)
 }
 
 type queryClient struct {
@@ -296,8 +296,8 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 	return out, nil
 }
 
-func (c *queryClient) QueryWalletRecord(ctx context.Context, in *QueryQueryWalletRecordRequest, opts ...grpc.CallOption) (*QueryQueryWalletRecordResponse, error) {
-	out := new(QueryQueryWalletRecordResponse)
+func (c *queryClient) QueryWalletRecord(ctx context.Context, in *QueryWalletRecordRequest, opts ...grpc.CallOption) (*QueryWalletRecordResponse, error) {
+	out := new(QueryWalletRecordResponse)
 	err := c.cc.Invoke(ctx, "/mycel.resolver.Query/QueryWalletRecord", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -310,7 +310,7 @@ type QueryServer interface {
 	// Parameters queries the parameters of the module.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
 	// Queries a list of QueryWalletRecord items.
-	QueryWalletRecord(context.Context, *QueryQueryWalletRecordRequest) (*QueryQueryWalletRecordResponse, error)
+	QueryWalletRecord(context.Context, *QueryWalletRecordRequest) (*QueryWalletRecordResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -320,7 +320,7 @@ type UnimplementedQueryServer struct {
 func (*UnimplementedQueryServer) Params(ctx context.Context, req *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
 }
-func (*UnimplementedQueryServer) QueryWalletRecord(ctx context.Context, req *QueryQueryWalletRecordRequest) (*QueryQueryWalletRecordResponse, error) {
+func (*UnimplementedQueryServer) QueryWalletRecord(ctx context.Context, req *QueryWalletRecordRequest) (*QueryWalletRecordResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryWalletRecord not implemented")
 }
 
@@ -347,7 +347,7 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 }
 
 func _Query_QueryWalletRecord_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryQueryWalletRecordRequest)
+	in := new(QueryWalletRecordRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -359,7 +359,7 @@ func _Query_QueryWalletRecord_Handler(srv interface{}, ctx context.Context, dec 
 		FullMethod: "/mycel.resolver.Query/QueryWalletRecord",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).QueryWalletRecord(ctx, req.(*QueryQueryWalletRecordRequest))
+		return srv.(QueryServer).QueryWalletRecord(ctx, req.(*QueryWalletRecordRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -437,7 +437,7 @@ func (m *QueryParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryQueryWalletRecordRequest) Marshal() (dAtA []byte, err error) {
+func (m *QueryWalletRecordRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -447,20 +447,20 @@ func (m *QueryQueryWalletRecordRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryQueryWalletRecordRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryWalletRecordRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryQueryWalletRecordRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryWalletRecordRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if len(m.NetworkName) > 0 {
-		i -= len(m.NetworkName)
-		copy(dAtA[i:], m.NetworkName)
-		i = encodeVarintQuery(dAtA, i, uint64(len(m.NetworkName)))
+	if len(m.WalletRecordType) > 0 {
+		i -= len(m.WalletRecordType)
+		copy(dAtA[i:], m.WalletRecordType)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.WalletRecordType)))
 		i--
 		dAtA[i] = 0x1a
 	}
@@ -481,7 +481,7 @@ func (m *QueryQueryWalletRecordRequest) MarshalToSizedBuffer(dAtA []byte) (int, 
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryQueryWalletRecordResponse) Marshal() (dAtA []byte, err error) {
+func (m *QueryWalletRecordResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -491,12 +491,12 @@ func (m *QueryQueryWalletRecordResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryQueryWalletRecordResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryWalletRecordResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryQueryWalletRecordResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryWalletRecordResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -547,7 +547,7 @@ func (m *QueryParamsResponse) Size() (n int) {
 	return n
 }
 
-func (m *QueryQueryWalletRecordRequest) Size() (n int) {
+func (m *QueryWalletRecordRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -561,14 +561,14 @@ func (m *QueryQueryWalletRecordRequest) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovQuery(uint64(l))
 	}
-	l = len(m.NetworkName)
+	l = len(m.WalletRecordType)
 	if l > 0 {
 		n += 1 + l + sovQuery(uint64(l))
 	}
 	return n
 }
 
-func (m *QueryQueryWalletRecordResponse) Size() (n int) {
+func (m *QueryWalletRecordResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -720,7 +720,7 @@ func (m *QueryParamsResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryQueryWalletRecordRequest) Unmarshal(dAtA []byte) error {
+func (m *QueryWalletRecordRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -743,10 +743,10 @@ func (m *QueryQueryWalletRecordRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryQueryWalletRecordRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryWalletRecordRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryQueryWalletRecordRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryWalletRecordRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -815,7 +815,7 @@ func (m *QueryQueryWalletRecordRequest) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field NetworkName", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field WalletRecordType", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -843,7 +843,7 @@ func (m *QueryQueryWalletRecordRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.NetworkName = string(dAtA[iNdEx:postIndex])
+			m.WalletRecordType = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -866,7 +866,7 @@ func (m *QueryQueryWalletRecordRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryQueryWalletRecordResponse) Unmarshal(dAtA []byte) error {
+func (m *QueryWalletRecordResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -889,10 +889,10 @@ func (m *QueryQueryWalletRecordResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryQueryWalletRecordResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryWalletRecordResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryQueryWalletRecordResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryWalletRecordResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
