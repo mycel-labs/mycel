@@ -58,6 +58,6 @@ message QueryDnsRecordRequest {
 }
 
 message QueryDnsRecordResponse {
-  string value = 1;
+ mycel.registry.DnsRecord value = 1;
 }
 

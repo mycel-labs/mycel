@@ -50708,7 +50708,23 @@ paths:
             type: object
             properties:
               value:
-                type: string
+                type: object
+                properties:
+                  dnsRecordType:
+                    type: string
+                    enum:
+                      - A
+                      - AAAA
+                      - CNAME
+                      - NS
+                      - MX
+                      - PTR
+                      - SOA
+                      - SRV
+                      - TXT
+                    default: A
+                  value:
+                    type: string
         default:
           description: An unexpected error response.
           schema:
@@ -81684,7 +81700,23 @@ definitions:
     type: object
     properties:
       value:
-        type: string
+        type: object
+        properties:
+          dnsRecordType:
+            type: string
+            enum:
+              - A
+              - AAAA
+              - CNAME
+              - NS
+              - MX
+              - PTR
+              - SOA
+              - SRV
+              - TXT
+            default: A
+          value:
+            type: string
   mycel.resolver.QueryParamsResponse:
     type: object
     properties:

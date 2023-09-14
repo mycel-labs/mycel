@@ -14,7 +14,7 @@ var _ = strconv.Itoa(0)
 func CmdDnsRecord() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "dns-record [name] [parent] [dns-record-type]",
-		Short: "Query dnsRecord",
+		Short: "Query DNS record",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			reqName := args[0]
