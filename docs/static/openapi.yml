@@ -50697,6 +50697,51 @@ paths:
           type: string
       tags:
         - Query
+  /mycel-domain/mycel/resolver/dns_record/{name}/{parent}/{dnsRecordType}:
+    get:
+      summary: Queries a list of DnsRecord items.
+      operationId: MycelResolverDnsRecord
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              value:
+                type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: name
+          in: path
+          required: true
+          type: string
+        - name: parent
+          in: path
+          required: true
+          type: string
+        - name: dnsRecordType
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /mycel-domain/mycel/resolver/params:
     get:
       summary: Parameters queries the parameters of the module.
@@ -81635,6 +81680,11 @@ definitions:
   mycel.resolver.Params:
     type: object
     description: Params defines the parameters for the module.
+  mycel.resolver.QueryDnsRecordResponse:
+    type: object
+    properties:
+      value:
+        type: string
   mycel.resolver.QueryParamsResponse:
     type: object
     properties:

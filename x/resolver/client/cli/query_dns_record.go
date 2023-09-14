@@ -11,15 +11,15 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdQueryWalletRecord() *cobra.Command {
+func CmdDnsRecord() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "wallet-record [domain-name] [domain-parent] [wallet-record-type]",
-		Short: "Query wallet record",
+		Use:   "dns-record [name] [parent] [dns-record-type]",
+		Short: "Query dnsRecord",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			reqDomainName := args[0]
-			reqDomainParent := args[1]
-			reqWalletRecordType := args[2]
+			reqName := args[0]
+			reqParent := args[1]
+			reqDnsRecordType := args[2]
 
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
@@ -28,14 +28,14 @@ func CmdQueryWalletRecord() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			params := &types.QueryWalletRecordRequest{
+			params := &types.QueryDnsRecordRequest{
 
-				DomainName:       reqDomainName,
-				DomainParent:     reqDomainParent,
-				WalletRecordType: reqWalletRecordType,
+				Name:          reqName,
+				Parent:        reqParent,
+				DnsRecordType: reqDnsRecordType,
 			}
 
-			res, err := queryClient.QueryWalletRecord(cmd.Context(), params)
+			res, err := queryClient.DnsRecord(cmd.Context(), params)
 			if err != nil {
 				return err
 			}
