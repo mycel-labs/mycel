@@ -26,18 +26,18 @@ func (k Keeper) QueryWalletRecord(goCtx context.Context, req *types.QueryQueryWa
 	if err != nil {
 		return nil, err
 	}
-	err = registrytypes.ValidateName(req.DomainName)
-	if err != nil {
-		return nil, err
-	}
-	err = registrytypes.ValidateParent(req.DomainParent)
-	if err != nil {
-		return nil, err
-	}
 	_ = walletAddressFormat
 
-	// TODO: Query domain QueryWalletRecord
+	_, err = k.GetTopLevelDomain(ctx, req.DomainName)
+	if err != nil {
+		return nil, err
+	}
+	_, err = k.GetSecondLevelDomain(ctx, req.DomainName, req.DomainParent)
+	if err != nil {
+		return nil, err
+	}
 
+	// TODO: Query domain QueryWalletRecord
 
 	return &types.QueryQueryWalletRecordResponse{}, nil
 }
