@@ -1,5 +1,5 @@
-# mycel
-**mycel** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli).
+# Mycel
+**Mycel** is a Decentralized ID Infrastructure solution that resolves addresses such as websites, crypto wallets, IPFS, among many more accessible through a single domain with name resolution support in DNS, IBC and smart contracts.
 
 ## Dependencies
 - Go `1.20.2`
@@ -152,9 +152,7 @@ curl https://get.ignite.com/mycel-domain/mycel@latest! | sudo bash
 ```
 
 ## Learn more
-
-- [Ignite CLI](https://ignite.com/cli)
-- [Tutorials](https://docs.ignite.com/guide)
-- [Ignite CLI docs](https://docs.ignite.com)
-- [Cosmos SDK docs](https://docs.cosmos.network)
-- [Developer Chat](https://discord.gg/ignite)
+- [Website](https://mycel.domains)
+- [Mycel Docs](https://docs.mycel.domains)
+- [Discord](https://discord.gg/h2jSkBETan)
+- [X](https://twitter.com/myceldomain)
