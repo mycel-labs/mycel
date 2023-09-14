@@ -83,7 +83,8 @@ func (k Keeper) GetValidTopLevelDomain(ctx sdk.Context, name string) (topLevelDo
 	}
 
 	// Check if domain is not expired
-	if time.Unix(topLevelDomain.ExpirationDate, 0).Before(ctx.BlockTime()) && topLevelDomain.ExpirationDate != 0 {
+	expirationDate := time.Unix(0, topLevelDomain.ExpirationDate)
+	if ctx.BlockTime().After(expirationDate) && topLevelDomain.ExpirationDate != 0 {
 		return topLevelDomain, sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", name)), types.ErrDomainExpired.Error())
 	}
 
