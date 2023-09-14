@@ -37,7 +37,7 @@ message QueryParamsResponse {
 
 message QueryQueryWalletRecordRequest {
   string domainName  = 1;
-  string networkName = 2;
+  mycel.registry.NetworkName networkName = 2;
 }
 
 message QueryQueryWalletRecordResponse {

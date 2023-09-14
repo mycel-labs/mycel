@@ -17,6 +17,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/grpc-ecosystem/grpc-gateway/utilities"
+	types_0 "github.com/mycel-domain/mycel/x/registry/types"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/grpclog"
@@ -57,6 +58,7 @@ func request_Query_QueryWalletRecord_0(ctx context.Context, marshaler runtime.Ma
 
 	var (
 		val string
+		e   int32
 		ok  bool
 		err error
 		_   = err
@@ -78,11 +80,13 @@ func request_Query_QueryWalletRecord_0(ctx context.Context, marshaler runtime.Ma
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "networkName")
 	}
 
-	protoReq.NetworkName, err = runtime.String(val)
+	e, err = runtime.Enum(val, types_0.NetworkName_value)
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "networkName", err)
 	}
+
+	protoReq.NetworkName = types_0.NetworkName(e)
 
 	msg, err := client.QueryWalletRecord(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
@@ -95,6 +99,7 @@ func local_request_Query_QueryWalletRecord_0(ctx context.Context, marshaler runt
 
 	var (
 		val string
+		e   int32
 		ok  bool
 		err error
 		_   = err
@@ -116,11 +121,13 @@ func local_request_Query_QueryWalletRecord_0(ctx context.Context, marshaler runt
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "networkName")
 	}
 
-	protoReq.NetworkName, err = runtime.String(val)
+	e, err = runtime.Enum(val, types_0.NetworkName_value)
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "networkName", err)
 	}
+
+	protoReq.NetworkName = types_0.NetworkName(e)
 
 	msg, err := server.QueryWalletRecord(ctx, &protoReq)
 	return msg, metadata, err
