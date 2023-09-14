@@ -24,7 +24,7 @@ func (k Keeper) QueryWalletRecord(goCtx context.Context, req *types.QueryWalletR
 		return nil, err
 	}
 
-	// Query domain QueryWalletRecord
+	// Query domain record
 	_, err = k.registryKeeper.GetValidTopLevelDomain(ctx, req.DomainParent)
 	if err != nil {
 		return nil, err

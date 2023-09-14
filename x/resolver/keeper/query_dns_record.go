@@ -7,6 +7,8 @@ import (
 	"github.com/mycel-domain/mycel/x/resolver/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	registrytypes "github.com/mycel-domain/mycel/x/registry/types"
 )
 
 func (k Keeper) DnsRecord(goCtx context.Context, req *types.QueryDnsRecordRequest) (*types.QueryDnsRecordResponse, error) {
@@ -16,8 +18,21 @@ func (k Keeper) DnsRecord(goCtx context.Context, req *types.QueryDnsRecordReques
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Process the query
-	_ = ctx
+	// Validate request parameters
+	err := registrytypes.ValidateDnsRecordType(req.DnsRecordType)
+	if err != nil {
+		return nil, err
+	}
 
-	return &types.QueryDnsRecordResponse{}, nil
+	// Query domain record
+	_, err = k.registryKeeper.GetValidTopLevelDomain(ctx, req.DomainParent)
+	if err != nil {
+		return nil, err
+	}
+	secondLevelDomain, err := k.registryKeeper.GetValidSecondLevelDomain(ctx, req.DomainName, req.DomainParent)
+	if err != nil {
+		return nil, err
+	}
+
+	return &types.QueryDnsRecordResponse{Value: secondLevelDomain.DnsRecords[req.DnsRecordType]}, nil
 }
