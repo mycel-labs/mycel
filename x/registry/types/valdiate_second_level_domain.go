@@ -12,19 +12,30 @@ const (
 	NamePattern = `-a-z0-9\p{So}\p{Sk}`
 )
 
-func (secondLevelDomain SecondLevelDomain) ValidateName() (err error) {
+func ValidateName(name string) (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+$)`, NamePattern))
-	if !regex.MatchString(secondLevelDomain.Name) {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", secondLevelDomain.Name)), ErrInvalidDomainName.Error())
+	if !regex.MatchString(name) {
+		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", name)), ErrInvalidDomainName.Error())
 	}
 	return err
 }
 
-func (secondLevelDomain SecondLevelDomain) ValidateParent() (err error) {
+func (secondLevelDomain SecondLevelDomain) ValidateName() (err error) {
+	err = ValidateName(secondLevelDomain.Name)
+	return err
+}
+
+func ValidateParent(parent string) (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+[%[1]s\.]*[%[1]s]$)|^$`, NamePattern))
-	if !regex.MatchString(secondLevelDomain.Parent) {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", secondLevelDomain.Parent)), ErrInvalidDomainParent.Error())
+	if !regex.MatchString(parent) {
+		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", parent)), ErrInvalidDomainParent.Error())
 	}
+	return err
+
+}
+
+func (secondLevelDomain SecondLevelDomain) ValidateParent() (err error) {
+	err = ValidateParent(secondLevelDomain.Parent)
 	return err
 }
 
