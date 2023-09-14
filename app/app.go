@@ -126,6 +126,9 @@ import (
 	epochsmodulekeeper "github.com/mycel-domain/mycel/x/epochs/keeper"
 	epochsmoduletypes "github.com/mycel-domain/mycel/x/epochs/types"
 
+	resolvermodule "github.com/mycel-domain/mycel/x/resolver"
+	resolvermodulekeeper "github.com/mycel-domain/mycel/x/resolver/keeper"
+	resolvermoduletypes "github.com/mycel-domain/mycel/x/resolver/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	appparams "github.com/mycel-domain/mycel/app/params"
@@ -232,6 +235,7 @@ var (
 		// my modules
 		registrymodule.AppModuleBasic{},
 		epochsmodule.AppModuleBasic{},
+		resolvermodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -317,6 +321,8 @@ type App struct {
 	// my mnodules
 	RegistryKeeper registrymodulekeeper.Keeper
 	EpochsKeeper   epochsmodulekeeper.Keeper
+
+	ResolverKeeper resolvermodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -403,6 +409,7 @@ func NewApp(
 		// my modules
 		registrymoduletypes.StoreKey,
 		epochsmoduletypes.StoreKey,
+		resolvermoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -683,6 +690,16 @@ func NewApp(
 	)
 	registryModule := registrymodule.NewAppModule(appCodec, app.RegistryKeeper, app.AccountKeeper, app.BankKeeper)
 
+	app.ResolverKeeper = *resolvermodulekeeper.NewKeeper(
+		appCodec,
+		keys[resolvermoduletypes.StoreKey],
+		keys[resolvermoduletypes.MemStoreKey],
+		app.GetSubspace(resolvermoduletypes.ModuleName),
+
+		app.RegistryKeeper,
+	)
+	resolverModule := resolvermodule.NewAppModule(appCodec, app.ResolverKeeper, app.AccountKeeper, app.BankKeeper)
+
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	/**** IBC Routing ****/
@@ -754,6 +771,7 @@ func NewApp(
 		// my modules
 		registryModule,
 		epochsModule,
+		resolverModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 
 		crisis.NewAppModule(app.CrisisKeeper, skipGenesisInvariants, app.GetSubspace(crisistypes.ModuleName)), // always be last to make sure that it checks for all invariants and not only part of them
@@ -791,6 +809,7 @@ func NewApp(
 		// my modules
 		registrymoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
+		resolvermoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -821,6 +840,7 @@ func NewApp(
 		// my modules
 		registrymoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
+		resolvermoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -857,6 +877,7 @@ func NewApp(
 		// my modules
 		registrymoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
+		resolvermoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 	app.mm.SetOrderInitGenesis(genesisModuleOrder...)
@@ -1119,6 +1140,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	// my modules
 	paramsKeeper.Subspace(registrymoduletypes.ModuleName)
 	paramsKeeper.Subspace(epochsmoduletypes.ModuleName)
+	paramsKeeper.Subspace(resolvermoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper
