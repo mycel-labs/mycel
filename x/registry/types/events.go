@@ -9,6 +9,14 @@ const (
 	AttributeRegisterDomainEventExpirationDate = "expiration-date"
 )
 
+// Register top-level-domain event
+const (
+	EventTypeRegsterTopLevelDomain = "register-top-level-domain"
+
+	AttributeRegisterTopLevelDomainEventName           = "name"
+	AttributeRegisterTopLevelDomainEventExpirationDate = "expiration-date"
+)
+
 // Update wallet record event
 const (
 	EventTypeUpdateWalletRecord = "update-wallet-record"

@@ -1,13 +1,15 @@
 syntax = "proto3";
+
 package mycel.registry;
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc UpdateWalletRecord (MsgUpdateWalletRecord) returns (MsgUpdateWalletRecordResponse);
-  rpc UpdateDnsRecord    (MsgUpdateDnsRecord   ) returns (MsgUpdateDnsRecordResponse   );
-  rpc RegisterDomain     (MsgRegisterDomain    ) returns (MsgRegisterDomainResponse    );
+  rpc UpdateWalletRecord     (MsgUpdateWalletRecord    ) returns (MsgUpdateWalletRecordResponse    );
+  rpc UpdateDnsRecord        (MsgUpdateDnsRecord       ) returns (MsgUpdateDnsRecordResponse       );
+  rpc RegisterDomain         (MsgRegisterDomain        ) returns (MsgRegisterDomainResponse        );
+  rpc RegisterTopLevelDomain (MsgRegisterTopLevelDomain) returns (MsgRegisterTopLevelDomainResponse);
 }
 message MsgUpdateWalletRecord {
   string creator          = 1;
@@ -20,11 +22,11 @@ message MsgUpdateWalletRecord {
 message MsgUpdateWalletRecordResponse {}
 
 message MsgUpdateDnsRecord {
-  string creator          = 1;
-  string name             = 2;
-  string parent           = 3;
-  string dnsRecordType    = 4;
-  string value            = 5;
+  string creator       = 1;
+  string name          = 2;
+  string parent        = 3;
+  string dnsRecordType = 4;
+  string value         = 5;
 }
 
 message MsgUpdateDnsRecordResponse {}
@@ -38,3 +40,10 @@ message MsgRegisterDomain {
 
 message MsgRegisterDomainResponse {}
 
+message MsgRegisterTopLevelDomain {
+  string creator                  = 1;
+  string name                     = 2;
+  uint64 registrationPeriodInYear = 3;
+}
+
+message MsgRegisterTopLevelDomainResponse {}

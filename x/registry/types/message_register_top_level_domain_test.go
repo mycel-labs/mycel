@@ -8,27 +8,25 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMsgRegisterDomain_ValidateBasic(t *testing.T) {
+func TestMsgRegisterTopLevelDomain_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgRegisterDomain
+		msg  MsgRegisterTopLevelDomain
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgRegisterDomain{
+			msg: MsgRegisterTopLevelDomain{
 				Creator: "invalid_address",
-				Name: "foo",
-				Parent: "cel",
+				Name: "cel",
 				RegistrationPeriodInYear: 1,
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgRegisterDomain{
+			msg: MsgRegisterTopLevelDomain{
 				Creator: sample.AccAddress(),
-				Name: "foo",
-				Parent: "cel",
+				Name: "cel",
 				RegistrationPeriodInYear: 1,
 			},
 		},

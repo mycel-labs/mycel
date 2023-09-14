@@ -135,9 +135,9 @@ import (
 const (
 	AccountAddressPrefix = "mycel"
 	Name                 = "mycel"
-	HumanCoinUnit = "mycel"
-	BaseCoinUnit  = "umycel"
-	MycelExponent  = 6
+	HumanCoinUnit        = "mycel"
+	BaseCoinUnit         = "umycel"
+	MycelExponent        = 6
 
 	DefaultBondDenom = BaseCoinUnit
 
@@ -161,6 +161,7 @@ func RegisterDenoms() {
 		panic(err)
 	}
 }
+
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals
 
 func getGovProposalHandlers() []govclient.ProposalHandler {
@@ -178,7 +179,6 @@ func getGovProposalHandlers() []govclient.ProposalHandler {
 
 	return govProposalHandlers
 }
-
 
 // produce a list of enabled proposals to pass into wasmd app.
 func GetEnabledProposals() []wasmtypes.ProposalType {

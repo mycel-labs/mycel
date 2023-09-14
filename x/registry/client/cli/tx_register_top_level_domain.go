@@ -13,28 +13,23 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdRegisterDomain() *cobra.Command {
+func CmdRegisterTopLevelDomain() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "register-domain [name] [parent] [registration-period-in-year]",
-		Short: "Broadcast message registerDomain",
-		Args:  cobra.ExactArgs(3),
+		Use:   "register-top-level-domain [name] [registration-period-in-year]",
+		Short: "Broadcast message registerTopLevelDomain",
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argName := args[0]
-			argParent := args[1]
-			argRegistrationPeriodInYear, err := cast.ToUint64E(args[2])
-			if err != nil {
-				return err
-			}
+			argRegistrationPeriodInYear, err := cast.ToUint64E(args[1])
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgRegisterDomain(
+			msg := types.NewMsgRegisterTopLevelDomain(
 				clientCtx.GetFromAddress().String(),
 				argName,
-				argParent,
 				argRegistrationPeriodInYear,
 			)
 			if err := msg.ValidateBasic(); err != nil {
