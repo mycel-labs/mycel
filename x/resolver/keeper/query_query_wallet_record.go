@@ -18,9 +18,6 @@ func (k Keeper) QueryWalletRecord(goCtx context.Context, req *types.QueryQueryWa
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Process the query
-	_ = ctx
-
 	// Validate request parameters
 	walletAddressFormat, err := registrytypes.GetWalletAddressFormat(req.NetworkName)
 	if err != nil {
@@ -28,16 +25,15 @@ func (k Keeper) QueryWalletRecord(goCtx context.Context, req *types.QueryQueryWa
 	}
 	_ = walletAddressFormat
 
-	_, err = k.GetTopLevelDomain(ctx, req.DomainName)
-	if err != nil {
-		return nil, err
-	}
-	_, err = k.GetSecondLevelDomain(ctx, req.DomainName, req.DomainParent)
-	if err != nil {
-		return nil, err
-	}
-
 	// TODO: Query domain QueryWalletRecord
+	_, err = k.registryKeeper.GetValidTopLevelDomain(ctx, req.DomainParent)
+	if err != nil {
+		return nil, err
+	}
+	secondLevelDomain, err := k.registryKeeper.GetValidSecondLevelDomain(ctx, req.DomainName, req.DomainParent)
+	if err != nil {
+		return nil, err
+	}
 
-	return &types.QueryQueryWalletRecordResponse{}, nil
+	return &types.QueryQueryWalletRecordResponse{Value: secondLevelDomain.WalletRecords[req.NetworkName]}, nil
 }

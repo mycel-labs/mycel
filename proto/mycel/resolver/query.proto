@@ -6,6 +6,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "mycel/resolver/params.proto";
+import "mycel/registry/second_level_domain.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/resolver/types";
 
@@ -41,6 +42,6 @@ message QueryQueryWalletRecordRequest {
 }
 
 message QueryQueryWalletRecordResponse {
-  string value = 1;
+  mycel.registry.WalletRecord value = 1;
 }
 

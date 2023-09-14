@@ -50744,7 +50744,59 @@ paths:
             type: object
             properties:
               value:
-                type: string
+                type: object
+                properties:
+                  walletRecordType:
+                    type: string
+                    enum:
+                      - BITCOIN_MAINNET_MAINNET
+                      - BITCOIN_TESTNET_TESTNET
+                      - ETHEREUM_MAINNET_MAINNET
+                      - ETHEREUM_TESTNET_GOERLI
+                      - ETHEREUM_TESTNET_SEPOLIA
+                      - POLYGON_MAINNET_MAINNET
+                      - POLYGON_TESTNET_MUMBAI
+                      - BNB_MAINNET_MAINNET
+                      - BNB_TESTNET_TESTNET
+                      - AVALANCHE_MAINNET_CCHAIN
+                      - AVALANCHE_TESTNET_FUJI
+                      - GNOSIS_MAINNET_MAINNET
+                      - GNOSIS_TESTNET_CHIADO
+                      - OPTIMISM_MAINNET_MAINNET
+                      - OPTIMISM_TESTNET_GOERLI
+                      - ARBITRUM_MAINNET_MAINNET
+                      - ARBITRUM_TESTNET_GOERLI
+                      - SHARDEUM_BETANET_SPHINX
+                      - ZETA_TESTNET_ATHENS
+                      - APTOS_MAINNET_MAINNET
+                      - APTOS_TESTNET_TESTNET
+                      - SUI_MAINNET_MAINNET
+                      - SUI_TESTNET_TESTNET
+                      - SOLANA_MAINNET_MAINNET
+                      - SOLANA_TESTNET_TESTNET
+                    default: BITCOIN_MAINNET_MAINNET
+                    description: |-
+                      - BITCOIN_MAINNET_MAINNET: BTC 0xxx
+                       - ETHEREUM_MAINNET_MAINNET: EVM 1xxxx
+                      Etheruem
+                       - POLYGON_MAINNET_MAINNET: Polygon
+                       - BNB_MAINNET_MAINNET: BNB Chain
+                       - AVALANCHE_MAINNET_CCHAIN: Avalanche
+                       - GNOSIS_MAINNET_MAINNET: Gnosis
+                       - OPTIMISM_MAINNET_MAINNET: Optimism
+                       - ARBITRUM_MAINNET_MAINNET: Arbitrum
+                       - SHARDEUM_BETANET_SPHINX: Shardeum
+                      SHARDEUM_MAINNET_ = 10015;
+                      SHARDEUM_TESTNET_ = 10016;
+                       - ZETA_TESTNET_ATHENS: Zetachain
+                      ZETA_MAINNET_MAINNET = 10018;
+                       - APTOS_MAINNET_MAINNET: MOVE 2xxxx
+                      Aptos
+                       - SUI_MAINNET_MAINNET: Sui
+                       - SOLANA_MAINNET_MAINNET: SOLANA 3xxxx
+                    title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+                  value:
+                    type: string
         default:
           description: An unexpected error response.
           schema:
@@ -81594,4 +81646,56 @@ definitions:
     type: object
     properties:
       value:
-        type: string
+        type: object
+        properties:
+          walletRecordType:
+            type: string
+            enum:
+              - BITCOIN_MAINNET_MAINNET
+              - BITCOIN_TESTNET_TESTNET
+              - ETHEREUM_MAINNET_MAINNET
+              - ETHEREUM_TESTNET_GOERLI
+              - ETHEREUM_TESTNET_SEPOLIA
+              - POLYGON_MAINNET_MAINNET
+              - POLYGON_TESTNET_MUMBAI
+              - BNB_MAINNET_MAINNET
+              - BNB_TESTNET_TESTNET
+              - AVALANCHE_MAINNET_CCHAIN
+              - AVALANCHE_TESTNET_FUJI
+              - GNOSIS_MAINNET_MAINNET
+              - GNOSIS_TESTNET_CHIADO
+              - OPTIMISM_MAINNET_MAINNET
+              - OPTIMISM_TESTNET_GOERLI
+              - ARBITRUM_MAINNET_MAINNET
+              - ARBITRUM_TESTNET_GOERLI
+              - SHARDEUM_BETANET_SPHINX
+              - ZETA_TESTNET_ATHENS
+              - APTOS_MAINNET_MAINNET
+              - APTOS_TESTNET_TESTNET
+              - SUI_MAINNET_MAINNET
+              - SUI_TESTNET_TESTNET
+              - SOLANA_MAINNET_MAINNET
+              - SOLANA_TESTNET_TESTNET
+            default: BITCOIN_MAINNET_MAINNET
+            description: |-
+              - BITCOIN_MAINNET_MAINNET: BTC 0xxx
+               - ETHEREUM_MAINNET_MAINNET: EVM 1xxxx
+              Etheruem
+               - POLYGON_MAINNET_MAINNET: Polygon
+               - BNB_MAINNET_MAINNET: BNB Chain
+               - AVALANCHE_MAINNET_CCHAIN: Avalanche
+               - GNOSIS_MAINNET_MAINNET: Gnosis
+               - OPTIMISM_MAINNET_MAINNET: Optimism
+               - ARBITRUM_MAINNET_MAINNET: Arbitrum
+               - SHARDEUM_BETANET_SPHINX: Shardeum
+              SHARDEUM_MAINNET_ = 10015;
+              SHARDEUM_TESTNET_ = 10016;
+               - ZETA_TESTNET_ATHENS: Zetachain
+              ZETA_MAINNET_MAINNET = 10018;
+               - APTOS_MAINNET_MAINNET: MOVE 2xxxx
+              Aptos
+               - SUI_MAINNET_MAINNET: Sui
+               - SOLANA_MAINNET_MAINNET: SOLANA 3xxxx
+            title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+          value:
+            type: string

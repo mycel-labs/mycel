@@ -10,6 +10,8 @@ type RegistryKeeper interface {
 	// Methods imported from registry should be defined here
 	GetSecondLevelDomain(ctx sdk.Context, name string, parent string) (val registrytypes.SecondLevelDomain, found bool)
 	GetTopLevelDomain(ctx sdk.Context, name string) (val registrytypes.TopLevelDomain, found bool)
+	GetValidSecondLevelDomain(ctx sdk.Context, name string, parent string) (secondLevelDomain registrytypes.SecondLevelDomain, err error)
+	GetValidTopLevelDomain(ctx sdk.Context, name string) (topLevelDomain registrytypes.TopLevelDomain, err error)
 }
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)

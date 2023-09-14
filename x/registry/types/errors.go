@@ -23,4 +23,5 @@ var (
 	ErrDomainNotRegistrable      = sdkerrors.Register(ModuleName, 1112, "domain is not registrable")
 	ErrMaxSubdomainCountReached  = sdkerrors.Register(ModuleName, 1113, "max subdomain count reached")
 	ErrInvalidRegistrationPeriod = sdkerrors.Register(ModuleName, 1114, "invalid registration period")
+	ErrDomainExpired = sdkerrors.Register(ModuleName, 1115, "domain expired")
 )

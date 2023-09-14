@@ -1,8 +1,13 @@
 package keeper
 
 import (
+	"errors"
+	"fmt"
+	"time"
+
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
@@ -60,4 +65,27 @@ func (k Keeper) GetAllTopLevelDomain(ctx sdk.Context) (list []types.TopLevelDoma
 	}
 
 	return
+}
+
+// Get valid top level domain
+
+func (k Keeper) GetValidTopLevelDomain(ctx sdk.Context, name string) (topLevelDomain types.TopLevelDomain, err error) {
+	// Regex validation
+	err = types.ValidateTopLevelDomainName(name)
+	if err != nil {
+		return topLevelDomain, err
+	}
+
+	// Get top level domain
+	topLevelDomain, isFound := k.GetTopLevelDomain(ctx, name)
+	if !isFound {
+		return topLevelDomain, sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", name)), types.ErrDomainNotFound.Error())
+	}
+
+	// Check if domain is not expired
+	if time.Unix(topLevelDomain.ExpirationDate, 0).Before(ctx.BlockTime()) && topLevelDomain.ExpirationDate != 0 {
+		return topLevelDomain, sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", name)), types.ErrDomainExpired.Error())
+	}
+
+	return topLevelDomain, nil
 }
