@@ -3,10 +3,13 @@ package types
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
+	registrytypes "github.com/mycel-domain/mycel/x/registry/types"
 )
 
 type RegistryKeeper interface {
 	// Methods imported from registry should be defined here
+	GetSecondLevelDomain(ctx sdk.Context, name string, parent string) (val registrytypes.SecondLevelDomain, found bool)
+	GetTopLevelDomain(ctx sdk.Context, name string) (val registrytypes.TopLevelDomain, found bool)
 }
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)
