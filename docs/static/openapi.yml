@@ -50733,7 +50733,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /mycel-domain/mycel/resolver/query_wallet_record/{domainName}/{networkName}:
+  /mycel-domain/mycel/resolver/query_wallet_record/{domainName}/{domainParent}/{networkName}:
     get:
       summary: Queries a list of QueryWalletRecord items.
       operationId: MycelResolverQueryWalletRecord
@@ -50765,6 +50765,10 @@ paths:
                   additionalProperties: {}
       parameters:
         - name: domainName
+          in: path
+          required: true
+          type: string
+        - name: domainParent
           in: path
           required: true
           type: string

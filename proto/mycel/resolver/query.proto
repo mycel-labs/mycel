@@ -6,7 +6,6 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "mycel/resolver/params.proto";
-import "mycel/registry/network_name.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/resolver/types";
 
@@ -38,7 +37,7 @@ message QueryParamsResponse {
 message QueryQueryWalletRecordRequest {
   string domainName  = 1;
   string domainParent  = 2;
-  mycel.registry.NetworkName networkName = 3;
+  string networkName = 3;
 }
 
 message QueryQueryWalletRecordResponse {
