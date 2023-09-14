@@ -13,12 +13,12 @@ var _ = strconv.Itoa(0)
 
 func CmdDnsRecord() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "dns-record [name] [parent] [dns-record-type]",
+		Use:   "dns-record [domainName] [domainParent] [dns-record-type]",
 		Short: "Query DNS record",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			reqName := args[0]
-			reqParent := args[1]
+			reqDomainName := args[0]
+			reqDomainParent := args[1]
 			reqDnsRecordType := args[2]
 
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -30,8 +30,8 @@ func CmdDnsRecord() *cobra.Command {
 
 			params := &types.QueryDnsRecordRequest{
 
-				Name:          reqName,
-				Parent:        reqParent,
+				DomainName:          reqDomainName,
+				DomainParent:        reqDomainParent,
 				DnsRecordType: reqDnsRecordType,
 			}
 

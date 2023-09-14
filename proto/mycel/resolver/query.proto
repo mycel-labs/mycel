@@ -27,7 +27,7 @@ service Query {
   
   // Queries a list of DnsRecord items.
   rpc DnsRecord (QueryDnsRecordRequest) returns (QueryDnsRecordResponse) {
-    option (google.api.http).get = "/mycel-domain/mycel/resolver/dns_record/{name}/{parent}/{dnsRecordType}";
+    option (google.api.http).get = "/mycel-domain/mycel/resolver/dns_record/{domainName}/{domainParent}/{dnsRecordType}";
   
   }
 }
@@ -52,8 +52,8 @@ message QueryWalletRecordResponse {
 }
 
 message QueryDnsRecordRequest {
-  string name          = 1;
-  string parent        = 2;
+  string domainName          = 1;
+  string domainParent        = 2;
   string dnsRecordType = 3;
 }
 

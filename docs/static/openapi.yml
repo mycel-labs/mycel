@@ -50697,7 +50697,7 @@ paths:
           type: string
       tags:
         - Query
-  /mycel-domain/mycel/resolver/dns_record/{name}/{parent}/{dnsRecordType}:
+  /mycel-domain/mycel/resolver/dns_record/{domainName}/{domainParent}/{dnsRecordType}:
     get:
       summary: Queries a list of DnsRecord items.
       operationId: MycelResolverDnsRecord
@@ -50744,11 +50744,11 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: name
+        - name: domainName
           in: path
           required: true
           type: string
-        - name: parent
+        - name: domainParent
           in: path
           required: true
           type: string

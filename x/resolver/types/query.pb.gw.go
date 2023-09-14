@@ -160,26 +160,26 @@ func request_Query_DnsRecord_0(ctx context.Context, marshaler runtime.Marshaler,
 		_   = err
 	)
 
-	val, ok = pathParams["name"]
+	val, ok = pathParams["domainName"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "name")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainName")
 	}
 
-	protoReq.Name, err = runtime.String(val)
+	protoReq.DomainName, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "name", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainName", err)
 	}
 
-	val, ok = pathParams["parent"]
+	val, ok = pathParams["domainParent"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "parent")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainParent")
 	}
 
-	protoReq.Parent, err = runtime.String(val)
+	protoReq.DomainParent, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "parent", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainParent", err)
 	}
 
 	val, ok = pathParams["dnsRecordType"]
@@ -209,26 +209,26 @@ func local_request_Query_DnsRecord_0(ctx context.Context, marshaler runtime.Mars
 		_   = err
 	)
 
-	val, ok = pathParams["name"]
+	val, ok = pathParams["domainName"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "name")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainName")
 	}
 
-	protoReq.Name, err = runtime.String(val)
+	protoReq.DomainName, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "name", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainName", err)
 	}
 
-	val, ok = pathParams["parent"]
+	val, ok = pathParams["domainParent"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "parent")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainParent")
 	}
 
-	protoReq.Parent, err = runtime.String(val)
+	protoReq.DomainParent, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "parent", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainParent", err)
 	}
 
 	val, ok = pathParams["dnsRecordType"]
@@ -431,7 +431,7 @@ var (
 
 	pattern_Query_QueryWalletRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "resolver", "wallet_record", "domainName", "domainParent", "walletRecordType"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_DnsRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "resolver", "dns_record", "name", "parent", "dnsRecordType"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_DnsRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "resolver", "dns_record", "domainName", "domainParent", "dnsRecordType"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (
