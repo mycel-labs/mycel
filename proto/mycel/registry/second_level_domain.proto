@@ -17,9 +17,9 @@ message WalletRecord {
   string value = 2;
 }
 
-message SubdomainRole {
-  string owner = 1;
-  string recordEditor = 2;
+enum SubdomainRole {
+  OWNER = 0;
+  RECORD_EDITOR = 1;
 }
 
 message SecondLevelDomain {

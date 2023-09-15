@@ -50446,12 +50446,11 @@ paths:
                     accessControl:
                       type: object
                       additionalProperties:
-                        type: object
-                        properties:
-                          owner:
-                            type: string
-                          recordEditor:
-                            type: string
+                        type: string
+                        enum:
+                          - OWNER
+                          - RECORD_EDITOR
+                        default: OWNER
               pagination:
                 type: object
                 properties:
@@ -50662,12 +50661,11 @@ paths:
                   accessControl:
                     type: object
                     additionalProperties:
-                      type: object
-                      properties:
-                        owner:
-                          type: string
-                        recordEditor:
-                          type: string
+                      type: string
+                      enum:
+                        - OWNER
+                        - RECORD_EDITOR
+                      default: OWNER
         default:
           description: An unexpected error response.
           schema:
@@ -80715,12 +80713,11 @@ definitions:
             accessControl:
               type: object
               additionalProperties:
-                type: object
-                properties:
-                  owner:
-                    type: string
-                  recordEditor:
-                    type: string
+                type: string
+                enum:
+                  - OWNER
+                  - RECORD_EDITOR
+                default: OWNER
       pagination:
         type: object
         properties:
@@ -81000,12 +80997,11 @@ definitions:
           accessControl:
             type: object
             additionalProperties:
-              type: object
-              properties:
-                owner:
-                  type: string
-                recordEditor:
-                  type: string
+              type: string
+              enum:
+                - OWNER
+                - RECORD_EDITOR
+              default: OWNER
   mycel.registry.QueryGetTopLevelDomainResponse:
     type: object
     properties:
@@ -81210,12 +81206,11 @@ definitions:
       accessControl:
         type: object
         additionalProperties:
-          type: object
-          properties:
-            owner:
-              type: string
-            recordEditor:
-              type: string
+          type: string
+          enum:
+            - OWNER
+            - RECORD_EDITOR
+          default: OWNER
   mycel.registry.SubdomainConfig:
     type: object
     properties:
@@ -81344,12 +81339,11 @@ definitions:
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
   mycel.registry.SubdomainRole:
-    type: object
-    properties:
-      owner:
-        type: string
-      recordEditor:
-        type: string
+    type: string
+    enum:
+      - OWNER
+      - RECORD_EDITOR
+    default: OWNER
   mycel.registry.TopLevelDomain:
     type: object
     properties:
