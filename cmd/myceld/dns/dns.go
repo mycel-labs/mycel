@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/miekg/dns"
-	registry "github.com/mycel-domain/mycel/x/registry/types"
+	resolver "github.com/mycel-domain/mycel/x/resolver/types"
 	"google.golang.org/grpc"
 
 	"github.com/spf13/cobra"
@@ -18,7 +18,7 @@ type grpcService struct {
 	grpcConn *grpc.ClientConn
 }
 
-func (s *grpcService) QueryDNStoMycel(domain string, recordType string) net.IP {
+func (s *grpcService) QueryDnstoMycel(domain string, recordType string) net.IP {
 
 	domain = strings.Trim(domain, ".")
 	division := strings.Index(domain, ".")
@@ -26,29 +26,26 @@ func (s *grpcService) QueryDNStoMycel(domain string, recordType string) net.IP {
 	argName := domain[:division]
 	argParent := domain[division+1:]
 
-	fmt.Printf("query: %v\n", domain)
-	fmt.Printf("argName: %v\n", argName)
-	fmt.Printf("argParent: %v\n", argParent)
+	queryClient := resolver.NewQueryClient(s.grpcConn)
 
-	queryClient := registry.NewQueryClient(s.grpcConn)
-
-	params := &registry.QueryGetSecondLevelDomainRequest{
-		Name:   argName,
-		Parent: argParent,
+	params := &resolver.QueryDnsRecordRequest{
+		DomainName:    argName,
+		DomainParent:  argParent,
+		DnsRecordType: recordType,
 	}
 
-	res, err := queryClient.SecondLevelDomain(context.Background(), params)
+	res, err := queryClient.DnsRecord(context.Background(), params)
 	if err != nil {
-		log.Printf("queryClient.Domain failed: %v", err)
+		log.Printf("Query failed: %v", err)
 		return nil
 	}
-	log.Printf("result: %v", res.SecondLevelDomain.DnsRecords)
 
-	if val, found := res.SecondLevelDomain.DnsRecords[recordType]; found {
-		fmt.Printf("record: %v", val)
-		return net.ParseIP(val.Value)
+	if found := res.Value != nil; found {
+		value := res.Value.Value
+		log.Printf("%s: %v", domain, value)
+		return net.ParseIP(value)
 	} else {
-		log.Printf("record not found")
+		log.Printf("%s: record not found", domain)
 		return nil
 	}
 }
@@ -61,7 +58,7 @@ func (s *grpcService) HandleDNSRequest(w dns.ResponseWriter, r *dns.Msg) {
 	case dns.TypeA:
 		msg.Authoritative = true
 		domain := msg.Question[0].Name
-		ip := s.QueryDNStoMycel(domain, "A")
+		ip := s.QueryDnstoMycel(domain, "A")
 		if ip == nil {
 			break
 		}
@@ -102,7 +99,7 @@ func DnsCommand() *cobra.Command {
 		RunE: func(cmd *cobra.Command, _ []string) (err error) {
 			listenPort, _ := cmd.Flags().GetInt("port")
 			nodeAddress, _ := cmd.Flags().GetString("nodeAddress")
-			err = RunDnsServer(nodeAddress,listenPort)
+			err = RunDnsServer(nodeAddress, listenPort)
 			return err
 		},
 	}
