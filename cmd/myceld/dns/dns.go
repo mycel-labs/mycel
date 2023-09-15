@@ -18,7 +18,7 @@ type grpcService struct {
 	grpcConn *grpc.ClientConn
 }
 
-func (s *grpcService) QueryDnstoMycel(domain string, recordType string) net.IP {
+func (s *grpcService) QueryDnsToMycelResolver(domain string, recordType string) (ip net.IP) {
 
 	domain = strings.Trim(domain, ".")
 	division := strings.Index(domain, ".")
@@ -41,13 +41,54 @@ func (s *grpcService) QueryDnstoMycel(domain string, recordType string) net.IP {
 	}
 
 	if found := res.Value != nil; found {
+
 		value := res.Value.Value
-		log.Printf("%s: %v", domain, value)
-		return net.ParseIP(value)
-	} else {
-		log.Printf("%s: record not found", domain)
+
+		switch recordType {
+		case "A", "AAAA":
+			ip = net.ParseIP(value)
+		// case "CNAME", "MX", "NS":
+		// return value
+		// case "TXT":
+		// return []string{value}
+		default:
+			return nil
+		}
+	}
+	log.Printf("Mycel: %s %s %s", domain, recordType, ip)
+	return ip
+}
+
+func (s *grpcService) QueryDnsToDefaultResolver(domain string, recordType string) (ip net.IP) {
+	// LookupIP
+	ips, err := net.LookupIP(domain)
+	if err != nil {
 		return nil
 	}
+
+	if recordType == "A" {
+		for _, i := range ips {
+			if ipv4 := i.To4(); ipv4 != nil {
+				ip = ipv4
+			}
+		}
+	} else if recordType == "AAAA" {
+		for _, i := range ips {
+			if ipv4 := i.To4(); ipv4 == nil {
+				ip = i
+			}
+		}
+	}
+	log.Printf("Default: %s %s %s", domain, recordType, ip)
+	return ip
+}
+
+func (s *grpcService) QueryDns(domain string, recordType string) (ip net.IP) {
+	ip = s.QueryDnsToMycelResolver(domain, recordType)
+	if ip == nil {
+		ip = s.QueryDnsToDefaultResolver(domain, recordType)
+	}
+	return ip
 }
 
 func (s *grpcService) HandleDNSRequest(w dns.ResponseWriter, r *dns.Msg) {
@@ -58,7 +99,7 @@ func (s *grpcService) HandleDNSRequest(w dns.ResponseWriter, r *dns.Msg) {
 	case dns.TypeA:
 		msg.Authoritative = true
 		domain := msg.Question[0].Name
-		ip := s.QueryDnstoMycel(domain, "A")
+		ip := s.QueryDns(domain, "A")
 		if ip == nil {
 			break
 		}
