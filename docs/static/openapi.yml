@@ -50069,9 +50069,10 @@ paths:
                       additionalProperties:
                         type: string
                         enum:
+                          - NO_ROLE
                           - OWNER
                           - EDITOR
-                        default: OWNER
+                        default: NO_ROLE
               pagination:
                 type: object
                 properties:
@@ -50278,9 +50279,10 @@ paths:
                     additionalProperties:
                       type: string
                       enum:
+                        - NO_ROLE
                         - OWNER
                         - EDITOR
-                      default: OWNER
+                      default: NO_ROLE
         default:
           description: An unexpected error response.
           schema:
@@ -50450,9 +50452,10 @@ paths:
                       additionalProperties:
                         type: string
                         enum:
+                          - NO_ROLE
                           - OWNER
                           - EDITOR
-                        default: OWNER
+                        default: NO_ROLE
               pagination:
                 type: object
                 properties:
@@ -50665,9 +50668,10 @@ paths:
                     additionalProperties:
                       type: string
                       enum:
+                        - NO_ROLE
                         - OWNER
                         - EDITOR
-                      default: OWNER
+                      default: NO_ROLE
         default:
           description: An unexpected error response.
           schema:
@@ -80489,9 +80493,10 @@ definitions:
   mycel.registry.DomainRole:
     type: string
     enum:
+      - NO_ROLE
       - OWNER
       - EDITOR
-    default: OWNER
+    default: NO_ROLE
   mycel.registry.Fee:
     type: object
     properties:
@@ -80723,9 +80728,10 @@ definitions:
               additionalProperties:
                 type: string
                 enum:
+                  - NO_ROLE
                   - OWNER
                   - EDITOR
-                default: OWNER
+                default: NO_ROLE
       pagination:
         type: object
         properties:
@@ -80847,9 +80853,10 @@ definitions:
               additionalProperties:
                 type: string
                 enum:
+                  - NO_ROLE
                   - OWNER
                   - EDITOR
-                default: OWNER
+                default: NO_ROLE
       pagination:
         type: object
         properties:
@@ -81008,9 +81015,10 @@ definitions:
             additionalProperties:
               type: string
               enum:
+                - NO_ROLE
                 - OWNER
                 - EDITOR
-              default: OWNER
+              default: NO_ROLE
   mycel.registry.QueryGetTopLevelDomainResponse:
     type: object
     properties:
@@ -81104,9 +81112,10 @@ definitions:
             additionalProperties:
               type: string
               enum:
+                - NO_ROLE
                 - OWNER
                 - EDITOR
-              default: OWNER
+              default: NO_ROLE
   mycel.registry.QueryIsRegistrableDomainResponse:
     type: object
     properties:
@@ -81218,9 +81227,10 @@ definitions:
         additionalProperties:
           type: string
           enum:
+            - NO_ROLE
             - OWNER
             - EDITOR
-          default: OWNER
+          default: NO_ROLE
   mycel.registry.SubdomainConfig:
     type: object
     properties:
@@ -81436,9 +81446,10 @@ definitions:
         additionalProperties:
           type: string
           enum:
+            - NO_ROLE
             - OWNER
             - EDITOR
-          default: OWNER
+          default: NO_ROLE
   mycel.registry.WalletRecord:
     type: object
     properties:
