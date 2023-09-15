@@ -78,3 +78,11 @@ func ValidateDnsRecordType(dnsRecordType string) (err error) {
 	}
 	return err
 }
+
+func (secondLevelDomain SecondLevelDomain) IsRecordEditable(sender string) (isEditable bool, err error) {
+	if secondLevelDomain.AccessControl[sender] == DomainRole_NO_ROLE {
+		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", sender)), ErrDomainNotEditable.Error())
+	}
+	isEditable = secondLevelDomain.AccessControl[sender] == DomainRole_EDITOR || secondLevelDomain.AccessControl[sender] == DomainRole_OWNER
+	return isEditable, err
+}

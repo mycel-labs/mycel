@@ -82,7 +82,7 @@ func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 			parent:           "cel",
 			walletRecordType: "ETHEREUM_MAINNET_MAINNET",
 			value:            "0x1234567890123456789012345678901234567890",
-			expErr:           sdkerrors.Wrapf(errors.New(fmt.Sprintf("foo.cel")), types.ErrDomainNotOwned.Error()),
+			expErr:           sdkerrors.Wrapf(errors.New(fmt.Sprintf(testutil.Bob)), types.ErrDomainNotEditable.Error()),
 			fn:               func() {},
 		},
 	}

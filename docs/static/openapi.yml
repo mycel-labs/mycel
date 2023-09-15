@@ -50067,10 +50067,12 @@ paths:
                     accessControl:
                       type: object
                       additionalProperties:
-                        type: object
-                        properties:
-                          owner:
-                            type: string
+                        type: string
+                        enum:
+                          - NO_ROLE
+                          - OWNER
+                          - EDITOR
+                        default: NO_ROLE
               pagination:
                 type: object
                 properties:
@@ -50275,10 +50277,12 @@ paths:
                   accessControl:
                     type: object
                     additionalProperties:
-                      type: object
-                      properties:
-                        owner:
-                          type: string
+                      type: string
+                      enum:
+                        - NO_ROLE
+                        - OWNER
+                        - EDITOR
+                      default: NO_ROLE
         default:
           description: An unexpected error response.
           schema:
@@ -50446,12 +50450,12 @@ paths:
                     accessControl:
                       type: object
                       additionalProperties:
-                        type: object
-                        properties:
-                          owner:
-                            type: string
-                          recordEditor:
-                            type: string
+                        type: string
+                        enum:
+                          - NO_ROLE
+                          - OWNER
+                          - EDITOR
+                        default: NO_ROLE
               pagination:
                 type: object
                 properties:
@@ -50662,12 +50666,12 @@ paths:
                   accessControl:
                     type: object
                     additionalProperties:
-                      type: object
-                      properties:
-                        owner:
-                          type: string
-                        recordEditor:
-                          type: string
+                      type: string
+                      enum:
+                        - NO_ROLE
+                        - OWNER
+                        - EDITOR
+                      default: NO_ROLE
         default:
           description: An unexpected error response.
           schema:
@@ -80680,6 +80684,13 @@ definitions:
               type: string
             parent:
               type: string
+  mycel.registry.DomainRole:
+    type: string
+    enum:
+      - NO_ROLE
+      - OWNER
+      - EDITOR
+    default: NO_ROLE
   mycel.registry.Fee:
     type: object
     properties:
@@ -80909,12 +80920,12 @@ definitions:
             accessControl:
               type: object
               additionalProperties:
-                type: object
-                properties:
-                  owner:
-                    type: string
-                  recordEditor:
-                    type: string
+                type: string
+                enum:
+                  - NO_ROLE
+                  - OWNER
+                  - EDITOR
+                default: NO_ROLE
       pagination:
         type: object
         properties:
@@ -81034,10 +81045,12 @@ definitions:
             accessControl:
               type: object
               additionalProperties:
-                type: object
-                properties:
-                  owner:
-                    type: string
+                type: string
+                enum:
+                  - NO_ROLE
+                  - OWNER
+                  - EDITOR
+                default: NO_ROLE
       pagination:
         type: object
         properties:
@@ -81194,12 +81207,12 @@ definitions:
           accessControl:
             type: object
             additionalProperties:
-              type: object
-              properties:
-                owner:
-                  type: string
-                recordEditor:
-                  type: string
+              type: string
+              enum:
+                - NO_ROLE
+                - OWNER
+                - EDITOR
+              default: NO_ROLE
   mycel.registry.QueryGetTopLevelDomainResponse:
     type: object
     properties:
@@ -81291,10 +81304,12 @@ definitions:
           accessControl:
             type: object
             additionalProperties:
-              type: object
-              properties:
-                owner:
-                  type: string
+              type: string
+              enum:
+                - NO_ROLE
+                - OWNER
+                - EDITOR
+              default: NO_ROLE
   mycel.registry.QueryIsRegistrableDomainResponse:
     type: object
     properties:
@@ -81404,12 +81419,12 @@ definitions:
       accessControl:
         type: object
         additionalProperties:
-          type: object
-          properties:
-            owner:
-              type: string
-            recordEditor:
-              type: string
+          type: string
+          enum:
+            - NO_ROLE
+            - OWNER
+            - EDITOR
+          default: NO_ROLE
   mycel.registry.SubdomainConfig:
     type: object
     properties:
@@ -81537,13 +81552,6 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  mycel.registry.SubdomainRole:
-    type: object
-    properties:
-      owner:
-        type: string
-      recordEditor:
-        type: string
   mycel.registry.TopLevelDomain:
     type: object
     properties:
@@ -81630,15 +81638,12 @@ definitions:
       accessControl:
         type: object
         additionalProperties:
-          type: object
-          properties:
-            owner:
-              type: string
-  mycel.registry.TopLevelDomainRole:
-    type: object
-    properties:
-      owner:
-        type: string
+          type: string
+          enum:
+            - NO_ROLE
+            - OWNER
+            - EDITOR
+          default: NO_ROLE
   mycel.registry.WalletRecord:
     type: object
     properties:
