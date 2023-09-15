@@ -19,6 +19,7 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.16.0
+	github.com/miekg/dns v1.1.56
 	github.com/prometheus/client_golang v1.16.0
 	github.com/spf13/cast v1.5.1
 	github.com/spf13/cobra v1.7.0
@@ -127,7 +128,6 @@ require (
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
-	github.com/miekg/dns v1.1.56 // indirect
 	github.com/mimoo/StrobeGo v0.0.0-20210601165009-122bf33a46e0 // indirect
 	github.com/minio/highwayhash v1.0.2 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
