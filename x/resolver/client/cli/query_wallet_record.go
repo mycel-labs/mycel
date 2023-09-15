@@ -35,7 +35,7 @@ func CmdQueryWalletRecord() *cobra.Command {
 				WalletRecordType: reqWalletRecordType,
 			}
 
-			res, err := queryClient.QueryWalletRecord(cmd.Context(), params)
+			res, err := queryClient.WalletRecord(cmd.Context(), params)
 			if err != nil {
 				return err
 			}

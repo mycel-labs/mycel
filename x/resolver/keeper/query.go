@@ -4,4 +4,4 @@ import (
 	"github.com/mycel-domain/mycel/x/resolver/types"
 )
 
-var _ types.QueryServer = Keeper{}
+var _ types.QueryServer= Keeper{}

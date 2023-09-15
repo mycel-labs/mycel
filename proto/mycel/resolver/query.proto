@@ -20,7 +20,7 @@ service Query {
   }
   
   // Queries a list of QueryWalletRecord items.
-  rpc QueryWalletRecord (QueryWalletRecordRequest) returns (QueryWalletRecordResponse) {
+  rpc WalletRecord (QueryWalletRecordRequest) returns (QueryWalletRecordResponse) {
     option (google.api.http).get = "/mycel-domain/mycel/resolver/wallet_record/{domainName}/{domainParent}/{walletRecordType}";
   
   }

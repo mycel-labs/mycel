@@ -11,7 +11,7 @@ import (
 	registrytypes "github.com/mycel-domain/mycel/x/registry/types"
 )
 
-func (k Keeper) QueryWalletRecord(goCtx context.Context, req *types.QueryWalletRecordRequest) (*types.QueryWalletRecordResponse, error) {
+func (k Keeper) WalletRecord(goCtx context.Context, req *types.QueryWalletRecordRequest) (*types.QueryWalletRecordResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}

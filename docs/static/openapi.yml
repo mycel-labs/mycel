@@ -50721,6 +50721,7 @@ paths:
                   dnsRecordType:
                     type: string
                     enum:
+                      - NO_RECORD_TYPE
                       - A
                       - AAAA
                       - CNAME
@@ -50730,7 +50731,7 @@ paths:
                       - SOA
                       - SRV
                       - TXT
-                    default: A
+                    default: NO_RECORD_TYPE
                   value:
                     type: string
         default:
@@ -50805,7 +50806,7 @@ paths:
   /mycel-domain/mycel/resolver/wallet_record/{domainName}/{domainParent}/{walletRecordType}:
     get:
       summary: Queries a list of QueryWalletRecord items.
-      operationId: MycelResolverQueryWalletRecord
+      operationId: MycelResolverWalletRecord
       responses:
         '200':
           description: A successful response.
@@ -50818,6 +50819,7 @@ paths:
                   walletRecordType:
                     type: string
                     enum:
+                      - NO_NETWORK
                       - BITCOIN_MAINNET_MAINNET
                       - BITCOIN_TESTNET_TESTNET
                       - ETHEREUM_MAINNET_MAINNET
@@ -50843,10 +50845,10 @@ paths:
                       - SUI_TESTNET_TESTNET
                       - SOLANA_MAINNET_MAINNET
                       - SOLANA_TESTNET_TESTNET
-                    default: BITCOIN_MAINNET_MAINNET
+                    default: NO_NETWORK
                     description: |-
-                      - BITCOIN_MAINNET_MAINNET: BTC 0xxx
-                       - ETHEREUM_MAINNET_MAINNET: EVM 1xxxx
+                      - BITCOIN_MAINNET_MAINNET: BTC 1xxx
+                       - ETHEREUM_MAINNET_MAINNET: EVM 2xxxx
                       Etheruem
                        - POLYGON_MAINNET_MAINNET: Polygon
                        - BNB_MAINNET_MAINNET: BNB Chain
@@ -50855,14 +50857,14 @@ paths:
                        - OPTIMISM_MAINNET_MAINNET: Optimism
                        - ARBITRUM_MAINNET_MAINNET: Arbitrum
                        - SHARDEUM_BETANET_SPHINX: Shardeum
-                      SHARDEUM_MAINNET_ = 10015;
-                      SHARDEUM_TESTNET_ = 10016;
+                      SHARDEUM_MAINNET_ = 20015;
+                      SHARDEUM_TESTNET_ = 20016;
                        - ZETA_TESTNET_ATHENS: Zetachain
-                      ZETA_MAINNET_MAINNET = 10018;
-                       - APTOS_MAINNET_MAINNET: MOVE 2xxxx
+                      ZETA_MAINNET_MAINNET = 20018;
+                       - APTOS_MAINNET_MAINNET: MOVE 3xxxx
                       Aptos
                        - SUI_MAINNET_MAINNET: Sui
-                       - SOLANA_MAINNET_MAINNET: SOLANA 3xxxx
+                       - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
                     title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
                   value:
                     type: string
@@ -81724,6 +81726,7 @@ definitions:
           dnsRecordType:
             type: string
             enum:
+              - NO_RECORD_TYPE
               - A
               - AAAA
               - CNAME
@@ -81733,7 +81736,7 @@ definitions:
               - SOA
               - SRV
               - TXT
-            default: A
+            default: NO_RECORD_TYPE
           value:
             type: string
   mycel.resolver.QueryParamsResponse:
@@ -81752,6 +81755,7 @@ definitions:
           walletRecordType:
             type: string
             enum:
+              - NO_NETWORK
               - BITCOIN_MAINNET_MAINNET
               - BITCOIN_TESTNET_TESTNET
               - ETHEREUM_MAINNET_MAINNET
@@ -81777,10 +81781,10 @@ definitions:
               - SUI_TESTNET_TESTNET
               - SOLANA_MAINNET_MAINNET
               - SOLANA_TESTNET_TESTNET
-            default: BITCOIN_MAINNET_MAINNET
+            default: NO_NETWORK
             description: |-
-              - BITCOIN_MAINNET_MAINNET: BTC 0xxx
-               - ETHEREUM_MAINNET_MAINNET: EVM 1xxxx
+              - BITCOIN_MAINNET_MAINNET: BTC 1xxx
+               - ETHEREUM_MAINNET_MAINNET: EVM 2xxxx
               Etheruem
                - POLYGON_MAINNET_MAINNET: Polygon
                - BNB_MAINNET_MAINNET: BNB Chain
@@ -81789,14 +81793,14 @@ definitions:
                - OPTIMISM_MAINNET_MAINNET: Optimism
                - ARBITRUM_MAINNET_MAINNET: Arbitrum
                - SHARDEUM_BETANET_SPHINX: Shardeum
-              SHARDEUM_MAINNET_ = 10015;
-              SHARDEUM_TESTNET_ = 10016;
+              SHARDEUM_MAINNET_ = 20015;
+              SHARDEUM_TESTNET_ = 20016;
                - ZETA_TESTNET_ATHENS: Zetachain
-              ZETA_MAINNET_MAINNET = 10018;
-               - APTOS_MAINNET_MAINNET: MOVE 2xxxx
+              ZETA_MAINNET_MAINNET = 20018;
+               - APTOS_MAINNET_MAINNET: MOVE 3xxxx
               Aptos
                - SUI_MAINNET_MAINNET: Sui
-               - SOLANA_MAINNET_MAINNET: SOLANA 3xxxx
+               - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
             title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
           value:
             type: string
