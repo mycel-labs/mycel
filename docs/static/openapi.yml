@@ -50067,10 +50067,11 @@ paths:
                     accessControl:
                       type: object
                       additionalProperties:
-                        type: object
-                        properties:
-                          owner:
-                            type: string
+                        type: string
+                        enum:
+                          - OWNER
+                          - EDITOR
+                        default: OWNER
               pagination:
                 type: object
                 properties:
@@ -50275,10 +50276,11 @@ paths:
                   accessControl:
                     type: object
                     additionalProperties:
-                      type: object
-                      properties:
-                        owner:
-                          type: string
+                      type: string
+                      enum:
+                        - OWNER
+                        - EDITOR
+                      default: OWNER
         default:
           description: An unexpected error response.
           schema:
@@ -50449,7 +50451,7 @@ paths:
                         type: string
                         enum:
                           - OWNER
-                          - RECORD_EDITOR
+                          - EDITOR
                         default: OWNER
               pagination:
                 type: object
@@ -50664,7 +50666,7 @@ paths:
                       type: string
                       enum:
                         - OWNER
-                        - RECORD_EDITOR
+                        - EDITOR
                       default: OWNER
         default:
           description: An unexpected error response.
@@ -80484,6 +80486,12 @@ definitions:
               type: string
             parent:
               type: string
+  mycel.registry.DomainRole:
+    type: string
+    enum:
+      - OWNER
+      - EDITOR
+    default: OWNER
   mycel.registry.Fee:
     type: object
     properties:
@@ -80716,7 +80724,7 @@ definitions:
                 type: string
                 enum:
                   - OWNER
-                  - RECORD_EDITOR
+                  - EDITOR
                 default: OWNER
       pagination:
         type: object
@@ -80837,10 +80845,11 @@ definitions:
             accessControl:
               type: object
               additionalProperties:
-                type: object
-                properties:
-                  owner:
-                    type: string
+                type: string
+                enum:
+                  - OWNER
+                  - EDITOR
+                default: OWNER
       pagination:
         type: object
         properties:
@@ -81000,7 +81009,7 @@ definitions:
               type: string
               enum:
                 - OWNER
-                - RECORD_EDITOR
+                - EDITOR
               default: OWNER
   mycel.registry.QueryGetTopLevelDomainResponse:
     type: object
@@ -81093,10 +81102,11 @@ definitions:
           accessControl:
             type: object
             additionalProperties:
-              type: object
-              properties:
-                owner:
-                  type: string
+              type: string
+              enum:
+                - OWNER
+                - EDITOR
+              default: OWNER
   mycel.registry.QueryIsRegistrableDomainResponse:
     type: object
     properties:
@@ -81209,7 +81219,7 @@ definitions:
           type: string
           enum:
             - OWNER
-            - RECORD_EDITOR
+            - EDITOR
           default: OWNER
   mycel.registry.SubdomainConfig:
     type: object
@@ -81338,12 +81348,6 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  mycel.registry.SubdomainRole:
-    type: string
-    enum:
-      - OWNER
-      - RECORD_EDITOR
-    default: OWNER
   mycel.registry.TopLevelDomain:
     type: object
     properties:
@@ -81430,15 +81434,11 @@ definitions:
       accessControl:
         type: object
         additionalProperties:
-          type: object
-          properties:
-            owner:
-              type: string
-  mycel.registry.TopLevelDomainRole:
-    type: object
-    properties:
-      owner:
-        type: string
+          type: string
+          enum:
+            - OWNER
+            - EDITOR
+          default: OWNER
   mycel.registry.WalletRecord:
     type: object
     properties:
