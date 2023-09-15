@@ -2,9 +2,10 @@ package types
 
 import (
 	"errors"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	math "math"
+
+	errorsmod "cosmossdk.io/errors"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 func GetDefaultSubdomainConfig(baseFee int64) SubdomainConfig {
@@ -41,7 +42,7 @@ func (config *SubdomainConfig) GetRegistrationFee(name string, registrationPerio
 		if config.SubdomainRegistrationFees.FeeByName[name].IsRegistrable {
 			amount = config.SubdomainRegistrationFees.FeeByName[name].Fee
 		} else {
-			err = sdkerrors.Wrap(errors.New(name), ErrDomainNotRegistrable.Error())
+			err = errorsmod.Wrap(errors.New(name), ErrDomainNotRegistrable.Error())
 		}
 	}
 
@@ -50,7 +51,7 @@ func (config *SubdomainConfig) GetRegistrationFee(name string, registrationPerio
 		if config.SubdomainRegistrationFees.FeeByLength[uint32(len(name))].IsRegistrable {
 			amount = config.SubdomainRegistrationFees.FeeByLength[uint32(len(name))].Fee
 		} else {
-			err = sdkerrors.Wrap(errors.New(name), ErrDomainNotRegistrable.Error())
+			err = errorsmod.Wrap(errors.New(name), ErrDomainNotRegistrable.Error())
 		}
 	}
 

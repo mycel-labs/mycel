@@ -5,7 +5,7 @@ import (
 	fmt "fmt"
 	"regexp"
 
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	errorsmod "cosmossdk.io/errors"
 )
 
 const (
@@ -14,7 +14,7 @@ const (
 
 func (secondLevelDomain SecondLevelDomain) IsRecordEditable(sender string) (isEditable bool, err error) {
 	if secondLevelDomain.AccessControl[sender] == DomainRole_NO_ROLE {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", sender)), ErrDomainNotEditable.Error())
+		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", sender)), ErrDomainNotEditable.Error())
 	}
 	isEditable = secondLevelDomain.AccessControl[sender] == DomainRole_EDITOR || secondLevelDomain.AccessControl[sender] == DomainRole_OWNER
 	return isEditable, err
@@ -23,7 +23,7 @@ func (secondLevelDomain SecondLevelDomain) IsRecordEditable(sender string) (isEd
 func (secondLevelDomain SecondLevelDomain) ValidateName() (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+$)`, NamePattern))
 	if !regex.MatchString(secondLevelDomain.Name) {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", secondLevelDomain.Name)), ErrInvalidDomainName.Error())
+		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", secondLevelDomain.Name)), ErrInvalidDomainName.Error())
 	}
 	return err
 }
@@ -31,7 +31,7 @@ func (secondLevelDomain SecondLevelDomain) ValidateName() (err error) {
 func (secondLevelDomain SecondLevelDomain) ValidateParent() (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+[%[1]s\.]*[%[1]s]$)|^$`, NamePattern))
 	if !regex.MatchString(secondLevelDomain.Parent) {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", secondLevelDomain.Parent)), ErrInvalidDomainParent.Error())
+		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", secondLevelDomain.Parent)), ErrInvalidDomainParent.Error())
 	}
 	return err
 }
@@ -51,7 +51,7 @@ func (secondLevelDomain SecondLevelDomain) Validate() (err error) {
 func ValidateWalletRecordType(walletRecordType string) (err error) {
 	_, isFound := NetworkName_value[walletRecordType]
 	if !isFound {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", walletRecordType)), ErrInvalidWalletRecordType.Error())
+		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", walletRecordType)), ErrInvalidWalletRecordType.Error())
 	}
 	return err
 }
@@ -63,7 +63,7 @@ func ValidateDnsRecordValue(dnsRecordFormat string, address string) (err error) 
 	}
 	regex := regexp.MustCompile(dnsRecordRegex)
 	if !regex.MatchString(address) {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s %s", dnsRecordFormat, address)), ErrInvalidDnsRecordValue.Error())
+		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s %s", dnsRecordFormat, address)), ErrInvalidDnsRecordValue.Error())
 	}
 	return err
 }
@@ -71,7 +71,7 @@ func ValidateDnsRecordValue(dnsRecordFormat string, address string) (err error) 
 func ValidateDnsRecordType(dnsRecordType string) (err error) {
 	_, isFound := DnsRecordType_value[dnsRecordType]
 	if !isFound {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", dnsRecordType)), ErrInvalidDnsRecordType.Error())
+		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", dnsRecordType)), ErrInvalidDnsRecordType.Error())
 	}
 	return err
 }

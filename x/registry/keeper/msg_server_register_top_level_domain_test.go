@@ -7,8 +7,8 @@ import (
 	"github.com/mycel-domain/mycel/testutil"
 	"github.com/mycel-domain/mycel/x/registry/types"
 
+	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
@@ -37,7 +37,7 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 			creator:                  testutil.Alice,
 			name:                     "cel2",
 			registrationPeriodInYear: 1,
-			expErr:                   sdkerrors.Wrapf(errors.New(fmt.Sprintf("cel2")), types.ErrDomainIsAlreadyTaken.Error()),
+			expErr:                   errorsmod.Wrapf(errors.New(fmt.Sprintf("cel2")), types.ErrDomainIsAlreadyTaken.Error()),
 			fn: func() {
 				// Register domain once
 				domain := &types.MsgRegisterTopLevelDomain{
