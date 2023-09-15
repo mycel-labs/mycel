@@ -25,6 +25,9 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 
 	currentTime := ctx.BlockTime()
 	expirationDate := currentTime.AddDate(int(msg.RegistrationPeriodInYear), 0, 0)
+	accessControl := map[string]types.DomainRole{
+		msg.Creator: types.DomainRole_OWNER,
+	}
 
 	domain := types.SecondLevelDomain{
 		Name:           msg.Name,
@@ -34,6 +37,7 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 		DnsRecords:     nil,
 		WalletRecords:  nil,
 		Metadata:       nil,
+		AccessControl:  accessControl,
 	}
 
 	err = k.Keeper.RegisterDomain(ctx, domain, creatorAddress, msg.RegistrationPeriodInYear)

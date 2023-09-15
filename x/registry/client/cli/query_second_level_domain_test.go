@@ -34,7 +34,7 @@ func networkWithSecondLevelDomainObjects(t *testing.T, n int) (*network.Network,
 			DnsRecords:    make(map[string]*types.DnsRecord),
 			WalletRecords: make(map[string]*types.WalletRecord),
 			Metadata:      make(map[string]string),
-			AccessControl: make(map[string]*types.SubdomainRole),
+			AccessControl: make(map[string]types.DomainRole),
 		}
 		nullify.Fill(&secondLevelDomain)
 		state.SecondLevelDomains = append(state.SecondLevelDomains, secondLevelDomain)

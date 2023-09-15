@@ -20,11 +20,12 @@ func (k msgServer) UpdateWalletRecord(goCtx context.Context, msg *types.MsgUpdat
 	}
 
 	// Check if the domain is owned by the creator
-	if domain.Owner != msg.Creator {
-		return nil, sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s.%s", msg.Name, msg.Parent)), types.ErrDomainNotOwned.Error())
+	isEditable, err := domain.IsRecordEditable(msg.Creator)
+	if !isEditable {
+		return nil, err
 	}
 
-	err := domain.UpdateWalletRecord(msg.WalletRecordType, msg.Value)
+	err = domain.UpdateWalletRecord(msg.WalletRecordType, msg.Value)
 	if err != nil {
 		return nil, err
 	}

@@ -12,6 +12,14 @@ const (
 	NamePattern = `-a-z0-9\p{So}\p{Sk}`
 )
 
+func (secondLevelDomain SecondLevelDomain) IsRecordEditable(sender string) (isEditable bool, err error) {
+	if secondLevelDomain.AccessControl[sender] == DomainRole_NO_ROLE {
+		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", sender)), ErrDomainNotEditable.Error())
+	}
+	isEditable = secondLevelDomain.AccessControl[sender] == DomainRole_EDITOR || secondLevelDomain.AccessControl[sender] == DomainRole_OWNER
+	return isEditable, err
+}
+
 func (secondLevelDomain SecondLevelDomain) ValidateName() (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+$)`, NamePattern))
 	if !regex.MatchString(secondLevelDomain.Name) {

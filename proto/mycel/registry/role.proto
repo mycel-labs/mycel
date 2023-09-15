@@ -1,0 +1,10 @@
+syntax = "proto3";
+package mycel.registry;
+
+option go_package = "github.com/mycel-domain/mycel/x/registry/types";
+
+enum DomainRole {
+  NO_ROLE = 0;
+  OWNER = 1;
+  EDITOR = 2;
+}

@@ -17,7 +17,7 @@ var (
 	ErrInvalidWalletRecordType   = sdkerrors.Register(ModuleName, 1106, "invalid wallet record type")
 	ErrInvalidDnsRecordValue     = sdkerrors.Register(ModuleName, 1107, "invalid dns record value")
 	ErrInvalidDnsRecordType      = sdkerrors.Register(ModuleName, 1108, "invalid dns record type")
-	ErrDomainNotOwned            = sdkerrors.Register(ModuleName, 1109, "domain not owned by msg creator")
+	ErrDomainNotEditable         = sdkerrors.Register(ModuleName, 1109, "role not pemitted to edit the domain")
 	ErrParentDomainDoesNotExist  = sdkerrors.Register(ModuleName, 1110, "parent domain does not exist")
 	ErrParentDomainMustBeEmpty   = sdkerrors.Register(ModuleName, 1111, "parent domain must be empty")
 	ErrDomainNotRegistrable      = sdkerrors.Register(ModuleName, 1112, "domain is not registrable")

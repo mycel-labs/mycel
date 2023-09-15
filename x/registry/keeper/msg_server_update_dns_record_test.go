@@ -63,7 +63,7 @@ func (suite *KeeperTestSuite) TestUpdateDnsRecord() {
 			parent:        "cel",
 			dnsRecordType: "A",
 			value:         "192.168.0.1",
-			expErr:        sdkerrors.Wrapf(errors.New(fmt.Sprintf("foo.cel")), types.ErrDomainNotOwned.Error()),
+			expErr:        sdkerrors.Wrapf(errors.New(fmt.Sprintf(testutil.Bob)), types.ErrDomainNotEditable.Error()),
 			fn:            func() {},
 		},
 	}
