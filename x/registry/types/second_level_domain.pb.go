@@ -64,7 +64,7 @@ func (m *DnsRecord) GetDnsRecordType() DnsRecordType {
 	if m != nil {
 		return m.DnsRecordType
 	}
-	return DnsRecordType_A
+	return DnsRecordType_NO_RECORD_TYPE
 }
 
 func (m *DnsRecord) GetValue() string {
@@ -116,7 +116,7 @@ func (m *WalletRecord) GetWalletRecordType() NetworkName {
 	if m != nil {
 		return m.WalletRecordType
 	}
-	return NetworkName_BITCOIN_MAINNET_MAINNET
+	return NetworkName_NO_NETWORK
 }
 
 func (m *WalletRecord) GetValue() string {
