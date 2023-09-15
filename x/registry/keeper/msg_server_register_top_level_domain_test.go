@@ -70,8 +70,9 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 
 			if tc.expErr == nil {
 				// Evalute if domain is registered
-				_, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, tc.name)
+				domain, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, tc.name)
 				suite.Require().True(found)
+				suite.Require().Equal(domain.AccessControl[tc.creator], types.DomainRole_OWNER)
 
 				// Evalute events
 				suite.Require().Nil(err)
