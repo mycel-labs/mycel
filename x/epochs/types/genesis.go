@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	errorsmod "cosmossdk.io/errors"
 )
 
 // DefaultIndex is the default global index
@@ -38,7 +38,7 @@ func (gs GenesisState) Validate() error {
 
 	for _, epoch := range gs.Epochs {
 		if epochIdentifiers[epoch.Identifier] {
-			return sdkerrors.Wrapf(errors.New(epoch.Identifier), ErrDuplicatedEpochEntry.Error())
+			return errorsmod.Wrapf(errors.New(epoch.Identifier), ErrDuplicatedEpochEntry.Error())
 		}
 		if err := epoch.Validate(); err != nil {
 			return err

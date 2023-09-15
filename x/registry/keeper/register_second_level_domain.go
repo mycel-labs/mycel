@@ -3,11 +3,12 @@ package keeper
 import (
 	"errors"
 	"fmt"
-	"github.com/mycel-domain/mycel/x/registry/types"
 	"strconv"
 
+	"github.com/mycel-domain/mycel/x/registry/types"
+
+	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k Keeper) GetParentDomain(ctx sdk.Context, domain types.SecondLevelDomain) (parentDomain types.TopLevelDomain, found bool) {
@@ -77,7 +78,7 @@ func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.SecondLevelDomain, 
 
 	// Check if parent domain has subdomain registration config
 	if parentDomain.SubdomainConfig.MaxSubdomainRegistrations <= parentDomain.SubdomainCount {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%d", parentDomain.SubdomainCount)), types.ErrMaxSubdomainCountReached.Error())
+		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%d", parentDomain.SubdomainCount)), types.ErrMaxSubdomainCountReached.Error())
 		return err
 	}
 

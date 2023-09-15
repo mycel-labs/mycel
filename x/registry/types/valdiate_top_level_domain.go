@@ -5,7 +5,7 @@ import (
 	fmt "fmt"
 	"regexp"
 
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	errorsmod "cosmossdk.io/errors"
 )
 
 const (
@@ -15,7 +15,7 @@ const (
 func (topLevelDomain TopLevelDomain) ValidateName() (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+$)`, TLDNamePattern))
 	if !regex.MatchString(topLevelDomain.Name) {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s", topLevelDomain.Name)), ErrInvalidDomainName.Error())
+		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", topLevelDomain.Name)), ErrInvalidDomainName.Error())
 	}
 	return err
 }
