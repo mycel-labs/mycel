@@ -20,8 +20,8 @@ func (k msgServer) UpdateDnsRecord(goCtx context.Context, msg *types.MsgUpdateDn
 	}
 
 	// Check if the domain is owned by the creator
-	if domain.Owner != msg.Creator {
-		return nil, sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s.%s", msg.Name, msg.Parent)), types.ErrDomainNotOwned.Error())
+	if isEditable, roleErr := domain.IsRecordEditable(msg.Creator); !isEditable {
+		return nil, roleErr
 	}
 
 	err := domain.UpdateDnsRecord(msg.DnsRecordType, msg.Value)
