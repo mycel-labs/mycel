@@ -4,13 +4,14 @@ package mycel.registry;
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 enum DnsRecordType {
-  A = 0;
-  AAAA = 1;
-  CNAME = 2;
-  NS = 3;
-  MX = 4;
-  PTR = 5;
-  SOA = 6;
-  SRV = 7;
-  TXT = 8;
+  NO_RECORD_TYPE = 0;
+  A = 1;
+  AAAA = 2;
+  CNAME = 3;
+  NS = 4;
+  MX = 5;
+  PTR = 6;
+  SOA = 7;
+  SRV = 8;
+  TXT = 9;
 }
