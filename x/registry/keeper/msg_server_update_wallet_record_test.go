@@ -8,8 +8,8 @@ import (
 
 	"github.com/mycel-domain/mycel/testutil"
 
+	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
@@ -73,7 +73,7 @@ func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 			parent:           "fuga",
 			walletRecordType: "ETHEREUM_MAINNET_MAINNET",
 			value:            "0x1234567890123456789012345678901234567890",
-			expErr:           sdkerrors.Wrapf(errors.New(fmt.Sprintf("hoge.fuga")), types.ErrDomainNotFound.Error()),
+			expErr:           errorsmod.Wrapf(errors.New(fmt.Sprintf("hoge.fuga")), types.ErrDomainNotFound.Error()),
 			fn:               func() {},
 		},
 		{
@@ -82,7 +82,7 @@ func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 			parent:           "cel",
 			walletRecordType: "ETHEREUM_MAINNET_MAINNET",
 			value:            "0x1234567890123456789012345678901234567890",
-			expErr:           sdkerrors.Wrapf(errors.New(fmt.Sprintf(testutil.Bob)), types.ErrDomainNotEditable.Error()),
+			expErr:           errorsmod.Wrapf(errors.New(fmt.Sprintf(testutil.Bob)), types.ErrDomainNotEditable.Error()),
 			fn:               func() {},
 		},
 	}

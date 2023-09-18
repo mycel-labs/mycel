@@ -3,25 +3,25 @@ package types
 // DONTCOVER
 
 import (
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	errorsmod "cosmossdk.io/errors"
 )
 
 // x/mycel module sentinel errors
 var (
-	ErrSample                    = sdkerrors.Register(ModuleName, 1100, "sample error")
-	ErrDomainIsAlreadyTaken      = sdkerrors.Register(ModuleName, 1101, "domain is already taken")
-	ErrInvalidDomainName         = sdkerrors.Register(ModuleName, 1102, "invalid name")
-	ErrInvalidDomainParent       = sdkerrors.Register(ModuleName, 1103, "invalid parent")
-	ErrDomainNotFound            = sdkerrors.Register(ModuleName, 1104, "domain not found")
-	ErrInvalidWalletAddress      = sdkerrors.Register(ModuleName, 1105, "invalid wallet address")
-	ErrInvalidWalletRecordType   = sdkerrors.Register(ModuleName, 1106, "invalid wallet record type")
-	ErrInvalidDnsRecordValue     = sdkerrors.Register(ModuleName, 1107, "invalid dns record value")
-	ErrInvalidDnsRecordType      = sdkerrors.Register(ModuleName, 1108, "invalid dns record type")
-	ErrDomainNotEditable         = sdkerrors.Register(ModuleName, 1109, "role not pemitted to edit the domain")
-	ErrParentDomainDoesNotExist  = sdkerrors.Register(ModuleName, 1110, "parent domain does not exist")
-	ErrParentDomainMustBeEmpty   = sdkerrors.Register(ModuleName, 1111, "parent domain must be empty")
-	ErrDomainNotRegistrable      = sdkerrors.Register(ModuleName, 1112, "domain is not registrable")
-	ErrMaxSubdomainCountReached  = sdkerrors.Register(ModuleName, 1113, "max subdomain count reached")
-	ErrInvalidRegistrationPeriod = sdkerrors.Register(ModuleName, 1114, "invalid registration period")
-	ErrDomainExpired             = sdkerrors.Register(ModuleName, 1115, "domain expired")
+	ErrSample                    = errorsmod.Register(ModuleName, 1100, "sample error")
+	ErrDomainIsAlreadyTaken      = errorsmod.Register(ModuleName, 1101, "domain is already taken")
+	ErrInvalidDomainName         = errorsmod.Register(ModuleName, 1102, "invalid name")
+	ErrInvalidDomainParent       = errorsmod.Register(ModuleName, 1103, "invalid parent")
+	ErrDomainNotFound            = errorsmod.Register(ModuleName, 1104, "domain not found")
+	ErrInvalidWalletAddress      = errorsmod.Register(ModuleName, 1105, "invalid wallet address")
+	ErrInvalidWalletRecordType   = errorsmod.Register(ModuleName, 1106, "invalid wallet record type")
+	ErrInvalidDnsRecordValue     = errorsmod.Register(ModuleName, 1107, "invalid dns record value")
+	ErrInvalidDnsRecordType      = errorsmod.Register(ModuleName, 1108, "invalid dns record type")
+	ErrDomainNotEditable         = errorsmod.Register(ModuleName, 1109, "role not pemitted to edit the domain")
+	ErrParentDomainDoesNotExist  = errorsmod.Register(ModuleName, 1110, "parent domain does not exist")
+	ErrParentDomainMustBeEmpty   = errorsmod.Register(ModuleName, 1111, "parent domain must be empty")
+	ErrDomainNotRegistrable      = errorsmod.Register(ModuleName, 1112, "domain is not registrable")
+	ErrMaxSubdomainCountReached  = errorsmod.Register(ModuleName, 1113, "max subdomain count reached")
+	ErrInvalidRegistrationPeriod = errorsmod.Register(ModuleName, 1114, "invalid registration period")
+	ErrDomainExpired             = errorsmod.Register(ModuleName, 1115, "domain expired")
 )
