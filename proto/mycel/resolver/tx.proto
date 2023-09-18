@@ -1,0 +1,7 @@
+syntax = "proto3";
+package mycel.resolver;
+
+option go_package = "github.com/mycel-domain/mycel/x/resolver/types";
+
+// Msg defines the Msg service.
+service Msg {}

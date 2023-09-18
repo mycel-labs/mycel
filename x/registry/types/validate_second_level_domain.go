@@ -12,27 +12,30 @@ const (
 	NamePattern = `-a-z0-9\p{So}\p{Sk}`
 )
 
-func (secondLevelDomain SecondLevelDomain) IsRecordEditable(sender string) (isEditable bool, err error) {
-	if secondLevelDomain.AccessControl[sender] == DomainRole_NO_ROLE {
-		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", sender)), ErrDomainNotEditable.Error())
-	}
-	isEditable = secondLevelDomain.AccessControl[sender] == DomainRole_EDITOR || secondLevelDomain.AccessControl[sender] == DomainRole_OWNER
-	return isEditable, err
-}
-
-func (secondLevelDomain SecondLevelDomain) ValidateName() (err error) {
+func ValidateSecondLevelDomainName(name string) (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+$)`, NamePattern))
-	if !regex.MatchString(secondLevelDomain.Name) {
-		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", secondLevelDomain.Name)), ErrInvalidDomainName.Error())
+	if !regex.MatchString(name) {
+		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", name)), ErrInvalidDomainName.Error())
 	}
 	return err
 }
 
-func (secondLevelDomain SecondLevelDomain) ValidateParent() (err error) {
+func (secondLevelDomain SecondLevelDomain) ValidateName() (err error) {
+	err = ValidateSecondLevelDomainName(secondLevelDomain.Name)
+	return err
+}
+
+func ValidateSecondLevelDomainParent(parent string) (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+[%[1]s\.]*[%[1]s]$)|^$`, NamePattern))
-	if !regex.MatchString(secondLevelDomain.Parent) {
-		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", secondLevelDomain.Parent)), ErrInvalidDomainParent.Error())
+	if !regex.MatchString(parent) {
+		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", parent)), ErrInvalidDomainParent.Error())
 	}
+	return err
+
+}
+
+func (secondLevelDomain SecondLevelDomain) ValidateParent() (err error) {
+	err = ValidateSecondLevelDomainParent(secondLevelDomain.Parent)
 	return err
 }
 
@@ -75,3 +78,13 @@ func ValidateDnsRecordType(dnsRecordType string) (err error) {
 	}
 	return err
 }
+
+func (secondLevelDomain SecondLevelDomain) IsRecordEditable(sender string) (isEditable bool, err error) {
+	if secondLevelDomain.AccessControl[sender] == DomainRole_NO_ROLE {
+		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", sender)), ErrDomainNotEditable.Error())
+	}
+	isEditable = secondLevelDomain.AccessControl[sender] == DomainRole_EDITOR || secondLevelDomain.AccessControl[sender] == DomainRole_OWNER
+	return isEditable, err
+}
+
+

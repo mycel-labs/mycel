@@ -23,4 +23,5 @@ var (
 	ErrDomainNotRegistrable      = errorsmod.Register(ModuleName, 1112, "domain is not registrable")
 	ErrMaxSubdomainCountReached  = errorsmod.Register(ModuleName, 1113, "max subdomain count reached")
 	ErrInvalidRegistrationPeriod = errorsmod.Register(ModuleName, 1114, "invalid registration period")
+	ErrDomainExpired             = errorsmod.Register(ModuleName, 1115, "domain expired")
 )

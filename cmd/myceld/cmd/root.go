@@ -37,6 +37,7 @@ import (
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
+
 	// this line is used by starport scaffolding # root/moduleImport
 
 	// CosmWasm
@@ -45,6 +46,7 @@ import (
 
 	"github.com/mycel-domain/mycel/app"
 	appparams "github.com/mycel-domain/mycel/app/params"
+	"github.com/mycel-domain/mycel/cmd/myceld/dns"
 )
 
 // NewRootCmd creates a new root command for a Cosmos SDK application
@@ -154,6 +156,11 @@ func initRootCmd(
 		txCommand(),
 		keys.Commands(app.DefaultNodeHome),
 	)
+
+	// add DNS command
+	rootCmd.AddCommand(
+		dns.DnsCommand(),
+	)
 }
 
 // queryCommand returns the sub-command to send queries to the app
@@ -207,6 +214,7 @@ func txCommand() *cobra.Command {
 
 	return cmd
 }
+
 
 func addModuleInitFlags(startCmd *cobra.Command) {
 	crisis.AddModuleInitFlags(startCmd)
