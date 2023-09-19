@@ -1,10 +1,14 @@
 package keeper_test
 
 import (
+	"errors"
+	"fmt"
+
 	"strconv"
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
 	"github.com/mycel-domain/mycel/x/registry/keeper"
@@ -60,4 +64,52 @@ func TestTopLevelDomainGetAll(t *testing.T) {
 		nullify.Fill(items),
 		nullify.Fill(keeper.GetAllTopLevelDomain(ctx)),
 	)
+}
+
+func (suite *KeeperTestSuite) TestGetValidTopLevelDomain() {
+	testCases := []struct {
+		topLevelDomain types.TopLevelDomain
+		expErr         error
+	}{
+		{
+			topLevelDomain: types.TopLevelDomain{
+				Name:           "test",
+				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, 20).UnixNano(),
+			},
+			expErr: nil,
+		},
+		{
+			topLevelDomain: types.TopLevelDomain{
+				Name:           "test",
+				ExpirationDate: 0,
+			},
+			expErr: nil,
+		},
+		{
+			topLevelDomain: types.TopLevelDomain{
+				Name:           "test",
+				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, -20).UnixNano(),
+			},
+			expErr: sdkerrors.Wrapf(errors.New(fmt.Sprintf("test")), types.ErrDomainExpired.Error()),
+		},
+	}
+	for i, tc := range testCases {
+		suite.Run(fmt.Sprintf("Case %d", i), func() {
+			suite.SetupTest()
+
+			// Set domain
+			suite.app.RegistryKeeper.SetTopLevelDomain(suite.ctx, tc.topLevelDomain)
+
+			// Get valid domain
+			topLevelDomain, err := suite.app.RegistryKeeper.GetValidTopLevelDomain(suite.ctx, tc.topLevelDomain.Name)
+			if tc.expErr == nil {
+				suite.Require().Nil(err)
+				suite.Require().Equal(tc.topLevelDomain, topLevelDomain)
+			} else {
+				suite.Require().NotNil(err)
+				suite.Require().Equal(tc.expErr.Error(), err.Error())
+			}
+		})
+	}
+
 }

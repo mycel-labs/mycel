@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	errorsmod "cosmossdk.io/errors"
 )
 
 // StartInitialEpoch sets the epoch info fields to their start values
@@ -30,10 +30,10 @@ func (ei EpochInfo) Validate() error {
 		return ErrEpochDurationCannotBeZero
 	}
 	if ei.CurrentEpoch < 0 {
-		return sdkerrors.Wrapf(errors.New(fmt.Sprintf("%d", ei.CurrentEpoch)), ErrCurrentEpochCannotBeNegative.Error())
+		return errorsmod.Wrapf(errors.New(fmt.Sprintf("%d", ei.CurrentEpoch)), ErrCurrentEpochCannotBeNegative.Error())
 	}
 	if ei.CurrentEpochStartHeight < 0 {
-		return sdkerrors.Wrapf(errors.New(fmt.Sprintf("%d", ei.CurrentEpoch)), ErrCurrentEpochStartHeightCannotBeNegative.Error())
+		return errorsmod.Wrapf(errors.New(fmt.Sprintf("%d", ei.CurrentEpoch)), ErrCurrentEpochStartHeightCannotBeNegative.Error())
 	}
 	return nil
 }

@@ -1,10 +1,14 @@
 package keeper
 
 import (
+	"errors"
+	"fmt"
 	"github.com/mycel-domain/mycel/x/registry/types"
+	"time"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	errosmod "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 // SetSecondLevelDomain set a specific second-level-domain in the store from its index
@@ -66,4 +70,30 @@ func (k Keeper) GetAllSecondLevelDomain(ctx sdk.Context) (list []types.SecondLev
 	}
 
 	return
+}
+
+// Get valid second level domain
+func (k Keeper) GetValidSecondLevelDomain(ctx sdk.Context, name string, parent string) (secondLevelDomain types.SecondLevelDomain, err error) {
+	// Regex validation
+	err = types.ValidateSecondLevelDomainName(name)
+	if err != nil {
+		return secondLevelDomain, err
+	}
+	err = types.ValidateSecondLevelDomainParent(parent)
+	if err != nil {
+		return secondLevelDomain, err
+	}
+	// Get second level domain
+	secondLevelDomain, isFound := k.GetSecondLevelDomain(ctx, name, parent)
+	if !isFound {
+		return secondLevelDomain, errosmod.Wrapf(errors.New(fmt.Sprintf("%s.%s", name, parent)), types.ErrDomainNotFound.Error())
+	}
+
+	// Check if domain is not expired
+	expirationDate := time.Unix(0, secondLevelDomain.ExpirationDate)
+	if ctx.BlockTime().After(expirationDate) && secondLevelDomain.ExpirationDate != 0 {
+		return secondLevelDomain, errosmod.Wrapf(errors.New(fmt.Sprintf("%s", name)), types.ErrDomainExpired.Error())
+	}
+
+	return secondLevelDomain, nil
 }

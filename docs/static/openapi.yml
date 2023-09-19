@@ -50705,6 +50705,202 @@ paths:
           type: string
       tags:
         - Query
+  /mycel-domain/mycel/resolver/dns_record/{domainName}/{domainParent}/{dnsRecordType}:
+    get:
+      summary: Queries a list of DnsRecord items.
+      operationId: MycelResolverDnsRecord
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              value:
+                type: object
+                properties:
+                  dnsRecordType:
+                    type: string
+                    enum:
+                      - NO_RECORD_TYPE
+                      - A
+                      - AAAA
+                      - CNAME
+                      - NS
+                      - MX
+                      - PTR
+                      - SOA
+                      - SRV
+                      - TXT
+                    default: NO_RECORD_TYPE
+                  value:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: domainName
+          in: path
+          required: true
+          type: string
+        - name: domainParent
+          in: path
+          required: true
+          type: string
+        - name: dnsRecordType
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  /mycel-domain/mycel/resolver/params:
+    get:
+      summary: Parameters queries the parameters of the module.
+      operationId: MycelResolverParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  /mycel-domain/mycel/resolver/wallet_record/{domainName}/{domainParent}/{walletRecordType}:
+    get:
+      summary: Queries a list of QueryWalletRecord items.
+      operationId: MycelResolverWalletRecord
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              value:
+                type: object
+                properties:
+                  walletRecordType:
+                    type: string
+                    enum:
+                      - NO_NETWORK
+                      - BITCOIN_MAINNET_MAINNET
+                      - BITCOIN_TESTNET_TESTNET
+                      - ETHEREUM_MAINNET_MAINNET
+                      - ETHEREUM_TESTNET_GOERLI
+                      - ETHEREUM_TESTNET_SEPOLIA
+                      - POLYGON_MAINNET_MAINNET
+                      - POLYGON_TESTNET_MUMBAI
+                      - BNB_MAINNET_MAINNET
+                      - BNB_TESTNET_TESTNET
+                      - AVALANCHE_MAINNET_CCHAIN
+                      - AVALANCHE_TESTNET_FUJI
+                      - GNOSIS_MAINNET_MAINNET
+                      - GNOSIS_TESTNET_CHIADO
+                      - OPTIMISM_MAINNET_MAINNET
+                      - OPTIMISM_TESTNET_GOERLI
+                      - ARBITRUM_MAINNET_MAINNET
+                      - ARBITRUM_TESTNET_GOERLI
+                      - SHARDEUM_BETANET_SPHINX
+                      - ZETA_TESTNET_ATHENS
+                      - APTOS_MAINNET_MAINNET
+                      - APTOS_TESTNET_TESTNET
+                      - SUI_MAINNET_MAINNET
+                      - SUI_TESTNET_TESTNET
+                      - SOLANA_MAINNET_MAINNET
+                      - SOLANA_TESTNET_TESTNET
+                    default: NO_NETWORK
+                    description: |-
+                      - BITCOIN_MAINNET_MAINNET: BTC 1xxx
+                       - ETHEREUM_MAINNET_MAINNET: EVM 2xxxx
+                      Etheruem
+                       - POLYGON_MAINNET_MAINNET: Polygon
+                       - BNB_MAINNET_MAINNET: BNB Chain
+                       - AVALANCHE_MAINNET_CCHAIN: Avalanche
+                       - GNOSIS_MAINNET_MAINNET: Gnosis
+                       - OPTIMISM_MAINNET_MAINNET: Optimism
+                       - ARBITRUM_MAINNET_MAINNET: Arbitrum
+                       - SHARDEUM_BETANET_SPHINX: Shardeum
+                      SHARDEUM_MAINNET_ = 20015;
+                      SHARDEUM_TESTNET_ = 20016;
+                       - ZETA_TESTNET_ATHENS: Zetachain
+                      ZETA_MAINNET_MAINNET = 20018;
+                       - APTOS_MAINNET_MAINNET: MOVE 3xxxx
+                      Aptos
+                       - SUI_MAINNET_MAINNET: Sui
+                       - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
+                    title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+                  value:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: domainName
+          in: path
+          required: true
+          type: string
+        - name: domainParent
+          in: path
+          required: true
+          type: string
+        - name: walletRecordType
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
 definitions:
   cosmos.auth.v1beta1.AddressBytesToStringResponse:
     type: object
@@ -81559,3 +81755,93 @@ definitions:
         title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
       value:
         type: string
+  mycel.resolver.Params:
+    type: object
+    description: Params defines the parameters for the module.
+  mycel.resolver.QueryDnsRecordResponse:
+    type: object
+    properties:
+      value:
+        type: object
+        properties:
+          dnsRecordType:
+            type: string
+            enum:
+              - NO_RECORD_TYPE
+              - A
+              - AAAA
+              - CNAME
+              - NS
+              - MX
+              - PTR
+              - SOA
+              - SRV
+              - TXT
+            default: NO_RECORD_TYPE
+          value:
+            type: string
+  mycel.resolver.QueryParamsResponse:
+    type: object
+    properties:
+      params:
+        description: params holds all the parameters of this module.
+        type: object
+    description: QueryParamsResponse is response type for the Query/Params RPC method.
+  mycel.resolver.QueryWalletRecordResponse:
+    type: object
+    properties:
+      value:
+        type: object
+        properties:
+          walletRecordType:
+            type: string
+            enum:
+              - NO_NETWORK
+              - BITCOIN_MAINNET_MAINNET
+              - BITCOIN_TESTNET_TESTNET
+              - ETHEREUM_MAINNET_MAINNET
+              - ETHEREUM_TESTNET_GOERLI
+              - ETHEREUM_TESTNET_SEPOLIA
+              - POLYGON_MAINNET_MAINNET
+              - POLYGON_TESTNET_MUMBAI
+              - BNB_MAINNET_MAINNET
+              - BNB_TESTNET_TESTNET
+              - AVALANCHE_MAINNET_CCHAIN
+              - AVALANCHE_TESTNET_FUJI
+              - GNOSIS_MAINNET_MAINNET
+              - GNOSIS_TESTNET_CHIADO
+              - OPTIMISM_MAINNET_MAINNET
+              - OPTIMISM_TESTNET_GOERLI
+              - ARBITRUM_MAINNET_MAINNET
+              - ARBITRUM_TESTNET_GOERLI
+              - SHARDEUM_BETANET_SPHINX
+              - ZETA_TESTNET_ATHENS
+              - APTOS_MAINNET_MAINNET
+              - APTOS_TESTNET_TESTNET
+              - SUI_MAINNET_MAINNET
+              - SUI_TESTNET_TESTNET
+              - SOLANA_MAINNET_MAINNET
+              - SOLANA_TESTNET_TESTNET
+            default: NO_NETWORK
+            description: |-
+              - BITCOIN_MAINNET_MAINNET: BTC 1xxx
+               - ETHEREUM_MAINNET_MAINNET: EVM 2xxxx
+              Etheruem
+               - POLYGON_MAINNET_MAINNET: Polygon
+               - BNB_MAINNET_MAINNET: BNB Chain
+               - AVALANCHE_MAINNET_CCHAIN: Avalanche
+               - GNOSIS_MAINNET_MAINNET: Gnosis
+               - OPTIMISM_MAINNET_MAINNET: Optimism
+               - ARBITRUM_MAINNET_MAINNET: Arbitrum
+               - SHARDEUM_BETANET_SPHINX: Shardeum
+              SHARDEUM_MAINNET_ = 20015;
+              SHARDEUM_TESTNET_ = 20016;
+               - ZETA_TESTNET_ATHENS: Zetachain
+              ZETA_MAINNET_MAINNET = 20018;
+               - APTOS_MAINNET_MAINNET: MOVE 3xxxx
+              Aptos
+               - SUI_MAINNET_MAINNET: Sui
+               - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
+            title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+          value:
+            type: string

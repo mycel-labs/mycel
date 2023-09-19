@@ -1,0 +1,12 @@
+syntax = "proto3";
+package mycel.resolver;
+
+import "gogoproto/gogo.proto";
+import "mycel/resolver/params.proto";
+
+option go_package = "github.com/mycel-domain/mycel/x/resolver/types";
+
+// GenesisState defines the resolver module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}

@@ -5,9 +5,9 @@ import (
 	fmt "fmt"
 	"regexp"
 
+	errorsmod "cosmossdk.io/errors"
 	"filippo.io/edwards25519"
 	"github.com/btcsuite/btcutil/base58"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func WalletRecordFormats() map[string]string {
@@ -67,7 +67,7 @@ func ValidateEd25519PublicKey(walletAddressFormat string, address string) (err e
 	decodedBytes := base58.Decode(address)
 	_, err = new(edwards25519.Point).SetBytes(decodedBytes)
 	if err != nil {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s %s", walletAddressFormat, address)), ErrInvalidWalletAddress.Error())
+		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s %s", walletAddressFormat, address)), ErrInvalidWalletAddress.Error())
 	}
 
 	return err
@@ -81,7 +81,7 @@ func ValidateWalletAddressWithRegex(walletAddressFormat string, address string) 
 
 	regex := regexp.MustCompile(walletAddressRegex)
 	if !regex.MatchString(address) {
-		err = sdkerrors.Wrapf(errors.New(fmt.Sprintf("%s %s", walletAddressFormat, address)), ErrInvalidWalletAddress.Error())
+		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s %s", walletAddressFormat, address)), ErrInvalidWalletAddress.Error())
 	}
 	return err
 
