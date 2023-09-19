@@ -35,6 +35,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgRegisterTopLevelDomain int = 100
 
+	opWeightMsgSetRegistrationFees = "op_weight_msg_set_registration_fees"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSetRegistrationFees int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -94,6 +98,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgRegisterTopLevelDomain,
 		registrysimulation.SimulateMsgRegisterTopLevelDomain(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSetRegistrationFees int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSetRegistrationFees, &weightMsgSetRegistrationFees, nil,
+		func(_ *rand.Rand) {
+			weightMsgSetRegistrationFees = defaultWeightMsgSetRegistrationFees
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSetRegistrationFees,
+		registrysimulation.SimulateMsgSetRegistrationFees(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

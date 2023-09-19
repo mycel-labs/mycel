@@ -1,0 +1,18 @@
+syntax = "proto3";
+package mycel.registry;
+
+import "cosmos/base/v1beta1/coin.proto";
+
+option go_package = "github.com/mycel-domain/mycel/x/registry/types";
+
+message ReqRegistrationFeeByName {
+  string name = 1;
+  bool isRegistrable = 2;
+  cosmos.base.v1beta1.Coin fee = 5;
+}
+
+message ReqRegistrationFeeByLength {
+  uint64 length = 1;
+  bool isRegistrable = 2;
+  cosmos.base.v1beta1.Coin fee = 5;
+}

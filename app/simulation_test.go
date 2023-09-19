@@ -89,7 +89,6 @@ func BenchmarkSimulation(b *testing.B) {
 	appOptions[flags.FlagHome] = app.DefaultNodeHome
 	appOptions[server.FlagInvCheckPeriod] = simcli.FlagPeriodValue
 
-
 	wasmOpt := []wasmkeeper.Option{}
 
 	bApp := app.New(

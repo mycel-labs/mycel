@@ -2,6 +2,9 @@ syntax = "proto3";
 
 package mycel.registry;
 
+import "cosmos/base/v1beta1/coin.proto";
+import "mycel/registry/req_registration_fees.proto";
+
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 // Msg defines the Msg service.
@@ -10,6 +13,7 @@ service Msg {
   rpc UpdateDnsRecord        (MsgUpdateDnsRecord       ) returns (MsgUpdateDnsRecordResponse       );
   rpc RegisterDomain         (MsgRegisterDomain        ) returns (MsgRegisterDomainResponse        );
   rpc RegisterTopLevelDomain (MsgRegisterTopLevelDomain) returns (MsgRegisterTopLevelDomainResponse);
+  rpc SetRegistrationFees    (MsgSetRegistrationFees   ) returns (MsgSetRegistrationFeesResponse   );
 }
 message MsgUpdateWalletRecord {
   string creator          = 1;
@@ -47,3 +51,14 @@ message MsgRegisterTopLevelDomain {
 }
 
 message MsgRegisterTopLevelDomainResponse {}
+
+message MsgSetRegistrationFees {
+  string creator                                   = 1;
+  string domain                                    = 2;
+  repeated ReqRegistrationFeeByName feesByName     = 3;
+  repeated ReqRegistrationFeeByLength feesByLength = 4;
+  cosmos.base.v1beta1.Coin defaultFee              = 5;
+}
+
+message MsgSetRegistrationFeesResponse {}
+
