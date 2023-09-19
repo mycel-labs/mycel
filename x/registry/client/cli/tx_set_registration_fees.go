@@ -6,6 +6,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/mycel-domain/mycel/x/registry/types"
 	"github.com/spf13/cobra"
 )
@@ -19,9 +20,13 @@ func CmdSetRegistrationFees() *cobra.Command {
 		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argDomain := args[0]
-			argFeesByName := args[1]
-			argFeesByLength := args[2]
-			argDefaultFees := args[3]
+			// TODO: should parse as maps
+			//argFeesByName := args[1]
+			//argFeesByLength := args[2]
+			argDefaultFee, err := sdk.ParseCoinNormalized(args[3])
+			if err != nil {
+				return err
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -31,9 +36,12 @@ func CmdSetRegistrationFees() *cobra.Command {
 			msg := types.NewMsgSetRegistrationFees(
 				clientCtx.GetFromAddress().String(),
 				argDomain,
-				argFeesByName,
-				argFeesByLength,
-				argDefaultFees,
+				//argFeesByName,
+				//argFeesByLength,
+				//argDefaultFees,
+				[]types.ReqRegistrationFeeByName{},
+				[]types.ReqRegistrationFeeByLength{},
+				argDefaultFee,
 			)
 			if err := msg.ValidateBasic(); err != nil {
 				return err

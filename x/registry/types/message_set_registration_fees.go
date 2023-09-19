@@ -9,13 +9,13 @@ const TypeMsgSetRegistrationFees = "set_registration_fees"
 
 var _ sdk.Msg = &MsgSetRegistrationFees{}
 
-func NewMsgSetRegistrationFees(creator string, domain string, feesByName string, feesByLength string, defaultFees string) *MsgSetRegistrationFees {
+func NewMsgSetRegistrationFees(creator string, domain string, feesByName []ReqRegistrationFeeByName, feesByLength []ReqRegistrationFeeByLength, defaultFee sdk.Coin) *MsgSetRegistrationFees {
 	return &MsgSetRegistrationFees{
 		Creator:      creator,
 		Domain:       domain,
 		FeesByName:   feesByName,
 		FeesByLength: feesByLength,
-		DefaultFees:  defaultFees,
+		DefaultFee:   defaultFee,
 	}
 }
 

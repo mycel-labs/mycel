@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package mycel.registry;
 
+import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "mycel/registry/req_registration_fees.proto";
 
@@ -55,9 +56,9 @@ message MsgRegisterTopLevelDomainResponse {}
 message MsgSetRegistrationFees {
   string creator                                   = 1;
   string domain                                    = 2;
-  repeated ReqRegistrationFeeByName feesByName     = 3;
-  repeated ReqRegistrationFeeByLength feesByLength = 4;
-  cosmos.base.v1beta1.Coin defaultFee              = 5;
+  repeated ReqRegistrationFeeByName feesByName     = 3 [(gogoproto.nullable) = false];
+  repeated ReqRegistrationFeeByLength feesByLength = 4 [(gogoproto.nullable) = false];
+  cosmos.base.v1beta1.Coin defaultFee              = 5 [(gogoproto.nullable) = false];
 }
 
 message MsgSetRegistrationFeesResponse {}

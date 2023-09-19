@@ -81143,6 +81143,45 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  mycel.registry.ReqRegistrationFeeByLength:
+    type: object
+    properties:
+      length:
+        type: string
+        format: uint64
+      isRegistrable:
+        type: boolean
+      fee:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
+  mycel.registry.ReqRegistrationFeeByName:
+    type: object
+    properties:
+      name:
+        type: string
+      isRegistrable:
+        type: boolean
+      fee:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
   mycel.registry.SecondLevelDomain:
     type: object
     properties:
