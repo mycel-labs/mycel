@@ -19,7 +19,7 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		Epochs: []EpochInfo{
 			{
-				Identifier:              WeekEpochId,
+				Identifier:              WeeklyEpochId,
 				StartTime:               time.Time{},
 				Duration:                time.Hour * 24 * 7,
 				CurrentEpoch:            0,
@@ -28,7 +28,7 @@ func DefaultGenesis() *GenesisState {
 				EpochCountingStarted:    false,
 			},
 			{
-				Identifier:              DayEpochId,
+				Identifier:              DailyEpochId,
 				StartTime:               time.Time{},
 				Duration:                time.Hour * 24,
 				CurrentEpoch:            0,

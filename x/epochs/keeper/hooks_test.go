@@ -12,7 +12,7 @@ import (
 type MockHooks struct{}
 
 const (
-	EpochIdentifier           = types.DayEpochId
+	EpochIdentifier           = types.DailyEpochId
 	BeforeEpochStartEventType = "BeforeEpochStart"
 	AfterEpochEndEventType    = "AfterEpochEnd"
 )
@@ -73,7 +73,7 @@ func (suite *KeeperTestSuite) TestAfterEpochHooks() {
 				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
 
 				// Check if curent epoch is expected
-				epochInfo, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, types.DayEpochId)
+				epochInfo, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, types.DailyEpochId)
 				suite.Require().True(found)
 				suite.Require().Equal(int64(2), epochInfo.CurrentEpoch)
 			},
@@ -101,7 +101,7 @@ func (suite *KeeperTestSuite) TestAfterEpochHooks() {
 				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
 
 				// Check if curent epoch is expected
-				epochInfo, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, types.DayEpochId)
+				epochInfo, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, types.DailyEpochId)
 				suite.Require().True(found)
 				suite.Require().Equal(int64(2), epochInfo.CurrentEpoch)
 
@@ -110,7 +110,7 @@ func (suite *KeeperTestSuite) TestAfterEpochHooks() {
 				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
 
 				// Check if curent epoch is expected
-				epochInfo, found = suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, types.DayEpochId)
+				epochInfo, found = suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, types.DailyEpochId)
 				suite.Require().True(found)
 				suite.Require().Equal(int64(3), epochInfo.CurrentEpoch)
 			},
