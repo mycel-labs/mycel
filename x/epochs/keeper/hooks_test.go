@@ -59,6 +59,11 @@ func (suite *KeeperTestSuite) TestAfterEpochHooks() {
 		{
 			expBeforeEpochStartEvents: []ExpEvent{
 				{
+					EpochNumber: "2",
+				},
+			},
+			expAfterEpochEndEvents: []ExpEvent{
+				{
 					EpochNumber: "1",
 				},
 			},
@@ -70,15 +75,23 @@ func (suite *KeeperTestSuite) TestAfterEpochHooks() {
 				// Check if curent epoch is expected
 				epochInfo, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, types.DayEpochId)
 				suite.Require().True(found)
-				suite.Require().Equal(int64(1), epochInfo.CurrentEpoch)
+				suite.Require().Equal(int64(2), epochInfo.CurrentEpoch)
 			},
 		},
 		{
 			expBeforeEpochStartEvents: []ExpEvent{
 				{
-					EpochNumber: "1",
+					EpochNumber: "2",
 				},
 				{
+					EpochNumber: "3",
+				},
+			},
+			expAfterEpochEndEvents: []ExpEvent{
+				{
+					EpochNumber: "1",
+				},
+{
 					EpochNumber: "2",
 				},
 			},
@@ -90,11 +103,16 @@ func (suite *KeeperTestSuite) TestAfterEpochHooks() {
 				// Check if curent epoch is expected
 				epochInfo, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, types.DayEpochId)
 				suite.Require().True(found)
-				suite.Require().Equal(int64(1), epochInfo.CurrentEpoch)
+				suite.Require().Equal(int64(2), epochInfo.CurrentEpoch)
 
 				// Begin second block
 				suite.ctx = suite.ctx.WithBlockHeight(3).WithBlockTime(now.Add(oneDayDuration))
 				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
+
+				// Check if curent epoch is expected
+				epochInfo, found = suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, types.DayEpochId)
+				suite.Require().True(found)
+				suite.Require().Equal(int64(3), epochInfo.CurrentEpoch)
 			},
 		},
 	}
@@ -131,7 +149,7 @@ func (suite *KeeperTestSuite) TestAfterEpochHooks() {
 			if len(tc.expAfterEpochEndEvents) != 0 {
 				afterEpochEndEvents, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), AfterEpochEndEventType)
 				suite.Require().True(found)
-				for i, expEvent := range tc.expBeforeEpochStartEvents {
+				for i, expEvent := range tc.expAfterEpochEndEvents {
 					event := afterEpochEndEvents[i]
 					suite.Require().Equal(AfterEpochEndEventType, event.Type)
 					suite.Require().Equal(EpochIdentifier, event.Attributes[0].Value)

@@ -678,6 +678,13 @@ func NewApp(
 		keys[epochsmoduletypes.MemStoreKey],
 		app.GetSubspace(epochsmoduletypes.ModuleName),
 	)
+
+	app.EpochsKeeper.SetHooks(
+		epochsmoduletypes.NewMultiEpochHooks(
+			app.RegistryKeeper.Hooks(),
+		// insert hooks here
+		))
+
 	epochsModule := epochsmodule.NewAppModule(appCodec, app.EpochsKeeper, app.AccountKeeper, app.BankKeeper)
 
 	app.RegistryKeeper = *registrymodulekeeper.NewKeeper(
@@ -725,12 +732,6 @@ func NewApp(
 			app.SlashingKeeper.Hooks(),
 		),
 	)
-
-	app.EpochsKeeper.SetHooks(
-		epochsmoduletypes.NewMultiEpochHooks(
-			app.RegistryKeeper.Hooks(),
-		// insert hooks here
-		))
 
 	/**** Module Options ****/
 
