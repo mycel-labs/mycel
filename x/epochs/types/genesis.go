@@ -15,15 +15,25 @@ func NewGenesisState(epochs []EpochInfo) *GenesisState {
 
 // DefaultGenesis returns the default genesis state
 func DefaultGenesis() *GenesisState {
+	startTime := time.Time{}
 	return &GenesisState{
 		Epochs: []EpochInfo{
 			{
-				Identifier:              IncentiveEpochId,
+				Identifier:              WeekEpochId,
 				StartTime:               time.Time{},
-				Duration:                time.Hour * 24 * 7 * 90,
+				Duration:                time.Hour * 24 * 7,
 				CurrentEpoch:            0,
 				CurrentEpochStartHeight: 0,
-				CurrentEpochStartTime:   time.Time{},
+				CurrentEpochStartTime:   startTime,
+				EpochCountingStarted:    false,
+			},
+			{
+				Identifier:              DayEpochId,
+				StartTime:               time.Time{},
+				Duration:                time.Hour * 24,
+				CurrentEpoch:            0,
+				CurrentEpochStartHeight: 0,
+				CurrentEpochStartTime:   startTime,
 				EpochCountingStarted:    false,
 			},
 		},
