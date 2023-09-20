@@ -34,5 +34,4 @@ func (h MultiEpochHooks) BeforeEpochStart(ctx sdk.Context, epochIdentifier strin
 	for i := range h {
 		h[i].BeforeEpochStart(ctx, epochIdentifier, epochNumber)
 	}
-
 }
