@@ -1,7 +1,7 @@
 # Epochs
 
 ## Abstract
-Epochs module provides the following feature:
+[Osmosis's](https://github.com/osmosis-labs/osmosis/tree/x/epochs/v0.0.2/x/epochs) Epochs module provides the following feature:
 - On-chain Timers that execute at fixed time intervals
 
 ## Stores
@@ -68,17 +68,4 @@ func (k MyModuleKeeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, e
     // my logic
   }
 }
-```
-
-## Queries
-
-### list-epoch-info
-List all epoch info
-```
-myceld q epochs list-epoch-info
-```
-
-### show-epoch
-```
-myceld q epochs show-epochs [identifier]
 ```
