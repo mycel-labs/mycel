@@ -4,10 +4,16 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+type EpochHooks interface {
+	// the first block whose timestamp is after the duration is counted as the end of the epoch
+	AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumber int64)
+	// new epoch is next block of epoch end block
+	BeforeEpochStart(ctx sdk.Context, epochIdentifier string, epochNumber int64)
+}
 
 var _ EpochHooks = MultiEpochHooks{}
 
-// combine multiple epoch hooks, all hook functions are run in array sequence
+// combine multiple gamm hooks, all hook functions are run in array sequence.
 type MultiEpochHooks []EpochHooks
 
 func NewMultiEpochHooks(hooks ...EpochHooks) MultiEpochHooks {
@@ -28,4 +34,5 @@ func (h MultiEpochHooks) BeforeEpochStart(ctx sdk.Context, epochIdentifier strin
 	for i := range h {
 		h[i].BeforeEpochStart(ctx, epochIdentifier, epochNumber)
 	}
+
 }

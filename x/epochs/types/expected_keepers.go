@@ -16,10 +16,3 @@ type BankKeeper interface {
 	SpendableCoins(ctx sdk.Context, addr sdk.AccAddress) sdk.Coins
 	// Methods imported from bank should be defined here
 }
-
-type EpochHooks interface {
-	// the first block whose timestamp is after the duration is counted as the end of the epoch
-	AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumber int64)
-	// new epoch is next block of epoch end block
-	BeforeEpochStart(ctx sdk.Context, epochIdentifier string, epochNumber int64)
-}
