@@ -38,13 +38,4 @@ func (suite *KeeperTestSuite) SetupTest() {
 	queryHelper := baseapp.NewQueryServerTestHelper(suite.ctx, suite.app.InterfaceRegistry())
 	types.RegisterQueryServer(queryHelper, suite.app.EpochsKeeper)
 	suite.queryClient = types.NewQueryClient(queryHelper)
-
-	identifiers := []string{types.IncentiveEpochId}
-	for _, identifier := range identifiers {
-		epoch, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, identifier)
-		suite.Require().True(found)
-		epoch.StartTime = suite.ctx.BlockTime()
-		epoch.CurrentEpochStartHeight = suite.ctx.BlockHeight()
-		suite.app.EpochsKeeper.SetEpochInfo(suite.ctx, epoch)
-	}
 }

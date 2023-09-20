@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/mycel-domain/mycel/testutil"
-	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
 
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
@@ -49,16 +48,6 @@ func (suite *KeeperTestSuite) SetupTest() {
 
 	// Init bank keeper
 	suite.app.BankKeeper.InitGenesis(suite.ctx, getBankGenesis())
-
-	// Setup epochs
-	identifiers := []string{epochstypes.IncentiveEpochId}
-	for _, identifier := range identifiers {
-		epoch, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, identifier)
-		suite.Require().True(found)
-		epoch.StartTime = suite.ctx.BlockTime()
-		epoch.CurrentEpochStartHeight = suite.ctx.BlockHeight()
-		suite.app.EpochsKeeper.SetEpochInfo(suite.ctx, epoch)
-	}
 
 }
 
