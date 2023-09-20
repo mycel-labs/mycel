@@ -727,7 +727,7 @@ func NewApp(
 	)
 
 	app.EpochsKeeper.SetHooks(
-		epochsmodulekeeper.NewMultiEpochHooks(
+		epochsmoduletypes.NewMultiEpochHooks(
 		// insert hooks here
 		))
 
