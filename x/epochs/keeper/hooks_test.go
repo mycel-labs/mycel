@@ -124,8 +124,6 @@ func (suite *KeeperTestSuite) TestAfterEpochHooks() {
 			// Remove hooks
 			suite.app.EpochsKeeper.RemoveHooks()
 
-			_ = tc
-
 			// Register hooks
 			hook := new(MockHooks)
 			suite.app.EpochsKeeper.SetHooks(hook)
@@ -146,6 +144,7 @@ func (suite *KeeperTestSuite) TestAfterEpochHooks() {
 				}
 			}
 
+			// Check after epoch end events
 			if len(tc.expAfterEpochEndEvents) != 0 {
 				afterEpochEndEvents, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), AfterEpochEndEventType)
 				suite.Require().True(found)
