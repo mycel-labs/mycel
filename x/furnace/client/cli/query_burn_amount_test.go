@@ -30,12 +30,12 @@ func networkWithBurnAmountObjects(t *testing.T, n int) (*network.Network, []type
 			Identifier: uint64(i),
 		}
 		nullify.Fill(&burnAmount)
-		state.BurnAmountList = append(state.BurnAmountList, burnAmount)
+		state.BurnAmounts = append(state.BurnAmounts, burnAmount)
 	}
 	buf, err := cfg.Codec.MarshalJSON(&state)
 	require.NoError(t, err)
 	cfg.GenesisState[types.ModuleName] = buf
-	return network.New(t, cfg), state.BurnAmountList
+	return network.New(t, cfg), state.BurnAmounts
 }
 
 func TestShowBurnAmount(t *testing.T) {

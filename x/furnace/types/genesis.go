@@ -21,7 +21,7 @@ func GetDefaultEpochBurnConfig() EpochBurnConfig {
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		EpochBurnConfig: GetDefaultEpochBurnConfig(),
-		BurnAmountList:  []BurnAmount{},
+		BurnAmounts:  []BurnAmount{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -33,7 +33,7 @@ func (gs GenesisState) Validate() error {
 	// Check for duplicated index in burnAmount
 	burnAmountIndexMap := make(map[string]struct{})
 
-	for _, elem := range gs.BurnAmountList {
+	for _, elem := range gs.BurnAmounts {
 		index := string(BurnAmountKey(elem.Identifier))
 		if _, ok := burnAmountIndexMap[index]; ok {
 			return fmt.Errorf("duplicated index for burnAmount")

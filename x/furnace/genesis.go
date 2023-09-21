@@ -12,7 +12,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	genState.EpochBurnConfig.StartTime = ctx.BlockTime()
 	k.SetEpochBurnConfig(ctx, genState.EpochBurnConfig)
 	// Set all the burnAmount
-	for _, elem := range genState.BurnAmountList {
+	for _, elem := range genState.BurnAmounts {
 		k.SetBurnAmount(ctx, elem)
 	}
 	// this line is used by starport scaffolding # genesis/module/init
@@ -29,7 +29,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	if found {
 		genesis.EpochBurnConfig = epochBurnConfig
 	}
-	genesis.BurnAmountList = k.GetAllBurnAmount(ctx)
+	genesis.BurnAmounts = k.GetAllBurnAmount(ctx)
 	// this line is used by starport scaffolding # genesis/module/export
 
 	return genesis

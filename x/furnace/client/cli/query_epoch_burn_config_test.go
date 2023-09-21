@@ -21,11 +21,11 @@ func networkWithEpochBurnConfigObjects(t *testing.T) (*network.Network, types.Ep
 	state := types.GenesisState{}
 	epochBurnConfig := &types.EpochBurnConfig{}
 	nullify.Fill(&epochBurnConfig)
-	state.EpochBurnConfig = epochBurnConfig
+	state.EpochBurnConfig = *epochBurnConfig
 	buf, err := cfg.Codec.MarshalJSON(&state)
 	require.NoError(t, err)
 	cfg.GenesisState[types.ModuleName] = buf
-	return network.New(t, cfg), *state.EpochBurnConfig
+	return network.New(t, cfg), state.EpochBurnConfig
 }
 
 func TestShowEpochBurnConfig(t *testing.T) {
