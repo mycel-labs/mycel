@@ -14,7 +14,7 @@ func TestGenesis(t *testing.T) {
 	genesisState := types.GenesisState{
 		Params: types.DefaultParams(),
 
-		EpochBurnConfig: &types.EpochBurnConfig{
+		EpochBurnConfig: types.EpochBurnConfig{
 			EpochIdentifier: "11",
 		},
 		BurnAmounts: []types.BurnAmount{
@@ -37,6 +37,6 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(got)
 
 	require.Equal(t, genesisState.EpochBurnConfig, got.EpochBurnConfig)
-	require.ElementsMatch(t, genesisState.BurnAmounts, got.BurnAmountList)
+	require.ElementsMatch(t, genesisState.BurnAmounts, got.BurnAmounts)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

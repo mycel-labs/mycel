@@ -25,7 +25,7 @@ func TestGenesisState_Validate(t *testing.T) {
 				EpochBurnConfig: types.EpochBurnConfig{
 					EpochIdentifier: "35",
 				},
-				BurnAmountList: []types.BurnAmount{
+				BurnAmounts: []types.BurnAmount{
 					{
 						Identifier: 0,
 					},
@@ -40,7 +40,7 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc: "duplicated burnAmount",
 			genState: &types.GenesisState{
-				BurnAmountList: []types.BurnAmount{
+				BurnAmounts: []types.BurnAmount{
 					{
 						Identifier: 0,
 					},

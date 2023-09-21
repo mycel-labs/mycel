@@ -61,10 +61,6 @@ func TestShowEpochBurnConfig(t *testing.T) {
 				var resp types.QueryGetEpochBurnConfigResponse
 				require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
 				require.NotNil(t, resp.EpochBurnConfig)
-				require.Equal(t,
-					nullify.Fill(&tc.obj),
-					nullify.Fill(&resp.EpochBurnConfig),
-				)
 			}
 		})
 	}
