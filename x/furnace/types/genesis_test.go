@@ -25,9 +25,31 @@ func TestGenesisState_Validate(t *testing.T) {
 				EpochBurnConfig: types.EpochBurnConfig{
 					EpochIdentifier: "35",
 				},
+				BurnAmountList: []types.BurnAmount{
+					{
+						Identifier: 0,
+					},
+					{
+						Identifier: 1,
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
+		},
+		{
+			desc: "duplicated burnAmount",
+			genState: &types.GenesisState{
+				BurnAmountList: []types.BurnAmount{
+					{
+						Identifier: 0,
+					},
+					{
+						Identifier: 0,
+					},
+				},
+			},
+			valid: false,
 		},
 		// this line is used by starport scaffolding # types/genesis/testcase
 	}

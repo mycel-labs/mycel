@@ -7,6 +7,8 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "mycel/furnace/params.proto";
 import "mycel/furnace/epoch_burn_config.proto";
+import "mycel/furnace/burn_amount.proto";
+import "cosmos/base/v1beta1/coin.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/furnace/types";
 
@@ -24,6 +26,16 @@ service Query {
     option (google.api.http).get = "/mycel-domain/mycel/furnace/epoch_burn_config";
   
   }
+  
+  // Queries a list of BurnAmount items.
+  rpc BurnAmount    (QueryGetBurnAmountRequest) returns (QueryGetBurnAmountResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/furnace/burn_amount/{identifier}";
+  
+  }
+  rpc BurnAmountAll (QueryAllBurnAmountRequest) returns (QueryAllBurnAmountResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/furnace/burn_amount";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -39,5 +51,22 @@ message QueryGetEpochBurnConfigRequest {}
 
 message QueryGetEpochBurnConfigResponse {
   EpochBurnConfig EpochBurnConfig = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetBurnAmountRequest {
+  uint64 identifier = 1;
+}
+
+message QueryGetBurnAmountResponse {
+  BurnAmount burnAmount = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllBurnAmountRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllBurnAmountResponse {
+  repeated BurnAmount                             burnAmount = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

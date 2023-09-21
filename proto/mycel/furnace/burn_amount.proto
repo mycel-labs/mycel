@@ -1,0 +1,15 @@
+syntax = "proto3";
+package mycel.furnace;
+
+option go_package = "github.com/mycel-domain/mycel/x/furnace/types";
+import "gogoproto/gogo.proto"; 
+import "cosmos/base/v1beta1/coin.proto"; 
+
+message BurnAmount {
+  uint64 identifier = 1; 
+  bool burnStarted = 2; 
+  cosmos.base.v1beta1.Coin totalBurnAmount = 3 [(gogoproto.nullable) = false]; 
+  cosmos.base.v1beta1.Coin burntAmount = 4 [(gogoproto.nullable) = false]; 
+  
+}
+
