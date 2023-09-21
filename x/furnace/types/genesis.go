@@ -1,16 +1,25 @@
 package types
 
 import (
-// this line is used by starport scaffolding # genesis/types/import
+	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
+	"time"
 )
 
 // DefaultIndex is the default global index
 const DefaultIndex uint64 = 1
 
+func GetDefaultEpochBurnConfig() EpochBurnConfig {
+	return EpochBurnConfig{
+		EpochIdentifier:             epochstypes.DailyEpochId,
+		CurrentBurnAmountIdentifier: 1,
+		Duration:                    time.Hour * 24 * 30 * 4,
+	}
+}
+
 // DefaultGenesis returns the default genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		EpochBurnConfig: nil,
+		EpochBurnConfig: GetDefaultEpochBurnConfig(),
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}

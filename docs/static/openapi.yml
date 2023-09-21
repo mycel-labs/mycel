@@ -49706,6 +49706,14 @@ paths:
                 properties:
                   epochIdentifier:
                     type: string
+                  currentBurnAmountIdentifier:
+                    type: string
+                    format: uint64
+                  startTime:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: string
         default:
           description: An unexpected error response.
           schema:
@@ -80721,6 +80729,14 @@ definitions:
     properties:
       epochIdentifier:
         type: string
+      currentBurnAmountIdentifier:
+        type: string
+        format: uint64
+      startTime:
+        type: string
+        format: date-time
+      duration:
+        type: string
   mycel.furnace.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -80731,6 +80747,14 @@ definitions:
         type: object
         properties:
           epochIdentifier:
+            type: string
+          currentBurnAmountIdentifier:
+            type: string
+            format: uint64
+          startTime:
+            type: string
+            format: date-time
+          duration:
             type: string
   mycel.furnace.QueryParamsResponse:
     type: object

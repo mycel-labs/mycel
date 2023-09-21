@@ -22,7 +22,7 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
-				EpochBurnConfig: &types.EpochBurnConfig{
+				EpochBurnConfig: types.EpochBurnConfig{
 					EpochIdentifier: "35",
 				},
 				// this line is used by starport scaffolding # types/genesis/validField
