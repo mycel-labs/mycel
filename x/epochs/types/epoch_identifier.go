@@ -2,5 +2,5 @@ package types
 
 const (
 	WeeklyEpochId = "weekly"
-	DailyEpochId = "daily"
+	DailyEpochId  = "daily"
 )
