@@ -3,6 +3,7 @@ package keeper
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
+	"github.com/mycel-domain/mycel/x/furnace/types"
 )
 
 // BeforeEpochStart is the epoch start hook.
@@ -11,8 +12,44 @@ func (k Keeper) BeforeEpochStart(ctx sdk.Context, epochIdentifier string, epochN
 
 // AfterEpochEnd is the epoch end hook.
 func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumber int64) {
-	params := k.GetParams(ctx)
-	_ = params
+	// Get the epoch burn config.
+	config, found := k.GetEpochBurnConfig(ctx)
+	if !found {
+		panic("epoch burn config not found")
+	}
+
+	if config.EpochIdentifier == epochIdentifier {
+		burnAmount, found := k.GetBurnAmount(ctx, config.CurrentBurnAmountIdentifier)
+		if !found {
+			panic("burn amount not found")
+		}
+
+		// Calc burn amount for this epoch.
+		epochInfo, found := k.epochsKeeper.GetEpochInfo(ctx, epochIdentifier)
+		if !found {
+			panic("epoch info not found")
+		}
+		burntAmount := burnAmount.TotalBurnAmount.Amount.Mul(sdk.NewInt(int64(epochInfo.Duration) / int64(config.Duration)))
+		burnt := sdk.NewCoin(burnAmount.TotalBurnAmount.Denom, burntAmount)
+
+		// TODO: Burn coins
+
+		// Add the burn amount to burntAmount
+		burnAmount.BurntAmount = burnAmount.BurntAmount.Add(burnt)
+		k.SetBurnAmount(ctx, burnAmount)
+
+		// Emit Events
+		ctx.EventManager().EmitEvent(
+			sdk.NewEvent(
+				types.EventTypeEpochBurn,
+				sdk.NewAttribute(types.AttributeKeyEpochIdentifier, epochIdentifier),
+				sdk.NewAttribute(types.AttributeKeyEpochNumber, sdk.NewInt(epochNumber).String()),
+				sdk.NewAttribute(types.AtributeKeyEpochBurnAmount, burntAmount.String()),
+				sdk.NewAttribute(types.AtributeKeyEpochBurnTimestamp, ctx.BlockTime().String()),
+			),
+		)
+
+	}
 }
 
 // ___________________________________________________________________________________________________

@@ -3,10 +3,12 @@ package types
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
+	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
 )
 
 type EpochsKeeper interface {
 	// Methods imported from epochs should be defined here
+	GetEpochInfo(ctx sdk.Context, identifier string) (val epochstypes.EpochInfo, found bool)
 }
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)
