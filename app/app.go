@@ -679,31 +679,13 @@ func NewApp(
 		),
 	)
 
-	// my modules
+	// My module's keepers
 	app.EpochsKeeper = *epochsmodulekeeper.NewKeeper(
 		appCodec,
 		keys[epochsmoduletypes.StoreKey],
 		keys[epochsmoduletypes.MemStoreKey],
 		app.GetSubspace(epochsmoduletypes.ModuleName),
 	)
-
-	app.EpochsKeeper.SetHooks(
-		epochsmoduletypes.NewMultiEpochHooks(
-			app.RegistryKeeper.Hooks(),
-		// insert hooks here
-		))
-
-	epochsModule := epochsmodule.NewAppModule(appCodec, app.EpochsKeeper, app.AccountKeeper, app.BankKeeper)
-
-	app.RegistryKeeper = *registrymodulekeeper.NewKeeper(
-		appCodec,
-		keys[registrymoduletypes.StoreKey],
-		keys[registrymoduletypes.MemStoreKey],
-		app.GetSubspace(registrymoduletypes.ModuleName),
-
-		app.BankKeeper,
-	)
-	registryModule := registrymodule.NewAppModule(appCodec, app.RegistryKeeper, app.AccountKeeper, app.BankKeeper)
 
 	app.ResolverKeeper = *resolvermodulekeeper.NewKeeper(
 		appCodec,
@@ -713,7 +695,24 @@ func NewApp(
 
 		app.RegistryKeeper,
 	)
-	resolverModule := resolvermodule.NewAppModule(appCodec, app.ResolverKeeper, app.AccountKeeper, app.BankKeeper)
+
+	app.RegistryKeeper = *registrymodulekeeper.NewKeeper(
+		appCodec,
+		keys[registrymoduletypes.StoreKey],
+		keys[registrymoduletypes.MemStoreKey],
+		app.GetSubspace(registrymoduletypes.ModuleName),
+
+		app.BankKeeper,
+	)
+
+	app.ResolverKeeper = *resolvermodulekeeper.NewKeeper(
+		appCodec,
+		keys[resolvermoduletypes.StoreKey],
+		keys[resolvermoduletypes.MemStoreKey],
+		app.GetSubspace(resolvermoduletypes.ModuleName),
+
+		app.RegistryKeeper,
+	)
 
 	app.FurnaceKeeper = *furnacemodulekeeper.NewKeeper(
 		appCodec,
@@ -724,6 +723,16 @@ func NewApp(
 		app.BankKeeper,
 		app.EpochsKeeper,
 	)
+
+	app.EpochsKeeper.SetHooks(
+		epochsmoduletypes.NewMultiEpochHooks(
+			// insert hooks here
+			app.FurnaceKeeper.Hooks(),
+		))
+
+	epochsModule := epochsmodule.NewAppModule(appCodec, app.EpochsKeeper, app.AccountKeeper, app.BankKeeper)
+	registryModule := registrymodule.NewAppModule(appCodec, app.RegistryKeeper, app.AccountKeeper, app.BankKeeper)
+	resolverModule := resolvermodule.NewAppModule(appCodec, app.ResolverKeeper, app.AccountKeeper, app.BankKeeper)
 	furnaceModule := furnacemodule.NewAppModule(appCodec, app.FurnaceKeeper, app.AccountKeeper, app.BankKeeper)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
