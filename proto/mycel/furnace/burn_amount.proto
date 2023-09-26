@@ -6,10 +6,11 @@ import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto"; 
 
 message BurnAmount {
-  uint64 identifier = 1; 
+  uint64 index = 1; 
   bool burnStarted = 2; 
-  cosmos.base.v1beta1.Coin totalBurnAmount = 3 [(gogoproto.nullable) = false]; 
-  cosmos.base.v1beta1.Coin burntAmount = 4 [(gogoproto.nullable) = false]; 
-  
+  uint64 totalEpochs = 3;
+  uint64 currentEpoch = 4;
+  cosmos.base.v1beta1.Coin totalBurnAmount = 5 [(gogoproto.nullable) = false]; 
+  cosmos.base.v1beta1.Coin cumulativeBurntAmount = 6 [(gogoproto.nullable) = false]; 
 }
 

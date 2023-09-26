@@ -11,13 +11,13 @@ const (
 
 // BurnAmountKey returns the store key to retrieve a BurnAmount from the index fields
 func BurnAmountKey(
-	identifier uint64,
+	index uint64,
 ) []byte {
 	var key []byte
 
-	identifierBytes := make([]byte, 8)
-	binary.BigEndian.PutUint64(identifierBytes, identifier)
-	key = append(key, identifierBytes...)
+	indexBytes := make([]byte, 8)
+	binary.BigEndian.PutUint64(indexBytes, index)
+	key = append(key, indexBytes...)
 	key = append(key, []byte("/")...)
 
 	return key

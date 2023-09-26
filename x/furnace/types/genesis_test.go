@@ -27,10 +27,10 @@ func TestGenesisState_Validate(t *testing.T) {
 				},
 				BurnAmounts: []types.BurnAmount{
 					{
-						Identifier: 0,
+						Index: 0,
 					},
 					{
-						Identifier: 1,
+						Index: 1,
 					},
 				},
 				// this line is used by starport scaffolding # types/genesis/validField
@@ -42,10 +42,10 @@ func TestGenesisState_Validate(t *testing.T) {
 			genState: &types.GenesisState{
 				BurnAmounts: []types.BurnAmount{
 					{
-						Identifier: 0,
+						Index: 0,
 					},
 					{
-						Identifier: 0,
+						Index: 0,
 					},
 				},
 			},

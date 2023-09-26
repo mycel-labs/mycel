@@ -47,7 +47,7 @@ func CmdListBurnAmount() *cobra.Command {
 
 func CmdShowBurnAmount() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "show-burn-amount [identifier]",
+		Use:   "show-burn-amount [index]",
 		Short: "shows a burnAmount",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {

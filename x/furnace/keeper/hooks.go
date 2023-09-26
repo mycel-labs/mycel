@@ -19,7 +19,7 @@ func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumb
 	}
 
 	if config.EpochIdentifier == epochIdentifier {
-		burnAmount, found := k.GetBurnAmount(ctx, config.CurrentBurnAmountIdentifier)
+		burnAmount, found := k.GetBurnAmount(ctx, config.CurrentBurnAmountIndex)
 		if !found {
 			panic("burn amount not found")
 		}
@@ -29,14 +29,12 @@ func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumb
 		if !found {
 			panic("epoch info not found")
 		}
-		burntAmount := burnAmount.TotalBurnAmount.Amount.Mul(sdk.NewInt(int64(epochInfo.Duration) / int64(config.Duration)))
-		burnt := sdk.NewCoin(burnAmount.TotalBurnAmount.Denom, burntAmount)
 
 		// TODO: Burn coins
+		_ = epochInfo
+		_ = burnAmount
 
 		// Add the burn amount to burntAmount
-		burnAmount.BurntAmount = burnAmount.BurntAmount.Add(burnt)
-		k.SetBurnAmount(ctx, burnAmount)
 
 		// Emit Events
 		ctx.EventManager().EmitEvent(
@@ -44,7 +42,7 @@ func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumb
 				types.EventTypeEpochBurn,
 				sdk.NewAttribute(types.AttributeKeyEpochIdentifier, epochIdentifier),
 				sdk.NewAttribute(types.AttributeKeyEpochNumber, sdk.NewInt(epochNumber).String()),
-				sdk.NewAttribute(types.AtributeKeyEpochBurnAmount, burntAmount.String()),
+				sdk.NewAttribute(types.AtributeKeyEpochBurnAmount, burnAmount.String()),
 				sdk.NewAttribute(types.AtributeKeyEpochBurnTimestamp, ctx.BlockTime().String()),
 			),
 		)

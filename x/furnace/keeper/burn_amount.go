@@ -11,20 +11,20 @@ func (k Keeper) SetBurnAmount(ctx sdk.Context, burnAmount types.BurnAmount) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BurnAmountKeyPrefix))
 	b := k.cdc.MustMarshal(&burnAmount)
 	store.Set(types.BurnAmountKey(
-		burnAmount.Identifier,
+		burnAmount.Index,
 	), b)
 }
 
 // GetBurnAmount returns a burnAmount from its index
 func (k Keeper) GetBurnAmount(
 	ctx sdk.Context,
-	identifier uint64,
+	index uint64,
 
 ) (val types.BurnAmount, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BurnAmountKeyPrefix))
 
 	b := store.Get(types.BurnAmountKey(
-		identifier,
+		index,
 	))
 	if b == nil {
 		return val, false
@@ -37,12 +37,12 @@ func (k Keeper) GetBurnAmount(
 // RemoveBurnAmount removes a burnAmount from the store
 func (k Keeper) RemoveBurnAmount(
 	ctx sdk.Context,
-	identifier uint64,
+	index uint64,
 
 ) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BurnAmountKeyPrefix))
 	store.Delete(types.BurnAmountKey(
-		identifier,
+		index,
 	))
 }
 

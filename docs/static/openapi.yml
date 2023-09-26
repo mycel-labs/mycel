@@ -49705,11 +49705,17 @@ paths:
                 items:
                   type: object
                   properties:
-                    identifier:
+                    index:
                       type: string
                       format: uint64
                     burnStarted:
                       type: boolean
+                    totalEpochs:
+                      type: string
+                      format: uint64
+                    currentEpoch:
+                      type: string
+                      format: uint64
                     totalBurnAmount:
                       type: object
                       properties:
@@ -49725,7 +49731,7 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
-                    burntAmount:
+                    cumulativeBurntAmount:
                       type: object
                       properties:
                         denom:
@@ -49858,11 +49864,17 @@ paths:
               burnAmount:
                 type: object
                 properties:
-                  identifier:
+                  index:
                     type: string
                     format: uint64
                   burnStarted:
                     type: boolean
+                  totalEpochs:
+                    type: string
+                    format: uint64
+                  currentEpoch:
+                    type: string
+                    format: uint64
                   totalBurnAmount:
                     type: object
                     properties:
@@ -49878,7 +49890,7 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  burntAmount:
+                  cumulativeBurntAmount:
                     type: object
                     properties:
                       denom:
@@ -49934,14 +49946,15 @@ paths:
                 properties:
                   epochIdentifier:
                     type: string
-                  currentBurnAmountIdentifier:
+                  currentBurnAmountIndex:
+                    type: string
+                    format: uint64
+                  defaultTotalEpochs:
                     type: string
                     format: uint64
                   startTime:
                     type: string
                     format: date-time
-                  duration:
-                    type: string
         default:
           description: An unexpected error response.
           schema:
@@ -80955,11 +80968,17 @@ definitions:
   mycel.furnace.BurnAmount:
     type: object
     properties:
-      identifier:
+      index:
         type: string
         format: uint64
       burnStarted:
         type: boolean
+      totalEpochs:
+        type: string
+        format: uint64
+      currentEpoch:
+        type: string
+        format: uint64
       totalBurnAmount:
         type: object
         properties:
@@ -80972,7 +80991,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      burntAmount:
+      cumulativeBurntAmount:
         type: object
         properties:
           denom:
@@ -80989,14 +81008,15 @@ definitions:
     properties:
       epochIdentifier:
         type: string
-      currentBurnAmountIdentifier:
+      currentBurnAmountIndex:
+        type: string
+        format: uint64
+      defaultTotalEpochs:
         type: string
         format: uint64
       startTime:
         type: string
         format: date-time
-      duration:
-        type: string
   mycel.furnace.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -81008,11 +81028,17 @@ definitions:
         items:
           type: object
           properties:
-            identifier:
+            index:
               type: string
               format: uint64
             burnStarted:
               type: boolean
+            totalEpochs:
+              type: string
+              format: uint64
+            currentEpoch:
+              type: string
+              format: uint64
             totalBurnAmount:
               type: object
               properties:
@@ -81028,7 +81054,7 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-            burntAmount:
+            cumulativeBurntAmount:
               type: object
               properties:
                 denom:
@@ -81075,11 +81101,17 @@ definitions:
       burnAmount:
         type: object
         properties:
-          identifier:
+          index:
             type: string
             format: uint64
           burnStarted:
             type: boolean
+          totalEpochs:
+            type: string
+            format: uint64
+          currentEpoch:
+            type: string
+            format: uint64
           totalBurnAmount:
             type: object
             properties:
@@ -81095,7 +81127,7 @@ definitions:
               method
 
               signatures required by gogoproto.
-          burntAmount:
+          cumulativeBurntAmount:
             type: object
             properties:
               denom:
@@ -81118,14 +81150,15 @@ definitions:
         properties:
           epochIdentifier:
             type: string
-          currentBurnAmountIdentifier:
+          currentBurnAmountIndex:
+            type: string
+            format: uint64
+          defaultTotalEpochs:
             type: string
             format: uint64
           startTime:
             type: string
             format: date-time
-          duration:
-            type: string
   mycel.furnace.QueryParamsResponse:
     type: object
     properties:
