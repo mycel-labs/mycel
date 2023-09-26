@@ -31,21 +31,21 @@ func TestBurnAmountQuerySingle(t *testing.T) {
 		{
 			desc: "First",
 			request: &types.QueryGetBurnAmountRequest{
-				Identifier: msgs[0].Identifier,
+				Index: msgs[0].Index,
 			},
 			response: &types.QueryGetBurnAmountResponse{BurnAmount: msgs[0]},
 		},
 		{
 			desc: "Second",
 			request: &types.QueryGetBurnAmountRequest{
-				Identifier: msgs[1].Identifier,
+				Index: msgs[1].Index,
 			},
 			response: &types.QueryGetBurnAmountResponse{BurnAmount: msgs[1]},
 		},
 		{
 			desc: "KeyNotFound",
 			request: &types.QueryGetBurnAmountRequest{
-				Identifier: 100000,
+				Index: 100000,
 			},
 			err: status.Error(codes.NotFound, "not found"),
 		},

@@ -29,7 +29,7 @@ service Query {
   
   // Queries a list of BurnAmount items.
   rpc BurnAmount    (QueryGetBurnAmountRequest) returns (QueryGetBurnAmountResponse) {
-    option (google.api.http).get = "/mycel-domain/mycel/furnace/burn_amount/{identifier}";
+    option (google.api.http).get = "/mycel-domain/mycel/furnace/burn_amount/{index}";
   
   }
   rpc BurnAmountAll (QueryAllBurnAmountRequest) returns (QueryAllBurnAmountResponse) {
@@ -54,7 +54,7 @@ message QueryGetEpochBurnConfigResponse {
 }
 
 message QueryGetBurnAmountRequest {
-  uint64 identifier = 1;
+  uint64 index = 1;
 }
 
 message QueryGetBurnAmountResponse {

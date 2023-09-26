@@ -58,13 +58,13 @@ func CmdShowBurnAmount() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			argIdentifier, err := cast.ToUint64E(args[0])
+			argIndex, err := cast.ToUint64E(args[0])
 			if err != nil {
 				return err
 			}
 
 			params := &types.QueryGetBurnAmountRequest{
-				Identifier: argIdentifier,
+				Index: argIndex,
 			}
 
 			res, err := queryClient.BurnAmount(cmd.Context(), params)

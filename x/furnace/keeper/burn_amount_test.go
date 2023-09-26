@@ -18,7 +18,7 @@ var _ = strconv.IntSize
 func createNBurnAmount(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.BurnAmount {
 	items := make([]types.BurnAmount, n)
 	for i := range items {
-		items[i].Identifier = uint64(i)
+		items[i].Index = uint64(i)
 
 		keeper.SetBurnAmount(ctx, items[i])
 	}
@@ -30,7 +30,7 @@ func TestBurnAmountGet(t *testing.T) {
 	items := createNBurnAmount(keeper, ctx, 10)
 	for _, item := range items {
 		rst, found := keeper.GetBurnAmount(ctx,
-			item.Identifier,
+			item.Index,
 		)
 		require.True(t, found)
 		require.Equal(t,
@@ -44,10 +44,10 @@ func TestBurnAmountRemove(t *testing.T) {
 	items := createNBurnAmount(keeper, ctx, 10)
 	for _, item := range items {
 		keeper.RemoveBurnAmount(ctx,
-			item.Identifier,
+			item.Index,
 		)
 		_, found := keeper.GetBurnAmount(ctx,
-			item.Identifier,
+			item.Index,
 		)
 		require.False(t, found)
 	}

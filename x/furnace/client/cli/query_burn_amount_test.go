@@ -27,7 +27,7 @@ func networkWithBurnAmountObjects(t *testing.T, n int) (*network.Network, []type
 	state := types.GenesisState{}
 	for i := 0; i < n; i++ {
 		burnAmount := types.BurnAmount{
-			Identifier: uint64(i),
+			Index: uint64(i),
 		}
 		nullify.Fill(&burnAmount)
 		state.BurnAmounts = append(state.BurnAmounts, burnAmount)
@@ -47,7 +47,7 @@ func TestShowBurnAmount(t *testing.T) {
 	}
 	tests := []struct {
 		desc         string
-		idIdentifier uint64
+		idIndex uint64
 
 		args []string
 		err  error
@@ -55,14 +55,14 @@ func TestShowBurnAmount(t *testing.T) {
 	}{
 		{
 			desc:         "found",
-			idIdentifier: objs[0].Identifier,
+			idIndex: objs[0].Index,
 
 			args: common,
 			obj:  objs[0],
 		},
 		{
 			desc:         "not found",
-			idIdentifier: 100000,
+			idIndex: 100000,
 
 			args: common,
 			err:  status.Error(codes.NotFound, "not found"),
@@ -71,7 +71,7 @@ func TestShowBurnAmount(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.desc, func(t *testing.T) {
 			args := []string{
-				strconv.Itoa(int(tc.idIdentifier)),
+				strconv.Itoa(int(tc.idIndex)),
 			}
 			args = append(args, tc.args...)
 			out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdShowBurnAmount(), args)

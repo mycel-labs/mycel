@@ -47,7 +47,7 @@ func (k Keeper) BurnAmount(goCtx context.Context, req *types.QueryGetBurnAmountR
 
 	val, found := k.GetBurnAmount(
 		ctx,
-		req.Identifier,
+		req.Index,
 	)
 	if !found {
 		return nil, status.Error(codes.NotFound, "not found")

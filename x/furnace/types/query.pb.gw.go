@@ -80,15 +80,15 @@ func request_Query_BurnAmount_0(ctx context.Context, marshaler runtime.Marshaler
 		_   = err
 	)
 
-	val, ok = pathParams["identifier"]
+	val, ok = pathParams["index"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "identifier")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "index")
 	}
 
-	protoReq.Identifier, err = runtime.Uint64(val)
+	protoReq.Index, err = runtime.Uint64(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "identifier", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "index", err)
 	}
 
 	msg, err := client.BurnAmount(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -107,15 +107,15 @@ func local_request_Query_BurnAmount_0(ctx context.Context, marshaler runtime.Mar
 		_   = err
 	)
 
-	val, ok = pathParams["identifier"]
+	val, ok = pathParams["index"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "identifier")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "index")
 	}
 
-	protoReq.Identifier, err = runtime.Uint64(val)
+	protoReq.Index, err = runtime.Uint64(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "identifier", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "index", err)
 	}
 
 	msg, err := server.BurnAmount(ctx, &protoReq)
@@ -386,7 +386,7 @@ var (
 
 	pattern_Query_EpochBurnConfig_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"mycel-domain", "mycel", "furnace", "epoch_burn_config"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_BurnAmount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"mycel-domain", "mycel", "furnace", "burn_amount", "identifier"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_BurnAmount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"mycel-domain", "mycel", "furnace", "burn_amount", "index"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_BurnAmountAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"mycel-domain", "mycel", "furnace", "burn_amount"}, "", runtime.AssumeColonVerbOpt(true)))
 )
