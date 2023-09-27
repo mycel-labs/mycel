@@ -2,6 +2,7 @@ package keeper
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/mycel-domain/mycel/app/params"
 	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
 	"github.com/mycel-domain/mycel/x/furnace/types"
 )
@@ -27,13 +28,13 @@ func calculateBurntAmount(burnAmount *types.BurnAmount) sdk.Coin {
 		quotient := burnAmount.TotalBurnAmount.Amount.QuoRaw(int64(burnAmount.TotalEpochs))
 		remander := burnAmount.TotalBurnAmount.Amount.ModRaw(int64(burnAmount.TotalEpochs))
 		if remander.IsZero() || burnAmount.CurrentEpoch+1 != burnAmount.TotalEpochs {
-			return sdk.NewCoin(sdk.DefaultBondDenom, quotient)
+			return sdk.NewCoin(params.DefaultBondDenom, quotient)
 		}
-		return sdk.NewCoin(sdk.DefaultBondDenom, quotient.Add(remander))
+		return sdk.NewCoin(params.BaseCoinUnit, quotient.Add(remander))
 	} else if burnAmount.CurrentEpoch == 0 {
-		return sdk.NewCoin(sdk.DefaultBondDenom, burnAmount.TotalBurnAmount.Amount)
+		return sdk.NewCoin(params.DefaultBondDenom, burnAmount.TotalBurnAmount.Amount)
 	}
-	return sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(0))
+	return sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0))
 }
 
 // BeforeEpochStart is the epoch start hook.
@@ -42,7 +43,7 @@ func (k Keeper) BeforeEpochStart(ctx sdk.Context, epochIdentifier string, epochN
 
 // AfterEpochEnd is the epoch end hook.
 func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumber int64) {
-	var burnt = sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(0))
+	var burnt = sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0))
 
 	config, found := k.GetEpochBurnConfig(ctx)
 	if !found {

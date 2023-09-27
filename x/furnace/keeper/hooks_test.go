@@ -3,6 +3,7 @@ package keeper_test
 import (
 	"fmt"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/testutil"
 	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
 	"github.com/mycel-domain/mycel/x/furnace/types"
@@ -40,8 +41,8 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 					BurnIndex:                 "1",
 					BurnTotalEpochs:           "3",
 					BurnCurrentEpoch:          "1",
-					BurnAmount:                "10stake",
-					BurnCumulativeBurntAmount: "10stake",
+					BurnAmount:                "10umycel",
+					BurnCumulativeBurntAmount: "10umycel",
 				},
 				{
 					EpochIndex:                "daily",
@@ -49,8 +50,8 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 					BurnIndex:                 "1",
 					BurnTotalEpochs:           "3",
 					BurnCurrentEpoch:          "2",
-					BurnAmount:                "10stake",
-					BurnCumulativeBurntAmount: "20stake",
+					BurnAmount:                "10umycel",
+					BurnCumulativeBurntAmount: "20umycel",
 				},
 				{
 					EpochIndex:                "daily",
@@ -58,8 +59,8 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 					BurnIndex:                 "1",
 					BurnTotalEpochs:           "3",
 					BurnCurrentEpoch:          "3",
-					BurnAmount:                "10stake",
-					BurnCumulativeBurntAmount: "30stake",
+					BurnAmount:                "10umycel",
+					BurnCumulativeBurntAmount: "30umycel",
 				},
 				{
 					EpochIndex:                "daily",
@@ -67,8 +68,8 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 					BurnIndex:                 "2",
 					BurnTotalEpochs:           "3",
 					BurnCurrentEpoch:          "1",
-					BurnAmount:                "10stake",
-					BurnCumulativeBurntAmount: "10stake",
+					BurnAmount:                "10umycel",
+					BurnCumulativeBurntAmount: "10umycel",
 				},
 			},
 		},
@@ -82,8 +83,8 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 					BurnIndex:                 "1",
 					BurnTotalEpochs:           "3",
 					BurnCurrentEpoch:          "1",
-					BurnAmount:                "10stake",
-					BurnCumulativeBurntAmount: "10stake",
+					BurnAmount:                "10umycel",
+					BurnCumulativeBurntAmount: "10umycel",
 				},
 				{
 					EpochIndex:                "daily",
@@ -91,8 +92,8 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 					BurnIndex:                 "1",
 					BurnTotalEpochs:           "3",
 					BurnCurrentEpoch:          "2",
-					BurnAmount:                "10stake",
-					BurnCumulativeBurntAmount: "20stake",
+					BurnAmount:                "10umycel",
+					BurnCumulativeBurntAmount: "20umycel",
 				},
 				{
 					EpochIndex:                "daily",
@@ -100,8 +101,8 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 					BurnIndex:                 "1",
 					BurnTotalEpochs:           "3",
 					BurnCurrentEpoch:          "3",
-					BurnAmount:                "11stake",
-					BurnCumulativeBurntAmount: "31stake",
+					BurnAmount:                "11umycel",
+					BurnCumulativeBurntAmount: "31umycel",
 				},
 			},
 		},
@@ -116,8 +117,8 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 					BurnIndex:                 "1",
 					BurnTotalEpochs:           "3",
 					BurnCurrentEpoch:          "1",
-					BurnAmount:                "1stake",
-					BurnCumulativeBurntAmount: "1stake",
+					BurnAmount:                "1umycel",
+					BurnCumulativeBurntAmount: "1umycel",
 				},
 				{
 					EpochIndex:                "daily",
@@ -125,8 +126,8 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 					BurnIndex:                 "1",
 					BurnTotalEpochs:           "3",
 					BurnCurrentEpoch:          "2",
-					BurnAmount:                "0stake",
-					BurnCumulativeBurntAmount: "1stake",
+					BurnAmount:                "0umycel",
+					BurnCumulativeBurntAmount: "1umycel",
 				},
 				{
 					EpochIndex:                "daily",
@@ -134,8 +135,8 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 					BurnIndex:                 "1",
 					BurnTotalEpochs:           "3",
 					BurnCurrentEpoch:          "3",
-					BurnAmount:                "0stake",
-					BurnCumulativeBurntAmount: "1stake",
+					BurnAmount:                "0umycel",
+					BurnCumulativeBurntAmount: "1umycel",
 				},
 			},
 		},
@@ -151,8 +152,8 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 					Index:                 uint64(i + 1),
 					TotalEpochs:           3,
 					CurrentEpoch:          0,
-					TotalBurnAmount:       sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(tc.totalBurnAmounts[i])),
-					CumulativeBurntAmount: sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(0)),
+					TotalBurnAmount:       sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(tc.totalBurnAmounts[i])),
+					CumulativeBurntAmount: sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0)),
 				})
 			}
 
