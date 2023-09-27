@@ -11,9 +11,9 @@ const DefaultIndex uint64 = 1
 
 func GetDefaultEpochBurnConfig() EpochBurnConfig {
 	return EpochBurnConfig{
-		EpochIdentifier:             epochstypes.DailyEpochId,
-		CurrentBurnAmountIndex: 0,
-		DefaultTotalEpochs:          30,
+		EpochIdentifier:        epochstypes.DailyEpochId,
+		CurrentBurnAmountIndex: 1,
+		DefaultTotalEpochs:     30,
 	}
 }
 
@@ -23,7 +23,7 @@ func DefaultGenesis() *GenesisState {
 		EpochBurnConfig: GetDefaultEpochBurnConfig(),
 		BurnAmounts: []BurnAmount{
 			{
-				Index:            0,
+				Index:                 0,
 				BurnStarted:           false,
 				TotalEpochs:           30,
 				CurrentEpoch:          0,
