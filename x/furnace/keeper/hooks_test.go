@@ -31,8 +31,8 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 		fn               func()
 	}{
 		{
-			totalBurnAmounts: []int64{30},
-			epochsCount:      3,
+			totalBurnAmounts: []int64{30, 31},
+			epochsCount:      4,
 			expectedEvents: []ExpEvent{
 				{
 					EpochIndex:                "daily",
@@ -60,6 +60,15 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 					BurnCurrentEpoch:          "3",
 					BurnAmount:                "10stake",
 					BurnCumulativeBurntAmount: "30stake",
+				},
+				{
+					EpochIndex:                "daily",
+					EpochNumber:               "4",
+					BurnIndex:                 "2",
+					BurnTotalEpochs:           "3",
+					BurnCurrentEpoch:          "1",
+					BurnAmount:                "10stake",
+					BurnCumulativeBurntAmount: "10stake",
 				},
 			},
 		},
@@ -163,9 +172,8 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 				// Check if burn amount is expected
 				config, found := suite.app.FurnaceKeeper.GetEpochBurnConfig(suite.ctx)
 				suite.Require().True(found)
-				burnAmount, found := suite.app.FurnaceKeeper.GetBurnAmount(suite.ctx, uint64(config.CurrentBurnAmountIndex))
+				_, found = suite.app.FurnaceKeeper.GetBurnAmount(suite.ctx, uint64(config.CurrentBurnAmountIndex))
 				suite.Require().True(found)
-				suite.Require().Equal(i, int64(burnAmount.CurrentEpoch))
 			}
 
 			// TODO: check if token is burnt

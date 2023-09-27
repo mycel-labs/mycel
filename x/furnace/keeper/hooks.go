@@ -26,11 +26,15 @@ func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumb
 			panic("burn amount not found")
 		}
 
-		if burnAmount.CurrentEpoch < burnAmount.TotalEpochs {
+		if burnAmount.CurrentEpoch <= burnAmount.TotalEpochs {
 			// Check if the current epoch is the last epoch.
 			if burnAmount.CurrentEpoch == burnAmount.TotalEpochs {
 				config.CurrentBurnAmountIndex++
 				k.SetEpochBurnConfig(ctx, config)
+				burnAmount, found = k.GetBurnAmount(ctx, uint64(config.CurrentBurnAmountIndex))
+				if !found {
+					panic("burn amount not found")
+				}
 			}
 
 			// Check if the current epoch is less than the total epochs.
