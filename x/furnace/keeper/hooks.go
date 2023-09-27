@@ -6,6 +6,36 @@ import (
 	"github.com/mycel-domain/mycel/x/furnace/types"
 )
 
+func emitEpochBurnEvent(ctx sdk.Context, epochIdentifier string, epochNumber int64, burnAmount *types.BurnAmount, burnt sdk.Coin) {
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			types.EventTypeEpochBurn,
+			sdk.NewAttribute(types.AttributeKeyEpochIdentifier, epochIdentifier),
+			sdk.NewAttribute(types.AttributeKeyEpochNumber, sdk.NewInt(epochNumber).String()),
+			sdk.NewAttribute(types.AttributeKeyBurnIndex, sdk.NewInt(int64(burnAmount.Index)).String()),
+			sdk.NewAttribute(types.AttributeKeyBurnTotalEpochs, sdk.NewInt(int64(burnAmount.TotalEpochs)).String()),
+			sdk.NewAttribute(types.AttributeKeyBurnCurrentEpoch, sdk.NewInt(int64(burnAmount.CurrentEpoch)).String()),
+			sdk.NewAttribute(types.AttributeKeybBurnAmount, burnt.String()),
+			sdk.NewAttribute(types.AttributeKeyBurnCumulativeAmount, burnAmount.CumulativeBurntAmount.String()),
+			sdk.NewAttribute(types.AttributeKeyBurnTimestamp, ctx.BlockTime().String()),
+		),
+	)
+}
+
+func calculateBurntAmount(burnAmount *types.BurnAmount) sdk.Coin {
+	if burnAmount.TotalBurnAmount.Amount.GTE(sdk.NewInt(int64(burnAmount.TotalEpochs))) {
+		quotient := burnAmount.TotalBurnAmount.Amount.QuoRaw(int64(burnAmount.TotalEpochs))
+		remander := burnAmount.TotalBurnAmount.Amount.ModRaw(int64(burnAmount.TotalEpochs))
+		if remander.IsZero() || burnAmount.CurrentEpoch+1 != burnAmount.TotalEpochs {
+			return sdk.NewCoin(sdk.DefaultBondDenom, quotient)
+		}
+		return sdk.NewCoin(sdk.DefaultBondDenom, quotient.Add(remander))
+	} else if burnAmount.CurrentEpoch == 0 {
+		return sdk.NewCoin(sdk.DefaultBondDenom, burnAmount.TotalBurnAmount.Amount)
+	}
+	return sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(0))
+}
+
 // BeforeEpochStart is the epoch start hook.
 func (k Keeper) BeforeEpochStart(ctx sdk.Context, epochIdentifier string, epochNumber int64) {
 }
@@ -14,81 +44,53 @@ func (k Keeper) BeforeEpochStart(ctx sdk.Context, epochIdentifier string, epochN
 func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumber int64) {
 	var burnt = sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(0))
 
-	// Get the epoch burn config.
 	config, found := k.GetEpochBurnConfig(ctx)
 	if !found {
 		panic("epoch burn config not found")
 	}
 
-	if config.EpochIdentifier == epochIdentifier {
-		burnAmount, found := k.GetBurnAmount(ctx, uint64(config.CurrentBurnAmountIndex))
+	// Check epoch identifier
+	if config.EpochIdentifier != epochIdentifier {
+		return
+	}
+
+	// Get burn amount
+	burnAmount, found := k.GetBurnAmount(ctx, uint64(config.CurrentBurnAmountIndex))
+	if !found {
+		panic("burn amount not found")
+	}
+
+	// Check if CurrentEpoch is smaller than TotalEpochs
+	if burnAmount.CurrentEpoch > burnAmount.TotalEpochs {
+		panic("current epoch is greater than total epochs")
+	}
+
+	// Check if CurrentEpoch is final epoch
+	if burnAmount.CurrentEpoch == burnAmount.TotalEpochs {
+		config.CurrentBurnAmountIndex++
+		k.SetEpochBurnConfig(ctx, config)
+
+		burnAmount, found = k.GetBurnAmount(ctx, uint64(config.CurrentBurnAmountIndex))
 		if !found {
 			panic("burn amount not found")
 		}
-
-		if burnAmount.CurrentEpoch <= burnAmount.TotalEpochs {
-			// Check if the current epoch is the last epoch.
-			if burnAmount.CurrentEpoch == burnAmount.TotalEpochs {
-				config.CurrentBurnAmountIndex++
-				k.SetEpochBurnConfig(ctx, config)
-				burnAmount, found = k.GetBurnAmount(ctx, uint64(config.CurrentBurnAmountIndex))
-				if !found {
-					panic("burn amount not found")
-				}
-			}
-
-			// Check if the current epoch is less than the total epochs.
-			if burnAmount.CumulativeBurntAmount.IsLT(burnAmount.TotalBurnAmount) {
-				// Check if the total burn amount is greater than the total epochs.
-				if burnAmount.TotalBurnAmount.Amount.GTE(sdk.NewInt(int64(burnAmount.TotalEpochs))) {
-					quotient := burnAmount.TotalBurnAmount.Amount.QuoRaw(int64(burnAmount.TotalEpochs))
-					remander := burnAmount.TotalBurnAmount.Amount.ModRaw(int64(burnAmount.TotalEpochs))
-					// Check if the remander is zero.
-					if remander.IsZero() {
-						// Set the burnt amount to the quotient.
-						burnt = sdk.NewCoin(sdk.DefaultBondDenom, quotient)
-					} else {
-						// Check if the current epoch is the last epoch.
-						if burnAmount.CurrentEpoch+1 == burnAmount.TotalEpochs {
-							// Set the burnt amount to the quotient plus the remander.
-							burnt = sdk.NewCoin(sdk.DefaultBondDenom, quotient.Add(remander))
-						} else {
-							// Set the burnt amount to the quotient.
-							burnt = sdk.NewCoin(sdk.DefaultBondDenom, quotient)
-						}
-					}
-				} else {
-					if burnAmount.CurrentEpoch == 0 {
-						burnt = sdk.NewCoin(sdk.DefaultBondDenom, burnAmount.TotalBurnAmount.Amount)
-					}
-				}
-			}
-		} else {
-			panic("current epoch is greater than total epochs")
-		}
-
-		// TODO: Burn coins
-
-		// Add the burn amount to burntAmount
-		burnAmount.CumulativeBurntAmount = burnAmount.CumulativeBurntAmount.Add(burnt)
-		burnAmount.CurrentEpoch++
-		k.SetBurnAmount(ctx, burnAmount)
-
-		// Emit Events
-		ctx.EventManager().EmitEvent(
-			sdk.NewEvent(
-				types.EventTypeEpochBurn,
-				sdk.NewAttribute(types.AttributeKeyEpochIdentifier, epochIdentifier),
-				sdk.NewAttribute(types.AttributeKeyEpochNumber, sdk.NewInt(epochNumber).String()),
-				sdk.NewAttribute(types.AttributeKeyBurnIndex, sdk.NewInt(int64(burnAmount.Index)).String()),
-				sdk.NewAttribute(types.AttributeKeyBurnTotalEpochs, sdk.NewInt(int64(burnAmount.TotalEpochs)).String()),
-				sdk.NewAttribute(types.AttributeKeyBurnCurrentEpoch, sdk.NewInt(int64(burnAmount.CurrentEpoch)).String()),
-				sdk.NewAttribute(types.AttributeKeybBurnAmount, burnt.String()),
-				sdk.NewAttribute(types.AttributeKeyBurnCumulativeAmount, burnAmount.CumulativeBurntAmount.String()),
-				sdk.NewAttribute(types.AttributeKeyBurnTimestamp, ctx.BlockTime().String()),
-			),
-		)
 	}
+
+	// Calculate burnt amount
+	if burnAmount.CumulativeBurntAmount.IsLT(burnAmount.TotalBurnAmount) {
+		burnt = calculateBurntAmount(&burnAmount)
+	}
+
+	// TODO: Burn coins
+
+	// Update burn amount
+	burnAmount.CumulativeBurntAmount = burnAmount.CumulativeBurntAmount.Add(burnt)
+	burnAmount.CurrentEpoch++
+	k.SetBurnAmount(ctx, burnAmount)
+
+	// Emit event
+	emitEpochBurnEvent(ctx, epochIdentifier, epochNumber, &burnAmount, burnt)
+
 }
 
 // ___________________________________________________________________________________________________
