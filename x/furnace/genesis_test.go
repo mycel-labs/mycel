@@ -19,10 +19,10 @@ func TestGenesis(t *testing.T) {
 		},
 		BurnAmounts: []types.BurnAmount{
 			{
-				Identifier: 0,
+				Index: 0,
 			},
 			{
-				Identifier: 1,
+				Index: 1,
 			},
 		},
 		// this line is used by starport scaffolding # genesis/test/state
