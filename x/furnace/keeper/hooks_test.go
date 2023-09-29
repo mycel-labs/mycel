@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-type ExpEvent struct {
+type ExpBurnEvent struct {
 	EpochIndex                string
 	EpochNumber               string
 	BurnIndex                 string
@@ -20,21 +20,86 @@ type ExpEvent struct {
 	BurnCumulativeBurntAmount string
 }
 
+type ExpCreateBurnAmountEvent struct {
+	BurnAmountIndex string
+}
+
+var (
+	now            = time.Now()
+	oneDayDuration = time.Hour*24 + time.Second
+)
+
+func (suite *KeeperTestSuite) TestAfterEpochEndCreateBurnAmount() {
+	testCases := []struct {
+		epochsCount    int64
+		expectedEvents []ExpCreateBurnAmountEvent
+		fn             func()
+	}{
+		{
+			epochsCount: 1,
+			expectedEvents: []ExpCreateBurnAmountEvent{
+				{
+					BurnAmountIndex: "1",
+				},
+			},
+		},
+		{
+			epochsCount: 31,
+			expectedEvents: []ExpCreateBurnAmountEvent{
+				{
+					BurnAmountIndex: "1",
+				},
+				{
+					BurnAmountIndex: "2",
+				},
+			},
+		},
+	}
+
+	for i, tc := range testCases {
+		suite.Run(fmt.Sprintf("Case %d", i), func() {
+			suite.SetupTest()
+
+			for i := int64(1); i <= tc.epochsCount; i++ {
+				suite.ctx = suite.ctx.WithBlockHeight(i + 1).WithBlockTime(now.Add(oneDayDuration))
+				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
+				// Check if curent epoch is expected
+				epochInfo, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, epochstypes.DailyEpochId)
+				suite.Require().True(found)
+				suite.Require().Equal(i+1, epochInfo.CurrentEpoch)
+
+				// Check if burn amount is expected
+				config, found := suite.app.FurnaceKeeper.GetEpochBurnConfig(suite.ctx)
+				suite.Require().True(found)
+				_, found = suite.app.FurnaceKeeper.GetBurnAmount(suite.ctx, uint64(config.CurrentBurnAmountIndex))
+				suite.Require().True(found)
+			}
+
+			// Check if event is emitted
+			events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeBurnAmountCreated)
+			suite.Require().True(found)
+			suite.Require().Equal(len(tc.expectedEvents), len(events))
+			for i, event := range events {
+				suite.Require().Equal(tc.expectedEvents[i].BurnAmountIndex, event.Attributes[0].Value)
+			}
+
+		})
+	}
+
+}
+
 func (suite *KeeperTestSuite) TestAfterEpochEnd() {
-	var (
-		now            = time.Now()
-		oneDayDuration = time.Hour*24 + time.Second
-	)
+
 	testCases := []struct {
 		totalBurnAmounts []int64
-		expectedEvents   []ExpEvent
+		expectedEvents   []ExpBurnEvent
 		epochsCount      int64
 		fn               func()
 	}{
 		{
 			totalBurnAmounts: []int64{30, 31},
 			epochsCount:      4,
-			expectedEvents: []ExpEvent{
+			expectedEvents: []ExpBurnEvent{
 				{
 					EpochIndex:                "daily",
 					EpochNumber:               "1",
@@ -76,7 +141,7 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 		{
 			totalBurnAmounts: []int64{31},
 			epochsCount:      3,
-			expectedEvents: []ExpEvent{
+			expectedEvents: []ExpBurnEvent{
 				{
 					EpochIndex:                "daily",
 					EpochNumber:               "1",
@@ -110,7 +175,7 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 		{
 			totalBurnAmounts: []int64{1},
 			epochsCount:      3,
-			expectedEvents: []ExpEvent{
+			expectedEvents: []ExpBurnEvent{
 				{
 					EpochIndex:                "daily",
 					EpochNumber:               "1",

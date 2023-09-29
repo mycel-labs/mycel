@@ -12,3 +12,9 @@ const (
 	AttributeKeyBurnCumulativeAmount = "burn-cumulative-amount"
 	AttributeKeyBurnTimestamp        = "burn-timestamp"
 )
+
+const (
+	EventTypeBurnAmountCreated = "burn-amount-created"
+
+	AttributeKeyBurnAmountIndex = "burn-amount-index"
+)
