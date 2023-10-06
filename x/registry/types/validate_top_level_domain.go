@@ -21,6 +21,18 @@ func ValidateTopLevelDomainName(name string) (err error) {
 
 }
 
+func (topLevelDomain TopLevelDomain) ValidateRegistrationFees() (err error) {
+	// Validate names
+	for name := range topLevelDomain.SubdomainConfig.SubdomainRegistrationFees.FeeByName {
+		err = ValidateSecondLevelDomainName(name)
+		if err != nil {
+			break
+		}
+	}
+	// TODO: validate length
+	return err
+}
+
 func (topLevelDomain TopLevelDomain) ValidateName() (err error) {
 	err = ValidateTopLevelDomainName(topLevelDomain.Name)
 	return err
@@ -31,5 +43,6 @@ func (topLevelDomain TopLevelDomain) Validate() (err error) {
 	if err != nil {
 		return err
 	}
+	err = topLevelDomain.ValidateRegistrationFees()
 	return err
 }

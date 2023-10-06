@@ -36,3 +36,10 @@ const (
 	AttributeUpdateDnsRecordEventDnsRecordType = "dns-record-type"
 	AttributeUpdateDnsRecordEventValue         = "value"
 )
+
+// Set registration fees event
+const (
+	EventTypeSetRegistrationFees = "set-registration-fees"
+
+	AttributeSetRegistrationFeesDomain = "domain"
+)
