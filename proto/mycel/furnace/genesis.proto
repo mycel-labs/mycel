@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package mycel.furnace;
+
+import "gogoproto/gogo.proto";
+import "mycel/furnace/params.proto";
+import "mycel/furnace/epoch_burn_config.proto";
+import "mycel/furnace/burn_amount.proto";
+
+option go_package = "github.com/mycel-domain/mycel/x/furnace/types";
+
+// GenesisState defines the furnace module's genesis state.
+message GenesisState {
+           Params          params          = 1 [(gogoproto.nullable) = false];
+           EpochBurnConfig epochBurnConfig = 2 [(gogoproto.nullable) = false];
+  repeated BurnAmount      burnAmounts  = 3 [(gogoproto.nullable) = false];
+}
+

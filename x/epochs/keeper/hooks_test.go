@@ -91,7 +91,7 @@ func (suite *KeeperTestSuite) TestAfterEpochHooks() {
 				{
 					EpochNumber: "1",
 				},
-{
+				{
 					EpochNumber: "2",
 				},
 			},

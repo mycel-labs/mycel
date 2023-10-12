@@ -215,7 +215,6 @@ func txCommand() *cobra.Command {
 	return cmd
 }
 
-
 func addModuleInitFlags(startCmd *cobra.Command) {
 	crisis.AddModuleInitFlags(startCmd)
 	// this line is used by starport scaffolding # root/arguments

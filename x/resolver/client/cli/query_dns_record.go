@@ -30,8 +30,8 @@ func CmdDnsRecord() *cobra.Command {
 
 			params := &types.QueryDnsRecordRequest{
 
-				DomainName:          reqDomainName,
-				DomainParent:        reqDomainParent,
+				DomainName:    reqDomainName,
+				DomainParent:  reqDomainParent,
 				DnsRecordType: reqDnsRecordType,
 			}
 

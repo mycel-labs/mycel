@@ -126,6 +126,9 @@ import (
 	epochsmodulekeeper "github.com/mycel-domain/mycel/x/epochs/keeper"
 	epochsmoduletypes "github.com/mycel-domain/mycel/x/epochs/types"
 
+	furnacemodule "github.com/mycel-domain/mycel/x/furnace"
+	furnacemodulekeeper "github.com/mycel-domain/mycel/x/furnace/keeper"
+	furnacemoduletypes "github.com/mycel-domain/mycel/x/furnace/types"
 	resolvermodule "github.com/mycel-domain/mycel/x/resolver"
 	resolvermodulekeeper "github.com/mycel-domain/mycel/x/resolver/keeper"
 	resolvermoduletypes "github.com/mycel-domain/mycel/x/resolver/types"
@@ -236,6 +239,7 @@ var (
 		registrymodule.AppModuleBasic{},
 		epochsmodule.AppModuleBasic{},
 		resolvermodule.AppModuleBasic{},
+		furnacemodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -253,6 +257,7 @@ var (
 		wasmtypes.ModuleName: {authtypes.Burner},
 		// my modules
 		registrymoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
+		furnacemoduletypes.ModuleName:  {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 )
@@ -323,6 +328,8 @@ type App struct {
 	EpochsKeeper   epochsmodulekeeper.Keeper
 
 	ResolverKeeper resolvermodulekeeper.Keeper
+
+	FurnaceKeeper furnacemodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
@@ -410,6 +417,7 @@ func NewApp(
 		registrymoduletypes.StoreKey,
 		epochsmoduletypes.StoreKey,
 		resolvermoduletypes.StoreKey,
+		furnacemoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -671,31 +679,13 @@ func NewApp(
 		),
 	)
 
-	// my modules
+	// My module's keepers
 	app.EpochsKeeper = *epochsmodulekeeper.NewKeeper(
 		appCodec,
 		keys[epochsmoduletypes.StoreKey],
 		keys[epochsmoduletypes.MemStoreKey],
 		app.GetSubspace(epochsmoduletypes.ModuleName),
 	)
-
-	app.EpochsKeeper.SetHooks(
-		epochsmoduletypes.NewMultiEpochHooks(
-			app.RegistryKeeper.Hooks(),
-		// insert hooks here
-		))
-
-	epochsModule := epochsmodule.NewAppModule(appCodec, app.EpochsKeeper, app.AccountKeeper, app.BankKeeper)
-
-	app.RegistryKeeper = *registrymodulekeeper.NewKeeper(
-		appCodec,
-		keys[registrymoduletypes.StoreKey],
-		keys[registrymoduletypes.MemStoreKey],
-		app.GetSubspace(registrymoduletypes.ModuleName),
-
-		app.BankKeeper,
-	)
-	registryModule := registrymodule.NewAppModule(appCodec, app.RegistryKeeper, app.AccountKeeper, app.BankKeeper)
 
 	app.ResolverKeeper = *resolvermodulekeeper.NewKeeper(
 		appCodec,
@@ -705,7 +695,45 @@ func NewApp(
 
 		app.RegistryKeeper,
 	)
+
+	app.RegistryKeeper = *registrymodulekeeper.NewKeeper(
+		appCodec,
+		keys[registrymoduletypes.StoreKey],
+		keys[registrymoduletypes.MemStoreKey],
+		app.GetSubspace(registrymoduletypes.ModuleName),
+
+		app.BankKeeper,
+	)
+
+	app.ResolverKeeper = *resolvermodulekeeper.NewKeeper(
+		appCodec,
+		keys[resolvermoduletypes.StoreKey],
+		keys[resolvermoduletypes.MemStoreKey],
+		app.GetSubspace(resolvermoduletypes.ModuleName),
+
+		app.RegistryKeeper,
+	)
+
+	app.FurnaceKeeper = *furnacemodulekeeper.NewKeeper(
+		appCodec,
+		keys[furnacemoduletypes.StoreKey],
+		keys[furnacemoduletypes.MemStoreKey],
+		app.GetSubspace(furnacemoduletypes.ModuleName),
+
+		app.BankKeeper,
+		app.EpochsKeeper,
+	)
+
+	app.EpochsKeeper.SetHooks(
+		epochsmoduletypes.NewMultiEpochHooks(
+			// insert hooks here
+			app.FurnaceKeeper.Hooks(),
+		))
+
+	epochsModule := epochsmodule.NewAppModule(appCodec, app.EpochsKeeper, app.AccountKeeper, app.BankKeeper)
+	registryModule := registrymodule.NewAppModule(appCodec, app.RegistryKeeper, app.AccountKeeper, app.BankKeeper)
 	resolverModule := resolvermodule.NewAppModule(appCodec, app.ResolverKeeper, app.AccountKeeper, app.BankKeeper)
+	furnaceModule := furnacemodule.NewAppModule(appCodec, app.FurnaceKeeper, app.AccountKeeper, app.BankKeeper)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
@@ -774,6 +802,7 @@ func NewApp(
 		registryModule,
 		epochsModule,
 		resolverModule,
+		furnaceModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 
 		crisis.NewAppModule(app.CrisisKeeper, skipGenesisInvariants, app.GetSubspace(crisistypes.ModuleName)), // always be last to make sure that it checks for all invariants and not only part of them
@@ -812,6 +841,7 @@ func NewApp(
 		registrymoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
 		resolvermoduletypes.ModuleName,
+		furnacemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	)
 
@@ -843,6 +873,7 @@ func NewApp(
 		registrymoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
 		resolvermoduletypes.ModuleName,
+		furnacemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	)
 
@@ -880,6 +911,7 @@ func NewApp(
 		registrymoduletypes.ModuleName,
 		epochsmoduletypes.ModuleName,
 		resolvermoduletypes.ModuleName,
+		furnacemoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 	app.mm.SetOrderInitGenesis(genesisModuleOrder...)
@@ -1143,6 +1175,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(registrymoduletypes.ModuleName)
 	paramsKeeper.Subspace(epochsmoduletypes.ModuleName)
 	paramsKeeper.Subspace(resolvermoduletypes.ModuleName)
+	paramsKeeper.Subspace(furnacemoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper

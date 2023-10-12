@@ -7,7 +7,7 @@ import (
 func FindEventsByType(events []sdk.Event, eventType string) (foundEvents []sdk.Event, found bool) {
 	for _, event := range events {
 		if event.Type == eventType {
-			foundEvents	 = append(foundEvents, event)
+			foundEvents = append(foundEvents, event)
 		}
 	}
 	found = len(foundEvents) > 0
