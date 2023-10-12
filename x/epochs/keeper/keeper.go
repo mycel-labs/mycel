@@ -52,6 +52,12 @@ func (k *Keeper) SetHooks(eh types.EpochHooks) *Keeper {
 	return k
 }
 
+// Remove all hooks. Only used for testing.
+func (k *Keeper) RemoveHooks() *Keeper {
+	k.hooks = nil
+	return k
+}
+
 func (k Keeper) Logger(ctx sdk.Context) log.Logger {
 	return ctx.Logger().With("module", fmt.Sprintf("x/%s", types.ModuleName))
 }
