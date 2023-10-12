@@ -8,7 +8,7 @@ import (
 	errorsmod "cosmossdk.io/errors"
 )
 
-// StartInitialEpoch sets the epoch info fields to ther start values
+// StartInitialEpoch sets the epoch info fields to their start values
 func (e *EpochInfo) StartInitialEpoch() {
 	e.EpochCountingStarted = true
 	e.CurrentEpoch = 1
