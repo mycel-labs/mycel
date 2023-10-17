@@ -21,7 +21,7 @@ var _ = strconv.IntSize
 func TestSecondLevelDomainQuerySingle(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	wctx := sdk.WrapSDKContext(ctx)
-	msgs := createNDomain(keeper, ctx, 2)
+	msgs := createNSecondLevelDomainResponse(keeper, ctx, 2)
 	for _, tc := range []struct {
 		desc     string
 		request  *types.QueryGetSecondLevelDomainRequest
@@ -75,7 +75,7 @@ func TestSecondLevelDomainQuerySingle(t *testing.T) {
 func TestSecondLevelDomainQueryPaginated(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	wctx := sdk.WrapSDKContext(ctx)
-	msgs := createNDomain(keeper, ctx, 5)
+	msgs := createNSecondLevelDomainResponse(keeper, ctx, 5)
 
 	request := func(next []byte, offset, limit uint64, total bool) *types.QueryAllSecondLevelDomainRequest {
 		return &types.QueryAllSecondLevelDomainRequest{
