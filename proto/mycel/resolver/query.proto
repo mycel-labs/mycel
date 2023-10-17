@@ -32,8 +32,8 @@ service Query {
   }
   
   // Queries a list of AllRecord items.
-  rpc AllRecord (QueryAllRecordRequest) returns (QueryAllRecordResponse) {
-    option (google.api.http).get = "/mycel-domain/mycel/resolver/all_record/{name}/{parent}";
+  rpc AllRecords (QueryAllRecordsRequest) returns (QueryAllRecordsResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/resolver/all_records/{domainName}/{domainParent}";
   
   }
 }
@@ -67,12 +67,12 @@ message QueryDnsRecordResponse {
   mycel.registry.DnsRecord value = 1;
 }
 
-message QueryAllRecordRequest {
-  string name   = 1;
-  string parent = 2;
+message QueryAllRecordsRequest {
+  string domainName   = 1;
+  string domainParent = 2;
 }
 
-message QueryAllRecordResponse {
-  string value = 1;
+message QueryAllRecordsResponse {
+  map<string, mycel.registry.Record> values = 1;
 }
 

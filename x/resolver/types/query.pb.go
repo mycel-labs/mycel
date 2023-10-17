@@ -322,23 +322,23 @@ func (m *QueryDnsRecordResponse) GetValue() *types.DnsRecord {
 	return nil
 }
 
-type QueryAllRecordRequest struct {
-	Name   string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Parent string `protobuf:"bytes,2,opt,name=parent,proto3" json:"parent,omitempty"`
+type QueryAllRecordsRequest struct {
+	DomainName   string `protobuf:"bytes,1,opt,name=domainName,proto3" json:"domainName,omitempty"`
+	DomainParent string `protobuf:"bytes,2,opt,name=domainParent,proto3" json:"domainParent,omitempty"`
 }
 
-func (m *QueryAllRecordRequest) Reset()         { *m = QueryAllRecordRequest{} }
-func (m *QueryAllRecordRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryAllRecordRequest) ProtoMessage()    {}
-func (*QueryAllRecordRequest) Descriptor() ([]byte, []int) {
+func (m *QueryAllRecordsRequest) Reset()         { *m = QueryAllRecordsRequest{} }
+func (m *QueryAllRecordsRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllRecordsRequest) ProtoMessage()    {}
+func (*QueryAllRecordsRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_b8c2c421969ccc6b, []int{6}
 }
-func (m *QueryAllRecordRequest) XXX_Unmarshal(b []byte) error {
+func (m *QueryAllRecordsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryAllRecordRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryAllRecordsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryAllRecordRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryAllRecordsRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -348,48 +348,48 @@ func (m *QueryAllRecordRequest) XXX_Marshal(b []byte, deterministic bool) ([]byt
 		return b[:n], nil
 	}
 }
-func (m *QueryAllRecordRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryAllRecordRequest.Merge(m, src)
+func (m *QueryAllRecordsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllRecordsRequest.Merge(m, src)
 }
-func (m *QueryAllRecordRequest) XXX_Size() int {
+func (m *QueryAllRecordsRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryAllRecordRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryAllRecordRequest.DiscardUnknown(m)
+func (m *QueryAllRecordsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllRecordsRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryAllRecordRequest proto.InternalMessageInfo
+var xxx_messageInfo_QueryAllRecordsRequest proto.InternalMessageInfo
 
-func (m *QueryAllRecordRequest) GetName() string {
+func (m *QueryAllRecordsRequest) GetDomainName() string {
 	if m != nil {
-		return m.Name
+		return m.DomainName
 	}
 	return ""
 }
 
-func (m *QueryAllRecordRequest) GetParent() string {
+func (m *QueryAllRecordsRequest) GetDomainParent() string {
 	if m != nil {
-		return m.Parent
+		return m.DomainParent
 	}
 	return ""
 }
 
-type QueryAllRecordResponse struct {
-	Value string `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+type QueryAllRecordsResponse struct {
+	Values map[string]*types.Record `protobuf:"bytes,1,rep,name=values,proto3" json:"values,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 }
 
-func (m *QueryAllRecordResponse) Reset()         { *m = QueryAllRecordResponse{} }
-func (m *QueryAllRecordResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryAllRecordResponse) ProtoMessage()    {}
-func (*QueryAllRecordResponse) Descriptor() ([]byte, []int) {
+func (m *QueryAllRecordsResponse) Reset()         { *m = QueryAllRecordsResponse{} }
+func (m *QueryAllRecordsResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllRecordsResponse) ProtoMessage()    {}
+func (*QueryAllRecordsResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_b8c2c421969ccc6b, []int{7}
 }
-func (m *QueryAllRecordResponse) XXX_Unmarshal(b []byte) error {
+func (m *QueryAllRecordsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryAllRecordResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryAllRecordsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryAllRecordResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryAllRecordsResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -399,23 +399,23 @@ func (m *QueryAllRecordResponse) XXX_Marshal(b []byte, deterministic bool) ([]by
 		return b[:n], nil
 	}
 }
-func (m *QueryAllRecordResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryAllRecordResponse.Merge(m, src)
+func (m *QueryAllRecordsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllRecordsResponse.Merge(m, src)
 }
-func (m *QueryAllRecordResponse) XXX_Size() int {
+func (m *QueryAllRecordsResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryAllRecordResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryAllRecordResponse.DiscardUnknown(m)
+func (m *QueryAllRecordsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllRecordsResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryAllRecordResponse proto.InternalMessageInfo
+var xxx_messageInfo_QueryAllRecordsResponse proto.InternalMessageInfo
 
-func (m *QueryAllRecordResponse) GetValue() string {
+func (m *QueryAllRecordsResponse) GetValues() map[string]*types.Record {
 	if m != nil {
-		return m.Value
+		return m.Values
 	}
-	return ""
+	return nil
 }
 
 func init() {
@@ -425,53 +425,57 @@ func init() {
 	proto.RegisterType((*QueryWalletRecordResponse)(nil), "mycel.resolver.QueryWalletRecordResponse")
 	proto.RegisterType((*QueryDnsRecordRequest)(nil), "mycel.resolver.QueryDnsRecordRequest")
 	proto.RegisterType((*QueryDnsRecordResponse)(nil), "mycel.resolver.QueryDnsRecordResponse")
-	proto.RegisterType((*QueryAllRecordRequest)(nil), "mycel.resolver.QueryAllRecordRequest")
-	proto.RegisterType((*QueryAllRecordResponse)(nil), "mycel.resolver.QueryAllRecordResponse")
+	proto.RegisterType((*QueryAllRecordsRequest)(nil), "mycel.resolver.QueryAllRecordsRequest")
+	proto.RegisterType((*QueryAllRecordsResponse)(nil), "mycel.resolver.QueryAllRecordsResponse")
+	proto.RegisterMapType((map[string]*types.Record)(nil), "mycel.resolver.QueryAllRecordsResponse.ValuesEntry")
 }
 
 func init() { proto.RegisterFile("mycel/resolver/query.proto", fileDescriptor_b8c2c421969ccc6b) }
 
 var fileDescriptor_b8c2c421969ccc6b = []byte{
-	// 620 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x94, 0xc1, 0x6a, 0x13, 0x41,
-	0x1c, 0xc6, 0xb3, 0xb5, 0x0d, 0x64, 0xac, 0x22, 0x63, 0x0c, 0xe9, 0x5a, 0x56, 0x99, 0x5a, 0x89,
-	0x15, 0x77, 0x68, 0x14, 0xc4, 0x93, 0x58, 0x3d, 0x28, 0x82, 0xd6, 0xa8, 0x88, 0xf6, 0x10, 0x26,
-	0xc9, 0xb0, 0x2e, 0xcc, 0xce, 0x6c, 0x77, 0x36, 0xd1, 0x50, 0x22, 0xe8, 0xd1, 0x93, 0xe0, 0xd1,
-	0x17, 0xf0, 0x0d, 0x7c, 0x03, 0xe9, 0xb1, 0xe0, 0xc5, 0x93, 0x48, 0xe2, 0x83, 0x48, 0x67, 0x26,
-	0xc9, 0xee, 0x66, 0x1b, 0x7b, 0xf0, 0xb6, 0x33, 0xf3, 0xcd, 0xf7, 0xff, 0x7d, 0xbb, 0x5f, 0x02,
-	0xec, 0xa0, 0xdf, 0xa6, 0x0c, 0x47, 0x54, 0x0a, 0xd6, 0xa3, 0x11, 0xde, 0xed, 0xd2, 0xa8, 0xef,
-	0x86, 0x91, 0x88, 0x05, 0x3c, 0xad, 0xce, 0xdc, 0xf1, 0x99, 0x5d, 0xf6, 0x84, 0x27, 0xd4, 0x11,
-	0x3e, 0x7c, 0xd2, 0x2a, 0x7b, 0xd5, 0x13, 0xc2, 0x63, 0x14, 0x93, 0xd0, 0xc7, 0x84, 0x73, 0x11,
-	0x93, 0xd8, 0x17, 0x5c, 0x9a, 0xd3, 0x8d, 0xb6, 0x90, 0x81, 0x90, 0xb8, 0x45, 0x24, 0xd5, 0xe6,
-	0xb8, 0xb7, 0xd9, 0xa2, 0x31, 0xd9, 0xc4, 0x21, 0xf1, 0x7c, 0xae, 0xc4, 0x46, 0x7b, 0x3e, 0xc3,
-	0x12, 0x92, 0x88, 0x04, 0x63, 0xa3, 0xda, 0xf8, 0xd0, 0xf3, 0x65, 0x1c, 0xf5, 0xb1, 0xa4, 0x6d,
-	0xc1, 0x3b, 0x4d, 0x46, 0x7b, 0x94, 0x35, 0x3b, 0x22, 0x20, 0xbe, 0xb1, 0x41, 0x65, 0x00, 0x9f,
-	0x1c, 0x0e, 0xda, 0x56, 0xd7, 0x1b, 0x74, 0xb7, 0x4b, 0x65, 0x8c, 0x1e, 0x82, 0xb3, 0xa9, 0x5d,
-	0x19, 0x0a, 0x2e, 0x29, 0xbc, 0x01, 0x8a, 0x7a, 0x4c, 0xd5, 0xba, 0x68, 0xd5, 0x4e, 0xd6, 0x2b,
-	0x6e, 0x3a, 0xb4, 0xab, 0xf5, 0x5b, 0x8b, 0xfb, 0xbf, 0x2e, 0x14, 0x1a, 0x46, 0x8b, 0x3e, 0x5a,
-	0xa0, 0xaa, 0xdc, 0x5e, 0x10, 0xc6, 0x68, 0xdc, 0xa0, 0x6d, 0x11, 0x75, 0xcc, 0x24, 0xe8, 0x00,
-	0xa0, 0x79, 0x1e, 0x91, 0x80, 0x2a, 0xdb, 0x52, 0x23, 0xb1, 0x03, 0x11, 0x58, 0xd6, 0xab, 0x6d,
-	0x12, 0x51, 0x1e, 0x57, 0x17, 0x94, 0x22, 0xb5, 0x07, 0x37, 0xc0, 0x99, 0x37, 0x09, 0xeb, 0x67,
-	0xfd, 0x90, 0x56, 0x4f, 0x28, 0xdd, 0xcc, 0x3e, 0x7a, 0x0c, 0x56, 0x72, 0x58, 0x4c, 0xbe, 0x3a,
-	0x58, 0xea, 0x11, 0xd6, 0xa5, 0x26, 0xde, 0xea, 0x24, 0x9e, 0x7e, 0x8d, 0x6e, 0xea, 0x92, 0x96,
-	0xa2, 0xf7, 0x16, 0x38, 0xa7, 0x1c, 0xef, 0x71, 0xf9, 0xff, 0xa3, 0x5d, 0x02, 0xa7, 0x3a, 0x63,
-	0xdf, 0x44, 0xae, 0xf4, 0x26, 0x7a, 0x00, 0x2a, 0x59, 0x04, 0x93, 0x08, 0xa7, 0x13, 0xad, 0x64,
-	0x13, 0x4d, 0x6f, 0x98, 0x38, 0x77, 0x4d, 0x9a, 0x3b, 0x8c, 0xa5, 0xd3, 0x40, 0xb0, 0xc8, 0xa7,
-	0x39, 0xd4, 0x33, 0xac, 0xa8, 0x3e, 0x4c, 0xd9, 0xcd, 0x0a, 0xb9, 0x86, 0x27, 0x61, 0x62, 0x78,
-	0xca, 0x49, 0x9e, 0x92, 0x19, 0x5a, 0xff, 0xba, 0x04, 0x96, 0xd4, 0x05, 0xf8, 0x0e, 0x14, 0x75,
-	0x87, 0x20, 0xca, 0x76, 0x6b, 0xb6, 0xa6, 0xf6, 0xda, 0x5c, 0x8d, 0x1e, 0x89, 0xae, 0x7e, 0xf8,
-	0xf1, 0xe7, 0xf3, 0xc2, 0x3a, 0x5c, 0xc3, 0x4a, 0x7c, 0x4d, 0xbf, 0x5f, 0x9c, 0xfb, 0xf3, 0x81,
-	0xdf, 0x2d, 0xb0, 0x9c, 0xfc, 0xca, 0xb0, 0x96, 0x3b, 0x22, 0xa7, 0xc9, 0xf6, 0x95, 0x63, 0x28,
-	0x0d, 0x12, 0x51, 0x48, 0x3b, 0xf0, 0xe5, 0x5c, 0x24, 0xdd, 0xdd, 0x66, 0xa4, 0xee, 0xe2, 0xbd,
-	0x69, 0x73, 0x06, 0xe3, 0x85, 0x2e, 0xc9, 0x00, 0xef, 0x65, 0x6b, 0x3e, 0x80, 0xdf, 0x2c, 0x50,
-	0x9a, 0x7c, 0x5c, 0xb8, 0x9e, 0xcb, 0x96, 0x6d, 0xac, 0x7d, 0xf9, 0x5f, 0x32, 0xc3, 0xbf, 0xa3,
-	0xf8, 0x9f, 0xc3, 0xa7, 0x73, 0xf9, 0x3b, 0x5c, 0x1e, 0x0b, 0x3e, 0xd5, 0xe5, 0x01, 0xfc, 0x62,
-	0x81, 0xd2, 0xa4, 0x38, 0x47, 0x90, 0x67, 0xdb, 0x79, 0x04, 0xf9, 0x4c, 0xff, 0xd0, 0x6d, 0x45,
-	0x7e, 0x0b, 0xde, 0x9c, 0x4b, 0x4e, 0x18, 0x9b, 0x90, 0x73, 0xcd, 0xac, 0x9b, 0x3d, 0xd8, 0xba,
-	0xbf, 0x3f, 0x74, 0xac, 0x83, 0xa1, 0x63, 0xfd, 0x1e, 0x3a, 0xd6, 0xa7, 0x91, 0x53, 0x38, 0x18,
-	0x39, 0x85, 0x9f, 0x23, 0xa7, 0xf0, 0xca, 0xf5, 0xfc, 0xf8, 0x75, 0xb7, 0xe5, 0xb6, 0x45, 0x90,
-	0x67, 0xfe, 0x76, 0x6a, 0x1f, 0xf7, 0x43, 0x2a, 0x5b, 0x45, 0xf5, 0x07, 0x7c, 0xfd, 0x6f, 0x00,
-	0x00, 0x00, 0xff, 0xff, 0xe2, 0xe0, 0x04, 0x7d, 0x55, 0x06, 0x00, 0x00,
+	// 661 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x95, 0xdf, 0x4e, 0x13, 0x41,
+	0x14, 0xc6, 0xbb, 0x45, 0x9a, 0x70, 0x40, 0x43, 0x46, 0xc4, 0xb2, 0x92, 0xd5, 0x2c, 0x82, 0x15,
+	0x75, 0x27, 0x14, 0x2f, 0x8c, 0x77, 0x12, 0x34, 0x1a, 0x8c, 0x42, 0xfd, 0x17, 0xc5, 0x84, 0x4c,
+	0xdb, 0xc9, 0xda, 0x38, 0xdd, 0x59, 0x76, 0xb6, 0xd5, 0x0d, 0xa9, 0x89, 0x5e, 0x7a, 0x65, 0xe2,
+	0x63, 0xf8, 0x00, 0xea, 0x0b, 0x18, 0x2e, 0x49, 0xbc, 0xf1, 0xca, 0x18, 0xf0, 0x41, 0x4c, 0x67,
+	0x66, 0x69, 0x77, 0x59, 0x0b, 0x17, 0xdc, 0x75, 0xcf, 0xf9, 0xce, 0x39, 0xbf, 0x6f, 0x38, 0x27,
+	0x80, 0xd9, 0x8c, 0x6a, 0x94, 0xe1, 0x80, 0x0a, 0xce, 0xda, 0x34, 0xc0, 0x9b, 0x2d, 0x1a, 0x44,
+	0x8e, 0x1f, 0xf0, 0x90, 0xa3, 0x53, 0x32, 0xe7, 0xc4, 0x39, 0x73, 0xc2, 0xe5, 0x2e, 0x97, 0x29,
+	0xdc, 0xfd, 0xa5, 0x54, 0xe6, 0xb4, 0xcb, 0xb9, 0xcb, 0x28, 0x26, 0x7e, 0x03, 0x13, 0xcf, 0xe3,
+	0x21, 0x09, 0x1b, 0xdc, 0x13, 0x3a, 0x3b, 0x5f, 0xe3, 0xa2, 0xc9, 0x05, 0xae, 0x12, 0x41, 0x55,
+	0x73, 0xdc, 0x5e, 0xa8, 0xd2, 0x90, 0x2c, 0x60, 0x9f, 0xb8, 0x0d, 0x4f, 0x8a, 0xb5, 0xf6, 0x5c,
+	0x8a, 0xc5, 0x27, 0x01, 0x69, 0xc6, 0x8d, 0x4a, 0x71, 0xd2, 0x6d, 0x88, 0x30, 0x88, 0xb0, 0xa0,
+	0x35, 0xee, 0xd5, 0x37, 0x18, 0x6d, 0x53, 0xb6, 0x51, 0xe7, 0x4d, 0xd2, 0xd0, 0x6d, 0xec, 0x09,
+	0x40, 0x6b, 0xdd, 0x41, 0xab, 0xb2, 0xbc, 0x42, 0x37, 0x5b, 0x54, 0x84, 0xf6, 0x0a, 0x9c, 0x4e,
+	0x44, 0x85, 0xcf, 0x3d, 0x41, 0xd1, 0x75, 0x28, 0xa8, 0x31, 0x45, 0xe3, 0x82, 0x51, 0x1a, 0x2d,
+	0x4f, 0x3a, 0x49, 0xd3, 0x8e, 0xd2, 0x2f, 0x9d, 0xd8, 0xfe, 0x7d, 0x3e, 0x57, 0xd1, 0x5a, 0xfb,
+	0xa3, 0x01, 0x45, 0xd9, 0xed, 0x19, 0x61, 0x8c, 0x86, 0x15, 0x5a, 0xe3, 0x41, 0x5d, 0x4f, 0x42,
+	0x16, 0x80, 0xe2, 0x79, 0x40, 0x9a, 0x54, 0xb6, 0x1d, 0xa9, 0xf4, 0x45, 0x90, 0x0d, 0x63, 0xea,
+	0x6b, 0x95, 0x04, 0xd4, 0x0b, 0x8b, 0x79, 0xa9, 0x48, 0xc4, 0xd0, 0x3c, 0x8c, 0xbf, 0xe9, 0x6b,
+	0xfd, 0x38, 0xf2, 0x69, 0x71, 0x48, 0xea, 0x0e, 0xc4, 0xed, 0x87, 0x30, 0x95, 0xc1, 0xa2, 0xfd,
+	0x95, 0x61, 0xb8, 0x4d, 0x58, 0x8b, 0x6a, 0x7b, 0xd3, 0xfb, 0xf6, 0xd4, 0x33, 0x3a, 0x89, 0x22,
+	0x25, 0xb5, 0xdf, 0x1b, 0x70, 0x46, 0x76, 0x5c, 0xf6, 0xc4, 0xf1, 0x5b, 0xbb, 0x08, 0x27, 0xeb,
+	0x71, 0xdf, 0x3e, 0x5f, 0xc9, 0xa0, 0x7d, 0x0f, 0x26, 0xd3, 0x08, 0xda, 0x11, 0x4e, 0x3a, 0x9a,
+	0x4a, 0x3b, 0xea, 0x55, 0x68, 0x3b, 0x2f, 0x75, 0xab, 0x5b, 0x8c, 0xa9, 0x84, 0x38, 0x46, 0x3b,
+	0xf6, 0x77, 0x03, 0xce, 0x1e, 0x68, 0xaf, 0x51, 0x57, 0xa0, 0x20, 0x11, 0xba, 0xcb, 0x35, 0x54,
+	0x1a, 0x2d, 0x2f, 0xa6, 0x97, 0xeb, 0x3f, 0x85, 0xce, 0x53, 0x59, 0x75, 0xdb, 0x0b, 0x83, 0xa8,
+	0xa2, 0x5b, 0x98, 0x6b, 0x30, 0xda, 0x17, 0x46, 0xe3, 0x30, 0xf4, 0x9a, 0x46, 0x1a, 0xba, 0xfb,
+	0x13, 0x5d, 0x8d, 0x1f, 0x26, 0x9f, 0xda, 0x64, 0xfd, 0x30, 0x89, 0x57, 0xb9, 0x99, 0xbf, 0x61,
+	0x94, 0xbf, 0x0d, 0xc3, 0xb0, 0x44, 0x40, 0xef, 0xa0, 0xa0, 0x16, 0x1d, 0xd9, 0x99, 0x8c, 0x89,
+	0x5b, 0x32, 0x67, 0x06, 0x6a, 0x94, 0x07, 0xfb, 0xca, 0x87, 0x9f, 0x7f, 0x3f, 0xe7, 0x67, 0xd1,
+	0x0c, 0x96, 0xe2, 0x6b, 0xea, 0xd5, 0x70, 0xe6, 0x8d, 0xa3, 0x1f, 0x06, 0x8c, 0xf5, 0xaf, 0x22,
+	0x2a, 0x65, 0x8e, 0xc8, 0x38, 0x37, 0xf3, 0xf2, 0x11, 0x94, 0x1a, 0x89, 0x48, 0xa4, 0x75, 0xf4,
+	0x7c, 0x20, 0x92, 0x3a, 0xb0, 0x8d, 0x40, 0xd6, 0xe2, 0xad, 0xde, 0x3e, 0x74, 0xe2, 0x0f, 0xf5,
+	0xa7, 0xef, 0xe0, 0xad, 0xf4, 0x2d, 0x76, 0xd0, 0x57, 0x03, 0x46, 0xf6, 0x37, 0x10, 0xcd, 0x66,
+	0xb2, 0xa5, 0xcf, 0xca, 0x9c, 0x3b, 0x4c, 0xa6, 0xf9, 0xd7, 0x25, 0xff, 0x13, 0xf4, 0x68, 0x20,
+	0x7f, 0xdd, 0x13, 0x47, 0x82, 0x4f, 0x1c, 0x5c, 0x07, 0x7d, 0x31, 0x00, 0x7a, 0xab, 0x88, 0xe6,
+	0x0e, 0xdd, 0x55, 0xc5, 0x7e, 0xe9, 0x88, 0x3b, 0x6d, 0xdf, 0x97, 0xf0, 0x77, 0xd0, 0xf2, 0x40,
+	0x78, 0xc2, 0x98, 0x86, 0x17, 0x83, 0xe8, 0x97, 0xee, 0x6e, 0xef, 0x5a, 0xc6, 0xce, 0xae, 0x65,
+	0xfc, 0xd9, 0xb5, 0x8c, 0x4f, 0x7b, 0x56, 0x6e, 0x67, 0xcf, 0xca, 0xfd, 0xda, 0xb3, 0x72, 0x2f,
+	0x1c, 0xb7, 0x11, 0xbe, 0x6a, 0x55, 0x9d, 0x1a, 0x6f, 0x66, 0x4d, 0x7a, 0xdb, 0x9b, 0x15, 0x46,
+	0x3e, 0x15, 0xd5, 0x82, 0xfc, 0xaf, 0xb1, 0xf8, 0x2f, 0x00, 0x00, 0xff, 0xff, 0x15, 0xb9, 0x28,
+	0xfb, 0x0a, 0x07, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -493,7 +497,7 @@ type QueryClient interface {
 	// Queries a list of DnsRecord items.
 	DnsRecord(ctx context.Context, in *QueryDnsRecordRequest, opts ...grpc.CallOption) (*QueryDnsRecordResponse, error)
 	// Queries a list of AllRecord items.
-	AllRecord(ctx context.Context, in *QueryAllRecordRequest, opts ...grpc.CallOption) (*QueryAllRecordResponse, error)
+	AllRecords(ctx context.Context, in *QueryAllRecordsRequest, opts ...grpc.CallOption) (*QueryAllRecordsResponse, error)
 }
 
 type queryClient struct {
@@ -531,9 +535,9 @@ func (c *queryClient) DnsRecord(ctx context.Context, in *QueryDnsRecordRequest, 
 	return out, nil
 }
 
-func (c *queryClient) AllRecord(ctx context.Context, in *QueryAllRecordRequest, opts ...grpc.CallOption) (*QueryAllRecordResponse, error) {
-	out := new(QueryAllRecordResponse)
-	err := c.cc.Invoke(ctx, "/mycel.resolver.Query/AllRecord", in, out, opts...)
+func (c *queryClient) AllRecords(ctx context.Context, in *QueryAllRecordsRequest, opts ...grpc.CallOption) (*QueryAllRecordsResponse, error) {
+	out := new(QueryAllRecordsResponse)
+	err := c.cc.Invoke(ctx, "/mycel.resolver.Query/AllRecords", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -549,7 +553,7 @@ type QueryServer interface {
 	// Queries a list of DnsRecord items.
 	DnsRecord(context.Context, *QueryDnsRecordRequest) (*QueryDnsRecordResponse, error)
 	// Queries a list of AllRecord items.
-	AllRecord(context.Context, *QueryAllRecordRequest) (*QueryAllRecordResponse, error)
+	AllRecords(context.Context, *QueryAllRecordsRequest) (*QueryAllRecordsResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -565,8 +569,8 @@ func (*UnimplementedQueryServer) WalletRecord(ctx context.Context, req *QueryWal
 func (*UnimplementedQueryServer) DnsRecord(ctx context.Context, req *QueryDnsRecordRequest) (*QueryDnsRecordResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DnsRecord not implemented")
 }
-func (*UnimplementedQueryServer) AllRecord(ctx context.Context, req *QueryAllRecordRequest) (*QueryAllRecordResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AllRecord not implemented")
+func (*UnimplementedQueryServer) AllRecords(ctx context.Context, req *QueryAllRecordsRequest) (*QueryAllRecordsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AllRecords not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -627,20 +631,20 @@ func _Query_DnsRecord_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_AllRecord_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryAllRecordRequest)
+func _Query_AllRecords_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllRecordsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).AllRecord(ctx, in)
+		return srv.(QueryServer).AllRecords(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mycel.resolver.Query/AllRecord",
+		FullMethod: "/mycel.resolver.Query/AllRecords",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).AllRecord(ctx, req.(*QueryAllRecordRequest))
+		return srv.(QueryServer).AllRecords(ctx, req.(*QueryAllRecordsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -662,8 +666,8 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Query_DnsRecord_Handler,
 		},
 		{
-			MethodName: "AllRecord",
-			Handler:    _Query_AllRecord_Handler,
+			MethodName: "AllRecords",
+			Handler:    _Query_AllRecords_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -884,7 +888,7 @@ func (m *QueryDnsRecordResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryAllRecordRequest) Marshal() (dAtA []byte, err error) {
+func (m *QueryAllRecordsRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -894,34 +898,34 @@ func (m *QueryAllRecordRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryAllRecordRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryAllRecordsRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryAllRecordRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryAllRecordsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if len(m.Parent) > 0 {
-		i -= len(m.Parent)
-		copy(dAtA[i:], m.Parent)
-		i = encodeVarintQuery(dAtA, i, uint64(len(m.Parent)))
+	if len(m.DomainParent) > 0 {
+		i -= len(m.DomainParent)
+		copy(dAtA[i:], m.DomainParent)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.DomainParent)))
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.Name) > 0 {
-		i -= len(m.Name)
-		copy(dAtA[i:], m.Name)
-		i = encodeVarintQuery(dAtA, i, uint64(len(m.Name)))
+	if len(m.DomainName) > 0 {
+		i -= len(m.DomainName)
+		copy(dAtA[i:], m.DomainName)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.DomainName)))
 		i--
 		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryAllRecordResponse) Marshal() (dAtA []byte, err error) {
+func (m *QueryAllRecordsResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -931,22 +935,41 @@ func (m *QueryAllRecordResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryAllRecordResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryAllRecordsResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryAllRecordResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryAllRecordsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if len(m.Value) > 0 {
-		i -= len(m.Value)
-		copy(dAtA[i:], m.Value)
-		i = encodeVarintQuery(dAtA, i, uint64(len(m.Value)))
-		i--
-		dAtA[i] = 0xa
+	if len(m.Values) > 0 {
+		for k := range m.Values {
+			v := m.Values[k]
+			baseI := i
+			if v != nil {
+				{
+					size, err := v.MarshalToSizedBuffer(dAtA[:i])
+					if err != nil {
+						return 0, err
+					}
+					i -= size
+					i = encodeVarintQuery(dAtA, i, uint64(size))
+				}
+				i--
+				dAtA[i] = 0x12
+			}
+			i -= len(k)
+			copy(dAtA[i:], k)
+			i = encodeVarintQuery(dAtA, i, uint64(len(k)))
+			i--
+			dAtA[i] = 0xa
+			i = encodeVarintQuery(dAtA, i, uint64(baseI-i))
+			i--
+			dAtA[i] = 0xa
+		}
 	}
 	return len(dAtA) - i, nil
 }
@@ -1050,32 +1073,41 @@ func (m *QueryDnsRecordResponse) Size() (n int) {
 	return n
 }
 
-func (m *QueryAllRecordRequest) Size() (n int) {
+func (m *QueryAllRecordsRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = len(m.Name)
+	l = len(m.DomainName)
 	if l > 0 {
 		n += 1 + l + sovQuery(uint64(l))
 	}
-	l = len(m.Parent)
+	l = len(m.DomainParent)
 	if l > 0 {
 		n += 1 + l + sovQuery(uint64(l))
 	}
 	return n
 }
 
-func (m *QueryAllRecordResponse) Size() (n int) {
+func (m *QueryAllRecordsResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = len(m.Value)
-	if l > 0 {
-		n += 1 + l + sovQuery(uint64(l))
+	if len(m.Values) > 0 {
+		for k, v := range m.Values {
+			_ = k
+			_ = v
+			l = 0
+			if v != nil {
+				l = v.Size()
+				l += 1 + sovQuery(uint64(l))
+			}
+			mapEntrySize := 1 + len(k) + sovQuery(uint64(len(k))) + l
+			n += mapEntrySize + 1 + sovQuery(uint64(mapEntrySize))
+		}
 	}
 	return n
 }
@@ -1683,7 +1715,7 @@ func (m *QueryDnsRecordResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryAllRecordRequest) Unmarshal(dAtA []byte) error {
+func (m *QueryAllRecordsRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1706,15 +1738,15 @@ func (m *QueryAllRecordRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryAllRecordRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryAllRecordsRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryAllRecordRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryAllRecordsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field DomainName", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1742,11 +1774,11 @@ func (m *QueryAllRecordRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Name = string(dAtA[iNdEx:postIndex])
+			m.DomainName = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Parent", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field DomainParent", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1774,7 +1806,7 @@ func (m *QueryAllRecordRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Parent = string(dAtA[iNdEx:postIndex])
+			m.DomainParent = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -1797,7 +1829,7 @@ func (m *QueryAllRecordRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryAllRecordResponse) Unmarshal(dAtA []byte) error {
+func (m *QueryAllRecordsResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1820,17 +1852,17 @@ func (m *QueryAllRecordResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryAllRecordResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryAllRecordsResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryAllRecordResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryAllRecordsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Value", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Values", wireType)
 			}
-			var stringLen uint64
+			var msglen int
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowQuery
@@ -1840,23 +1872,120 @@ func (m *QueryAllRecordResponse) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				msglen |= int(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
+			if msglen < 0 {
 				return ErrInvalidLengthQuery
 			}
-			postIndex := iNdEx + intStringLen
+			postIndex := iNdEx + msglen
 			if postIndex < 0 {
 				return ErrInvalidLengthQuery
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Value = string(dAtA[iNdEx:postIndex])
+			if m.Values == nil {
+				m.Values = make(map[string]*types.Record)
+			}
+			var mapkey string
+			var mapvalue *types.Record
+			for iNdEx < postIndex {
+				entryPreIndex := iNdEx
+				var wire uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowQuery
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					wire |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				fieldNum := int32(wire >> 3)
+				if fieldNum == 1 {
+					var stringLenmapkey uint64
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowQuery
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						stringLenmapkey |= uint64(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					intStringLenmapkey := int(stringLenmapkey)
+					if intStringLenmapkey < 0 {
+						return ErrInvalidLengthQuery
+					}
+					postStringIndexmapkey := iNdEx + intStringLenmapkey
+					if postStringIndexmapkey < 0 {
+						return ErrInvalidLengthQuery
+					}
+					if postStringIndexmapkey > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
+					iNdEx = postStringIndexmapkey
+				} else if fieldNum == 2 {
+					var mapmsglen int
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowQuery
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						mapmsglen |= int(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					if mapmsglen < 0 {
+						return ErrInvalidLengthQuery
+					}
+					postmsgIndex := iNdEx + mapmsglen
+					if postmsgIndex < 0 {
+						return ErrInvalidLengthQuery
+					}
+					if postmsgIndex > l {
+						return io.ErrUnexpectedEOF
+					}
+					mapvalue = &types.Record{}
+					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
+						return err
+					}
+					iNdEx = postmsgIndex
+				} else {
+					iNdEx = entryPreIndex
+					skippy, err := skipQuery(dAtA[iNdEx:])
+					if err != nil {
+						return err
+					}
+					if (skippy < 0) || (iNdEx+skippy) < 0 {
+						return ErrInvalidLengthQuery
+					}
+					if (iNdEx + skippy) > postIndex {
+						return io.ErrUnexpectedEOF
+					}
+					iNdEx += skippy
+				}
+			}
+			m.Values[mapkey] = mapvalue
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

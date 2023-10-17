@@ -50839,18 +50839,102 @@ paths:
           type: string
       tags:
         - Query
-  /mycel-domain/mycel/resolver/all_record/{name}/{parent}:
+  /mycel-domain/mycel/resolver/all_records/{domainName}/{domainParent}:
     get:
       summary: Queries a list of AllRecord items.
-      operationId: MycelResolverAllRecord
+      operationId: MycelResolverAllRecords
       responses:
         '200':
           description: A successful response.
           schema:
             type: object
             properties:
-              value:
-                type: string
+              values:
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    dnsRecord:
+                      type: object
+                      properties:
+                        dnsRecordType:
+                          type: string
+                          enum:
+                            - NO_RECORD_TYPE
+                            - A
+                            - AAAA
+                            - CNAME
+                            - NS
+                            - MX
+                            - PTR
+                            - SOA
+                            - SRV
+                            - TXT
+                          default: NO_RECORD_TYPE
+                        value:
+                          type: string
+                    walletRecord:
+                      type: object
+                      properties:
+                        walletRecordType:
+                          type: string
+                          enum:
+                            - NO_NETWORK
+                            - BITCOIN_MAINNET_MAINNET
+                            - BITCOIN_TESTNET_TESTNET
+                            - ETHEREUM_MAINNET_MAINNET
+                            - ETHEREUM_TESTNET_GOERLI
+                            - ETHEREUM_TESTNET_SEPOLIA
+                            - POLYGON_MAINNET_MAINNET
+                            - POLYGON_TESTNET_MUMBAI
+                            - BNB_MAINNET_MAINNET
+                            - BNB_TESTNET_TESTNET
+                            - AVALANCHE_MAINNET_CCHAIN
+                            - AVALANCHE_TESTNET_FUJI
+                            - GNOSIS_MAINNET_MAINNET
+                            - GNOSIS_TESTNET_CHIADO
+                            - OPTIMISM_MAINNET_MAINNET
+                            - OPTIMISM_TESTNET_GOERLI
+                            - ARBITRUM_MAINNET_MAINNET
+                            - ARBITRUM_TESTNET_GOERLI
+                            - SHARDEUM_BETANET_SPHINX
+                            - ZETA_TESTNET_ATHENS
+                            - APTOS_MAINNET_MAINNET
+                            - APTOS_TESTNET_TESTNET
+                            - SUI_MAINNET_MAINNET
+                            - SUI_TESTNET_TESTNET
+                            - SOLANA_MAINNET_MAINNET
+                            - SOLANA_TESTNET_TESTNET
+                          default: NO_NETWORK
+                          description: |-
+                            - BITCOIN_MAINNET_MAINNET: BTC 1xxx
+                             - ETHEREUM_MAINNET_MAINNET: EVM 2xxxx
+                            Etheruem
+                             - POLYGON_MAINNET_MAINNET: Polygon
+                             - BNB_MAINNET_MAINNET: BNB Chain
+                             - AVALANCHE_MAINNET_CCHAIN: Avalanche
+                             - GNOSIS_MAINNET_MAINNET: Gnosis
+                             - OPTIMISM_MAINNET_MAINNET: Optimism
+                             - ARBITRUM_MAINNET_MAINNET: Arbitrum
+                             - SHARDEUM_BETANET_SPHINX: Shardeum
+                            SHARDEUM_MAINNET_ = 20015;
+                            SHARDEUM_TESTNET_ = 20016;
+                             - ZETA_TESTNET_ATHENS: Zetachain
+                            ZETA_MAINNET_MAINNET = 20018;
+                             - APTOS_MAINNET_MAINNET: MOVE 3xxxx
+                            Aptos
+                             - SUI_MAINNET_MAINNET: Sui
+                             - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
+                          title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+                        value:
+                          type: string
+                    metadata:
+                      type: object
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: string
         default:
           description: An unexpected error response.
           schema:
@@ -50870,11 +50954,11 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: name
+        - name: domainName
           in: path
           required: true
           type: string
-        - name: parent
+        - name: domainParent
           in: path
           required: true
           type: string
@@ -81706,6 +81790,13 @@ definitions:
       - SRV
       - TXT
     default: NO_RECORD_TYPE
+  mycel.registry.Metadata:
+    type: object
+    properties:
+      key:
+        type: string
+      value:
+        type: string
   mycel.registry.NetworkName:
     type: string
     enum:
@@ -81756,6 +81847,90 @@ definitions:
        - SUI_MAINNET_MAINNET: Sui
        - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
     title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+  mycel.registry.Record:
+    type: object
+    properties:
+      dnsRecord:
+        type: object
+        properties:
+          dnsRecordType:
+            type: string
+            enum:
+              - NO_RECORD_TYPE
+              - A
+              - AAAA
+              - CNAME
+              - NS
+              - MX
+              - PTR
+              - SOA
+              - SRV
+              - TXT
+            default: NO_RECORD_TYPE
+          value:
+            type: string
+      walletRecord:
+        type: object
+        properties:
+          walletRecordType:
+            type: string
+            enum:
+              - NO_NETWORK
+              - BITCOIN_MAINNET_MAINNET
+              - BITCOIN_TESTNET_TESTNET
+              - ETHEREUM_MAINNET_MAINNET
+              - ETHEREUM_TESTNET_GOERLI
+              - ETHEREUM_TESTNET_SEPOLIA
+              - POLYGON_MAINNET_MAINNET
+              - POLYGON_TESTNET_MUMBAI
+              - BNB_MAINNET_MAINNET
+              - BNB_TESTNET_TESTNET
+              - AVALANCHE_MAINNET_CCHAIN
+              - AVALANCHE_TESTNET_FUJI
+              - GNOSIS_MAINNET_MAINNET
+              - GNOSIS_TESTNET_CHIADO
+              - OPTIMISM_MAINNET_MAINNET
+              - OPTIMISM_TESTNET_GOERLI
+              - ARBITRUM_MAINNET_MAINNET
+              - ARBITRUM_TESTNET_GOERLI
+              - SHARDEUM_BETANET_SPHINX
+              - ZETA_TESTNET_ATHENS
+              - APTOS_MAINNET_MAINNET
+              - APTOS_TESTNET_TESTNET
+              - SUI_MAINNET_MAINNET
+              - SUI_TESTNET_TESTNET
+              - SOLANA_MAINNET_MAINNET
+              - SOLANA_TESTNET_TESTNET
+            default: NO_NETWORK
+            description: |-
+              - BITCOIN_MAINNET_MAINNET: BTC 1xxx
+               - ETHEREUM_MAINNET_MAINNET: EVM 2xxxx
+              Etheruem
+               - POLYGON_MAINNET_MAINNET: Polygon
+               - BNB_MAINNET_MAINNET: BNB Chain
+               - AVALANCHE_MAINNET_CCHAIN: Avalanche
+               - GNOSIS_MAINNET_MAINNET: Gnosis
+               - OPTIMISM_MAINNET_MAINNET: Optimism
+               - ARBITRUM_MAINNET_MAINNET: Arbitrum
+               - SHARDEUM_BETANET_SPHINX: Shardeum
+              SHARDEUM_MAINNET_ = 20015;
+              SHARDEUM_TESTNET_ = 20016;
+               - ZETA_TESTNET_ATHENS: Zetachain
+              ZETA_MAINNET_MAINNET = 20018;
+               - APTOS_MAINNET_MAINNET: MOVE 3xxxx
+              Aptos
+               - SUI_MAINNET_MAINNET: Sui
+               - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
+            title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+          value:
+            type: string
+      metadata:
+        type: object
+        properties:
+          key:
+            type: string
+          value:
+            type: string
   mycel.registry.WalletRecord:
     type: object
     properties:
@@ -81814,11 +81989,95 @@ definitions:
   mycel.resolver.Params:
     type: object
     description: Params defines the parameters for the module.
-  mycel.resolver.QueryAllRecordResponse:
+  mycel.resolver.QueryAllRecordsResponse:
     type: object
     properties:
-      value:
-        type: string
+      values:
+        type: object
+        additionalProperties:
+          type: object
+          properties:
+            dnsRecord:
+              type: object
+              properties:
+                dnsRecordType:
+                  type: string
+                  enum:
+                    - NO_RECORD_TYPE
+                    - A
+                    - AAAA
+                    - CNAME
+                    - NS
+                    - MX
+                    - PTR
+                    - SOA
+                    - SRV
+                    - TXT
+                  default: NO_RECORD_TYPE
+                value:
+                  type: string
+            walletRecord:
+              type: object
+              properties:
+                walletRecordType:
+                  type: string
+                  enum:
+                    - NO_NETWORK
+                    - BITCOIN_MAINNET_MAINNET
+                    - BITCOIN_TESTNET_TESTNET
+                    - ETHEREUM_MAINNET_MAINNET
+                    - ETHEREUM_TESTNET_GOERLI
+                    - ETHEREUM_TESTNET_SEPOLIA
+                    - POLYGON_MAINNET_MAINNET
+                    - POLYGON_TESTNET_MUMBAI
+                    - BNB_MAINNET_MAINNET
+                    - BNB_TESTNET_TESTNET
+                    - AVALANCHE_MAINNET_CCHAIN
+                    - AVALANCHE_TESTNET_FUJI
+                    - GNOSIS_MAINNET_MAINNET
+                    - GNOSIS_TESTNET_CHIADO
+                    - OPTIMISM_MAINNET_MAINNET
+                    - OPTIMISM_TESTNET_GOERLI
+                    - ARBITRUM_MAINNET_MAINNET
+                    - ARBITRUM_TESTNET_GOERLI
+                    - SHARDEUM_BETANET_SPHINX
+                    - ZETA_TESTNET_ATHENS
+                    - APTOS_MAINNET_MAINNET
+                    - APTOS_TESTNET_TESTNET
+                    - SUI_MAINNET_MAINNET
+                    - SUI_TESTNET_TESTNET
+                    - SOLANA_MAINNET_MAINNET
+                    - SOLANA_TESTNET_TESTNET
+                  default: NO_NETWORK
+                  description: |-
+                    - BITCOIN_MAINNET_MAINNET: BTC 1xxx
+                     - ETHEREUM_MAINNET_MAINNET: EVM 2xxxx
+                    Etheruem
+                     - POLYGON_MAINNET_MAINNET: Polygon
+                     - BNB_MAINNET_MAINNET: BNB Chain
+                     - AVALANCHE_MAINNET_CCHAIN: Avalanche
+                     - GNOSIS_MAINNET_MAINNET: Gnosis
+                     - OPTIMISM_MAINNET_MAINNET: Optimism
+                     - ARBITRUM_MAINNET_MAINNET: Arbitrum
+                     - SHARDEUM_BETANET_SPHINX: Shardeum
+                    SHARDEUM_MAINNET_ = 20015;
+                    SHARDEUM_TESTNET_ = 20016;
+                     - ZETA_TESTNET_ATHENS: Zetachain
+                    ZETA_MAINNET_MAINNET = 20018;
+                     - APTOS_MAINNET_MAINNET: MOVE 3xxxx
+                    Aptos
+                     - SUI_MAINNET_MAINNET: Sui
+                     - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
+                  title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+                value:
+                  type: string
+            metadata:
+              type: object
+              properties:
+                key:
+                  type: string
+                value:
+                  type: string
   mycel.resolver.QueryDnsRecordResponse:
     type: object
     properties:
