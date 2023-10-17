@@ -49,12 +49,16 @@ func (secondLevelDomain *SecondLevelDomain) UpdateWalletRecord(walletRecordType 
 		Value:            address,
 	}
 
-	// Initialize WalletRecords map if it is nil
-	if secondLevelDomain.WalletRecords == nil {
-		secondLevelDomain.WalletRecords = make(map[string]*WalletRecord)
+	record := &Record{
+		Record: &Record_WalletRecord{WalletRecord: walletRecord},
 	}
 
-	secondLevelDomain.WalletRecords[walletRecordType] = walletRecord
+	// Initialize WalletRecords map if it is nil
+	if secondLevelDomain.Records == nil {
+		secondLevelDomain.Records = make(map[string]*Record)
+	}
+
+	secondLevelDomain.Records[walletRecordType] = record
 
 	return err
 }
@@ -89,12 +93,16 @@ func (secondLevelDomain *SecondLevelDomain) UpdateDnsRecord(dnsRecordType string
 		Value:         value,
 	}
 
-	// Initialize WalletRecords map if it is nil
-	if secondLevelDomain.DnsRecords == nil {
-		secondLevelDomain.DnsRecords = make(map[string]*DnsRecord)
+	record := &Record{
+		Record: &Record_DnsRecord{DnsRecord: dnsRecord},
 	}
 
-	secondLevelDomain.DnsRecords[dnsRecordType] = dnsRecord
+	// Initialize WalletRecords map if it is nil
+	if secondLevelDomain.Records == nil {
+		secondLevelDomain.Records = make(map[string]*Record)
+	}
+
+	secondLevelDomain.Records[dnsRecordType] = record
 
 	return err
 }
