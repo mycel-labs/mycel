@@ -97,7 +97,7 @@ func (suite *KeeperTestSuite) TestUpdateDnsRecord() {
 				// Evalute events
 				suite.Require().Nil(err)
 				res, _ := suite.app.RegistryKeeper.GetSecondLevelDomain(suite.ctx, domain.Name, domain.Parent)
-				suite.Require().Equal(tc.value, res.DnsRecords[tc.dnsRecordType].Value)
+				suite.Require().Equal(tc.value, res.Records[tc.dnsRecordType].GetDnsRecord().GetValue())
 
 				// Event check
 				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())
