@@ -96,8 +96,14 @@ message QueryGetSecondLevelDomainRequest {
   string parent = 2;
 }
 
+message SecondLevelDomainResponse {
+  string name   = 1;
+  string parent = 2;
+  int64 expirationDate = 3;
+}
+
 message QueryGetSecondLevelDomainResponse {
-  SecondLevelDomain secondLevelDomain = 1 [(gogoproto.nullable) = false];
+  SecondLevelDomainResponse secondLevelDomain = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllSecondLevelDomainRequest {
@@ -105,7 +111,7 @@ message QueryAllSecondLevelDomainRequest {
 }
 
 message QueryAllSecondLevelDomainResponse {
-  repeated SecondLevelDomain                      secondLevelDomain = 1 [(gogoproto.nullable) = false];
+  repeated SecondLevelDomainResponse              secondLevelDomain = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination        = 2;
 }
 
