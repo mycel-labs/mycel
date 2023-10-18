@@ -4,9 +4,9 @@ package types
 const (
 	EventTypeRegsterDomain = "register-domain"
 
-	AttributeRegisterSecondLevelDomainEventName           = "name"
-	AttributeRegisterSecondLevelDomainEventParent         = "parent"
-	AttributeRegisterSecondLevelDomainEventExpirationDate = "expiration-date"
+	AttributeRegisterSecondLevelDomainEventName            = "name"
+	AttributeRegisterSecondLevelDomainEventParent          = "parent"
+	AttributeRegisterSecondLevelDomainEventExpirationDate  = "expiration-date"
 	AttributeRegisterSecondLevelDomainEventRegistrationFee = "registration-fee"
 )
 
@@ -36,4 +36,12 @@ const (
 	AttributeUpdateDnsRecordEventDomainParent  = "parent"
 	AttributeUpdateDnsRecordEventDnsRecordType = "dns-record-type"
 	AttributeUpdateDnsRecordEventValue         = "value"
+)
+
+// Withdraw fees event
+const (
+	EventTypeWithdrawRegistrationFees = "withdraw-registration-fees"
+
+	AttributeWithdrawRegistrationFeesEventDomainName = "name"
+	AttributeWithdrawRegistrationFeesEventDomainFees = "fees"
 )
