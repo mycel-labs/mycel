@@ -34,6 +34,7 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdUpdateDnsRecord())
 	cmd.AddCommand(CmdRegisterDomain())
 	cmd.AddCommand(CmdRegisterTopLevelDomain())
+	cmd.AddCommand(CmdWithdrawRegistrationFee())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

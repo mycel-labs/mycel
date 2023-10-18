@@ -6,10 +6,11 @@ option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc UpdateWalletRecord     (MsgUpdateWalletRecord    ) returns (MsgUpdateWalletRecordResponse    );
-  rpc UpdateDnsRecord        (MsgUpdateDnsRecord       ) returns (MsgUpdateDnsRecordResponse       );
-  rpc RegisterDomain         (MsgRegisterDomain        ) returns (MsgRegisterDomainResponse        );
-  rpc RegisterTopLevelDomain (MsgRegisterTopLevelDomain) returns (MsgRegisterTopLevelDomainResponse);
+  rpc UpdateWalletRecord      (MsgUpdateWalletRecord     ) returns (MsgUpdateWalletRecordResponse     );
+  rpc UpdateDnsRecord         (MsgUpdateDnsRecord        ) returns (MsgUpdateDnsRecordResponse        );
+  rpc RegisterDomain          (MsgRegisterDomain         ) returns (MsgRegisterDomainResponse         );
+  rpc RegisterTopLevelDomain  (MsgRegisterTopLevelDomain ) returns (MsgRegisterTopLevelDomainResponse );
+  rpc WithdrawRegistrationFee (MsgWithdrawRegistrationFee) returns (MsgWithdrawRegistrationFeeResponse);
 }
 message MsgUpdateWalletRecord {
   string creator          = 1;
@@ -47,3 +48,11 @@ message MsgRegisterTopLevelDomain {
 }
 
 message MsgRegisterTopLevelDomainResponse {}
+
+message MsgWithdrawRegistrationFee {
+  string creator = 1;
+  string name    = 2;
+}
+
+message MsgWithdrawRegistrationFeeResponse {}
+

@@ -50393,6 +50393,24 @@ paths:
                           - OWNER
                           - EDITOR
                         default: NO_ROLE
+                    registrationFees:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          denom:
+                            type: string
+                          amount:
+                            type: string
+                        description: >-
+                          Coin defines a token with a denomination and an
+                          amount.
+
+
+                          NOTE: The amount field is an Int which implements the
+                          custom method
+
+                          signatures required by gogoproto.
               pagination:
                 type: object
                 properties:
@@ -50603,6 +50621,23 @@ paths:
                         - OWNER
                         - EDITOR
                       default: NO_ROLE
+                  registrationFees:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        denom:
+                          type: string
+                        amount:
+                          type: string
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
         default:
           description: An unexpected error response.
           schema:
@@ -81151,6 +81186,8 @@ definitions:
     type: object
   mycel.registry.MsgUpdateWalletRecordResponse:
     type: object
+  mycel.registry.MsgWithdrawRegistrationFeeResponse:
+    type: object
   mycel.registry.OwnedDomain:
     type: object
     properties:
@@ -81346,6 +81383,23 @@ definitions:
                   - OWNER
                   - EDITOR
                 default: NO_ROLE
+            registrationFees:
+              type: array
+              items:
+                type: object
+                properties:
+                  denom:
+                    type: string
+                  amount:
+                    type: string
+                description: >-
+                  Coin defines a token with a denomination and an amount.
+
+
+                  NOTE: The amount field is an Int which implements the custom
+                  method
+
+                  signatures required by gogoproto.
       pagination:
         type: object
         properties:
@@ -81514,6 +81568,23 @@ definitions:
                 - OWNER
                 - EDITOR
               default: NO_ROLE
+          registrationFees:
+            type: array
+            items:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
   mycel.registry.QueryIsRegistrableDomainResponse:
     type: object
     properties:
@@ -81757,6 +81828,20 @@ definitions:
             - OWNER
             - EDITOR
           default: NO_ROLE
+      registrationFees:
+        type: array
+        items:
+          type: object
+          properties:
+            denom:
+              type: string
+            amount:
+              type: string
+          description: |-
+            Coin defines a token with a denomination and an amount.
+
+            NOTE: The amount field is an Int which implements the custom method
+            signatures required by gogoproto.
   mycel.registry.DnsRecord:
     type: object
     properties:
