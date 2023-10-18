@@ -4,11 +4,11 @@ import (
 	"errors"
 	"fmt"
 
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/mycel-domain/mycel/testutil"
 	"github.com/mycel-domain/mycel/x/registry/types"
 
 	errorsmod "cosmossdk.io/errors"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
@@ -85,23 +85,20 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 				RegistrationPeriodInYear: tc.registrationPeriodInYear,
 			}
 
-			// domain := &types.SecondLevelDomain{
-			// 	Name:   tc.name,
-			// 	Parent: tc.parent,
-			// }
-			// parentsName := domain.ParseParent()
-			// parent, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, parentsName)
-			// suite.Require().True(found)
-			// beforeSubdomainCount := parent.SubdomainCount
-
 			// Run test case function
 			tc.fn()
 
-			// Register domain
-			_, err := suite.msgServer.RegisterSecondLevelDomain(suite.ctx, registerMsg)
-			fmt.Println("----Case_", i, "---01", err)
+			if tc.expErr == nil {
+				beforeParent, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, tc.parent)
+				suite.Require().True(found)
 
-			if err == nil {
+				moduleAddress := authtypes.NewModuleAddress(types.ModuleName)
+				beforeModuleBalance := suite.app.BankKeeper.GetBalance(suite.ctx, moduleAddress, types.MycelDenom)
+
+				// Register second level domain
+				_, err := suite.msgServer.RegisterSecondLevelDomain(suite.ctx, registerMsg)
+				suite.Require().Nil(err)
+
 				// Evalute domain ownership
 				domainOwnership, found := suite.app.RegistryKeeper.GetDomainOwnership(suite.ctx, tc.creator)
 				suite.Require().True(found)
@@ -112,25 +109,33 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 				suite.Require().True(found)
 				suite.Require().Equal(domain.AccessControl[tc.creator], types.DomainRole_OWNER)
 
-				// // Evalute if parent's subdomainCount is increased
-				// parent, found = suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, parentsName)
-				// suite.Require().True(found)
-				// afterSubdomainCount := parent.SubdomainCount
-				// suite.Require().Equal(beforeSubdomainCount+1, afterSubdomainCount)
+				// Evalute if parent's subdomainCount is increased
+				afterParent, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, tc.parent)
+				suite.Require().True(found)
+				suite.Require().Equal(beforeParent.SubdomainCount+1, afterParent.SubdomainCount)
+
+				// Evalute if module account balance is increased
+				// Get registration fee
+				config := suite.app.RegistryKeeper.GetParentsSubdomainConfig(suite.ctx, domain)
+				fee, err := config.GetRegistrationFee(tc.name, tc.registrationPeriodInYear)
+				suite.Require().Nil(err)
+
+				afterModuleBalance := suite.app.BankKeeper.GetBalance(suite.ctx, moduleAddress, types.MycelDenom)
+				suite.Require().Equal(beforeModuleBalance.Add(*fee), afterModuleBalance)
+				suite.Require().Equal(beforeParent.RegistrationFees.Add(*fee), afterParent.RegistrationFees)
 
 				// Evalute events
 				suite.Require().Nil(err)
-				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())
-				eventIndex := len(events) - 1
-				suite.Require().EqualValues(sdk.StringEvent{
-					Type: types.EventTypeRegsterDomain,
-					Attributes: []sdk.Attribute{
-						{Key: types.AttributeRegisterSecondLevelDomainEventName, Value: tc.name},
-						{Key: types.AttributeRegisterSecondLevelDomainEventParent, Value: tc.parent},
-						{Key: types.AttributeRegisterSecondLevelDomainEventExpirationDate, Value: events[eventIndex].Attributes[2].Value},
-					},
-				}, events[eventIndex])
+				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeRegsterDomain)
+				suite.Require().True(found)
+				for _, event := range events {
+					suite.Require().Equal(tc.name, event.Attributes[0].Value)
+					suite.Require().Equal(tc.parent, event.Attributes[1].Value)
+					suite.Require().Equal(fee.String(), event.Attributes[3].Value)
+				}
 			} else {
+				// Register second level domain
+				_, err := suite.msgServer.RegisterSecondLevelDomain(suite.ctx, registerMsg)
 				suite.Require().EqualError(err, tc.expErr.Error())
 			}
 

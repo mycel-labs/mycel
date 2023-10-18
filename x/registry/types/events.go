@@ -1,12 +1,13 @@
 package types
 
-// Register domain event
+// Register second-level-domain event
 const (
 	EventTypeRegsterDomain = "register-domain"
 
 	AttributeRegisterSecondLevelDomainEventName           = "name"
 	AttributeRegisterSecondLevelDomainEventParent         = "parent"
 	AttributeRegisterSecondLevelDomainEventExpirationDate = "expiration-date"
+	AttributeRegisterSecondLevelDomainEventRegistrationFee = "registration-fee"
 )
 
 // Register top-level-domain event

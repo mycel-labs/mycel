@@ -28,17 +28,26 @@ func (k Keeper) GetParentsSubdomainConfig(ctx sdk.Context, domain types.SecondLe
 }
 
 // Pay SLD registration fee
-func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.SecondLevelDomain, registrationPeriodInYear uint64) (err error) {
+func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.SecondLevelDomain, registrationPeriodInYear uint64) (fee *sdk.Coin, err error) {
 	config := k.GetParentsSubdomainConfig(ctx, domain)
 
-	fee, err := config.GetRegistrationFee(domain.Name, registrationPeriodInYear)
+	fee, err = config.GetRegistrationFee(domain.Name, registrationPeriodInYear)
 	if err != nil {
-		return err
+		return fee, err
 	}
 
-	// TODO: Pay fee
-	fee = fee
-	return err
+	// Send coins from payer to module account
+	k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, types.ModuleName, sdk.NewCoins(*fee))
+
+	// Update store
+	parent, found := k.GetTopLevelDomain(ctx, domain.Parent)
+	if !found {
+		panic("parent not found")
+	}
+	parent.RegistrationFees = parent.RegistrationFees.Add(*fee)
+	k.SetTopLevelDomain(ctx, parent)
+
+	return fee, err
 }
 
 func (k Keeper) AppendToOwnedDomain(ctx sdk.Context, owner string, name string, parent string) {
@@ -89,8 +98,9 @@ func (k Keeper) RegisterSecondLevelDomain(ctx sdk.Context, domain types.SecondLe
 
 	// Increment parents subdomain SubdomainCount
 	k.IncrementParentsSubdomainCount(ctx, domain)
+
 	// Pay SLD registration fee
-	err = k.PaySLDRegstrationFee(ctx, owner, domain, registrationPeriodIYear)
+	fee, err := k.PaySLDRegstrationFee(ctx, owner, domain, registrationPeriodIYear)
 	if err != nil {
 		return err
 	}
@@ -107,6 +117,7 @@ func (k Keeper) RegisterSecondLevelDomain(ctx sdk.Context, domain types.SecondLe
 			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventName, domain.Name),
 			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventParent, domain.Parent),
 			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventExpirationDate, strconv.FormatInt(domain.ExpirationDate, 10)),
+			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventRegistrationFee, fee.String()),
 		),
 	)
 
