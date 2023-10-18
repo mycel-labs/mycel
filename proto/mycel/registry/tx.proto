@@ -58,7 +58,7 @@ message MsgWithdrawRegistrationFee {
 }
 
 message MsgWithdrawRegistrationFeeResponse {
-  repeated cosmos.base.v1beta1.Coin registrationFees = 7 [
+  repeated cosmos.base.v1beta1.Coin registrationFee = 7 [
     (gogoproto.nullable) = false,
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
   ];

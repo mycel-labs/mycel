@@ -24,7 +24,7 @@ func (suite *KeeperTestSuite) TestWithdrawRegistrationFee() {
 		{
 			withdrawer:         testutil.Bob,
 			topLevelDomainName: "bar",
-			expErr:             errorsmod.Wrapf(types.ErrNoPermissionToWithdrawFees, "%s", testutil.Bob),
+			expErr:             errorsmod.Wrapf(types.ErrNoPermissionToWithdrawFee, "%s", testutil.Bob),
 		},
 	}
 
@@ -67,16 +67,16 @@ func (suite *KeeperTestSuite) TestWithdrawRegistrationFee() {
 				suite.Require().Nil(err)
 
 				// Check event
-				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeWithdrawRegistrationFees)
+				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeWithdrawRegistrationFee)
 				suite.Require().True(found)
 				for _, event := range events {
 					suite.Require().Equal(tc.topLevelDomainName, event.Attributes[0].Value)
-					suite.Require().Equal(fees.RegistrationFees.String(), event.Attributes[1].Value)
+					suite.Require().Equal(fees.RegistrationFee.String(), event.Attributes[1].Value)
 				}
 
 				// Check balance
 				afterBalance := suite.app.BankKeeper.GetAllBalances(suite.ctx, withdrawerAddress)
-				suite.Require().Equal(beforeBalance.Add(fees.RegistrationFees...), afterBalance)
+				suite.Require().Equal(beforeBalance.Add(fees.RegistrationFee...), afterBalance)
 			} else {
 				suite.Require().EqualError(err, tc.expErr.Error())
 			}

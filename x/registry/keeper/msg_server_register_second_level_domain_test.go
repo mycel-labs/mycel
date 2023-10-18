@@ -122,7 +122,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 
 				afterModuleBalance := suite.app.BankKeeper.GetBalance(suite.ctx, moduleAddress, types.MycelDenom)
 				suite.Require().Equal(beforeModuleBalance.Add(*fee), afterModuleBalance)
-				suite.Require().Equal(beforeParent.RegistrationFees.Add(*fee), afterParent.RegistrationFees)
+				suite.Require().Equal(beforeParent.RegistrationFee.Add(*fee), afterParent.RegistrationFee)
 
 				// Evalute events
 				suite.Require().Nil(err)

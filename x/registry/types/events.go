@@ -40,8 +40,8 @@ const (
 
 // Withdraw fees event
 const (
-	EventTypeWithdrawRegistrationFees = "withdraw-registration-fees"
+	EventTypeWithdrawRegistrationFee = "withdraw-registration-fees"
 
-	AttributeWithdrawRegistrationFeesEventDomainName = "name"
-	AttributeWithdrawRegistrationFeesEventDomainFees = "fees"
+	AttributeWithdrawRegistrationFeeEventDomainName = "name"
+	AttributeWithdrawRegistrationFeeEventDomainFee = "fee"
 )

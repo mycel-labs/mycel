@@ -25,6 +25,6 @@ var (
 	ErrInvalidRegistrationPeriod    = errorsmod.Register(ModuleName, 1114, "invalid registration period")
 	ErrDomainExpired                = errorsmod.Register(ModuleName, 1115, "domain expired")
 	ErrNoEnoughBalance              = errorsmod.Register(ModuleName, 1116, "no enough balance")
-	ErrNoPermissionToWithdrawFees   = errorsmod.Register(ModuleName, 1117, "no permission to withdraw fees")
-	ErrNoRegistrationFeesToWithdraw = errorsmod.Register(ModuleName, 1118, "no registration fees to withdraw")
+	ErrNoPermissionToWithdrawFee   = errorsmod.Register(ModuleName, 1117, "no permission to withdraw fee")
+	ErrNoRegistrationFeeToWithdraw = errorsmod.Register(ModuleName, 1118, "no registration fee to withdraw")
 )
