@@ -46,7 +46,7 @@ func TestShowBurnAmount(t *testing.T) {
 		fmt.Sprintf("--%s=json", tmcli.OutputFlag),
 	}
 	tests := []struct {
-		desc         string
+		desc    string
 		idIndex uint64
 
 		args []string
@@ -54,14 +54,14 @@ func TestShowBurnAmount(t *testing.T) {
 		obj  types.BurnAmount
 	}{
 		{
-			desc:         "found",
+			desc:    "found",
 			idIndex: objs[0].Index,
 
 			args: common,
 			obj:  objs[0],
 		},
 		{
-			desc:         "not found",
+			desc:    "not found",
 			idIndex: 100000,
 
 			args: common,

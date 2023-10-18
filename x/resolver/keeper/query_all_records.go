@@ -7,25 +7,17 @@ import (
 	"github.com/mycel-domain/mycel/x/resolver/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-
-	registrytypes "github.com/mycel-domain/mycel/x/registry/types"
 )
 
-func (k Keeper) DnsRecord(goCtx context.Context, req *types.QueryDnsRecordRequest) (*types.QueryDnsRecordResponse, error) {
+func (k Keeper) AllRecords(goCtx context.Context, req *types.QueryAllRecordsRequest) (*types.QueryAllRecordsResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// Validate request parameters
-	err := registrytypes.ValidateDnsRecordType(req.DnsRecordType)
-	if err != nil {
-		return nil, err
-	}
-
 	// Query domain record
-	_, err = k.registryKeeper.GetValidTopLevelDomain(ctx, req.DomainParent)
+	_, err := k.registryKeeper.GetValidTopLevelDomain(ctx, req.DomainParent)
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +26,7 @@ func (k Keeper) DnsRecord(goCtx context.Context, req *types.QueryDnsRecordReques
 		return nil, err
 	}
 
-	value := secondLevelDomain.Records[req.DnsRecordType].GetDnsRecord()
+	values := secondLevelDomain.Records
 
-	return &types.QueryDnsRecordResponse{Value: value}, nil
+	return &types.QueryAllRecordsResponse{Values: values}, nil
 }

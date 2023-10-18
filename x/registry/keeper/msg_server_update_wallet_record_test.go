@@ -116,7 +116,7 @@ func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 				// Evalute events
 				suite.Require().Nil(err)
 				res, _ := suite.app.RegistryKeeper.GetSecondLevelDomain(suite.ctx, domain.Name, domain.Parent)
-				suite.Require().Equal(tc.value, res.WalletRecords[tc.walletRecordType].Value)
+				suite.Require().Equal(tc.value, res.Records[tc.walletRecordType].GetWalletRecord().GetValue())
 
 				// Event check
 				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())

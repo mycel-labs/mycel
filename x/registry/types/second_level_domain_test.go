@@ -149,7 +149,7 @@ func TestDomainUpdateWalletRecord(t *testing.T) {
 		err := domain.UpdateWalletRecord(tc.walletRecordType, tc.address)
 		if tc.expErr == "" {
 			require.Nil(t, err)
-			require.Equal(t, tc.address, domain.WalletRecords[tc.walletRecordType].Value)
+			require.Equal(t, tc.address, domain.Records[tc.walletRecordType].GetWalletRecord().GetValue())
 		} else {
 			require.EqualError(t, err, tc.expErr)
 		}
@@ -192,7 +192,7 @@ func TestDomainUpdateDnsRecord(t *testing.T) {
 		err := domain.UpdateDnsRecord(tc.dnsRecordType, tc.value)
 		if tc.expErr == "" {
 			require.Nil(t, err)
-			require.Equal(t, tc.value, domain.DnsRecords[tc.dnsRecordType].Value)
+			require.Equal(t, tc.value, domain.Records[tc.dnsRecordType].GetDnsRecord().GetValue())
 		} else {
 			require.EqualError(t, err, tc.expErr)
 		}

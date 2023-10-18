@@ -34,5 +34,7 @@ func (k Keeper) WalletRecord(goCtx context.Context, req *types.QueryWalletRecord
 		return nil, err
 	}
 
-	return &types.QueryWalletRecordResponse{Value: secondLevelDomain.WalletRecords[req.WalletRecordType]}, nil
+	value := secondLevelDomain.Records[req.WalletRecordType].GetWalletRecord()
+
+	return &types.QueryWalletRecordResponse{Value: value}, nil
 }

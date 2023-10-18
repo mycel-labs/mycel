@@ -30,6 +30,12 @@ service Query {
     option (google.api.http).get = "/mycel-domain/mycel/resolver/dns_record/{domainName}/{domainParent}/{dnsRecordType}";
   
   }
+  
+  // Queries a list of AllRecord items.
+  rpc AllRecords (QueryAllRecordsRequest) returns (QueryAllRecordsResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/resolver/all_records/{domainName}/{domainParent}";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -52,12 +58,21 @@ message QueryWalletRecordResponse {
 }
 
 message QueryDnsRecordRequest {
-  string domainName          = 1;
-  string domainParent        = 2;
+  string domainName    = 1;
+  string domainParent  = 2;
   string dnsRecordType = 3;
 }
 
 message QueryDnsRecordResponse {
- mycel.registry.DnsRecord value = 1;
+  mycel.registry.DnsRecord value = 1;
+}
+
+message QueryAllRecordsRequest {
+  string domainName   = 1;
+  string domainParent = 2;
+}
+
+message QueryAllRecordsResponse {
+  map<string, mycel.registry.Record> values = 1;
 }
 

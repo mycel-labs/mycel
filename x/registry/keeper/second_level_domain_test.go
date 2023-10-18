@@ -19,7 +19,7 @@ import (
 // Prevent strconv unused error
 var _ = strconv.IntSize
 
-func createNDomain(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.SecondLevelDomain {
+func createNSecondLevelDomain(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.SecondLevelDomain {
 	items := make([]types.SecondLevelDomain, n)
 	for i := range items {
 		items[i].Name = strconv.Itoa(i)
@@ -30,9 +30,20 @@ func createNDomain(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.Second
 	return items
 }
 
-func TestDomainGet(t *testing.T) {
+func createNSecondLevelDomainResponse(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.SecondLevelDomainResponse {
+	items := createNSecondLevelDomain(keeper, ctx, n)
+	responses := make([]types.SecondLevelDomainResponse, n)
+	for i := range responses {
+		responses[i].Name = items[i].Name
+		responses[i].Parent = items[i].Parent
+		responses[i].ExpirationDate = items[i].ExpirationDate
+	}
+	return responses
+}
+
+func TestSecondLevelDomainGet(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
-	items := createNDomain(keeper, ctx, 10)
+	items := createNSecondLevelDomain(keeper, ctx, 10)
 	for _, item := range items {
 		rst, found := keeper.GetSecondLevelDomain(ctx,
 			item.Name,
@@ -45,9 +56,9 @@ func TestDomainGet(t *testing.T) {
 		)
 	}
 }
-func TestDomainRemove(t *testing.T) {
+func TestSecondLevelDomainRemove(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
-	items := createNDomain(keeper, ctx, 10)
+	items := createNSecondLevelDomain(keeper, ctx, 10)
 	for _, item := range items {
 		keeper.RemoveSecondLevelDomain(ctx,
 			item.Name,
@@ -63,7 +74,7 @@ func TestDomainRemove(t *testing.T) {
 
 func TestDomainGetAll(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
-	items := createNDomain(keeper, ctx, 10)
+	items := createNSecondLevelDomain(keeper, ctx, 10)
 	require.ElementsMatch(t,
 		nullify.Fill(items),
 		nullify.Fill(keeper.GetAllSecondLevelDomain(ctx)),

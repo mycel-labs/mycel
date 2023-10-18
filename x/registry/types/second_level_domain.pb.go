@@ -126,22 +126,171 @@ func (m *WalletRecord) GetValue() string {
 	return ""
 }
 
+type Metadata struct {
+	Key   string `protobuf:"bytes,1,opt,name=key,proto3" json:"key,omitempty"`
+	Value string `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+}
+
+func (m *Metadata) Reset()         { *m = Metadata{} }
+func (m *Metadata) String() string { return proto.CompactTextString(m) }
+func (*Metadata) ProtoMessage()    {}
+func (*Metadata) Descriptor() ([]byte, []int) {
+	return fileDescriptor_71a2ae6361ebd509, []int{2}
+}
+func (m *Metadata) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *Metadata) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_Metadata.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *Metadata) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Metadata.Merge(m, src)
+}
+func (m *Metadata) XXX_Size() int {
+	return m.Size()
+}
+func (m *Metadata) XXX_DiscardUnknown() {
+	xxx_messageInfo_Metadata.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Metadata proto.InternalMessageInfo
+
+func (m *Metadata) GetKey() string {
+	if m != nil {
+		return m.Key
+	}
+	return ""
+}
+
+func (m *Metadata) GetValue() string {
+	if m != nil {
+		return m.Value
+	}
+	return ""
+}
+
+type Record struct {
+	// Types that are valid to be assigned to Record:
+	//
+	//	*Record_DnsRecord
+	//	*Record_WalletRecord
+	//	*Record_Metadata
+	Record isRecord_Record `protobuf_oneof:"record"`
+}
+
+func (m *Record) Reset()         { *m = Record{} }
+func (m *Record) String() string { return proto.CompactTextString(m) }
+func (*Record) ProtoMessage()    {}
+func (*Record) Descriptor() ([]byte, []int) {
+	return fileDescriptor_71a2ae6361ebd509, []int{3}
+}
+func (m *Record) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *Record) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_Record.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *Record) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Record.Merge(m, src)
+}
+func (m *Record) XXX_Size() int {
+	return m.Size()
+}
+func (m *Record) XXX_DiscardUnknown() {
+	xxx_messageInfo_Record.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Record proto.InternalMessageInfo
+
+type isRecord_Record interface {
+	isRecord_Record()
+	MarshalTo([]byte) (int, error)
+	Size() int
+}
+
+type Record_DnsRecord struct {
+	DnsRecord *DnsRecord `protobuf:"bytes,1,opt,name=dnsRecord,proto3,oneof" json:"dnsRecord,omitempty"`
+}
+type Record_WalletRecord struct {
+	WalletRecord *WalletRecord `protobuf:"bytes,2,opt,name=walletRecord,proto3,oneof" json:"walletRecord,omitempty"`
+}
+type Record_Metadata struct {
+	Metadata *Metadata `protobuf:"bytes,3,opt,name=metadata,proto3,oneof" json:"metadata,omitempty"`
+}
+
+func (*Record_DnsRecord) isRecord_Record()    {}
+func (*Record_WalletRecord) isRecord_Record() {}
+func (*Record_Metadata) isRecord_Record()     {}
+
+func (m *Record) GetRecord() isRecord_Record {
+	if m != nil {
+		return m.Record
+	}
+	return nil
+}
+
+func (m *Record) GetDnsRecord() *DnsRecord {
+	if x, ok := m.GetRecord().(*Record_DnsRecord); ok {
+		return x.DnsRecord
+	}
+	return nil
+}
+
+func (m *Record) GetWalletRecord() *WalletRecord {
+	if x, ok := m.GetRecord().(*Record_WalletRecord); ok {
+		return x.WalletRecord
+	}
+	return nil
+}
+
+func (m *Record) GetMetadata() *Metadata {
+	if x, ok := m.GetRecord().(*Record_Metadata); ok {
+		return x.Metadata
+	}
+	return nil
+}
+
+// XXX_OneofWrappers is for the internal use of the proto package.
+func (*Record) XXX_OneofWrappers() []interface{} {
+	return []interface{}{
+		(*Record_DnsRecord)(nil),
+		(*Record_WalletRecord)(nil),
+		(*Record_Metadata)(nil),
+	}
+}
+
 type SecondLevelDomain struct {
-	Name           string                   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Parent         string                   `protobuf:"bytes,2,opt,name=parent,proto3" json:"parent,omitempty"`
-	Owner          string                   `protobuf:"bytes,3,opt,name=owner,proto3" json:"owner,omitempty"`
-	ExpirationDate int64                    `protobuf:"varint,4,opt,name=expirationDate,proto3" json:"expirationDate,omitempty"`
-	DnsRecords     map[string]*DnsRecord    `protobuf:"bytes,5,rep,name=dnsRecords,proto3" json:"dnsRecords,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	WalletRecords  map[string]*WalletRecord `protobuf:"bytes,6,rep,name=walletRecords,proto3" json:"walletRecords,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Metadata       map[string]string        `protobuf:"bytes,7,rep,name=metadata,proto3" json:"metadata,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	AccessControl  map[string]DomainRole    `protobuf:"bytes,8,rep,name=accessControl,proto3" json:"accessControl,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=mycel.registry.DomainRole"`
+	Name           string                `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Parent         string                `protobuf:"bytes,2,opt,name=parent,proto3" json:"parent,omitempty"`
+	Owner          string                `protobuf:"bytes,3,opt,name=owner,proto3" json:"owner,omitempty"`
+	ExpirationDate int64                 `protobuf:"varint,4,opt,name=expirationDate,proto3" json:"expirationDate,omitempty"`
+	Records        map[string]*Record    `protobuf:"bytes,5,rep,name=records,proto3" json:"records,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	AccessControl  map[string]DomainRole `protobuf:"bytes,6,rep,name=accessControl,proto3" json:"accessControl,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=mycel.registry.DomainRole"`
 }
 
 func (m *SecondLevelDomain) Reset()         { *m = SecondLevelDomain{} }
 func (m *SecondLevelDomain) String() string { return proto.CompactTextString(m) }
 func (*SecondLevelDomain) ProtoMessage()    {}
 func (*SecondLevelDomain) Descriptor() ([]byte, []int) {
-	return fileDescriptor_71a2ae6361ebd509, []int{2}
+	return fileDescriptor_71a2ae6361ebd509, []int{4}
 }
 func (m *SecondLevelDomain) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -198,23 +347,9 @@ func (m *SecondLevelDomain) GetExpirationDate() int64 {
 	return 0
 }
 
-func (m *SecondLevelDomain) GetDnsRecords() map[string]*DnsRecord {
+func (m *SecondLevelDomain) GetRecords() map[string]*Record {
 	if m != nil {
-		return m.DnsRecords
-	}
-	return nil
-}
-
-func (m *SecondLevelDomain) GetWalletRecords() map[string]*WalletRecord {
-	if m != nil {
-		return m.WalletRecords
-	}
-	return nil
-}
-
-func (m *SecondLevelDomain) GetMetadata() map[string]string {
-	if m != nil {
-		return m.Metadata
+		return m.Records
 	}
 	return nil
 }
@@ -229,11 +364,11 @@ func (m *SecondLevelDomain) GetAccessControl() map[string]DomainRole {
 func init() {
 	proto.RegisterType((*DnsRecord)(nil), "mycel.registry.DnsRecord")
 	proto.RegisterType((*WalletRecord)(nil), "mycel.registry.WalletRecord")
+	proto.RegisterType((*Metadata)(nil), "mycel.registry.Metadata")
+	proto.RegisterType((*Record)(nil), "mycel.registry.Record")
 	proto.RegisterType((*SecondLevelDomain)(nil), "mycel.registry.SecondLevelDomain")
 	proto.RegisterMapType((map[string]DomainRole)(nil), "mycel.registry.SecondLevelDomain.AccessControlEntry")
-	proto.RegisterMapType((map[string]*DnsRecord)(nil), "mycel.registry.SecondLevelDomain.DnsRecordsEntry")
-	proto.RegisterMapType((map[string]string)(nil), "mycel.registry.SecondLevelDomain.MetadataEntry")
-	proto.RegisterMapType((map[string]*WalletRecord)(nil), "mycel.registry.SecondLevelDomain.WalletRecordsEntry")
+	proto.RegisterMapType((map[string]*Record)(nil), "mycel.registry.SecondLevelDomain.RecordsEntry")
 }
 
 func init() {
@@ -241,40 +376,41 @@ func init() {
 }
 
 var fileDescriptor_71a2ae6361ebd509 = []byte{
-	// 524 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x94, 0xc1, 0x6e, 0xd3, 0x40,
-	0x10, 0x86, 0xeb, 0xa6, 0x0d, 0xcd, 0x96, 0x84, 0xb2, 0x42, 0xc8, 0x0d, 0x60, 0x42, 0x0f, 0xc8,
-	0x17, 0x6c, 0x30, 0x1c, 0x10, 0x9c, 0xa0, 0x41, 0x20, 0x01, 0x95, 0x30, 0x48, 0xa0, 0x0a, 0x11,
-	0x6d, 0xed, 0xa1, 0x58, 0xb5, 0x77, 0xad, 0xdd, 0x6d, 0x53, 0xbf, 0x05, 0xcf, 0xc1, 0x93, 0x70,
-	0xec, 0x91, 0x23, 0x4a, 0x5e, 0x04, 0x79, 0xbd, 0x6d, 0xd7, 0x76, 0xaa, 0x72, 0xdb, 0x49, 0xe6,
-	0xff, 0x66, 0xe6, 0xf7, 0x68, 0x90, 0x9b, 0x15, 0x11, 0xa4, 0x3e, 0x87, 0xfd, 0x44, 0x48, 0x5e,
-	0xf8, 0x02, 0x22, 0x46, 0xe3, 0x49, 0x0a, 0x47, 0x90, 0x4e, 0x62, 0x96, 0x91, 0x84, 0x7a, 0x39,
-	0x67, 0x92, 0xe1, 0x81, 0xca, 0xf4, 0x4e, 0x33, 0x87, 0x77, 0x1b, 0xca, 0x98, 0x8a, 0x09, 0x87,
-	0x88, 0xf1, 0xb8, 0x12, 0x0c, 0xef, 0x35, 0x12, 0x28, 0xc8, 0x29, 0xe3, 0x07, 0x13, 0x4a, 0x32,
-	0xd0, 0x29, 0x9b, 0x8d, 0x14, 0xce, 0x52, 0xfd, 0xd7, 0xd6, 0x77, 0xd4, 0x1b, 0x53, 0x11, 0x2a,
-	0x20, 0xde, 0x46, 0xfd, 0xf8, 0x34, 0xf8, 0x54, 0xe4, 0x60, 0x5b, 0x23, 0xcb, 0x1d, 0x04, 0x77,
-	0xbc, 0x7a, 0x4f, 0xde, 0xd8, 0x4c, 0x0a, 0xeb, 0x1a, 0x7c, 0x03, 0xad, 0x1e, 0x91, 0xf4, 0x10,
-	0xec, 0xe5, 0x91, 0xe5, 0xf6, 0xc2, 0x2a, 0xd8, 0xca, 0xd0, 0xd5, 0xcf, 0x24, 0x4d, 0x41, 0xea,
-	0x52, 0xaf, 0xd1, 0xc6, 0xd4, 0x88, 0x8d, 0x6a, 0xb7, 0x9a, 0xd5, 0x76, 0xaa, 0x81, 0x76, 0x48,
-	0x06, 0x61, 0x4b, 0x74, 0x41, 0xb9, 0x5f, 0x5d, 0x74, 0xfd, 0xa3, 0xf2, 0xf8, 0x5d, 0x69, 0xf1,
-	0x58, 0x39, 0x8c, 0x31, 0x5a, 0x29, 0x5d, 0x51, 0x85, 0x7a, 0xa1, 0x7a, 0xe3, 0x9b, 0xa8, 0x9b,
-	0x13, 0x0e, 0x54, 0x6a, 0x80, 0x8e, 0x4a, 0x2e, 0x9b, 0x52, 0xe0, 0x76, 0xa7, 0xe2, 0xaa, 0x00,
-	0xdf, 0x47, 0x03, 0x38, 0xce, 0x13, 0x4e, 0x64, 0xc2, 0xe8, 0x98, 0x48, 0xb0, 0x57, 0x46, 0x96,
-	0xdb, 0x09, 0x1b, 0xbf, 0xe2, 0x0f, 0x08, 0x9d, 0xb9, 0x22, 0xec, 0xd5, 0x51, 0xc7, 0x5d, 0x0f,
-	0x1e, 0x35, 0x07, 0x6b, 0x35, 0x78, 0x6e, 0xac, 0x78, 0x45, 0x25, 0x2f, 0x42, 0x03, 0x82, 0x77,
-	0x51, 0xdf, 0x1c, 0x5e, 0xd8, 0x5d, 0x45, 0x7d, 0x72, 0x39, 0xd5, 0x34, 0x5e, 0x83, 0xeb, 0x28,
-	0xfc, 0x16, 0xad, 0x65, 0x20, 0x49, 0x4c, 0x24, 0xb1, 0xaf, 0x28, 0xac, 0x7f, 0x39, 0xf6, 0xbd,
-	0x56, 0x54, 0xc4, 0x33, 0x40, 0xd9, 0x28, 0x89, 0x22, 0x10, 0x62, 0x9b, 0x51, 0xc9, 0x59, 0x6a,
-	0xaf, 0xfd, 0x6f, 0xa3, 0x2f, 0x4c, 0x99, 0x6e, 0xb4, 0x86, 0x1a, 0x7e, 0x41, 0xd7, 0x1a, 0x1e,
-	0xe1, 0x0d, 0xd4, 0x39, 0x80, 0x42, 0x7f, 0xd3, 0xf2, 0x89, 0x7d, 0x73, 0x25, 0xd6, 0x83, 0xcd,
-	0x0b, 0xd7, 0x57, 0x6f, 0xcb, 0xb3, 0xe5, 0xa7, 0xd6, 0xf0, 0x1b, 0xc2, 0x6d, 0x9f, 0x16, 0xc0,
-	0x83, 0x3a, 0xfc, 0x76, 0x13, 0x6e, 0x42, 0x4c, 0xfe, 0x73, 0xd4, 0xaf, 0x19, 0xb6, 0x00, 0xbd,
-	0x70, 0x95, 0x95, 0xf8, 0x2b, 0xc2, 0x6d, 0x6f, 0x16, 0x10, 0x1e, 0x9a, 0x84, 0x41, 0x30, 0x6c,
-	0x4d, 0xae, 0x7c, 0x0e, 0x59, 0x0a, 0x06, 0xfd, 0xe5, 0x9b, 0xdf, 0x33, 0xc7, 0x3a, 0x99, 0x39,
-	0xd6, 0xdf, 0x99, 0x63, 0xfd, 0x9c, 0x3b, 0x4b, 0x27, 0x73, 0x67, 0xe9, 0xcf, 0xdc, 0x59, 0xda,
-	0xf5, 0xf6, 0x13, 0xf9, 0xe3, 0x70, 0xcf, 0x8b, 0x58, 0xe6, 0x2b, 0xd4, 0x83, 0xea, 0x56, 0x55,
-	0x81, 0x7f, 0x7c, 0x7e, 0x52, 0x64, 0x91, 0x83, 0xd8, 0xeb, 0xaa, 0xa3, 0xf2, 0xf8, 0x5f, 0x00,
-	0x00, 0x00, 0xff, 0xff, 0x09, 0x65, 0xa2, 0x01, 0xef, 0x04, 0x00, 0x00,
+	// 536 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x54, 0xcf, 0x6e, 0xd3, 0x4c,
+	0x10, 0xb7, 0x9b, 0x36, 0x5f, 0x32, 0x49, 0xa3, 0x7e, 0x2b, 0x54, 0xb9, 0x01, 0x4c, 0xc8, 0x01,
+	0xe5, 0x00, 0x0e, 0x32, 0x08, 0x01, 0x37, 0xd2, 0x20, 0x72, 0x80, 0x1e, 0x16, 0x24, 0xa4, 0x0a,
+	0x29, 0xda, 0xda, 0x43, 0x89, 0x6a, 0xef, 0x5a, 0xeb, 0x6d, 0x53, 0xbf, 0x05, 0x8f, 0x05, 0xb7,
+	0x5e, 0x90, 0x38, 0xa2, 0xe4, 0x45, 0x50, 0x76, 0x9d, 0xd6, 0x71, 0x1a, 0x71, 0xf3, 0x24, 0xbf,
+	0x7f, 0x33, 0xfa, 0xd9, 0xd0, 0x8b, 0xb3, 0x00, 0xa3, 0xbe, 0xc4, 0xd3, 0x49, 0xaa, 0x64, 0xd6,
+	0x4f, 0x31, 0x10, 0x3c, 0x1c, 0x47, 0x78, 0x81, 0xd1, 0x38, 0x14, 0x31, 0x9b, 0x70, 0x2f, 0x91,
+	0x42, 0x09, 0xd2, 0xd2, 0x48, 0x6f, 0x89, 0x6c, 0x3f, 0x28, 0x31, 0x43, 0x9e, 0x8e, 0x25, 0x06,
+	0x42, 0x86, 0x86, 0xd0, 0x7e, 0x58, 0x02, 0x70, 0x54, 0x53, 0x21, 0xcf, 0xc6, 0x9c, 0xc5, 0x98,
+	0x43, 0x0e, 0x4a, 0x10, 0x29, 0xa2, 0xfc, 0xaf, 0xee, 0x57, 0xa8, 0x0f, 0x79, 0x4a, 0xb5, 0x20,
+	0x39, 0x84, 0xdd, 0x70, 0x39, 0x7c, 0xca, 0x12, 0x74, 0xec, 0x8e, 0xdd, 0x6b, 0xf9, 0xf7, 0xbd,
+	0xd5, 0x4c, 0xde, 0xb0, 0x08, 0xa2, 0xab, 0x1c, 0x72, 0x07, 0x76, 0x2e, 0x58, 0x74, 0x8e, 0xce,
+	0x56, 0xc7, 0xee, 0xd5, 0xa9, 0x19, 0xba, 0x31, 0x34, 0x3f, 0xb3, 0x28, 0x42, 0x95, 0x5b, 0xbd,
+	0x83, 0xbd, 0x69, 0x61, 0x2e, 0xb8, 0xdd, 0x2d, 0xbb, 0x1d, 0x99, 0x85, 0x8e, 0x58, 0x8c, 0x74,
+	0x8d, 0xb4, 0xc1, 0xce, 0x87, 0xda, 0x07, 0x54, 0x2c, 0x64, 0x8a, 0x91, 0x3d, 0xa8, 0x9c, 0x61,
+	0xa6, 0xd5, 0xeb, 0x74, 0xf1, 0xb8, 0x81, 0xf3, 0xd3, 0x86, 0x6a, 0x9e, 0xee, 0x15, 0xd4, 0xaf,
+	0x97, 0xd2, 0xc4, 0x86, 0x7f, 0xb0, 0xf1, 0x08, 0x23, 0x8b, 0xde, 0xa0, 0xc9, 0x00, 0x9a, 0xc5,
+	0x8c, 0xda, 0xa2, 0xe1, 0xdf, 0x2b, 0xb3, 0x8b, 0xc7, 0x18, 0x59, 0x74, 0x85, 0x43, 0x5e, 0x40,
+	0x2d, 0xce, 0xd3, 0x3b, 0x15, 0xcd, 0x77, 0xca, 0xfc, 0xe5, 0x76, 0x23, 0x8b, 0x5e, 0x63, 0x07,
+	0x35, 0xa8, 0x9a, 0x6a, 0x74, 0x7f, 0x55, 0xe0, 0xff, 0x8f, 0xba, 0x63, 0xef, 0x17, 0x15, 0x1b,
+	0xea, 0x86, 0x11, 0x02, 0xdb, 0x8b, 0x56, 0xe4, 0xa7, 0xd0, 0xcf, 0x64, 0x1f, 0xaa, 0x09, 0x93,
+	0xc8, 0x55, 0x7e, 0x8c, 0x7c, 0x5a, 0xdc, 0x48, 0x4c, 0x39, 0x4a, 0x1d, 0xa0, 0x4e, 0xcd, 0x40,
+	0x1e, 0x41, 0x0b, 0x2f, 0x93, 0x89, 0x64, 0x6a, 0x22, 0xf8, 0x90, 0x29, 0x74, 0xb6, 0x3b, 0x76,
+	0xaf, 0x42, 0x4b, 0xbf, 0x92, 0x11, 0xfc, 0x67, 0x92, 0xa4, 0xce, 0x4e, 0xa7, 0xd2, 0x6b, 0xf8,
+	0x5e, 0x79, 0x81, 0xb5, 0x74, 0x9e, 0x59, 0x3e, 0x7d, 0xcb, 0x95, 0xcc, 0xe8, 0x92, 0x4e, 0x8e,
+	0x61, 0x97, 0x05, 0x01, 0xa6, 0xe9, 0xa1, 0xe0, 0x4a, 0x8a, 0xc8, 0xa9, 0x6a, 0xbd, 0xe7, 0xff,
+	0xd6, 0x7b, 0x53, 0xa4, 0x19, 0xd5, 0x55, 0xa9, 0x36, 0x85, 0x66, 0xd1, 0xf4, 0x96, 0xa6, 0x3c,
+	0x2e, 0x36, 0xa5, 0xe1, 0xef, 0x97, 0x5d, 0x0d, 0x3d, 0x6f, 0xd0, 0xeb, 0xad, 0x97, 0x76, 0xfb,
+	0x0b, 0x90, 0x75, 0xe3, 0x5b, 0x94, 0x9f, 0x16, 0x95, 0x5b, 0x7e, 0x7b, 0xad, 0x5e, 0x7a, 0x09,
+	0x2a, 0x22, 0x2c, 0xa8, 0x0f, 0x46, 0x3f, 0x66, 0xae, 0x7d, 0x35, 0x73, 0xed, 0x3f, 0x33, 0xd7,
+	0xfe, 0x3e, 0x77, 0xad, 0xab, 0xb9, 0x6b, 0xfd, 0x9e, 0xbb, 0xd6, 0xb1, 0x77, 0x3a, 0x51, 0xdf,
+	0xce, 0x4f, 0xbc, 0x40, 0xc4, 0x7d, 0x2d, 0xf5, 0xc4, 0x7c, 0x56, 0xcc, 0xd0, 0xbf, 0xbc, 0x79,
+	0xfb, 0x55, 0x96, 0x60, 0x7a, 0x52, 0xd5, 0xef, 0xff, 0xb3, 0xbf, 0x01, 0x00, 0x00, 0xff, 0xff,
+	0x43, 0x22, 0xbd, 0x0e, 0x9a, 0x04, 0x00, 0x00,
 }
 
 func (m *DnsRecord) Marshal() (dAtA []byte, err error) {
@@ -347,6 +483,138 @@ func (m *WalletRecord) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *Metadata) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *Metadata) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Metadata) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Value) > 0 {
+		i -= len(m.Value)
+		copy(dAtA[i:], m.Value)
+		i = encodeVarintSecondLevelDomain(dAtA, i, uint64(len(m.Value)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Key) > 0 {
+		i -= len(m.Key)
+		copy(dAtA[i:], m.Key)
+		i = encodeVarintSecondLevelDomain(dAtA, i, uint64(len(m.Key)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *Record) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *Record) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Record) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Record != nil {
+		{
+			size := m.Record.Size()
+			i -= size
+			if _, err := m.Record.MarshalTo(dAtA[i:]); err != nil {
+				return 0, err
+			}
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *Record_DnsRecord) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Record_DnsRecord) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	if m.DnsRecord != nil {
+		{
+			size, err := m.DnsRecord.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSecondLevelDomain(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+func (m *Record_WalletRecord) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Record_WalletRecord) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	if m.WalletRecord != nil {
+		{
+			size, err := m.WalletRecord.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSecondLevelDomain(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	return len(dAtA) - i, nil
+}
+func (m *Record_Metadata) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *Record_Metadata) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	if m.Metadata != nil {
+		{
+			size, err := m.Metadata.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintSecondLevelDomain(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	return len(dAtA) - i, nil
+}
 func (m *SecondLevelDomain) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -381,57 +649,12 @@ func (m *SecondLevelDomain) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			dAtA[i] = 0xa
 			i = encodeVarintSecondLevelDomain(dAtA, i, uint64(baseI-i))
 			i--
-			dAtA[i] = 0x42
-		}
-	}
-	if len(m.Metadata) > 0 {
-		for k := range m.Metadata {
-			v := m.Metadata[k]
-			baseI := i
-			i -= len(v)
-			copy(dAtA[i:], v)
-			i = encodeVarintSecondLevelDomain(dAtA, i, uint64(len(v)))
-			i--
-			dAtA[i] = 0x12
-			i -= len(k)
-			copy(dAtA[i:], k)
-			i = encodeVarintSecondLevelDomain(dAtA, i, uint64(len(k)))
-			i--
-			dAtA[i] = 0xa
-			i = encodeVarintSecondLevelDomain(dAtA, i, uint64(baseI-i))
-			i--
-			dAtA[i] = 0x3a
-		}
-	}
-	if len(m.WalletRecords) > 0 {
-		for k := range m.WalletRecords {
-			v := m.WalletRecords[k]
-			baseI := i
-			if v != nil {
-				{
-					size, err := v.MarshalToSizedBuffer(dAtA[:i])
-					if err != nil {
-						return 0, err
-					}
-					i -= size
-					i = encodeVarintSecondLevelDomain(dAtA, i, uint64(size))
-				}
-				i--
-				dAtA[i] = 0x12
-			}
-			i -= len(k)
-			copy(dAtA[i:], k)
-			i = encodeVarintSecondLevelDomain(dAtA, i, uint64(len(k)))
-			i--
-			dAtA[i] = 0xa
-			i = encodeVarintSecondLevelDomain(dAtA, i, uint64(baseI-i))
-			i--
 			dAtA[i] = 0x32
 		}
 	}
-	if len(m.DnsRecords) > 0 {
-		for k := range m.DnsRecords {
-			v := m.DnsRecords[k]
+	if len(m.Records) > 0 {
+		for k := range m.Records {
+			v := m.Records[k]
 			baseI := i
 			if v != nil {
 				{
@@ -527,6 +750,71 @@ func (m *WalletRecord) Size() (n int) {
 	return n
 }
 
+func (m *Metadata) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Key)
+	if l > 0 {
+		n += 1 + l + sovSecondLevelDomain(uint64(l))
+	}
+	l = len(m.Value)
+	if l > 0 {
+		n += 1 + l + sovSecondLevelDomain(uint64(l))
+	}
+	return n
+}
+
+func (m *Record) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Record != nil {
+		n += m.Record.Size()
+	}
+	return n
+}
+
+func (m *Record_DnsRecord) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.DnsRecord != nil {
+		l = m.DnsRecord.Size()
+		n += 1 + l + sovSecondLevelDomain(uint64(l))
+	}
+	return n
+}
+func (m *Record_WalletRecord) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.WalletRecord != nil {
+		l = m.WalletRecord.Size()
+		n += 1 + l + sovSecondLevelDomain(uint64(l))
+	}
+	return n
+}
+func (m *Record_Metadata) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Metadata != nil {
+		l = m.Metadata.Size()
+		n += 1 + l + sovSecondLevelDomain(uint64(l))
+	}
+	return n
+}
 func (m *SecondLevelDomain) Size() (n int) {
 	if m == nil {
 		return 0
@@ -548,8 +836,8 @@ func (m *SecondLevelDomain) Size() (n int) {
 	if m.ExpirationDate != 0 {
 		n += 1 + sovSecondLevelDomain(uint64(m.ExpirationDate))
 	}
-	if len(m.DnsRecords) > 0 {
-		for k, v := range m.DnsRecords {
+	if len(m.Records) > 0 {
+		for k, v := range m.Records {
 			_ = k
 			_ = v
 			l = 0
@@ -558,27 +846,6 @@ func (m *SecondLevelDomain) Size() (n int) {
 				l += 1 + sovSecondLevelDomain(uint64(l))
 			}
 			mapEntrySize := 1 + len(k) + sovSecondLevelDomain(uint64(len(k))) + l
-			n += mapEntrySize + 1 + sovSecondLevelDomain(uint64(mapEntrySize))
-		}
-	}
-	if len(m.WalletRecords) > 0 {
-		for k, v := range m.WalletRecords {
-			_ = k
-			_ = v
-			l = 0
-			if v != nil {
-				l = v.Size()
-				l += 1 + sovSecondLevelDomain(uint64(l))
-			}
-			mapEntrySize := 1 + len(k) + sovSecondLevelDomain(uint64(len(k))) + l
-			n += mapEntrySize + 1 + sovSecondLevelDomain(uint64(mapEntrySize))
-		}
-	}
-	if len(m.Metadata) > 0 {
-		for k, v := range m.Metadata {
-			_ = k
-			_ = v
-			mapEntrySize := 1 + len(k) + sovSecondLevelDomain(uint64(len(k))) + 1 + len(v) + sovSecondLevelDomain(uint64(len(v)))
 			n += mapEntrySize + 1 + sovSecondLevelDomain(uint64(mapEntrySize))
 		}
 	}
@@ -801,6 +1068,275 @@ func (m *WalletRecord) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+func (m *Metadata) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSecondLevelDomain
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Metadata: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Metadata: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Key", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecondLevelDomain
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecondLevelDomain
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecondLevelDomain
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Key = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Value", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecondLevelDomain
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecondLevelDomain
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecondLevelDomain
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Value = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSecondLevelDomain(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthSecondLevelDomain
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *Record) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSecondLevelDomain
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Record: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Record: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DnsRecord", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecondLevelDomain
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSecondLevelDomain
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecondLevelDomain
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &DnsRecord{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.Record = &Record_DnsRecord{v}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field WalletRecord", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecondLevelDomain
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSecondLevelDomain
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecondLevelDomain
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &WalletRecord{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.Record = &Record_WalletRecord{v}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Metadata", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecondLevelDomain
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthSecondLevelDomain
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecondLevelDomain
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &Metadata{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.Record = &Record_Metadata{v}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSecondLevelDomain(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthSecondLevelDomain
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func (m *SecondLevelDomain) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -947,7 +1483,7 @@ func (m *SecondLevelDomain) Unmarshal(dAtA []byte) error {
 			}
 		case 5:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field DnsRecords", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Records", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -974,11 +1510,11 @@ func (m *SecondLevelDomain) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if m.DnsRecords == nil {
-				m.DnsRecords = make(map[string]*DnsRecord)
+			if m.Records == nil {
+				m.Records = make(map[string]*Record)
 			}
 			var mapkey string
-			var mapvalue *DnsRecord
+			var mapvalue *Record
 			for iNdEx < postIndex {
 				entryPreIndex := iNdEx
 				var wire uint64
@@ -1052,7 +1588,7 @@ func (m *SecondLevelDomain) Unmarshal(dAtA []byte) error {
 					if postmsgIndex > l {
 						return io.ErrUnexpectedEOF
 					}
-					mapvalue = &DnsRecord{}
+					mapvalue = &Record{}
 					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
 						return err
 					}
@@ -1072,265 +1608,9 @@ func (m *SecondLevelDomain) Unmarshal(dAtA []byte) error {
 					iNdEx += skippy
 				}
 			}
-			m.DnsRecords[mapkey] = mapvalue
+			m.Records[mapkey] = mapvalue
 			iNdEx = postIndex
 		case 6:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field WalletRecords", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowSecondLevelDomain
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthSecondLevelDomain
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthSecondLevelDomain
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.WalletRecords == nil {
-				m.WalletRecords = make(map[string]*WalletRecord)
-			}
-			var mapkey string
-			var mapvalue *WalletRecord
-			for iNdEx < postIndex {
-				entryPreIndex := iNdEx
-				var wire uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowSecondLevelDomain
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					wire |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				fieldNum := int32(wire >> 3)
-				if fieldNum == 1 {
-					var stringLenmapkey uint64
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowSecondLevelDomain
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						stringLenmapkey |= uint64(b&0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					intStringLenmapkey := int(stringLenmapkey)
-					if intStringLenmapkey < 0 {
-						return ErrInvalidLengthSecondLevelDomain
-					}
-					postStringIndexmapkey := iNdEx + intStringLenmapkey
-					if postStringIndexmapkey < 0 {
-						return ErrInvalidLengthSecondLevelDomain
-					}
-					if postStringIndexmapkey > l {
-						return io.ErrUnexpectedEOF
-					}
-					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
-					iNdEx = postStringIndexmapkey
-				} else if fieldNum == 2 {
-					var mapmsglen int
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowSecondLevelDomain
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						mapmsglen |= int(b&0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					if mapmsglen < 0 {
-						return ErrInvalidLengthSecondLevelDomain
-					}
-					postmsgIndex := iNdEx + mapmsglen
-					if postmsgIndex < 0 {
-						return ErrInvalidLengthSecondLevelDomain
-					}
-					if postmsgIndex > l {
-						return io.ErrUnexpectedEOF
-					}
-					mapvalue = &WalletRecord{}
-					if err := mapvalue.Unmarshal(dAtA[iNdEx:postmsgIndex]); err != nil {
-						return err
-					}
-					iNdEx = postmsgIndex
-				} else {
-					iNdEx = entryPreIndex
-					skippy, err := skipSecondLevelDomain(dAtA[iNdEx:])
-					if err != nil {
-						return err
-					}
-					if (skippy < 0) || (iNdEx+skippy) < 0 {
-						return ErrInvalidLengthSecondLevelDomain
-					}
-					if (iNdEx + skippy) > postIndex {
-						return io.ErrUnexpectedEOF
-					}
-					iNdEx += skippy
-				}
-			}
-			m.WalletRecords[mapkey] = mapvalue
-			iNdEx = postIndex
-		case 7:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Metadata", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowSecondLevelDomain
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthSecondLevelDomain
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthSecondLevelDomain
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Metadata == nil {
-				m.Metadata = make(map[string]string)
-			}
-			var mapkey string
-			var mapvalue string
-			for iNdEx < postIndex {
-				entryPreIndex := iNdEx
-				var wire uint64
-				for shift := uint(0); ; shift += 7 {
-					if shift >= 64 {
-						return ErrIntOverflowSecondLevelDomain
-					}
-					if iNdEx >= l {
-						return io.ErrUnexpectedEOF
-					}
-					b := dAtA[iNdEx]
-					iNdEx++
-					wire |= uint64(b&0x7F) << shift
-					if b < 0x80 {
-						break
-					}
-				}
-				fieldNum := int32(wire >> 3)
-				if fieldNum == 1 {
-					var stringLenmapkey uint64
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowSecondLevelDomain
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						stringLenmapkey |= uint64(b&0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					intStringLenmapkey := int(stringLenmapkey)
-					if intStringLenmapkey < 0 {
-						return ErrInvalidLengthSecondLevelDomain
-					}
-					postStringIndexmapkey := iNdEx + intStringLenmapkey
-					if postStringIndexmapkey < 0 {
-						return ErrInvalidLengthSecondLevelDomain
-					}
-					if postStringIndexmapkey > l {
-						return io.ErrUnexpectedEOF
-					}
-					mapkey = string(dAtA[iNdEx:postStringIndexmapkey])
-					iNdEx = postStringIndexmapkey
-				} else if fieldNum == 2 {
-					var stringLenmapvalue uint64
-					for shift := uint(0); ; shift += 7 {
-						if shift >= 64 {
-							return ErrIntOverflowSecondLevelDomain
-						}
-						if iNdEx >= l {
-							return io.ErrUnexpectedEOF
-						}
-						b := dAtA[iNdEx]
-						iNdEx++
-						stringLenmapvalue |= uint64(b&0x7F) << shift
-						if b < 0x80 {
-							break
-						}
-					}
-					intStringLenmapvalue := int(stringLenmapvalue)
-					if intStringLenmapvalue < 0 {
-						return ErrInvalidLengthSecondLevelDomain
-					}
-					postStringIndexmapvalue := iNdEx + intStringLenmapvalue
-					if postStringIndexmapvalue < 0 {
-						return ErrInvalidLengthSecondLevelDomain
-					}
-					if postStringIndexmapvalue > l {
-						return io.ErrUnexpectedEOF
-					}
-					mapvalue = string(dAtA[iNdEx:postStringIndexmapvalue])
-					iNdEx = postStringIndexmapvalue
-				} else {
-					iNdEx = entryPreIndex
-					skippy, err := skipSecondLevelDomain(dAtA[iNdEx:])
-					if err != nil {
-						return err
-					}
-					if (skippy < 0) || (iNdEx+skippy) < 0 {
-						return ErrInvalidLengthSecondLevelDomain
-					}
-					if (iNdEx + skippy) > postIndex {
-						return io.ErrUnexpectedEOF
-					}
-					iNdEx += skippy
-				}
-			}
-			m.Metadata[mapkey] = mapvalue
-			iNdEx = postIndex
-		case 8:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field AccessControl", wireType)
 			}
