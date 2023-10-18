@@ -62,7 +62,7 @@ func (k Keeper) IncrementParentsSubdomainCount(ctx sdk.Context, domain types.Sec
 	k.SetTopLevelDomain(ctx, parentDomain)
 }
 
-func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.SecondLevelDomain, owner sdk.AccAddress, registrationPeriodIYear uint64) (err error) {
+func (k Keeper) RegisterSecondLevelDomain(ctx sdk.Context, domain types.SecondLevelDomain, owner sdk.AccAddress, registrationPeriodIYear uint64) (err error) {
 	// Validate domain
 	err = k.ValidateSecondLevelDomain(ctx, domain)
 	if err != nil {
@@ -104,9 +104,9 @@ func (k Keeper) RegisterDomain(ctx sdk.Context, domain types.SecondLevelDomain, 
 	// Emit event
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(types.EventTypeRegsterDomain,
-			sdk.NewAttribute(types.AttributeRegisterDomainEventName, domain.Name),
-			sdk.NewAttribute(types.AttributeRegisterDomainEventParent, domain.Parent),
-			sdk.NewAttribute(types.AttributeRegisterDomainEventExpirationDate, strconv.FormatInt(domain.ExpirationDate, 10)),
+			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventName, domain.Name),
+			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventParent, domain.Parent),
+			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventExpirationDate, strconv.FormatInt(domain.ExpirationDate, 10)),
 		),
 	)
 

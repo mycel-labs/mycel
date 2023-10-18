@@ -27,9 +27,9 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgUpdateWalletRecord int = 100
 
-	opWeightMsgRegisterDomain = "op_weight_msg_register_domain"
+	opWeightMsgRegisterSecondLevelDomain = "op_weight_msg_register_domain"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgRegisterDomain int = 100
+	defaultWeightMsgRegisterSecondLevelDomain int = 100
 
 	opWeightMsgRegisterTopLevelDomain = "op_weight_msg_register_top_level_domain"
 	// TODO: Determine the simulation weight value
@@ -78,15 +78,15 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		registrysimulation.SimulateMsgUpdateWalletRecord(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgRegisterDomain int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRegisterDomain, &weightMsgRegisterDomain, nil,
+	var weightMsgRegisterSecondLevelDomain int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRegisterSecondLevelDomain, &weightMsgRegisterSecondLevelDomain, nil,
 		func(_ *rand.Rand) {
-			weightMsgRegisterDomain = defaultWeightMsgRegisterDomain
+			weightMsgRegisterSecondLevelDomain = defaultWeightMsgRegisterSecondLevelDomain
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgRegisterDomain,
-		registrysimulation.SimulateMsgRegisterDomain(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgRegisterSecondLevelDomain,
+		registrysimulation.SimulateMsgRegisterSecondLevelDomain(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	var weightMsgRegisterTopLevelDomain int

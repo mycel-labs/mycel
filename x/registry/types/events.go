@@ -4,9 +4,9 @@ package types
 const (
 	EventTypeRegsterDomain = "register-domain"
 
-	AttributeRegisterDomainEventName           = "name"
-	AttributeRegisterDomainEventParent         = "parent"
-	AttributeRegisterDomainEventExpirationDate = "expiration-date"
+	AttributeRegisterSecondLevelDomainEventName           = "name"
+	AttributeRegisterSecondLevelDomainEventParent         = "parent"
+	AttributeRegisterSecondLevelDomainEventExpirationDate = "expiration-date"
 )
 
 // Register top-level-domain event

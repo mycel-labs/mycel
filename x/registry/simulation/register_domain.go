@@ -10,7 +10,7 @@ import (
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
-func SimulateMsgRegisterDomain(
+func SimulateMsgRegisterSecondLevelDomain(
 	ak types.AccountKeeper,
 	bk types.BankKeeper,
 	k keeper.Keeper,
@@ -18,12 +18,12 @@ func SimulateMsgRegisterDomain(
 	return func(r *rand.Rand, app *baseapp.BaseApp, ctx sdk.Context, accs []simtypes.Account, chainID string,
 	) (simtypes.OperationMsg, []simtypes.FutureOperation, error) {
 		simAccount, _ := simtypes.RandomAcc(r, accs)
-		msg := &types.MsgRegisterDomain{
+		msg := &types.MsgRegisterSecondLevelDomain{
 			Creator: simAccount.Address.String(),
 		}
 
-		// TODO: Handling the RegisterDomain simulation
+		// TODO: Handling the RegisterSecondLevelDomain simulation
 
-		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "RegisterDomain simulation not implemented"), nil, nil
+		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "RegisterSecondLevelDomain simulation not implemented"), nil, nil
 	}
 }

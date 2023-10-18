@@ -53,13 +53,13 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 			expErr:                   errorsmod.Wrapf(errors.New(fmt.Sprintf("foo.cel")), types.ErrDomainIsAlreadyTaken.Error()),
 			fn: func() {
 				// Register domain once
-				domain := &types.MsgRegisterDomain{
+				domain := &types.MsgRegisterSecondLevelDomain{
 					Creator:                  testutil.Alice,
 					Name:                     "foo",
 					Parent:                   "cel",
 					RegistrationPeriodInYear: 1,
 				}
-				_, err := suite.msgServer.RegisterDomain(suite.ctx, domain)
+				_, err := suite.msgServer.RegisterSecondLevelDomain(suite.ctx, domain)
 				suite.Require().Nil(err)
 			},
 		},
@@ -78,7 +78,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 		suite.Run(fmt.Sprintf("Case %d", i), func() {
 			suite.SetupTest()
 
-			registerMsg := &types.MsgRegisterDomain{
+			registerMsg := &types.MsgRegisterSecondLevelDomain{
 				Creator:                  tc.creator,
 				Name:                     tc.name,
 				Parent:                   tc.parent,
@@ -98,7 +98,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 			tc.fn()
 
 			// Register domain
-			_, err := suite.msgServer.RegisterDomain(suite.ctx, registerMsg)
+			_, err := suite.msgServer.RegisterSecondLevelDomain(suite.ctx, registerMsg)
 			fmt.Println("----Case_", i, "---01", err)
 
 			if err == nil {
@@ -125,9 +125,9 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 				suite.Require().EqualValues(sdk.StringEvent{
 					Type: types.EventTypeRegsterDomain,
 					Attributes: []sdk.Attribute{
-						{Key: types.AttributeRegisterDomainEventName, Value: tc.name},
-						{Key: types.AttributeRegisterDomainEventParent, Value: tc.parent},
-						{Key: types.AttributeRegisterDomainEventExpirationDate, Value: events[eventIndex].Attributes[2].Value},
+						{Key: types.AttributeRegisterSecondLevelDomainEventName, Value: tc.name},
+						{Key: types.AttributeRegisterSecondLevelDomainEventParent, Value: tc.parent},
+						{Key: types.AttributeRegisterSecondLevelDomainEventExpirationDate, Value: events[eventIndex].Attributes[2].Value},
 					},
 				}, events[eventIndex])
 			} else {

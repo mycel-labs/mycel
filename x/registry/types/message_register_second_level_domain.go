@@ -6,12 +6,12 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-const TypeMsgRegisterDomain = "register_domain"
+const TypeMsgRegisterSecondLevelDomain = "register_domain"
 
-var _ sdk.Msg = &MsgRegisterDomain{}
+var _ sdk.Msg = &MsgRegisterSecondLevelDomain{}
 
-func NewMsgRegisterDomain(creator string, name string, parent string, registrationPeriodInYear uint64) *MsgRegisterDomain {
-	return &MsgRegisterDomain{
+func NewMsgRegisterSecondLevelDomain(creator string, name string, parent string, registrationPeriodInYear uint64) *MsgRegisterSecondLevelDomain {
+	return &MsgRegisterSecondLevelDomain{
 		Creator:                  creator,
 		Name:                     name,
 		Parent:                   parent,
@@ -19,15 +19,15 @@ func NewMsgRegisterDomain(creator string, name string, parent string, registrati
 	}
 }
 
-func (msg *MsgRegisterDomain) Route() string {
+func (msg *MsgRegisterSecondLevelDomain) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgRegisterDomain) Type() string {
-	return TypeMsgRegisterDomain
+func (msg *MsgRegisterSecondLevelDomain) Type() string {
+	return TypeMsgRegisterSecondLevelDomain
 }
 
-func (msg *MsgRegisterDomain) GetSigners() []sdk.AccAddress {
+func (msg *MsgRegisterSecondLevelDomain) GetSigners() []sdk.AccAddress {
 	creator, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		panic(err)
@@ -35,12 +35,12 @@ func (msg *MsgRegisterDomain) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{creator}
 }
 
-func (msg *MsgRegisterDomain) GetSignBytes() []byte {
+func (msg *MsgRegisterSecondLevelDomain) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgRegisterDomain) ValidateBasic() error {
+func (msg *MsgRegisterSecondLevelDomain) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)

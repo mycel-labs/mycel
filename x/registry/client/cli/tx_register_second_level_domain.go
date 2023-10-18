@@ -31,7 +31,7 @@ func CmdRegisterDomain() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgRegisterDomain(
+			msg := types.NewMsgRegisterSecondLevelDomain(
 				clientCtx.GetFromAddress().String(),
 				argName,
 				argParent,

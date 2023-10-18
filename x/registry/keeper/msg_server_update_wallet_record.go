@@ -34,7 +34,7 @@ func (k msgServer) UpdateWalletRecord(goCtx context.Context, msg *types.MsgUpdat
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(types.EventTypeUpdateWalletRecord,
 			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventDomainName, msg.Name),
-			sdk.NewAttribute(types.AttributeRegisterDomainEventParent, msg.Parent),
+			sdk.NewAttribute(types.AttributeUpdateDnsRecordEventDomainParent, msg.Parent),
 			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventWalletRecordType, msg.WalletRecordType),
 			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventValue, msg.Value),
 		),
