@@ -2,8 +2,6 @@ package keeper
 
 import (
 	"context"
-	"errors"
-	"fmt"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
 
@@ -16,7 +14,7 @@ func (k msgServer) UpdateDnsRecord(goCtx context.Context, msg *types.MsgUpdateDn
 
 	domain, isFound := k.Keeper.GetSecondLevelDomain(ctx, msg.Name, msg.Parent)
 	if !isFound {
-		return nil, errorsmod.Wrapf(errors.New(fmt.Sprintf("%s.%s", msg.Name, msg.Parent)), types.ErrDomainNotFound.Error())
+		return nil, errorsmod.Wrapf(types.ErrDomainNotFound, "%s.%s", msg.Name, msg.Parent)
 	}
 
 	// Check if the domain is owned by the creator

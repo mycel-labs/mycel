@@ -1,9 +1,9 @@
 package types
 
 import (
-	"fmt"
 	"testing"
 
+	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )
@@ -25,7 +25,7 @@ func TestDomainValidate(t *testing.T) {
 	testCases := []struct {
 		domain          SecondLevelDomain
 		expDomainParent TopLevelDomain
-		expErr          string
+		expErr          error
 	}{
 		// Valid domains
 		{
@@ -34,38 +34,38 @@ func TestDomainValidate(t *testing.T) {
 		},
 		// Invalid name
 		{domain: SecondLevelDomain{Name: ".foo", Parent: "myc"},
-			expErr: fmt.Sprintf("invalid name: .foo"),
+			expErr: errorsmod.Wrapf(ErrInvalidDomainName, ".foo"),
 		},
 		{domain: SecondLevelDomain{Name: "", Parent: "myc"},
-			expErr: fmt.Sprintf("invalid name: "),
+			expErr: errorsmod.Wrapf(ErrInvalidDomainName, ""),
 		},
 		{domain: SecondLevelDomain{Name: "bar.foo", Parent: "myc"},
-			expErr: fmt.Sprintf("invalid name: bar.foo"),
+			expErr: errorsmod.Wrapf(ErrInvalidDomainName, "bar.foo"),
 		},
 		{domain: SecondLevelDomain{Name: ".", Parent: "myc"},
-			expErr: fmt.Sprintf("invalid name: ."),
+			expErr: errorsmod.Wrapf(ErrInvalidDomainName, "."),
 		},
 		{domain: SecondLevelDomain{Name: "##", Parent: "myc"},
-			expErr: fmt.Sprintf("invalid name: ##"),
+			expErr: errorsmod.Wrapf(ErrInvalidDomainName, "##"),
 		},
 		// Invalid parent
 		{
 			domain: SecondLevelDomain{Name: "foo", Parent: ".##"},
-			expErr: fmt.Sprintf("invalid parent: .##"),
+			expErr: errorsmod.Wrapf(ErrInvalidDomainParent, ".##"),
 		},
 		{
 			domain: SecondLevelDomain{Name: "foo", Parent: ".myc"},
-			expErr: fmt.Sprintf("invalid parent: .myc"),
+			expErr: errorsmod.Wrapf(ErrInvalidDomainParent, ".myc"),
 		},
 		{
 			domain: SecondLevelDomain{Name: "foo", Parent: ".foo.myc"},
-			expErr: fmt.Sprintf("invalid parent: .foo.myc"),
+			expErr: errorsmod.Wrapf(ErrInvalidDomainParent, ".foo.myc"),
 		},
 	}
 
 	for _, tc := range testCases {
 		err := tc.domain.Validate()
-		if tc.expErr == "" {
+		if tc.expErr == nil {
 			require.Nil(t, err)
 
 			// Check domain parent
@@ -76,7 +76,7 @@ func TestDomainValidate(t *testing.T) {
 			// require.Equal(t, tc.expDomainParent.Parent, parent)
 
 		} else {
-			require.EqualError(t, err, tc.expErr)
+			require.EqualError(t, err, tc.expErr.Error())
 		}
 
 	}
@@ -87,7 +87,7 @@ func TestDomainUpdateWalletRecord(t *testing.T) {
 	testCases := []struct {
 		walletRecordType string
 		address          string
-		expErr           string
+		expErr           error
 	}{
 		// Valid wallet records
 		{walletRecordType: "BITCOIN_MAINNET_MAINNET", address: "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2"},
@@ -119,39 +119,38 @@ func TestDomainUpdateWalletRecord(t *testing.T) {
 		// Invalid record type
 		{
 			walletRecordType: "ETHEREUM_TESTNET_MUMBAI", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-			expErr: fmt.Sprintf("invalid wallet record type: ETHEREUM_TESTNET_MUMBAI"),
+			expErr: errorsmod.Wrapf(ErrInvalidWalletRecordType, "ETHEREUM_TESTNET_MUMBAI"),
 		},
 		{
 			walletRecordType: "ETHEREUM", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-			expErr: fmt.Sprintf("invalid wallet record type: ETHEREUM"),
+			expErr: errorsmod.Wrapf(ErrInvalidWalletRecordType, "ETHEREUM"),
 		},
 		// Invalid address
 		{
 			walletRecordType: "ETHEREUM_TESTNET_GOERLI", address: "0xf9Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-			expErr: fmt.Sprintf("invalid wallet address: ETHEREUM 0xf9Fd6e51aad88F6F4ce6aB8827279cffFb92266"),
+			expErr: errorsmod.Wrapf(ErrInvalidWalletAddress, "ETHEREUM 0xf9Fd6e51aad88F6F4ce6aB8827279cffFb92266"),
 		},
 		{
 			walletRecordType: "ETHEREUM_TESTNET_GOERLI", address: "cosmos1jyc4rrtz5f93n80uuj378dq7x3v7z09j0h6dqx",
-			expErr: fmt.Sprintf("invalid wallet address: ETHEREUM cosmos1jyc4rrtz5f93n80uuj378dq7x3v7z09j0h6dqx"),
+			expErr: errorsmod.Wrapf(ErrInvalidWalletAddress, "ETHEREUM cosmos1jyc4rrtz5f93n80uuj378dq7x3v7z09j0h6dqx"),
 		},
-
 		{
 			walletRecordType: "SOLANA_MAINNET_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-			expErr: fmt.Sprintf("invalid wallet address: SOLANA 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"),
+			expErr: errorsmod.Wrapf(ErrInvalidWalletAddress, "SOLANA 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"),
 		},
 		{
 			walletRecordType: "BITCOIN_MAINNET_MAINNET", address: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-			expErr: fmt.Sprintf("invalid wallet address: BITCOIN 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"),
+			expErr: errorsmod.Wrapf(ErrInvalidWalletAddress, "BITCOIN 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"),
 		},
 	}
 	for _, tc := range testCases {
 		domain := SecondLevelDomain{Name: "foo", Parent: "myc"}
 		err := domain.UpdateWalletRecord(tc.walletRecordType, tc.address)
-		if tc.expErr == "" {
+		if tc.expErr == nil {
 			require.Nil(t, err)
 			require.Equal(t, tc.address, domain.Records[tc.walletRecordType].GetWalletRecord().GetValue())
 		} else {
-			require.EqualError(t, err, tc.expErr)
+			require.EqualError(t, err, tc.expErr.Error())
 		}
 	}
 }
@@ -160,7 +159,7 @@ func TestDomainUpdateDnsRecord(t *testing.T) {
 	testCases := []struct {
 		dnsRecordType string
 		value         string
-		expErr        string
+		expErr        error
 	}{
 		// Valid wallet records
 		{dnsRecordType: "A", value: "10.0.0.1"},
@@ -171,30 +170,30 @@ func TestDomainUpdateDnsRecord(t *testing.T) {
 		// Invalid record type
 		{
 			dnsRecordType: "FOO", value: "192.168.0.1",
-			expErr: fmt.Sprintf("invalid dns record type: FOO"),
+			expErr: errorsmod.Wrapf(ErrInvalidDnsRecordType, "FOO"),
 		},
 		{
 			dnsRecordType: "BAR", value: "192.168.0.1",
-			expErr: fmt.Sprintf("invalid dns record type: BAR"),
+			expErr: errorsmod.Wrapf(ErrInvalidDnsRecordType, "BAR"),
 		},
 		// Invalid value
 		{
 			dnsRecordType: "A", value: "2001:0db8:85a3:0000:0000:8a2e:0370:7334",
-			expErr: fmt.Sprintf("invalid dns record value: IPV4 2001:0db8:85a3:0000:0000:8a2e:0370:7334"),
+			expErr: errorsmod.Wrapf(ErrInvalidDnsRecordValue, "IPV4 2001:0db8:85a3:0000:0000:8a2e:0370:7334"),
 		},
 		{
 			dnsRecordType: "AAAA", value: "192.168.0.1",
-			expErr: fmt.Sprintf("invalid dns record value: IPV6 192.168.0.1"),
+			expErr: errorsmod.Wrapf(ErrInvalidDnsRecordValue, "IPV6 192.168.0.1"),
 		},
 	}
 	for _, tc := range testCases {
 		domain := SecondLevelDomain{Name: "foo", Parent: "myc"}
 		err := domain.UpdateDnsRecord(tc.dnsRecordType, tc.value)
-		if tc.expErr == "" {
+		if tc.expErr == nil {
 			require.Nil(t, err)
 			require.Equal(t, tc.value, domain.Records[tc.dnsRecordType].GetDnsRecord().GetValue())
 		} else {
-			require.EqualError(t, err, tc.expErr)
+			require.EqualError(t, err, tc.expErr.Error())
 		}
 	}
 }

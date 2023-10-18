@@ -1,14 +1,13 @@
 package keeper_test
 
 import (
-	"errors"
 	"fmt"
 
 	"strconv"
 	"testing"
 
+	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
 	"github.com/mycel-domain/mycel/x/registry/keeper"
@@ -90,7 +89,7 @@ func (suite *KeeperTestSuite) TestGetValidTopLevelDomain() {
 				Name:           "test",
 				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, -20).UnixNano(),
 			},
-			expErr: sdkerrors.Wrapf(errors.New(fmt.Sprintf("test")), types.ErrDomainExpired.Error()),
+			expErr: errorsmod.Wrapf(types.ErrDomainExpired, "test"),
 		},
 	}
 	for i, tc := range testCases {

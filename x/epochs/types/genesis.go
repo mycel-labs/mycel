@@ -1,7 +1,6 @@
 package types
 
 import (
-	"errors"
 	"time"
 
 	errorsmod "cosmossdk.io/errors"
@@ -48,7 +47,7 @@ func (gs GenesisState) Validate() error {
 
 	for _, epoch := range gs.Epochs {
 		if epochIdentifiers[epoch.Identifier] {
-			return errorsmod.Wrapf(errors.New(epoch.Identifier), ErrDuplicatedEpochEntry.Error())
+			return errorsmod.Wrapf(ErrDuplicatedEpochEntry, "%s", epoch.Identifier)
 		}
 		if err := epoch.Validate(); err != nil {
 			return err

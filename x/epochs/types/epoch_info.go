@@ -1,8 +1,6 @@
 package types
 
 import (
-	"errors"
-	"fmt"
 	"strings"
 
 	errorsmod "cosmossdk.io/errors"
@@ -30,10 +28,10 @@ func (e EpochInfo) Validate() error {
 		return ErrEpochDurationCannotBeZero
 	}
 	if e.CurrentEpoch < 0 {
-		return errorsmod.Wrapf(errors.New(fmt.Sprintf("%d", e.CurrentEpoch)), ErrCurrentEpochCannotBeNegative.Error())
+		return errorsmod.Wrapf(ErrCurrentEpochCannotBeNegative, "%d", e.CurrentEpoch)
 	}
 	if e.CurrentEpochStartHeight < 0 {
-		return errorsmod.Wrapf(errors.New(fmt.Sprintf("%d", e.CurrentEpoch)), ErrCurrentEpochStartHeightCannotBeNegative.Error())
+		return errorsmod.Wrapf(ErrCurrentEpochStartHeightCannotBeNegative, "%d", e.CurrentEpoch)
 	}
 	return nil
 }

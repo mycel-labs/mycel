@@ -1,7 +1,6 @@
 package keeper_test
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
@@ -73,7 +72,7 @@ func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 			parent:           "fuga",
 			walletRecordType: "ETHEREUM_MAINNET_MAINNET",
 			value:            "0x1234567890123456789012345678901234567890",
-			expErr:           errorsmod.Wrapf(errors.New(fmt.Sprintf("hoge.fuga")), types.ErrDomainNotFound.Error()),
+			expErr:           errorsmod.Wrapf(types.ErrDomainNotFound, "hoge.fuga"),
 			fn:               func() {},
 		},
 		{
@@ -82,7 +81,7 @@ func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 			parent:           "cel",
 			walletRecordType: "ETHEREUM_MAINNET_MAINNET",
 			value:            "0x1234567890123456789012345678901234567890",
-			expErr:           errorsmod.Wrapf(errors.New(fmt.Sprintf(testutil.Bob)), types.ErrDomainNotEditable.Error()),
+			expErr:           errorsmod.Wrapf(types.ErrDomainNotEditable, "%s", testutil.Bob),
 			fn:               func() {},
 		},
 	}

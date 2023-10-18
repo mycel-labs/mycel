@@ -1,7 +1,6 @@
 package keeper_test
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/mycel-domain/mycel/testutil"
@@ -54,7 +53,7 @@ func (suite *KeeperTestSuite) TestUpdateDnsRecord() {
 			parent:        "fuga",
 			dnsRecordType: "A",
 			value:         "192.168.0.1",
-			expErr:        errorsmod.Wrapf(errors.New(fmt.Sprintf("hoge.fuga")), types.ErrDomainNotFound.Error()),
+			expErr:        errorsmod.Wrapf(types.ErrDomainNotFound, "hoge.fuga"),
 			fn:            func() {},
 		},
 		{
@@ -63,7 +62,7 @@ func (suite *KeeperTestSuite) TestUpdateDnsRecord() {
 			parent:        "cel",
 			dnsRecordType: "A",
 			value:         "192.168.0.1",
-			expErr:        errorsmod.Wrapf(errors.New(fmt.Sprintf(testutil.Bob)), types.ErrDomainNotEditable.Error()),
+			expErr:        errorsmod.Wrapf(types.ErrDomainNotEditable, "%s", testutil.Bob),
 			fn:            func() {},
 		},
 	}

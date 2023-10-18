@@ -2,8 +2,6 @@ package keeper
 
 import (
 	"context"
-	"errors"
-	"fmt"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
 
@@ -14,8 +12,9 @@ import (
 func (k msgServer) RegisterSecondLevelDomain(goCtx context.Context, msg *types.MsgRegisterSecondLevelDomain) (*types.MsgRegisterSecondLevelDomainResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
+	// TODO: Check parent's registration period
 	if msg.RegistrationPeriodInYear < 1 || msg.RegistrationPeriodInYear > 4 {
-		return nil, errorsmod.Wrapf(errors.New(fmt.Sprintf("%d year(s)", msg.RegistrationPeriodInYear)), types.ErrInvalidRegistrationPeriod.Error())
+		return nil, errorsmod.Wrapf(types.ErrInvalidRegistrationPeriod, "%d year(s)", msg.RegistrationPeriodInYear)
 	}
 
 	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)

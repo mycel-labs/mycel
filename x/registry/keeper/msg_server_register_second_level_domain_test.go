@@ -1,7 +1,6 @@
 package keeper_test
 
 import (
-	"errors"
 	"fmt"
 
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
@@ -50,7 +49,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 			name:                     "foo",
 			parent:                   "cel",
 			registrationPeriodInYear: 1,
-			expErr:                   errorsmod.Wrapf(errors.New(fmt.Sprintf("foo.cel")), types.ErrDomainIsAlreadyTaken.Error()),
+			expErr:                   errorsmod.Wrapf(types.ErrDomainIsAlreadyTaken, "foo.cel"),
 			fn: func() {
 				// Register domain once
 				domain := &types.MsgRegisterSecondLevelDomain{
@@ -68,7 +67,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 			name:                     "foo",
 			parent:                   "xxx",
 			registrationPeriodInYear: 1,
-			expErr:                   errorsmod.Wrapf(errors.New(fmt.Sprintf("xxx")), types.ErrParentDomainDoesNotExist.Error()),
+			expErr:                   errorsmod.Wrapf(types.ErrParentDomainDoesNotExist, "xxx"),
 			fn: func() {
 			},
 		},

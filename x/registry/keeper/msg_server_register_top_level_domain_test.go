@@ -1,7 +1,6 @@
 package keeper_test
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/mycel-domain/mycel/testutil"
@@ -37,7 +36,7 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 			creator:                  testutil.Alice,
 			name:                     "cel2",
 			registrationPeriodInYear: 1,
-			expErr:                   errorsmod.Wrapf(errors.New(fmt.Sprintf("cel2")), types.ErrDomainIsAlreadyTaken.Error()),
+			expErr:                   errorsmod.Wrapf(types.ErrDomainIsAlreadyTaken, "cel2"),
 			fn: func() {
 				// Register domain once
 				domain := &types.MsgRegisterTopLevelDomain{
