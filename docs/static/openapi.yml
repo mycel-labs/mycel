@@ -50393,7 +50393,7 @@ paths:
                           - OWNER
                           - EDITOR
                         default: NO_ROLE
-                    registrationFees:
+                    registrationFee:
                       type: array
                       items:
                         type: object
@@ -50621,7 +50621,7 @@ paths:
                         - OWNER
                         - EDITOR
                       default: NO_ROLE
-                  registrationFees:
+                  registrationFee:
                     type: array
                     items:
                       type: object
@@ -81189,7 +81189,7 @@ definitions:
   mycel.registry.MsgWithdrawRegistrationFeeResponse:
     type: object
     properties:
-      registrationFees:
+      registrationFee:
         type: array
         items:
           type: object
@@ -81398,7 +81398,7 @@ definitions:
                   - OWNER
                   - EDITOR
                 default: NO_ROLE
-            registrationFees:
+            registrationFee:
               type: array
               items:
                 type: object
@@ -81583,7 +81583,7 @@ definitions:
                 - OWNER
                 - EDITOR
               default: NO_ROLE
-          registrationFees:
+          registrationFee:
             type: array
             items:
               type: object
@@ -81843,7 +81843,7 @@ definitions:
             - OWNER
             - EDITOR
           default: NO_ROLE
-      registrationFees:
+      registrationFee:
         type: array
         items:
           type: object

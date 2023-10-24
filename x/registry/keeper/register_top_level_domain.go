@@ -7,11 +7,37 @@ import (
 	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	// sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/mycel-domain/mycel/app/params"
+	furnacetypes "github.com/mycel-domain/mycel/x/furnace/types"
 )
+
+func (k Keeper) GetStatkingRatio(ctx sdk.Context) (ratio sdk.Int) {
+	denom := params.DefaultBondDenom
+	// Calc staking ratio
+	totalSupply := k.bankKeeper.GetSupply(ctx, denom)
+	moduleAccount := k.accountKeeper.GetModuleAccount(ctx, types.ModuleName)
+	stakedAmount := k.bankKeeper.GetBalance(ctx, moduleAccount.GetAddress(), denom)
+	stakingRatio := stakedAmount.Amount.Quo(totalSupply.Amount)
+	return stakingRatio
+}
 
 // Pay TLD registration fee
 func (k Keeper) PayTLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.TopLevelDomain, registrationPeriodInYear uint64) (err error) {
+	// TODO: Support other denoms
+	denom := params.DefaultBondDenom
+
+	// Calc fee
+	fee, err := domain.GetRegistrationFeeByDenom(denom, registrationPeriodInYear)
+	if err != nil {
+		return err
+	}
+
+	// Send coins to furnace module
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, furnacetypes.ModuleName, sdk.NewCoins(fee))
+	if err != nil {
+		return err
+	}
+
 	// TODO: Pay fee
 	return nil
 }
