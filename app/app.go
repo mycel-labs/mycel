@@ -702,6 +702,7 @@ func NewApp(
 		keys[registrymoduletypes.MemStoreKey],
 		app.GetSubspace(registrymoduletypes.ModuleName),
 
+		app.AccountKeeper,
 		app.BankKeeper,
 	)
 
