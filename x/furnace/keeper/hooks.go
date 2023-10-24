@@ -4,39 +4,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/mycel-domain/mycel/app/params"
 	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
-	"github.com/mycel-domain/mycel/x/furnace/types"
 )
-
-func calculateBurntAmount(burnAmount *types.BurnAmount) sdk.Coin {
-	if burnAmount.TotalBurnAmount.Amount.GTE(sdk.NewInt(int64(burnAmount.TotalEpochs))) {
-		quotient := burnAmount.TotalBurnAmount.Amount.QuoRaw(int64(burnAmount.TotalEpochs))
-		remander := burnAmount.TotalBurnAmount.Amount.ModRaw(int64(burnAmount.TotalEpochs))
-		if remander.IsZero() || burnAmount.CurrentEpoch+1 != burnAmount.TotalEpochs {
-			return sdk.NewCoin(params.DefaultBondDenom, quotient)
-		}
-		return sdk.NewCoin(params.BaseCoinUnit, quotient.Add(remander))
-	} else if burnAmount.CurrentEpoch == 0 {
-		return sdk.NewCoin(params.DefaultBondDenom, burnAmount.TotalBurnAmount.Amount)
-	}
-	return sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0))
-}
-
-func createNextBurnAmount(ctx sdk.Context, k Keeper, config types.EpochBurnConfig) (burnAmount types.BurnAmount) {
-	// Create burn amount
-	burnAmount = types.BurnAmount{
-		Index:                 uint64(config.CurrentBurnAmountIndex),
-		TotalEpochs:           config.DefaultTotalEpochs,
-		CurrentEpoch:          0,
-		TotalBurnAmount:       sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0)),
-		CumulativeBurntAmount: sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0)),
-	}
-	k.SetBurnAmount(ctx, burnAmount)
-
-	// Emit event
-	EmitBurnAmountCreatedEvent(ctx, &burnAmount)
-
-	return burnAmount
-}
 
 // BeforeEpochStart is the epoch start hook.
 func (k Keeper) BeforeEpochStart(ctx sdk.Context, epochIdentifier string, epochNumber int64) {
@@ -58,8 +26,9 @@ func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumb
 
 	// Get burn amount
 	burnAmount, found := k.GetBurnAmount(ctx, uint64(config.CurrentBurnAmountIndex))
+	// If not found, set default burn amount
 	if !found {
-		burnAmount = createNextBurnAmount(ctx, k, config)
+		burnAmount = k.NewBurnAmount(ctx, config, uint64(config.CurrentBurnAmountIndex))
 	}
 
 	// Check if CurrentEpoch is smaller than TotalEpochs
@@ -67,20 +36,20 @@ func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumb
 		panic("current epoch is greater than total epochs")
 	}
 
-	// Check if CurrentEpoch is final epoch
+	// If CurrentEpoch is final epoch, update index and set next burnAmount
 	if burnAmount.CurrentEpoch == burnAmount.TotalEpochs {
 		config.CurrentBurnAmountIndex++
 		k.SetEpochBurnConfig(ctx, config)
 
 		burnAmount, found = k.GetBurnAmount(ctx, uint64(config.CurrentBurnAmountIndex))
 		if !found {
-			burnAmount = createNextBurnAmount(ctx, k, config)
+			burnAmount = k.NewBurnAmount(ctx, config, uint64(config.CurrentBurnAmountIndex))
 		}
 	}
 
 	// Calculate burnt amount
 	if burnAmount.CumulativeBurntAmount.IsLT(burnAmount.TotalBurnAmount) {
-		burnt = calculateBurntAmount(&burnAmount)
+		burnt = burnAmount.CalculateBurntAmount()
 	}
 
 	// TODO: Burn coins

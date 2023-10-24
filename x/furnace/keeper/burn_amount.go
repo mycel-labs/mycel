@@ -3,6 +3,7 @@ package keeper
 import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/x/furnace/types"
 )
 
@@ -60,4 +61,22 @@ func (k Keeper) GetAllBurnAmount(ctx sdk.Context) (list []types.BurnAmount) {
 	}
 
 	return
+}
+
+// Create a next burnAmount
+func (k Keeper) NewBurnAmount(ctx sdk.Context, config types.EpochBurnConfig, index uint64) (burnAmount types.BurnAmount) {
+	// Create burn amount
+	burnAmount = types.BurnAmount{
+		Index:                 index,
+		TotalEpochs:           config.DefaultTotalEpochs,
+		CurrentEpoch:          0,
+		TotalBurnAmount:       sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0)),
+		CumulativeBurntAmount: sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0)),
+	}
+	k.SetBurnAmount(ctx, burnAmount)
+
+	// Emit event
+	EmitBurnAmountCreatedEvent(ctx, &burnAmount)
+
+	return burnAmount
 }
