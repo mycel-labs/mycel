@@ -55,8 +55,9 @@ func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumb
 	// TODO: Burn coins
 
 	// Update burn amount
-	burnAmount.CumulativeBurntAmount = burnAmount.CumulativeBurntAmount.Add(burnt)
-	burnAmount.CurrentEpoch++
+	burnAmount.CumulateBurntAmount(burnt)
+
+	// Set burn amount
 	k.SetBurnAmount(ctx, burnAmount)
 
 	// Emit event

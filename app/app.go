@@ -704,6 +704,7 @@ func NewApp(
 
 		app.AccountKeeper,
 		app.BankKeeper,
+		app.FurnaceKeeper,
 	)
 
 	app.ResolverKeeper = *resolvermodulekeeper.NewKeeper(

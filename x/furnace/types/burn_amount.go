@@ -5,6 +5,16 @@ import (
 	"github.com/mycel-domain/mycel/app/params"
 )
 
+func NewBurnAmount(config EpochBurnConfig, index uint64) BurnAmount {
+	return BurnAmount{
+		Index:                 index,
+		TotalEpochs:           config.DefaultTotalEpochs,
+		CurrentEpoch:          0,
+		TotalBurnAmount:       sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0)),
+		CumulativeBurntAmount: sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0)),
+	}
+}
+
 func (burnAmount BurnAmount) CalculateBurntAmount() sdk.Coin {
 	if burnAmount.TotalBurnAmount.Amount.GTE(sdk.NewInt(int64(burnAmount.TotalEpochs))) {
 		quotient := burnAmount.TotalBurnAmount.Amount.QuoRaw(int64(burnAmount.TotalEpochs))
@@ -17,4 +27,9 @@ func (burnAmount BurnAmount) CalculateBurntAmount() sdk.Coin {
 		return sdk.NewCoin(params.DefaultBondDenom, burnAmount.TotalBurnAmount.Amount)
 	}
 	return sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0))
+}
+
+func (burnAmount *BurnAmount) CumulateBurntAmount(amount sdk.Coin) {
+	burnAmount.CumulativeBurntAmount = burnAmount.CumulativeBurntAmount.Add(amount)
+	burnAmount.CurrentEpoch++
 }
