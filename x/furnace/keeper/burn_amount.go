@@ -1,8 +1,10 @@
 package keeper
 
 import (
+	errorsmod "cosmossdk.io/errors"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/x/furnace/types"
 )
 
@@ -85,4 +87,48 @@ func (k Keeper) AddToTotalBurnAmount(ctx sdk.Context, index uint64, amount sdk.C
 	burnAmount.TotalBurnAmount = burnAmount.TotalBurnAmount.Add(amount)
 	k.SetBurnAmount(ctx, burnAmount)
 	return burnAmount
+}
+
+// Add registration fee to burnAmounts
+func (k Keeper) AddRegistrationFeeToBurnAmounts(ctx sdk.Context, registrationPeriodInYear uint64, amount sdk.Coin) (burnAmounts []types.BurnAmount, err error) {
+	// Check registrationPeriodInYear
+	if registrationPeriodInYear == 0 {
+		return nil, errorsmod.Wrapf(types.ErrInvalidRegistrationPeriod, "%d", registrationPeriodInYear)
+	}
+	epochBurnConfig, found := k.GetEpochBurnConfig(ctx)
+	if !found {
+		panic("epoch burn config not found")
+	}
+
+	remainDays := registrationPeriodInYear * params.OneYearInDays
+	for i := epochBurnConfig.CurrentBurnAmountIndex + 1; remainDays > 0; i++ {
+		burnAmount, found := k.GetBurnAmount(ctx, i)
+		// Create new burn amount if not found
+		if !found {
+			burnAmount = k.NewBurnAmount(ctx, epochBurnConfig, i)
+		}
+
+		burnAmounts = append(burnAmounts, burnAmount)
+
+		if remainDays >= burnAmount.TotalEpochs {
+			remainDays -= burnAmount.TotalEpochs
+		} else {
+			remainDays = 0
+		}
+	}
+
+	quotient := amount.Amount.QuoRaw(int64(len(burnAmounts)))
+	reminder := amount.Amount.ModRaw(int64(len(burnAmounts)))
+
+	// Set burnAmount
+	for i, burnAmount := range burnAmounts {
+		if !reminder.IsZero() && i == 0 {
+			amount = sdk.NewCoin(amount.Denom, quotient.Add(reminder))
+		} else {
+			amount = sdk.NewCoin(amount.Denom, quotient)
+		}
+		burnAmounts[i].TotalBurnAmount = amount
+		k.AddToTotalBurnAmount(ctx, burnAmount.Index, amount)
+	}
+	return burnAmounts, err
 }

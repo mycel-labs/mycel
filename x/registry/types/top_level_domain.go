@@ -7,7 +7,7 @@ import (
 
 func GetMycelPrice(denom string) (price sdk.Int, err error) {
 	if denom == params.DefaultBondDenom {
-		price = sdk.NewInt(1)
+		price = sdk.NewInt(1 * params.MycelExponent)
 	} else {
 		// TODO: Get price from oracle
 		return sdk.NewInt(0), ErrInvalidDenom

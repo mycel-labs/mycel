@@ -7,6 +7,7 @@ import (
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/mycel-domain/mycel/app/params"
 )
 
 func (k msgServer) RegisterTopLevelDomain(goCtx context.Context, msg *types.MsgRegisterTopLevelDomain) (*types.MsgRegisterTopLevelDomainResponse, error) {
@@ -22,7 +23,7 @@ func (k msgServer) RegisterTopLevelDomain(goCtx context.Context, msg *types.MsgR
 	}
 
 	currentTime := ctx.BlockTime()
-	expirationDate := currentTime.AddDate(int(msg.RegistrationPeriodInYear), 0, 0)
+	expirationDate := currentTime.AddDate(0, 0, params.OneYearInDays)
 	accessControl := map[string]types.DomainRole{
 		msg.Creator: types.DomainRole_OWNER,
 	}

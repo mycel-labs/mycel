@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 
+	"github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/x/registry/types"
 
 	errorsmod "cosmossdk.io/errors"
@@ -23,7 +24,7 @@ func (k msgServer) RegisterSecondLevelDomain(goCtx context.Context, msg *types.M
 	}
 
 	currentTime := ctx.BlockTime()
-	expirationDate := currentTime.AddDate(int(msg.RegistrationPeriodInYear), 0, 0)
+	expirationDate := currentTime.AddDate(0, 0, params.OneYearInDays)
 	accessControl := map[string]types.DomainRole{
 		msg.Creator: types.DomainRole_OWNER,
 	}
