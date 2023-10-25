@@ -23,7 +23,7 @@ func (k msgServer) RegisterTopLevelDomain(goCtx context.Context, msg *types.MsgR
 	}
 
 	currentTime := ctx.BlockTime()
-	expirationDate := currentTime.AddDate(0, 0, params.OneYearInDays)
+	expirationDate := currentTime.AddDate(0, 0, params.OneYearInDays*int(msg.RegistrationPeriodInYear))
 	accessControl := map[string]types.DomainRole{
 		msg.Creator: types.DomainRole_OWNER,
 	}
