@@ -19,9 +19,10 @@ type (
 		memKey     storetypes.StoreKey
 		paramstore paramtypes.Subspace
 
-		accountKeeper types.AccountKeeper
-		bankKeeper    types.BankKeeper
-		furnaceKeeper types.FurnaceKeeper
+		bankKeeper         types.BankKeeper
+		distributionKeeper types.DistributionKeeper
+		mintKeeper         types.MintKeeper
+		furnaceKeeper      types.FurnaceKeeper
 	}
 )
 
@@ -31,8 +32,9 @@ func NewKeeper(
 	memKey storetypes.StoreKey,
 	ps paramtypes.Subspace,
 
-	accountKeeper types.AccountKeeper,
 	bankKeeper types.BankKeeper,
+	distributionKeeper types.DistributionKeeper,
+	mintKeeper types.MintKeeper,
 	furnaceKeeper types.FurnaceKeeper,
 ) *Keeper {
 	// set KeyTable if it has not already been set
@@ -46,8 +48,9 @@ func NewKeeper(
 		memKey:     memKey,
 		paramstore: ps,
 
-		accountKeeper: accountKeeper,
 		bankKeeper:    bankKeeper,
+		distributionKeeper: distributionKeeper,
+		mintKeeper:    mintKeeper,
 		furnaceKeeper: furnaceKeeper,
 	}
 }

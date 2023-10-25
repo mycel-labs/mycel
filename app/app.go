@@ -687,13 +687,14 @@ func NewApp(
 		app.GetSubspace(epochsmoduletypes.ModuleName),
 	)
 
-	app.ResolverKeeper = *resolvermodulekeeper.NewKeeper(
+	app.FurnaceKeeper = *furnacemodulekeeper.NewKeeper(
 		appCodec,
-		keys[resolvermoduletypes.StoreKey],
-		keys[resolvermoduletypes.MemStoreKey],
-		app.GetSubspace(resolvermoduletypes.ModuleName),
+		keys[furnacemoduletypes.StoreKey],
+		keys[furnacemoduletypes.MemStoreKey],
+		app.GetSubspace(furnacemoduletypes.ModuleName),
 
-		app.RegistryKeeper,
+		app.BankKeeper,
+		app.EpochsKeeper,
 	)
 
 	app.RegistryKeeper = *registrymodulekeeper.NewKeeper(
@@ -702,8 +703,9 @@ func NewApp(
 		keys[registrymoduletypes.MemStoreKey],
 		app.GetSubspace(registrymoduletypes.ModuleName),
 
-		app.AccountKeeper,
 		app.BankKeeper,
+		app.DistrKeeper,
+		app.MintKeeper,
 		app.FurnaceKeeper,
 	)
 
@@ -714,16 +716,6 @@ func NewApp(
 		app.GetSubspace(resolvermoduletypes.ModuleName),
 
 		app.RegistryKeeper,
-	)
-
-	app.FurnaceKeeper = *furnacemodulekeeper.NewKeeper(
-		appCodec,
-		keys[furnacemoduletypes.StoreKey],
-		keys[furnacemoduletypes.MemStoreKey],
-		app.GetSubspace(furnacemoduletypes.ModuleName),
-
-		app.BankKeeper,
-		app.EpochsKeeper,
 	)
 
 	app.EpochsKeeper.SetHooks(
