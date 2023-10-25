@@ -81,7 +81,7 @@ func (suite *KeeperTestSuite) TestAddRegistrationFeeToBurnAmounts() {
 			regitrationPeriodInYear: 2,
 			expStartBurnAmountIndex: 3,
 			fn: func() {
-				for i := int64(1); i <= 31; i++ {
+				for i := int64(1); i <= int64(defaultConfig.DefaultTotalEpochs+1); i++ {
 					suite.ctx = suite.ctx.WithBlockHeight(i).WithBlockTime(now.Add(oneDayDuration))
 					suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
 				}

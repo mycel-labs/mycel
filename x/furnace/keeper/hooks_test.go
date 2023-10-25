@@ -27,6 +27,7 @@ type ExpCreateBurnAmountEvent struct {
 var (
 	now            = time.Now()
 	oneDayDuration = time.Hour*24 + time.Second
+	defaultConfig = types.GetDefaultEpochBurnConfig()
 )
 
 func (suite *KeeperTestSuite) TestAfterEpochEndCreateBurnAmount() {
@@ -44,7 +45,7 @@ func (suite *KeeperTestSuite) TestAfterEpochEndCreateBurnAmount() {
 			},
 		},
 		{
-			epochsCount: 31,
+			epochsCount: int64(defaultConfig.DefaultTotalEpochs+1),
 			expectedEvents: []ExpCreateBurnAmountEvent{
 				{
 					BurnAmountIndex: "1",
