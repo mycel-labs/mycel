@@ -1,8 +1,6 @@
 package keeper
 
 import (
-	"strconv"
-
 	"github.com/mycel-domain/mycel/x/registry/types"
 
 	errorsmod "cosmossdk.io/errors"
@@ -110,14 +108,7 @@ func (k Keeper) RegisterSecondLevelDomain(ctx sdk.Context, domain types.SecondLe
 	k.SetSecondLevelDomain(ctx, domain)
 
 	// Emit event
-	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(types.EventTypeRegsterDomain,
-			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventName, domain.Name),
-			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventParent, domain.Parent),
-			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventExpirationDate, strconv.FormatInt(domain.ExpirationDate, 10)),
-			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventRegistrationFee, fee.String()),
-		),
-	)
+	EmitRegisterSecondLevelDomainEvent(ctx, domain, *fee)
 
 	return err
 }

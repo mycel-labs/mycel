@@ -28,15 +28,10 @@ func (k msgServer) UpdateWalletRecord(goCtx context.Context, msg *types.MsgUpdat
 		return nil, err
 	}
 	k.Keeper.SetSecondLevelDomain(ctx, domain)
+
 	// Emit event
-	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(types.EventTypeUpdateWalletRecord,
-			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventDomainName, msg.Name),
-			sdk.NewAttribute(types.AttributeUpdateDnsRecordEventDomainParent, msg.Parent),
-			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventWalletRecordType, msg.WalletRecordType),
-			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventValue, msg.Value),
-		),
-	)
+	EmitUpdateWalletRecordEvent(ctx, *msg)
+
 
 	return &types.MsgUpdateWalletRecordResponse{}, nil
 }

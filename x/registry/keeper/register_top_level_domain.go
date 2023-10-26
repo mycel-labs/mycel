@@ -4,7 +4,6 @@ import (
 	"cosmossdk.io/math"
 	"fmt"
 	"github.com/mycel-domain/mycel/x/registry/types"
-	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/mycel-domain/mycel/app/params"
@@ -98,12 +97,8 @@ func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, domain types.TopLevelDom
 	k.SetTopLevelDomain(ctx, domain)
 
 	// Emit event
-	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(types.EventTypeRegsterTopLevelDomain,
-			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventName, domain.Name),
-			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventExpirationDate, strconv.FormatInt(domain.ExpirationDate, 10)),
-		),
-	)
+	EmitRegisterTopLevelDomainEvent(ctx, domain)
+
 
 	return err
 }

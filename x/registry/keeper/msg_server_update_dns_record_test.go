@@ -7,7 +7,6 @@ import (
 	"github.com/mycel-domain/mycel/x/registry/types"
 
 	errorsmod "cosmossdk.io/errors"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 func (suite *KeeperTestSuite) TestUpdateDnsRecord() {
@@ -93,25 +92,20 @@ func (suite *KeeperTestSuite) TestUpdateDnsRecord() {
 			_, err = suite.msgServer.UpdateDnsRecord(suite.ctx, msgUpdateRecord)
 
 			if tc.expErr == nil {
-				// Evalute events
+				// Check if the record is updated
 				suite.Require().Nil(err)
 				res, _ := suite.app.RegistryKeeper.GetSecondLevelDomain(suite.ctx, domain.Name, domain.Parent)
 				suite.Require().Equal(tc.value, res.Records[tc.dnsRecordType].GetDnsRecord().GetValue())
+				// Evalute events
+				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeUpdateDnsRecord)
+				suite.Require().True(found)
 
-				// Event check
-				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())
-				eventIndex := len(events) - 1
-				suite.Require().EqualValues(sdk.StringEvent{
-					Type: types.EventTypeUpdateDnsRecord,
-					Attributes: []sdk.Attribute{
-						{Key: types.AttributeUpdateDnsRecordEventDomainName, Value: tc.name},
-						{Key: types.AttributeUpdateDnsRecordEventDomainParent, Value: tc.parent},
-						{Key: types.AttributeUpdateDnsRecordEventDnsRecordType, Value: tc.dnsRecordType},
-						{Key: types.AttributeUpdateDnsRecordEventValue, Value: tc.value},
-					},
-				},
-					events[eventIndex])
-
+				for _, event := range events {
+					suite.Require().Equal(tc.name, event.Attributes[0].Value)
+					suite.Require().Equal(tc.parent, event.Attributes[1].Value)
+					suite.Require().Equal(tc.dnsRecordType, event.Attributes[2].Value)
+					suite.Require().Equal(tc.value, event.Attributes[3].Value)
+				}
 			} else {
 				suite.Require().EqualError(err, tc.expErr.Error())
 			}

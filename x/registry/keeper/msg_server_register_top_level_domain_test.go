@@ -7,7 +7,6 @@ import (
 	"github.com/mycel-domain/mycel/x/registry/types"
 
 	errorsmod "cosmossdk.io/errors"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
@@ -74,16 +73,12 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 				suite.Require().Equal(domain.AccessControl[tc.creator], types.DomainRole_OWNER)
 
 				// Evalute events
-				suite.Require().Nil(err)
-				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())
-				eventIndex := len(events) - 1
-				suite.Require().EqualValues(sdk.StringEvent{
-					Type: types.EventTypeRegsterTopLevelDomain,
-					Attributes: []sdk.Attribute{
-						{Key: types.AttributeRegisterTopLevelDomainEventName, Value: tc.name},
-						{Key: types.AttributeRegisterTopLevelDomainEventExpirationDate, Value: events[eventIndex].Attributes[1].Value},
-					},
-				}, events[eventIndex])
+				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeRegisterTopLevelDomain)
+				suite.Require().True(found)
+				for _, event := range events {
+					suite.Require().Equal(tc.name, event.Attributes[0].Value)
+				}
+
 			} else {
 				suite.Require().EqualError(err, tc.expErr.Error())
 			}

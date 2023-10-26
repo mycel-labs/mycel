@@ -1,21 +1,21 @@
 package types
 
+// Register top-level-domain event
+const (
+	EventTypeRegisterTopLevelDomain = "register-top-level-domain"
+
+	AttributeRegisterTopLevelDomainEventName           = "name"
+	AttributeRegisterTopLevelDomainEventExpirationDate = "expiration-date"
+)
+
 // Register second-level-domain event
 const (
-	EventTypeRegsterDomain = "register-domain"
+	EventTypeRegisterSecondLevelDomain = "register-second-leve-domain"
 
 	AttributeRegisterSecondLevelDomainEventName            = "name"
 	AttributeRegisterSecondLevelDomainEventParent          = "parent"
 	AttributeRegisterSecondLevelDomainEventExpirationDate  = "expiration-date"
 	AttributeRegisterSecondLevelDomainEventRegistrationFee = "registration-fee"
-)
-
-// Register top-level-domain event
-const (
-	EventTypeRegsterTopLevelDomain = "register-top-level-domain"
-
-	AttributeRegisterTopLevelDomainEventName           = "name"
-	AttributeRegisterTopLevelDomainEventExpirationDate = "expiration-date"
 )
 
 // Update wallet record event
