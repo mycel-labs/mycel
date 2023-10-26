@@ -14,7 +14,7 @@ func EmitRegisterTopLevelDomainEvent(ctx sdk.Context, domain types.TopLevelDomai
 			types.EventTypeRegisterTopLevelDomain,
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventName, domain.Name),
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventExpirationDate, fmt.Sprintf("%d", domain.ExpirationDate)),
-			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventMaxSubdomainRegistrations, domain.SubdomainConfig.SubdomainRegistrationFees.String()),
+			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventMaxSubdomainRegistrations, fmt.Sprintf("%d", domain.SubdomainConfig.MaxSubdomainRegistrations)),
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventTotalRegistrationFee, fee.TotalRegistrationFee.String()),
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventBurnWeight, fee.BurnWeight.String()),
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventRegistrationFeeToBurn, fee.RegistrationFeeToBurn.String()),

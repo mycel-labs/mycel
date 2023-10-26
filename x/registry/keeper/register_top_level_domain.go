@@ -46,6 +46,7 @@ func (k Keeper) PayTLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, doma
 	if err != nil {
 		return types.TopLevelDomainRegistrationFee{}, err
 	}
+	registrationFee.BurnWeight = weight
 
 	// Get price (=P)
 	price, err := types.GetMycelPrice(denom)

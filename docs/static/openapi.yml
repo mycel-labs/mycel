@@ -50680,6 +50680,9 @@ paths:
                   stakingInflationRatio:
                     type: number
                     format: float
+                  topLevelDomainBaseFeeInUsd:
+                    type: string
+                    format: int64
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
@@ -81220,6 +81223,9 @@ definitions:
       stakingInflationRatio:
         type: number
         format: float
+      topLevelDomainBaseFeeInUsd:
+        type: string
+        format: int64
     description: Params defines the parameters for the module.
   mycel.registry.QueryAllDomainOwnershipResponse:
     type: object
@@ -81625,6 +81631,9 @@ definitions:
           stakingInflationRatio:
             type: number
             format: float
+          topLevelDomainBaseFeeInUsd:
+            type: string
+            format: int64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   mycel.registry.SecondLevelDomainResponse:
     type: object
