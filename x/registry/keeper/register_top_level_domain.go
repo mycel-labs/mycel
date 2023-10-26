@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"cosmossdk.io/math"
+	"fmt"
 	"github.com/mycel-domain/mycel/x/registry/types"
 	"strconv"
 
@@ -15,7 +16,8 @@ func (k Keeper) GetBurnWeight(ctx sdk.Context) (weight math.LegacyDec, err error
 	boundedRatio := k.mintKeeper.BondedRatio(ctx)
 
 	// TODO: Get alpha from params
-	alpha := math.LegacyMustNewDecFromStr("0.5")
+	stakingInflationRatio := k.GetParams(ctx).StakingInflationRatio
+	alpha := math.LegacyMustNewDecFromStr(fmt.Sprintf("%f", stakingInflationRatio))
 
 	w1 := alpha.Mul(boundedRatio)
 	w2 := inflation.Mul(math.LegacyMustNewDecFromStr("1").Sub(alpha))
@@ -28,8 +30,14 @@ func (k Keeper) PayTLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, doma
 	// TODO: Support other denoms
 	denom := params.DefaultBondDenom
 
+	// Get base fee
+	baseFeeInUsd := k.GetParams(ctx).TopLevelDomainBaseFeeInUsd
+	if baseFeeInUsd == 0 {
+		panic("base fee is not set")
+	}
+
 	// Get Registration fee (=X)
-	fee, err := domain.GetRegistrationFeeAmountInDenom(denom, registrationPeriodInYear)
+	fee, err := domain.GetRegistrationFeeAmountInDenom(denom, baseFeeInUsd, registrationPeriodInYear)
 	if err != nil {
 		return err
 	}
@@ -67,7 +75,7 @@ func (k Keeper) PayTLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, doma
 	// Store burn amount
 	_, err = k.furnaceKeeper.AddRegistrationFeeToBurnAmounts(ctx, registrationPeriodInYear, coinToBurn)
 	if err != nil {
-	return err
+		return err
 	}
 
 	return nil

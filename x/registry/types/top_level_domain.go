@@ -6,10 +6,6 @@ import (
 	"github.com/mycel-domain/mycel/app/params"
 )
 
-const (
-	TopLevelDomainBaseFeeInUSD = 0.05 * 10e6
-)
-
 func GetMycelPrice(denom string) (price math.Int, err error) {
 	switch denom {
 	case params.DefaultBondDenom:
@@ -21,23 +17,23 @@ func GetMycelPrice(denom string) (price math.Int, err error) {
 	return price, nil
 }
 
-func GetBeseFeeAmountInDenom(denom string) (amount math.Int, err error) {
+func GetBeseFeeAmountInDenom(denom string, baseFeeInUsd int64) (amount math.Int, err error) {
 	switch denom {
 	// TODO: Get price from oracle
 	case params.DefaultBondDenom:
 		// 1USD = 10e6 umycel
-		amount = sdk.NewInt(TopLevelDomainBaseFeeInUSD)
+		amount = sdk.NewInt(baseFeeInUsd)
 	case "uusdc":
 		// 1USD = 10e6 uusdc
-		amount = sdk.NewInt(TopLevelDomainBaseFeeInUSD)
+		amount = sdk.NewInt(baseFeeInUsd)
 	default:
 		return amount, ErrInvalidDenom
 	}
 	return amount, nil
 }
 
-func (topLevelDommain TopLevelDomain) GetRegistrationFeeAmountInDenom(denom string, registrationPeriodInYear uint64) (amount math.Int, err error) {
-	baseFeeAmount, err := GetBeseFeeAmountInDenom(denom)
+func (topLevelDommain TopLevelDomain) GetRegistrationFeeAmountInDenom(denom string, baseFeeInUsd int64, registrationPeriodInYear uint64) (amount math.Int, err error) {
+	baseFeeAmount, err := GetBeseFeeAmountInDenom(denom, baseFeeInUsd)
 	if err != nil {
 		return amount, err
 	}
