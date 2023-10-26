@@ -8,12 +8,17 @@ import (
 )
 
 // Register top-level-domain event
-func EmitRegisterTopLevelDomainEvent(ctx sdk.Context, domain types.TopLevelDomain) {
+func EmitRegisterTopLevelDomainEvent(ctx sdk.Context, domain types.TopLevelDomain, fee types.TopLevelDomainRegistrationFee) {
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(
 			types.EventTypeRegisterTopLevelDomain,
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventName, domain.Name),
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventExpirationDate, fmt.Sprintf("%d", domain.ExpirationDate)),
+			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventMaxSubdomainRegistrations, domain.SubdomainConfig.SubdomainRegistrationFees.String()),
+			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventTotalRegistrationFee, fee.TotalRegistrationFee.String()),
+			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventBurnWeight, fee.BurnWeight.String()),
+			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventRegistrationFeeToBurn, fee.RegistrationFeeToBurn.String()),
+			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventRegistrationFeeToTreasury, fee.RegistrationFeeToTreasury.String()),
 		),
 	)
 }

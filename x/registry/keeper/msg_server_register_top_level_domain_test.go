@@ -3,6 +3,9 @@ package keeper_test
 import (
 	"fmt"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	furnacetypes "github.com/mycel-domain/mycel/x/furnace/types"
 	"github.com/mycel-domain/mycel/testutil"
 	"github.com/mycel-domain/mycel/x/registry/types"
 
@@ -62,9 +65,17 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 			// Run test case function
 			tc.fn()
 
+			// Before balances
+			furnaceAddress := authtypes.NewModuleAddress(furnacetypes.ModuleName)
+			beforeFurnaceBalance := suite.app.BankKeeper.GetAllBalances(suite.ctx, furnaceAddress)
+			beforeTreasuryBalance := suite.app.DistrKeeper.GetFeePool(suite.ctx).CommunityPool
+
 			// Register domain
 			_, err := suite.msgServer.RegisterTopLevelDomain(suite.ctx, registerMsg)
-			fmt.Println("----Case_", i, "---01", err)
+
+			// After balances
+			afterFurnaceBalance := suite.app.BankKeeper.GetAllBalances(suite.ctx, furnaceAddress)
+			afterTreasuryBalance := suite.app.DistrKeeper.GetFeePool(suite.ctx).CommunityPool
 
 			if tc.expErr == nil {
 				// Evalute if domain is registered
@@ -77,6 +88,28 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 				suite.Require().True(found)
 				for _, event := range events {
 					suite.Require().Equal(tc.name, event.Attributes[0].Value)
+
+					// Check if the registration fee is correct
+					total, err := sdk.ParseCoinsNormalized(event.Attributes[3].Value)
+					suite.Require().Nil(err)
+					toBurn, err := sdk.ParseCoinNormalized(event.Attributes[5].Value)
+					suite.Require().Nil(err)
+					toTreasury, err := sdk.ParseCoinNormalized(event.Attributes[6].Value)
+					suite.Require().Nil(err)
+
+					// Check if the total is equal to the sum of toBurn and toTreasury
+					if total.Len() == 1 {
+						suite.Require().Equal(total, sdk.NewCoins(toBurn.Add(toTreasury)))
+
+					} else {
+						suite.Require().Equal(total, sdk.NewCoins(toBurn, toTreasury))
+					}
+
+					// Check if the furnace balance is increased
+					expectedFurnaceBalance := beforeFurnaceBalance.Add(toBurn)
+					suite.Require().Equal(expectedFurnaceBalance, afterFurnaceBalance)
+					expectedTreasuryBalance := beforeTreasuryBalance.Add(sdk.NewDecCoinFromCoin(toTreasury))
+					suite.Require().Equal(expectedTreasuryBalance, afterTreasuryBalance)
 				}
 
 			} else {

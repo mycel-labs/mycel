@@ -25,7 +25,7 @@ func (k Keeper) GetBurnWeight(ctx sdk.Context) (weight math.LegacyDec, err error
 }
 
 // Pay TLD registration fee
-func (k Keeper) PayTLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.TopLevelDomain, registrationPeriodInYear uint64) (err error) {
+func (k Keeper) PayTLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.TopLevelDomain, registrationPeriodInYear uint64) (registrationFee types.TopLevelDomainRegistrationFee, err error) {
 	// TODO: Support other denoms
 	denom := params.DefaultBondDenom
 
@@ -38,46 +38,53 @@ func (k Keeper) PayTLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, doma
 	// Get Registration fee (=X)
 	fee, err := domain.GetRegistrationFeeAmountInDenom(denom, baseFeeInUsd, registrationPeriodInYear)
 	if err != nil {
-		return err
+		return types.TopLevelDomainRegistrationFee{}, err
 	}
 
 	// Get burn weight (=W)
 	weight, err := k.GetBurnWeight(ctx)
 	if err != nil {
-		return err
+		return types.TopLevelDomainRegistrationFee{}, err
 	}
 
 	// Get price (=P)
 	price, err := types.GetMycelPrice(denom)
 	if err != nil {
-		return err
+		return types.TopLevelDomainRegistrationFee{}, err
 	}
 
 	// Calc burn amount (=WX/P)
 	amountToBurn := weight.Mul(math.LegacyNewDecFromBigInt(fee.BigInt())).Quo(math.LegacyNewDecFromBigInt(price.BigInt())).TruncateInt()
 	amountToTreasury := fee.Sub(amountToBurn)
 
-	coinToBurn := sdk.NewCoin(denom, amountToBurn)
-	coinToTreasury := sdk.NewCoin(denom, amountToTreasury)
+	registrationFee.RegistrationFeeToBurn = sdk.NewCoin(denom, amountToBurn)
+	registrationFee.RegistrationFeeToTreasury = sdk.NewCoin(denom, amountToTreasury)
 
 	// Send coins to treasury
-	err = k.distributionKeeper.FundCommunityPool(ctx, sdk.NewCoins(coinToTreasury), payer)
+	err = k.distributionKeeper.FundCommunityPool(ctx, sdk.NewCoins(registrationFee.RegistrationFeeToTreasury), payer)
 	if err != nil {
-		return err
+		return types.TopLevelDomainRegistrationFee{}, err
 	}
 
 	// Send coins to furnace module
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, furnacetypes.ModuleName, sdk.NewCoins(coinToBurn))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, furnacetypes.ModuleName, sdk.NewCoins(registrationFee.RegistrationFeeToBurn))
 	if err != nil {
-		return err
+		return types.TopLevelDomainRegistrationFee{}, err
 	}
 	// Store burn amount
-	_, err = k.furnaceKeeper.AddRegistrationFeeToBurnAmounts(ctx, registrationPeriodInYear, coinToBurn)
+	_, err = k.furnaceKeeper.AddRegistrationFeeToBurnAmounts(ctx, registrationPeriodInYear, registrationFee.RegistrationFeeToBurn)
 	if err != nil {
-		return err
+		return types.TopLevelDomainRegistrationFee{}, err
 	}
 
-	return nil
+	// Set total registration fee
+	if registrationFee.RegistrationFeeToBurn.Denom == registrationFee.RegistrationFeeToTreasury.Denom {
+		registrationFee.TotalRegistrationFee = sdk.NewCoins(registrationFee.RegistrationFeeToBurn.Add(registrationFee.RegistrationFeeToTreasury))
+	} else {
+		registrationFee.TotalRegistrationFee = sdk.NewCoins(registrationFee.RegistrationFeeToBurn, registrationFee.RegistrationFeeToTreasury)
+	}
+
+	return registrationFee, nil
 }
 
 func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, domain types.TopLevelDomain, owner sdk.AccAddress, registrationPeriodIYear uint64) (err error) {
@@ -88,7 +95,7 @@ func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, domain types.TopLevelDom
 	}
 
 	// Pay TLD registration fee
-	err = k.PayTLDRegstrationFee(ctx, owner, domain, registrationPeriodIYear)
+	topLevelDomainRegistrationFee, err := k.PayTLDRegstrationFee(ctx, owner, domain, registrationPeriodIYear)
 	if err != nil {
 		return err
 	}
@@ -97,8 +104,7 @@ func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, domain types.TopLevelDom
 	k.SetTopLevelDomain(ctx, domain)
 
 	// Emit event
-	EmitRegisterTopLevelDomainEvent(ctx, domain)
-
+	EmitRegisterTopLevelDomainEvent(ctx, domain, topLevelDomainRegistrationFee)
 
 	return err
 }

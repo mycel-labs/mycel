@@ -6,6 +6,11 @@ const (
 
 	AttributeRegisterTopLevelDomainEventName           = "name"
 	AttributeRegisterTopLevelDomainEventExpirationDate = "expiration-date"
+	AttributeRegisterTopLevelDomainEventMaxSubdomainRegistrations = "max-subdomain-registrations"
+	AttributeRegisterTopLevelDomainEventTotalRegistrationFee = "total-registration-fee"
+	AttributeRegisterTopLevelDomainEventBurnWeight = "burn-weight"
+	AttributeRegisterTopLevelDomainEventRegistrationFeeToBurn = "registration-fee-to-burn"
+	AttributeRegisterTopLevelDomainEventRegistrationFeeToTreasury = "registration-fee-to-treasury"
 )
 
 // Register second-level-domain event
