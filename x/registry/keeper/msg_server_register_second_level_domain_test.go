@@ -126,7 +126,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 
 				// Evalute events
 				suite.Require().Nil(err)
-				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeRegsterDomain)
+				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeRegisterDomain)
 				suite.Require().True(found)
 				for _, event := range events {
 					suite.Require().Equal(tc.name, event.Attributes[0].Value)

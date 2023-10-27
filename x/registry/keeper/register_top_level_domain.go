@@ -3,8 +3,9 @@ package keeper
 import (
 	// "errors"
 	// "fmt"
-	"github.com/mycel-domain/mycel/x/registry/types"
 	"strconv"
+
+	"github.com/mycel-domain/mycel/x/registry/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	// sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -34,7 +35,7 @@ func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, domain types.TopLevelDom
 
 	// Emit event
 	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(types.EventTypeRegsterTopLevelDomain,
+		sdk.NewEvent(types.EventTypeRegisterTopLevelDomain,
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventName, domain.Name),
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventExpirationDate, strconv.FormatInt(domain.ExpirationDate, 10)),
 		),

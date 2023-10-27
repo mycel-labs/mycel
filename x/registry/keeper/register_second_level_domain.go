@@ -113,7 +113,7 @@ func (k Keeper) RegisterSecondLevelDomain(ctx sdk.Context, domain types.SecondLe
 
 	// Emit event
 	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(types.EventTypeRegsterDomain,
+		sdk.NewEvent(types.EventTypeRegisterDomain,
 			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventName, domain.Name),
 			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventParent, domain.Parent),
 			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventExpirationDate, strconv.FormatInt(domain.ExpirationDate, 10)),

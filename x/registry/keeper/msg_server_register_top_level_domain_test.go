@@ -79,7 +79,7 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())
 				eventIndex := len(events) - 1
 				suite.Require().EqualValues(sdk.StringEvent{
-					Type: types.EventTypeRegsterTopLevelDomain,
+					Type: types.EventTypeRegisterTopLevelDomain,
 					Attributes: []sdk.Attribute{
 						{Key: types.AttributeRegisterTopLevelDomainEventName, Value: tc.name},
 						{Key: types.AttributeRegisterTopLevelDomainEventExpirationDate, Value: events[eventIndex].Attributes[1].Value},
