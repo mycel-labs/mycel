@@ -87,11 +87,6 @@ func (k Keeper) RegisterSecondLevelDomain(ctx sdk.Context, domain types.SecondLe
 		return err
 	}
 
-	// Set subdomain registration config
-	parentDomain.SubdomainConfig = &types.SubdomainConfig{
-		MaxSubdomainRegistrations: 100,
-	}
-
 	// Increment parents subdomain SubdomainCount
 	k.IncrementParentsSubdomainCount(ctx, domain)
 
