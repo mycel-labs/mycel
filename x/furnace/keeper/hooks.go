@@ -10,11 +10,11 @@ import (
 func calculateBurntAmount(burnAmount *types.BurnAmount) sdk.Coin {
 	if burnAmount.TotalBurnAmount.Amount.GTE(sdk.NewInt(int64(burnAmount.TotalEpochs))) {
 		quotient := burnAmount.TotalBurnAmount.Amount.QuoRaw(int64(burnAmount.TotalEpochs))
-		remander := burnAmount.TotalBurnAmount.Amount.ModRaw(int64(burnAmount.TotalEpochs))
-		if remander.IsZero() || burnAmount.CurrentEpoch+1 != burnAmount.TotalEpochs {
+		remainder := burnAmount.TotalBurnAmount.Amount.ModRaw(int64(burnAmount.TotalEpochs))
+		if remainder.IsZero() || burnAmount.CurrentEpoch+1 != burnAmount.TotalEpochs {
 			return sdk.NewCoin(params.DefaultBondDenom, quotient)
 		}
-		return sdk.NewCoin(params.BaseCoinUnit, quotient.Add(remander))
+		return sdk.NewCoin(params.BaseCoinUnit, quotient.Add(remainder))
 	} else if burnAmount.CurrentEpoch == 0 {
 		return sdk.NewCoin(params.DefaultBondDenom, burnAmount.TotalBurnAmount.Amount)
 	}

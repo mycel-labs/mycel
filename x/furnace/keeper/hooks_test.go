@@ -63,7 +63,7 @@ func (suite *KeeperTestSuite) TestAfterEpochEndCreateBurnAmount() {
 			for i := int64(1); i <= tc.epochsCount; i++ {
 				suite.ctx = suite.ctx.WithBlockHeight(i + 1).WithBlockTime(now.Add(oneDayDuration))
 				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
-				// Check if curent epoch is expected
+				// Check if current epoch is expected
 				epochInfo, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, epochstypes.DailyEpochId)
 				suite.Require().True(found)
 				suite.Require().Equal(i+1, epochInfo.CurrentEpoch)
@@ -230,7 +230,7 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 			for i := int64(1); i <= tc.epochsCount; i++ {
 				suite.ctx = suite.ctx.WithBlockHeight(i + 1).WithBlockTime(now.Add(oneDayDuration))
 				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
-				// Check if curent epoch is expected
+				// Check if current epoch is expected
 				epochInfo, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, epochstypes.DailyEpochId)
 				suite.Require().True(found)
 				suite.Require().Equal(i+1, epochInfo.CurrentEpoch)

@@ -37,7 +37,7 @@ func GetFeeByNameLength(base int, baseFee int) map[uint32]*Fee {
 func (config *SubdomainConfig) GetRegistrationFee(name string, registrationPeriodInYear uint64) (amount *sdk.Coin, err error) {
 	amount = config.SubdomainRegistrationFees.DefaultFee
 
-	// Set amout if bylength found
+	// Set amount if bylength found
 	if config.SubdomainRegistrationFees.FeeByName[name] != nil {
 		if config.SubdomainRegistrationFees.FeeByName[name].IsRegistrable {
 			amount = config.SubdomainRegistrationFees.FeeByName[name].Fee
@@ -46,7 +46,7 @@ func (config *SubdomainConfig) GetRegistrationFee(name string, registrationPerio
 		}
 	}
 
-	// Set amout if byname found
+	// Set amount if byname found
 	if config.SubdomainRegistrationFees.FeeByLength[uint32(len(name))] != nil {
 		if config.SubdomainRegistrationFees.FeeByLength[uint32(len(name))].IsRegistrable {
 			amount = config.SubdomainRegistrationFees.FeeByLength[uint32(len(name))].Fee
