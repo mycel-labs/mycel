@@ -99,22 +99,22 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 				_, err := suite.msgServer.RegisterSecondLevelDomain(suite.ctx, registerMsg)
 				suite.Require().Nil(err)
 
-				// Evalute domain ownership
+				// Evaluate domain ownership
 				domainOwnership, found := suite.app.RegistryKeeper.GetDomainOwnership(suite.ctx, tc.creator)
 				suite.Require().True(found)
 				suite.Require().Equal(tc.domainOwnership, domainOwnership)
 
-				// Evalute if domain is registered
+				// Evaluate if domain is registered
 				domain, found := suite.app.RegistryKeeper.GetSecondLevelDomain(suite.ctx, tc.name, tc.parent)
 				suite.Require().True(found)
 				suite.Require().Equal(domain.AccessControl[tc.creator], types.DomainRole_OWNER)
 
-				// Evalute if parent's subdomainCount is increased
+				// Evaluate if parent's subdomainCount is increased
 				afterParent, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, tc.parent)
 				suite.Require().True(found)
 				suite.Require().Equal(beforeParent.SubdomainCount+1, afterParent.SubdomainCount)
 
-				// Evalute if module account balance is increased
+				// Evaluate if module account balance is increased
 				// Get registration fee
 				config := suite.app.RegistryKeeper.GetParentsSubdomainConfig(suite.ctx, domain)
 				fee, err := config.GetRegistrationFee(tc.name, tc.registrationPeriodInYear)
@@ -124,7 +124,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 				suite.Require().Equal(beforeModuleBalance.Add(*fee), afterModuleBalance)
 				suite.Require().Equal(beforeParent.RegistrationFee.Add(*fee), afterParent.RegistrationFee)
 
-				// Evalute events
+				// Evaluate events
 				suite.Require().Nil(err)
 				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeRegisterDomain)
 				suite.Require().True(found)

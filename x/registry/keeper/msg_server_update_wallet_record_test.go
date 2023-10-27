@@ -113,7 +113,7 @@ func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 			_, err = suite.msgServer.UpdateWalletRecord(suite.ctx, msgUpdateRecord)
 
 			if tc.expErr == nil {
-				// Evalute events
+				// Evaluate events
 				suite.Require().Nil(err)
 				res, _ := suite.app.RegistryKeeper.GetSecondLevelDomain(suite.ctx, domain.Name, domain.Parent)
 				suite.Require().Equal(tc.value, res.Records[tc.walletRecordType].GetWalletRecord().GetValue())

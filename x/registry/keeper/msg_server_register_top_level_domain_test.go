@@ -69,12 +69,12 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 			fmt.Println("----Case_", i, "---01", err)
 
 			if tc.expErr == nil {
-				// Evalute if domain is registered
+				// Evaluate if domain is registered
 				domain, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, tc.name)
 				suite.Require().True(found)
 				suite.Require().Equal(domain.AccessControl[tc.creator], types.DomainRole_OWNER)
 
-				// Evalute events
+				// Evaluate events
 				suite.Require().Nil(err)
 				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())
 				eventIndex := len(events) - 1
