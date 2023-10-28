@@ -1,7 +1,6 @@
 package keeper_test
 
 import (
-	"errors"
 	"fmt"
 
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
@@ -50,7 +49,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 			name:                     "foo",
 			parent:                   "cel",
 			registrationPeriodInYear: 1,
-			expErr:                   errorsmod.Wrapf(errors.New(fmt.Sprintf("foo.cel")), types.ErrDomainIsAlreadyTaken.Error()),
+			expErr:                   errorsmod.Wrapf(types.ErrDomainIsAlreadyTaken, "foo.cel"),
 			fn: func() {
 				// Register domain once
 				domain := &types.MsgRegisterSecondLevelDomain{
@@ -68,7 +67,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 			name:                     "foo",
 			parent:                   "xxx",
 			registrationPeriodInYear: 1,
-			expErr:                   errorsmod.Wrapf(errors.New(fmt.Sprintf("xxx")), types.ErrParentDomainDoesNotExist.Error()),
+			expErr:                   errorsmod.Wrapf(types.ErrParentDomainDoesNotExist, "xxx"),
 			fn: func() {
 			},
 		},
@@ -124,9 +123,8 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 				suite.Require().Equal(beforeModuleBalance.Add(*fee), afterModuleBalance)
 				suite.Require().Equal(beforeParent.RegistrationFee.Add(*fee), afterParent.RegistrationFee)
 
-				// Evaluate events
-				suite.Require().Nil(err)
-				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeRegisterDomain)
+				// Evalute events
+				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeRegisterSecondLevelDomain)
 				suite.Require().True(found)
 				for _, event := range events {
 					suite.Require().Equal(tc.name, event.Attributes[0].Value)

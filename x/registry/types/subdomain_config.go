@@ -13,7 +13,7 @@ func GetDefaultSubdomainConfig(baseFee int64) SubdomainConfig {
 	fees := GetFeeByNameLength(10, int(baseFee))
 
 	return SubdomainConfig{
-		MaxSubdomainRegistrations: math.MaxUint64,
+		MaxSubdomainRegistrations: 100_000,
 		SubdomainRegistrationFees: &SubdomainRegistrationFees{
 			FeeByLength: fees,
 			DefaultFee:  &defaultFee,

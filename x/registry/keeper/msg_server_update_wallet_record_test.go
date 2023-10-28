@@ -1,7 +1,6 @@
 package keeper_test
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
@@ -9,7 +8,6 @@ import (
 	"github.com/mycel-domain/mycel/testutil"
 
 	errorsmod "cosmossdk.io/errors"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
@@ -73,7 +71,7 @@ func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 			parent:           "fuga",
 			walletRecordType: "ETHEREUM_MAINNET_MAINNET",
 			value:            "0x1234567890123456789012345678901234567890",
-			expErr:           errorsmod.Wrapf(errors.New(fmt.Sprintf("hoge.fuga")), types.ErrDomainNotFound.Error()),
+			expErr:           errorsmod.Wrapf(types.ErrDomainNotFound, "hoge.fuga"),
 			fn:               func() {},
 		},
 		{
@@ -82,7 +80,7 @@ func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 			parent:           "cel",
 			walletRecordType: "ETHEREUM_MAINNET_MAINNET",
 			value:            "0x1234567890123456789012345678901234567890",
-			expErr:           errorsmod.Wrapf(errors.New(fmt.Sprintf(testutil.Bob)), types.ErrDomainNotEditable.Error()),
+			expErr:           errorsmod.Wrapf(types.ErrDomainNotEditable, "%s", testutil.Bob),
 			fn:               func() {},
 		},
 	}
@@ -113,25 +111,21 @@ func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 			_, err = suite.msgServer.UpdateWalletRecord(suite.ctx, msgUpdateRecord)
 
 			if tc.expErr == nil {
-				// Evaluate events
+				// Check if the record is updated
 				suite.Require().Nil(err)
 				res, _ := suite.app.RegistryKeeper.GetSecondLevelDomain(suite.ctx, domain.Name, domain.Parent)
 				suite.Require().Equal(tc.value, res.Records[tc.walletRecordType].GetWalletRecord().GetValue())
 
-				// Event check
-				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())
-				eventIndex := len(events) - 1
-				suite.Require().EqualValues(sdk.StringEvent{
-					Type: types.EventTypeUpdateWalletRecord,
-					Attributes: []sdk.Attribute{
-						{Key: types.AttributeUpdateWalletRecordEventDomainName, Value: tc.name},
-						{Key: types.AttributeUpdateWalletRecordEventDomainParent, Value: tc.parent},
-						{Key: types.AttributeUpdateWalletRecordEventWalletRecordType, Value: tc.walletRecordType},
-						{Key: types.AttributeUpdateWalletRecordEventValue, Value: tc.value},
-					},
-				},
-					events[eventIndex])
+				// Evalute events
+				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeUpdateWalletRecord)
+				suite.Require().True(found)
 
+				for _, event := range events {
+					suite.Require().Equal(tc.name, event.Attributes[0].Value)
+					suite.Require().Equal(tc.parent, event.Attributes[1].Value)
+					suite.Require().Equal(tc.walletRecordType, event.Attributes[2].Value)
+					suite.Require().Equal(tc.value, event.Attributes[3].Value)
+				}
 			} else {
 				suite.Require().EqualError(err, tc.expErr.Error())
 			}

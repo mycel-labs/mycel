@@ -1,14 +1,15 @@
 package keeper_test
 
 import (
-	"errors"
 	"fmt"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/mycel-domain/mycel/testutil"
+	furnacetypes "github.com/mycel-domain/mycel/x/furnace/types"
 	"github.com/mycel-domain/mycel/x/registry/types"
 
 	errorsmod "cosmossdk.io/errors"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
@@ -37,7 +38,7 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 			creator:                  testutil.Alice,
 			name:                     "cel2",
 			registrationPeriodInYear: 1,
-			expErr:                   errorsmod.Wrapf(errors.New(fmt.Sprintf("cel2")), types.ErrDomainIsAlreadyTaken.Error()),
+			expErr:                   errorsmod.Wrapf(types.ErrDomainIsAlreadyTaken, "cel2"),
 			fn: func() {
 				// Register domain once
 				domain := &types.MsgRegisterTopLevelDomain{
@@ -64,9 +65,17 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 			// Run test case function
 			tc.fn()
 
+			// Before balances
+			furnaceAddress := authtypes.NewModuleAddress(furnacetypes.ModuleName)
+			beforeFurnaceBalance := suite.app.BankKeeper.GetAllBalances(suite.ctx, furnaceAddress)
+			beforeTreasuryBalance := suite.app.DistrKeeper.GetFeePool(suite.ctx).CommunityPool
+
 			// Register domain
 			_, err := suite.msgServer.RegisterTopLevelDomain(suite.ctx, registerMsg)
-			fmt.Println("----Case_", i, "---01", err)
+
+			// After balances
+			afterFurnaceBalance := suite.app.BankKeeper.GetAllBalances(suite.ctx, furnaceAddress)
+			afterTreasuryBalance := suite.app.DistrKeeper.GetFeePool(suite.ctx).CommunityPool
 
 			if tc.expErr == nil {
 				// Evaluate if domain is registered
@@ -74,17 +83,35 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 				suite.Require().True(found)
 				suite.Require().Equal(domain.AccessControl[tc.creator], types.DomainRole_OWNER)
 
-				// Evaluate events
-				suite.Require().Nil(err)
-				events := sdk.StringifyEvents(suite.ctx.EventManager().ABCIEvents())
-				eventIndex := len(events) - 1
-				suite.Require().EqualValues(sdk.StringEvent{
-					Type: types.EventTypeRegisterTopLevelDomain,
-					Attributes: []sdk.Attribute{
-						{Key: types.AttributeRegisterTopLevelDomainEventName, Value: tc.name},
-						{Key: types.AttributeRegisterTopLevelDomainEventExpirationDate, Value: events[eventIndex].Attributes[1].Value},
-					},
-				}, events[eventIndex])
+				// Evalute events
+				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeRegisterTopLevelDomain)
+				suite.Require().True(found)
+				for _, event := range events {
+					suite.Require().Equal(tc.name, event.Attributes[0].Value)
+
+					// Check if the registration fee is correct
+					total, err := sdk.ParseCoinsNormalized(event.Attributes[3].Value)
+					suite.Require().Nil(err)
+					toBurn, err := sdk.ParseCoinNormalized(event.Attributes[5].Value)
+					suite.Require().Nil(err)
+					toTreasury, err := sdk.ParseCoinNormalized(event.Attributes[6].Value)
+					suite.Require().Nil(err)
+
+					// Check if the total is equal to the sum of toBurn and toTreasury
+					if total.Len() == 1 {
+						suite.Require().Equal(total, sdk.NewCoins(toBurn.Add(toTreasury)))
+
+					} else {
+						suite.Require().Equal(total, sdk.NewCoins(toBurn, toTreasury))
+					}
+
+					// Check if the furnace balance is increased
+					expectedFurnaceBalance := beforeFurnaceBalance.Add(toBurn)
+					suite.Require().Equal(expectedFurnaceBalance, afterFurnaceBalance)
+					expectedTreasuryBalance := beforeTreasuryBalance.Add(sdk.NewDecCoinFromCoin(toTreasury))
+					suite.Require().Equal(expectedTreasuryBalance, afterTreasuryBalance)
+				}
+
 			} else {
 				suite.Require().EqualError(err, tc.expErr.Error())
 			}

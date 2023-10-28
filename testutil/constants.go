@@ -7,7 +7,7 @@ const (
 )
 
 const (
-	BalAlice = 50000000
+	BalAlice = 50000000000000
 	BalBob   = 20000000
 	BalCarol = 10000000
 )

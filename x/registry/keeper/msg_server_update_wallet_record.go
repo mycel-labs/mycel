@@ -2,8 +2,6 @@ package keeper
 
 import (
 	"context"
-	"errors"
-	"fmt"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
 
@@ -16,7 +14,7 @@ func (k msgServer) UpdateWalletRecord(goCtx context.Context, msg *types.MsgUpdat
 
 	domain, isFound := k.Keeper.GetSecondLevelDomain(ctx, msg.Name, msg.Parent)
 	if !isFound {
-		return nil, errorsmod.Wrapf(errors.New(fmt.Sprintf("%s.%s", msg.Name, msg.Parent)), types.ErrDomainNotFound.Error())
+		return nil, errorsmod.Wrapf(types.ErrDomainNotFound, "%s.%s", msg.Name, msg.Parent)
 	}
 
 	// Check if the domain is owned by the creator
@@ -30,15 +28,10 @@ func (k msgServer) UpdateWalletRecord(goCtx context.Context, msg *types.MsgUpdat
 		return nil, err
 	}
 	k.Keeper.SetSecondLevelDomain(ctx, domain)
+
 	// Emit event
-	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(types.EventTypeUpdateWalletRecord,
-			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventDomainName, msg.Name),
-			sdk.NewAttribute(types.AttributeUpdateDnsRecordEventDomainParent, msg.Parent),
-			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventWalletRecordType, msg.WalletRecordType),
-			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventValue, msg.Value),
-		),
-	)
+	EmitUpdateWalletRecordEvent(ctx, *msg)
+
 
 	return &types.MsgUpdateWalletRecordResponse{}, nil
 }

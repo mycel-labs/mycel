@@ -15,6 +15,8 @@ const (
 	DefaultBondDenom = BaseCoinUnit
 
 	Bech32PrefixAccAddr = "mycel"
+
+	OneYearInDays       = 365
 )
 
 var (

@@ -45,12 +45,8 @@ func (k msgServer) WithdrawRegistrationFee(goCtx context.Context, msg *types.Msg
 	k.Keeper.SetTopLevelDomain(ctx, topLevelDomain)
 
 	// Emit event
-	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(types.EventTypeWithdrawRegistrationFee,
-			sdk.NewAttribute(types.AttributeWithdrawRegistrationFeeEventDomainName, msg.Name),
-			sdk.NewAttribute(types.AttributeWithdrawRegistrationFeeEventDomainFee, registrationFee.String()),
-		),
-	)
+	EmitWithdrawRegistrationFeeEvent(ctx, *msg, registrationFee)
+
 
 	return &types.MsgWithdrawRegistrationFeeResponse{RegistrationFee: registrationFee}, nil
 }
