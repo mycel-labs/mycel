@@ -24,7 +24,7 @@ func (suite *KeeperTestSuite) TestWithdrawRegistrationFee() {
 		{
 			withdrawer:         testutil.Bob,
 			topLevelDomainName: "bar",
-			expErr:             errorsmod.Wrapf(types.ErrNoPermissionToWithdrawFee, "%s", testutil.Bob),
+			expErr:             errorsmod.Wrapf(types.ErrNoPermissionToWithdraw, "%s", testutil.Bob),
 		},
 	}
 

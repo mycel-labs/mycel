@@ -40,7 +40,7 @@ func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, doma
 	if !found {
 		panic("parent not found")
 	}
-	parent.RegistrationFee = parent.RegistrationFee.Add(*fee)
+	parent.TotalWithdrawalAmount = parent.TotalWithdrawalAmount.Add(*fee)
 	k.SetTopLevelDomain(ctx, parent)
 
 	return fee, err
