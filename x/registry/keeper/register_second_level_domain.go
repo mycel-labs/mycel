@@ -1,8 +1,6 @@
 package keeper
 
 import (
-	"errors"
-	"fmt"
 	"strconv"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
@@ -87,7 +85,7 @@ func (k Keeper) RegisterSecondLevelDomain(ctx sdk.Context, domain types.SecondLe
 
 	// Check if parent domain has subdomain registration config
 	if parentDomain.SubdomainConfig.MaxSubdomainRegistrations <= parentDomain.SubdomainCount {
-		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%d", parentDomain.SubdomainCount)), types.ErrMaxSubdomainCountReached.Error())
+		err = errorsmod.Wrapf(types.ErrMaxSubdomainCountReached, "%d", parentDomain.SubdomainCount)
 		return err
 	}
 

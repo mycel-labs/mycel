@@ -1,9 +1,9 @@
 package types
 
 import (
-	"fmt"
 	"testing"
 
+	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 )
@@ -16,7 +16,7 @@ type TopLevelDomainTest struct {
 func TestTopLevelDomainValidate(t *testing.T) {
 	testCases := []struct {
 		domain TopLevelDomain
-		expErr string
+		expErr error
 	}{
 		// Valid domains
 		{
@@ -24,28 +24,28 @@ func TestTopLevelDomainValidate(t *testing.T) {
 		},
 		// Invalid name
 		{domain: TopLevelDomain{Name: ".foo"},
-			expErr: fmt.Sprintf("invalid name: .foo"),
+			expErr: errorsmod.Wrapf(ErrInvalidDomainName, ".foo"),
 		},
 		{domain: TopLevelDomain{Name: ""},
-			expErr: fmt.Sprintf("invalid name: "),
+			expErr: errorsmod.Wrapf(ErrInvalidDomainName, ""),
 		},
 		{domain: TopLevelDomain{Name: "bar.foo"},
-			expErr: fmt.Sprintf("invalid name: bar.foo"),
+			expErr: errorsmod.Wrapf(ErrInvalidDomainName, "bar.foo"),
 		},
 		{domain: TopLevelDomain{Name: "."},
-			expErr: fmt.Sprintf("invalid name: ."),
+			expErr: errorsmod.Wrapf(ErrInvalidDomainName, "."),
 		},
 		{domain: TopLevelDomain{Name: "##"},
-			expErr: fmt.Sprintf("invalid name: ##"),
+			expErr: errorsmod.Wrapf(ErrInvalidDomainName, "##"),
 		},
 	}
 
 	for _, tc := range testCases {
 		err := tc.domain.Validate()
-		if tc.expErr == "" {
+		if tc.expErr == nil {
 			require.Nil(t, err)
 		} else {
-			require.EqualError(t, err, tc.expErr)
+			require.EqualError(t, err, tc.expErr.Error())
 		}
 	}
 }

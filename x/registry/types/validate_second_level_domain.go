@@ -1,7 +1,6 @@
 package types
 
 import (
-	"errors"
 	fmt "fmt"
 	"regexp"
 
@@ -15,7 +14,7 @@ const (
 func ValidateSecondLevelDomainName(name string) (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+$)`, NamePattern))
 	if !regex.MatchString(name) {
-		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", name)), ErrInvalidDomainName.Error())
+		err = errorsmod.Wrapf(ErrInvalidDomainName, "%s", name)
 	}
 	return err
 }
@@ -28,7 +27,7 @@ func (secondLevelDomain SecondLevelDomain) ValidateName() (err error) {
 func ValidateSecondLevelDomainParent(parent string) (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+[%[1]s\.]*[%[1]s]$)|^$`, NamePattern))
 	if !regex.MatchString(parent) {
-		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", parent)), ErrInvalidDomainParent.Error())
+		err = errorsmod.Wrapf(ErrInvalidDomainParent, "%s", parent)
 	}
 	return err
 
@@ -54,7 +53,7 @@ func (secondLevelDomain SecondLevelDomain) Validate() (err error) {
 func ValidateWalletRecordType(walletRecordType string) (err error) {
 	_, isFound := NetworkName_value[walletRecordType]
 	if !isFound {
-		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", walletRecordType)), ErrInvalidWalletRecordType.Error())
+		err = errorsmod.Wrapf(ErrInvalidWalletRecordType, "%s", walletRecordType)
 	}
 	return err
 }
@@ -66,7 +65,7 @@ func ValidateDnsRecordValue(dnsRecordFormat string, address string) (err error) 
 	}
 	regex := regexp.MustCompile(dnsRecordRegex)
 	if !regex.MatchString(address) {
-		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s %s", dnsRecordFormat, address)), ErrInvalidDnsRecordValue.Error())
+		err = errorsmod.Wrapf(ErrInvalidDnsRecordValue, "%s %s", dnsRecordFormat, address)
 	}
 	return err
 }
@@ -74,14 +73,14 @@ func ValidateDnsRecordValue(dnsRecordFormat string, address string) (err error) 
 func ValidateDnsRecordType(dnsRecordType string) (err error) {
 	_, isFound := DnsRecordType_value[dnsRecordType]
 	if !isFound {
-		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", dnsRecordType)), ErrInvalidDnsRecordType.Error())
+		err = errorsmod.Wrapf(ErrInvalidDnsRecordType, "%s", dnsRecordType)
 	}
 	return err
 }
 
 func (secondLevelDomain SecondLevelDomain) IsRecordEditable(sender string) (isEditable bool, err error) {
 	if secondLevelDomain.AccessControl[sender] == DomainRole_NO_ROLE {
-		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", sender)), ErrDomainNotEditable.Error())
+		err = errorsmod.Wrapf(ErrDomainNotEditable, "%s", sender)
 	}
 	isEditable = secondLevelDomain.AccessControl[sender] == DomainRole_EDITOR || secondLevelDomain.AccessControl[sender] == DomainRole_OWNER
 	return isEditable, err

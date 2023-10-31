@@ -1,7 +1,6 @@
 package types
 
 import (
-	"errors"
 	fmt "fmt"
 	"regexp"
 
@@ -15,7 +14,7 @@ const (
 func ValidateTopLevelDomainName(name string) (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+$)`, TLDNamePattern))
 	if !regex.MatchString(name) {
-		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", name)), ErrInvalidDomainName.Error())
+		err = errorsmod.Wrapf(ErrInvalidDomainName, "%s", name)
 	}
 	return err
 

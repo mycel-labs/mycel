@@ -1,9 +1,6 @@
 package keeper
 
 import (
-	"errors"
-	"fmt"
-
 	"github.com/mycel-domain/mycel/x/registry/types"
 
 	errorsmod "cosmossdk.io/errors"
@@ -40,8 +37,8 @@ func (k Keeper) ValidateRegisterTLD(ctx sdk.Context, domain types.TopLevelDomain
 func (k Keeper) ValidateRegisterSLD(ctx sdk.Context, domain types.SecondLevelDomain) (err error) {
 	isParentDomainExist := k.GetIsParentDomainExist(ctx, domain)
 	if !isParentDomainExist {
-		err = errorsmod.Wrapf(errors.New(domain.Parent),
-			types.ErrParentDomainDoesNotExist.Error())
+		err = errorsmod.Wrapf(types.ErrParentDomainDoesNotExist, "%s", domain.Parent)
+
 	}
 
 	return err
@@ -51,8 +48,8 @@ func (k Keeper) ValidateRegisterSLD(ctx sdk.Context, domain types.SecondLevelDom
 func (k Keeper) ValidateRegsiterSubdomain(ctx sdk.Context, domain types.SecondLevelDomain) (err error) {
 	isParentDomainExist := k.GetIsParentDomainExist(ctx, domain)
 	if !isParentDomainExist {
-		err = errorsmod.Wrapf(errors.New(domain.Parent),
-			types.ErrParentDomainDoesNotExist.Error())
+		err = errorsmod.Wrapf(types.ErrParentDomainDoesNotExist, "%s", domain.Parent)
+
 	}
 	return err
 }
@@ -67,8 +64,7 @@ func (k Keeper) ValidateSecondLevelDomain(ctx sdk.Context, domain types.SecondLe
 	// Check if domain is already taken
 	isDomainAlreadyTaken := k.GetIsDomainAlreadyTaken(ctx, domain)
 	if isDomainAlreadyTaken {
-		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s.%s", domain.Name, domain.Parent)),
-			types.ErrDomainIsAlreadyTaken.Error())
+		err = errorsmod.Wrapf(types.ErrDomainIsAlreadyTaken, "%s.%s", domain.Name, domain.Parent)
 		return err
 	}
 
@@ -99,8 +95,7 @@ func (k Keeper) ValidateTopLevelDomain(ctx sdk.Context, domain types.TopLevelDom
 	// Check if domain is already taken
 	isDomainAlreadyTaken := k.GetIsTopLevelDomainAlreadyTaken(ctx, domain)
 	if isDomainAlreadyTaken {
-		err = errorsmod.Wrapf(errors.New(fmt.Sprintf("%s", domain.Name)),
-			types.ErrDomainIsAlreadyTaken.Error())
+		err = errorsmod.Wrapf(types.ErrDomainIsAlreadyTaken, "%s", domain.Name)
 		return err
 	}
 

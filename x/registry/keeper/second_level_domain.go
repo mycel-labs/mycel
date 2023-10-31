@@ -1,8 +1,6 @@
 package keeper
 
 import (
-	"errors"
-	"fmt"
 	"github.com/mycel-domain/mycel/x/registry/types"
 	"time"
 
@@ -86,13 +84,13 @@ func (k Keeper) GetValidSecondLevelDomain(ctx sdk.Context, name string, parent s
 	// Get second level domain
 	secondLevelDomain, isFound := k.GetSecondLevelDomain(ctx, name, parent)
 	if !isFound {
-		return secondLevelDomain, errosmod.Wrapf(errors.New(fmt.Sprintf("%s.%s", name, parent)), types.ErrDomainNotFound.Error())
+		return secondLevelDomain, errosmod.Wrapf(types.ErrDomainNotFound, "%s.%s", name, parent)
 	}
 
 	// Check if domain is not expired
 	expirationDate := time.Unix(0, secondLevelDomain.ExpirationDate)
 	if ctx.BlockTime().After(expirationDate) && secondLevelDomain.ExpirationDate != 0 {
-		return secondLevelDomain, errosmod.Wrapf(errors.New(fmt.Sprintf("%s", name)), types.ErrDomainExpired.Error())
+		return secondLevelDomain, errosmod.Wrapf(types.ErrDomainExpired, "%s", name)
 	}
 
 	return secondLevelDomain, nil
