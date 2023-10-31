@@ -10,8 +10,7 @@ import (
 
 func (k msgServer) WithdrawRegistrationFee(goCtx context.Context, msg *types.MsgWithdrawRegistrationFee) (*types.MsgWithdrawRegistrationFeeResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-
-		// Get top level domain
+	// Get top level domain
 	topLevelDomain, found := k.Keeper.GetTopLevelDomain(ctx, msg.Name)
 	if !found {
 		return nil, errorsmod.Wrapf(types.ErrDomainNotFound, "%s", msg.Name)
@@ -43,7 +42,6 @@ func (k msgServer) WithdrawRegistrationFee(goCtx context.Context, msg *types.Msg
 
 	// Emit event
 	EmitWithdrawRegistrationFeeEvent(ctx, *msg, registrationFee)
-
 
 	return &types.MsgWithdrawRegistrationFeeResponse{RegistrationFee: registrationFee}, nil
 }
