@@ -72,13 +72,13 @@ func (suite *KeeperTestSuite) TestUpdateDnsRecord() {
 			suite.SetupTest()
 
 			// Register domain
-			domain := &types.MsgRegisterDomain{
+			domain := &types.MsgRegisterSecondLevelDomain{
 				Creator:                  testutil.Alice,
 				Name:                     "foo",
 				Parent:                   "cel",
 				RegistrationPeriodInYear: 1,
 			}
-			_, err := suite.msgServer.RegisterDomain(suite.ctx, domain)
+			_, err := suite.msgServer.RegisterSecondLevelDomain(suite.ctx, domain)
 			suite.Require().Nil(err)
 			// Run test case function
 			tc.fn()

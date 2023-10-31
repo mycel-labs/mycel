@@ -2,14 +2,18 @@ syntax = "proto3";
 
 package mycel.registry;
 
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc UpdateWalletRecord     (MsgUpdateWalletRecord    ) returns (MsgUpdateWalletRecordResponse    );
-  rpc UpdateDnsRecord        (MsgUpdateDnsRecord       ) returns (MsgUpdateDnsRecordResponse       );
-  rpc RegisterDomain         (MsgRegisterDomain        ) returns (MsgRegisterDomainResponse        );
-  rpc RegisterTopLevelDomain (MsgRegisterTopLevelDomain) returns (MsgRegisterTopLevelDomainResponse);
+  rpc UpdateWalletRecord      (MsgUpdateWalletRecord     ) returns (MsgUpdateWalletRecordResponse     );
+  rpc UpdateDnsRecord         (MsgUpdateDnsRecord        ) returns (MsgUpdateDnsRecordResponse        );
+  rpc RegisterSecondLevelDomain          (MsgRegisterSecondLevelDomain         ) returns (MsgRegisterSecondLevelDomainResponse         );
+  rpc RegisterTopLevelDomain  (MsgRegisterTopLevelDomain ) returns (MsgRegisterTopLevelDomainResponse );
+  rpc WithdrawRegistrationFee (MsgWithdrawRegistrationFee) returns (MsgWithdrawRegistrationFeeResponse);
 }
 message MsgUpdateWalletRecord {
   string creator          = 1;
@@ -31,14 +35,14 @@ message MsgUpdateDnsRecord {
 
 message MsgUpdateDnsRecordResponse {}
 
-message MsgRegisterDomain {
+message MsgRegisterSecondLevelDomain {
   string creator                  = 1;
   string name                     = 2;
   string parent                   = 3;
   uint64 registrationPeriodInYear = 4;
 }
 
-message MsgRegisterDomainResponse {}
+message MsgRegisterSecondLevelDomainResponse {}
 
 message MsgRegisterTopLevelDomain {
   string creator                  = 1;
@@ -47,3 +51,16 @@ message MsgRegisterTopLevelDomain {
 }
 
 message MsgRegisterTopLevelDomainResponse {}
+
+message MsgWithdrawRegistrationFee {
+  string creator = 1;
+  string name    = 2;
+}
+
+message MsgWithdrawRegistrationFeeResponse {
+  repeated cosmos.base.v1beta1.Coin registrationFee = 7 [
+    (gogoproto.nullable) = false,
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
+}
+

@@ -1,12 +1,13 @@
 package types
 
-// Register domain event
+// Register second-level-domain event
 const (
 	EventTypeRegsterDomain = "register-domain"
 
-	AttributeRegisterDomainEventName           = "name"
-	AttributeRegisterDomainEventParent         = "parent"
-	AttributeRegisterDomainEventExpirationDate = "expiration-date"
+	AttributeRegisterSecondLevelDomainEventName            = "name"
+	AttributeRegisterSecondLevelDomainEventParent          = "parent"
+	AttributeRegisterSecondLevelDomainEventExpirationDate  = "expiration-date"
+	AttributeRegisterSecondLevelDomainEventRegistrationFee = "registration-fee"
 )
 
 // Register top-level-domain event
@@ -35,4 +36,12 @@ const (
 	AttributeUpdateDnsRecordEventDomainParent  = "parent"
 	AttributeUpdateDnsRecordEventDnsRecordType = "dns-record-type"
 	AttributeUpdateDnsRecordEventValue         = "value"
+)
+
+// Withdraw fees event
+const (
+	EventTypeWithdrawRegistrationFee = "withdraw-registration-fees"
+
+	AttributeWithdrawRegistrationFeeEventDomainName = "name"
+	AttributeWithdrawRegistrationFeeEventDomainFee = "fee"
 )

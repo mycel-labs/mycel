@@ -1,6 +1,8 @@
 syntax = "proto3";
 package mycel.registry;
 
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
 import "mycel/registry/subdomain_config.proto";
 import "mycel/registry/role.proto";
 
@@ -13,4 +15,8 @@ message TopLevelDomain {
   SubdomainConfig subdomainConfig = 4;
   uint64 subdomainCount = 5;
   map<string, DomainRole> accessControl = 6;
+  repeated cosmos.base.v1beta1.Coin registrationFee = 7 [
+    (gogoproto.nullable) = false,
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
 }

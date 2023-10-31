@@ -11,7 +11,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterDomain) (*types.MsgRegisterDomainResponse, error) {
+func (k msgServer) RegisterSecondLevelDomain(goCtx context.Context, msg *types.MsgRegisterSecondLevelDomain) (*types.MsgRegisterSecondLevelDomainResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	if msg.RegistrationPeriodInYear < 1 || msg.RegistrationPeriodInYear > 4 {
@@ -38,10 +38,10 @@ func (k msgServer) RegisterDomain(goCtx context.Context, msg *types.MsgRegisterD
 		AccessControl:  accessControl,
 	}
 
-	err = k.Keeper.RegisterDomain(ctx, domain, creatorAddress, msg.RegistrationPeriodInYear)
+	err = k.Keeper.RegisterSecondLevelDomain(ctx, domain, creatorAddress, msg.RegistrationPeriodInYear)
 	if err != nil {
 		return nil, err
 	}
 
-	return &types.MsgRegisterDomainResponse{}, nil
+	return &types.MsgRegisterSecondLevelDomainResponse{}, nil
 }
