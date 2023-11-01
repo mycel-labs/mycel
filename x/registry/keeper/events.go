@@ -40,7 +40,7 @@ func EmitUpdateWalletRecordEvent(ctx sdk.Context, msg types.MsgUpdateWalletRecor
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(types.EventTypeUpdateWalletRecord,
 			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventDomainName, msg.Name),
-			sdk.NewAttribute(types.AttributeUpdateDnsRecordEventDomainParent, msg.Parent),
+			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventDomainParent, msg.Parent),
 			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventWalletRecordType, msg.WalletRecordType),
 			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventValue, msg.Value),
 		),
