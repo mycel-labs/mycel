@@ -2,8 +2,8 @@
 **Mycel** is a Decentralized ID Infrastructure solution that resolves addresses such as websites, crypto wallets, IPFS, among many more accessible through a single domain with name resolution support in DNS, IBC and smart contracts.
 
 ## Dependencies
-- Go `1.20.2`
-- Ignite CLI `v0.27.1`
+- Go `1.21.3`
+- Ignite CLI `v0.27.2`
 - Cosmos SDK `v0.47.3`
 
 ## Get started
