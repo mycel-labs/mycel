@@ -2,6 +2,7 @@ package keeper_test
 
 import (
 	"fmt"
+	"time"
 
 	"strconv"
 	"testing"
@@ -73,21 +74,21 @@ func (suite *KeeperTestSuite) TestGetValidTopLevelDomain() {
 		{
 			topLevelDomain: types.TopLevelDomain{
 				Name:           "test",
-				ExpirationDateInUnixNano: suite.ctx.BlockTime().AddDate(0, 0, 20).UnixNano(),
+				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, 20),
 			},
 			expErr: nil,
 		},
 		{
 			topLevelDomain: types.TopLevelDomain{
 				Name:           "test",
-				ExpirationDateInUnixNano: 0,
+				ExpirationDate: time.Time{},
 			},
 			expErr: nil,
 		},
 		{
 			topLevelDomain: types.TopLevelDomain{
 				Name:           "test",
-				ExpirationDateInUnixNano: suite.ctx.BlockTime().AddDate(0, 0, -20).UnixNano(),
+				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, -20),
 			},
 			expErr: errorsmod.Wrapf(types.ErrDomainExpired, "test"),
 		},

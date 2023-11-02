@@ -2,6 +2,7 @@ syntax = "proto3";
 package mycel.registry;
 
 import "gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "mycel/registry/subdomain_config.proto";
 import "mycel/registry/role.proto";
@@ -10,7 +11,10 @@ option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 message TopLevelDomain {
   string name = 1;
-  int64 expirationDateInUnixNano = 2;
+  google.protobuf.Timestamp expirationDate = 2 [
+    (gogoproto.stdtime) = true,
+    (gogoproto.nullable) = false
+  ];
   map<string, string> metadata = 3;
   SubdomainConfig subdomainConfig = 4;
   uint64 subdomainCount = 5;

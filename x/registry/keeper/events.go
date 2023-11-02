@@ -1,7 +1,6 @@
 package keeper
 
 import (
-	"time"
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -11,12 +10,11 @@ import (
 
 // Register top-level-domain event
 func EmitRegisterTopLevelDomainEvent(ctx sdk.Context, domain types.TopLevelDomain, fee types.TopLevelDomainFee) {
-	expirationDate := time.Unix(0, domain.ExpirationDateInUnixNano)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(
 			types.EventTypeRegisterTopLevelDomain,
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventName, domain.Name),
-			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventExpirationDate, expirationDate.String()),
+			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventExpirationDate, domain.ExpirationDate.String()),
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventMaxSubdomainRegistrations, fmt.Sprintf("%d", domain.SubdomainConfig.MaxSubdomainRegistrations)),
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventTotalRegistrationFee, fee.TotalFee.String()),
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventBurnWeight, fee.BurnWeight),
@@ -74,11 +72,10 @@ func EmitWithdrawRegistrationFeeEvent(ctx sdk.Context, msg types.MsgWithdrawRegi
 
 // Extend top-level-domain expiration date event
 func EmitExtendTopLevelDomainExpirationDateEvent(ctx sdk.Context, domain types.TopLevelDomain, fee types.TopLevelDomainFee) {
-	expirationDate := time.Unix(0, domain.ExpirationDateInUnixNano)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(types.EventTypeExtendTopLevelDomainExpirationDate,
 			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventDomainName, domain.Name),
-			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventExpirationDate, expirationDate.String()),
+			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventExpirationDate, domain.ExpirationDate.String()),
 			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventTotalRegistrationFee, fee.TotalFee.String()),
 			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventBurnWeight, fee.BurnWeight),
 			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventRegistrationFeeToBurn, fee.FeeToBurn.String()),

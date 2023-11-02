@@ -2,7 +2,6 @@ package keeper_test
 
 import (
 	"fmt"
-	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
@@ -51,7 +50,6 @@ func (suite *KeeperTestSuite) TestExtendTopLevelDomain() {
 			suite.Require().Nil(err)
 			beforeDomain, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, name)
 			suite.Require().True(found)
-			beforeExpirationDate := time.Unix(0, beforeDomain.ExpirationDateInUnixNano)
 
 			// Run test case function
 			tc.fn()
@@ -77,15 +75,12 @@ func (suite *KeeperTestSuite) TestExtendTopLevelDomain() {
 				suite.Require().Nil(err)
 				// Evaluate if domain is extended
 				// Response
-				registerExpirationDate := time.Unix(0, registerRsp.TopLevelDomain.ExpirationDateInUnixNano)
-				extendExpirationDate := time.Unix(0, extendRsp.TopLevelDomain.ExpirationDateInUnixNano)
-				suite.Require().Equal(registerExpirationDate.AddDate(0, 0, int(tc.extensionPeriodInYear)*params.OneYearInDays), extendExpirationDate)
+				suite.Require().Equal(registerRsp.TopLevelDomain.ExpirationDate.AddDate(0, 0, int(tc.extensionPeriodInYear)*params.OneYearInDays), extendRsp.TopLevelDomain.ExpirationDate)
 				// Store
 				afterDomain, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, name)
 				suite.Require().True(found)
-				expAfterExpirationDate := beforeExpirationDate.AddDate(0, 0, int(tc.extensionPeriodInYear)*params.OneYearInDays)
-				afterExpirationDate := time.Unix(0, afterDomain.ExpirationDateInUnixNano)
-				suite.Require().Equal(expAfterExpirationDate, afterExpirationDate)
+				expAfterExpirationDate := beforeDomain.ExpirationDate.AddDate(0, 0, int(tc.extensionPeriodInYear)*params.OneYearInDays)
+				suite.Require().Equal(expAfterExpirationDate, afterDomain.ExpirationDate)
 
 				// Evalute events
 				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeExtendTopLevelDomainExpirationDate)
