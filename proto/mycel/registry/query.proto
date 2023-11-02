@@ -135,10 +135,18 @@ message QueryAllDomainOwnershipResponse {
 message QueryDomainRegistrationFeeRequest {
   string name   = 1;
   string parent = 2;
+  uint64 registrationPeriodInYear = 3;
 }
 
 message QueryDomainRegistrationFeeResponse {
-  cosmos.base.v1beta1.Coin fee = 1 [(gogoproto.nullable) = false];
+  bool isRegstrable = 1;
+  repeated cosmos.base.v1beta1.Coin fee = 2 [
+    (gogoproto.nullable) = false,
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
+  uint64 registrationPeriodInYear = 3;
+  uint64 maxSubDomainRegistrations = 4;
+  string errorMessage = 5;
 }
 
 message QueryIsRegistrableDomainRequest {

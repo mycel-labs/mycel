@@ -9,21 +9,64 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+func createErrorResponse(err error) *types.QueryDomainRegistrationFeeResponse {
+	return &types.QueryDomainRegistrationFeeResponse{
+		IsRegstrable:              false,
+		Fee:                       sdk.NewCoins(),
+		RegistrationPeriodInYear:  0,
+		MaxSubDomainRegistrations: 0,
+		ErrorMessage:              err.Error(),
+	}
+}
+
 func (k Keeper) DomainRegistrationFee(goCtx context.Context, req *types.QueryDomainRegistrationFeeRequest) (*types.QueryDomainRegistrationFeeResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
-
-	// TODO: Process the query
-	_ = ctx
-	domain := types.SecondLevelDomain{Name: req.Name, Parent: req.Parent}
-	config := k.GetSecondLevelDomainParentsSubdomainConfig(ctx, domain)
-	fee, err := config.GetRegistrationFee(domain.Name, 1)
-	if err != nil {
-		return nil, err
+	if req.Parent == "" {
+		// Top level domain
+		config := types.GetDefaultSubdomainConfig(1)
+		domain := types.TopLevelDomain{
+			Name:            req.Name,
+			SubdomainConfig: &config,
+		}
+		err := k.ValidateTopLevelDomainIsRegistrable(ctx, domain)
+		if err != nil {
+			return createErrorResponse(err), nil
+		}
+		fee, err := k.GetTopLevelDomainFee(ctx, domain, req.RegistrationPeriodInYear)
+		if err != nil {
+			return createErrorResponse(err), nil
+		} else {
+			return &types.QueryDomainRegistrationFeeResponse{
+				IsRegstrable:              true,
+				Fee:                       fee.TotalFee,
+				RegistrationPeriodInYear:  1,
+				MaxSubDomainRegistrations: config.MaxSubdomainRegistrations,
+				ErrorMessage:              "",
+			}, nil
+		}
+	} else {
+		// Second level domain
+		domain := types.SecondLevelDomain{Name: req.Name, Parent: req.Parent}
+		err := k.ValidateSecondLevelDomainIsRegistrable(ctx, domain)
+		if err != nil {
+			return createErrorResponse(err), nil
+		}
+		config := k.GetSecondLevelDomainParentsSubdomainConfig(ctx, domain)
+		fee, err := config.GetRegistrationFee(domain.Name, req.RegistrationPeriodInYear)
+		if err != nil {
+			return createErrorResponse(err), nil
+		} else {
+			return &types.QueryDomainRegistrationFeeResponse{
+				IsRegstrable:              true,
+				Fee:                       sdk.NewCoins(fee),
+				RegistrationPeriodInYear:  1,
+				MaxSubDomainRegistrations: 0,
+				ErrorMessage:              "",
+			}, nil
+		}
 	}
-
-	return &types.QueryDomainRegistrationFeeResponse{Fee: fee}, nil
 }

@@ -50200,21 +50200,33 @@ paths:
           schema:
             type: object
             properties:
+              isRegstrable:
+                type: boolean
               fee:
-                type: object
-                properties:
-                  denom:
-                    type: string
-                  amount:
-                    type: string
-                description: >-
-                  Coin defines a token with a denomination and an amount.
+                type: array
+                items:
+                  type: object
+                  properties:
+                    denom:
+                      type: string
+                    amount:
+                      type: string
+                  description: >-
+                    Coin defines a token with a denomination and an amount.
 
 
-                  NOTE: The amount field is an Int which implements the custom
-                  method
+                    NOTE: The amount field is an Int which implements the custom
+                    method
 
-                  signatures required by gogoproto.
+                    signatures required by gogoproto.
+              registrationPeriodInYear:
+                type: string
+                format: uint64
+              maxSubDomainRegistrations:
+                type: string
+                format: uint64
+              errorMessage:
+                type: string
         default:
           description: An unexpected error response.
           schema:
@@ -50242,6 +50254,11 @@ paths:
           in: path
           required: true
           type: string
+        - name: registrationPeriodInYear
+          in: query
+          required: false
+          type: string
+          format: uint64
       tags:
         - Query
   /mycel-domain/mycel/registry/is_registrable_domain/{name}/{parent}:
@@ -81788,18 +81805,30 @@ definitions:
   mycel.registry.QueryDomainRegistrationFeeResponse:
     type: object
     properties:
+      isRegstrable:
+        type: boolean
       fee:
-        type: object
-        properties:
-          denom:
-            type: string
-          amount:
-            type: string
-        description: |-
-          Coin defines a token with a denomination and an amount.
+        type: array
+        items:
+          type: object
+          properties:
+            denom:
+              type: string
+            amount:
+              type: string
+          description: |-
+            Coin defines a token with a denomination and an amount.
 
-          NOTE: The amount field is an Int which implements the custom method
-          signatures required by gogoproto.
+            NOTE: The amount field is an Int which implements the custom method
+            signatures required by gogoproto.
+      registrationPeriodInYear:
+        type: string
+        format: uint64
+      maxSubDomainRegistrations:
+        type: string
+        format: uint64
+      errorMessage:
+        type: string
   mycel.registry.QueryGetDomainOwnershipResponse:
     type: object
     properties:

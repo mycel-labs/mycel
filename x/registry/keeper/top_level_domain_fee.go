@@ -41,6 +41,7 @@ func (k Keeper) GetTopLevelDomainFee(ctx sdk.Context, topLevelDomain types.TopLe
 	if err != nil {
 		return types.TopLevelDomainFee{}, err
 	}
+	topLevelDomainFee.TotalFee = sdk.NewCoins(sdk.NewCoin(denom, fee))
 
 	// Get burn weight (=W)
 	weight, err := k.GetBurnWeight(ctx)
