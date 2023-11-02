@@ -32,6 +32,5 @@ func (k msgServer) UpdateDnsRecord(goCtx context.Context, msg *types.MsgUpdateDn
 	// Emit event
 	EmitUpdateDnsRecordEvent(ctx, *msg)
 
-
 	return &types.MsgUpdateDnsRecordResponse{}, nil
 }

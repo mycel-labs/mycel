@@ -81185,6 +81185,8 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
+  mycel.registry.MsgExtendTopLevelDomainExpirationResponse:
+    type: object
   mycel.registry.MsgRegisterSecondLevelDomainResponse:
     type: object
   mycel.registry.MsgRegisterTopLevelDomainResponse:

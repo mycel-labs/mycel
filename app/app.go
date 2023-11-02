@@ -327,7 +327,7 @@ type App struct {
 	RegistryKeeper registrymodulekeeper.Keeper
 	EpochsKeeper   epochsmodulekeeper.Keeper
 	ResolverKeeper resolvermodulekeeper.Keeper
-	FurnaceKeeper furnacemodulekeeper.Keeper
+	FurnaceKeeper  furnacemodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager

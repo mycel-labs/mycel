@@ -12,6 +12,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgRegisterSecondLevelDomain{}, "registry/RegisterSecondLevelDomain", nil)
 	cdc.RegisterConcrete(&MsgRegisterTopLevelDomain{}, "registry/RegisterTopLevelDomain", nil)
 	cdc.RegisterConcrete(&MsgWithdrawRegistrationFee{}, "registry/WithdrawRegistrationFee", nil)
+	cdc.RegisterConcrete(&MsgExtendTopLevelDomainExpiration{}, "registry/ExtendTopLevelDomainExpiration", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -27,6 +28,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgWithdrawRegistrationFee{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgExtendTopLevelDomainExpiration{},
 	)
 	// this line is used by starport scaffolding # 3
 

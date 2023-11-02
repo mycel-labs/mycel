@@ -9,11 +9,12 @@ option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc UpdateWalletRecord      (MsgUpdateWalletRecord     ) returns (MsgUpdateWalletRecordResponse     );
-  rpc UpdateDnsRecord         (MsgUpdateDnsRecord        ) returns (MsgUpdateDnsRecordResponse        );
-  rpc RegisterSecondLevelDomain          (MsgRegisterSecondLevelDomain         ) returns (MsgRegisterSecondLevelDomainResponse         );
-  rpc RegisterTopLevelDomain  (MsgRegisterTopLevelDomain ) returns (MsgRegisterTopLevelDomainResponse );
-  rpc WithdrawRegistrationFee (MsgWithdrawRegistrationFee) returns (MsgWithdrawRegistrationFeeResponse);
+  rpc UpdateWalletRecord             (MsgUpdateWalletRecord            ) returns (MsgUpdateWalletRecordResponse            );
+  rpc UpdateDnsRecord                (MsgUpdateDnsRecord               ) returns (MsgUpdateDnsRecordResponse               );
+  rpc RegisterSecondLevelDomain      (MsgRegisterSecondLevelDomain     ) returns (MsgRegisterSecondLevelDomainResponse     );
+  rpc RegisterTopLevelDomain         (MsgRegisterTopLevelDomain        ) returns (MsgRegisterTopLevelDomainResponse        );
+  rpc WithdrawRegistrationFee        (MsgWithdrawRegistrationFee       ) returns (MsgWithdrawRegistrationFeeResponse       );
+  rpc ExtendTopLevelDomainExpiration (MsgExtendTopLevelDomainExpiration) returns (MsgExtendTopLevelDomainExpirationResponse);
 }
 message MsgUpdateWalletRecord {
   string creator          = 1;
@@ -58,9 +59,14 @@ message MsgWithdrawRegistrationFee {
 }
 
 message MsgWithdrawRegistrationFeeResponse {
-  repeated cosmos.base.v1beta1.Coin registrationFee = 7 [
-    (gogoproto.nullable) = false,
-    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
-  ];
+  repeated cosmos.base.v1beta1.Coin registrationFee = 7 [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];
 }
+
+message MsgExtendTopLevelDomainExpiration {
+  string creator                  = 1;
+  string name                     = 2;
+  int64  registrationPeriodInYear = 3;
+}
+
+message MsgExtendTopLevelDomainExpirationResponse {}
 

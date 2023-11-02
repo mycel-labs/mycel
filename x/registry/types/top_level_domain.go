@@ -8,7 +8,7 @@ import (
 
 type TopLevelDomainRegistrationFee struct {
 	TotalRegistrationFee      sdk.Coins
-	BurnWeight								math.LegacyDec
+	BurnWeight                math.LegacyDec
 	RegistrationFeeToBurn     sdk.Coin
 	RegistrationFeeToTreasury sdk.Coin
 }

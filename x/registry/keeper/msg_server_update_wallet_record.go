@@ -32,6 +32,5 @@ func (k msgServer) UpdateWalletRecord(goCtx context.Context, msg *types.MsgUpdat
 	// Emit event
 	EmitUpdateWalletRecordEvent(ctx, *msg)
 
-
 	return &types.MsgUpdateWalletRecordResponse{}, nil
 }

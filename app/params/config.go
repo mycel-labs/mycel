@@ -16,7 +16,7 @@ const (
 
 	Bech32PrefixAccAddr = "mycel"
 
-	OneYearInDays       = 365
+	OneYearInDays = 365
 )
 
 var (
