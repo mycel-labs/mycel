@@ -183,6 +183,9 @@ func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, creator string, domainNa
 	// Set domain
 	k.SetTopLevelDomain(ctx, topLevelDomain)
 
+	// Append to owned domain
+	k.AppendToOwnedDomain(ctx, creator, topLevelDomain.Name, "")
+
 	// Emit event
 	EmitRegisterTopLevelDomainEvent(ctx, topLevelDomain, fee)
 

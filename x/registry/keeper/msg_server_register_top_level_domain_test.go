@@ -83,6 +83,18 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 				suite.Require().True(found)
 				suite.Require().Equal(domain.AccessControl[tc.creator], types.DomainRole_OWNER)
 
+				// Evaluate if domain is appended to owned domain list
+				ownedDomains, found := suite.app.RegistryKeeper.GetDomainOwnership(suite.ctx, tc.creator)
+				suite.Require().True(found)
+				found = false
+				for _, ownedDomain := range ownedDomains.Domains {
+					if ownedDomain.Name == tc.name && ownedDomain.Parent == "" {
+						found = true
+						break
+					}
+				}
+				suite.Require().True(found)
+
 				// Evalute events
 				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeRegisterTopLevelDomain)
 				suite.Require().True(found)
