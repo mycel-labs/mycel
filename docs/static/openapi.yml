@@ -50700,7 +50700,7 @@ paths:
                       type: string
                     expirationDate:
                       type: string
-                      format: int64
+                      format: date-time
               pagination:
                 type: object
                 properties:
@@ -50825,7 +50825,7 @@ paths:
                     type: string
                   expirationDate:
                     type: string
-                    format: int64
+                    format: date-time
         default:
           description: An unexpected error response.
           schema:
@@ -81590,7 +81590,7 @@ definitions:
               type: string
             expirationDate:
               type: string
-              format: int64
+              format: date-time
       pagination:
         type: object
         properties:
@@ -81815,7 +81815,7 @@ definitions:
             type: string
           expirationDate:
             type: string
-            format: int64
+            format: date-time
   mycel.registry.QueryGetTopLevelDomainResponse:
     type: object
     properties:
@@ -81953,7 +81953,7 @@ definitions:
         type: string
       expirationDate:
         type: string
-        format: int64
+        format: date-time
   mycel.registry.SubdomainConfig:
     type: object
     properties:

@@ -3,6 +3,7 @@ syntax = "proto3";
 package mycel.registry;
 
 import "gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "mycel/registry/params.proto";
@@ -93,7 +94,10 @@ message QueryGetSecondLevelDomainRequest {
 message SecondLevelDomainResponse {
   string name   = 1;
   string parent = 2;
-  int64 expirationDate = 3;
+  google.protobuf.Timestamp expirationDate = 3 [
+    (gogoproto.stdtime) = true,
+    (gogoproto.nullable) = false
+  ];
 }
 
 message QueryGetSecondLevelDomainResponse {

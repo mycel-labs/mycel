@@ -101,8 +101,7 @@ func (k Keeper) GetValidSecondLevelDomain(ctx sdk.Context, name string, parent s
 	}
 
 	// Check if second-level-domain is not expired
-	expirationDate := time.Unix(0, secondLevelDomain.ExpirationDate)
-	if ctx.BlockTime().After(expirationDate) && secondLevelDomain.ExpirationDate != 0 {
+	if ctx.BlockTime().After(secondLevelDomain.ExpirationDate) && secondLevelDomain.ExpirationDate != (time.Time{}){
 		return types.SecondLevelDomain{}, errorsmod.Wrapf(types.ErrSecondLevelDomainExpired, "%s", name)
 	}
 

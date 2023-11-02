@@ -5,7 +5,6 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/mycel-domain/mycel/x/registry/types"
-	"strconv"
 )
 
 // Register top-level-domain event
@@ -30,7 +29,7 @@ func EmitRegisterSecondLevelDomainEvent(ctx sdk.Context, domain types.SecondLeve
 		sdk.NewEvent(types.EventTypeRegisterSecondLevelDomain,
 			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventName, domain.Name),
 			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventParent, domain.Parent),
-			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventExpirationDate, strconv.FormatInt(domain.ExpirationDate, 10)),
+			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventExpirationDate, domain.ExpirationDate.String()),
 			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventRegistrationFee, fee.String()),
 		),
 	)
