@@ -88,7 +88,7 @@ func (suite *KeeperTestSuite) TestGetValidSecondLevelDomain() {
 		{
 			secondLevelDomain: types.SecondLevelDomain{
 				Name:           "test",
-				Parent:         "test",
+				Parent:         "cel",
 				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, 20).UnixNano(),
 			},
 			expErr: nil,
@@ -96,7 +96,7 @@ func (suite *KeeperTestSuite) TestGetValidSecondLevelDomain() {
 		{
 			secondLevelDomain: types.SecondLevelDomain{
 				Name:           "test",
-				Parent:         "test",
+				Parent:         "cel",
 				ExpirationDate: 0,
 			},
 			expErr: nil,
@@ -107,7 +107,7 @@ func (suite *KeeperTestSuite) TestGetValidSecondLevelDomain() {
 				Parent:         "test",
 				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, -20).UnixNano(),
 			},
-			expErr: errorsmod.Wrapf(types.ErrDomainExpired, "test"),
+			expErr: errorsmod.Wrapf(types.ErrDomainNotFound, "test"),
 		},
 	}
 	for i, tc := range testCases {

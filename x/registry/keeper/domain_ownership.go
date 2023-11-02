@@ -61,3 +61,16 @@ func (k Keeper) GetAllDomainOwnership(ctx sdk.Context) (list []types.DomainOwner
 
 	return
 }
+
+// Append to owned domain
+func (k Keeper) AppendToOwnedDomain(ctx sdk.Context, owner string, name string, parent string) {
+	domainOwnership, found := k.GetDomainOwnership(ctx, owner)
+	if found {
+		domainOwnership.Domains = append(domainOwnership.Domains, &types.OwnedDomain{Name: name, Parent: parent})
+		k.SetDomainOwnership(ctx, domainOwnership)
+	} else {
+		k.SetDomainOwnership(ctx, types.DomainOwnership{Owner: owner, Domains: []*types.OwnedDomain{{Name: name, Parent: parent}}})
+	}
+}
+
+

@@ -74,7 +74,7 @@ func (k Keeper) GetIsTopLevelDomainAlreadyTaken(ctx sdk.Context, domain types.To
 	return isDomainAlreadyTaken
 }
 
-// Get valid top level domain
+// Get valid-top-level domain
 func (k Keeper) GetValidTopLevelDomain(ctx sdk.Context, name string) (topLevelDomain types.TopLevelDomain, err error) {
 	// Regex validation
 	err = types.ValidateTopLevelDomainName(name)
@@ -96,7 +96,7 @@ func (k Keeper) GetValidTopLevelDomain(ctx sdk.Context, name string) (topLevelDo
 	return topLevelDomain, nil
 }
 
-// Pay TLD registration fee
+// Pay top-level-domain registration fee
 func (k Keeper) PayTopLevelDomainFee(ctx sdk.Context, payer sdk.AccAddress, domain types.TopLevelDomain, registrationPeriodInYear uint64) (registrationFee types.TopLevelDomainFee, err error) {
 	// Get registration fee
 	registrationFee, err = k.GetTopLevelDomainFee(ctx, domain, registrationPeriodInYear)
@@ -131,6 +131,21 @@ func (k Keeper) PayTopLevelDomainFee(ctx sdk.Context, payer sdk.AccAddress, doma
 	return registrationFee, nil
 }
 
+func (k Keeper) ValidateTopLevelDomainIsRegistrable(ctx sdk.Context, topLevelDomain types.TopLevelDomain) (error) {
+	// Validate top-level-domain
+	err := topLevelDomain.Validate()
+	if err != nil {
+		return err
+	}
+	// Check if top-level-domain is already taken
+	isTaken := k.GetIsTopLevelDomainAlreadyTaken(ctx, topLevelDomain)
+	if isTaken {
+		return errorsmod.Wrapf(types.ErrDomainIsAlreadyTaken, "%s", topLevelDomain.Name)
+	}
+
+	return nil
+}
+
 // Register top-level-domain
 func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, creator string, domainName string, registrationPeriodInYear uint64) (topLevelDomain types.TopLevelDomain, fee types.TopLevelDomainFee, err error) {
 	// Create top-level-domain
@@ -149,15 +164,9 @@ func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, creator string, domainNa
 		TotalWithdrawalAmount: sdk.NewCoins(),
 	}
 
-	// Validate top-level-domain
-	err = topLevelDomain.Validate()
+	// Validate top-level-domain is registrable
+	err = k.ValidateTopLevelDomainIsRegistrable(ctx, topLevelDomain)
 	if err != nil {
-		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, err
-	}
-	// Check if top-level-domain is already taken
-	isTaken := k.GetIsTopLevelDomainAlreadyTaken(ctx, topLevelDomain)
-	if isTaken {
-		err = errorsmod.Wrapf(types.ErrDomainIsAlreadyTaken, "%s", topLevelDomain.Name)
 		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, err
 	}
 

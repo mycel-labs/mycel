@@ -19,11 +19,11 @@ func (k Keeper) DomainRegistrationFee(goCtx context.Context, req *types.QueryDom
 	// TODO: Process the query
 	_ = ctx
 	domain := types.SecondLevelDomain{Name: req.Name, Parent: req.Parent}
-	config := k.GetParentsSubdomainConfig(ctx, domain)
+	config := k.GetSecondLevelDomainParentsSubdomainConfig(ctx, domain)
 	fee, err := config.GetRegistrationFee(domain.Name, 1)
 	if err != nil {
 		return nil, err
 	}
 
-	return &types.QueryDomainRegistrationFeeResponse{Fee: *fee}, nil
+	return &types.QueryDomainRegistrationFeeResponse{Fee: fee}, nil
 }

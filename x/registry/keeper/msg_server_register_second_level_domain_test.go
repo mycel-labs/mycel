@@ -115,13 +115,13 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 
 				// Evaluate if module account balance is increased
 				// Get registration fee
-				config := suite.app.RegistryKeeper.GetParentsSubdomainConfig(suite.ctx, domain)
+				config := suite.app.RegistryKeeper.GetSecondLevelDomainParentsSubdomainConfig(suite.ctx, domain)
 				fee, err := config.GetRegistrationFee(tc.name, tc.registrationPeriodInYear)
 				suite.Require().Nil(err)
 
 				afterModuleBalance := suite.app.BankKeeper.GetBalance(suite.ctx, moduleAddress, types.MycelDenom)
-				suite.Require().Equal(beforeModuleBalance.Add(*fee), afterModuleBalance)
-				suite.Require().Equal(beforeParent.TotalWithdrawalAmount.Add(*fee), afterParent.TotalWithdrawalAmount)
+				suite.Require().Equal(beforeModuleBalance.Add(fee), afterModuleBalance)
+				suite.Require().Equal(beforeParent.TotalWithdrawalAmount.Add(fee), afterParent.TotalWithdrawalAmount)
 
 				// Evalute events
 				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeRegisterSecondLevelDomain)

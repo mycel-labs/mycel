@@ -34,13 +34,13 @@ func GetFeeByNameLength(base int, baseFee int) map[uint32]*Fee {
 	return fees
 }
 
-func (config *SubdomainConfig) GetRegistrationFee(name string, registrationPeriodInYear uint64) (amount *sdk.Coin, err error) {
-	amount = config.SubdomainRegistrationFees.DefaultFee
+func (config SubdomainConfig) GetRegistrationFee(name string, registrationPeriodInYear uint64) (amount sdk.Coin, err error) {
+	amount = *config.SubdomainRegistrationFees.DefaultFee
 
 	// Set amount if bylength found
 	if config.SubdomainRegistrationFees.FeeByName[name] != nil {
 		if config.SubdomainRegistrationFees.FeeByName[name].IsRegistrable {
-			amount = config.SubdomainRegistrationFees.FeeByName[name].Fee
+			amount = *config.SubdomainRegistrationFees.FeeByName[name].Fee
 		} else {
 			err = errorsmod.Wrap(errors.New(name), ErrDomainNotRegistrable.Error())
 		}
@@ -49,7 +49,7 @@ func (config *SubdomainConfig) GetRegistrationFee(name string, registrationPerio
 	// Set amount if byname found
 	if config.SubdomainRegistrationFees.FeeByLength[uint32(len(name))] != nil {
 		if config.SubdomainRegistrationFees.FeeByLength[uint32(len(name))].IsRegistrable {
-			amount = config.SubdomainRegistrationFees.FeeByLength[uint32(len(name))].Fee
+			amount = *config.SubdomainRegistrationFees.FeeByLength[uint32(len(name))].Fee
 		} else {
 			err = errorsmod.Wrap(errors.New(name), ErrDomainNotRegistrable.Error())
 		}
