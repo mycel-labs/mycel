@@ -25,12 +25,12 @@ func (k msgServer) RegisterTopLevelDomain(goCtx context.Context, msg *types.MsgR
 
 	defaultRegistrationConfig := types.GetDefaultSubdomainConfig(3030)
 	domain := types.TopLevelDomain{
-		Name:                  msg.Name,
-		ExpirationDate:        expirationDate.UnixNano(),
-		Metadata:              nil,
-		SubdomainConfig:       &defaultRegistrationConfig,
-		AccessControl:         accessControl,
-		TotalWithdrawalAmount: sdk.NewCoins(),
+		Name:                     msg.Name,
+		ExpirationDateInUnixNano: expirationDate.UnixNano(),
+		Metadata:                 nil,
+		SubdomainConfig:          &defaultRegistrationConfig,
+		AccessControl:            accessControl,
+		TotalWithdrawalAmount:    sdk.NewCoins(),
 	}
 
 	fee, err := k.Keeper.RegisterTopLevelDomain(ctx, domain, msg.Creator, msg.RegistrationPeriodInYear)

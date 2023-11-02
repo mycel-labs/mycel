@@ -85,8 +85,8 @@ func (k Keeper) GetValidTopLevelDomain(ctx sdk.Context, name string) (topLevelDo
 	}
 
 	// Check if domain is not expired
-	expirationDate := time.Unix(0, topLevelDomain.ExpirationDate)
-	if ctx.BlockTime().After(expirationDate) && topLevelDomain.ExpirationDate != 0 {
+	expirationDate := time.Unix(0, topLevelDomain.ExpirationDateInUnixNano)
+	if ctx.BlockTime().After(expirationDate) && topLevelDomain.ExpirationDateInUnixNano != 0 {
 		return topLevelDomain, errorsmod.Wrapf(types.ErrDomainExpired, "%s", name)
 	}
 
@@ -219,7 +219,7 @@ func (k Keeper) ExtendTopLevelDomainExpirationDate(ctx sdk.Context, creator stri
 	}
 
 	// Update domain store
-	currentExpirationDate := time.Unix(0, domain.ExpirationDate)
+	currentExpirationDate := time.Unix(0, domain.ExpirationDateInUnixNano)
 	domain.ExtendExpirationDate(currentExpirationDate, extensionPeriodInYear)
 	k.SetTopLevelDomain(ctx, *domain)
 

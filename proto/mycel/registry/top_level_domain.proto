@@ -10,7 +10,7 @@ option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 message TopLevelDomain {
   string name = 1;
-  int64 expirationDate = 2;
+  int64 expirationDateInUnixNano = 2;
   map<string, string> metadata = 3;
   SubdomainConfig subdomainConfig = 4;
   uint64 subdomainCount = 5;

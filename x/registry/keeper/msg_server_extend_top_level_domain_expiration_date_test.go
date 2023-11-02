@@ -51,8 +51,7 @@ func (suite *KeeperTestSuite) TestExtendTopLevelDomain() {
 			suite.Require().Nil(err)
 			beforeDomain, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, name)
 			suite.Require().True(found)
-			beforeExpirationDate := time.Unix(0, beforeDomain.ExpirationDate)
-			_ = beforeExpirationDate
+			beforeExpirationDate := time.Unix(0, beforeDomain.ExpirationDateInUnixNano)
 
 			// Run test case function
 			tc.fn()
@@ -78,14 +77,14 @@ func (suite *KeeperTestSuite) TestExtendTopLevelDomain() {
 				suite.Require().Nil(err)
 				// Evaluate if domain is extended
 				// Response
-				registerExpirationDate := time.Unix(0, registerRsp.TopLevelDomain.ExpirationDate)
-				extendExpirationDate := time.Unix(0, extendRsp.TopLevelDomain.ExpirationDate)
+				registerExpirationDate := time.Unix(0, registerRsp.TopLevelDomain.ExpirationDateInUnixNano)
+				extendExpirationDate := time.Unix(0, extendRsp.TopLevelDomain.ExpirationDateInUnixNano)
 				suite.Require().Equal(registerExpirationDate.AddDate(0, 0, int(tc.extensionPeriodInYear)*params.OneYearInDays), extendExpirationDate)
 				// Store
 				afterDomain, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, name)
 				suite.Require().True(found)
 				expAfterExpirationDate := beforeExpirationDate.AddDate(0, 0, int(tc.extensionPeriodInYear)*params.OneYearInDays)
-				afterExpirationDate := time.Unix(0, afterDomain.ExpirationDate)
+				afterExpirationDate := time.Unix(0, afterDomain.ExpirationDateInUnixNano)
 				suite.Require().Equal(expAfterExpirationDate, afterExpirationDate)
 
 				// Evalute events

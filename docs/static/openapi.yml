@@ -50303,7 +50303,7 @@ paths:
                   properties:
                     name:
                       type: string
-                    expirationDate:
+                    expirationDateInUnixNano:
                       type: string
                       format: int64
                     metadata:
@@ -50531,7 +50531,7 @@ paths:
                 properties:
                   name:
                     type: string
-                  expirationDate:
+                  expirationDateInUnixNano:
                     type: string
                     format: int64
                   metadata:
@@ -81193,7 +81193,7 @@ definitions:
         properties:
           name:
             type: string
-          expirationDate:
+          expirationDateInUnixNano:
             type: string
             format: int64
           metadata:
@@ -81361,7 +81361,7 @@ definitions:
         properties:
           name:
             type: string
-          expirationDate:
+          expirationDateInUnixNano:
             type: string
             format: int64
           metadata:
@@ -81653,7 +81653,7 @@ definitions:
           properties:
             name:
               type: string
-            expirationDate:
+            expirationDateInUnixNano:
               type: string
               format: int64
             metadata:
@@ -81838,7 +81838,7 @@ definitions:
         properties:
           name:
             type: string
-          expirationDate:
+          expirationDateInUnixNano:
             type: string
             format: int64
           metadata:
@@ -82107,7 +82107,7 @@ definitions:
     properties:
       name:
         type: string
-      expirationDate:
+      expirationDateInUnixNano:
         type: string
         format: int64
       metadata:

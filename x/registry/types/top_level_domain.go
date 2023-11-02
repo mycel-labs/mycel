@@ -56,7 +56,7 @@ func (topLevelDomain TopLevelDomain) IsEditable(sender string) (isEditable bool,
 func (topLevelDomain *TopLevelDomain) ExtendExpirationDate(from time.Time, extensionPeriodInYear uint64) (expirationDateInUnixNano int64) {
 	newExpirationDate := from.AddDate(0, 0, params.OneYearInDays*int(extensionPeriodInYear))
 	expirationDateInUnixNano = newExpirationDate.UnixNano()
-	topLevelDomain.ExpirationDate = expirationDateInUnixNano
+	topLevelDomain.ExpirationDateInUnixNano = expirationDateInUnixNano
 
 	return expirationDateInUnixNano
 }

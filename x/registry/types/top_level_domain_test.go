@@ -68,7 +68,7 @@ func TestExtendExpirationDate(t *testing.T) {
 			Name: "myc",
 		}
 		extendExpirationDateInUnixNano := domain.ExtendExpirationDate(tc.from, tc.extensionPeriodInYear)
-		require.Equal(t, tc.expectedExpirationDate.UnixNano(), domain.ExpirationDate)
+		require.Equal(t, tc.expectedExpirationDate.UnixNano(), domain.ExpirationDateInUnixNano)
 		require.Equal(t, tc.expectedExpirationDate.UnixNano(), extendExpirationDateInUnixNano)
 	}
 }

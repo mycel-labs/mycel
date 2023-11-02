@@ -73,21 +73,21 @@ func (suite *KeeperTestSuite) TestGetValidTopLevelDomain() {
 		{
 			topLevelDomain: types.TopLevelDomain{
 				Name:           "test",
-				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, 20).UnixNano(),
+				ExpirationDateInUnixNano: suite.ctx.BlockTime().AddDate(0, 0, 20).UnixNano(),
 			},
 			expErr: nil,
 		},
 		{
 			topLevelDomain: types.TopLevelDomain{
 				Name:           "test",
-				ExpirationDate: 0,
+				ExpirationDateInUnixNano: 0,
 			},
 			expErr: nil,
 		},
 		{
 			topLevelDomain: types.TopLevelDomain{
 				Name:           "test",
-				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, -20).UnixNano(),
+				ExpirationDateInUnixNano: suite.ctx.BlockTime().AddDate(0, 0, -20).UnixNano(),
 			},
 			expErr: errorsmod.Wrapf(types.ErrDomainExpired, "test"),
 		},
