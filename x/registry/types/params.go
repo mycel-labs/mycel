@@ -14,7 +14,10 @@ func ParamKeyTable() paramtypes.KeyTable {
 
 // NewParams creates a new Params instance
 func NewParams() Params {
-	return Params{}
+	return Params{
+		StakingInflationRatio:      0.5,
+		TopLevelDomainBaseFeeInUsd: 0.05 * 10e6,
+	}
 }
 
 // DefaultParams returns a default set of parameters

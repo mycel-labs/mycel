@@ -14,7 +14,7 @@ func GetDefaultEpochBurnConfig() EpochBurnConfig {
 	return EpochBurnConfig{
 		EpochIdentifier:        epochstypes.DailyEpochId,
 		CurrentBurnAmountIndex: 1,
-		DefaultTotalEpochs:     30,
+		DefaultTotalEpochs:     120,
 	}
 }
 
@@ -26,7 +26,7 @@ func DefaultGenesis() *GenesisState {
 			{
 				Index:                 0,
 				BurnStarted:           false,
-				TotalEpochs:           30,
+				TotalEpochs:           120,
 				CurrentEpoch:          0,
 				TotalBurnAmount:       sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0)),
 				CumulativeBurntAmount: sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0)),

@@ -121,11 +121,10 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 
 				afterModuleBalance := suite.app.BankKeeper.GetBalance(suite.ctx, moduleAddress, types.MycelDenom)
 				suite.Require().Equal(beforeModuleBalance.Add(*fee), afterModuleBalance)
-				suite.Require().Equal(beforeParent.RegistrationFee.Add(*fee), afterParent.RegistrationFee)
+				suite.Require().Equal(beforeParent.TotalWithdrawalAmount.Add(*fee), afterParent.TotalWithdrawalAmount)
 
 				// Evalute events
-				suite.Require().Nil(err)
-				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeRegsterDomain)
+				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeRegisterSecondLevelDomain)
 				suite.Require().True(found)
 				for _, event := range events {
 					suite.Require().Equal(tc.name, event.Attributes[0].Value)

@@ -1,8 +1,6 @@
 package keeper
 
 import (
-	"strconv"
-
 	"github.com/mycel-domain/mycel/x/registry/types"
 
 	errorsmod "cosmossdk.io/errors"
@@ -42,7 +40,7 @@ func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, doma
 	if !found {
 		panic("parent not found")
 	}
-	parent.RegistrationFee = parent.RegistrationFee.Add(*fee)
+	parent.TotalWithdrawalAmount = parent.TotalWithdrawalAmount.Add(*fee)
 	k.SetTopLevelDomain(ctx, parent)
 
 	return fee, err
@@ -89,11 +87,6 @@ func (k Keeper) RegisterSecondLevelDomain(ctx sdk.Context, domain types.SecondLe
 		return err
 	}
 
-	// Set subdomain registration config
-	parentDomain.SubdomainConfig = &types.SubdomainConfig{
-		MaxSubdomainRegistrations: 100,
-	}
-
 	// Increment parents subdomain SubdomainCount
 	k.IncrementParentsSubdomainCount(ctx, domain)
 
@@ -110,14 +103,7 @@ func (k Keeper) RegisterSecondLevelDomain(ctx sdk.Context, domain types.SecondLe
 	k.SetSecondLevelDomain(ctx, domain)
 
 	// Emit event
-	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(types.EventTypeRegsterDomain,
-			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventName, domain.Name),
-			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventParent, domain.Parent),
-			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventExpirationDate, strconv.FormatInt(domain.ExpirationDate, 10)),
-			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventRegistrationFee, fee.String()),
-		),
-	)
+	EmitRegisterSecondLevelDomainEvent(ctx, domain, *fee)
 
 	return err
 }

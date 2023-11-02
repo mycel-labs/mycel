@@ -28,15 +28,10 @@ func (k msgServer) UpdateDnsRecord(goCtx context.Context, msg *types.MsgUpdateDn
 		return nil, err
 	}
 	k.Keeper.SetSecondLevelDomain(ctx, domain)
+
 	// Emit event
-	ctx.EventManager().EmitEvent(
-		sdk.NewEvent(types.EventTypeUpdateDnsRecord,
-			sdk.NewAttribute(types.AttributeUpdateDnsRecordEventDomainName, msg.Name),
-			sdk.NewAttribute(types.AttributeUpdateDnsRecordEventDomainParent, msg.Parent),
-			sdk.NewAttribute(types.AttributeUpdateDnsRecordEventDnsRecordType, msg.DnsRecordType),
-			sdk.NewAttribute(types.AttributeUpdateDnsRecordEventValue, msg.Value),
-		),
-	)
+	EmitUpdateDnsRecordEvent(ctx, *msg)
+
 
 	return &types.MsgUpdateDnsRecordResponse{}, nil
 }
