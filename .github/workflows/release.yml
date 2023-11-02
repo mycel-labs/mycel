@@ -38,7 +38,7 @@ jobs:
         env:
           CGO_ENABLED: 0
         run: |
-          curl 'https://get.ignite.com/cli@v0.27.1'! | bash
+          curl 'https://get.ignite.com/cli@v0.27.2'! | bash
           ignite chain build --release --release.prefix ${{ steps.vars.outputs.tarball_prefix }} -t linux:amd64 -t darwin:amd64 -t darwin:arm64
 
       - name: Delete the "latest" Release
