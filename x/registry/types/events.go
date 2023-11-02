@@ -4,12 +4,12 @@ package types
 const (
 	EventTypeRegisterTopLevelDomain = "register-top-level-domain"
 
-	AttributeRegisterTopLevelDomainEventName           = "name"
-	AttributeRegisterTopLevelDomainEventExpirationDate = "expiration-date"
+	AttributeRegisterTopLevelDomainEventName                      = "name"
+	AttributeRegisterTopLevelDomainEventExpirationDate            = "expiration-date"
 	AttributeRegisterTopLevelDomainEventMaxSubdomainRegistrations = "max-subdomain-registrations"
-	AttributeRegisterTopLevelDomainEventTotalRegistrationFee = "total-registration-fee"
-	AttributeRegisterTopLevelDomainEventBurnWeight = "burn-weight"
-	AttributeRegisterTopLevelDomainEventRegistrationFeeToBurn = "registration-fee-to-burn"
+	AttributeRegisterTopLevelDomainEventTotalRegistrationFee      = "total-registration-fee"
+	AttributeRegisterTopLevelDomainEventBurnWeight                = "burn-weight"
+	AttributeRegisterTopLevelDomainEventRegistrationFeeToBurn     = "registration-fee-to-burn"
 	AttributeRegisterTopLevelDomainEventRegistrationFeeToTreasury = "registration-fee-to-treasury"
 )
 
@@ -48,5 +48,5 @@ const (
 	EventTypeWithdrawRegistrationFee = "withdraw-registration-fees"
 
 	AttributeWithdrawRegistrationFeeEventDomainName = "name"
-	AttributeWithdrawRegistrationFeeEventDomainFee = "fee"
+	AttributeWithdrawRegistrationFeeEventDomainFee  = "fee"
 )

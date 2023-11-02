@@ -149,7 +149,7 @@ Query domain records by domain
 myceld q regisry show-domain [name] [parent]
 ```
 
-exmaple:  
+example:  
 Query `foo.cel`  
 ```
 myceld q registry show-domain foo cel

@@ -72,7 +72,7 @@ func (suite *KeeperTestSuite) TestAfterEpochHooks() {
 				suite.ctx = suite.ctx.WithBlockHeight(2).WithBlockTime(now.Add(time.Second))
 				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
 
-				// Check if curent epoch is expected
+				// Check if current epoch is expected
 				epochInfo, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, types.DailyEpochId)
 				suite.Require().True(found)
 				suite.Require().Equal(int64(2), epochInfo.CurrentEpoch)
@@ -100,7 +100,7 @@ func (suite *KeeperTestSuite) TestAfterEpochHooks() {
 				suite.ctx = suite.ctx.WithBlockHeight(2).WithBlockTime(now.Add(time.Second))
 				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
 
-				// Check if curent epoch is expected
+				// Check if current epoch is expected
 				epochInfo, found := suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, types.DailyEpochId)
 				suite.Require().True(found)
 				suite.Require().Equal(int64(2), epochInfo.CurrentEpoch)
@@ -109,7 +109,7 @@ func (suite *KeeperTestSuite) TestAfterEpochHooks() {
 				suite.ctx = suite.ctx.WithBlockHeight(3).WithBlockTime(now.Add(oneDayDuration))
 				suite.app.EpochsKeeper.BeginBlocker(suite.ctx)
 
-				// Check if curent epoch is expected
+				// Check if current epoch is expected
 				epochInfo, found = suite.app.EpochsKeeper.GetEpochInfo(suite.ctx, types.DailyEpochId)
 				suite.Require().True(found)
 				suite.Require().Equal(int64(3), epochInfo.CurrentEpoch)

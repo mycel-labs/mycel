@@ -5,8 +5,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	furnacetypes "github.com/mycel-domain/mycel/x/furnace/types"
 	"github.com/mycel-domain/mycel/testutil"
+	furnacetypes "github.com/mycel-domain/mycel/x/furnace/types"
 	"github.com/mycel-domain/mycel/x/registry/types"
 
 	errorsmod "cosmossdk.io/errors"
@@ -78,7 +78,7 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 			afterTreasuryBalance := suite.app.DistrKeeper.GetFeePool(suite.ctx).CommunityPool
 
 			if tc.expErr == nil {
-				// Evalute if domain is registered
+				// Evaluate if domain is registered
 				domain, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, tc.name)
 				suite.Require().True(found)
 				suite.Require().Equal(domain.AccessControl[tc.creator], types.DomainRole_OWNER)

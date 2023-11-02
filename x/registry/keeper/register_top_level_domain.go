@@ -1,8 +1,10 @@
 package keeper
 
 import (
-	"cosmossdk.io/math"
 	"fmt"
+
+	"cosmossdk.io/math"
+
 	"github.com/mycel-domain/mycel/x/registry/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"

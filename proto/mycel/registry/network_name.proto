@@ -4,7 +4,7 @@ package mycel.registry;
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 enum NetworkName {
-  // Rule: CHAINNAME_ENVIROMENT_NETWORK
+  // Rule: CHAINNAME_ENVIRONMENT_NETWORK
 
   NO_NETWORK = 0;
 

@@ -74,7 +74,7 @@ func (k Keeper) RegisterSecondLevelDomain(ctx sdk.Context, domain types.SecondLe
 		return err
 	}
 
-	// Pay registration fee
+	// Get parent domain of second level domain
 	parentDomain, found := k.GetParentDomain(ctx, domain)
 
 	if !found {

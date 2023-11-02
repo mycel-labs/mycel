@@ -45,7 +45,7 @@ func (k Keeper) ValidateRegisterSLD(ctx sdk.Context, domain types.SecondLevelDom
 }
 
 // Validate subdomain GetRegistrationFee
-func (k Keeper) ValidateRegsiterSubdomain(ctx sdk.Context, domain types.SecondLevelDomain) (err error) {
+func (k Keeper) ValidateRegisterSubdomain(ctx sdk.Context, domain types.SecondLevelDomain) (err error) {
 	isParentDomainExist := k.GetIsParentDomainExist(ctx, domain)
 	if !isParentDomainExist {
 		err = errorsmod.Wrapf(types.ErrParentDomainDoesNotExist, "%s", domain.Parent)
@@ -76,7 +76,7 @@ func (k Keeper) ValidateSecondLevelDomain(ctx sdk.Context, domain types.SecondLe
 	// TODO: check is there any subdomain registration case?
 	// default: // Subdomain
 	// 	// Validate Subdomain
-	// 	err = k.ValidateRegsiterSubdomain(ctx, domain)
+	// 	err = k.ValidateRegisterSubdomain(ctx, domain)
 	// 	if err != nil {
 	// 		return err
 	// 	}
