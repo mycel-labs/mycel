@@ -50303,9 +50303,9 @@ paths:
                   properties:
                     name:
                       type: string
-                    expirationDateInUnixNano:
+                    expirationDate:
                       type: string
-                      format: int64
+                      format: date-time
                     metadata:
                       type: object
                       additionalProperties:
@@ -50531,9 +50531,9 @@ paths:
                 properties:
                   name:
                     type: string
-                  expirationDateInUnixNano:
+                  expirationDate:
                     type: string
-                    format: int64
+                    format: date-time
                   metadata:
                     type: object
                     additionalProperties:
@@ -81193,9 +81193,9 @@ definitions:
         properties:
           name:
             type: string
-          expirationDateInUnixNano:
+          expirationDate:
             type: string
-            format: int64
+            format: date-time
           metadata:
             type: object
             additionalProperties:
@@ -81361,9 +81361,9 @@ definitions:
         properties:
           name:
             type: string
-          expirationDateInUnixNano:
+          expirationDate:
             type: string
-            format: int64
+            format: date-time
           metadata:
             type: object
             additionalProperties:
@@ -81653,9 +81653,9 @@ definitions:
           properties:
             name:
               type: string
-            expirationDateInUnixNano:
+            expirationDate:
               type: string
-              format: int64
+              format: date-time
             metadata:
               type: object
               additionalProperties:
@@ -81838,9 +81838,9 @@ definitions:
         properties:
           name:
             type: string
-          expirationDateInUnixNano:
+          expirationDate:
             type: string
-            format: int64
+            format: date-time
           metadata:
             type: object
             additionalProperties:
@@ -82107,9 +82107,9 @@ definitions:
     properties:
       name:
         type: string
-      expirationDateInUnixNano:
+      expirationDate:
         type: string
-        format: int64
+        format: date-time
       metadata:
         type: object
         additionalProperties:

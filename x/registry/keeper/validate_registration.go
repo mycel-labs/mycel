@@ -20,19 +20,6 @@ func (k Keeper) GetIsParentDomainExist(ctx sdk.Context, domain types.SecondLevel
 	return isParentDomainExist
 }
 
-// Get is domain already taken
-func (k Keeper) GetIsTopLevelDomainAlreadyTaken(ctx sdk.Context, domain types.TopLevelDomain) (isDomainAlreadyTaken bool) {
-	_, isDomainAlreadyTaken = k.GetTopLevelDomain(ctx, domain.Name)
-	return isDomainAlreadyTaken
-}
-
-// Validate TLD registration
-func (k Keeper) ValidateRegisterTLD(ctx sdk.Context, domain types.TopLevelDomain) (err error) {
-	// TODO: Validate TLD
-	// TODO: Is Staked enough to register TLD
-	return err
-}
-
 // Validate SLD registration
 func (k Keeper) ValidateRegisterSLD(ctx sdk.Context, domain types.SecondLevelDomain) (err error) {
 	isParentDomainExist := k.GetIsParentDomainExist(ctx, domain)
@@ -81,29 +68,6 @@ func (k Keeper) ValidateSecondLevelDomain(ctx sdk.Context, domain types.SecondLe
 	// 		return err
 	// 	}
 	// }
-
-	return err
-}
-
-// Validate top-level-domain
-func (k Keeper) ValidateTopLevelDomain(ctx sdk.Context, domain types.TopLevelDomain) (err error) {
-	// Type check
-	err = domain.Validate()
-	if err != nil {
-		return err
-	}
-	// Check if domain is already taken
-	isDomainAlreadyTaken := k.GetIsTopLevelDomainAlreadyTaken(ctx, domain)
-	if isDomainAlreadyTaken {
-		err = errorsmod.Wrapf(types.ErrDomainIsAlreadyTaken, "%s", domain.Name)
-		return err
-	}
-
-	// Validate TLD
-	err = k.ValidateRegisterTLD(ctx, domain)
-	if err != nil {
-		return err
-	}
 
 	return err
 }
