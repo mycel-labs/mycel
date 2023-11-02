@@ -4,7 +4,7 @@ WORKDIR /build/
 COPY ./ /build/
 RUN apt update \
  && apt install -y curl
-RUN curl 'https://get.ignite.com/cli@v0.27.1'! | bash
+RUN curl 'https://get.ignite.com/cli@v0.27.2'! | bash
 RUN ignite chain build \
     --release.targets linux:amd64 \
     --release.targets linux:arm64 \
