@@ -201,7 +201,7 @@ func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, domain types.TopLevelDom
 }
 
 // Extend top level domain expirationDate
-func (k Keeper) ExtendTopLevelDomainExpirationDate(ctx sdk.Context, creator string, domain types.TopLevelDomain, extensionPeriodInYear uint64) (fee types.TopLevelDomainFee, err error) {
+func (k Keeper) ExtendTopLevelDomainExpirationDate(ctx sdk.Context, creator string, domain *types.TopLevelDomain, extensionPeriodInYear uint64) (fee types.TopLevelDomainFee, err error) {
 	creatorAddress, err := sdk.AccAddressFromBech32(creator)
 	if err != nil {
 		return types.TopLevelDomainFee{}, err
@@ -213,23 +213,18 @@ func (k Keeper) ExtendTopLevelDomainExpirationDate(ctx sdk.Context, creator stri
 	}
 
 	// Pay TLD extend fee
-	fee, err = k.PayTopLevelDomainFee(ctx, creatorAddress, domain, extensionPeriodInYear)
+	fee, err = k.PayTopLevelDomainFee(ctx, creatorAddress, *domain, extensionPeriodInYear)
 	if err != nil {
 		return types.TopLevelDomainFee{}, err
 	}
 
 	// Update domain store
-	currentTime := ctx.BlockTime()
-	expirationDate := currentTime.AddDate(0, 0, params.OneYearInDays*int(extensionPeriodInYear))
-	domain.ExpirationDate = expirationDate.UnixNano()
-	k.SetTopLevelDomain(ctx, domain)
-
-	// Set domain
-	domain.ExpirationDate = ctx.BlockTime().AddDate(0, 0, params.OneYearInDays*int(extensionPeriodInYear)).UnixNano()
-	k.SetTopLevelDomain(ctx, domain)
+	currentExpirationDate := time.Unix(0, domain.ExpirationDate)
+	domain.ExtendExpirationDate(currentExpirationDate, extensionPeriodInYear)
+	k.SetTopLevelDomain(ctx, *domain)
 
 	// Emit event
-	EmitExtendTopLevelDomainExpirationDateEvent(ctx, domain, fee)
+	EmitExtendTopLevelDomainExpirationDateEvent(ctx, *domain, fee)
 
 	return fee, err
 }
