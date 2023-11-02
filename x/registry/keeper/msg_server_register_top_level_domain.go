@@ -35,7 +35,7 @@ func (k msgServer) RegisterTopLevelDomain(goCtx context.Context, msg *types.MsgR
 		Metadata:        nil,
 		SubdomainConfig: &defaultRegistrationConfig,
 		AccessControl:   accessControl,
-		RegistrationFee: sdk.NewCoins(),
+		TotalWithdrawalAmount: sdk.NewCoins(),
 	}
 
 	err = k.Keeper.RegisterTopLevelDomain(ctx, domain, creatorAddress, msg.RegistrationPeriodInYear)

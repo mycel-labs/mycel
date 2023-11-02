@@ -5,6 +5,7 @@ import (
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
 	"github.com/mycel-domain/mycel/testutil"
 	"github.com/mycel-domain/mycel/x/registry/types"
@@ -24,7 +25,7 @@ func (suite *KeeperTestSuite) TestWithdrawRegistrationFee() {
 		{
 			withdrawer:         testutil.Bob,
 			topLevelDomainName: "bar",
-			expErr:             errorsmod.Wrapf(types.ErrNoPermissionToWithdrawFee, "%s", testutil.Bob),
+			expErr:             errorsmod.Wrapf(types.ErrNoPermissionToWithdraw, "%s", testutil.Bob),
 		},
 	}
 
@@ -54,7 +55,9 @@ func (suite *KeeperTestSuite) TestWithdrawRegistrationFee() {
 			// Before balance
 			withdrawerAddress, err := sdk.AccAddressFromBech32(tc.withdrawer)
 			suite.Require().Nil(err)
-			beforeBalance := suite.app.BankKeeper.GetAllBalances(suite.ctx, withdrawerAddress)
+			beforeWithdrawerBalance := suite.app.BankKeeper.GetAllBalances(suite.ctx, withdrawerAddress)
+			registryAddress := authtypes.NewModuleAddress(types.ModuleName)
+			beforeRegistryAddress := suite.app.BankKeeper.GetAllBalances(suite.ctx, registryAddress)
 
 			// Withdraw registration fee
 			withdrawMsg := &types.MsgWithdrawRegistrationFee{
@@ -75,8 +78,16 @@ func (suite *KeeperTestSuite) TestWithdrawRegistrationFee() {
 				}
 
 				// Check balance
-				afterBalance := suite.app.BankKeeper.GetAllBalances(suite.ctx, withdrawerAddress)
-				suite.Require().Equal(beforeBalance.Add(fees.RegistrationFee...), afterBalance)
+				afterWithdrawerBalance := suite.app.BankKeeper.GetAllBalances(suite.ctx, withdrawerAddress)
+				suite.Require().Equal(beforeWithdrawerBalance.Add(fees.RegistrationFee...), afterWithdrawerBalance)
+				afterRegistyAddress := suite.app.BankKeeper.GetAllBalances(suite.ctx, registryAddress)
+				suite.Require().Equal(beforeRegistryAddress.Sub(fees.RegistrationFee...), afterRegistyAddress)
+
+				// Check top level domain
+				topLevelDomain, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, tc.topLevelDomainName)
+				suite.Require().True(found)
+				suite.Require().True(topLevelDomain.TotalWithdrawalAmount.IsEqual(sdk.NewCoins()))
+
 			} else {
 				suite.Require().EqualError(err, tc.expErr.Error())
 			}

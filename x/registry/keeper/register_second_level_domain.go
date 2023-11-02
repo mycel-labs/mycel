@@ -40,7 +40,7 @@ func (k Keeper) PaySLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, doma
 	if !found {
 		panic("parent not found")
 	}
-	parent.RegistrationFee = parent.RegistrationFee.Add(*fee)
+	parent.TotalWithdrawalAmount = parent.TotalWithdrawalAmount.Add(*fee)
 	k.SetTopLevelDomain(ctx, parent)
 
 	return fee, err
@@ -85,11 +85,6 @@ func (k Keeper) RegisterSecondLevelDomain(ctx sdk.Context, domain types.SecondLe
 	if parentDomain.SubdomainConfig.MaxSubdomainRegistrations <= parentDomain.SubdomainCount {
 		err = errorsmod.Wrapf(types.ErrMaxSubdomainCountReached, "%d", parentDomain.SubdomainCount)
 		return err
-	}
-
-	// Set subdomain registration config
-	parentDomain.SubdomainConfig = &types.SubdomainConfig{
-		MaxSubdomainRegistrations: 100,
 	}
 
 	// Increment parents subdomain SubdomainCount
