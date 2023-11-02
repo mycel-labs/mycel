@@ -14,7 +14,7 @@ service Msg {
   rpc RegisterSecondLevelDomain      (MsgRegisterSecondLevelDomain     ) returns (MsgRegisterSecondLevelDomainResponse     );
   rpc RegisterTopLevelDomain         (MsgRegisterTopLevelDomain        ) returns (MsgRegisterTopLevelDomainResponse        );
   rpc WithdrawRegistrationFee        (MsgWithdrawRegistrationFee       ) returns (MsgWithdrawRegistrationFeeResponse       );
-  rpc ExtendTopLevelDomainExpiration (MsgExtendTopLevelDomainExpiration) returns (MsgExtendTopLevelDomainExpirationResponse);
+  rpc ExtendTopLevelDomainExpirationDate (MsgExtendTopLevelDomainExpirationDate) returns (MsgExtendTopLevelDomainExpirationDateResponse);
 }
 message MsgUpdateWalletRecord {
   string creator          = 1;
@@ -62,11 +62,11 @@ message MsgWithdrawRegistrationFeeResponse {
   repeated cosmos.base.v1beta1.Coin registrationFee = 7 [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];
 }
 
-message MsgExtendTopLevelDomainExpiration {
+message MsgExtendTopLevelDomainExpirationDate {
   string creator                  = 1;
   string name                     = 2;
   int64  registrationPeriodInYear = 3;
 }
 
-message MsgExtendTopLevelDomainExpirationResponse {}
+message MsgExtendTopLevelDomainExpirationDateResponse {}
 

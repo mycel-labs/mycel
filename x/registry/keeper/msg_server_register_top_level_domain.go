@@ -17,11 +17,6 @@ func (k msgServer) RegisterTopLevelDomain(goCtx context.Context, msg *types.MsgR
 		return nil, errorsmod.Wrapf(types.ErrInvalidRegistrationPeriod, "%d year(s)", msg.RegistrationPeriodInYear)
 	}
 
-	creatorAddress, err := sdk.AccAddressFromBech32(msg.Creator)
-	if err != nil {
-		return nil, err
-	}
-
 	currentTime := ctx.BlockTime()
 	expirationDate := currentTime.AddDate(0, 0, params.OneYearInDays*int(msg.RegistrationPeriodInYear))
 	accessControl := map[string]types.DomainRole{
@@ -38,7 +33,7 @@ func (k msgServer) RegisterTopLevelDomain(goCtx context.Context, msg *types.MsgR
 		TotalWithdrawalAmount: sdk.NewCoins(),
 	}
 
-	err = k.Keeper.RegisterTopLevelDomain(ctx, domain, creatorAddress, msg.RegistrationPeriodInYear)
+	err := k.Keeper.RegisterTopLevelDomain(ctx, domain, msg.Creator, msg.RegistrationPeriodInYear)
 	if err != nil {
 		return nil, err
 	}

@@ -39,9 +39,9 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgWithdrawRegistrationFee int = 100
 
-	opWeightMsgExtendTopLevelDomainExpiration = "op_weight_msg_extend_top_level_domain_expiration"
+	opWeightMsgExtendTopLevelDomainExpirationDate = "op_weight_msg_extend_top_level_domain_expiration"
 	// TODO: Determine the simulation weight value
-	defaultWeightMsgExtendTopLevelDomainExpiration int = 100
+	defaultWeightMsgExtendTopLevelDomainExpirationDate int = 100
 
 	// this line is used by starport scaffolding # simapp/module/const
 )
@@ -115,15 +115,15 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		registrysimulation.SimulateMsgWithdrawRegistrationFee(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
-	var weightMsgExtendTopLevelDomainExpiration int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgExtendTopLevelDomainExpiration, &weightMsgExtendTopLevelDomainExpiration, nil,
+	var weightMsgExtendTopLevelDomainExpirationDate int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgExtendTopLevelDomainExpirationDate, &weightMsgExtendTopLevelDomainExpirationDate, nil,
 		func(_ *rand.Rand) {
-			weightMsgExtendTopLevelDomainExpiration = defaultWeightMsgExtendTopLevelDomainExpiration
+			weightMsgExtendTopLevelDomainExpirationDate = defaultWeightMsgExtendTopLevelDomainExpirationDate
 		},
 	)
 	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgExtendTopLevelDomainExpiration,
-		registrysimulation.SimulateMsgExtendTopLevelDomainExpiration(am.accountKeeper, am.bankKeeper, am.keeper),
+		weightMsgExtendTopLevelDomainExpirationDate,
+		registrysimulation.SimulateMsgExtendTopLevelDomainExpirationDate(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

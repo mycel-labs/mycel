@@ -8,21 +8,21 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestMsgExtendTopLevelDomainExpiration_ValidateBasic(t *testing.T) {
+func TestMsgExtendTopLevelDomainExpirationDate_ValidateBasic(t *testing.T) {
 	tests := []struct {
 		name string
-		msg  MsgExtendTopLevelDomainExpiration
+		msg  MsgExtendTopLevelDomainExpirationDate
 		err  error
 	}{
 		{
 			name: "invalid address",
-			msg: MsgExtendTopLevelDomainExpiration{
+			msg: MsgExtendTopLevelDomainExpirationDate{
 				Creator: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
-			msg: MsgExtendTopLevelDomainExpiration{
+			msg: MsgExtendTopLevelDomainExpirationDate{
 				Creator: sample.AccAddress(),
 			},
 		},

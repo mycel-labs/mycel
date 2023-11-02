@@ -3,6 +3,8 @@ package types
 import (
 	fmt "fmt"
 	"strings"
+
+	errorsmod "cosmossdk.io/errors"
 )
 
 const (
@@ -105,4 +107,12 @@ func (secondLevelDomain *SecondLevelDomain) UpdateDnsRecord(dnsRecordType string
 	secondLevelDomain.Records[dnsRecordType] = record
 
 	return err
+}
+
+func (secondLevelDomain SecondLevelDomain) IsRecordEditable(sender string) (isEditable bool, err error) {
+	if secondLevelDomain.AccessControl[sender] == DomainRole_NO_ROLE {
+		err = errorsmod.Wrapf(ErrDomainNotEditable, "%s", sender)
+	}
+	isEditable = secondLevelDomain.AccessControl[sender] == DomainRole_EDITOR || secondLevelDomain.AccessControl[sender] == DomainRole_OWNER
+	return isEditable, err
 }

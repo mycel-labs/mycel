@@ -13,10 +13,10 @@ import (
 
 var _ = strconv.Itoa(0)
 
-func CmdExtendTopLevelDomainExpiration() *cobra.Command {
+func CmdExtendTopLevelDomainExpirationDate() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "extend-top-level-domain-expiration [name] [registration-period-in-year]",
-		Short: "Broadcast message extendTopLevelDomainExpiration",
+		Use:   "extend-top-level-domain-expiration-date [name] [registration-period-in-year]",
+		Short: "Broadcast message extendTopLevelDomainExpirationDate",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argName := args[0]
@@ -30,7 +30,7 @@ func CmdExtendTopLevelDomainExpiration() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgExtendTopLevelDomainExpiration(
+			msg := types.NewMsgExtendTopLevelDomainExpirationDate(
 				clientCtx.GetFromAddress().String(),
 				argName,
 				argRegistrationPeriodInYear,

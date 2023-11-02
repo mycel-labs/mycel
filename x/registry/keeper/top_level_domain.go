@@ -93,7 +93,6 @@ func (k Keeper) GetValidTopLevelDomain(ctx sdk.Context, name string) (topLevelDo
 	return topLevelDomain, nil
 }
 
-
 // Get burn weight
 func (k Keeper) GetBurnWeight(ctx sdk.Context) (weight math.LegacyDec, err error) {
 	inflation := k.mintKeeper.GetMinter(ctx).Inflation
@@ -174,7 +173,12 @@ func (k Keeper) PayTLDRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, doma
 }
 
 // Register top level domain
-func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, domain types.TopLevelDomain, owner sdk.AccAddress, registrationPeriodIYear uint64) (err error) {
+func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, domain types.TopLevelDomain, creator string, registrationPeriodInYear uint64) (err error) {
+	creatorAddress, err := sdk.AccAddressFromBech32(creator)
+	if err != nil {
+		return err
+	}
+
 	// Validate domain
 	err = k.ValidateTopLevelDomain(ctx, domain)
 	if err != nil {
@@ -182,7 +186,7 @@ func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, domain types.TopLevelDom
 	}
 
 	// Pay TLD registration fee
-	topLevelDomainRegistrationFee, err := k.PayTLDRegstrationFee(ctx, owner, domain, registrationPeriodIYear)
+	topLevelDomainRegistrationFee, err := k.PayTLDRegstrationFee(ctx, creatorAddress, domain, registrationPeriodInYear)
 	if err != nil {
 		return err
 	}
@@ -192,6 +196,40 @@ func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, domain types.TopLevelDom
 
 	// Emit event
 	EmitRegisterTopLevelDomainEvent(ctx, domain, topLevelDomainRegistrationFee)
+
+	return err
+}
+
+// Extend top level domain expirationDate
+func (k Keeper) ExtendTopLevelDomainExpirationDate(ctx sdk.Context, creator string, domain types.TopLevelDomain, registrationPeriodInYear uint64) (err error) {
+	creatorAddress, err := sdk.AccAddressFromBech32(creator)
+	if err != nil {
+		return err
+	}
+	// Check if the domain is editable
+	_, err = domain.IsEditable(creator)
+	if err != nil {
+		return err
+	}
+
+	// Pay TLD registration fee
+	topLevelDomainRegistrationFee, err := k.PayTLDRegstrationFee(ctx, creatorAddress, domain, registrationPeriodInYear)
+	if err != nil {
+		return err
+	}
+
+	// Update domain store
+	currentTime := ctx.BlockTime()
+	expirationDate := currentTime.AddDate(0, 0, params.OneYearInDays*int(registrationPeriodInYear))
+	domain.ExpirationDate = expirationDate.UnixNano()
+	k.SetTopLevelDomain(ctx, domain)
+
+	// Set domain
+	domain.ExpirationDate = ctx.BlockTime().AddDate(0, 0, params.OneYearInDays*int(registrationPeriodInYear)).UnixNano()
+	k.SetTopLevelDomain(ctx, domain)
+
+	// Emit event
+	EmitExtendTopLevelDomainExpirationDateEvent(ctx, domain, topLevelDomainRegistrationFee)
 
 	return err
 }

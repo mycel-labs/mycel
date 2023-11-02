@@ -550,24 +550,24 @@ func (m *MsgWithdrawRegistrationFeeResponse) GetRegistrationFee() github_com_cos
 	return nil
 }
 
-type MsgExtendTopLevelDomainExpiration struct {
+type MsgExtendTopLevelDomainExpirationDate struct {
 	Creator                  string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Name                     string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	RegistrationPeriodInYear int64  `protobuf:"varint,3,opt,name=registrationPeriodInYear,proto3" json:"registrationPeriodInYear,omitempty"`
 }
 
-func (m *MsgExtendTopLevelDomainExpiration) Reset()         { *m = MsgExtendTopLevelDomainExpiration{} }
-func (m *MsgExtendTopLevelDomainExpiration) String() string { return proto.CompactTextString(m) }
-func (*MsgExtendTopLevelDomainExpiration) ProtoMessage()    {}
-func (*MsgExtendTopLevelDomainExpiration) Descriptor() ([]byte, []int) {
+func (m *MsgExtendTopLevelDomainExpirationDate) Reset()         { *m = MsgExtendTopLevelDomainExpirationDate{} }
+func (m *MsgExtendTopLevelDomainExpirationDate) String() string { return proto.CompactTextString(m) }
+func (*MsgExtendTopLevelDomainExpirationDate) ProtoMessage()    {}
+func (*MsgExtendTopLevelDomainExpirationDate) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7a4e7619dfc6612f, []int{10}
 }
-func (m *MsgExtendTopLevelDomainExpiration) XXX_Unmarshal(b []byte) error {
+func (m *MsgExtendTopLevelDomainExpirationDate) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgExtendTopLevelDomainExpiration) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgExtendTopLevelDomainExpirationDate) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgExtendTopLevelDomainExpiration.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgExtendTopLevelDomainExpirationDate.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -577,58 +577,58 @@ func (m *MsgExtendTopLevelDomainExpiration) XXX_Marshal(b []byte, deterministic 
 		return b[:n], nil
 	}
 }
-func (m *MsgExtendTopLevelDomainExpiration) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgExtendTopLevelDomainExpiration.Merge(m, src)
+func (m *MsgExtendTopLevelDomainExpirationDate) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgExtendTopLevelDomainExpirationDate.Merge(m, src)
 }
-func (m *MsgExtendTopLevelDomainExpiration) XXX_Size() int {
+func (m *MsgExtendTopLevelDomainExpirationDate) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgExtendTopLevelDomainExpiration) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgExtendTopLevelDomainExpiration.DiscardUnknown(m)
+func (m *MsgExtendTopLevelDomainExpirationDate) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgExtendTopLevelDomainExpirationDate.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgExtendTopLevelDomainExpiration proto.InternalMessageInfo
+var xxx_messageInfo_MsgExtendTopLevelDomainExpirationDate proto.InternalMessageInfo
 
-func (m *MsgExtendTopLevelDomainExpiration) GetCreator() string {
+func (m *MsgExtendTopLevelDomainExpirationDate) GetCreator() string {
 	if m != nil {
 		return m.Creator
 	}
 	return ""
 }
 
-func (m *MsgExtendTopLevelDomainExpiration) GetName() string {
+func (m *MsgExtendTopLevelDomainExpirationDate) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *MsgExtendTopLevelDomainExpiration) GetRegistrationPeriodInYear() int64 {
+func (m *MsgExtendTopLevelDomainExpirationDate) GetRegistrationPeriodInYear() int64 {
 	if m != nil {
 		return m.RegistrationPeriodInYear
 	}
 	return 0
 }
 
-type MsgExtendTopLevelDomainExpirationResponse struct {
+type MsgExtendTopLevelDomainExpirationDateResponse struct {
 }
 
-func (m *MsgExtendTopLevelDomainExpirationResponse) Reset() {
-	*m = MsgExtendTopLevelDomainExpirationResponse{}
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) Reset() {
+	*m = MsgExtendTopLevelDomainExpirationDateResponse{}
 }
-func (m *MsgExtendTopLevelDomainExpirationResponse) String() string {
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) String() string {
 	return proto.CompactTextString(m)
 }
-func (*MsgExtendTopLevelDomainExpirationResponse) ProtoMessage() {}
-func (*MsgExtendTopLevelDomainExpirationResponse) Descriptor() ([]byte, []int) {
+func (*MsgExtendTopLevelDomainExpirationDateResponse) ProtoMessage() {}
+func (*MsgExtendTopLevelDomainExpirationDateResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_7a4e7619dfc6612f, []int{11}
 }
-func (m *MsgExtendTopLevelDomainExpirationResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgExtendTopLevelDomainExpirationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgExtendTopLevelDomainExpirationResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgExtendTopLevelDomainExpirationDateResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -638,17 +638,17 @@ func (m *MsgExtendTopLevelDomainExpirationResponse) XXX_Marshal(b []byte, determ
 		return b[:n], nil
 	}
 }
-func (m *MsgExtendTopLevelDomainExpirationResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgExtendTopLevelDomainExpirationResponse.Merge(m, src)
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgExtendTopLevelDomainExpirationDateResponse.Merge(m, src)
 }
-func (m *MsgExtendTopLevelDomainExpirationResponse) XXX_Size() int {
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgExtendTopLevelDomainExpirationResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgExtendTopLevelDomainExpirationResponse.DiscardUnknown(m)
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgExtendTopLevelDomainExpirationDateResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgExtendTopLevelDomainExpirationResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgExtendTopLevelDomainExpirationDateResponse proto.InternalMessageInfo
 
 func init() {
 	proto.RegisterType((*MsgUpdateWalletRecord)(nil), "mycel.registry.MsgUpdateWalletRecord")
@@ -661,54 +661,54 @@ func init() {
 	proto.RegisterType((*MsgRegisterTopLevelDomainResponse)(nil), "mycel.registry.MsgRegisterTopLevelDomainResponse")
 	proto.RegisterType((*MsgWithdrawRegistrationFee)(nil), "mycel.registry.MsgWithdrawRegistrationFee")
 	proto.RegisterType((*MsgWithdrawRegistrationFeeResponse)(nil), "mycel.registry.MsgWithdrawRegistrationFeeResponse")
-	proto.RegisterType((*MsgExtendTopLevelDomainExpiration)(nil), "mycel.registry.MsgExtendTopLevelDomainExpiration")
-	proto.RegisterType((*MsgExtendTopLevelDomainExpirationResponse)(nil), "mycel.registry.MsgExtendTopLevelDomainExpirationResponse")
+	proto.RegisterType((*MsgExtendTopLevelDomainExpirationDate)(nil), "mycel.registry.MsgExtendTopLevelDomainExpirationDate")
+	proto.RegisterType((*MsgExtendTopLevelDomainExpirationDateResponse)(nil), "mycel.registry.MsgExtendTopLevelDomainExpirationDateResponse")
 }
 
 func init() { proto.RegisterFile("mycel/registry/tx.proto", fileDescriptor_7a4e7619dfc6612f) }
 
 var fileDescriptor_7a4e7619dfc6612f = []byte{
-	// 630 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x56, 0x4f, 0x6f, 0xd3, 0x4e,
-	0x10, 0xcd, 0xfe, 0xd2, 0x3f, 0xfa, 0x0d, 0x82, 0x22, 0xab, 0xb4, 0xae, 0x55, 0xdc, 0x62, 0x0a,
-	0x6a, 0x0b, 0xb5, 0x69, 0xe1, 0x02, 0xc7, 0xd2, 0x22, 0x40, 0x54, 0x42, 0xa6, 0xa8, 0x82, 0xdb,
-	0xc6, 0x1e, 0xb9, 0x86, 0xc4, 0x6b, 0xed, 0x6e, 0xd3, 0xe4, 0xc4, 0x89, 0x23, 0x88, 0x13, 0x17,
-	0x0e, 0x70, 0xe6, 0x93, 0xf4, 0xd8, 0x23, 0x5c, 0x00, 0xb5, 0x5f, 0x04, 0x75, 0x1d, 0x5b, 0x4e,
-	0x6b, 0x27, 0x0d, 0xca, 0x29, 0xbb, 0x3b, 0x6f, 0xdf, 0xbc, 0xd9, 0xc9, 0x9b, 0x04, 0xa6, 0x1b,
-	0x6d, 0x0f, 0xeb, 0x0e, 0xc7, 0x20, 0x14, 0x92, 0xb7, 0x1d, 0xd9, 0xb2, 0x63, 0xce, 0x24, 0xd3,
-	0x2e, 0xa9, 0x80, 0x9d, 0x06, 0x8c, 0xc9, 0x80, 0x05, 0x4c, 0x85, 0x9c, 0x93, 0x55, 0x82, 0x32,
-	0x4c, 0x8f, 0x89, 0x06, 0x13, 0x4e, 0x8d, 0x0a, 0x74, 0x9a, 0xab, 0x35, 0x94, 0x74, 0xd5, 0xf1,
-	0x58, 0x18, 0x25, 0x71, 0xeb, 0x2b, 0x81, 0x2b, 0x5b, 0x22, 0x78, 0x19, 0xfb, 0x54, 0xe2, 0x0e,
-	0xad, 0xd7, 0x51, 0xba, 0xe8, 0x31, 0xee, 0x6b, 0x3a, 0x8c, 0x7b, 0x1c, 0xa9, 0x64, 0x5c, 0x27,
-	0xf3, 0x64, 0xf1, 0x7f, 0x37, 0xdd, 0x6a, 0x1a, 0x8c, 0x44, 0xb4, 0x81, 0xfa, 0x7f, 0xea, 0x58,
-	0xad, 0xb5, 0x29, 0x18, 0x8b, 0x29, 0xc7, 0x48, 0xea, 0x55, 0x75, 0xda, 0xd9, 0x69, 0xcb, 0x70,
-	0x79, 0x3f, 0xc7, 0xba, 0xdd, 0x8e, 0x51, 0x1f, 0x51, 0x88, 0x33, 0xe7, 0xda, 0x24, 0x8c, 0x36,
-	0x69, 0x7d, 0x0f, 0xf5, 0x51, 0x05, 0x48, 0x36, 0xd6, 0x1c, 0x5c, 0x2d, 0x14, 0xe8, 0xa2, 0x88,
-	0x59, 0x24, 0xd0, 0xfa, 0x4c, 0x40, 0xcb, 0x10, 0x1b, 0x91, 0x18, 0xaa, 0xfe, 0x05, 0xb8, 0xe8,
-	0xa7, 0x94, 0x39, 0xf1, 0xdd, 0x87, 0x25, 0xca, 0x67, 0xc1, 0x38, 0xab, 0x2b, 0x93, 0xfd, 0x8d,
-	0xc0, 0xec, 0x96, 0x08, 0x5c, 0xd5, 0x3f, 0xe4, 0x2f, 0xd0, 0x63, 0x91, 0xff, 0x0c, 0x9b, 0x58,
-	0xdf, 0x60, 0x0d, 0x1a, 0x46, 0x43, 0x2a, 0xe0, 0x01, 0xe8, 0x9d, 0xaf, 0x08, 0x95, 0x21, 0x8b,
-	0x9e, 0x23, 0x0f, 0x99, 0xff, 0x24, 0x7a, 0x85, 0x94, 0xab, 0x5a, 0x46, 0xdc, 0xd2, 0xb8, 0x75,
-	0x13, 0x16, 0x7a, 0x29, 0xcc, 0x4a, 0x79, 0x4f, 0x60, 0x26, 0x07, 0xdc, 0x66, 0xf1, 0xbf, 0xd7,
-	0xd1, 0x4b, 0x6f, 0xb5, 0x8f, 0xde, 0xeb, 0x70, 0xad, 0x54, 0x46, 0x26, 0xf6, 0xa9, 0xea, 0xca,
-	0x4e, 0x28, 0x77, 0x7d, 0x4e, 0xf7, 0xdd, 0x1c, 0xd7, 0x23, 0xc4, 0xc1, 0xc4, 0x5a, 0x5f, 0x08,
-	0x58, 0xe5, 0x64, 0x69, 0x4a, 0x6d, 0x0f, 0x26, 0x78, 0x77, 0x48, 0x1f, 0x9f, 0xaf, 0x2e, 0x5e,
-	0x58, 0x9b, 0xb1, 0x13, 0x7b, 0xda, 0x27, 0xf6, 0xb4, 0x3b, 0xf6, 0xb4, 0x1f, 0xb2, 0x30, 0x5a,
-	0xbf, 0x73, 0xf0, 0x6b, 0xae, 0xf2, 0xfd, 0xf7, 0xdc, 0x62, 0x10, 0xca, 0xdd, 0xbd, 0x9a, 0xed,
-	0xb1, 0x86, 0xd3, 0xf1, 0x72, 0xf2, 0xb1, 0x22, 0xfc, 0xb7, 0x8e, 0x6c, 0xc7, 0x28, 0xd4, 0x05,
-	0xe1, 0x9e, 0xce, 0x61, 0x7d, 0x20, 0xea, 0x3d, 0x36, 0x5b, 0x12, 0x23, 0xbf, 0xfb, 0x35, 0x36,
-	0x5b, 0x71, 0x98, 0x00, 0x87, 0xdc, 0x9e, 0x6a, 0x8f, 0xf6, 0xdc, 0x82, 0xa5, 0xbe, 0x72, 0xd2,
-	0x37, 0x5b, 0xfb, 0x39, 0x0a, 0xd5, 0x2d, 0x11, 0x68, 0x6f, 0x40, 0x2b, 0x18, 0x4e, 0x37, 0xec,
-	0xee, 0xe9, 0x67, 0x17, 0x8e, 0x08, 0x63, 0xe5, 0x5c, 0xb0, 0xac, 0x4f, 0x14, 0x26, 0x4e, 0x4f,
-	0x11, 0xab, 0x94, 0x21, 0xc3, 0x18, 0xcb, 0xfd, 0x31, 0x59, 0x8a, 0x77, 0x30, 0x53, 0xee, 0xf8,
-	0xdb, 0x05, 0x44, 0xa5, 0x68, 0xe3, 0xde, 0x20, 0xe8, 0x4c, 0x40, 0x13, 0xa6, 0x4a, 0x7c, 0xba,
-	0xd4, 0x83, 0xaf, 0x1b, 0x6a, 0xac, 0x9e, 0x1b, 0x9a, 0xe5, 0x6d, 0xc3, 0x74, 0x99, 0xe7, 0x8a,
-	0xde, 0xaf, 0x04, 0x6b, 0xac, 0x9d, 0x1f, 0x9b, 0xa5, 0xfe, 0x48, 0xc0, 0xec, 0x63, 0x82, 0xa2,
-	0x82, 0x7a, 0x5f, 0x31, 0xee, 0x0f, 0x7c, 0x25, 0x15, 0xb4, 0xfe, 0xf8, 0xe0, 0xc8, 0x24, 0x87,
-	0x47, 0x26, 0xf9, 0x73, 0x64, 0x92, 0x4f, 0xc7, 0x66, 0xe5, 0xf0, 0xd8, 0xac, 0xfc, 0x38, 0x36,
-	0x2b, 0xaf, 0xed, 0x9c, 0xdb, 0x15, 0xfd, 0x8a, 0xaf, 0x48, 0x92, 0x8d, 0xd3, 0xca, 0xfd, 0x0f,
-	0x38, 0x71, 0x7e, 0x6d, 0x4c, 0xfd, 0x8a, 0xdf, 0xfd, 0x1b, 0x00, 0x00, 0xff, 0xff, 0x6a, 0x5f,
-	0xcd, 0xef, 0x26, 0x08, 0x00, 0x00,
+	// 636 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x56, 0xcf, 0x4f, 0x13, 0x41,
+	0x14, 0xee, 0x58, 0x7e, 0xc4, 0x67, 0x14, 0xb3, 0x41, 0x58, 0x36, 0xb8, 0xe0, 0x0a, 0x06, 0x89,
+	0xdd, 0x15, 0xd4, 0x8b, 0x89, 0x17, 0x04, 0xa3, 0xc6, 0x26, 0x66, 0xc5, 0x10, 0xbd, 0x4d, 0x77,
+	0x5f, 0x96, 0xd5, 0x76, 0x67, 0x33, 0x33, 0x94, 0xf6, 0xe4, 0xc9, 0xbb, 0x5e, 0x3c, 0xe8, 0x41,
+	0xcf, 0xfe, 0x25, 0x1c, 0x39, 0x7a, 0x52, 0x03, 0xf1, 0xff, 0x30, 0xcc, 0xb6, 0x9b, 0x2d, 0xec,
+	0x96, 0x42, 0x7a, 0xea, 0xcc, 0xbc, 0x6f, 0xbe, 0xf7, 0xbd, 0x79, 0xfd, 0x5e, 0x0b, 0xd3, 0x8d,
+	0xb6, 0x87, 0x75, 0x87, 0x63, 0x10, 0x0a, 0xc9, 0xdb, 0x8e, 0x6c, 0xd9, 0x31, 0x67, 0x92, 0x69,
+	0x57, 0x54, 0xc0, 0xee, 0x06, 0x8c, 0xc9, 0x80, 0x05, 0x4c, 0x85, 0x9c, 0xa3, 0x55, 0x82, 0x32,
+	0x4c, 0x8f, 0x89, 0x06, 0x13, 0x4e, 0x8d, 0x0a, 0x74, 0x9a, 0x2b, 0x35, 0x94, 0x74, 0xc5, 0xf1,
+	0x58, 0x18, 0x25, 0x71, 0xeb, 0x3b, 0x81, 0x6b, 0x55, 0x11, 0xbc, 0x8e, 0x7d, 0x2a, 0x71, 0x8b,
+	0xd6, 0xeb, 0x28, 0x5d, 0xf4, 0x18, 0xf7, 0x35, 0x1d, 0xc6, 0x3d, 0x8e, 0x54, 0x32, 0xae, 0x93,
+	0x79, 0xb2, 0x74, 0xd1, 0xed, 0x6e, 0x35, 0x0d, 0x46, 0x22, 0xda, 0x40, 0xfd, 0x82, 0x3a, 0x56,
+	0x6b, 0x6d, 0x0a, 0xc6, 0x62, 0xca, 0x31, 0x92, 0x7a, 0x59, 0x9d, 0x76, 0x76, 0xda, 0x32, 0x5c,
+	0xdd, 0xcd, 0xb0, 0x6e, 0xb6, 0x63, 0xd4, 0x47, 0x14, 0xe2, 0xc4, 0xb9, 0x36, 0x09, 0xa3, 0x4d,
+	0x5a, 0xdf, 0x41, 0x7d, 0x54, 0x01, 0x92, 0x8d, 0x35, 0x07, 0xd7, 0x73, 0x05, 0xba, 0x28, 0x62,
+	0x16, 0x09, 0xb4, 0xbe, 0x10, 0xd0, 0x52, 0xc4, 0x7a, 0x24, 0x86, 0xaa, 0x7f, 0x01, 0x2e, 0xfb,
+	0x5d, 0xca, 0x8c, 0xf8, 0xde, 0xc3, 0x02, 0xe5, 0xb3, 0x60, 0x9c, 0xd4, 0x95, 0xca, 0xfe, 0x41,
+	0x60, 0xb6, 0x2a, 0x02, 0x57, 0xf5, 0x0f, 0xf9, 0x2b, 0xf4, 0x58, 0xe4, 0xbf, 0xc0, 0x26, 0xd6,
+	0xd7, 0x59, 0x83, 0x86, 0xd1, 0x90, 0x0a, 0x78, 0x08, 0x7a, 0xe7, 0x2b, 0x42, 0x65, 0xc8, 0xa2,
+	0x97, 0xc8, 0x43, 0xe6, 0x3f, 0x8b, 0xde, 0x20, 0xe5, 0xaa, 0x96, 0x11, 0xb7, 0x30, 0x6e, 0xdd,
+	0x82, 0x85, 0x7e, 0x0a, 0xd3, 0x52, 0x3e, 0x12, 0x98, 0xc9, 0x00, 0x37, 0x59, 0x7c, 0xfe, 0x3a,
+	0xfa, 0xe9, 0x2d, 0x9f, 0xa2, 0xf7, 0x26, 0xdc, 0x28, 0x94, 0x91, 0x8a, 0x7d, 0xae, 0xba, 0xb2,
+	0x15, 0xca, 0x6d, 0x9f, 0xd3, 0x5d, 0x37, 0xc3, 0xf5, 0x04, 0xf1, 0x6c, 0x62, 0xad, 0x6f, 0x04,
+	0xac, 0x62, 0xb2, 0x6e, 0x4a, 0x6d, 0x07, 0x26, 0x78, 0x6f, 0x48, 0x1f, 0x9f, 0x2f, 0x2f, 0x5d,
+	0x5a, 0x9d, 0xb1, 0x13, 0x7b, 0xda, 0x47, 0xf6, 0xb4, 0x3b, 0xf6, 0xb4, 0x1f, 0xb3, 0x30, 0x5a,
+	0xbb, 0xbb, 0xf7, 0x7b, 0xae, 0xf4, 0xf3, 0xcf, 0xdc, 0x52, 0x10, 0xca, 0xed, 0x9d, 0x9a, 0xed,
+	0xb1, 0x86, 0xd3, 0xf1, 0x72, 0xf2, 0x51, 0x11, 0xfe, 0x7b, 0x47, 0xb6, 0x63, 0x14, 0xea, 0x82,
+	0x70, 0x8f, 0xe7, 0xb0, 0x3e, 0x13, 0x58, 0xac, 0x8a, 0x60, 0xa3, 0x25, 0x31, 0xf2, 0x7b, 0x5f,
+	0x63, 0xa3, 0x15, 0x87, 0x09, 0x70, 0x9d, 0x4a, 0x1c, 0x72, 0x8b, 0xca, 0x7d, 0x5a, 0xe4, 0x40,
+	0x65, 0x20, 0x49, 0xdd, 0xb7, 0x5b, 0xfd, 0x37, 0x0a, 0xe5, 0xaa, 0x08, 0xb4, 0x77, 0xa0, 0xe5,
+	0x0c, 0xa9, 0x45, 0xbb, 0x77, 0x0a, 0xda, 0xb9, 0xa3, 0xc2, 0xa8, 0x0c, 0x04, 0x4b, 0xfb, 0x45,
+	0x61, 0xe2, 0xf8, 0x34, 0xb1, 0x0a, 0x19, 0x52, 0x8c, 0xb1, 0x7c, 0x3a, 0x26, 0x4d, 0xf1, 0x01,
+	0x66, 0x8a, 0x9d, 0x7f, 0x27, 0x87, 0xa8, 0x10, 0x6d, 0xdc, 0x3f, 0x0b, 0x3a, 0x15, 0xd0, 0x84,
+	0xa9, 0x02, 0xbf, 0xde, 0xee, 0xc3, 0xd7, 0x0b, 0x35, 0x56, 0x06, 0x86, 0xa6, 0x79, 0xdb, 0x30,
+	0x5d, 0xe4, 0xbd, 0xbc, 0xf7, 0x2b, 0xc0, 0x1a, 0xab, 0x83, 0x63, 0xd3, 0xd4, 0x5f, 0x09, 0x58,
+	0x03, 0x98, 0xe1, 0x41, 0x0e, 0xf5, 0xe9, 0xd7, 0x8c, 0x47, 0xe7, 0xba, 0xd6, 0x15, 0xb7, 0xf6,
+	0x74, 0xef, 0xc0, 0x24, 0xfb, 0x07, 0x26, 0xf9, 0x7b, 0x60, 0x92, 0x4f, 0x87, 0x66, 0x69, 0xff,
+	0xd0, 0x2c, 0xfd, 0x3a, 0x34, 0x4b, 0x6f, 0xed, 0xcc, 0x04, 0x50, 0x29, 0x2a, 0xbe, 0x22, 0x4a,
+	0x36, 0x4e, 0x2b, 0xf3, 0xdf, 0xe0, 0x68, 0x1a, 0xd4, 0xc6, 0xd4, 0x2f, 0xfb, 0xbd, 0xff, 0x01,
+	0x00, 0x00, 0xff, 0xff, 0x4a, 0x1c, 0x41, 0xde, 0x3a, 0x08, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -728,7 +728,7 @@ type MsgClient interface {
 	RegisterSecondLevelDomain(ctx context.Context, in *MsgRegisterSecondLevelDomain, opts ...grpc.CallOption) (*MsgRegisterSecondLevelDomainResponse, error)
 	RegisterTopLevelDomain(ctx context.Context, in *MsgRegisterTopLevelDomain, opts ...grpc.CallOption) (*MsgRegisterTopLevelDomainResponse, error)
 	WithdrawRegistrationFee(ctx context.Context, in *MsgWithdrawRegistrationFee, opts ...grpc.CallOption) (*MsgWithdrawRegistrationFeeResponse, error)
-	ExtendTopLevelDomainExpiration(ctx context.Context, in *MsgExtendTopLevelDomainExpiration, opts ...grpc.CallOption) (*MsgExtendTopLevelDomainExpirationResponse, error)
+	ExtendTopLevelDomainExpirationDate(ctx context.Context, in *MsgExtendTopLevelDomainExpirationDate, opts ...grpc.CallOption) (*MsgExtendTopLevelDomainExpirationDateResponse, error)
 }
 
 type msgClient struct {
@@ -784,9 +784,9 @@ func (c *msgClient) WithdrawRegistrationFee(ctx context.Context, in *MsgWithdraw
 	return out, nil
 }
 
-func (c *msgClient) ExtendTopLevelDomainExpiration(ctx context.Context, in *MsgExtendTopLevelDomainExpiration, opts ...grpc.CallOption) (*MsgExtendTopLevelDomainExpirationResponse, error) {
-	out := new(MsgExtendTopLevelDomainExpirationResponse)
-	err := c.cc.Invoke(ctx, "/mycel.registry.Msg/ExtendTopLevelDomainExpiration", in, out, opts...)
+func (c *msgClient) ExtendTopLevelDomainExpirationDate(ctx context.Context, in *MsgExtendTopLevelDomainExpirationDate, opts ...grpc.CallOption) (*MsgExtendTopLevelDomainExpirationDateResponse, error) {
+	out := new(MsgExtendTopLevelDomainExpirationDateResponse)
+	err := c.cc.Invoke(ctx, "/mycel.registry.Msg/ExtendTopLevelDomainExpirationDate", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -800,7 +800,7 @@ type MsgServer interface {
 	RegisterSecondLevelDomain(context.Context, *MsgRegisterSecondLevelDomain) (*MsgRegisterSecondLevelDomainResponse, error)
 	RegisterTopLevelDomain(context.Context, *MsgRegisterTopLevelDomain) (*MsgRegisterTopLevelDomainResponse, error)
 	WithdrawRegistrationFee(context.Context, *MsgWithdrawRegistrationFee) (*MsgWithdrawRegistrationFeeResponse, error)
-	ExtendTopLevelDomainExpiration(context.Context, *MsgExtendTopLevelDomainExpiration) (*MsgExtendTopLevelDomainExpirationResponse, error)
+	ExtendTopLevelDomainExpirationDate(context.Context, *MsgExtendTopLevelDomainExpirationDate) (*MsgExtendTopLevelDomainExpirationDateResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -822,8 +822,8 @@ func (*UnimplementedMsgServer) RegisterTopLevelDomain(ctx context.Context, req *
 func (*UnimplementedMsgServer) WithdrawRegistrationFee(ctx context.Context, req *MsgWithdrawRegistrationFee) (*MsgWithdrawRegistrationFeeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WithdrawRegistrationFee not implemented")
 }
-func (*UnimplementedMsgServer) ExtendTopLevelDomainExpiration(ctx context.Context, req *MsgExtendTopLevelDomainExpiration) (*MsgExtendTopLevelDomainExpirationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ExtendTopLevelDomainExpiration not implemented")
+func (*UnimplementedMsgServer) ExtendTopLevelDomainExpirationDate(ctx context.Context, req *MsgExtendTopLevelDomainExpirationDate) (*MsgExtendTopLevelDomainExpirationDateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ExtendTopLevelDomainExpirationDate not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -920,20 +920,20 @@ func _Msg_WithdrawRegistrationFee_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_ExtendTopLevelDomainExpiration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgExtendTopLevelDomainExpiration)
+func _Msg_ExtendTopLevelDomainExpirationDate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgExtendTopLevelDomainExpirationDate)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).ExtendTopLevelDomainExpiration(ctx, in)
+		return srv.(MsgServer).ExtendTopLevelDomainExpirationDate(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/mycel.registry.Msg/ExtendTopLevelDomainExpiration",
+		FullMethod: "/mycel.registry.Msg/ExtendTopLevelDomainExpirationDate",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).ExtendTopLevelDomainExpiration(ctx, req.(*MsgExtendTopLevelDomainExpiration))
+		return srv.(MsgServer).ExtendTopLevelDomainExpirationDate(ctx, req.(*MsgExtendTopLevelDomainExpirationDate))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -963,8 +963,8 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_WithdrawRegistrationFee_Handler,
 		},
 		{
-			MethodName: "ExtendTopLevelDomainExpiration",
-			Handler:    _Msg_ExtendTopLevelDomainExpiration_Handler,
+			MethodName: "ExtendTopLevelDomainExpirationDate",
+			Handler:    _Msg_ExtendTopLevelDomainExpirationDate_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1344,7 +1344,7 @@ func (m *MsgWithdrawRegistrationFeeResponse) MarshalToSizedBuffer(dAtA []byte) (
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgExtendTopLevelDomainExpiration) Marshal() (dAtA []byte, err error) {
+func (m *MsgExtendTopLevelDomainExpirationDate) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1354,12 +1354,12 @@ func (m *MsgExtendTopLevelDomainExpiration) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgExtendTopLevelDomainExpiration) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgExtendTopLevelDomainExpirationDate) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgExtendTopLevelDomainExpiration) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgExtendTopLevelDomainExpirationDate) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1386,7 +1386,7 @@ func (m *MsgExtendTopLevelDomainExpiration) MarshalToSizedBuffer(dAtA []byte) (i
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgExtendTopLevelDomainExpirationResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1396,12 +1396,12 @@ func (m *MsgExtendTopLevelDomainExpirationResponse) Marshal() (dAtA []byte, err 
 	return dAtA[:n], nil
 }
 
-func (m *MsgExtendTopLevelDomainExpirationResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgExtendTopLevelDomainExpirationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1590,7 +1590,7 @@ func (m *MsgWithdrawRegistrationFeeResponse) Size() (n int) {
 	return n
 }
 
-func (m *MsgExtendTopLevelDomainExpiration) Size() (n int) {
+func (m *MsgExtendTopLevelDomainExpirationDate) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1610,7 +1610,7 @@ func (m *MsgExtendTopLevelDomainExpiration) Size() (n int) {
 	return n
 }
 
-func (m *MsgExtendTopLevelDomainExpirationResponse) Size() (n int) {
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -2741,7 +2741,7 @@ func (m *MsgWithdrawRegistrationFeeResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgExtendTopLevelDomainExpiration) Unmarshal(dAtA []byte) error {
+func (m *MsgExtendTopLevelDomainExpirationDate) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2764,10 +2764,10 @@ func (m *MsgExtendTopLevelDomainExpiration) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgExtendTopLevelDomainExpiration: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgExtendTopLevelDomainExpirationDate: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgExtendTopLevelDomainExpiration: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgExtendTopLevelDomainExpirationDate: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -2874,7 +2874,7 @@ func (m *MsgExtendTopLevelDomainExpiration) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgExtendTopLevelDomainExpirationResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2897,10 +2897,10 @@ func (m *MsgExtendTopLevelDomainExpirationResponse) Unmarshal(dAtA []byte) error
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgExtendTopLevelDomainExpirationResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgExtendTopLevelDomainExpirationDateResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgExtendTopLevelDomainExpirationResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgExtendTopLevelDomainExpirationDateResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

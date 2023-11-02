@@ -68,3 +68,17 @@ func EmitWithdrawRegistrationFeeEvent(ctx sdk.Context, msg types.MsgWithdrawRegi
 		),
 	)
 }
+
+// Extend top-level-domain expiration date event
+func EmitExtendTopLevelDomainExpirationDateEvent(ctx sdk.Context, domain types.TopLevelDomain, fee types.TopLevelDomainRegistrationFee) {
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(types.EventTypeExtendTopLevelDomainExpirationDate,
+			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventDomainName, domain.Name),
+			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventExpirationDate, fmt.Sprintf("%d", domain.ExpirationDate)),
+			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventTotalRegistrationFee, fee.TotalRegistrationFee.String()),
+			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventBurnWeight, fee.BurnWeight.String()),
+			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventRegistrationFeeToBurn, fee.RegistrationFeeToBurn.String()),
+			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventRegistrationFeeToTreasury, fee.RegistrationFeeToTreasury.String()),
+		),
+	)
+}

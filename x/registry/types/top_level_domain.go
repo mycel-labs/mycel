@@ -1,8 +1,10 @@
 package types
 
 import (
+	errorsmod "cosmossdk.io/errors"
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	"github.com/mycel-domain/mycel/app/params"
 )
 
@@ -46,4 +48,12 @@ func (topLevelDommain TopLevelDomain) GetRegistrationFeeAmountInDenom(denom stri
 	}
 	amount = sdk.NewInt(int64(registrationPeriodInYear) * int64(topLevelDommain.SubdomainConfig.MaxSubdomainRegistrations)).Mul(baseFeeAmount)
 	return amount, nil
+}
+
+func (topLevelDomain TopLevelDomain) IsEditable(sender string) (isEditable bool, err error) {
+	if topLevelDomain.AccessControl[sender] == DomainRole_NO_ROLE {
+		err = errorsmod.Wrapf(ErrDomainNotEditable, "%s", sender)
+	}
+	isEditable = topLevelDomain.AccessControl[sender] == DomainRole_EDITOR || topLevelDomain.AccessControl[sender] == DomainRole_OWNER
+	return isEditable, err
 }
