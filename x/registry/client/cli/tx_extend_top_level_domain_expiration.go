@@ -20,7 +20,7 @@ func CmdExtendTopLevelDomainExpiration() *cobra.Command {
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argName := args[0]
-			argRegistrationPeriodInYear, err := cast.ToInt32E(args[1])
+			argRegistrationPeriodInYear, err := cast.ToInt64E(args[1])
 			if err != nil {
 				return err
 			}
