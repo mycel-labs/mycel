@@ -20,3 +20,21 @@ message TopLevelDomain {
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
   ];
 }
+
+
+message TopLevelDomainFee {
+  repeated cosmos.base.v1beta1.Coin totalFee = 1 [
+    (gogoproto.nullable) = false,
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
+ string burnWeight = 2;
+ cosmos.base.v1beta1.Coin feeToBurn = 3 [
+    (gogoproto.nullable) = false,
+    (gogoproto.castvalue) = "github.com/cosmos/cosmos-sdk/types.Coin"
+  ];
+  cosmos.base.v1beta1.Coin feeToTreasury = 4 [
+    (gogoproto.nullable) = false,
+    (gogoproto.castvalue) = "github.com/cosmos/cosmos-sdk/types.Coin"
+  ];
+
+}

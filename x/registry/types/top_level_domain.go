@@ -8,13 +8,6 @@ import (
 	"github.com/mycel-domain/mycel/app/params"
 )
 
-type TopLevelDomainRegistrationFee struct {
-	TotalRegistrationFee      sdk.Coins
-	BurnWeight                math.LegacyDec
-	RegistrationFeeToBurn     sdk.Coin
-	RegistrationFeeToTreasury sdk.Coin
-}
-
 func GetMycelPrice(denom string) (price math.Int, err error) {
 	switch denom {
 	case params.DefaultBondDenom:

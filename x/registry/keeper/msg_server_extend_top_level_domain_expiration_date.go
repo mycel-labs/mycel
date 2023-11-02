@@ -23,10 +23,13 @@ func (k msgServer) ExtendTopLevelDomainExpirationDate(goCtx context.Context, msg
 		return nil, err
 	}
 
-	err = k.Keeper.ExtendTopLevelDomainExpirationDate(ctx, msg.Creator, domain, msg.RegistrationPeriodInYear)
+	fee, err := k.Keeper.ExtendTopLevelDomainExpirationDate(ctx, msg.Creator, domain, msg.RegistrationPeriodInYear)
 	if err != nil {
 		return nil, err
 	}
 
-	return &types.MsgExtendTopLevelDomainExpirationDateResponse{}, nil
+	return &types.MsgExtendTopLevelDomainExpirationDateResponse{
+		TopLevelDomain: &domain,
+		Fee:            &fee,
+	}, nil
 }

@@ -8,17 +8,17 @@ import (
 )
 
 // Register top-level-domain event
-func EmitRegisterTopLevelDomainEvent(ctx sdk.Context, domain types.TopLevelDomain, fee types.TopLevelDomainRegistrationFee) {
+func EmitRegisterTopLevelDomainEvent(ctx sdk.Context, domain types.TopLevelDomain, fee types.TopLevelDomainFee) {
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(
 			types.EventTypeRegisterTopLevelDomain,
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventName, domain.Name),
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventExpirationDate, fmt.Sprintf("%d", domain.ExpirationDate)),
 			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventMaxSubdomainRegistrations, fmt.Sprintf("%d", domain.SubdomainConfig.MaxSubdomainRegistrations)),
-			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventTotalRegistrationFee, fee.TotalRegistrationFee.String()),
-			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventBurnWeight, fee.BurnWeight.String()),
-			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventRegistrationFeeToBurn, fee.RegistrationFeeToBurn.String()),
-			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventRegistrationFeeToTreasury, fee.RegistrationFeeToTreasury.String()),
+			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventTotalRegistrationFee, fee.TotalFee.String()),
+			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventBurnWeight, fee.BurnWeight),
+			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventRegistrationFeeToBurn, fee.FeeToBurn.String()),
+			sdk.NewAttribute(types.AttributeRegisterTopLevelDomainEventRegistrationFeeToTreasury, fee.FeeToTreasury.String()),
 		),
 	)
 }
@@ -70,15 +70,15 @@ func EmitWithdrawRegistrationFeeEvent(ctx sdk.Context, msg types.MsgWithdrawRegi
 }
 
 // Extend top-level-domain expiration date event
-func EmitExtendTopLevelDomainExpirationDateEvent(ctx sdk.Context, domain types.TopLevelDomain, fee types.TopLevelDomainRegistrationFee) {
+func EmitExtendTopLevelDomainExpirationDateEvent(ctx sdk.Context, domain types.TopLevelDomain, fee types.TopLevelDomainFee) {
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(types.EventTypeExtendTopLevelDomainExpirationDate,
 			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventDomainName, domain.Name),
 			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventExpirationDate, fmt.Sprintf("%d", domain.ExpirationDate)),
-			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventTotalRegistrationFee, fee.TotalRegistrationFee.String()),
-			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventBurnWeight, fee.BurnWeight.String()),
-			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventRegistrationFeeToBurn, fee.RegistrationFeeToBurn.String()),
-			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventRegistrationFeeToTreasury, fee.RegistrationFeeToTreasury.String()),
+			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventTotalRegistrationFee, fee.TotalFee.String()),
+			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventBurnWeight, fee.BurnWeight),
+			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventRegistrationFeeToBurn, fee.FeeToBurn.String()),
+			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventRegistrationFeeToTreasury, fee.FeeToTreasury.String()),
 		),
 	)
 }

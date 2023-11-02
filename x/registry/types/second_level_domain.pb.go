@@ -180,7 +180,6 @@ func (m *Metadata) GetValue() string {
 
 type Record struct {
 	// Types that are valid to be assigned to Record:
-	//
 	//	*Record_DnsRecord
 	//	*Record_WalletRecord
 	//	*Record_Metadata

@@ -33,10 +33,13 @@ func (k msgServer) RegisterTopLevelDomain(goCtx context.Context, msg *types.MsgR
 		TotalWithdrawalAmount: sdk.NewCoins(),
 	}
 
-	err := k.Keeper.RegisterTopLevelDomain(ctx, domain, msg.Creator, msg.RegistrationPeriodInYear)
+	fee, err := k.Keeper.RegisterTopLevelDomain(ctx, domain, msg.Creator, msg.RegistrationPeriodInYear)
 	if err != nil {
 		return nil, err
 	}
 
-	return &types.MsgRegisterTopLevelDomainResponse{}, nil
+	return &types.MsgRegisterTopLevelDomainResponse{
+		TopLevelDomain: &domain,
+		Fee:            &fee,
+	}, nil
 }

@@ -81187,10 +81187,338 @@ definitions:
           signatures required by gogoproto.
   mycel.registry.MsgExtendTopLevelDomainExpirationDateResponse:
     type: object
+    properties:
+      topLevelDomain:
+        type: object
+        properties:
+          name:
+            type: string
+          expirationDate:
+            type: string
+            format: int64
+          metadata:
+            type: object
+            additionalProperties:
+              type: string
+          subdomainConfig:
+            type: object
+            properties:
+              maxSubdomainRegistrations:
+                type: string
+                format: uint64
+              subdomainRegistrationFees:
+                type: object
+                properties:
+                  feeByLength:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        isRegistrable:
+                          type: boolean
+                        fee:
+                          type: object
+                          properties:
+                            denom:
+                              type: string
+                            amount:
+                              type: string
+                          description: >-
+                            Coin defines a token with a denomination and an
+                            amount.
+
+
+                            NOTE: The amount field is an Int which implements
+                            the custom method
+
+                            signatures required by gogoproto.
+                  feeByName:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        isRegistrable:
+                          type: boolean
+                        fee:
+                          type: object
+                          properties:
+                            denom:
+                              type: string
+                            amount:
+                              type: string
+                          description: >-
+                            Coin defines a token with a denomination and an
+                            amount.
+
+
+                            NOTE: The amount field is an Int which implements
+                            the custom method
+
+                            signatures required by gogoproto.
+                  defaultFee:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+          subdomainCount:
+            type: string
+            format: uint64
+          accessControl:
+            type: object
+            additionalProperties:
+              type: string
+              enum:
+                - NO_ROLE
+                - OWNER
+                - EDITOR
+              default: NO_ROLE
+          totalWithdrawalAmount:
+            type: array
+            items:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
+      fee:
+        type: object
+        properties:
+          totalFee:
+            type: array
+            items:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
+          burnWeight:
+            type: string
+          feeToBurn:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
+          feeToTreasury:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
   mycel.registry.MsgRegisterSecondLevelDomainResponse:
     type: object
   mycel.registry.MsgRegisterTopLevelDomainResponse:
     type: object
+    properties:
+      topLevelDomain:
+        type: object
+        properties:
+          name:
+            type: string
+          expirationDate:
+            type: string
+            format: int64
+          metadata:
+            type: object
+            additionalProperties:
+              type: string
+          subdomainConfig:
+            type: object
+            properties:
+              maxSubdomainRegistrations:
+                type: string
+                format: uint64
+              subdomainRegistrationFees:
+                type: object
+                properties:
+                  feeByLength:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        isRegistrable:
+                          type: boolean
+                        fee:
+                          type: object
+                          properties:
+                            denom:
+                              type: string
+                            amount:
+                              type: string
+                          description: >-
+                            Coin defines a token with a denomination and an
+                            amount.
+
+
+                            NOTE: The amount field is an Int which implements
+                            the custom method
+
+                            signatures required by gogoproto.
+                  feeByName:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        isRegistrable:
+                          type: boolean
+                        fee:
+                          type: object
+                          properties:
+                            denom:
+                              type: string
+                            amount:
+                              type: string
+                          description: >-
+                            Coin defines a token with a denomination and an
+                            amount.
+
+
+                            NOTE: The amount field is an Int which implements
+                            the custom method
+
+                            signatures required by gogoproto.
+                  defaultFee:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+          subdomainCount:
+            type: string
+            format: uint64
+          accessControl:
+            type: object
+            additionalProperties:
+              type: string
+              enum:
+                - NO_ROLE
+                - OWNER
+                - EDITOR
+              default: NO_ROLE
+          totalWithdrawalAmount:
+            type: array
+            items:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
+      fee:
+        type: object
+        properties:
+          totalFee:
+            type: array
+            items:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
+          burnWeight:
+            type: string
+          feeToBurn:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
+          feeToTreasury:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
   mycel.registry.MsgUpdateDnsRecordResponse:
     type: object
   mycel.registry.MsgUpdateWalletRecordResponse:
@@ -81880,6 +82208,49 @@ definitions:
 
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
+  mycel.registry.TopLevelDomainFee:
+    type: object
+    properties:
+      totalFee:
+        type: array
+        items:
+          type: object
+          properties:
+            denom:
+              type: string
+            amount:
+              type: string
+          description: |-
+            Coin defines a token with a denomination and an amount.
+
+            NOTE: The amount field is an Int which implements the custom method
+            signatures required by gogoproto.
+      burnWeight:
+        type: string
+      feeToBurn:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
+      feeToTreasury:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
   mycel.registry.DnsRecord:
     type: object
     properties:
