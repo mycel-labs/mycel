@@ -14,7 +14,7 @@ const (
 func ValidateTopLevelDomainName(name string) (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+$)`, TLDNamePattern))
 	if !regex.MatchString(name) {
-		err = errorsmod.Wrapf(ErrInvalidDomainName, "%s", name)
+		err = errorsmod.Wrapf(ErrInvalidTopLevelDomainName, "%s", name)
 	}
 	return err
 

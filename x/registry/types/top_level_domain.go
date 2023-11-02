@@ -47,7 +47,7 @@ func (topLevelDommain TopLevelDomain) GetRegistrationFeeAmountInDenom(denom stri
 
 func (topLevelDomain TopLevelDomain) IsEditable(sender string) (isEditable bool, err error) {
 	if topLevelDomain.AccessControl[sender] == DomainRole_NO_ROLE {
-		err = errorsmod.Wrapf(ErrDomainNotEditable, "%s", sender)
+		err = errorsmod.Wrapf(ErrTopLevelDomainNotEditable, "%s", sender)
 	}
 	isEditable = topLevelDomain.AccessControl[sender] == DomainRole_EDITOR || topLevelDomain.AccessControl[sender] == DomainRole_OWNER
 	return isEditable, err

@@ -52,7 +52,7 @@ func (suite *KeeperTestSuite) TestUpdateDnsRecord() {
 			parent:        "fuga",
 			dnsRecordType: "A",
 			value:         "192.168.0.1",
-			expErr:        errorsmod.Wrapf(types.ErrDomainNotFound, "hoge.fuga"),
+			expErr:        errorsmod.Wrapf(types.ErrSecondLevelDomainNotFound, "hoge.fuga"),
 			fn:            func() {},
 		},
 		{
@@ -61,7 +61,7 @@ func (suite *KeeperTestSuite) TestUpdateDnsRecord() {
 			parent:        "cel",
 			dnsRecordType: "A",
 			value:         "192.168.0.1",
-			expErr:        errorsmod.Wrapf(types.ErrDomainNotEditable, "%s", testutil.Bob),
+			expErr:        errorsmod.Wrapf(types.ErrSecondLevelDomainNotEditable, "%s", testutil.Bob),
 			fn:            func() {},
 		},
 	}

@@ -111,7 +111,7 @@ func (secondLevelDomain *SecondLevelDomain) UpdateDnsRecord(dnsRecordType string
 
 func (secondLevelDomain SecondLevelDomain) IsRecordEditable(sender string) (isEditable bool, err error) {
 	if secondLevelDomain.AccessControl[sender] == DomainRole_NO_ROLE {
-		err = errorsmod.Wrapf(ErrDomainNotEditable, "%s", sender)
+		err = errorsmod.Wrapf(ErrSecondLevelDomainNotEditable, "%s", sender)
 	}
 	isEditable = secondLevelDomain.AccessControl[sender] == DomainRole_EDITOR || secondLevelDomain.AccessControl[sender] == DomainRole_OWNER
 	return isEditable, err

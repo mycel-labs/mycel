@@ -90,7 +90,7 @@ func (suite *KeeperTestSuite) TestGetValidTopLevelDomain() {
 				Name:           "test",
 				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, -20),
 			},
-			expErr: errorsmod.Wrapf(types.ErrDomainExpired, "test"),
+			expErr: errorsmod.Wrapf(types.ErrTopLevelDomainExpired, "test"),
 		},
 	}
 	for i, tc := range testCases {

@@ -71,7 +71,7 @@ func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 			parent:           "fuga",
 			walletRecordType: "ETHEREUM_MAINNET_MAINNET",
 			value:            "0x1234567890123456789012345678901234567890",
-			expErr:           errorsmod.Wrapf(types.ErrDomainNotFound, "hoge.fuga"),
+			expErr:           errorsmod.Wrapf(types.ErrSecondLevelDomainNotFound, "hoge.fuga"),
 			fn:               func() {},
 		},
 		{
@@ -80,7 +80,7 @@ func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 			parent:           "cel",
 			walletRecordType: "ETHEREUM_MAINNET_MAINNET",
 			value:            "0x1234567890123456789012345678901234567890",
-			expErr:           errorsmod.Wrapf(types.ErrDomainNotEditable, "%s", testutil.Bob),
+			expErr:           errorsmod.Wrapf(types.ErrSecondLevelDomainNotEditable, "%s", testutil.Bob),
 			fn:               func() {},
 		},
 	}

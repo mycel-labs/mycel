@@ -14,7 +14,7 @@ const (
 func ValidateSecondLevelDomainName(name string) (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+$)`, NamePattern))
 	if !regex.MatchString(name) {
-		err = errorsmod.Wrapf(ErrInvalidDomainName, "%s", name)
+		err = errorsmod.Wrapf(ErrInvalidSecondLevelDomainName, "%s", name)
 	}
 	return err
 }
@@ -27,7 +27,7 @@ func (secondLevelDomain SecondLevelDomain) ValidateName() (err error) {
 func ValidateSecondLevelDomainParent(parent string) (err error) {
 	regex := regexp.MustCompile(fmt.Sprintf(`(^[%s]+[%[1]s\.]*[%[1]s]$)|^$`, NamePattern))
 	if !regex.MatchString(parent) {
-		err = errorsmod.Wrapf(ErrInvalidDomainParent, "%s", parent)
+		err = errorsmod.Wrapf(ErrInvalidSecondLevelDomainParent, "%s", parent)
 	}
 	return err
 

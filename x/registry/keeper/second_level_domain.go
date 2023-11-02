@@ -94,16 +94,16 @@ func (k Keeper) GetValidSecondLevelDomain(ctx sdk.Context, name string, parent s
 		return types.SecondLevelDomain{}, err
 	}
 
-	// Get second level domain
+	// Get second-level-domain
 	secondLevelDomain, isFound := k.GetSecondLevelDomain(ctx, name, parent)
 	if !isFound {
-		return types.SecondLevelDomain{}, errorsmod.Wrapf(types.ErrDomainNotFound, "%s.%s", name, parent)
+		return types.SecondLevelDomain{}, errorsmod.Wrapf(types.ErrSecondLevelDomainNotFound, "%s.%s", name, parent)
 	}
 
-	// Check if domain is not expired
+	// Check if second-level-domain is not expired
 	expirationDate := time.Unix(0, secondLevelDomain.ExpirationDate)
 	if ctx.BlockTime().After(expirationDate) && secondLevelDomain.ExpirationDate != 0 {
-		return types.SecondLevelDomain{}, errorsmod.Wrapf(types.ErrDomainExpired, "%s", name)
+		return types.SecondLevelDomain{}, errorsmod.Wrapf(types.ErrSecondLevelDomainExpired, "%s", name)
 	}
 
 	return secondLevelDomain, nil
@@ -172,18 +172,18 @@ func (k Keeper) ValidateSecondLevelDomainIsRegistrable(ctx sdk.Context, secondLe
 	// Check if second-level-domain is already taken
 	isTaken := k.GetIsSecondLevelDomainAlreadyTaken(ctx, secondLevelDomain)
 	if isTaken {
-		return errorsmod.Wrapf(types.ErrDomainIsAlreadyTaken, "%s.%s", secondLevelDomain.Name, secondLevelDomain.Parent)
+		return errorsmod.Wrapf(types.ErrSecondLevelDomainAlreadyTaken, "%s.%s", secondLevelDomain.Name, secondLevelDomain.Parent)
 	}
 
 	// Get parent domain of second-level-domain
 	parentDomain, found := k.GetSecondLevelDomainParent(ctx, secondLevelDomain)
 	if !found {
-		return errorsmod.Wrapf(types.ErrParentDomainDoesNotExist, "%s", secondLevelDomain.Parent)
+		return errorsmod.Wrapf(types.ErrSecondLevelDomainParentDoesNotExist, "%s", secondLevelDomain.Parent)
 	}
 
 	// Check if parent domain has subdomain registration config
 	if parentDomain.SubdomainConfig.MaxSubdomainRegistrations <= parentDomain.SubdomainCount {
-		return errorsmod.Wrapf(types.ErrMaxSubdomainCountReached, "%d", parentDomain.SubdomainCount)
+		return errorsmod.Wrapf(types.ErrTopLevelDomainMaxSubdomainCountReached, "%d", parentDomain.SubdomainCount)
 	}
 
 	return nil

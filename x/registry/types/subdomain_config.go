@@ -6,10 +6,12 @@ import (
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	"github.com/mycel-domain/mycel/app/params"
 )
 
 func GetDefaultSubdomainConfig(baseFee int64) SubdomainConfig {
-	defaultFee := sdk.NewCoin(MycelDenom, sdk.NewInt(baseFee))
+	defaultFee := sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(baseFee))
 	fees := GetFeeByNameLength(10, int(baseFee))
 
 	return SubdomainConfig{
@@ -25,7 +27,7 @@ func GetFeeByNameLength(base int, baseFee int) map[uint32]*Fee {
 	fees := make(map[uint32]*Fee)
 	for i := uint32(1); i < 5; i++ {
 		amount := baseFee * int(math.Pow(float64(base), float64((5-i))))
-		fee := sdk.NewCoin(MycelDenom, sdk.NewInt(int64(amount)))
+		fee := sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(int64(amount)))
 		fees[i] = &Fee{
 			IsRegistrable: true,
 			Fee:           &fee,
@@ -42,7 +44,7 @@ func (config SubdomainConfig) GetRegistrationFee(name string, registrationPeriod
 		if config.SubdomainRegistrationFees.FeeByName[name].IsRegistrable {
 			amount = *config.SubdomainRegistrationFees.FeeByName[name].Fee
 		} else {
-			err = errorsmod.Wrap(errors.New(name), ErrDomainNotRegistrable.Error())
+			err = errorsmod.Wrap(errors.New(name), ErrSecondLevelDomainNotRegistrable.Error())
 		}
 	}
 
@@ -51,7 +53,7 @@ func (config SubdomainConfig) GetRegistrationFee(name string, registrationPeriod
 		if config.SubdomainRegistrationFees.FeeByLength[uint32(len(name))].IsRegistrable {
 			amount = *config.SubdomainRegistrationFees.FeeByLength[uint32(len(name))].Fee
 		} else {
-			err = errorsmod.Wrap(errors.New(name), ErrDomainNotRegistrable.Error())
+			err = errorsmod.Wrap(errors.New(name), ErrSecondLevelDomainNotRegistrable.Error())
 		}
 	}
 

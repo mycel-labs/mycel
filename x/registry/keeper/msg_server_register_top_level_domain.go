@@ -13,7 +13,7 @@ func (k msgServer) RegisterTopLevelDomain(goCtx context.Context, msg *types.MsgR
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	if msg.RegistrationPeriodInYear < 1 || msg.RegistrationPeriodInYear > 4 {
-		return nil, errorsmod.Wrapf(types.ErrInvalidRegistrationPeriod, "%d year(s)", msg.RegistrationPeriodInYear)
+		return nil, errorsmod.Wrapf(types.ErrTopLevelDomainInvalidRegistrationPeriod, "%d year(s)", msg.RegistrationPeriodInYear)
 	}
 
 	topLevelDomain, fee, err := k.Keeper.RegisterTopLevelDomain(ctx, msg.Creator, msg.Name, msg.RegistrationPeriodInYear)

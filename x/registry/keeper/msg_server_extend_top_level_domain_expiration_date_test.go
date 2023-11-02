@@ -31,7 +31,7 @@ func (suite *KeeperTestSuite) TestExtendTopLevelDomain() {
 		{
 			creator:               testutil.Bob,
 			extensionPeriodInYear: 1,
-			expErr:                errorsmod.Wrapf(types.ErrDomainNotEditable, "%s", testutil.Bob),
+			expErr:                errorsmod.Wrapf(types.ErrTopLevelDomainNotEditable, "%s", testutil.Bob),
 			fn:                    func() {},
 		},
 	}

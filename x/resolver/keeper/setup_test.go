@@ -1,11 +1,13 @@
 package keeper_test
 
 import (
-	mycelapp "github.com/mycel-domain/mycel/app"
-	"github.com/mycel-domain/mycel/x/registry/keeper"
-	"github.com/mycel-domain/mycel/x/registry/types"
 	"testing"
 	"time"
+
+	mycelapp "github.com/mycel-domain/mycel/app"
+	"github.com/mycel-domain/mycel/app/params"
+	"github.com/mycel-domain/mycel/x/registry/keeper"
+	"github.com/mycel-domain/mycel/x/registry/types"
 
 	"github.com/mycel-domain/mycel/testutil"
 
@@ -55,7 +57,7 @@ func makeBalance(address string, balance int64) banktypes.Balance {
 		Address: address,
 		Coins: sdk.Coins{
 			sdk.Coin{
-				Denom:  types.MycelDenom,
+				Denom:  params.DefaultBondDenom,
 				Amount: sdk.NewInt(balance),
 			},
 		},

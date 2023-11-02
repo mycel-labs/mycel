@@ -14,7 +14,7 @@ func (k msgServer) UpdateDnsRecord(goCtx context.Context, msg *types.MsgUpdateDn
 
 	domain, isFound := k.Keeper.GetSecondLevelDomain(ctx, msg.Name, msg.Parent)
 	if !isFound {
-		return nil, errorsmod.Wrapf(types.ErrDomainNotFound, "%s.%s", msg.Name, msg.Parent)
+		return nil, errorsmod.Wrapf(types.ErrSecondLevelDomainNotFound, "%s.%s", msg.Name, msg.Parent)
 	}
 
 	// Check if the domain is owned by the creator

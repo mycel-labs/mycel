@@ -38,7 +38,7 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 			creator:                  testutil.Alice,
 			name:                     "cel2",
 			registrationPeriodInYear: 1,
-			expErr:                   errorsmod.Wrapf(types.ErrDomainIsAlreadyTaken, "cel2"),
+			expErr:                   errorsmod.Wrapf(types.ErrTopLevelDomainAlreadyTaken, "cel2"),
 			fn: func() {
 				// Register domain once
 				domain := &types.MsgRegisterTopLevelDomain{

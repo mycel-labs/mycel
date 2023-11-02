@@ -83,14 +83,14 @@ func (k Keeper) GetValidTopLevelDomain(ctx sdk.Context, name string) (topLevelDo
 	}
 
 	// Get top level domain
-	topLevelDomain, isFound := k.GetTopLevelDomain(ctx, name)
-	if !isFound {
-		return topLevelDomain, errorsmod.Wrapf(types.ErrDomainNotFound, "%s", name)
+	topLevelDomain, found := k.GetTopLevelDomain(ctx, name)
+	if !found {
+		return topLevelDomain, errorsmod.Wrapf(types.ErrTopLevelDomainNotFound, "%s", name)
 	}
 
 	// Check if domain is not expired
 	if ctx.BlockTime().After(topLevelDomain.ExpirationDate) && topLevelDomain.ExpirationDate != (time.Time{}) {
-		return topLevelDomain, errorsmod.Wrapf(types.ErrDomainExpired, "%s", name)
+		return topLevelDomain, errorsmod.Wrapf(types.ErrTopLevelDomainExpired, "%s", name)
 	}
 
 	return topLevelDomain, nil
@@ -131,7 +131,7 @@ func (k Keeper) PayTopLevelDomainFee(ctx sdk.Context, payer sdk.AccAddress, doma
 	return registrationFee, nil
 }
 
-func (k Keeper) ValidateTopLevelDomainIsRegistrable(ctx sdk.Context, topLevelDomain types.TopLevelDomain) (error) {
+func (k Keeper) ValidateTopLevelDomainIsRegistrable(ctx sdk.Context, topLevelDomain types.TopLevelDomain) error {
 	// Validate top-level-domain
 	err := topLevelDomain.Validate()
 	if err != nil {
@@ -140,7 +140,7 @@ func (k Keeper) ValidateTopLevelDomainIsRegistrable(ctx sdk.Context, topLevelDom
 	// Check if top-level-domain is already taken
 	isTaken := k.GetIsTopLevelDomainAlreadyTaken(ctx, topLevelDomain)
 	if isTaken {
-		return errorsmod.Wrapf(types.ErrDomainIsAlreadyTaken, "%s", topLevelDomain.Name)
+		return errorsmod.Wrapf(types.ErrTopLevelDomainAlreadyTaken, "%s", topLevelDomain.Name)
 	}
 
 	return nil
@@ -194,7 +194,7 @@ func (k Keeper) ExtendTopLevelDomainExpirationDate(ctx sdk.Context, creator stri
 	// Get domain
 	topLevelDomain, found := k.GetTopLevelDomain(ctx, domainName)
 	if !found {
-		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, errorsmod.Wrapf(types.ErrDomainNotFound, "%s", domainName)
+		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, errorsmod.Wrapf(types.ErrTopLevelDomainNotFound, "%s", domainName)
 	}
 
 	// Check if the domain is editable

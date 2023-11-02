@@ -107,7 +107,7 @@ func (suite *KeeperTestSuite) TestGetValidSecondLevelDomain() {
 				Parent:         "test",
 				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, -20).UnixNano(),
 			},
-			expErr: errorsmod.Wrapf(types.ErrDomainNotFound, "test"),
+			expErr: errorsmod.Wrapf(types.ErrTopLevelDomainNotFound, "test"),
 		},
 	}
 	for i, tc := range testCases {

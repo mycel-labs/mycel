@@ -8,11 +8,11 @@ import (
 	"time"
 
 	"github.com/mycel-domain/mycel/testutil"
-
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
+	"github.com/mycel-domain/mycel/app/params"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -56,7 +56,7 @@ func makeBalance(address string, balance int64) banktypes.Balance {
 		Address: address,
 		Coins: sdk.Coins{
 			sdk.Coin{
-				Denom:  types.MycelDenom,
+				Denom:  params.DefaultBondDenom,
 				Amount: sdk.NewInt(balance),
 			},
 		},
