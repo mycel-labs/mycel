@@ -65,7 +65,7 @@ message MsgWithdrawRegistrationFeeResponse {
 message MsgExtendTopLevelDomainExpirationDate {
   string creator                  = 1;
   string name                     = 2;
-  int64  registrationPeriodInYear = 3;
+  uint64 registrationPeriodInYear = 3;
 }
 
 message MsgExtendTopLevelDomainExpirationDateResponse {}

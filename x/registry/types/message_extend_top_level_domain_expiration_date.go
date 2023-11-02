@@ -9,7 +9,7 @@ const TypeMsgExtendTopLevelDomainExpirationDate = "extend_top_level_domain_expir
 
 var _ sdk.Msg = &MsgExtendTopLevelDomainExpirationDate{}
 
-func NewMsgExtendTopLevelDomainExpirationDate(creator string, name string, registrationPeriodInYear int64) *MsgExtendTopLevelDomainExpirationDate {
+func NewMsgExtendTopLevelDomainExpirationDate(creator string, name string, registrationPeriodInYear uint64) *MsgExtendTopLevelDomainExpirationDate {
 	return &MsgExtendTopLevelDomainExpirationDate{
 		Creator:                  creator,
 		Name:                     name,
