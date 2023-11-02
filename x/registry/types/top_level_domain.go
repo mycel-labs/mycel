@@ -1,6 +1,8 @@
 package types
 
 import (
+	"time"
+
 	errorsmod "cosmossdk.io/errors"
 	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -49,4 +51,12 @@ func (topLevelDomain TopLevelDomain) IsEditable(sender string) (isEditable bool,
 	}
 	isEditable = topLevelDomain.AccessControl[sender] == DomainRole_EDITOR || topLevelDomain.AccessControl[sender] == DomainRole_OWNER
 	return isEditable, err
+}
+
+func (topLevelDomain *TopLevelDomain) ExtendExpirationDate(from time.Time, extensionPeriodInYear uint64) (expirationDateInUnixNano int64) {
+	newExpirationDate := from.AddDate(0, 0, params.OneYearInDays*int(extensionPeriodInYear))
+	expirationDateInUnixNano = newExpirationDate.UnixNano()
+	topLevelDomain.ExpirationDate = expirationDateInUnixNano
+
+	return expirationDateInUnixNano
 }
