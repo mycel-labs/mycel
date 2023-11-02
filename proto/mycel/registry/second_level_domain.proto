@@ -1,6 +1,8 @@
 syntax = "proto3";
 package mycel.registry;
 
+import "gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
 import "mycel/registry/dns_record.proto";
 import "mycel/registry/network_name.proto";
 import "mycel/registry/role.proto";
@@ -35,7 +37,10 @@ message SecondLevelDomain {
   string name = 1;
   string parent = 2;
   string owner = 3;
-  int64 expirationDate = 4;
+  google.protobuf.Timestamp expirationDate = 4 [
+    (gogoproto.stdtime) = true,
+    (gogoproto.nullable) = false
+  ];
   map<string, Record> records = 5;
   map<string, DomainRole> accessControl = 6;
 }
