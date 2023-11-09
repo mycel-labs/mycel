@@ -3,11 +3,10 @@ package keeper_test
 import (
 	"fmt"
 
-	"github.com/mycel-domain/mycel/x/registry/types"
+	errorsmod "cosmossdk.io/errors"
 
 	"github.com/mycel-domain/mycel/testutil"
-
-	errorsmod "cosmossdk.io/errors"
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 func (suite *KeeperTestSuite) TestUpdateWalletRecord() {

@@ -11,9 +11,9 @@ var _ sdk.Msg = &MsgExtendTopLevelDomainExpirationDate{}
 
 func NewMsgExtendTopLevelDomainExpirationDate(creator string, name string, extentsionPeriodInYear uint64) *MsgExtendTopLevelDomainExpirationDate {
 	return &MsgExtendTopLevelDomainExpirationDate{
-		Creator:                  creator,
-		Name:                     name,
-		ExtensionPeriodInYear	: extentsionPeriodInYear,
+		Creator:               creator,
+		Name:                  name,
+		ExtensionPeriodInYear: extentsionPeriodInYear,
 	}
 }
 

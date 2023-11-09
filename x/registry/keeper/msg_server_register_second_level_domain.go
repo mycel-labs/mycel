@@ -1,12 +1,12 @@
 package keeper
 
 import (
-	"time"
 	"context"
-
-	"github.com/mycel-domain/mycel/x/registry/types"
+	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 func (k msgServer) RegisterSecondLevelDomain(goCtx context.Context, msg *types.MsgRegisterSecondLevelDomain) (*types.MsgRegisterSecondLevelDomainResponse, error) {

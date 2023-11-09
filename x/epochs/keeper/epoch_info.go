@@ -1,10 +1,10 @@
 package keeper
 
 import (
-	"github.com/mycel-domain/mycel/x/epochs/types"
-
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	"github.com/mycel-domain/mycel/x/epochs/types"
 )
 
 // SetEpochInfo set a specific epochInfo in the store from its index

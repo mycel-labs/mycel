@@ -2,6 +2,9 @@ package network
 
 import (
 	"fmt"
+	"testing"
+	"time"
+
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	tmdb "github.com/cometbft/cometbft-db"
@@ -16,8 +19,6 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/stretchr/testify/require"
-	"testing"
-	"time"
 
 	"github.com/mycel-domain/mycel/app"
 )

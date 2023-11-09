@@ -1,19 +1,20 @@
 package keeper_test
 
 import (
-	mycelapp "github.com/mycel-domain/mycel/app"
-	"github.com/mycel-domain/mycel/x/registry/keeper"
-	"github.com/mycel-domain/mycel/x/registry/types"
 	"testing"
 	"time"
 
-	"github.com/mycel-domain/mycel/testutil"
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	"github.com/mycel-domain/mycel/app/params"
 	"github.com/stretchr/testify/suite"
+
+	mycelapp "github.com/mycel-domain/mycel/app"
+	"github.com/mycel-domain/mycel/app/params"
+	"github.com/mycel-domain/mycel/testutil"
+	"github.com/mycel-domain/mycel/x/registry/keeper"
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 type KeeperTestSuite struct {

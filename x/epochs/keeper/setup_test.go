@@ -1,8 +1,6 @@
 package keeper_test
 
 import (
-	mycelapp "github.com/mycel-domain/mycel/app"
-	"github.com/mycel-domain/mycel/x/epochs/types"
 	"testing"
 	"time"
 
@@ -10,6 +8,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/suite"
+
+	mycelapp "github.com/mycel-domain/mycel/app"
+	"github.com/mycel-domain/mycel/x/epochs/types"
 )
 
 type KeeperTestSuite struct {

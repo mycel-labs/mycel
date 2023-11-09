@@ -3,10 +3,10 @@ package keeper_test
 import (
 	"fmt"
 
+	errorsmod "cosmossdk.io/errors"
+
 	"github.com/mycel-domain/mycel/testutil"
 	"github.com/mycel-domain/mycel/x/registry/types"
-
-	errorsmod "cosmossdk.io/errors"
 )
 
 func (suite *KeeperTestSuite) TestUpdateDnsRecord() {

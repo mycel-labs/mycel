@@ -3,10 +3,10 @@ package keeper
 import (
 	"context"
 
-	"github.com/mycel-domain/mycel/x/registry/types"
-
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 func (k msgServer) UpdateDnsRecord(goCtx context.Context, msg *types.MsgUpdateDnsRecord) (*types.MsgUpdateDnsRecordResponse, error) {

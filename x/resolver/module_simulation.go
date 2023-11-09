@@ -8,6 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
+
 	"github.com/mycel-domain/mycel/testutil/sample"
 	resolversimulation "github.com/mycel-domain/mycel/x/resolver/simulation"
 	"github.com/mycel-domain/mycel/x/resolver/types"

@@ -1,12 +1,13 @@
 package keeper
 
 import (
-	"github.com/mycel-domain/mycel/x/registry/types"
 	"time"
 
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	errorsmod "github.com/cosmos/cosmos-sdk/types/errors"
+
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 // SetSecondLevelDomain set a specific second-level-domain in the store from its index
@@ -101,7 +102,7 @@ func (k Keeper) GetValidSecondLevelDomain(ctx sdk.Context, name string, parent s
 	}
 
 	// Check if second-level-domain is not expired
-	if ctx.BlockTime().After(secondLevelDomain.ExpirationDate) && secondLevelDomain.ExpirationDate != (time.Time{}){
+	if ctx.BlockTime().After(secondLevelDomain.ExpirationDate) && secondLevelDomain.ExpirationDate != (time.Time{}) {
 		return types.SecondLevelDomain{}, errorsmod.Wrapf(types.ErrSecondLevelDomainExpired, "%s", name)
 	}
 
@@ -148,7 +149,10 @@ func (k Keeper) PaySecondLevelDomainRegstrationFee(ctx sdk.Context, payer sdk.Ac
 	}
 
 	// Send coins from payer to module account
-	k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, types.ModuleName, sdk.NewCoins(fee))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, types.ModuleName, sdk.NewCoins(fee))
+	if err != nil {
+		return fee, err
+	}
 
 	// Update store
 	parent, found := k.GetTopLevelDomain(ctx, domain.Parent)

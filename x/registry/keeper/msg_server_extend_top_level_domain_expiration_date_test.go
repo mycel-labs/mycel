@@ -3,14 +3,14 @@ package keeper_test
 import (
 	"fmt"
 
+	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+
 	"github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/testutil"
 	furnacetypes "github.com/mycel-domain/mycel/x/furnace/types"
 	"github.com/mycel-domain/mycel/x/registry/types"
-
-	errorsmod "cosmossdk.io/errors"
 )
 
 func (suite *KeeperTestSuite) TestExtendTopLevelDomain() {

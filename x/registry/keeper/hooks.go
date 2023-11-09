@@ -2,6 +2,7 @@ package keeper
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
 )
 

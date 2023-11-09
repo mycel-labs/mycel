@@ -5,9 +5,10 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/mycel-domain/mycel/x/registry/types"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
+
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 var _ = strconv.Itoa(0)
@@ -30,8 +31,8 @@ func CmdDomainRegistrationFee() *cobra.Command {
 			queryClient := types.NewQueryClient(clientCtx)
 
 			params := &types.QueryDomainRegistrationFeeRequest{
-				Name:   reqName,
-				Parent: reqParent,
+				Name:                     reqName,
+				Parent:                   reqParent,
 				RegistrationPeriodInYear: reqRegistrationPeriodInYear,
 			}
 

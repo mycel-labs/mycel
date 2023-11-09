@@ -5,10 +5,11 @@ import (
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/stretchr/testify/require"
+
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/x/resolver/keeper"
 	"github.com/mycel-domain/mycel/x/resolver/types"
-	"github.com/stretchr/testify/require"
 )
 
 func setupMsgServer(t testing.TB) (types.MsgServer, context.Context) {

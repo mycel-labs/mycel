@@ -2,9 +2,10 @@ package keeper_test
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/mycel-domain/mycel/x/epochs"
 	"github.com/mycel-domain/mycel/x/epochs/types"
-	"time"
 )
 
 func (suite *KeeperTestSuite) TestEpochInfoChangesBeginBlockerAndInitGenesis() {

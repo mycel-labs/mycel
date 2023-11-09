@@ -3,10 +3,10 @@ package keeper
 import (
 	"context"
 
-	"github.com/mycel-domain/mycel/x/registry/types"
-
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 func (k msgServer) RegisterTopLevelDomain(goCtx context.Context, msg *types.MsgRegisterTopLevelDomain) (*types.MsgRegisterTopLevelDomainResponse, error) {

@@ -3,6 +3,7 @@ package keeper
 import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
@@ -72,5 +73,3 @@ func (k Keeper) AppendToOwnedDomain(ctx sdk.Context, owner string, name string, 
 		k.SetDomainOwnership(ctx, types.DomainOwnership{Owner: owner, Domains: []*types.OwnedDomain{{Name: name, Parent: parent}}})
 	}
 }
-
-

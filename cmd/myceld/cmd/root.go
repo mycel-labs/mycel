@@ -3,14 +3,18 @@ package cmd
 import (
 	"errors"
 	"io"
+	"log"
 	"os"
 	"path/filepath"
 	"strings"
 
+	// CosmWasm
+	wasmcli "github.com/CosmWasm/wasmd/x/wasm/client/cli"
+	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	dbm "github.com/cometbft/cometbft-db"
 	tmcfg "github.com/cometbft/cometbft/config"
 	tmcli "github.com/cometbft/cometbft/libs/cli"
-	"github.com/cometbft/cometbft/libs/log"
+	tmlog "github.com/cometbft/cometbft/libs/log"
 	tmtypes "github.com/cometbft/cometbft/types"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -37,12 +41,6 @@ import (
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-
-	// this line is used by starport scaffolding # root/moduleImport
-
-	// CosmWasm
-	wasmcli "github.com/CosmWasm/wasmd/x/wasm/client/cli"
-	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 
 	"github.com/mycel-domain/mycel/app"
 	appparams "github.com/mycel-domain/mycel/app/params"
@@ -224,7 +222,10 @@ func overwriteFlagDefaults(c *cobra.Command, defaults map[string]string) {
 	set := func(s *pflag.FlagSet, key, val string) {
 		if f := s.Lookup(key); f != nil {
 			f.DefValue = val
-			f.Value.Set(val)
+			err := f.Value.Set(val)
+			if err != nil {
+				log.Printf("%v", err)
+			}
 		}
 	}
 	for key, val := range defaults {
@@ -242,7 +243,7 @@ type appCreator struct {
 
 // newApp creates a new Cosmos SDK app
 func (a appCreator) newApp(
-	logger log.Logger,
+	logger tmlog.Logger,
 	db dbm.DB,
 	traceStore io.Writer,
 	appOpts servertypes.AppOptions,
@@ -324,7 +325,7 @@ func (a appCreator) newApp(
 
 // appExport creates a new simapp (optionally at a given height)
 func (a appCreator) appExport(
-	logger log.Logger,
+	logger tmlog.Logger,
 	db dbm.DB,
 	traceStore io.Writer,
 	height int64,

@@ -2,6 +2,7 @@ package resolver
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	"github.com/mycel-domain/mycel/x/resolver/keeper"
 	"github.com/mycel-domain/mycel/x/resolver/types"
 )

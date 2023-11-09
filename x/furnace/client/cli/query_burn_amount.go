@@ -3,10 +3,10 @@ package cli
 import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 
 	"github.com/mycel-domain/mycel/x/furnace/types"
-	"github.com/spf13/cast"
 )
 
 func CmdListBurnAmount() *cobra.Command {

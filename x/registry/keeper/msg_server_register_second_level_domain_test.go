@@ -3,12 +3,12 @@ package keeper_test
 import (
 	"fmt"
 
+	errorsmod "cosmossdk.io/errors"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+
 	"github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/testutil"
 	"github.com/mycel-domain/mycel/x/registry/types"
-
-	errorsmod "cosmossdk.io/errors"
 )
 
 func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {

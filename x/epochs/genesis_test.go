@@ -3,12 +3,12 @@ package epochs_test
 import (
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
 	"github.com/mycel-domain/mycel/x/epochs"
 	"github.com/mycel-domain/mycel/x/epochs/types"
-
-	"github.com/stretchr/testify/require"
 )
 
 func TestGenesis(t *testing.T) {
