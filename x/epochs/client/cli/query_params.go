@@ -5,8 +5,9 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/mycel-domain/mycel/x/epochs/types"
 	"github.com/spf13/cobra"
+
+	"github.com/mycel-domain/mycel/x/epochs/types"
 )
 
 func CmdQueryParams() *cobra.Command {

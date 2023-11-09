@@ -4,9 +4,10 @@ import (
 	"context"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/mycel-domain/mycel/x/registry/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 func (k Keeper) Params(goCtx context.Context, req *types.QueryParamsRequest) (*types.QueryParamsResponse, error) {

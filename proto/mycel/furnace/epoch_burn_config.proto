@@ -1,7 +1,6 @@
 syntax = "proto3";
 package mycel.furnace;
 
-
 import "gogoproto/gogo.proto";
 import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
@@ -9,7 +8,7 @@ import "google/protobuf/timestamp.proto";
 option go_package = "github.com/mycel-domain/mycel/x/furnace/types";
 
 message EpochBurnConfig {
-  string epochIdentifier = 1; 
+  string epochIdentifier = 1;
   uint64 currentBurnAmountIndex = 2;
   uint64 defaultTotalEpochs = 3;
   google.protobuf.Timestamp startTime = 4 [

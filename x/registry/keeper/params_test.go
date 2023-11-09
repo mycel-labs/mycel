@@ -3,9 +3,10 @@ package keeper_test
 import (
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	testkeeper "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/x/registry/types"
-	"github.com/stretchr/testify/require"
 )
 
 func TestGetParams(t *testing.T) {

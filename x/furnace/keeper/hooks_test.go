@@ -2,12 +2,14 @@ package keeper_test
 
 import (
 	"fmt"
+	"time"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	"github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/testutil"
 	epochstypes "github.com/mycel-domain/mycel/x/epochs/types"
 	"github.com/mycel-domain/mycel/x/furnace/types"
-	"time"
 )
 
 type ExpBurnEvent struct {
@@ -27,7 +29,7 @@ type ExpCreateBurnAmountEvent struct {
 var (
 	now            = time.Now()
 	oneDayDuration = time.Hour*24 + time.Second
-	defaultConfig = types.GetDefaultEpochBurnConfig()
+	defaultConfig  = types.GetDefaultEpochBurnConfig()
 )
 
 func (suite *KeeperTestSuite) TestAfterEpochEndCreateBurnAmount() {
@@ -45,7 +47,7 @@ func (suite *KeeperTestSuite) TestAfterEpochEndCreateBurnAmount() {
 			},
 		},
 		{
-			epochsCount: int64(defaultConfig.DefaultTotalEpochs+1),
+			epochsCount: int64(defaultConfig.DefaultTotalEpochs + 1),
 			expectedEvents: []ExpCreateBurnAmountEvent{
 				{
 					BurnAmountIndex: "1",
@@ -213,7 +215,7 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 			suite.SetupTest()
 
 			// Set burn totalBurnAmount
-			for i, _ := range tc.totalBurnAmounts {
+			for i := range tc.totalBurnAmounts {
 				suite.app.FurnaceKeeper.SetBurnAmount(suite.ctx, types.BurnAmount{
 					Index:                 uint64(i + 1),
 					TotalEpochs:           3,

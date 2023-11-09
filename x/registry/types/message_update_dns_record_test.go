@@ -3,10 +3,10 @@ package types
 import (
 	"testing"
 
-	"github.com/mycel-domain/mycel/testutil/sample"
-
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/stretchr/testify/require"
+
+	"github.com/mycel-domain/mycel/testutil/sample"
 )
 
 func TestMsgUpdateDnsRecord_ValidateBasic(t *testing.T) {

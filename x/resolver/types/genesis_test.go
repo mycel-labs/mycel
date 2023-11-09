@@ -3,8 +3,9 @@ package types_test
 import (
 	"testing"
 
-	"github.com/mycel-domain/mycel/x/resolver/types"
 	"github.com/stretchr/testify/require"
+
+	"github.com/mycel-domain/mycel/x/resolver/types"
 )
 
 func TestGenesisState_Validate(t *testing.T) {

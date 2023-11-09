@@ -1,55 +1,49 @@
 syntax = "proto3";
-
 package mycel.resolver;
 
+import "cosmos/base/query/v1beta1/pagination.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
-import "cosmos/base/query/v1beta1/pagination.proto";
-import "mycel/resolver/params.proto";
 import "mycel/registry/second_level_domain.proto";
+import "mycel/resolver/params.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/resolver/types";
 
 // Query defines the gRPC querier service.
 service Query {
-  
   // Parameters queries the parameters of the module.
-  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/mycel-domain/mycel/resolver/params";
-  
   }
-  
+
   // Queries a list of QueryWalletRecord items.
-  rpc WalletRecord (QueryWalletRecordRequest) returns (QueryWalletRecordResponse) {
+  rpc WalletRecord(QueryWalletRecordRequest) returns (QueryWalletRecordResponse) {
     option (google.api.http).get = "/mycel-domain/mycel/resolver/wallet_record/{domainName}/{domainParent}/{walletRecordType}";
-  
   }
-  
+
   // Queries a list of DnsRecord items.
-  rpc DnsRecord (QueryDnsRecordRequest) returns (QueryDnsRecordResponse) {
+  rpc DnsRecord(QueryDnsRecordRequest) returns (QueryDnsRecordResponse) {
     option (google.api.http).get = "/mycel-domain/mycel/resolver/dns_record/{domainName}/{domainParent}/{dnsRecordType}";
-  
   }
-  
+
   // Queries a list of AllRecord items.
-  rpc AllRecords (QueryAllRecordsRequest) returns (QueryAllRecordsResponse) {
+  rpc AllRecords(QueryAllRecordsRequest) returns (QueryAllRecordsResponse) {
     option (google.api.http).get = "/mycel-domain/mycel/resolver/all_records/{domainName}/{domainParent}";
-  
   }
 }
+
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
-  
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryWalletRecordRequest {
-  string domainName       = 1;
-  string domainParent     = 2;
+  string domainName = 1;
+  string domainParent = 2;
   string walletRecordType = 3;
 }
 
@@ -58,8 +52,8 @@ message QueryWalletRecordResponse {
 }
 
 message QueryDnsRecordRequest {
-  string domainName    = 1;
-  string domainParent  = 2;
+  string domainName = 1;
+  string domainParent = 2;
   string dnsRecordType = 3;
 }
 
@@ -68,11 +62,10 @@ message QueryDnsRecordResponse {
 }
 
 message QueryAllRecordsRequest {
-  string domainName   = 1;
+  string domainName = 1;
   string domainParent = 2;
 }
 
 message QueryAllRecordsResponse {
   map<string, mycel.registry.Record> values = 1;
 }
-

@@ -34,32 +34,32 @@ func TestDomainValidate(t *testing.T) {
 		},
 		// Invalid name
 		{domain: SecondLevelDomain{Name: ".foo", Parent: "myc"},
-			expErr: errorsmod.Wrapf(ErrInvalidDomainName, ".foo"),
+			expErr: errorsmod.Wrapf(ErrInvalidSecondLevelDomainName, ".foo"),
 		},
 		{domain: SecondLevelDomain{Name: "", Parent: "myc"},
-			expErr: errorsmod.Wrapf(ErrInvalidDomainName, ""),
+			expErr: errorsmod.Wrapf(ErrInvalidSecondLevelDomainName, ""),
 		},
 		{domain: SecondLevelDomain{Name: "bar.foo", Parent: "myc"},
-			expErr: errorsmod.Wrapf(ErrInvalidDomainName, "bar.foo"),
+			expErr: errorsmod.Wrapf(ErrInvalidSecondLevelDomainName, "bar.foo"),
 		},
 		{domain: SecondLevelDomain{Name: ".", Parent: "myc"},
-			expErr: errorsmod.Wrapf(ErrInvalidDomainName, "."),
+			expErr: errorsmod.Wrapf(ErrInvalidSecondLevelDomainName, "."),
 		},
 		{domain: SecondLevelDomain{Name: "##", Parent: "myc"},
-			expErr: errorsmod.Wrapf(ErrInvalidDomainName, "##"),
+			expErr: errorsmod.Wrapf(ErrInvalidSecondLevelDomainName, "##"),
 		},
 		// Invalid parent
 		{
 			domain: SecondLevelDomain{Name: "foo", Parent: ".##"},
-			expErr: errorsmod.Wrapf(ErrInvalidDomainParent, ".##"),
+			expErr: errorsmod.Wrapf(ErrInvalidSecondLevelDomainParent, ".##"),
 		},
 		{
 			domain: SecondLevelDomain{Name: "foo", Parent: ".myc"},
-			expErr: errorsmod.Wrapf(ErrInvalidDomainParent, ".myc"),
+			expErr: errorsmod.Wrapf(ErrInvalidSecondLevelDomainParent, ".myc"),
 		},
 		{
 			domain: SecondLevelDomain{Name: "foo", Parent: ".foo.myc"},
-			expErr: errorsmod.Wrapf(ErrInvalidDomainParent, ".foo.myc"),
+			expErr: errorsmod.Wrapf(ErrInvalidSecondLevelDomainParent, ".foo.myc"),
 		},
 	}
 

@@ -6,6 +6,9 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	"github.com/mycel-domain/mycel/app/params"
+	furnacetypes "github.com/mycel-domain/mycel/x/furnace/types"
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
@@ -65,8 +68,13 @@ func (k Keeper) GetAllTopLevelDomain(ctx sdk.Context) (list []types.TopLevelDoma
 	return
 }
 
-// Get valid top level domain
+// Get is top-level-domain already taken
+func (k Keeper) GetIsTopLevelDomainAlreadyTaken(ctx sdk.Context, domain types.TopLevelDomain) (isDomainAlreadyTaken bool) {
+	_, isDomainAlreadyTaken = k.GetTopLevelDomain(ctx, domain.Name)
+	return isDomainAlreadyTaken
+}
 
+// Get valid-top-level domain
 func (k Keeper) GetValidTopLevelDomain(ctx sdk.Context, name string) (topLevelDomain types.TopLevelDomain, err error) {
 	// Regex validation
 	err = types.ValidateTopLevelDomainName(name)
@@ -75,16 +83,151 @@ func (k Keeper) GetValidTopLevelDomain(ctx sdk.Context, name string) (topLevelDo
 	}
 
 	// Get top level domain
-	topLevelDomain, isFound := k.GetTopLevelDomain(ctx, name)
-	if !isFound {
-		return topLevelDomain, errorsmod.Wrapf(types.ErrDomainNotFound, "%s", name)
+	topLevelDomain, found := k.GetTopLevelDomain(ctx, name)
+	if !found {
+		return topLevelDomain, errorsmod.Wrapf(types.ErrTopLevelDomainNotFound, "%s", name)
 	}
 
 	// Check if domain is not expired
-	expirationDate := time.Unix(0, topLevelDomain.ExpirationDate)
-	if ctx.BlockTime().After(expirationDate) && topLevelDomain.ExpirationDate != 0 {
-		return topLevelDomain, errorsmod.Wrapf(types.ErrDomainExpired, "%s", name)
+	if ctx.BlockTime().After(topLevelDomain.ExpirationDate) && topLevelDomain.ExpirationDate != (time.Time{}) {
+		return topLevelDomain, errorsmod.Wrapf(types.ErrTopLevelDomainExpired, "%s", name)
 	}
 
 	return topLevelDomain, nil
+}
+
+// Pay top-level-domain registration fee
+func (k Keeper) PayTopLevelDomainFee(ctx sdk.Context, payer sdk.AccAddress, domain types.TopLevelDomain, registrationPeriodInYear uint64) (registrationFee types.TopLevelDomainFee, err error) {
+	// Get registration fee
+	registrationFee, err = k.GetTopLevelDomainFee(ctx, domain, registrationPeriodInYear)
+	if err != nil {
+		return types.TopLevelDomainFee{}, err
+	}
+
+	// Send coins to treasury
+	err = k.distributionKeeper.FundCommunityPool(ctx, sdk.NewCoins(registrationFee.FeeToTreasury), payer)
+	if err != nil {
+		return types.TopLevelDomainFee{}, err
+	}
+
+	// Send coins to furnace module
+	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, furnacetypes.ModuleName, sdk.NewCoins(registrationFee.FeeToBurn))
+	if err != nil {
+		return types.TopLevelDomainFee{}, err
+	}
+	// Store burn amount
+	_, err = k.furnaceKeeper.AddRegistrationFeeToBurnAmounts(ctx, registrationPeriodInYear, registrationFee.FeeToBurn)
+	if err != nil {
+		return types.TopLevelDomainFee{}, err
+	}
+
+	// Set total registration fee
+	if registrationFee.FeeToBurn.Denom == registrationFee.FeeToTreasury.Denom {
+		registrationFee.TotalFee = sdk.NewCoins(registrationFee.FeeToBurn.Add(registrationFee.FeeToTreasury))
+	} else {
+		registrationFee.TotalFee = sdk.NewCoins(registrationFee.FeeToBurn, registrationFee.FeeToTreasury)
+	}
+
+	return registrationFee, nil
+}
+
+func (k Keeper) ValidateTopLevelDomainIsRegistrable(ctx sdk.Context, topLevelDomain types.TopLevelDomain) error {
+	// Validate top-level-domain
+	err := topLevelDomain.Validate()
+	if err != nil {
+		return err
+	}
+	// Check if top-level-domain is already taken
+	isTaken := k.GetIsTopLevelDomainAlreadyTaken(ctx, topLevelDomain)
+	if isTaken {
+		return errorsmod.Wrapf(types.ErrTopLevelDomainAlreadyTaken, "%s", topLevelDomain.Name)
+	}
+
+	return nil
+}
+
+// Register top-level-domain
+func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, creator string, domainName string, registrationPeriodInYear uint64) (topLevelDomain types.TopLevelDomain, fee types.TopLevelDomainFee, err error) {
+	// Create top-level-domain
+	currentTime := ctx.BlockTime()
+	expirationDate := currentTime.AddDate(0, 0, params.OneYearInDays*int(registrationPeriodInYear))
+	accessControl := map[string]types.DomainRole{
+		creator: types.DomainRole_OWNER,
+	}
+	defaultRegistrationConfig := types.GetDefaultSubdomainConfig(303)
+	topLevelDomain = types.TopLevelDomain{
+		Name:                  domainName,
+		ExpirationDate:        expirationDate,
+		Metadata:              nil,
+		SubdomainConfig:       &defaultRegistrationConfig,
+		AccessControl:         accessControl,
+		TotalWithdrawalAmount: sdk.NewCoins(),
+	}
+
+	// Validate top-level-domain is registrable
+	err = k.ValidateTopLevelDomainIsRegistrable(ctx, topLevelDomain)
+	if err != nil {
+		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, err
+	}
+
+	// Pay TLD registration fee
+	creatorAddress, err := sdk.AccAddressFromBech32(creator)
+	if err != nil {
+		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, err
+	}
+	fee, err = k.PayTopLevelDomainFee(ctx, creatorAddress, topLevelDomain, registrationPeriodInYear)
+	if err != nil {
+		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, err
+	}
+
+	// Set domain
+	k.SetTopLevelDomain(ctx, topLevelDomain)
+
+	// Append to owned domain
+	k.AppendToOwnedDomain(ctx, creator, topLevelDomain.Name, "")
+
+	// Emit event
+	EmitRegisterTopLevelDomainEvent(ctx, topLevelDomain, fee)
+
+	return topLevelDomain, fee, nil
+}
+
+// Extend expiration date
+func (k Keeper) ExtendTopLevelDomainExpirationDate(ctx sdk.Context, creator string, domainName string, extensionPeriodInYear uint64) (topLevelDomain types.TopLevelDomain, fee types.TopLevelDomainFee, err error) {
+	// Get domain
+	topLevelDomain, found := k.GetTopLevelDomain(ctx, domainName)
+	if !found {
+		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, errorsmod.Wrapf(types.ErrTopLevelDomainNotFound, "%s", domainName)
+	}
+
+	// Check if the domain is editable
+	_, err = topLevelDomain.IsEditable(creator)
+	if err != nil {
+		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, err
+	}
+
+	creatorAddress, err := sdk.AccAddressFromBech32(creator)
+	if err != nil {
+		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, err
+	}
+	// Check if the domain is editable
+	_, err = topLevelDomain.IsEditable(creator)
+	if err != nil {
+		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, err
+	}
+
+	// Pay TLD extend fee
+	fee, err = k.PayTopLevelDomainFee(ctx, creatorAddress, topLevelDomain, extensionPeriodInYear)
+	if err != nil {
+		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, err
+	}
+
+	// Update domain store
+	topLevelDomain.ExtendExpirationDate(topLevelDomain.ExpirationDate, extensionPeriodInYear)
+	k.SetTopLevelDomain(ctx, topLevelDomain)
+
+	// Emit event
+	EmitExtendTopLevelDomainExpirationDateEvent(ctx, topLevelDomain, fee)
+
+	return topLevelDomain, fee, err
 }

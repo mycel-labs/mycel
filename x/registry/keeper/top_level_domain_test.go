@@ -2,17 +2,18 @@ package keeper_test
 
 import (
 	"fmt"
-
 	"strconv"
 	"testing"
+	"time"
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/stretchr/testify/require"
+
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
 	"github.com/mycel-domain/mycel/x/registry/keeper"
 	"github.com/mycel-domain/mycel/x/registry/types"
-	"github.com/stretchr/testify/require"
 )
 
 // Prevent strconv unused error
@@ -73,23 +74,23 @@ func (suite *KeeperTestSuite) TestGetValidTopLevelDomain() {
 		{
 			topLevelDomain: types.TopLevelDomain{
 				Name:           "test",
-				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, 20).UnixNano(),
+				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, 20),
 			},
 			expErr: nil,
 		},
 		{
 			topLevelDomain: types.TopLevelDomain{
 				Name:           "test",
-				ExpirationDate: 0,
+				ExpirationDate: time.Time{},
 			},
 			expErr: nil,
 		},
 		{
 			topLevelDomain: types.TopLevelDomain{
 				Name:           "test",
-				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, -20).UnixNano(),
+				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, -20),
 			},
-			expErr: errorsmod.Wrapf(types.ErrDomainExpired, "test"),
+			expErr: errorsmod.Wrapf(types.ErrTopLevelDomainExpired, "test"),
 		},
 	}
 	for i, tc := range testCases {

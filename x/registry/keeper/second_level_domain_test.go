@@ -4,15 +4,16 @@ import (
 	"fmt"
 	"strconv"
 	"testing"
+	"time"
+
+	errorsmod "cosmossdk.io/errors"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/stretchr/testify/require"
 
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
 	"github.com/mycel-domain/mycel/x/registry/keeper"
 	"github.com/mycel-domain/mycel/x/registry/types"
-
-	errorsmod "cosmossdk.io/errors"
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/stretchr/testify/require"
 )
 
 // Prevent strconv unused error
@@ -88,8 +89,16 @@ func (suite *KeeperTestSuite) TestGetValidSecondLevelDomain() {
 		{
 			secondLevelDomain: types.SecondLevelDomain{
 				Name:           "test",
-				Parent:         "test",
-				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, 20).UnixNano(),
+				Parent:         "cel",
+				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, 20),
+			},
+			expErr: nil,
+		},
+		{
+			secondLevelDomain: types.SecondLevelDomain{
+				Name:           "test",
+				Parent:         "cel",
+				ExpirationDate: time.Time{},
 			},
 			expErr: nil,
 		},
@@ -97,17 +106,9 @@ func (suite *KeeperTestSuite) TestGetValidSecondLevelDomain() {
 			secondLevelDomain: types.SecondLevelDomain{
 				Name:           "test",
 				Parent:         "test",
-				ExpirationDate: 0,
+				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, -20),
 			},
-			expErr: nil,
-		},
-		{
-			secondLevelDomain: types.SecondLevelDomain{
-				Name:           "test",
-				Parent:         "test",
-				ExpirationDate: suite.ctx.BlockTime().AddDate(0, 0, -20).UnixNano(),
-			},
-			expErr: errorsmod.Wrapf(types.ErrDomainExpired, "test"),
+			expErr: errorsmod.Wrapf(types.ErrTopLevelDomainNotFound, "test"),
 		},
 	}
 	for i, tc := range testCases {

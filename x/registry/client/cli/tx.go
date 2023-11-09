@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/spf13/cobra"
 
-	"github.com/cosmos/cosmos-sdk/client"
 	// "github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
@@ -35,6 +35,7 @@ func GetTxCmd() *cobra.Command {
 	cmd.AddCommand(CmdRegisterDomain())
 	cmd.AddCommand(CmdRegisterTopLevelDomain())
 	cmd.AddCommand(CmdWithdrawRegistrationFee())
+	cmd.AddCommand(CmdExtendTopLevelDomainExpirationDate())
 	// this line is used by starport scaffolding # 1
 
 	return cmd

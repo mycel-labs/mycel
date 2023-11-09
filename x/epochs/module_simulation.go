@@ -3,15 +3,15 @@ package epochs
 import (
 	"math/rand"
 
-	"github.com/mycel-domain/mycel/testutil/sample"
-	epochssimulation "github.com/mycel-domain/mycel/x/epochs/simulation"
-	"github.com/mycel-domain/mycel/x/epochs/types"
-
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
+
+	"github.com/mycel-domain/mycel/testutil/sample"
+	epochssimulation "github.com/mycel-domain/mycel/x/epochs/simulation"
+	"github.com/mycel-domain/mycel/x/epochs/types"
 )
 
 // avoid unused import issue

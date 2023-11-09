@@ -3,9 +3,6 @@ package keeper
 import (
 	"testing"
 
-	"github.com/mycel-domain/mycel/x/registry/keeper"
-	"github.com/mycel-domain/mycel/x/registry/types"
-
 	tmdb "github.com/cometbft/cometbft-db"
 	"github.com/cometbft/cometbft/libs/log"
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
@@ -16,6 +13,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	typesparams "github.com/cosmos/cosmos-sdk/x/params/types"
 	"github.com/stretchr/testify/require"
+
+	"github.com/mycel-domain/mycel/x/registry/keeper"
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 func RegistryKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {

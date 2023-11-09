@@ -3,10 +3,10 @@ package keeper
 import (
 	"context"
 
-	"github.com/mycel-domain/mycel/x/registry/types"
-
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 func (k msgServer) UpdateWalletRecord(goCtx context.Context, msg *types.MsgUpdateWalletRecord) (*types.MsgUpdateWalletRecordResponse, error) {
@@ -14,7 +14,7 @@ func (k msgServer) UpdateWalletRecord(goCtx context.Context, msg *types.MsgUpdat
 
 	domain, isFound := k.Keeper.GetSecondLevelDomain(ctx, msg.Name, msg.Parent)
 	if !isFound {
-		return nil, errorsmod.Wrapf(types.ErrDomainNotFound, "%s.%s", msg.Name, msg.Parent)
+		return nil, errorsmod.Wrapf(types.ErrSecondLevelDomainNotFound, "%s.%s", msg.Name, msg.Parent)
 	}
 
 	// Check if the domain is owned by the creator
@@ -31,7 +31,6 @@ func (k msgServer) UpdateWalletRecord(goCtx context.Context, msg *types.MsgUpdat
 
 	// Emit event
 	EmitUpdateWalletRecordEvent(ctx, *msg)
-
 
 	return &types.MsgUpdateWalletRecordResponse{}, nil
 }

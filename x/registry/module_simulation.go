@@ -8,6 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
+
 	"github.com/mycel-domain/mycel/testutil/sample"
 	registrysimulation "github.com/mycel-domain/mycel/x/registry/simulation"
 	"github.com/mycel-domain/mycel/x/registry/types"
@@ -38,6 +39,10 @@ const (
 	opWeightMsgWithdrawRegistrationFee = "op_weight_msg_withdraw_registration_fee"
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgWithdrawRegistrationFee int = 100
+
+	opWeightMsgExtendTopLevelDomainExpirationDate = "op_weight_msg_extend_top_level_domain_expiration"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgExtendTopLevelDomainExpirationDate int = 100
 
 	// this line is used by starport scaffolding # simapp/module/const
 )
@@ -109,6 +114,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgWithdrawRegistrationFee,
 		registrysimulation.SimulateMsgWithdrawRegistrationFee(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgExtendTopLevelDomainExpirationDate int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgExtendTopLevelDomainExpirationDate, &weightMsgExtendTopLevelDomainExpirationDate, nil,
+		func(_ *rand.Rand) {
+			weightMsgExtendTopLevelDomainExpirationDate = defaultWeightMsgExtendTopLevelDomainExpirationDate
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgExtendTopLevelDomainExpirationDate,
+		registrysimulation.SimulateMsgExtendTopLevelDomainExpirationDate(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

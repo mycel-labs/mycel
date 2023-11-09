@@ -419,6 +419,8 @@ func (m *MsgRegisterTopLevelDomain) GetRegistrationPeriodInYear() uint64 {
 }
 
 type MsgRegisterTopLevelDomainResponse struct {
+	TopLevelDomain *TopLevelDomain    `protobuf:"bytes,1,opt,name=topLevelDomain,proto3" json:"topLevelDomain,omitempty"`
+	Fee            *TopLevelDomainFee `protobuf:"bytes,2,opt,name=fee,proto3" json:"fee,omitempty"`
 }
 
 func (m *MsgRegisterTopLevelDomainResponse) Reset()         { *m = MsgRegisterTopLevelDomainResponse{} }
@@ -453,6 +455,20 @@ func (m *MsgRegisterTopLevelDomainResponse) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_MsgRegisterTopLevelDomainResponse proto.InternalMessageInfo
+
+func (m *MsgRegisterTopLevelDomainResponse) GetTopLevelDomain() *TopLevelDomain {
+	if m != nil {
+		return m.TopLevelDomain
+	}
+	return nil
+}
+
+func (m *MsgRegisterTopLevelDomainResponse) GetFee() *TopLevelDomainFee {
+	if m != nil {
+		return m.Fee
+	}
+	return nil
+}
 
 type MsgWithdrawRegistrationFee struct {
 	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
@@ -550,6 +566,122 @@ func (m *MsgWithdrawRegistrationFeeResponse) GetRegistrationFee() github_com_cos
 	return nil
 }
 
+type MsgExtendTopLevelDomainExpirationDate struct {
+	Creator               string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Name                  string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	ExtensionPeriodInYear uint64 `protobuf:"varint,3,opt,name=extensionPeriodInYear,proto3" json:"extensionPeriodInYear,omitempty"`
+}
+
+func (m *MsgExtendTopLevelDomainExpirationDate) Reset()         { *m = MsgExtendTopLevelDomainExpirationDate{} }
+func (m *MsgExtendTopLevelDomainExpirationDate) String() string { return proto.CompactTextString(m) }
+func (*MsgExtendTopLevelDomainExpirationDate) ProtoMessage()    {}
+func (*MsgExtendTopLevelDomainExpirationDate) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7a4e7619dfc6612f, []int{10}
+}
+func (m *MsgExtendTopLevelDomainExpirationDate) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgExtendTopLevelDomainExpirationDate) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgExtendTopLevelDomainExpirationDate.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgExtendTopLevelDomainExpirationDate) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgExtendTopLevelDomainExpirationDate.Merge(m, src)
+}
+func (m *MsgExtendTopLevelDomainExpirationDate) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgExtendTopLevelDomainExpirationDate) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgExtendTopLevelDomainExpirationDate.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgExtendTopLevelDomainExpirationDate proto.InternalMessageInfo
+
+func (m *MsgExtendTopLevelDomainExpirationDate) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgExtendTopLevelDomainExpirationDate) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *MsgExtendTopLevelDomainExpirationDate) GetExtensionPeriodInYear() uint64 {
+	if m != nil {
+		return m.ExtensionPeriodInYear
+	}
+	return 0
+}
+
+type MsgExtendTopLevelDomainExpirationDateResponse struct {
+	TopLevelDomain *TopLevelDomain    `protobuf:"bytes,1,opt,name=topLevelDomain,proto3" json:"topLevelDomain,omitempty"`
+	Fee            *TopLevelDomainFee `protobuf:"bytes,2,opt,name=fee,proto3" json:"fee,omitempty"`
+}
+
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) Reset() {
+	*m = MsgExtendTopLevelDomainExpirationDateResponse{}
+}
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) String() string {
+	return proto.CompactTextString(m)
+}
+func (*MsgExtendTopLevelDomainExpirationDateResponse) ProtoMessage() {}
+func (*MsgExtendTopLevelDomainExpirationDateResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7a4e7619dfc6612f, []int{11}
+}
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgExtendTopLevelDomainExpirationDateResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgExtendTopLevelDomainExpirationDateResponse.Merge(m, src)
+}
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgExtendTopLevelDomainExpirationDateResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgExtendTopLevelDomainExpirationDateResponse proto.InternalMessageInfo
+
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) GetTopLevelDomain() *TopLevelDomain {
+	if m != nil {
+		return m.TopLevelDomain
+	}
+	return nil
+}
+
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) GetFee() *TopLevelDomainFee {
+	if m != nil {
+		return m.Fee
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*MsgUpdateWalletRecord)(nil), "mycel.registry.MsgUpdateWalletRecord")
 	proto.RegisterType((*MsgUpdateWalletRecordResponse)(nil), "mycel.registry.MsgUpdateWalletRecordResponse")
@@ -561,49 +693,58 @@ func init() {
 	proto.RegisterType((*MsgRegisterTopLevelDomainResponse)(nil), "mycel.registry.MsgRegisterTopLevelDomainResponse")
 	proto.RegisterType((*MsgWithdrawRegistrationFee)(nil), "mycel.registry.MsgWithdrawRegistrationFee")
 	proto.RegisterType((*MsgWithdrawRegistrationFeeResponse)(nil), "mycel.registry.MsgWithdrawRegistrationFeeResponse")
+	proto.RegisterType((*MsgExtendTopLevelDomainExpirationDate)(nil), "mycel.registry.MsgExtendTopLevelDomainExpirationDate")
+	proto.RegisterType((*MsgExtendTopLevelDomainExpirationDateResponse)(nil), "mycel.registry.MsgExtendTopLevelDomainExpirationDateResponse")
 }
 
 func init() { proto.RegisterFile("mycel/registry/tx.proto", fileDescriptor_7a4e7619dfc6612f) }
 
 var fileDescriptor_7a4e7619dfc6612f = []byte{
-	// 579 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x55, 0x41, 0x6f, 0xd3, 0x4c,
-	0x10, 0x8d, 0xbf, 0xa4, 0xad, 0xbe, 0x41, 0x50, 0xb4, 0x2a, 0xad, 0x6b, 0x15, 0xb7, 0x98, 0x82,
-	0x42, 0x45, 0x6c, 0x12, 0x38, 0x71, 0x2c, 0x15, 0x02, 0x44, 0x24, 0x64, 0x8a, 0x2a, 0xb8, 0x6d,
-	0xec, 0x91, 0x6b, 0x48, 0xbc, 0xd6, 0xee, 0x26, 0x6d, 0x4e, 0x9c, 0xb8, 0x73, 0xe2, 0xc2, 0x01,
-	0xce, 0xfc, 0x92, 0x1c, 0x7b, 0xe4, 0x04, 0x28, 0xf9, 0x23, 0x28, 0xeb, 0xc4, 0x72, 0xda, 0x38,
-	0x4d, 0x51, 0x4f, 0xd9, 0x99, 0x79, 0x79, 0xf3, 0x26, 0x3b, 0x2f, 0x0b, 0x6b, 0xad, 0xae, 0x87,
-	0x4d, 0x87, 0x63, 0x10, 0x0a, 0xc9, 0xbb, 0x8e, 0x3c, 0xb6, 0x63, 0xce, 0x24, 0x23, 0xd7, 0x54,
-	0xc1, 0x1e, 0x17, 0x8c, 0x95, 0x80, 0x05, 0x4c, 0x95, 0x9c, 0xe1, 0x29, 0x41, 0x19, 0xa6, 0xc7,
-	0x44, 0x8b, 0x09, 0xa7, 0x41, 0x05, 0x3a, 0x9d, 0x6a, 0x03, 0x25, 0xad, 0x3a, 0x1e, 0x0b, 0xa3,
-	0xa4, 0x6e, 0x7d, 0xd3, 0xe0, 0x46, 0x5d, 0x04, 0x6f, 0x62, 0x9f, 0x4a, 0x3c, 0xa0, 0xcd, 0x26,
-	0x4a, 0x17, 0x3d, 0xc6, 0x7d, 0xa2, 0xc3, 0x92, 0xc7, 0x91, 0x4a, 0xc6, 0x75, 0x6d, 0x4b, 0x2b,
-	0xff, 0xef, 0x8e, 0x43, 0x42, 0xa0, 0x14, 0xd1, 0x16, 0xea, 0xff, 0xa9, 0xb4, 0x3a, 0x93, 0x55,
-	0x58, 0x8c, 0x29, 0xc7, 0x48, 0xea, 0x45, 0x95, 0x1d, 0x45, 0x64, 0x07, 0xae, 0x1f, 0x65, 0x58,
-	0xf7, 0xbb, 0x31, 0xea, 0x25, 0x85, 0x38, 0x93, 0x27, 0x2b, 0xb0, 0xd0, 0xa1, 0xcd, 0x36, 0xea,
-	0x0b, 0x0a, 0x90, 0x04, 0xd6, 0x26, 0xdc, 0x9c, 0x2a, 0xd0, 0x45, 0x11, 0xb3, 0x48, 0xa0, 0xf5,
-	0x45, 0x03, 0x92, 0x22, 0xf6, 0x22, 0x71, 0xa9, 0xfa, 0xb7, 0xe1, 0xaa, 0x3f, 0xa6, 0xcc, 0x88,
-	0x9f, 0x4c, 0xe6, 0x28, 0xdf, 0x00, 0xe3, 0xac, 0xae, 0x54, 0xf6, 0x77, 0x0d, 0x36, 0xea, 0x22,
-	0x70, 0xd5, 0xfd, 0x21, 0x7f, 0x8d, 0x1e, 0x8b, 0xfc, 0x97, 0xd8, 0xc1, 0xe6, 0x1e, 0x6b, 0xd1,
-	0x30, 0xba, 0xa4, 0x01, 0x1e, 0x83, 0x3e, 0x5a, 0x11, 0x2a, 0x43, 0x16, 0xbd, 0x42, 0x1e, 0x32,
-	0xff, 0x79, 0xf4, 0x16, 0x29, 0x57, 0xb3, 0x94, 0xdc, 0xdc, 0xba, 0x75, 0x17, 0xb6, 0x67, 0x29,
-	0x4c, 0x47, 0xf9, 0xa4, 0xc1, 0x7a, 0x06, 0xb8, 0xcf, 0xe2, 0x7f, 0x9f, 0x63, 0x96, 0xde, 0xe2,
-	0x39, 0x7a, 0x6f, 0xc3, 0xad, 0x5c, 0x19, 0xa9, 0xd8, 0x17, 0xea, 0x56, 0x0e, 0x42, 0x79, 0xe8,
-	0x73, 0x7a, 0xe4, 0x66, 0xb8, 0x9e, 0x22, 0x5e, 0x4c, 0xac, 0xf5, 0x55, 0x03, 0x2b, 0x9f, 0x6c,
-	0xdc, 0x92, 0xb4, 0x61, 0x99, 0x4f, 0x96, 0xf4, 0xa5, 0xad, 0x62, 0xf9, 0x4a, 0x6d, 0xdd, 0x4e,
-	0xec, 0x69, 0x0f, 0xed, 0x69, 0x8f, 0xec, 0x69, 0x3f, 0x61, 0x61, 0xb4, 0xfb, 0xa0, 0xf7, 0x6b,
-	0xb3, 0xf0, 0xe3, 0xf7, 0x66, 0x39, 0x08, 0xe5, 0x61, 0xbb, 0x61, 0x7b, 0xac, 0xe5, 0x8c, 0xbc,
-	0x9c, 0x7c, 0x54, 0x84, 0xff, 0xc1, 0x91, 0xdd, 0x18, 0x85, 0xfa, 0x82, 0x70, 0x4f, 0xf7, 0xa8,
-	0xf5, 0x4a, 0x50, 0xac, 0x8b, 0x80, 0xbc, 0x07, 0x32, 0xc5, 0xdf, 0x77, 0xec, 0xc9, 0x3f, 0x10,
-	0x7b, 0xaa, 0xcb, 0x8c, 0xca, 0x5c, 0xb0, 0x74, 0x54, 0x0a, 0xcb, 0xa7, 0x8d, 0x68, 0xe5, 0x32,
-	0xa4, 0x18, 0x63, 0xe7, 0x7c, 0x4c, 0xda, 0xe2, 0x23, 0xac, 0xe7, 0x9b, 0xe6, 0xfe, 0x14, 0xa2,
-	0x5c, 0xb4, 0xf1, 0xe8, 0x22, 0xe8, 0x54, 0x40, 0x07, 0x56, 0x73, 0x56, 0xfd, 0xde, 0x0c, 0xbe,
-	0x49, 0xa8, 0x51, 0x9d, 0x1b, 0x9a, 0xf6, 0xed, 0xc2, 0x5a, 0xde, 0xda, 0x4e, 0xfb, 0xfd, 0x72,
-	0xb0, 0x46, 0x6d, 0x7e, 0xec, 0xb8, 0xf5, 0xee, 0xb3, 0x5e, 0xdf, 0xd4, 0x4e, 0xfa, 0xa6, 0xf6,
-	0xa7, 0x6f, 0x6a, 0x9f, 0x07, 0x66, 0xe1, 0x64, 0x60, 0x16, 0x7e, 0x0e, 0xcc, 0xc2, 0x3b, 0x3b,
-	0xb3, 0x9f, 0x8a, 0xb7, 0xe2, 0x2b, 0xd5, 0x49, 0xe0, 0x1c, 0x67, 0x5e, 0xae, 0xe1, 0xae, 0x36,
-	0x16, 0xd5, 0xbb, 0xf3, 0xf0, 0x6f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x7a, 0x61, 0x5d, 0xde, 0xd8,
-	0x06, 0x00, 0x00,
+	// 697 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x56, 0xcf, 0x4f, 0x13, 0x41,
+	0x14, 0xee, 0x58, 0x7e, 0xc4, 0x47, 0x04, 0xb3, 0xe1, 0xc7, 0xb2, 0xc1, 0x05, 0x36, 0x60, 0x90,
+	0xd8, 0x5d, 0x29, 0x78, 0x31, 0xf1, 0x82, 0x40, 0xd4, 0xd8, 0xc4, 0xac, 0x18, 0xa2, 0x17, 0x32,
+	0xed, 0x3e, 0x97, 0xd5, 0x76, 0x67, 0xb3, 0x33, 0x94, 0xf6, 0xe4, 0xc9, 0x93, 0x17, 0x4f, 0x1e,
+	0xf4, 0x20, 0x67, 0xe3, 0x1f, 0xc2, 0x91, 0xa3, 0x27, 0x35, 0x10, 0xff, 0x0f, 0xd3, 0xd9, 0x76,
+	0xd3, 0x96, 0xdd, 0x52, 0x08, 0x07, 0x4f, 0xbb, 0x33, 0xef, 0x7b, 0xdf, 0xfb, 0xde, 0xfc, 0xf8,
+	0x32, 0x30, 0x55, 0xa9, 0x97, 0xb0, 0x6c, 0x85, 0xe8, 0x7a, 0x5c, 0x84, 0x75, 0x4b, 0xd4, 0xcc,
+	0x20, 0x64, 0x82, 0x29, 0xa3, 0x32, 0x60, 0xb6, 0x02, 0xda, 0xb8, 0xcb, 0x5c, 0x26, 0x43, 0x56,
+	0xe3, 0x2f, 0x42, 0x69, 0x7a, 0x89, 0xf1, 0x0a, 0xe3, 0x56, 0x91, 0x72, 0xb4, 0xaa, 0x2b, 0x45,
+	0x14, 0x74, 0xc5, 0x2a, 0x31, 0xcf, 0x6f, 0xc6, 0x17, 0xbb, 0xe9, 0x59, 0xb0, 0x5b, 0xc6, 0x2a,
+	0x96, 0x77, 0x1d, 0x56, 0xa1, 0x2d, 0x98, 0xf1, 0x8d, 0xc0, 0x44, 0x81, 0xbb, 0x2f, 0x03, 0x87,
+	0x0a, 0xdc, 0xa1, 0xe5, 0x32, 0x0a, 0x1b, 0x4b, 0x2c, 0x74, 0x14, 0x15, 0x86, 0x4b, 0x21, 0x52,
+	0xc1, 0x42, 0x95, 0xcc, 0x91, 0xa5, 0xeb, 0x76, 0x6b, 0xa8, 0x28, 0x30, 0xe0, 0xd3, 0x0a, 0xaa,
+	0xd7, 0xe4, 0xb4, 0xfc, 0x57, 0x26, 0x61, 0x28, 0xa0, 0x21, 0xfa, 0x42, 0xcd, 0xca, 0xd9, 0xe6,
+	0x48, 0x59, 0x86, 0x9b, 0x07, 0x6d, 0xac, 0xdb, 0xf5, 0x00, 0xd5, 0x01, 0x89, 0x38, 0x33, 0xaf,
+	0x8c, 0xc3, 0x60, 0x95, 0x96, 0xf7, 0x51, 0x1d, 0x94, 0x80, 0x68, 0x60, 0xcc, 0xc2, 0xad, 0x44,
+	0x81, 0x36, 0xf2, 0x80, 0xf9, 0x1c, 0x8d, 0xcf, 0x04, 0x94, 0x18, 0xb1, 0xe1, 0xf3, 0x2b, 0xd5,
+	0xbf, 0x00, 0x37, 0x9c, 0x16, 0x65, 0x9b, 0xf8, 0xce, 0xc9, 0x14, 0xe5, 0x33, 0xa0, 0x9d, 0xd5,
+	0x15, 0xcb, 0x3e, 0x24, 0x30, 0x53, 0xe0, 0xae, 0x2d, 0x37, 0x08, 0xc3, 0x17, 0x58, 0x62, 0xbe,
+	0xf3, 0xac, 0xb1, 0x43, 0x1b, 0x72, 0x83, 0xae, 0xa8, 0x81, 0x07, 0xa0, 0x36, 0xcf, 0x00, 0x15,
+	0x1e, 0xf3, 0x9f, 0x63, 0xe8, 0x31, 0xe7, 0x89, 0xff, 0x0a, 0x69, 0x28, 0x7b, 0x19, 0xb0, 0x53,
+	0xe3, 0xc6, 0x6d, 0x58, 0xe8, 0xa5, 0x30, 0x6e, 0xe5, 0x03, 0x81, 0xe9, 0x36, 0xe0, 0x36, 0x0b,
+	0x2e, 0xdf, 0x47, 0x2f, 0xbd, 0xd9, 0x73, 0xf4, 0x1e, 0x12, 0x98, 0x4f, 0xd5, 0xd1, 0x52, 0xab,
+	0x6c, 0xc1, 0xa8, 0xe8, 0x88, 0x48, 0x59, 0x23, 0x79, 0xdd, 0xec, 0xbc, 0x78, 0x66, 0x57, 0x7e,
+	0x57, 0x96, 0xb2, 0x0a, 0xd9, 0x37, 0x18, 0x89, 0x1f, 0xc9, 0xcf, 0xf7, 0x4e, 0xde, 0x42, 0xb4,
+	0x1b, 0x68, 0xe3, 0xa9, 0x3c, 0x13, 0x3b, 0x9e, 0xd8, 0x73, 0x42, 0x7a, 0x60, 0xb7, 0x75, 0xb2,
+	0x85, 0x78, 0xb1, 0xa5, 0x32, 0xbe, 0x12, 0x30, 0xd2, 0xc9, 0xe2, 0x7e, 0xf7, 0x61, 0x2c, 0xec,
+	0x0c, 0xa9, 0xc3, 0x73, 0xd9, 0xa5, 0x91, 0xfc, 0xb4, 0x19, 0x79, 0x88, 0xd9, 0xf0, 0x10, 0xb3,
+	0xe9, 0x21, 0xe6, 0x23, 0xe6, 0xf9, 0xeb, 0xf7, 0x8e, 0x7e, 0xcd, 0x66, 0xbe, 0xff, 0x9e, 0x5d,
+	0x72, 0x3d, 0xb1, 0xb7, 0x5f, 0x34, 0x4b, 0xac, 0x62, 0x35, 0x0d, 0x27, 0xfa, 0xe4, 0xb8, 0xf3,
+	0xce, 0x12, 0xf5, 0x00, 0xb9, 0x4c, 0xe0, 0x76, 0x77, 0x0d, 0xe3, 0x23, 0x81, 0xc5, 0x02, 0x77,
+	0x37, 0x6b, 0x02, 0x7d, 0xa7, 0x73, 0x35, 0x36, 0x6b, 0x81, 0x17, 0x01, 0x37, 0xa8, 0xb8, 0x60,
+	0xd7, 0xca, 0x1a, 0x4c, 0x60, 0x83, 0x93, 0x27, 0x9f, 0x8e, 0xe4, 0xa0, 0xf1, 0x83, 0x40, 0xae,
+	0x2f, 0x35, 0xff, 0xc5, 0x31, 0xc9, 0xff, 0x1d, 0x84, 0x6c, 0x81, 0xbb, 0xca, 0x5b, 0x50, 0x12,
+	0xac, 0x79, 0xb1, 0x9b, 0x25, 0xd1, 0x20, 0xb5, 0x5c, 0x5f, 0xb0, 0xb8, 0x61, 0x0a, 0x63, 0xdd,
+	0x1e, 0x6a, 0xa4, 0x32, 0xc4, 0x18, 0x6d, 0xf9, 0x7c, 0x4c, 0x5c, 0xe2, 0x3d, 0x4c, 0xa7, 0xfb,
+	0xdd, 0xdd, 0x04, 0xa2, 0x54, 0xb4, 0xb6, 0x76, 0x11, 0x74, 0x2c, 0xa0, 0x0a, 0x93, 0x29, 0x2e,
+	0x75, 0xa7, 0x07, 0x5f, 0x27, 0x54, 0x5b, 0xe9, 0x1b, 0x1a, 0xd7, 0xad, 0xc3, 0x54, 0xda, 0x9d,
+	0x4f, 0x5a, 0xbf, 0x14, 0xac, 0x96, 0xef, 0x1f, 0x1b, 0x97, 0xfe, 0x42, 0xc0, 0xe8, 0xe3, 0x12,
+	0xde, 0x4f, 0xa0, 0x3e, 0x3f, 0x4d, 0x7b, 0x78, 0xa9, 0xb4, 0x96, 0xb8, 0xf5, 0xc7, 0x47, 0x27,
+	0x3a, 0x39, 0x3e, 0xd1, 0xc9, 0x9f, 0x13, 0x9d, 0x7c, 0x3a, 0xd5, 0x33, 0xc7, 0xa7, 0x7a, 0xe6,
+	0xe7, 0xa9, 0x9e, 0x79, 0x6d, 0xb6, 0x39, 0x8f, 0x2c, 0x91, 0x8b, 0xde, 0x2d, 0xd1, 0xc0, 0xaa,
+	0xb5, 0xbd, 0x6c, 0x1a, 0x2e, 0x54, 0x1c, 0x92, 0xef, 0x99, 0xd5, 0x7f, 0x01, 0x00, 0x00, 0xff,
+	0xff, 0x3e, 0xc7, 0xc4, 0xba, 0x57, 0x09, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -623,6 +764,7 @@ type MsgClient interface {
 	RegisterSecondLevelDomain(ctx context.Context, in *MsgRegisterSecondLevelDomain, opts ...grpc.CallOption) (*MsgRegisterSecondLevelDomainResponse, error)
 	RegisterTopLevelDomain(ctx context.Context, in *MsgRegisterTopLevelDomain, opts ...grpc.CallOption) (*MsgRegisterTopLevelDomainResponse, error)
 	WithdrawRegistrationFee(ctx context.Context, in *MsgWithdrawRegistrationFee, opts ...grpc.CallOption) (*MsgWithdrawRegistrationFeeResponse, error)
+	ExtendTopLevelDomainExpirationDate(ctx context.Context, in *MsgExtendTopLevelDomainExpirationDate, opts ...grpc.CallOption) (*MsgExtendTopLevelDomainExpirationDateResponse, error)
 }
 
 type msgClient struct {
@@ -678,6 +820,15 @@ func (c *msgClient) WithdrawRegistrationFee(ctx context.Context, in *MsgWithdraw
 	return out, nil
 }
 
+func (c *msgClient) ExtendTopLevelDomainExpirationDate(ctx context.Context, in *MsgExtendTopLevelDomainExpirationDate, opts ...grpc.CallOption) (*MsgExtendTopLevelDomainExpirationDateResponse, error) {
+	out := new(MsgExtendTopLevelDomainExpirationDateResponse)
+	err := c.cc.Invoke(ctx, "/mycel.registry.Msg/ExtendTopLevelDomainExpirationDate", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	UpdateWalletRecord(context.Context, *MsgUpdateWalletRecord) (*MsgUpdateWalletRecordResponse, error)
@@ -685,6 +836,7 @@ type MsgServer interface {
 	RegisterSecondLevelDomain(context.Context, *MsgRegisterSecondLevelDomain) (*MsgRegisterSecondLevelDomainResponse, error)
 	RegisterTopLevelDomain(context.Context, *MsgRegisterTopLevelDomain) (*MsgRegisterTopLevelDomainResponse, error)
 	WithdrawRegistrationFee(context.Context, *MsgWithdrawRegistrationFee) (*MsgWithdrawRegistrationFeeResponse, error)
+	ExtendTopLevelDomainExpirationDate(context.Context, *MsgExtendTopLevelDomainExpirationDate) (*MsgExtendTopLevelDomainExpirationDateResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -705,6 +857,9 @@ func (*UnimplementedMsgServer) RegisterTopLevelDomain(ctx context.Context, req *
 }
 func (*UnimplementedMsgServer) WithdrawRegistrationFee(ctx context.Context, req *MsgWithdrawRegistrationFee) (*MsgWithdrawRegistrationFeeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WithdrawRegistrationFee not implemented")
+}
+func (*UnimplementedMsgServer) ExtendTopLevelDomainExpirationDate(ctx context.Context, req *MsgExtendTopLevelDomainExpirationDate) (*MsgExtendTopLevelDomainExpirationDateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ExtendTopLevelDomainExpirationDate not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -801,6 +956,24 @@ func _Msg_WithdrawRegistrationFee_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_ExtendTopLevelDomainExpirationDate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgExtendTopLevelDomainExpirationDate)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).ExtendTopLevelDomainExpirationDate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/mycel.registry.Msg/ExtendTopLevelDomainExpirationDate",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).ExtendTopLevelDomainExpirationDate(ctx, req.(*MsgExtendTopLevelDomainExpirationDate))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "mycel.registry.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -824,6 +997,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "WithdrawRegistrationFee",
 			Handler:    _Msg_WithdrawRegistrationFee_Handler,
+		},
+		{
+			MethodName: "ExtendTopLevelDomainExpirationDate",
+			Handler:    _Msg_ExtendTopLevelDomainExpirationDate_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1126,6 +1303,30 @@ func (m *MsgRegisterTopLevelDomainResponse) MarshalToSizedBuffer(dAtA []byte) (i
 	_ = i
 	var l int
 	_ = l
+	if m.Fee != nil {
+		{
+			size, err := m.Fee.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTx(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.TopLevelDomain != nil {
+		{
+			size, err := m.TopLevelDomain.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTx(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -1199,6 +1400,95 @@ func (m *MsgWithdrawRegistrationFeeResponse) MarshalToSizedBuffer(dAtA []byte) (
 			i--
 			dAtA[i] = 0x3a
 		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgExtendTopLevelDomainExpirationDate) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgExtendTopLevelDomainExpirationDate) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgExtendTopLevelDomainExpirationDate) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.ExtensionPeriodInYear != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.ExtensionPeriodInYear))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.Name) > 0 {
+		i -= len(m.Name)
+		copy(dAtA[i:], m.Name)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Name)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Fee != nil {
+		{
+			size, err := m.Fee.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTx(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.TopLevelDomain != nil {
+		{
+			size, err := m.TopLevelDomain.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintTx(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -1349,6 +1639,14 @@ func (m *MsgRegisterTopLevelDomainResponse) Size() (n int) {
 	}
 	var l int
 	_ = l
+	if m.TopLevelDomain != nil {
+		l = m.TopLevelDomain.Size()
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.Fee != nil {
+		l = m.Fee.Size()
+		n += 1 + l + sovTx(uint64(l))
+	}
 	return n
 }
 
@@ -1380,6 +1678,43 @@ func (m *MsgWithdrawRegistrationFeeResponse) Size() (n int) {
 			l = e.Size()
 			n += 1 + l + sovTx(uint64(l))
 		}
+	}
+	return n
+}
+
+func (m *MsgExtendTopLevelDomainExpirationDate) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.ExtensionPeriodInYear != 0 {
+		n += 1 + sovTx(uint64(m.ExtensionPeriodInYear))
+	}
+	return n
+}
+
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.TopLevelDomain != nil {
+		l = m.TopLevelDomain.Size()
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.Fee != nil {
+		l = m.Fee.Size()
+		n += 1 + l + sovTx(uint64(l))
 	}
 	return n
 }
@@ -2287,6 +2622,78 @@ func (m *MsgRegisterTopLevelDomainResponse) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: MsgRegisterTopLevelDomainResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TopLevelDomain", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.TopLevelDomain == nil {
+				m.TopLevelDomain = &TopLevelDomain{}
+			}
+			if err := m.TopLevelDomain.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Fee", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Fee == nil {
+				m.Fee = &TopLevelDomainFee{}
+			}
+			if err := m.Fee.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])
@@ -2482,6 +2889,261 @@ func (m *MsgWithdrawRegistrationFeeResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.RegistrationFee = append(m.RegistrationFee, types.Coin{})
 			if err := m.RegistrationFee[len(m.RegistrationFee)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgExtendTopLevelDomainExpirationDate) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgExtendTopLevelDomainExpirationDate: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgExtendTopLevelDomainExpirationDate: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExtensionPeriodInYear", wireType)
+			}
+			m.ExtensionPeriodInYear = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ExtensionPeriodInYear |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgExtendTopLevelDomainExpirationDateResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgExtendTopLevelDomainExpirationDateResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgExtendTopLevelDomainExpirationDateResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TopLevelDomain", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.TopLevelDomain == nil {
+				m.TopLevelDomain = &TopLevelDomain{}
+			}
+			if err := m.TopLevelDomain.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Fee", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Fee == nil {
+				m.Fee = &TopLevelDomainFee{}
+			}
+			if err := m.Fee.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

@@ -3,11 +3,12 @@ package keeper_test
 import (
 	"fmt"
 
+	errorsmod "cosmossdk.io/errors"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+
+	"github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/testutil"
 	"github.com/mycel-domain/mycel/x/registry/types"
-
-	errorsmod "cosmossdk.io/errors"
 )
 
 func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
@@ -49,7 +50,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 			name:                     "foo",
 			parent:                   "cel",
 			registrationPeriodInYear: 1,
-			expErr:                   errorsmod.Wrapf(types.ErrDomainIsAlreadyTaken, "foo.cel"),
+			expErr:                   errorsmod.Wrapf(types.ErrSecondLevelDomainAlreadyTaken, "foo.cel"),
 			fn: func() {
 				// Register domain once
 				domain := &types.MsgRegisterSecondLevelDomain{
@@ -67,7 +68,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 			name:                     "foo",
 			parent:                   "xxx",
 			registrationPeriodInYear: 1,
-			expErr:                   errorsmod.Wrapf(types.ErrParentDomainDoesNotExist, "xxx"),
+			expErr:                   errorsmod.Wrapf(types.ErrSecondLevelDomainParentDoesNotExist, "xxx"),
 			fn: func() {
 			},
 		},
@@ -92,7 +93,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 				suite.Require().True(found)
 
 				moduleAddress := authtypes.NewModuleAddress(types.ModuleName)
-				beforeModuleBalance := suite.app.BankKeeper.GetBalance(suite.ctx, moduleAddress, types.MycelDenom)
+				beforeModuleBalance := suite.app.BankKeeper.GetBalance(suite.ctx, moduleAddress, params.DefaultBondDenom)
 
 				// Register second level domain
 				_, err := suite.msgServer.RegisterSecondLevelDomain(suite.ctx, registerMsg)
@@ -108,6 +109,18 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 				suite.Require().True(found)
 				suite.Require().Equal(domain.AccessControl[tc.creator], types.DomainRole_OWNER)
 
+				// Evaluate if domain is appended to owned domain list
+				ownedDomains, found := suite.app.RegistryKeeper.GetDomainOwnership(suite.ctx, tc.creator)
+				suite.Require().True(found)
+				found = false
+				for _, ownedDomain := range ownedDomains.Domains {
+					if ownedDomain.Name == tc.name && ownedDomain.Parent == tc.parent {
+						found = true
+						break
+					}
+				}
+				suite.Require().True(found)
+
 				// Evaluate if parent's subdomainCount is increased
 				afterParent, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, tc.parent)
 				suite.Require().True(found)
@@ -115,13 +128,13 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 
 				// Evaluate if module account balance is increased
 				// Get registration fee
-				config := suite.app.RegistryKeeper.GetParentsSubdomainConfig(suite.ctx, domain)
+				config := suite.app.RegistryKeeper.GetSecondLevelDomainParentsSubdomainConfig(suite.ctx, domain)
 				fee, err := config.GetRegistrationFee(tc.name, tc.registrationPeriodInYear)
 				suite.Require().Nil(err)
 
-				afterModuleBalance := suite.app.BankKeeper.GetBalance(suite.ctx, moduleAddress, types.MycelDenom)
-				suite.Require().Equal(beforeModuleBalance.Add(*fee), afterModuleBalance)
-				suite.Require().Equal(beforeParent.TotalWithdrawalAmount.Add(*fee), afterParent.TotalWithdrawalAmount)
+				afterModuleBalance := suite.app.BankKeeper.GetBalance(suite.ctx, moduleAddress, params.DefaultBondDenom)
+				suite.Require().Equal(beforeModuleBalance.Add(fee), afterModuleBalance)
+				suite.Require().Equal(beforeParent.TotalWithdrawalAmount.Add(fee), afterParent.TotalWithdrawalAmount)
 
 				// Evalute events
 				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeRegisterSecondLevelDomain)

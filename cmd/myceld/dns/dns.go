@@ -8,10 +8,10 @@ import (
 	"strings"
 
 	"github.com/miekg/dns"
-	resolver "github.com/mycel-domain/mycel/x/resolver/types"
+	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
 
-	"github.com/spf13/cobra"
+	resolver "github.com/mycel-domain/mycel/x/resolver/types"
 )
 
 type grpcService struct {
@@ -193,7 +193,10 @@ func (s *grpcService) HandleDNSRequest(w dns.ResponseWriter, r *dns.Msg) {
 		msg.SetRcode(r, dns.RcodeNameError)
 	}
 
-	w.WriteMsg(&msg)
+	err := w.WriteMsg(&msg)
+	if err != nil {
+		log.Printf("Failed to write message: %v", err)
+	}
 }
 
 func RunDnsServer(nodeAddress string, listenPort int) error {

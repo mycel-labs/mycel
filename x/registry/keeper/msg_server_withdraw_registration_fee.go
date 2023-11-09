@@ -5,6 +5,7 @@ import (
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
@@ -13,7 +14,7 @@ func (k msgServer) WithdrawRegistrationFee(goCtx context.Context, msg *types.Msg
 	// Get top level domain
 	topLevelDomain, found := k.Keeper.GetTopLevelDomain(ctx, msg.Name)
 	if !found {
-		return nil, errorsmod.Wrapf(types.ErrDomainNotFound, "%s", msg.Name)
+		return nil, errorsmod.Wrapf(types.ErrSecondLevelDomainNotFound, "%s", msg.Name)
 	}
 
 	if topLevelDomain.TotalWithdrawalAmount.IsZero() {

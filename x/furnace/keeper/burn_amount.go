@@ -4,6 +4,7 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+
 	"github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/x/furnace/types"
 )

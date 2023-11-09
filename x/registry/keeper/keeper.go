@@ -48,10 +48,10 @@ func NewKeeper(
 		memKey:     memKey,
 		paramstore: ps,
 
-		bankKeeper:    bankKeeper,
+		bankKeeper:         bankKeeper,
 		distributionKeeper: distributionKeeper,
-		mintKeeper:    mintKeeper,
-		furnaceKeeper: furnaceKeeper,
+		mintKeeper:         mintKeeper,
+		furnaceKeeper:      furnaceKeeper,
 	}
 }
 

@@ -3,13 +3,13 @@ package keeper_test
 import (
 	"fmt"
 
+	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+
 	"github.com/mycel-domain/mycel/testutil"
 	furnacetypes "github.com/mycel-domain/mycel/x/furnace/types"
 	"github.com/mycel-domain/mycel/x/registry/types"
-
-	errorsmod "cosmossdk.io/errors"
 )
 
 func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
@@ -38,7 +38,7 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 			creator:                  testutil.Alice,
 			name:                     "cel2",
 			registrationPeriodInYear: 1,
-			expErr:                   errorsmod.Wrapf(types.ErrDomainIsAlreadyTaken, "cel2"),
+			expErr:                   errorsmod.Wrapf(types.ErrTopLevelDomainAlreadyTaken, "cel2"),
 			fn: func() {
 				// Register domain once
 				domain := &types.MsgRegisterTopLevelDomain{
@@ -82,6 +82,18 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 				domain, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, tc.name)
 				suite.Require().True(found)
 				suite.Require().Equal(domain.AccessControl[tc.creator], types.DomainRole_OWNER)
+
+				// Evaluate if domain is appended to owned domain list
+				ownedDomains, found := suite.app.RegistryKeeper.GetDomainOwnership(suite.ctx, tc.creator)
+				suite.Require().True(found)
+				found = false
+				for _, ownedDomain := range ownedDomains.Domains {
+					if ownedDomain.Name == tc.name && ownedDomain.Parent == "" {
+						found = true
+						break
+					}
+				}
+				suite.Require().True(found)
 
 				// Evalute events
 				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeRegisterTopLevelDomain)

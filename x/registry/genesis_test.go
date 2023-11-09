@@ -3,11 +3,12 @@ package registry_test
 import (
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
 	"github.com/mycel-domain/mycel/x/registry"
 	"github.com/mycel-domain/mycel/x/registry/types"
-	"github.com/stretchr/testify/require"
 )
 
 func TestGenesis(t *testing.T) {

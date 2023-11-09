@@ -10,6 +10,10 @@ import (
 
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 	reflectionv1 "cosmossdk.io/api/cosmos/reflection/v1"
+	// CosmWasm
+	"github.com/CosmWasm/wasmd/x/wasm"
+	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
+	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	dbm "github.com/cometbft/cometbft-db"
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cometbft/cometbft/libs/log"
@@ -111,31 +115,22 @@ import (
 	ibctm "github.com/cosmos/ibc-go/v7/modules/light-clients/07-tendermint"
 	"github.com/spf13/cast"
 
-	// CosmWasm
-	"github.com/CosmWasm/wasmd/x/wasm"
-	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
-	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-
-	// Registry
-	registrymodule "github.com/mycel-domain/mycel/x/registry"
-	registrymodulekeeper "github.com/mycel-domain/mycel/x/registry/keeper"
-	registrymoduletypes "github.com/mycel-domain/mycel/x/registry/types"
-
+	appparams "github.com/mycel-domain/mycel/app/params"
+	"github.com/mycel-domain/mycel/docs"
 	// Epochs
 	epochsmodule "github.com/mycel-domain/mycel/x/epochs"
 	epochsmodulekeeper "github.com/mycel-domain/mycel/x/epochs/keeper"
 	epochsmoduletypes "github.com/mycel-domain/mycel/x/epochs/types"
-
 	furnacemodule "github.com/mycel-domain/mycel/x/furnace"
 	furnacemodulekeeper "github.com/mycel-domain/mycel/x/furnace/keeper"
 	furnacemoduletypes "github.com/mycel-domain/mycel/x/furnace/types"
+	// Registry
+	registrymodule "github.com/mycel-domain/mycel/x/registry"
+	registrymodulekeeper "github.com/mycel-domain/mycel/x/registry/keeper"
+	registrymoduletypes "github.com/mycel-domain/mycel/x/registry/types"
 	resolvermodule "github.com/mycel-domain/mycel/x/resolver"
 	resolvermodulekeeper "github.com/mycel-domain/mycel/x/resolver/keeper"
 	resolvermoduletypes "github.com/mycel-domain/mycel/x/resolver/types"
-	// this line is used by starport scaffolding # stargate/app/moduleImport
-
-	appparams "github.com/mycel-domain/mycel/app/params"
-	"github.com/mycel-domain/mycel/docs"
 )
 
 const (
@@ -327,7 +322,7 @@ type App struct {
 	RegistryKeeper registrymodulekeeper.Keeper
 	EpochsKeeper   epochsmodulekeeper.Keeper
 	ResolverKeeper resolvermodulekeeper.Keeper
-	FurnaceKeeper furnacemodulekeeper.Keeper
+	FurnaceKeeper  furnacemodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// mm is the module manager
