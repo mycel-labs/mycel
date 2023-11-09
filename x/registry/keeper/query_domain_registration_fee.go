@@ -12,7 +12,7 @@ import (
 
 func createErrorResponse(err error) *types.QueryDomainRegistrationFeeResponse {
 	return &types.QueryDomainRegistrationFeeResponse{
-		IsRegstrable:              false,
+		IsRegistrable:             false,
 		Fee:                       sdk.NewCoins(),
 		RegistrationPeriodInYear:  0,
 		MaxSubDomainRegistrations: 0,
@@ -42,7 +42,7 @@ func (k Keeper) DomainRegistrationFee(goCtx context.Context, req *types.QueryDom
 			return createErrorResponse(err), nil
 		} else {
 			return &types.QueryDomainRegistrationFeeResponse{
-				IsRegstrable:              true,
+				IsRegistrable:             true,
 				Fee:                       fee.TotalFee,
 				RegistrationPeriodInYear:  1,
 				MaxSubDomainRegistrations: config.MaxSubdomainRegistrations,
@@ -62,7 +62,7 @@ func (k Keeper) DomainRegistrationFee(goCtx context.Context, req *types.QueryDom
 			return createErrorResponse(err), nil
 		} else {
 			return &types.QueryDomainRegistrationFeeResponse{
-				IsRegstrable:              true,
+				IsRegistrable:             true,
 				Fee:                       sdk.NewCoins(fee),
 				RegistrationPeriodInYear:  1,
 				MaxSubDomainRegistrations: 0,
