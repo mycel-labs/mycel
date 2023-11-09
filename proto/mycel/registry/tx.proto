@@ -1,54 +1,53 @@
 syntax = "proto3";
-
 package mycel.registry;
 
-import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
 import "mycel/registry/top_level_domain.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc UpdateWalletRecord             (MsgUpdateWalletRecord            ) returns (MsgUpdateWalletRecordResponse            );
-  rpc UpdateDnsRecord                (MsgUpdateDnsRecord               ) returns (MsgUpdateDnsRecordResponse               );
-  rpc RegisterSecondLevelDomain      (MsgRegisterSecondLevelDomain     ) returns (MsgRegisterSecondLevelDomainResponse     );
-  rpc RegisterTopLevelDomain         (MsgRegisterTopLevelDomain        ) returns (MsgRegisterTopLevelDomainResponse        );
-  rpc WithdrawRegistrationFee        (MsgWithdrawRegistrationFee       ) returns (MsgWithdrawRegistrationFeeResponse       );
-  rpc ExtendTopLevelDomainExpirationDate (MsgExtendTopLevelDomainExpirationDate) returns (MsgExtendTopLevelDomainExpirationDateResponse);
+  rpc UpdateWalletRecord(MsgUpdateWalletRecord) returns (MsgUpdateWalletRecordResponse);
+  rpc UpdateDnsRecord(MsgUpdateDnsRecord) returns (MsgUpdateDnsRecordResponse);
+  rpc RegisterSecondLevelDomain(MsgRegisterSecondLevelDomain) returns (MsgRegisterSecondLevelDomainResponse);
+  rpc RegisterTopLevelDomain(MsgRegisterTopLevelDomain) returns (MsgRegisterTopLevelDomainResponse);
+  rpc WithdrawRegistrationFee(MsgWithdrawRegistrationFee) returns (MsgWithdrawRegistrationFeeResponse);
+  rpc ExtendTopLevelDomainExpirationDate(MsgExtendTopLevelDomainExpirationDate) returns (MsgExtendTopLevelDomainExpirationDateResponse);
 }
 message MsgUpdateWalletRecord {
-  string creator          = 1;
-  string name             = 2;
-  string parent           = 3;
+  string creator = 1;
+  string name = 2;
+  string parent = 3;
   string walletRecordType = 4;
-  string value            = 5;
+  string value = 5;
 }
 
 message MsgUpdateWalletRecordResponse {}
 
 message MsgUpdateDnsRecord {
-  string creator       = 1;
-  string name          = 2;
-  string parent        = 3;
+  string creator = 1;
+  string name = 2;
+  string parent = 3;
   string dnsRecordType = 4;
-  string value         = 5;
+  string value = 5;
 }
 
 message MsgUpdateDnsRecordResponse {}
 
 message MsgRegisterSecondLevelDomain {
-  string creator                  = 1;
-  string name                     = 2;
-  string parent                   = 3;
+  string creator = 1;
+  string name = 2;
+  string parent = 3;
   uint64 registrationPeriodInYear = 4;
 }
 
 message MsgRegisterSecondLevelDomainResponse {}
 
 message MsgRegisterTopLevelDomain {
-  string creator                  = 1;
-  string name                     = 2;
+  string creator = 1;
+  string name = 2;
   uint64 registrationPeriodInYear = 3;
 }
 
@@ -59,16 +58,19 @@ message MsgRegisterTopLevelDomainResponse {
 
 message MsgWithdrawRegistrationFee {
   string creator = 1;
-  string name    = 2;
+  string name = 2;
 }
 
 message MsgWithdrawRegistrationFeeResponse {
-  repeated cosmos.base.v1beta1.Coin registrationFee = 7 [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];
+  repeated cosmos.base.v1beta1.Coin registrationFee = 7 [
+    (gogoproto.nullable) = false,
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
 }
 
 message MsgExtendTopLevelDomainExpirationDate {
-  string creator                  = 1;
-  string name                     = 2;
+  string creator = 1;
+  string name = 2;
   uint64 extensionPeriodInYear = 3;
 }
 
@@ -76,4 +78,3 @@ message MsgExtendTopLevelDomainExpirationDateResponse {
   TopLevelDomain topLevelDomain = 1;
   TopLevelDomainFee fee = 2;
 }
-

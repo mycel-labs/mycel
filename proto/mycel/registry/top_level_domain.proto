@@ -1,11 +1,11 @@
 syntax = "proto3";
 package mycel.registry;
 
+import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
 import "google/protobuf/timestamp.proto";
-import "cosmos/base/v1beta1/coin.proto";
-import "mycel/registry/subdomain_config.proto";
 import "mycel/registry/role.proto";
+import "mycel/registry/subdomain_config.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
@@ -25,14 +25,13 @@ message TopLevelDomain {
   ];
 }
 
-
 message TopLevelDomainFee {
   repeated cosmos.base.v1beta1.Coin totalFee = 1 [
     (gogoproto.nullable) = false,
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
   ];
- string burnWeight = 2;
- cosmos.base.v1beta1.Coin feeToBurn = 3 [
+  string burnWeight = 2;
+  cosmos.base.v1beta1.Coin feeToBurn = 3 [
     (gogoproto.nullable) = false,
     (gogoproto.castvalue) = "github.com/cosmos/cosmos-sdk/types.Coin"
   ];
@@ -40,5 +39,4 @@ message TopLevelDomainFee {
     (gogoproto.nullable) = false,
     (gogoproto.castvalue) = "github.com/cosmos/cosmos-sdk/types.Coin"
   ];
-
 }

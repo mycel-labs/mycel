@@ -1,8 +1,9 @@
 syntax = "proto3";
 package mycel.registry;
 
-option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 import "cosmos_proto/cosmos.proto";
+
+option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 message OwnedDomain {
   string name = 1;

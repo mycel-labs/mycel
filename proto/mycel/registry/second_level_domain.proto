@@ -9,7 +9,6 @@ import "mycel/registry/role.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
-
 message DnsRecord {
   DnsRecordType dnsRecordType = 1;
   string value = 2;
@@ -26,10 +25,10 @@ message Metadata {
 }
 
 message Record {
-oneof record {
-  DnsRecord dnsRecord = 1;
-  WalletRecord walletRecord = 2;
-  Metadata metadata = 3;
+  oneof record {
+    DnsRecord dnsRecord = 1;
+    WalletRecord walletRecord = 2;
+    Metadata metadata = 3;
   }
 }
 

@@ -2,8 +2,8 @@ syntax = "proto3";
 package mycel.epochs;
 
 import "gogoproto/gogo.proto";
-import "mycel/epochs/params.proto";
 import "mycel/epochs/epoch_info.proto";
+import "mycel/epochs/params.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/epochs/types";
 
@@ -11,4 +11,3 @@ option go_package = "github.com/mycel-domain/mycel/x/epochs/types";
 message GenesisState {
   repeated EpochInfo epochs = 1 [(gogoproto.nullable) = false];
 }
-

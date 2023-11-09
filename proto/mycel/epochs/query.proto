@@ -1,40 +1,35 @@
 syntax = "proto3";
-
 package mycel.epochs;
 
+import "cosmos/base/query/v1beta1/pagination.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
-import "cosmos/base/query/v1beta1/pagination.proto";
-import "mycel/epochs/params.proto";
 import "mycel/epochs/epoch_info.proto";
+import "mycel/epochs/params.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/epochs/types";
 
 // Query defines the gRPC querier service.
 service Query {
-  
   // Parameters queries the parameters of the module.
-  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/mycel/epochs/params";
-  
   }
-  
+
   // Queries a list of EpochInfo items.
-  rpc EpochInfo    (QueryGetEpochInfoRequest) returns (QueryGetEpochInfoResponse) {
+  rpc EpochInfo(QueryGetEpochInfoRequest) returns (QueryGetEpochInfoResponse) {
     option (google.api.http).get = "/mycel/epochs/epoch_info/{identifier}";
-  
   }
-  rpc EpochInfoAll (QueryAllEpochInfoRequest) returns (QueryAllEpochInfoResponse) {
+  rpc EpochInfoAll(QueryAllEpochInfoRequest) returns (QueryAllEpochInfoResponse) {
     option (google.api.http).get = "/mycel/epochs/epoch_info";
-  
   }
 }
+
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
-  
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
 }
@@ -52,7 +47,6 @@ message QueryAllEpochInfoRequest {
 }
 
 message QueryAllEpochInfoResponse {
-  repeated EpochInfo                              epochInfo  = 1 [(gogoproto.nullable) = false];
-           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+  repeated EpochInfo epochInfo = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
-
