@@ -50200,7 +50200,7 @@ paths:
           schema:
             type: object
             properties:
-              isRegstrable:
+              isRegistrable:
                 type: boolean
               fee:
                 type: array
@@ -50941,7 +50941,7 @@ paths:
                             Aptos
                              - SUI_MAINNET_MAINNET: Sui
                              - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
-                          title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+                          title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
                         value:
                           type: string
                     metadata:
@@ -51140,7 +51140,7 @@ paths:
                       Aptos
                        - SUI_MAINNET_MAINNET: Sui
                        - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
-                    title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+                    title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
                   value:
                     type: string
         default:
@@ -81762,7 +81762,7 @@ definitions:
   mycel.registry.QueryDomainRegistrationFeeResponse:
     type: object
     properties:
-      isRegstrable:
+      isRegistrable:
         type: boolean
       fee:
         type: array
@@ -82319,7 +82319,7 @@ definitions:
       Aptos
        - SUI_MAINNET_MAINNET: Sui
        - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
-    title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+    title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
   mycel.registry.Record:
     type: object
     properties:
@@ -82394,7 +82394,7 @@ definitions:
               Aptos
                - SUI_MAINNET_MAINNET: Sui
                - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
-            title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+            title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
           value:
             type: string
       metadata:
@@ -82456,7 +82456,7 @@ definitions:
           Aptos
            - SUI_MAINNET_MAINNET: Sui
            - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
-        title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+        title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
       value:
         type: string
   mycel.resolver.Params:
@@ -82541,7 +82541,7 @@ definitions:
                     Aptos
                      - SUI_MAINNET_MAINNET: Sui
                      - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
-                  title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+                  title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
                 value:
                   type: string
             metadata:
@@ -82635,6 +82635,6 @@ definitions:
               Aptos
                - SUI_MAINNET_MAINNET: Sui
                - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
-            title: 'Rule: CHAINNAME_ENVIROMENT_NETWORK'
+            title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
           value:
             type: string
