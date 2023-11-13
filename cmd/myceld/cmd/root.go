@@ -45,6 +45,7 @@ import (
 	"github.com/mycel-domain/mycel/app"
 	appparams "github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/cmd/myceld/dns"
+	"github.com/mycel-domain/mycel/cmd/myceld/docs"
 )
 
 // NewRootCmd creates a new root command for a Cosmos SDK application
@@ -158,6 +159,11 @@ func initRootCmd(
 	// add DNS command
 	rootCmd.AddCommand(
 		dns.DnsCommand(),
+	)
+
+	// add docs command
+	rootCmd.AddCommand(
+		docs.DocsCommand(rootCmd),
 	)
 }
 
