@@ -75601,6 +75601,26 @@ definitions:
       for executing a MsgStoreAndInstantiateContract message.
 
       Since: 0.40
+  cosmwasm.wasm.v1.MsgStoreAndMigrateContractResponse:
+    type: object
+    properties:
+      code_id:
+        type: string
+        format: uint64
+        title: CodeID is the reference to the stored WASM code
+      checksum:
+        type: string
+        format: byte
+        title: Checksum is the sha256 hash of the stored code
+      data:
+        type: string
+        format: byte
+        title: Data contains bytes to returned from the contract
+    description: |-
+      MsgStoreAndMigrateContractResponse defines the response structure
+      for executing a MsgStoreAndMigrateContract message.
+
+      Since: 0.42
   cosmwasm.wasm.v1.MsgStoreCodeResponse:
     type: object
     properties:
@@ -75635,6 +75655,9 @@ definitions:
   cosmwasm.wasm.v1.MsgUpdateAdminResponse:
     type: object
     title: MsgUpdateAdminResponse returns empty data
+  cosmwasm.wasm.v1.MsgUpdateContractLabelResponse:
+    type: object
+    title: MsgUpdateContractLabelResponse returns empty data
   cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse:
     type: object
     title: MsgUpdateInstantiateConfigResponse returns empty data
