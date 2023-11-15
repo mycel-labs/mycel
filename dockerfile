@@ -1,4 +1,4 @@
-FROM golang AS builder
+FROM --platform=linux/amd64 golang AS builder
 USER root
 WORKDIR /build/
 COPY ./ /build/
@@ -11,7 +11,7 @@ RUN ignite chain build \
     --release
 RUN tar -zxvf release/mycel_linux_amd64.tar.gz
 
-FROM ubuntu
+FROM --platform=linux/amd64 ubuntu
 ENV LD_LIBRARY_PATH=/usr/local/lib
 RUN apt update \
  && apt install -y ca-certificates vim curl
