@@ -6,7 +6,6 @@ import (
 
 	"cosmossdk.io/math"
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
-	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	dbm "github.com/cometbft/cometbft-db"
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cometbft/cometbft/libs/log"
@@ -40,7 +39,7 @@ func setup(withGenesis bool, invCheckPeriod uint, wasmOpt ...wasmkeeper.Option) 
 	appOptions[server.FlagInvCheckPeriod] = invCheckPeriod
 
 	encCdc := MakeEncodingConfig()
-	app := NewApp(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, invCheckPeriod, encCdc, EmptyAppOptions{}, wasmtypes.EnableAllProposals, wasmOpt)
+	app := NewApp(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, invCheckPeriod, encCdc, EmptyAppOptions{}, wasmOpt)
 	if withGenesis {
 		return app, app.DefaultGenesis()
 	}

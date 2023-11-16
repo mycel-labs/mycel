@@ -311,7 +311,6 @@ func (a appCreator) newApp(
 		cast.ToString(appOpts.Get(flags.FlagHome)),
 		cast.ToUint(appOpts.Get(server.FlagInvCheckPeriod)),
 		a.encodingConfig,
-		app.GetEnabledProposals(),
 		appOpts,
 		wasmOpts,
 		baseapp.SetPruning(pruningOpts),
@@ -354,7 +353,6 @@ func (a appCreator) appExport(
 		homePath,
 		uint(1),
 		a.encodingConfig,
-		app.GetEnabledProposals(),
 		appOpts,
 		emptyWasmOpts,
 	)

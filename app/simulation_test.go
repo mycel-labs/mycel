@@ -11,7 +11,6 @@ import (
 	"time"
 
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
-	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	dbm "github.com/cometbft/cometbft-db"
 	abci "github.com/cometbft/cometbft/abci/types"
 	"github.com/cometbft/cometbft/libs/log"
@@ -100,7 +99,6 @@ func BenchmarkSimulation(b *testing.B) {
 		app.DefaultNodeHome,
 		0,
 		app.MakeEncodingConfig(),
-		wasmtypes.EnableAllProposals,
 		appOptions,
 		wasmOpt,
 		baseapp.SetChainID(config.ChainID),
@@ -180,7 +178,6 @@ func TestAppStateDeterminism(t *testing.T) {
 				app.DefaultNodeHome,
 				simcli.FlagPeriodValue,
 				app.MakeEncodingConfig(),
-				wasmtypes.EnableAllProposals,
 				appOptions,
 				wasmOpt,
 				fauxMerkleModeOpt,
@@ -261,7 +258,6 @@ func TestAppImportExport(t *testing.T) {
 		app.DefaultNodeHome,
 		0,
 		app.MakeEncodingConfig(),
-		wasmtypes.EnableAllProposals,
 		appOptions,
 		wasmOpt,
 		baseapp.SetChainID(config.ChainID),
@@ -326,7 +322,6 @@ func TestAppImportExport(t *testing.T) {
 		app.DefaultNodeHome,
 		0,
 		app.MakeEncodingConfig(),
-		wasmtypes.EnableAllProposals,
 		appOptions,
 		wasmOpt,
 		baseapp.SetChainID(config.ChainID),
@@ -423,7 +418,6 @@ func TestAppSimulationAfterImport(t *testing.T) {
 		app.DefaultNodeHome,
 		0,
 		app.MakeEncodingConfig(),
-		wasmtypes.EnableAllProposals,
 		appOptions,
 		wasmOpt,
 		fauxMerkleModeOpt,
@@ -494,7 +488,6 @@ func TestAppSimulationAfterImport(t *testing.T) {
 		app.DefaultNodeHome,
 		0,
 		app.MakeEncodingConfig(),
-		wasmtypes.EnableAllProposals,
 		appOptions,
 		wasmOpt,
 		fauxMerkleModeOpt,

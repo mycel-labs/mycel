@@ -6,7 +6,6 @@ import (
 	"time"
 
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
-	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	tmdb "github.com/cometbft/cometbft-db"
 	tmrand "github.com/cometbft/cometbft/libs/rand"
 	"github.com/cosmos/cosmos-sdk/baseapp"
@@ -74,7 +73,6 @@ func DefaultConfig() network.Config {
 				val.GetCtx().Config.RootDir,
 				0,
 				encoding,
-				wasmtypes.EnableAllProposals,
 				simtestutil.EmptyAppOptions{},
 				wasmOpt,
 				baseapp.SetPruning(pruningtypes.NewPruningOptionsFromString(val.GetAppConfig().Pruning)),
