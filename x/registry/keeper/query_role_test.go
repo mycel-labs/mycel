@@ -6,11 +6,12 @@ import (
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+
 	"github.com/mycel-domain/mycel/testutil"
 	"github.com/mycel-domain/mycel/x/registry/keeper"
 	"github.com/mycel-domain/mycel/x/registry/types"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 func registerNTopLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator string, n int) ([]types.TopLevelDomain, error) {
