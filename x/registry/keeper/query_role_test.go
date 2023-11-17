@@ -3,12 +3,10 @@ package keeper_test
 import (
 	"fmt"
 	"strconv"
-	"testing"
 	"time"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/mycel-domain/mycel/testutil"
-	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/x/registry/keeper"
 	"github.com/mycel-domain/mycel/x/registry/types"
 	"google.golang.org/grpc/codes"
@@ -19,13 +17,13 @@ func registerNTopLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator string, 
 	items := make([]types.TopLevelDomain, n)
 	for i := range items {
 		creator := testutil.Alice
-		name := strconv.Itoa(i)
+		name := "cel" + strconv.Itoa(i)
 
 		tld, _, err := k.RegisterTopLevelDomain(ctx, creator, name, 1)
 		if err != nil {
 			return nil, err
 		}
-		items = append(items, tld)
+		items[i] = tld
 	}
 	return items, nil
 }
@@ -43,7 +41,7 @@ func registerNSecondLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator strin
 		}
 		sld := types.SecondLevelDomain{
 			Name:           name,
-			Parent:         name,
+			Parent:         "cel" + name,
 			Owner:          creator.String(),
 			ExpirationDate: time.Time{},
 			Records:        nil,
@@ -53,19 +51,28 @@ func registerNSecondLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator strin
 		if err := k.RegisterSecondLevelDomain(ctx, sld, creator, 1); err != nil {
 			return nil, err
 		}
-		items = append(items, sld)
+		items[i] = sld
 	}
 	return items, nil
 }
 
-func TestRole(t *testing.T) {
-	keeper, ctx := keepertest.RegistryKeeper(t)
-	// wctx := sdk.WrapSDKContext(ctx)
+func (suite *KeeperTestSuite) TestRole() {
+	suite.SetupTest()
+	k := suite.app.RegistryKeeper
+	ctx := suite.ctx
 	creator := testutil.Alice
-	tlds, _ := registerNTopLevelDomain(keeper, ctx, creator, 1)
-	slds, _ := registerNSecondLevelDomain(keeper, ctx, creator, 1)
 
-	for _, tc := range []struct {
+	tlds, err := registerNTopLevelDomain(&k, ctx, creator, 1)
+	if err != nil {
+		suite.FailNow(fmt.Sprintf("%v", err))
+	}
+
+	slds, err := registerNSecondLevelDomain(&k, ctx, creator, 1)
+	if err != nil {
+		suite.FailNow(fmt.Sprintf("%v", err))
+	}
+
+	tcs := []struct {
 		desc     string
 		request  *types.QueryRoleRequest
 		response *types.QueryRoleResponse
@@ -105,7 +112,7 @@ func TestRole(t *testing.T) {
 			desc: "Not owner of SLD",
 			request: &types.QueryRoleRequest{
 				DomainName: fmt.Sprintf("%s.%s", slds[0].Name, tlds[0].Name),
-				Address:    creator,
+				Address:    testutil.Bob,
 			},
 			response: &types.QueryRoleResponse{
 				Role: types.DomainRole.String(0),
@@ -123,9 +130,20 @@ func TestRole(t *testing.T) {
 			desc: "InvalidRequest",
 			err:  status.Error(codes.InvalidArgument, "invalid request"),
 		},
-	} {
-		t.Run(tc.desc, func(t *testing.T) {
-			// TBD
+	}
+
+	for i, tc := range tcs {
+		suite.Run(fmt.Sprintf("Case %d", i), func() {
+
+			// Get valid domain
+			resp, err := k.Role(ctx, tc.request)
+			if tc.err == nil {
+				suite.Require().Nil(err)
+				suite.Require().Equal(tc.response, resp)
+			} else {
+				suite.Require().NotNil(err)
+				suite.Require().Equal(tc.err.Error(), err.Error())
+			}
 		})
 	}
 }
