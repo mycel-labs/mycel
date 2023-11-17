@@ -26,7 +26,7 @@ func (k Keeper) Role(goCtx context.Context, req *types.QueryRoleRequest) (*types
 		if !found {
 			return nil, errorsmod.Wrapf(sdkerrors.ErrNotFound, "domain not found")
 		}
-		role = tld.AccessControl[req.Address]
+		role = tld.GetRole(req.Address)
 	case 2: // SLD
 		sld, found := k.GetSecondLevelDomain(ctx, dms[0], dms[1])
 		if !found {
