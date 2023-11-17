@@ -152,5 +152,7 @@ message QueryRoleRequest {
   string address    = 2;
 }
 
-message QueryRoleResponse {}
+message QueryRoleResponse {
+  string role = 1;
+}
 
