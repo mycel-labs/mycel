@@ -5,9 +5,9 @@ import (
 	"strconv"
 	"time"
 
+	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
 	"github.com/mycel-domain/mycel/testutil"
 	"github.com/mycel-domain/mycel/x/registry/keeper"
@@ -125,11 +125,11 @@ func (suite *KeeperTestSuite) TestRole() {
 				DomainName: "notexist",
 				Address:    creator,
 			},
-			err: status.Error(codes.NotFound, "domain not found"),
+			err: errorsmod.Wrapf(sdkerrors.ErrNotFound, "domain not found"),
 		},
 		{
 			desc: "InvalidRequest",
-			err:  status.Error(codes.InvalidArgument, "invalid request"),
+			err:  errorsmod.Wrapf(sdkerrors.ErrInvalidRequest, "invalid request: empty request"),
 		},
 	}
 
