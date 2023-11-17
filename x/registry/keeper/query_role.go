@@ -32,7 +32,7 @@ func (k Keeper) Role(goCtx context.Context, req *types.QueryRoleRequest) (*types
 		if !found {
 			return nil, errorsmod.Wrapf(sdkerrors.ErrNotFound, "domain not found")
 		}
-		role = sld.AccessControl[req.Address]
+		role = sld.GetRole(req.Address)
 	default:
 		return nil, errorsmod.Wrapf(sdkerrors.ErrInvalidRequest, "invalid request: domain name")
 	}

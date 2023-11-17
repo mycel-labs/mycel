@@ -1,11 +1,14 @@
 package types
 
 import (
+	fmt "fmt"
 	"testing"
 
 	errorsmod "cosmossdk.io/errors"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
+
+	"github.com/mycel-domain/mycel/testutil"
 )
 
 type DomainTest struct {
@@ -195,5 +198,61 @@ func TestDomainUpdateDnsRecord(t *testing.T) {
 		} else {
 			require.EqualError(t, err, tc.expErr.Error())
 		}
+	}
+}
+
+func TestGetRoleSLD(t *testing.T) {
+	testCases := []struct {
+		domain SecondLevelDomain
+		req    string
+		exp    DomainRole
+	}{
+		// Valid domains
+		{
+			domain: SecondLevelDomain{
+				Name:          "myc",
+				AccessControl: map[string]DomainRole{testutil.Alice: DomainRole_NO_ROLE},
+			},
+			req: testutil.Alice,
+			exp: DomainRole_NO_ROLE,
+		},
+		{
+			domain: SecondLevelDomain{
+				Name:          "myc",
+				AccessControl: map[string]DomainRole{testutil.Alice: DomainRole_OWNER},
+			},
+			req: testutil.Alice,
+			exp: DomainRole_OWNER,
+		},
+		{
+			domain: SecondLevelDomain{
+				Name:          "myc",
+				AccessControl: map[string]DomainRole{testutil.Alice: DomainRole_EDITOR},
+			},
+			req: testutil.Alice,
+			exp: DomainRole_EDITOR,
+		},
+		{
+			domain: SecondLevelDomain{
+				Name:          "myc",
+				AccessControl: map[string]DomainRole{testutil.Alice: DomainRole_OWNER},
+			},
+			req: testutil.Bob,
+			exp: DomainRole_NO_ROLE,
+		},
+		{
+			domain: SecondLevelDomain{
+				Name: "myc",
+			},
+			req: testutil.Alice,
+			exp: DomainRole_NO_ROLE,
+		},
+	}
+
+	for i, tc := range testCases {
+		t.Run(fmt.Sprintf("Case %d", i), func(t *testing.T) {
+			r := tc.domain.GetRole(tc.req)
+			require.Equal(t, tc.exp, r)
+		})
 	}
 }

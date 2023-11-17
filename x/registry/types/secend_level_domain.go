@@ -116,3 +116,8 @@ func (secondLevelDomain SecondLevelDomain) IsRecordEditable(sender string) (isEd
 	isEditable = secondLevelDomain.AccessControl[sender] == DomainRole_EDITOR || secondLevelDomain.AccessControl[sender] == DomainRole_OWNER
 	return isEditable, err
 }
+
+func (secondLevelDomain *SecondLevelDomain) GetRole(address string) (role DomainRole) {
+	role = secondLevelDomain.AccessControl[address]
+	return role
+}

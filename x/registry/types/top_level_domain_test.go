@@ -76,7 +76,7 @@ func TestExtendExpirationDate(t *testing.T) {
 	}
 }
 
-func TestGetRole(t *testing.T) {
+func TestGetRoleTLD(t *testing.T) {
 	testCases := []struct {
 		domain TopLevelDomain
 		req    string
