@@ -55,8 +55,8 @@ const (
 const (
 	EventTypeExtendTopLevelDomainExpirationDate = "extend-top-level-domain-expiration-date"
 
-	AttributeExtendTopLevelDomainExpirationDateEventDomainName = "name"
-	AttributeExtendTopLevelDomainExpirationDateEventExpirationDate     = "expiration-date"
+	AttributeExtendTopLevelDomainExpirationDateEventDomainName                = "name"
+	AttributeExtendTopLevelDomainExpirationDateEventExpirationDate            = "expiration-date"
 	AttributeExtendTopLevelDomainExpirationDateEventTotalRegistrationFee      = "total-registration-fee"
 	AttributeExtendTopLevelDomainExpirationDateEventBurnWeight                = "burn-weight"
 	AttributeExtendTopLevelDomainExpirationDateEventRegistrationFeeToBurn     = "registration-fee-to-burn"
