@@ -12,32 +12,32 @@ import (
 )
 
 func (k Keeper) Role(goCtx context.Context, req *types.QueryRoleRequest) (*types.QueryRoleResponse, error) {
-	var (
-		role  types.DomainRole
-		found bool
-	)
-
+	// Return error when the request is empty
 	if req == nil {
 		return nil, errorsmod.Wrapf(sdkerrors.ErrInvalidRequest, "invalid request: empty request")
 	}
 
+	// Setup Variables
+	var (
+		role  types.DomainRole
+		found bool
+	)
 	ctx := sdk.UnwrapSDKContext(goCtx)
+	dms := strings.Split(req.DomainName, ".") // "foo.cel" will be [ "foo", "cel" ]
 
-	dms := strings.Split(req.DomainName, ".")
+	// Get Role
 	switch len(dms) {
 	case 1: // TLD
 		role, found = k.GetTopLevelDomainRole(ctx, dms[0], req.Address)
-		if !found {
-			return nil, errorsmod.Wrapf(sdkerrors.ErrNotFound, "domain not found")
-		}
 	case 2: // SLD
 		role, found = k.GetSecondLevelDomainRole(ctx, dms[0], dms[1], req.Address)
-		if !found {
-			return nil, errorsmod.Wrapf(sdkerrors.ErrNotFound, "domain not found")
-		}
 	default:
 		return nil, errorsmod.Wrapf(sdkerrors.ErrInvalidRequest, "invalid request: domain name")
 	}
 
+	// Return results
+	if !found {
+		return nil, errorsmod.Wrapf(sdkerrors.ErrNotFound, "domain not found")
+	}
 	return &types.QueryRoleResponse{Role: role.String()}, nil
 }
