@@ -96,6 +96,16 @@ func (k Keeper) GetValidTopLevelDomain(ctx sdk.Context, name string) (topLevelDo
 	return topLevelDomain, nil
 }
 
+// Get Role of the domain
+func (k Keeper) GetTopLevelDomainRole(ctx sdk.Context, name, address string) (role types.DomainRole, found bool) {
+	tld, found := k.GetTopLevelDomain(ctx, name)
+	if !found {
+		return types.DomainRole_NO_ROLE, false
+	}
+	role = tld.GetRole(address)
+	return role, true
+}
+
 // Pay top-level-domain registration fee
 func (k Keeper) PayTopLevelDomainFee(ctx sdk.Context, payer sdk.AccAddress, domain types.TopLevelDomain, registrationPeriodInYear uint64) (registrationFee types.TopLevelDomainFee, err error) {
 	// Get registration fee

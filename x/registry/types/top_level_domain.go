@@ -59,3 +59,8 @@ func (topLevelDomain *TopLevelDomain) ExtendExpirationDate(from time.Time, exten
 
 	return expirationDate
 }
+
+func (topLevelDomain *TopLevelDomain) GetRole(address string) (role DomainRole) {
+	role = topLevelDomain.AccessControl[address]
+	return role
+}

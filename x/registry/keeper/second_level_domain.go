@@ -3,9 +3,9 @@ package keeper
 import (
 	"time"
 
+	errorsmod "cosmossdk.io/errors"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	errorsmod "github.com/cosmos/cosmos-sdk/types/errors"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
@@ -125,6 +125,16 @@ func (k Keeper) GetSecondLevelDomainParentsSubdomainConfig(ctx sdk.Context, doma
 		panic("parent domain or config not found")
 	}
 	return *parentDomain.SubdomainConfig
+}
+
+// Get Role of the second-level domain
+func (k Keeper) GetSecondLevelDomainRole(ctx sdk.Context, name, parent, address string) (role types.DomainRole, found bool) {
+	sld, found := k.GetSecondLevelDomain(ctx, name, parent)
+	if !found {
+		return types.DomainRole_NO_ROLE, false
+	}
+	role = sld.GetRole(address)
+	return role, true
 }
 
 // Increment parents subdomain count
