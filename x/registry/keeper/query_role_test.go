@@ -14,21 +14,6 @@ import (
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
-func registerNTopLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator string, n int) ([]types.TopLevelDomain, error) {
-	items := make([]types.TopLevelDomain, n)
-	for i := range items {
-		creator := testutil.Alice
-		name := "cel" + strconv.Itoa(i)
-
-		tld, _, err := k.RegisterTopLevelDomain(ctx, creator, name, 1)
-		if err != nil {
-			return nil, err
-		}
-		items[i] = tld
-	}
-	return items, nil
-}
-
 func registerNSecondLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator string, n int) ([]types.SecondLevelDomain, error) {
 	items := make([]types.SecondLevelDomain, n)
 	for i := range items {
