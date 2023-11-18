@@ -127,6 +127,16 @@ func (k Keeper) GetSecondLevelDomainParentsSubdomainConfig(ctx sdk.Context, doma
 	return *parentDomain.SubdomainConfig
 }
 
+// Get Role of the second-level domain
+func (k Keeper) GetSecondLevelDomainRole(ctx sdk.Context, name, parent, address string) (role types.DomainRole, found bool) {
+	sld, found := k.GetSecondLevelDomain(ctx, name, parent)
+	if !found {
+		return types.DomainRole_NO_ROLE, false
+	}
+	role = sld.GetRole(address)
+	return role, true
+}
+
 // Increment parents subdomain count
 func (k Keeper) IncrementParentsSubdomainCount(ctx sdk.Context, domain types.SecondLevelDomain) {
 	// Increment parent's subdomain count

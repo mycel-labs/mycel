@@ -10,6 +10,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
 
+	"github.com/mycel-domain/mycel/testutil"
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
 	"github.com/mycel-domain/mycel/x/registry/keeper"
@@ -39,6 +40,37 @@ func createNSecondLevelDomainResponse(keeper *keeper.Keeper, ctx sdk.Context, n 
 		responses[i].ExpirationDate = items[i].ExpirationDate
 	}
 	return responses
+}
+
+// Register top-level domains with k.RegisterSecondLevelDomain()
+// Domain name is set to `n` (n is a incremantal number)
+// e.g.) `1`, `2`, `n`...
+func registerNSecondLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator string, n int) ([]types.SecondLevelDomain, error) {
+	items := make([]types.SecondLevelDomain, n)
+	for i := range items {
+		creator, err := sdk.AccAddressFromBech32(testutil.Alice)
+		if err != nil {
+			return nil, err
+		}
+		name := strconv.Itoa(i)
+		accessControl := map[string]types.DomainRole{
+			creator.String(): types.DomainRole_OWNER,
+		}
+		sld := types.SecondLevelDomain{
+			Name:           name,
+			Parent:         "cel" + name,
+			Owner:          creator.String(),
+			ExpirationDate: time.Time{},
+			Records:        nil,
+			AccessControl:  accessControl,
+		}
+
+		if err := k.RegisterSecondLevelDomain(ctx, sld, creator, 1); err != nil {
+			return nil, err
+		}
+		items[i] = sld
+	}
+	return items, nil
 }
 
 func TestSecondLevelDomainGet(t *testing.T) {
@@ -129,5 +161,95 @@ func (suite *KeeperTestSuite) TestGetValidSecondLevelDomain() {
 			}
 		})
 	}
+}
 
+func (suite *KeeperTestSuite) TestGetSecondLevelDomainRole() {
+	suite.SetupTest()
+	k := suite.app.RegistryKeeper
+	ctx := suite.ctx
+	creator := testutil.Alice
+
+	_, err := registerNTopLevelDomain(&k, ctx, creator, 1)
+	if err != nil {
+		suite.FailNow(fmt.Sprintf("%v", err))
+	}
+	slds, err := registerNSecondLevelDomain(&k, ctx, creator, 1)
+	if err != nil {
+		suite.FailNow(fmt.Sprintf("%v", err))
+	}
+
+	type req struct {
+		Name    string
+		Parent  string
+		Address string
+	}
+
+	type resp struct {
+		Role  types.DomainRole
+		Found bool
+	}
+
+	tcs := []struct {
+		desc     string
+		request  *req
+		response *resp
+	}{
+		{
+			desc: "Owner",
+			request: &req{
+				Name:    slds[0].Name,
+				Parent:  slds[0].Parent,
+				Address: testutil.Alice,
+			},
+			response: &resp{
+				Role:  types.DomainRole_OWNER,
+				Found: true,
+			},
+		},
+		// TODO: Add a test case for EDITOR
+		{
+			desc: "Not owner of sld",
+			request: &req{
+				Name:    slds[0].Name,
+				Parent:  slds[0].Parent,
+				Address: testutil.Bob,
+			},
+			response: &resp{
+				Role:  types.DomainRole_NO_ROLE,
+				Found: true,
+			},
+		},
+		{
+			desc: "Domain not found because the name does not exist",
+			request: &req{
+				Name:    "notexist",
+				Parent:  slds[0].Parent,
+				Address: testutil.Alice,
+			},
+			response: &resp{
+				Role:  types.DomainRole_NO_ROLE,
+				Found: false,
+			},
+		},
+		{
+			desc: "Domain not found because the parent does not exist",
+			request: &req{
+				Name:    slds[0].Name,
+				Parent:  "notexist",
+				Address: testutil.Alice,
+			},
+			response: &resp{
+				Role:  types.DomainRole_NO_ROLE,
+				Found: false,
+			},
+		},
+	}
+
+	for i, tc := range tcs {
+		suite.Run(fmt.Sprintf("Case %d", i), func() {
+			role, found := k.GetSecondLevelDomainRole(ctx, tc.request.Name, tc.request.Parent, tc.request.Address)
+			suite.Require().Equal(tc.response.Role, role)
+			suite.Require().Equal(tc.response.Found, found)
+		})
+	}
 }

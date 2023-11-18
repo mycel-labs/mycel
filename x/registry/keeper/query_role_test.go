@@ -2,45 +2,13 @@ package keeper_test
 
 import (
 	"fmt"
-	"strconv"
-	"time"
 
 	errorsmod "cosmossdk.io/errors"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
 	"github.com/mycel-domain/mycel/testutil"
-	"github.com/mycel-domain/mycel/x/registry/keeper"
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
-
-func registerNSecondLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator string, n int) ([]types.SecondLevelDomain, error) {
-	items := make([]types.SecondLevelDomain, n)
-	for i := range items {
-		creator, err := sdk.AccAddressFromBech32(testutil.Alice)
-		if err != nil {
-			return nil, err
-		}
-		name := strconv.Itoa(i)
-		accessControl := map[string]types.DomainRole{
-			creator.String(): types.DomainRole_OWNER,
-		}
-		sld := types.SecondLevelDomain{
-			Name:           name,
-			Parent:         "cel" + name,
-			Owner:          creator.String(),
-			ExpirationDate: time.Time{},
-			Records:        nil,
-			AccessControl:  accessControl,
-		}
-
-		if err := k.RegisterSecondLevelDomain(ctx, sld, creator, 1); err != nil {
-			return nil, err
-		}
-		items[i] = sld
-	}
-	return items, nil
-}
 
 func (suite *KeeperTestSuite) TestRole() {
 	suite.SetupTest()

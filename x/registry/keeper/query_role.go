@@ -31,11 +31,10 @@ func (k Keeper) Role(goCtx context.Context, req *types.QueryRoleRequest) (*types
 			return nil, errorsmod.Wrapf(sdkerrors.ErrNotFound, "domain not found")
 		}
 	case 2: // SLD
-		sld, found := k.GetSecondLevelDomain(ctx, dms[0], dms[1])
+		role, found = k.GetSecondLevelDomainRole(ctx, dms[0], dms[1], req.Address)
 		if !found {
 			return nil, errorsmod.Wrapf(sdkerrors.ErrNotFound, "domain not found")
 		}
-		role = sld.GetRole(req.Address)
 	default:
 		return nil, errorsmod.Wrapf(sdkerrors.ErrInvalidRequest, "invalid request: domain name")
 	}
