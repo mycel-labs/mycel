@@ -50270,6 +50270,9 @@ paths:
           description: A successful response.
           schema:
             type: object
+            properties:
+              role:
+                type: string
         default:
           description: An unexpected error response.
           schema:
@@ -82007,6 +82010,9 @@ definitions:
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   mycel.registry.QueryRoleResponse:
     type: object
+    properties:
+      role:
+        type: string
   mycel.registry.SecondLevelDomainResponse:
     type: object
     properties:
