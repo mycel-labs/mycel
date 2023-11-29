@@ -31,7 +31,7 @@ func (k Keeper) DomainRegistrationFee(goCtx context.Context, req *types.QueryDom
 		config := types.GetDefaultSubdomainConfig(1)
 		domain := types.TopLevelDomain{
 			Name:            req.Name,
-			SubdomainConfig: &config,
+			SubdomainConfig: config,
 		}
 		err := k.ValidateTopLevelDomainIsRegistrable(ctx, domain)
 		if err != nil {
