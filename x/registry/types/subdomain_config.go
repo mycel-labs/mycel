@@ -4,9 +4,8 @@ import (
 	"errors"
 	"fmt"
 
-	"cosmossdk.io/math"
-
 	errorsmod "cosmossdk.io/errors"
+	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/app/params"
@@ -18,7 +17,7 @@ func GetDefaultSubdomainConfig(baseFee int64) *SubdomainConfig {
 	return &SubdomainConfig{
 		MaxSubdomainRegistrations: 100_000,
 		SubdomainRegistrationFees: &SubdomainRegistrationFees{
-			DefaultFee:  &defaultFee,
+			DefaultFee: &defaultFee,
 		},
 	}
 }
