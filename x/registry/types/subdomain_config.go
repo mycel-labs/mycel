@@ -14,17 +14,16 @@ import (
 
 func GetDefaultSubdomainConfig(baseFee int64) *SubdomainConfig {
 	defaultFee := sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(baseFee))
-	fees := GetFeeByNameLength(10, baseFee, 4)
 
 	return &SubdomainConfig{
 		MaxSubdomainRegistrations: 100_000,
 		SubdomainRegistrationFees: &SubdomainRegistrationFees{
 			DefaultFee:  &defaultFee,
-			FeeByLength: fees,
 		},
 	}
 }
 
+// TODO: This function will cause consensus failure
 func GetFeeByNameLength(base int64, baseFee int64, step int64) map[uint32]*Fee {
 	fees := make(map[uint32]*Fee, step)
 	baseDec, err := math.LegacyNewDecFromStr(fmt.Sprintf("%d", base))
