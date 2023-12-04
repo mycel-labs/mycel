@@ -21,7 +21,7 @@ func GetDefaultTLDs() (defaultTLDs []TopLevelDomain) {
 	for _, v := range GetDefaultTLDNames() {
 		defaultTLDs = append(defaultTLDs, TopLevelDomain{
 			Name:            v,
-			SubdomainConfig: defaultRegistrationConfig,
+			SubdomainConfig: &defaultRegistrationConfig,
 		})
 	}
 	return defaultTLDs

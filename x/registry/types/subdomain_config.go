@@ -11,10 +11,9 @@ import (
 	"github.com/mycel-domain/mycel/app/params"
 )
 
-func GetDefaultSubdomainConfig(baseFee int64) *SubdomainConfig {
+func GetDefaultSubdomainConfig(baseFee int64) SubdomainConfig {
 	defaultFee := sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(baseFee))
-
-	return &SubdomainConfig{
+	return SubdomainConfig{
 		MaxSubdomainRegistrations: 100_000,
 		SubdomainRegistrationFees: &SubdomainRegistrationFees{
 			DefaultFee: &defaultFee,

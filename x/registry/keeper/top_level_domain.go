@@ -169,7 +169,7 @@ func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, creator string, domainNa
 		Name:                  domainName,
 		ExpirationDate:        expirationDate,
 		Metadata:              nil,
-		SubdomainConfig:       defaultRegistrationConfig,
+		SubdomainConfig:       &defaultRegistrationConfig,
 		AccessControl:         accessControl,
 		TotalWithdrawalAmount: sdk.NewCoins(),
 	}
