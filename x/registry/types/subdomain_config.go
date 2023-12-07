@@ -2,9 +2,10 @@ package types
 
 import (
 	"errors"
-	math "math"
+	"fmt"
 
 	errorsmod "cosmossdk.io/errors"
+	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/app/params"
@@ -12,22 +13,29 @@ import (
 
 func GetDefaultSubdomainConfig(baseFee int64) SubdomainConfig {
 	defaultFee := sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(baseFee))
-	fees := GetFeeByNameLength(10, int(baseFee))
-
 	return SubdomainConfig{
 		MaxSubdomainRegistrations: 100_000,
 		SubdomainRegistrationFees: &SubdomainRegistrationFees{
-			FeeByLength: fees,
-			DefaultFee:  &defaultFee,
+			DefaultFee: &defaultFee,
 		},
 	}
 }
 
-func GetFeeByNameLength(base int, baseFee int) map[uint32]*Fee {
-	fees := make(map[uint32]*Fee)
-	for i := uint32(1); i < 5; i++ {
-		amount := baseFee * int(math.Pow(float64(base), float64((5-i))))
-		fee := sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(int64(amount)))
+// TODO: This function will cause consensus failure
+func GetFeeByNameLength(base int64, baseFee int64, step int64) map[uint32]*Fee {
+	fees := make(map[uint32]*Fee, step)
+	baseDec, err := math.LegacyNewDecFromStr(fmt.Sprintf("%d", base))
+	if err != nil {
+		panic(err)
+	}
+	baseFeeDec, err := math.LegacyNewDecFromStr(fmt.Sprintf("%d", baseFee))
+	if err != nil {
+		panic(err)
+	}
+	for i := uint32(1); i <= uint32(step); i++ {
+		exponent := uint64(step+1) - uint64(i)
+		amount := baseFeeDec.Mul(baseDec.Power(exponent)).RoundInt()
+		fee := sdk.NewCoin(params.DefaultBondDenom, amount)
 		fees[i] = &Fee{
 			IsRegistrable: true,
 			Fee:           &fee,

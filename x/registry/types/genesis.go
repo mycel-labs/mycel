@@ -2,6 +2,7 @@ package types
 
 import (
 	"fmt"
+	"math"
 )
 
 // DefaultIndex is the default global index
@@ -16,6 +17,7 @@ func GetDefaultTLDNames() []string {
 // Get default TLDs
 func GetDefaultTLDs() (defaultTLDs []TopLevelDomain) {
 	defaultRegistrationConfig := GetDefaultSubdomainConfig(3030)
+	defaultRegistrationConfig.MaxSubdomainRegistrations = math.MaxInt64
 	for _, v := range GetDefaultTLDNames() {
 		defaultTLDs = append(defaultTLDs, TopLevelDomain{
 			Name:            v,

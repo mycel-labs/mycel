@@ -12,6 +12,16 @@ serve:
 build:
 	$(DOCKER_RUN_CMD) ignite chain build
 
+## Docker compose
+docker-compose-build:
+	docker compose build
+docker-compose-up:
+	docker compose up
+docker-compose-build-arm:
+	docker compose -f compose-arm.yml build
+docker-compose-up-arm:
+	docker compose -f compose-arm.yml up
+
 ## Test
 test-all-module:
 	go test ./x/.../
