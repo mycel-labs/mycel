@@ -41,5 +41,5 @@ message SecondLevelDomain {
     (gogoproto.nullable) = false
   ];
   map<string, Record> records = 5;
-  map<string, DomainRole> accessControl = 6;
+  repeated DomainRole accessControl = 6;
 }

@@ -15,11 +15,10 @@ message TopLevelDomain {
     (gogoproto.stdtime) = true,
     (gogoproto.nullable) = false
   ];
-  map<string, string> metadata = 3;
-  SubdomainConfig subdomainConfig = 4;
-  uint64 subdomainCount = 5;
-  map<string, DomainRole> accessControl = 6;
-  repeated cosmos.base.v1beta1.Coin totalWithdrawalAmount = 7 [
+  SubdomainConfig subdomainConfig = 3;
+  uint64 subdomainCount = 4;
+  repeated DomainRole accessControl = 5;
+  repeated cosmos.base.v1beta1.Coin totalWithdrawalAmount = 6 [
     (gogoproto.nullable) = false,
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
   ];
