@@ -86,7 +86,7 @@ func TestGetRoleTLD(t *testing.T) {
 		{
 			domain: TopLevelDomain{
 				Name:          "myc",
-				AccessControl: map[string]DomainRole{testutil.Alice: DomainRole_NO_ROLE},
+				AccessControl: []*AccessControl{{Address: testutil.Alice, Role: DomainRole_NO_ROLE}},
 			},
 			req: testutil.Alice,
 			exp: DomainRole_NO_ROLE,
@@ -94,7 +94,7 @@ func TestGetRoleTLD(t *testing.T) {
 		{
 			domain: TopLevelDomain{
 				Name:          "myc",
-				AccessControl: map[string]DomainRole{testutil.Alice: DomainRole_OWNER},
+				AccessControl: []*AccessControl{{Address: testutil.Alice, Role: DomainRole_OWNER}},
 			},
 			req: testutil.Alice,
 			exp: DomainRole_OWNER,
@@ -102,7 +102,7 @@ func TestGetRoleTLD(t *testing.T) {
 		{
 			domain: TopLevelDomain{
 				Name:          "myc",
-				AccessControl: map[string]DomainRole{testutil.Alice: DomainRole_EDITOR},
+				AccessControl: []*AccessControl{{Address: testutil.Alice, Role: DomainRole_EDITOR}},
 			},
 			req: testutil.Alice,
 			exp: DomainRole_EDITOR,
@@ -110,7 +110,7 @@ func TestGetRoleTLD(t *testing.T) {
 		{
 			domain: TopLevelDomain{
 				Name:          "myc",
-				AccessControl: map[string]DomainRole{testutil.Alice: DomainRole_OWNER},
+				AccessControl: []*AccessControl{{Address: testutil.Alice, Role: DomainRole_OWNER}},
 			},
 			req: testutil.Bob,
 			exp: DomainRole_NO_ROLE,

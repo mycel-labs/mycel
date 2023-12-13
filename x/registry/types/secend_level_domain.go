@@ -110,14 +110,19 @@ func (secondLevelDomain *SecondLevelDomain) UpdateDnsRecord(dnsRecordType string
 }
 
 func (secondLevelDomain SecondLevelDomain) IsRecordEditable(sender string) (isEditable bool, err error) {
-	if secondLevelDomain.AccessControl[sender] == DomainRole_NO_ROLE {
+	role := secondLevelDomain.GetRole(sender)
+	if role == DomainRole_NO_ROLE {
 		err = errorsmod.Wrapf(ErrSecondLevelDomainNotEditable, "%s", sender)
 	}
-	isEditable = secondLevelDomain.AccessControl[sender] == DomainRole_EDITOR || secondLevelDomain.AccessControl[sender] == DomainRole_OWNER
+	isEditable = role == DomainRole_EDITOR || role == DomainRole_OWNER
 	return isEditable, err
 }
 
 func (secondLevelDomain *SecondLevelDomain) GetRole(address string) (role DomainRole) {
-	role = secondLevelDomain.AccessControl[address]
-	return role
+	for _, accessControl := range secondLevelDomain.AccessControl {
+		if accessControl.Address == address {
+			return accessControl.Role
+		}
+	}
+	return DomainRole_NO_ROLE
 }

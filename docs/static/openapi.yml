@@ -50414,12 +50414,17 @@ paths:
                     accessControl:
                       type: array
                       items:
-                        type: string
-                        enum:
-                          - NO_ROLE
-                          - OWNER
-                          - EDITOR
-                        default: NO_ROLE
+                        type: object
+                        properties:
+                          address:
+                            type: string
+                          role:
+                            type: string
+                            enum:
+                              - NO_ROLE
+                              - OWNER
+                              - EDITOR
+                            default: NO_ROLE
                     totalWithdrawalAmount:
                       type: array
                       items:
@@ -50654,12 +50659,17 @@ paths:
                   accessControl:
                     type: array
                     items:
-                      type: string
-                      enum:
-                        - NO_ROLE
-                        - OWNER
-                        - EDITOR
-                      default: NO_ROLE
+                      type: object
+                      properties:
+                        address:
+                          type: string
+                        role:
+                          type: string
+                          enum:
+                            - NO_ROLE
+                            - OWNER
+                            - EDITOR
+                          default: NO_ROLE
                   totalWithdrawalAmount:
                     type: array
                     items:
@@ -81209,6 +81219,18 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  mycel.registry.AccessControl:
+    type: object
+    properties:
+      address:
+        type: string
+      role:
+        type: string
+        enum:
+          - NO_ROLE
+          - OWNER
+          - EDITOR
+        default: NO_ROLE
   mycel.registry.DomainOwnership:
     type: object
     properties:
@@ -81372,12 +81394,17 @@ definitions:
           accessControl:
             type: array
             items:
-              type: string
-              enum:
-                - NO_ROLE
-                - OWNER
-                - EDITOR
-              default: NO_ROLE
+              type: object
+              properties:
+                address:
+                  type: string
+                role:
+                  type: string
+                  enum:
+                    - NO_ROLE
+                    - OWNER
+                    - EDITOR
+                  default: NO_ROLE
           totalWithdrawalAmount:
             type: array
             items:
@@ -81552,12 +81579,17 @@ definitions:
           accessControl:
             type: array
             items:
-              type: string
-              enum:
-                - NO_ROLE
-                - OWNER
-                - EDITOR
-              default: NO_ROLE
+              type: object
+              properties:
+                address:
+                  type: string
+                role:
+                  type: string
+                  enum:
+                    - NO_ROLE
+                    - OWNER
+                    - EDITOR
+                  default: NO_ROLE
           totalWithdrawalAmount:
             type: array
             items:
@@ -81856,12 +81888,17 @@ definitions:
             accessControl:
               type: array
               items:
-                type: string
-                enum:
-                  - NO_ROLE
-                  - OWNER
-                  - EDITOR
-                default: NO_ROLE
+                type: object
+                properties:
+                  address:
+                    type: string
+                  role:
+                    type: string
+                    enum:
+                      - NO_ROLE
+                      - OWNER
+                      - EDITOR
+                    default: NO_ROLE
             totalWithdrawalAmount:
               type: array
               items:
@@ -82065,12 +82102,17 @@ definitions:
           accessControl:
             type: array
             items:
-              type: string
-              enum:
-                - NO_ROLE
-                - OWNER
-                - EDITOR
-              default: NO_ROLE
+              type: object
+              properties:
+                address:
+                  type: string
+                role:
+                  type: string
+                  enum:
+                    - NO_ROLE
+                    - OWNER
+                    - EDITOR
+                  default: NO_ROLE
           totalWithdrawalAmount:
             type: array
             items:
@@ -82363,12 +82405,17 @@ definitions:
       accessControl:
         type: array
         items:
-          type: string
-          enum:
-            - NO_ROLE
-            - OWNER
-            - EDITOR
-          default: NO_ROLE
+          type: object
+          properties:
+            address:
+              type: string
+            role:
+              type: string
+              enum:
+                - NO_ROLE
+                - OWNER
+                - EDITOR
+              default: NO_ROLE
       totalWithdrawalAmount:
         type: array
         items:
