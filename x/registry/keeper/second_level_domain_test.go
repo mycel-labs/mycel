@@ -53,8 +53,9 @@ func registerNSecondLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator strin
 			return nil, err
 		}
 		name := strconv.Itoa(i)
-		accessControl := map[string]types.DomainRole{
-			creator.String(): types.DomainRole_OWNER,
+		accessControl := types.AccessControl{
+			Address: creator.String(),
+			Role:    types.DomainRole_OWNER,
 		}
 		sld := types.SecondLevelDomain{
 			Name:           name,
@@ -62,7 +63,7 @@ func registerNSecondLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator strin
 			Owner:          creator.String(),
 			ExpirationDate: time.Time{},
 			Records:        nil,
-			AccessControl:  accessControl,
+			AccessControl:  []*types.AccessControl{&accessControl},
 		}
 
 		if err := k.RegisterSecondLevelDomain(ctx, sld, creator, 1); err != nil {

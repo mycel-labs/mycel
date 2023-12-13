@@ -22,8 +22,8 @@ func (k msgServer) WithdrawRegistrationFee(goCtx context.Context, msg *types.Msg
 	}
 
 	// Check if the creator is the owner of the domain
-	role, ok := topLevelDomain.AccessControl[msg.Creator]
-	if !ok || role != types.DomainRole_OWNER {
+	role := topLevelDomain.GetRole(msg.Creator)
+	if role != types.DomainRole_OWNER {
 		return nil, errorsmod.Wrapf(types.ErrNoPermissionToWithdraw, "%s", msg.Creator)
 	}
 

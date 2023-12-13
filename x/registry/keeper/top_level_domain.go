@@ -161,16 +161,16 @@ func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, creator string, domainNa
 	// Create top-level-domain
 	currentTime := ctx.BlockTime()
 	expirationDate := currentTime.AddDate(0, 0, params.OneYearInDays*int(registrationPeriodInYear))
-	accessControl := map[string]types.DomainRole{
-		creator: types.DomainRole_OWNER,
+	accessControl := types.AccessControl{
+		Address: creator,
+		Role:    types.DomainRole_OWNER,
 	}
 	defaultRegistrationConfig := types.GetDefaultSubdomainConfig(303)
 	topLevelDomain = types.TopLevelDomain{
 		Name:                  domainName,
 		ExpirationDate:        expirationDate,
-		Metadata:              nil,
 		SubdomainConfig:       &defaultRegistrationConfig,
-		AccessControl:         accessControl,
+		AccessControl:         []*types.AccessControl{&accessControl},
 		TotalWithdrawalAmount: sdk.NewCoins(),
 	}
 
