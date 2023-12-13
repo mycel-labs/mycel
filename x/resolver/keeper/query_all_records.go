@@ -32,7 +32,7 @@ func (k Keeper) AllRecords(goCtx context.Context, req *types.QueryAllRecordsRequ
 	values := make(map[string]*registrytypes.Record)
 	for _, record := range secondLevelDomain.Records {
 		key := generateRecordKey(record)
-		if key == "" {
+		if key != "" {
 			values[key] = record
 		}
 	}
@@ -42,11 +42,11 @@ func (k Keeper) AllRecords(goCtx context.Context, req *types.QueryAllRecordsRequ
 func generateRecordKey(record *registrytypes.Record) string {
 	switch {
 	case record.GetDnsRecord() != nil:
-		return string(record.GetDnsRecord().DnsRecordType)
+		return record.GetDnsRecord().DnsRecordType.String()
 	case record.GetWalletRecord() != nil:
-		return string(record.GetWalletRecord().WalletRecordType)
+		return record.GetWalletRecord().WalletRecordType.String()
 	case record.GetMetadata() != nil:
-		return string(record.GetMetadata().Key)
+		return record.GetMetadata().Key
 	default:
 		return ""
 	}
