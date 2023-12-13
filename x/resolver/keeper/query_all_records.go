@@ -7,6 +7,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
+	registrytypes "github.com/mycel-domain/mycel/x/registry/types"
 	"github.com/mycel-domain/mycel/x/resolver/types"
 )
 
@@ -27,7 +28,26 @@ func (k Keeper) AllRecords(goCtx context.Context, req *types.QueryAllRecordsRequ
 		return nil, err
 	}
 
-	values := secondLevelDomain.Records
-
+	// Convert repeated Record to map
+	values := make(map[string]*registrytypes.Record)
+	for _, record := range secondLevelDomain.Records {
+		key := generateRecordKey(record)
+		if key == "" {
+			values[key] = record
+		}
+	}
 	return &types.QueryAllRecordsResponse{Values: values}, nil
+}
+
+func generateRecordKey(record *registrytypes.Record) string {
+	switch {
+	case record.GetDnsRecord() != nil:
+		return string(record.GetDnsRecord().DnsRecordType)
+	case record.GetWalletRecord() != nil:
+		return string(record.GetWalletRecord().WalletRecordType)
+	case record.GetMetadata() != nil:
+		return string(record.GetMetadata().Key)
+	default:
+		return ""
+	}
 }
