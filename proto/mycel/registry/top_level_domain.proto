@@ -4,7 +4,7 @@ package mycel.registry;
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
 import "google/protobuf/timestamp.proto";
-import "mycel/registry/role.proto";
+import "mycel/registry/access_control.proto";
 import "mycel/registry/subdomain_config.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
@@ -17,7 +17,7 @@ message TopLevelDomain {
   ];
   SubdomainConfig subdomainConfig = 3;
   uint64 subdomainCount = 4;
-  repeated DomainRole accessControl = 5;
+  repeated AccessControl accessControl = 5;
   repeated cosmos.base.v1beta1.Coin totalWithdrawalAmount = 6 [
     (gogoproto.nullable) = false,
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"

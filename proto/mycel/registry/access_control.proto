@@ -3,8 +3,14 @@ package mycel.registry;
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
+message AccessControl {
+  string address = 1;
+  DomainRole role = 2;
+}
+
 enum DomainRole {
   NO_ROLE = 0;
   OWNER = 1;
   EDITOR = 2;
 }
+
