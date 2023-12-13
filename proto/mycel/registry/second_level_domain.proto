@@ -40,6 +40,6 @@ message SecondLevelDomain {
     (gogoproto.stdtime) = true,
     (gogoproto.nullable) = false
   ];
-  map<string, Record> records = 5;
+  repeated Record records = 5;
   repeated AccessControl accessControl = 6;
 }
