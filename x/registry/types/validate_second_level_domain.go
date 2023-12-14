@@ -77,3 +77,15 @@ func ValidateDnsRecordType(dnsRecordType string) (err error) {
 	}
 	return err
 }
+
+func ValidateTextRecordKey(textRecordKey string) (err error) {
+	_, isFound := NetworkName_value[textRecordKey]
+	if isFound {
+		err = errorsmod.Wrapf(ErrInvalidTextRecordKey, "%s", textRecordKey)
+	}
+	_, isFound = DnsRecordType_value[textRecordKey]
+	if isFound {
+		err = errorsmod.Wrapf(ErrInvalidTextRecordKey, "%s", textRecordKey)
+	}
+	return err
+}

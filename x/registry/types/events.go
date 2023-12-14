@@ -43,6 +43,16 @@ const (
 	AttributeUpdateDnsRecordEventValue         = "value"
 )
 
+// Update text record event
+const (
+	EventTypeUpdateTextRecord = "update-text-record"
+
+	AttributeUpdateTextRecordEventDomainName   = "name"
+	AttributeUpdateTextRecordEventDomainParent = "parent"
+	AttributeUpdateTextRecordEventKey          = "key"
+	AttributeUpdateTextRecordEventValue        = "value"
+)
+
 // Withdraw fees event
 const (
 	EventTypeWithdrawRegistrationFee = "withdraw-registration-fees"
