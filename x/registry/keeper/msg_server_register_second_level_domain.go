@@ -17,17 +17,17 @@ func (k msgServer) RegisterSecondLevelDomain(goCtx context.Context, msg *types.M
 		return nil, err
 	}
 
-	accessControl := map[string]types.DomainRole{
-		msg.Creator: types.DomainRole_OWNER,
+	accessControl := types.AccessControl{
+		Address: msg.Creator,
+		Role:    types.DomainRole_OWNER,
 	}
-
 	domain := types.SecondLevelDomain{
 		Name:           msg.Name,
 		Owner:          msg.Creator,
 		ExpirationDate: time.Time{},
 		Parent:         msg.Parent,
 		Records:        nil,
-		AccessControl:  accessControl,
+		AccessControl:  []*types.AccessControl{&accessControl},
 	}
 
 	err = k.Keeper.RegisterSecondLevelDomain(ctx, domain, creatorAddress, msg.RegistrationPeriodInYear)

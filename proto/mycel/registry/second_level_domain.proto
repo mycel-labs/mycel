@@ -5,7 +5,7 @@ import "gogoproto/gogo.proto";
 import "google/protobuf/timestamp.proto";
 import "mycel/registry/dns_record.proto";
 import "mycel/registry/network_name.proto";
-import "mycel/registry/role.proto";
+import "mycel/registry/access_control.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
@@ -40,6 +40,6 @@ message SecondLevelDomain {
     (gogoproto.stdtime) = true,
     (gogoproto.nullable) = false
   ];
-  map<string, Record> records = 5;
-  map<string, DomainRole> accessControl = 6;
+  repeated Record records = 5;
+  repeated AccessControl accessControl = 6;
 }

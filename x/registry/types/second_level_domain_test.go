@@ -151,7 +151,7 @@ func TestDomainUpdateWalletRecord(t *testing.T) {
 		err := domain.UpdateWalletRecord(tc.walletRecordType, tc.address)
 		if tc.expErr == nil {
 			require.Nil(t, err)
-			require.Equal(t, tc.address, domain.Records[tc.walletRecordType].GetWalletRecord().GetValue())
+			require.Equal(t, tc.address, domain.GetWalletRecord(tc.walletRecordType))
 		} else {
 			require.EqualError(t, err, tc.expErr.Error())
 		}
@@ -194,7 +194,7 @@ func TestDomainUpdateDnsRecord(t *testing.T) {
 		err := domain.UpdateDnsRecord(tc.dnsRecordType, tc.value)
 		if tc.expErr == nil {
 			require.Nil(t, err)
-			require.Equal(t, tc.value, domain.Records[tc.dnsRecordType].GetDnsRecord().GetValue())
+			require.Equal(t, tc.value, domain.GetDnsRecord(tc.dnsRecordType))
 		} else {
 			require.EqualError(t, err, tc.expErr.Error())
 		}
@@ -211,7 +211,7 @@ func TestGetRoleSLD(t *testing.T) {
 		{
 			domain: SecondLevelDomain{
 				Name:          "myc",
-				AccessControl: map[string]DomainRole{testutil.Alice: DomainRole_NO_ROLE},
+				AccessControl: []*AccessControl{{Address: testutil.Alice, Role: DomainRole_NO_ROLE}},
 			},
 			req: testutil.Alice,
 			exp: DomainRole_NO_ROLE,
@@ -219,7 +219,7 @@ func TestGetRoleSLD(t *testing.T) {
 		{
 			domain: SecondLevelDomain{
 				Name:          "myc",
-				AccessControl: map[string]DomainRole{testutil.Alice: DomainRole_OWNER},
+				AccessControl: []*AccessControl{{Address: testutil.Alice, Role: DomainRole_OWNER}},
 			},
 			req: testutil.Alice,
 			exp: DomainRole_OWNER,
@@ -227,7 +227,7 @@ func TestGetRoleSLD(t *testing.T) {
 		{
 			domain: SecondLevelDomain{
 				Name:          "myc",
-				AccessControl: map[string]DomainRole{testutil.Alice: DomainRole_EDITOR},
+				AccessControl: []*AccessControl{{Address: testutil.Alice, Role: DomainRole_EDITOR}},
 			},
 			req: testutil.Alice,
 			exp: DomainRole_EDITOR,
@@ -235,7 +235,7 @@ func TestGetRoleSLD(t *testing.T) {
 		{
 			domain: SecondLevelDomain{
 				Name:          "myc",
-				AccessControl: map[string]DomainRole{testutil.Alice: DomainRole_OWNER},
+				AccessControl: []*AccessControl{{Address: testutil.Alice, Role: DomainRole_OWNER}},
 			},
 			req: testutil.Bob,
 			exp: DomainRole_NO_ROLE,

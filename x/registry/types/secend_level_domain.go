@@ -19,6 +19,24 @@ func (secondLevelDomain SecondLevelDomain) ParseParent() (parent string) {
 	return parent
 }
 
+func (secondLevelDomain *SecondLevelDomain) GetWalletRecord(walletRecordType string) string {
+	for _, rec := range secondLevelDomain.Records {
+		if rec.GetWalletRecord() != nil && rec.GetWalletRecord().WalletRecordType.String() == walletRecordType {
+			return rec.GetWalletRecord().Value
+		}
+	}
+	return ""
+}
+
+func (secondLevelDomain *SecondLevelDomain) GetDnsRecord(dnsRecordType string) string {
+	for _, rec := range secondLevelDomain.Records {
+		if rec.GetDnsRecord() != nil && rec.GetDnsRecord().DnsRecordType.String() == dnsRecordType {
+			return rec.GetDnsRecord().Value
+		}
+	}
+	return ""
+}
+
 func GetWalletAddressFormat(walletRecordType string) (walletAddressFormat string, err error) {
 	// Validate wallet record type
 	err = ValidateWalletRecordType(walletRecordType)
@@ -55,12 +73,18 @@ func (secondLevelDomain *SecondLevelDomain) UpdateWalletRecord(walletRecordType 
 		Record: &Record_WalletRecord{WalletRecord: walletRecord},
 	}
 
-	// Initialize WalletRecords map if it is nil
-	if secondLevelDomain.Records == nil {
-		secondLevelDomain.Records = make(map[string]*Record)
+	// Update or add the new record
+	updated := false
+	for i, rec := range secondLevelDomain.Records {
+		if rec.GetWalletRecord() != nil && rec.GetWalletRecord().WalletRecordType.String() == walletRecordType {
+			secondLevelDomain.Records[i] = record
+			updated = true
+			break
+		}
 	}
-
-	secondLevelDomain.Records[walletRecordType] = record
+	if !updated {
+		secondLevelDomain.Records = append(secondLevelDomain.Records, record)
+	}
 
 	return err
 }
@@ -99,25 +123,34 @@ func (secondLevelDomain *SecondLevelDomain) UpdateDnsRecord(dnsRecordType string
 		Record: &Record_DnsRecord{DnsRecord: dnsRecord},
 	}
 
-	// Initialize WalletRecords map if it is nil
-	if secondLevelDomain.Records == nil {
-		secondLevelDomain.Records = make(map[string]*Record)
+	updated := false
+	for i, rec := range secondLevelDomain.Records {
+		if rec.GetDnsRecord() != nil && rec.GetDnsRecord().DnsRecordType.String() == dnsRecordType {
+			secondLevelDomain.Records[i] = record
+			updated = true
+			break
+		}
 	}
-
-	secondLevelDomain.Records[dnsRecordType] = record
-
+	if !updated {
+		secondLevelDomain.Records = append(secondLevelDomain.Records, record)
+	}
 	return err
 }
 
 func (secondLevelDomain SecondLevelDomain) IsRecordEditable(sender string) (isEditable bool, err error) {
-	if secondLevelDomain.AccessControl[sender] == DomainRole_NO_ROLE {
+	role := secondLevelDomain.GetRole(sender)
+	if role == DomainRole_NO_ROLE {
 		err = errorsmod.Wrapf(ErrSecondLevelDomainNotEditable, "%s", sender)
 	}
-	isEditable = secondLevelDomain.AccessControl[sender] == DomainRole_EDITOR || secondLevelDomain.AccessControl[sender] == DomainRole_OWNER
+	isEditable = role == DomainRole_EDITOR || role == DomainRole_OWNER
 	return isEditable, err
 }
 
 func (secondLevelDomain *SecondLevelDomain) GetRole(address string) (role DomainRole) {
-	role = secondLevelDomain.AccessControl[address]
-	return role
+	for _, accessControl := range secondLevelDomain.AccessControl {
+		if accessControl.Address == address {
+			return accessControl.Role
+		}
+	}
+	return DomainRole_NO_ROLE
 }

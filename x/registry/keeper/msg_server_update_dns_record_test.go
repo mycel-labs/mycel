@@ -95,7 +95,7 @@ func (suite *KeeperTestSuite) TestUpdateDnsRecord() {
 				// Check if the record is updated
 				suite.Require().Nil(err)
 				res, _ := suite.app.RegistryKeeper.GetSecondLevelDomain(suite.ctx, domain.Name, domain.Parent)
-				suite.Require().Equal(tc.value, res.Records[tc.dnsRecordType].GetDnsRecord().GetValue())
+				suite.Require().Equal(tc.value, res.GetDnsRecord(tc.dnsRecordType))
 				// Evalute events
 				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeUpdateDnsRecord)
 				suite.Require().True(found)

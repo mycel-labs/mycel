@@ -34,7 +34,10 @@ func (k Keeper) DnsRecord(goCtx context.Context, req *types.QueryDnsRecordReques
 		return nil, err
 	}
 
-	value := secondLevelDomain.Records[req.DnsRecordType].GetDnsRecord()
+	value := secondLevelDomain.GetDnsRecord(req.DnsRecordType)
+	recordType := registrytypes.DnsRecordType(registrytypes.DnsRecordType_value[req.DnsRecordType])
 
-	return &types.QueryDnsRecordResponse{Value: value}, nil
+	return &types.QueryDnsRecordResponse{
+		Value: &registrytypes.DnsRecord{DnsRecordType: recordType, Value: value},
+	}, nil
 }

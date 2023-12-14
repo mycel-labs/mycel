@@ -107,7 +107,7 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 				// Evaluate if domain is registered
 				domain, found := suite.app.RegistryKeeper.GetSecondLevelDomain(suite.ctx, tc.name, tc.parent)
 				suite.Require().True(found)
-				suite.Require().Equal(domain.AccessControl[tc.creator], types.DomainRole_OWNER)
+				suite.Require().Equal(domain.GetRole(tc.creator), types.DomainRole_OWNER)
 
 				// Evaluate if domain is appended to owned domain list
 				ownedDomains, found := suite.app.RegistryKeeper.GetDomainOwnership(suite.ctx, tc.creator)

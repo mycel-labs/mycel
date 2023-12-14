@@ -33,8 +33,10 @@ func (k Keeper) WalletRecord(goCtx context.Context, req *types.QueryWalletRecord
 	if err != nil {
 		return nil, err
 	}
+	value := secondLevelDomain.GetWalletRecord(req.WalletRecordType)
+	recordType := registrytypes.NetworkName(registrytypes.NetworkName_value[req.WalletRecordType])
 
-	value := secondLevelDomain.Records[req.WalletRecordType].GetWalletRecord()
-
-	return &types.QueryWalletRecordResponse{Value: value}, nil
+	return &types.QueryWalletRecordResponse{
+		Value: &registrytypes.WalletRecord{WalletRecordType: recordType, Value: value},
+	}, nil
 }

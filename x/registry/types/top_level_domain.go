@@ -45,14 +45,6 @@ func (topLevelDommain TopLevelDomain) GetRegistrationFeeAmountInDenom(denom stri
 	return amount, nil
 }
 
-func (topLevelDomain TopLevelDomain) IsEditable(sender string) (isEditable bool, err error) {
-	if topLevelDomain.AccessControl[sender] == DomainRole_NO_ROLE {
-		err = errorsmod.Wrapf(ErrTopLevelDomainNotEditable, "%s", sender)
-	}
-	isEditable = topLevelDomain.AccessControl[sender] == DomainRole_EDITOR || topLevelDomain.AccessControl[sender] == DomainRole_OWNER
-	return isEditable, err
-}
-
 func (topLevelDomain *TopLevelDomain) ExtendExpirationDate(from time.Time, extensionPeriodInYear uint64) (expirationDate time.Time) {
 	expirationDate = from.AddDate(0, 0, params.OneYearInDays*int(extensionPeriodInYear))
 	topLevelDomain.ExpirationDate = expirationDate
@@ -60,7 +52,20 @@ func (topLevelDomain *TopLevelDomain) ExtendExpirationDate(from time.Time, exten
 	return expirationDate
 }
 
+func (topLevelDomain TopLevelDomain) IsEditable(sender string) (isEditable bool, err error) {
+	role := topLevelDomain.GetRole(sender)
+	if role == DomainRole_NO_ROLE {
+		err = errorsmod.Wrapf(ErrTopLevelDomainNotEditable, "%s", sender)
+	}
+	isEditable = role == DomainRole_EDITOR || role == DomainRole_OWNER
+	return isEditable, err
+}
+
 func (topLevelDomain *TopLevelDomain) GetRole(address string) (role DomainRole) {
-	role = topLevelDomain.AccessControl[address]
-	return role
+	for _, accessControl := range topLevelDomain.AccessControl {
+		if accessControl.Address == address {
+			return accessControl.Role
+		}
+	}
+	return DomainRole_NO_ROLE
 }

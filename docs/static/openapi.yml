@@ -50321,10 +50321,6 @@ paths:
                     expirationDate:
                       type: string
                       format: date-time
-                    metadata:
-                      type: object
-                      additionalProperties:
-                        type: string
                     subdomainConfig:
                       type: object
                       properties:
@@ -50335,10 +50331,13 @@ paths:
                           type: object
                           properties:
                             feeByLength:
-                              type: object
-                              additionalProperties:
+                              type: array
+                              items:
                                 type: object
                                 properties:
+                                  length:
+                                    type: integer
+                                    format: int64
                                   isRegistrable:
                                     type: boolean
                                   fee:
@@ -50358,10 +50357,12 @@ paths:
 
                                       signatures required by gogoproto.
                             feeByName:
-                              type: object
-                              additionalProperties:
+                              type: array
+                              items:
                                 type: object
                                 properties:
+                                  name:
+                                    type: string
                                   isRegistrable:
                                     type: boolean
                                   fee:
@@ -50396,18 +50397,34 @@ paths:
                                 implements the custom method
 
                                 signatures required by gogoproto.
+                        isRegistrable:
+                          type: boolean
+                        registrableRole:
+                          type: string
+                          enum:
+                            - NO_ROLE
+                            - OWNER
+                            - EDITOR
+                          default: NO_ROLE
+                        customExpirationDate:
+                          type: boolean
                     subdomainCount:
                       type: string
                       format: uint64
                     accessControl:
-                      type: object
-                      additionalProperties:
-                        type: string
-                        enum:
-                          - NO_ROLE
-                          - OWNER
-                          - EDITOR
-                        default: NO_ROLE
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          address:
+                            type: string
+                          role:
+                            type: string
+                            enum:
+                              - NO_ROLE
+                              - OWNER
+                              - EDITOR
+                            default: NO_ROLE
                     totalWithdrawalAmount:
                       type: array
                       items:
@@ -50549,10 +50566,6 @@ paths:
                   expirationDate:
                     type: string
                     format: date-time
-                  metadata:
-                    type: object
-                    additionalProperties:
-                      type: string
                   subdomainConfig:
                     type: object
                     properties:
@@ -50563,10 +50576,13 @@ paths:
                         type: object
                         properties:
                           feeByLength:
-                            type: object
-                            additionalProperties:
+                            type: array
+                            items:
                               type: object
                               properties:
+                                length:
+                                  type: integer
+                                  format: int64
                                 isRegistrable:
                                   type: boolean
                                 fee:
@@ -50586,10 +50602,12 @@ paths:
 
                                     signatures required by gogoproto.
                           feeByName:
-                            type: object
-                            additionalProperties:
+                            type: array
+                            items:
                               type: object
                               properties:
+                                name:
+                                  type: string
                                 isRegistrable:
                                   type: boolean
                                 fee:
@@ -50624,18 +50642,34 @@ paths:
                               the custom method
 
                               signatures required by gogoproto.
+                      isRegistrable:
+                        type: boolean
+                      registrableRole:
+                        type: string
+                        enum:
+                          - NO_ROLE
+                          - OWNER
+                          - EDITOR
+                        default: NO_ROLE
+                      customExpirationDate:
+                        type: boolean
                   subdomainCount:
                     type: string
                     format: uint64
                   accessControl:
-                    type: object
-                    additionalProperties:
-                      type: string
-                      enum:
-                        - NO_ROLE
-                        - OWNER
-                        - EDITOR
-                      default: NO_ROLE
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        address:
+                          type: string
+                        role:
+                          type: string
+                          enum:
+                            - NO_ROLE
+                            - OWNER
+                            - EDITOR
+                          default: NO_ROLE
                   totalWithdrawalAmount:
                     type: array
                     items:
@@ -81185,6 +81219,18 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  mycel.registry.AccessControl:
+    type: object
+    properties:
+      address:
+        type: string
+      role:
+        type: string
+        enum:
+          - NO_ROLE
+          - OWNER
+          - EDITOR
+        default: NO_ROLE
   mycel.registry.DomainOwnership:
     type: object
     properties:
@@ -81206,9 +81252,31 @@ definitions:
       - OWNER
       - EDITOR
     default: NO_ROLE
-  mycel.registry.Fee:
+  mycel.registry.FeeByLength:
     type: object
     properties:
+      length:
+        type: integer
+        format: int64
+      isRegistrable:
+        type: boolean
+      fee:
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
+  mycel.registry.FeeByName:
+    type: object
+    properties:
+      name:
+        type: string
       isRegistrable:
         type: boolean
       fee:
@@ -81234,10 +81302,6 @@ definitions:
           expirationDate:
             type: string
             format: date-time
-          metadata:
-            type: object
-            additionalProperties:
-              type: string
           subdomainConfig:
             type: object
             properties:
@@ -81248,10 +81312,13 @@ definitions:
                 type: object
                 properties:
                   feeByLength:
-                    type: object
-                    additionalProperties:
+                    type: array
+                    items:
                       type: object
                       properties:
+                        length:
+                          type: integer
+                          format: int64
                         isRegistrable:
                           type: boolean
                         fee:
@@ -81271,10 +81338,12 @@ definitions:
 
                             signatures required by gogoproto.
                   feeByName:
-                    type: object
-                    additionalProperties:
+                    type: array
+                    items:
                       type: object
                       properties:
+                        name:
+                          type: string
                         isRegistrable:
                           type: boolean
                         fee:
@@ -81308,18 +81377,34 @@ definitions:
                       custom method
 
                       signatures required by gogoproto.
+              isRegistrable:
+                type: boolean
+              registrableRole:
+                type: string
+                enum:
+                  - NO_ROLE
+                  - OWNER
+                  - EDITOR
+                default: NO_ROLE
+              customExpirationDate:
+                type: boolean
           subdomainCount:
             type: string
             format: uint64
           accessControl:
-            type: object
-            additionalProperties:
-              type: string
-              enum:
-                - NO_ROLE
-                - OWNER
-                - EDITOR
-              default: NO_ROLE
+            type: array
+            items:
+              type: object
+              properties:
+                address:
+                  type: string
+                role:
+                  type: string
+                  enum:
+                    - NO_ROLE
+                    - OWNER
+                    - EDITOR
+                  default: NO_ROLE
           totalWithdrawalAmount:
             type: array
             items:
@@ -81402,10 +81487,6 @@ definitions:
           expirationDate:
             type: string
             format: date-time
-          metadata:
-            type: object
-            additionalProperties:
-              type: string
           subdomainConfig:
             type: object
             properties:
@@ -81416,10 +81497,13 @@ definitions:
                 type: object
                 properties:
                   feeByLength:
-                    type: object
-                    additionalProperties:
+                    type: array
+                    items:
                       type: object
                       properties:
+                        length:
+                          type: integer
+                          format: int64
                         isRegistrable:
                           type: boolean
                         fee:
@@ -81439,10 +81523,12 @@ definitions:
 
                             signatures required by gogoproto.
                   feeByName:
-                    type: object
-                    additionalProperties:
+                    type: array
+                    items:
                       type: object
                       properties:
+                        name:
+                          type: string
                         isRegistrable:
                           type: boolean
                         fee:
@@ -81476,18 +81562,34 @@ definitions:
                       custom method
 
                       signatures required by gogoproto.
+              isRegistrable:
+                type: boolean
+              registrableRole:
+                type: string
+                enum:
+                  - NO_ROLE
+                  - OWNER
+                  - EDITOR
+                default: NO_ROLE
+              customExpirationDate:
+                type: boolean
           subdomainCount:
             type: string
             format: uint64
           accessControl:
-            type: object
-            additionalProperties:
-              type: string
-              enum:
-                - NO_ROLE
-                - OWNER
-                - EDITOR
-              default: NO_ROLE
+            type: array
+            items:
+              type: object
+              properties:
+                address:
+                  type: string
+                role:
+                  type: string
+                  enum:
+                    - NO_ROLE
+                    - OWNER
+                    - EDITOR
+                  default: NO_ROLE
           totalWithdrawalAmount:
             type: array
             items:
@@ -81694,10 +81796,6 @@ definitions:
             expirationDate:
               type: string
               format: date-time
-            metadata:
-              type: object
-              additionalProperties:
-                type: string
             subdomainConfig:
               type: object
               properties:
@@ -81708,10 +81806,13 @@ definitions:
                   type: object
                   properties:
                     feeByLength:
-                      type: object
-                      additionalProperties:
+                      type: array
+                      items:
                         type: object
                         properties:
+                          length:
+                            type: integer
+                            format: int64
                           isRegistrable:
                             type: boolean
                           fee:
@@ -81731,10 +81832,12 @@ definitions:
 
                               signatures required by gogoproto.
                     feeByName:
-                      type: object
-                      additionalProperties:
+                      type: array
+                      items:
                         type: object
                         properties:
+                          name:
+                            type: string
                           isRegistrable:
                             type: boolean
                           fee:
@@ -81768,18 +81871,34 @@ definitions:
                         custom method
 
                         signatures required by gogoproto.
+                isRegistrable:
+                  type: boolean
+                registrableRole:
+                  type: string
+                  enum:
+                    - NO_ROLE
+                    - OWNER
+                    - EDITOR
+                  default: NO_ROLE
+                customExpirationDate:
+                  type: boolean
             subdomainCount:
               type: string
               format: uint64
             accessControl:
-              type: object
-              additionalProperties:
-                type: string
-                enum:
-                  - NO_ROLE
-                  - OWNER
-                  - EDITOR
-                default: NO_ROLE
+              type: array
+              items:
+                type: object
+                properties:
+                  address:
+                    type: string
+                  role:
+                    type: string
+                    enum:
+                      - NO_ROLE
+                      - OWNER
+                      - EDITOR
+                    default: NO_ROLE
             totalWithdrawalAmount:
               type: array
               items:
@@ -81891,10 +82010,6 @@ definitions:
           expirationDate:
             type: string
             format: date-time
-          metadata:
-            type: object
-            additionalProperties:
-              type: string
           subdomainConfig:
             type: object
             properties:
@@ -81905,10 +82020,13 @@ definitions:
                 type: object
                 properties:
                   feeByLength:
-                    type: object
-                    additionalProperties:
+                    type: array
+                    items:
                       type: object
                       properties:
+                        length:
+                          type: integer
+                          format: int64
                         isRegistrable:
                           type: boolean
                         fee:
@@ -81928,10 +82046,12 @@ definitions:
 
                             signatures required by gogoproto.
                   feeByName:
-                    type: object
-                    additionalProperties:
+                    type: array
+                    items:
                       type: object
                       properties:
+                        name:
+                          type: string
                         isRegistrable:
                           type: boolean
                         fee:
@@ -81965,18 +82085,34 @@ definitions:
                       custom method
 
                       signatures required by gogoproto.
+              isRegistrable:
+                type: boolean
+              registrableRole:
+                type: string
+                enum:
+                  - NO_ROLE
+                  - OWNER
+                  - EDITOR
+                default: NO_ROLE
+              customExpirationDate:
+                type: boolean
           subdomainCount:
             type: string
             format: uint64
           accessControl:
-            type: object
-            additionalProperties:
-              type: string
-              enum:
-                - NO_ROLE
-                - OWNER
-                - EDITOR
-              default: NO_ROLE
+            type: array
+            items:
+              type: object
+              properties:
+                address:
+                  type: string
+                role:
+                  type: string
+                  enum:
+                    - NO_ROLE
+                    - OWNER
+                    - EDITOR
+                  default: NO_ROLE
           totalWithdrawalAmount:
             type: array
             items:
@@ -82033,10 +82169,13 @@ definitions:
         type: object
         properties:
           feeByLength:
-            type: object
-            additionalProperties:
+            type: array
+            items:
               type: object
               properties:
+                length:
+                  type: integer
+                  format: int64
                 isRegistrable:
                   type: boolean
                 fee:
@@ -82055,10 +82194,12 @@ definitions:
 
                     signatures required by gogoproto.
           feeByName:
-            type: object
-            additionalProperties:
+            type: array
+            items:
               type: object
               properties:
+                name:
+                  type: string
                 isRegistrable:
                   type: boolean
                 fee:
@@ -82091,14 +82232,28 @@ definitions:
               method
 
               signatures required by gogoproto.
+      isRegistrable:
+        type: boolean
+      registrableRole:
+        type: string
+        enum:
+          - NO_ROLE
+          - OWNER
+          - EDITOR
+        default: NO_ROLE
+      customExpirationDate:
+        type: boolean
   mycel.registry.SubdomainRegistrationFees:
     type: object
     properties:
       feeByLength:
-        type: object
-        additionalProperties:
+        type: array
+        items:
           type: object
           properties:
+            length:
+              type: integer
+              format: int64
             isRegistrable:
               type: boolean
             fee:
@@ -82117,10 +82272,12 @@ definitions:
 
                 signatures required by gogoproto.
       feeByName:
-        type: object
-        additionalProperties:
+        type: array
+        items:
           type: object
           properties:
+            name:
+              type: string
             isRegistrable:
               type: boolean
             fee:
@@ -82158,10 +82315,6 @@ definitions:
       expirationDate:
         type: string
         format: date-time
-      metadata:
-        type: object
-        additionalProperties:
-          type: string
       subdomainConfig:
         type: object
         properties:
@@ -82172,10 +82325,13 @@ definitions:
             type: object
             properties:
               feeByLength:
-                type: object
-                additionalProperties:
+                type: array
+                items:
                   type: object
                   properties:
+                    length:
+                      type: integer
+                      format: int64
                     isRegistrable:
                       type: boolean
                     fee:
@@ -82194,10 +82350,12 @@ definitions:
 
                         signatures required by gogoproto.
               feeByName:
-                type: object
-                additionalProperties:
+                type: array
+                items:
                   type: object
                   properties:
+                    name:
+                      type: string
                     isRegistrable:
                       type: boolean
                     fee:
@@ -82230,18 +82388,34 @@ definitions:
                   method
 
                   signatures required by gogoproto.
+          isRegistrable:
+            type: boolean
+          registrableRole:
+            type: string
+            enum:
+              - NO_ROLE
+              - OWNER
+              - EDITOR
+            default: NO_ROLE
+          customExpirationDate:
+            type: boolean
       subdomainCount:
         type: string
         format: uint64
       accessControl:
-        type: object
-        additionalProperties:
-          type: string
-          enum:
-            - NO_ROLE
-            - OWNER
-            - EDITOR
-          default: NO_ROLE
+        type: array
+        items:
+          type: object
+          properties:
+            address:
+              type: string
+            role:
+              type: string
+              enum:
+                - NO_ROLE
+                - OWNER
+                - EDITOR
+              default: NO_ROLE
       totalWithdrawalAmount:
         type: array
         items:
