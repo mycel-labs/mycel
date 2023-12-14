@@ -81661,6 +81661,8 @@ definitions:
               signatures required by gogoproto.
   mycel.registry.MsgUpdateDnsRecordResponse:
     type: object
+  mycel.registry.MsgUpdateTextRecordResponse:
+    type: object
   mycel.registry.MsgUpdateWalletRecordResponse:
     type: object
   mycel.registry.MsgWithdrawRegistrationFeeResponse:
