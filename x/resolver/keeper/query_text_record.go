@@ -4,6 +4,7 @@ import (
 	"context"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	registrytypes "github.com/mycel-domain/mycel/x/registry/types"
 	"github.com/mycel-domain/mycel/x/resolver/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -16,8 +17,25 @@ func (k Keeper) TextRecord(goCtx context.Context, req *types.QueryTextRecordRequ
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Process the query
-	_ = ctx
+	// Validate request parameters
+	err := registrytypes.ValidateTextRecordKey(req.Key)
+	if err != nil {
+		return nil, err
+	}
 
-	return &types.QueryTextRecordResponse{}, nil
+	// Query domain record
+	_, err = k.registryKeeper.GetValidTopLevelDomain(ctx, req.DomainParent)
+	if err != nil {
+		return nil, err
+	}
+	secondLevelDomain, err := k.registryKeeper.GetValidSecondLevelDomain(ctx, req.DomainName, req.DomainParent)
+	if err != nil {
+		return nil, err
+	}
+
+	value := secondLevelDomain.GetTextRecord(req.Key)
+
+	return &types.QueryTextRecordResponse{
+		Value: &registrytypes.TextRecord{Key: req.Key, Value: value},
+	}, nil
 }

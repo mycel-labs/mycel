@@ -51162,6 +51162,14 @@ paths:
           description: A successful response.
           schema:
             type: object
+            properties:
+              value:
+                type: object
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
         default:
           description: An unexpected error response.
           schema:
@@ -82869,6 +82877,14 @@ definitions:
     description: QueryParamsResponse is response type for the Query/Params RPC method.
   mycel.resolver.QueryTextRecordResponse:
     type: object
+    properties:
+      value:
+        type: object
+        properties:
+          key:
+            type: string
+          value:
+            type: string
   mycel.resolver.QueryWalletRecordResponse:
     type: object
     properties:
