@@ -45,8 +45,8 @@ func generateRecordKey(record *registrytypes.Record) string {
 		return record.GetDnsRecord().DnsRecordType.String()
 	case record.GetWalletRecord() != nil:
 		return record.GetWalletRecord().WalletRecordType.String()
-	case record.GetMetadata() != nil:
-		return record.GetMetadata().Key
+	case record.GetTextRecord() != nil:
+		return record.GetTextRecord().Key
 	default:
 		return ""
 	}
