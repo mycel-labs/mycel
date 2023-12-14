@@ -51019,7 +51019,7 @@ paths:
                           title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
                         value:
                           type: string
-                    metadata:
+                    textRecord:
                       type: object
                       properties:
                         key:
@@ -51151,6 +51151,48 @@ paths:
                     '@type':
                       type: string
                   additionalProperties: {}
+      tags:
+        - Query
+  /mycel-domain/mycel/resolver/text_record/{domainName}/{domainParent}/{key}:
+    get:
+      summary: Queries a list of TextRecord items.
+      operationId: MycelResolverTextRecord
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: domainName
+          in: path
+          required: true
+          type: string
+        - name: domainParent
+          in: path
+          required: true
+          type: string
+        - name: key
+          in: path
+          required: true
+          type: string
       tags:
         - Query
   /mycel-domain/mycel/resolver/wallet_record/{domainName}/{domainParent}/{walletRecordType}:
@@ -82508,13 +82550,6 @@ definitions:
       - SRV
       - TXT
     default: NO_RECORD_TYPE
-  mycel.registry.Metadata:
-    type: object
-    properties:
-      key:
-        type: string
-      value:
-        type: string
   mycel.registry.NetworkName:
     type: string
     enum:
@@ -82642,13 +82677,20 @@ definitions:
             title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
           value:
             type: string
-      metadata:
+      textRecord:
         type: object
         properties:
           key:
             type: string
           value:
             type: string
+  mycel.registry.TextRecord:
+    type: object
+    properties:
+      key:
+        type: string
+      value:
+        type: string
   mycel.registry.WalletRecord:
     type: object
     properties:
@@ -82789,7 +82831,7 @@ definitions:
                   title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
                 value:
                   type: string
-            metadata:
+            textRecord:
               type: object
               properties:
                 key:
@@ -82825,6 +82867,8 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  mycel.resolver.QueryTextRecordResponse:
+    type: object
   mycel.resolver.QueryWalletRecordResponse:
     type: object
     properties:

@@ -224,7 +224,7 @@ func TestDomainUpdateTextRecord(t *testing.T) {
 			require.Nil(t, err)
 			require.Equal(t, tc.value, domain.GetTextRecord(tc.key))
 		} else {
-      require.EqualError(t, err, tc.expErr.Error())
+			require.EqualError(t, err, tc.expErr.Error())
 		}
 	}
 }
