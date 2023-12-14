@@ -4,10 +4,11 @@ import (
 	"context"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	registrytypes "github.com/mycel-domain/mycel/x/registry/types"
-	"github.com/mycel-domain/mycel/x/resolver/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	registrytypes "github.com/mycel-domain/mycel/x/registry/types"
+	"github.com/mycel-domain/mycel/x/resolver/types"
 )
 
 func (k Keeper) TextRecord(goCtx context.Context, req *types.QueryTextRecordRequest) (*types.QueryTextRecordResponse, error) {
