@@ -4,9 +4,10 @@ import (
 	fmt "fmt"
 	"regexp"
 
-	errorsmod "cosmossdk.io/errors"
 	"filippo.io/edwards25519"
 	"github.com/btcsuite/btcutil/base58"
+
+	errorsmod "cosmossdk.io/errors"
 )
 
 func WalletRecordFormats() map[string]string {

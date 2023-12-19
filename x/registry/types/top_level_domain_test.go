@@ -5,8 +5,9 @@ import (
 	"testing"
 	"time"
 
-	errorsmod "cosmossdk.io/errors"
 	"github.com/stretchr/testify/require"
+
+	errorsmod "cosmossdk.io/errors"
 
 	"github.com/mycel-domain/mycel/testutil"
 )

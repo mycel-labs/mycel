@@ -6,9 +6,11 @@ import (
 	"testing"
 	"time"
 
-	errorsmod "cosmossdk.io/errors"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
+
+	errorsmod "cosmossdk.io/errors"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/testutil"
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
