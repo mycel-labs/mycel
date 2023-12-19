@@ -23,6 +23,9 @@ func CmdDomainRegistrationFee() *cobra.Command {
 			reqName := args[0]
 			reqParent := args[1]
 			reqRegistrationPeriodInYear, err := cast.ToUint64E(args[2])
+			if err != nil {
+				return err
+			}
 
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {

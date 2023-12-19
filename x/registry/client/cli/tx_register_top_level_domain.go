@@ -23,6 +23,9 @@ func CmdRegisterTopLevelDomain() *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argName := args[0]
 			argRegistrationPeriodInYear, err := cast.ToUint64E(args[1])
+			if err != nil {
+				return err
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
