@@ -47,10 +47,10 @@ func createNSecondLevelDomainResponse(keeper *keeper.Keeper, ctx sdk.Context, n 
 // Register top-level domains with k.RegisterSecondLevelDomain()
 // Domain name is set to `n` (n is a incremantal number)
 // e.g.) `1`, `2`, `n`...
-func registerNSecondLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator string, n int) ([]types.SecondLevelDomain, error) {
+func registerNSecondLevelDomain(k *keeper.Keeper, ctx sdk.Context, creatorAddr string, n int) ([]types.SecondLevelDomain, error) {
 	items := make([]types.SecondLevelDomain, n)
 	for i := range items {
-		creator, err := sdk.AccAddressFromBech32(testutil.Alice)
+		creator, err := sdk.AccAddressFromBech32(creatorAddr)
 		if err != nil {
 			return nil, err
 		}

@@ -35,13 +35,12 @@ func createNTopLevelDomain(keeper *keeper.Keeper, ctx sdk.Context, n int) []type
 // Register top-level domains with k.RegisterTopLevelDomain()
 // Domain name is set to `celn` (n is a incremantal number)
 // e.g.) `cel1`, `cel2`, `celn`...
-func registerNTopLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator string, n int) ([]types.TopLevelDomain, error) {
+func registerNTopLevelDomain(k *keeper.Keeper, ctx sdk.Context, creatorAddr string, n int) ([]types.TopLevelDomain, error) {
 	items := make([]types.TopLevelDomain, n)
 	for i := range items {
-		creator := testutil.Alice
 		name := "cel" + strconv.Itoa(i)
 
-		tld, _, err := k.RegisterTopLevelDomain(ctx, creator, name, 1)
+		tld, _, err := k.RegisterTopLevelDomain(ctx, creatorAddr, name, 1)
 		if err != nil {
 			return nil, err
 		}
