@@ -25,6 +25,11 @@ func (s *grpcService) QueryDnsToMycelResolver(domain string, recordType string) 
 	domain = strings.Trim(domain, ".")
 	division := strings.Index(domain, ".")
 
+	if division < 0 {
+		log.Printf("QueryDnsToMycelResolver: %s, %s", "invalid domain format", domain)
+		return nil
+	}
+
 	argName := domain[:division]
 	argParent := domain[division+1:]
 
