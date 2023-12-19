@@ -10,6 +10,7 @@ import (
 	"github.com/miekg/dns"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 
 	resolver "github.com/mycel-domain/mycel/x/resolver/types"
 )
@@ -200,7 +201,7 @@ func (s *grpcService) HandleDNSRequest(w dns.ResponseWriter, r *dns.Msg) {
 
 func RunDnsServer(nodeAddress string, listenPort int) error {
 	grpcConn, err := grpc.Dial(nodeAddress,
-		grpc.WithInsecure(),
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
 	)
 	if err != nil {
 		log.Fatalf("Failed to connect to node: %v", err)
