@@ -74,7 +74,7 @@ func (suite *KeeperTestSuite) TestAfterEpochEndCreateBurnAmount() {
 				// Check if burn amount is expected
 				config, found := suite.app.FurnaceKeeper.GetEpochBurnConfig(suite.ctx)
 				suite.Require().True(found)
-				_, found = suite.app.FurnaceKeeper.GetBurnAmount(suite.ctx, uint64(config.CurrentBurnAmountIndex))
+				_, found = suite.app.FurnaceKeeper.GetBurnAmount(suite.ctx, config.CurrentBurnAmountIndex)
 				suite.Require().True(found)
 			}
 
@@ -238,7 +238,7 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 				// Check if burn amount is expected
 				config, found := suite.app.FurnaceKeeper.GetEpochBurnConfig(suite.ctx)
 				suite.Require().True(found)
-				_, found = suite.app.FurnaceKeeper.GetBurnAmount(suite.ctx, uint64(config.CurrentBurnAmountIndex))
+				_, found = suite.app.FurnaceKeeper.GetBurnAmount(suite.ctx, config.CurrentBurnAmountIndex)
 				suite.Require().True(found)
 			}
 
