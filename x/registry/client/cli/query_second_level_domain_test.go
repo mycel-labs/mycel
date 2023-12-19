@@ -59,7 +59,7 @@ func TestShowSecondLevelDomain(t *testing.T) {
 	common := []string{
 		fmt.Sprintf("--%s=json", tmcli.OutputFlag),
 	}
-	for _, tc := range []struct {
+	tests := []struct {
 		desc     string
 		idName   string
 		idParent string
@@ -84,7 +84,9 @@ func TestShowSecondLevelDomain(t *testing.T) {
 			args: common,
 			err:  status.Error(codes.NotFound, "not found"),
 		},
-	} {
+	}
+	for i := range tests {
+		tc := tests[i]
 		t.Run(tc.desc, func(t *testing.T) {
 			args := []string{
 				tc.idName,

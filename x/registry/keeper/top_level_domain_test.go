@@ -52,7 +52,8 @@ func registerNTopLevelDomain(k *keeper.Keeper, ctx sdk.Context, creatorAddr stri
 func TestTopLevelDomainGet(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	items := createNTopLevelDomain(keeper, ctx, 10)
-	for _, item := range items {
+	for i := range items {
+		item := items[i]
 		rst, found := keeper.GetTopLevelDomain(ctx,
 			item.Name,
 		)

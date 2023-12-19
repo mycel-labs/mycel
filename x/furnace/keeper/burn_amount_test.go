@@ -32,7 +32,8 @@ func createNBurnAmount(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.Bu
 func TestBurnAmountGet(t *testing.T) {
 	keeper, ctx := keepertest.FurnaceKeeper(t)
 	items := createNBurnAmount(keeper, ctx, 10)
-	for _, item := range items {
+	for i := range items {
+		item := items[i]
 		rst, found := keeper.GetBurnAmount(ctx,
 			item.Index,
 		)

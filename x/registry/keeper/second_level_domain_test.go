@@ -79,7 +79,8 @@ func registerNSecondLevelDomain(k *keeper.Keeper, ctx sdk.Context, creatorAddr s
 func TestSecondLevelDomainGet(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	items := createNSecondLevelDomain(keeper, ctx, 10)
-	for _, item := range items {
+	for i := range items {
+		item := items[i]
 		rst, found := keeper.GetSecondLevelDomain(ctx,
 			item.Name,
 			item.Parent,

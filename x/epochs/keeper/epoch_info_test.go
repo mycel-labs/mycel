@@ -30,7 +30,8 @@ func createNEpochInfo(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.Epo
 func TestEpochInfoGet(t *testing.T) {
 	keeper, ctx := keepertest.EpochsKeeper(t)
 	items := createNEpochInfo(keeper, ctx, 10)
-	for _, item := range items {
+	for i := range items {
+		item := items[i]
 		rst, found := keeper.GetEpochInfo(ctx,
 			item.Identifier,
 		)

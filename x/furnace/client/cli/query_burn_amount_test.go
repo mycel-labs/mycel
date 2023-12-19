@@ -70,7 +70,8 @@ func TestShowBurnAmount(t *testing.T) {
 			err:  status.Error(codes.NotFound, "not found"),
 		},
 	}
-	for _, tc := range tests {
+	for i := range tests {
+		tc := tests[i]
 		t.Run(tc.desc, func(t *testing.T) {
 			args := []string{
 				strconv.Itoa(int(tc.idIndex)),
