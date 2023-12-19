@@ -69,6 +69,7 @@ linters-settings:
     - prefix(cosmossdk.io) # new modules
     - prefix(github.com/cosmos/cosmos-sdk) # cosmos sdk
     - prefix(github.com/cosmos/gaia) # Gaia
+    - prefix(github.com/mycel-domain/mycel) # Mycel
   dogsled:
     max-blank-identifiers: 3
   maligned:
