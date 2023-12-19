@@ -32,7 +32,6 @@ func (k Keeper) TopLevelDomainAll(goCtx context.Context, req *types.QueryAllTopL
 		topLevelDomains = append(topLevelDomains, topLevelDomain)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

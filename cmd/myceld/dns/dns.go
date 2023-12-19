@@ -21,7 +21,6 @@ type grpcService struct {
 type DnsRecord interface{}
 
 func (s *grpcService) QueryDnsToMycelResolver(domain string, recordType string) (dnsRecord DnsRecord) {
-
 	domain = strings.Trim(domain, ".")
 	division := strings.Index(domain, ".")
 

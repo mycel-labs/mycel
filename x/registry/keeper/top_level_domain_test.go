@@ -62,6 +62,7 @@ func TestTopLevelDomainGet(t *testing.T) {
 		)
 	}
 }
+
 func TestTopLevelDomainRemove(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	items := createNTopLevelDomain(keeper, ctx, 10)
@@ -130,7 +131,6 @@ func (suite *KeeperTestSuite) TestGetValidTopLevelDomain() {
 			}
 		})
 	}
-
 }
 
 func (suite *KeeperTestSuite) TestGetTopLevelDomainRole() {

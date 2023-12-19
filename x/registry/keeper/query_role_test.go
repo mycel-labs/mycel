@@ -88,7 +88,6 @@ func (suite *KeeperTestSuite) TestRole() {
 
 	for i, tc := range tcs {
 		suite.Run(fmt.Sprintf("Case %d", i), func() {
-
 			// Get valid domain
 			resp, err := k.Role(ctx, tc.request)
 			if tc.err == nil {

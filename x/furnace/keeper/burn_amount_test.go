@@ -42,6 +42,7 @@ func TestBurnAmountGet(t *testing.T) {
 		)
 	}
 }
+
 func TestBurnAmountRemove(t *testing.T) {
 	keeper, ctx := keepertest.FurnaceKeeper(t)
 	items := createNBurnAmount(keeper, ctx, 10)

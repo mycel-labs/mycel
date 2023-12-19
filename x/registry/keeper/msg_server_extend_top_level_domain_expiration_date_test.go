@@ -99,7 +99,6 @@ func (suite *KeeperTestSuite) TestExtendTopLevelDomain() {
 					// Check if the total is equal to the sum of toBurn and toTreasury
 					if total.Len() == 1 {
 						suite.Require().Equal(total, sdk.NewCoins(toBurn.Add(toTreasury)))
-
 					} else {
 						suite.Require().Equal(total, sdk.NewCoins(toBurn, toTreasury))
 					}

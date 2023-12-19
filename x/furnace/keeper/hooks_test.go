@@ -85,14 +85,11 @@ func (suite *KeeperTestSuite) TestAfterEpochEndCreateBurnAmount() {
 			for i, event := range events {
 				suite.Require().Equal(tc.expectedEvents[i].BurnAmountIndex, event.Attributes[0].Value)
 			}
-
 		})
 	}
-
 }
 
 func (suite *KeeperTestSuite) TestAfterEpochEnd() {
-
 	testCases := []struct {
 		totalBurnAmounts []int64
 		expectedEvents   []ExpBurnEvent
@@ -262,5 +259,4 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 			}
 		})
 	}
-
 }

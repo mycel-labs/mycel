@@ -32,7 +32,6 @@ func (k Keeper) EpochInfoAll(goCtx context.Context, req *types.QueryAllEpochInfo
 		epochInfos = append(epochInfos, epochInfo)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

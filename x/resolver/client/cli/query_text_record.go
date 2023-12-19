@@ -30,7 +30,6 @@ func CmdTextRecord() *cobra.Command {
 			queryClient := types.NewQueryClient(clientCtx)
 
 			params := &types.QueryTextRecordRequest{
-
 				DomainName:   reqDomainName,
 				DomainParent: reqDomainParent,
 				Key:          reqKey,

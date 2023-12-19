@@ -83,7 +83,6 @@ func ValidateWalletAddressWithRegex(walletAddressFormat string, address string) 
 		err = errorsmod.Wrapf(ErrInvalidWalletAddress, "%s %s", walletAddressFormat, address)
 	}
 	return err
-
 }
 
 func ValidateWalletAddress(walletAddressFormat string, address string) (err error) {

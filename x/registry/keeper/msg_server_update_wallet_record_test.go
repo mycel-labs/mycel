@@ -128,8 +128,6 @@ func (suite *KeeperTestSuite) TestUpdateWalletRecord() {
 			} else {
 				suite.Require().EqualError(err, tc.expErr.Error())
 			}
-
 		})
 	}
-
 }

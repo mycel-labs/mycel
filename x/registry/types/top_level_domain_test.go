@@ -21,19 +21,24 @@ func TestTopLevelDomainValidate(t *testing.T) {
 			domain: TopLevelDomain{Name: "myc"},
 		},
 		// Invalid name
-		{domain: TopLevelDomain{Name: ".foo"},
+		{
+			domain: TopLevelDomain{Name: ".foo"},
 			expErr: errorsmod.Wrapf(ErrInvalidTopLevelDomainName, ".foo"),
 		},
-		{domain: TopLevelDomain{Name: ""},
+		{
+			domain: TopLevelDomain{Name: ""},
 			expErr: errorsmod.Wrapf(ErrInvalidTopLevelDomainName, ""),
 		},
-		{domain: TopLevelDomain{Name: "bar.foo"},
+		{
+			domain: TopLevelDomain{Name: "bar.foo"},
 			expErr: errorsmod.Wrapf(ErrInvalidTopLevelDomainName, "bar.foo"),
 		},
-		{domain: TopLevelDomain{Name: "."},
+		{
+			domain: TopLevelDomain{Name: "."},
 			expErr: errorsmod.Wrapf(ErrInvalidTopLevelDomainName, "."),
 		},
-		{domain: TopLevelDomain{Name: "##"},
+		{
+			domain: TopLevelDomain{Name: "##"},
 			expErr: errorsmod.Wrapf(ErrInvalidTopLevelDomainName, "##"),
 		},
 	}

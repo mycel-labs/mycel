@@ -15,7 +15,7 @@ func DocsCommand(rootCmd *cobra.Command) *cobra.Command {
 		RunE: func(cmd *cobra.Command, _ []string) (err error) {
 			path := "docs/static/cmd"
 
-			if err := os.MkdirAll(path, os.FileMode(0644)); err != nil {
+			if err := os.MkdirAll(path, os.FileMode(0o644)); err != nil {
 				fmt.Println(err)
 				os.Exit(1)
 			}

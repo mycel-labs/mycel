@@ -25,7 +25,6 @@ func (k Keeper) SetTopLevelDomain(ctx sdk.Context, topLevelDomain types.TopLevel
 func (k Keeper) GetTopLevelDomain(
 	ctx sdk.Context,
 	name string,
-
 ) (val types.TopLevelDomain, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TopLevelDomainKeyPrefix))
 
@@ -44,7 +43,6 @@ func (k Keeper) GetTopLevelDomain(
 func (k Keeper) RemoveTopLevelDomain(
 	ctx sdk.Context,
 	name string,
-
 ) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TopLevelDomainKeyPrefix))
 	store.Delete(types.TopLevelDomainKey(

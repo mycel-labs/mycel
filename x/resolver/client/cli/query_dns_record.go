@@ -30,7 +30,6 @@ func CmdDnsRecord() *cobra.Command {
 			queryClient := types.NewQueryClient(clientCtx)
 
 			params := &types.QueryDnsRecordRequest{
-
 				DomainName:    reqDomainName,
 				DomainParent:  reqDomainParent,
 				DnsRecordType: reqDnsRecordType,

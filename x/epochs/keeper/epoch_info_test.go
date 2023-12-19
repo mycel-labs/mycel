@@ -40,6 +40,7 @@ func TestEpochInfoGet(t *testing.T) {
 		)
 	}
 }
+
 func TestEpochInfoRemove(t *testing.T) {
 	keeper, ctx := keepertest.EpochsKeeper(t)
 	items := createNEpochInfo(keeper, ctx, 10)

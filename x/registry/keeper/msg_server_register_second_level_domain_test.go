@@ -149,8 +149,6 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 				_, err := suite.msgServer.RegisterSecondLevelDomain(suite.ctx, registerMsg)
 				suite.Require().EqualError(err, tc.expErr.Error())
 			}
-
 		})
 	}
-
 }

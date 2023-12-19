@@ -13,7 +13,7 @@ func (k Keeper) BeforeEpochStart(ctx sdk.Context, epochIdentifier string, epochN
 
 // AfterEpochEnd is the epoch end hook.
 func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumber int64) {
-	var burnt = sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0))
+	burnt := sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0))
 
 	config, found := k.GetEpochBurnConfig(ctx)
 	if !found {
@@ -63,7 +63,6 @@ func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumb
 
 	// Emit event
 	EmitEpochBurnEvent(ctx, epochIdentifier, epochNumber, &burnAmount, burnt)
-
 }
 
 // ___________________________________________________________________________________________________

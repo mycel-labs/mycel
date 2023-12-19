@@ -100,8 +100,6 @@ func (suite *KeeperTestSuite) TestUpdateTextRecord() {
 			} else {
 				suite.Require().EqualError(err, tc.expErr.Error())
 			}
-
 		})
 	}
-
 }

@@ -49,7 +49,6 @@ func (suite *KeeperTestSuite) SetupTest() {
 
 	// Init bank keeper
 	suite.app.BankKeeper.InitGenesis(suite.ctx, getBankGenesis())
-
 }
 
 func makeBalance(address string, balance int64) banktypes.Balance {

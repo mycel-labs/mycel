@@ -89,6 +89,7 @@ func TestSecondLevelDomainGet(t *testing.T) {
 		)
 	}
 }
+
 func TestSecondLevelDomainRemove(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	items := createNSecondLevelDomain(keeper, ctx, 10)

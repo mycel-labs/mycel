@@ -40,6 +40,7 @@ func TestDomainOwnershipGet(t *testing.T) {
 		)
 	}
 }
+
 func TestDomainOwnershipRemove(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	items := createNDomainOwnership(keeper, ctx, 10)

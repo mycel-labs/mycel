@@ -30,7 +30,6 @@ func ValidateSecondLevelDomainParent(parent string) (err error) {
 		err = errorsmod.Wrapf(ErrInvalidSecondLevelDomainParent, "%s", parent)
 	}
 	return err
-
 }
 
 func (secondLevelDomain SecondLevelDomain) ValidateParent() (err error) {

@@ -32,7 +32,6 @@ func (k Keeper) DomainOwnershipAll(goCtx context.Context, req *types.QueryAllDom
 		domainOwnerships = append(domainOwnerships, domainOwnership)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

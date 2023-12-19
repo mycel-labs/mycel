@@ -29,7 +29,6 @@ func CmdAllRecord() *cobra.Command {
 			queryClient := types.NewQueryClient(clientCtx)
 
 			params := &types.QueryAllRecordsRequest{
-
 				DomainName:   reqName,
 				DomainParent: reqParent,
 			}

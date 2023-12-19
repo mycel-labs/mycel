@@ -30,7 +30,6 @@ func CmdQueryWalletRecord() *cobra.Command {
 			queryClient := types.NewQueryClient(clientCtx)
 
 			params := &types.QueryWalletRecordRequest{
-
 				DomainName:       reqDomainName,
 				DomainParent:     reqDomainParent,
 				WalletRecordType: reqWalletRecordType,

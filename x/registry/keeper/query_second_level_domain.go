@@ -37,7 +37,6 @@ func (k Keeper) SecondLevelDomainAll(goCtx context.Context, req *types.QueryAllS
 		secondLevelDomains = append(secondLevelDomains, secondLevelDomainResponse)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

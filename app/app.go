@@ -350,7 +350,6 @@ func NewApp(
 	appOpts servertypes.AppOptions,
 	wasmOpts []wasmkeeper.Option,
 	baseAppOptions ...func(*baseapp.BaseApp),
-
 ) *App {
 	appCodec := encodingConfig.Marshaler
 	cdc := encodingConfig.Amino
