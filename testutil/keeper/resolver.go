@@ -20,7 +20,9 @@ import (
 	"github.com/mycel-domain/mycel/x/resolver/types"
 )
 
-func ResolverKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
+func ResolverKeeper(tb testing.TB) (*keeper.Keeper, sdk.Context) {
+	tb.Helper()
+
 	storeKey := sdk.NewKVStoreKey(types.StoreKey)
 	memStoreKey := storetypes.NewMemoryStoreKey(types.MemStoreKey)
 
@@ -28,7 +30,7 @@ func ResolverKeeper(t testing.TB) (*keeper.Keeper, sdk.Context) {
 	stateStore := store.NewCommitMultiStore(db)
 	stateStore.MountStoreWithDB(storeKey, storetypes.StoreTypeIAVL, db)
 	stateStore.MountStoreWithDB(memStoreKey, storetypes.StoreTypeMemory, nil)
-	require.NoError(t, stateStore.LoadLatestVersion())
+	require.NoError(tb, stateStore.LoadLatestVersion())
 
 	registry := codectypes.NewInterfaceRegistry()
 	cdc := codec.NewProtoCodec(registry)
