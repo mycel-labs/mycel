@@ -12,6 +12,7 @@ import (
 )
 
 func setupMsgServer(tb testing.TB) (types.MsgServer, context.Context) {
+	tb.Helper()
 	k, ctx := keepertest.EpochsKeeper(tb)
 	return keeper.NewMsgServerImpl(*k), sdk.WrapSDKContext(ctx)
 }
