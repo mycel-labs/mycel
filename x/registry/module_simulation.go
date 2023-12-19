@@ -24,27 +24,27 @@ var (
 )
 
 const (
-	opWeightMsgUpdateWalletRecord = "op_weight_msg_update_wallet_record"
+	opWeightMsgUpdateWalletRecord = "op_weight_msg_update_wallet_record" // #nosec G101
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgUpdateWalletRecord int = 100
 
-	opWeightMsgRegisterSecondLevelDomain = "op_weight_msg_register_domain"
+	opWeightMsgRegisterSecondLevelDomain = "op_weight_msg_register_domain" // #nosec G101
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgRegisterSecondLevelDomain int = 100
 
-	opWeightMsgRegisterTopLevelDomain = "op_weight_msg_register_top_level_domain"
+	opWeightMsgRegisterTopLevelDomain = "op_weight_msg_register_top_level_domain" // #nosec G101
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgRegisterTopLevelDomain int = 100
 
-	opWeightMsgWithdrawRegistrationFee = "op_weight_msg_withdraw_registration_fee"
+	opWeightMsgWithdrawRegistrationFee = "op_weight_msg_withdraw_registration_fee" // #nosec G101
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgWithdrawRegistrationFee int = 100
 
-	opWeightMsgExtendTopLevelDomainExpirationDate = "op_weight_msg_extend_top_level_domain_expiration"
+	opWeightMsgExtendTopLevelDomainExpirationDate = "op_weight_msg_extend_top_level_domain_expiration" // #nosec G101
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgExtendTopLevelDomainExpirationDate int = 100
 
-	opWeightMsgUpdateTextRecord = "op_weight_msg_update_text_record"
+	opWeightMsgUpdateTextRecord = "op_weight_msg_update_text_record" // #nosec G101
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgUpdateTextRecord int = 100
 
