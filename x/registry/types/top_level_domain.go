@@ -37,12 +37,12 @@ func GetBeseFeeAmountInDenom(denom string, baseFeeInUsd int64) (amount math.Int,
 	return amount, nil
 }
 
-func (topLevelDommain TopLevelDomain) GetRegistrationFeeAmountInDenom(denom string, baseFeeInUsd int64, registrationPeriodInYear uint64) (amount math.Int, err error) {
+func (topLevelDomain TopLevelDomain) GetRegistrationFeeAmountInDenom(denom string, baseFeeInUsd int64, registrationPeriodInYear uint64) (amount math.Int, err error) {
 	baseFeeAmount, err := GetBeseFeeAmountInDenom(denom, baseFeeInUsd)
 	if err != nil {
 		return amount, err
 	}
-	amount = sdk.NewInt(int64(registrationPeriodInYear) * int64(topLevelDommain.SubdomainConfig.MaxSubdomainRegistrations)).Mul(baseFeeAmount)
+	amount = sdk.NewInt(int64(registrationPeriodInYear) * int64(topLevelDomain.SubdomainConfig.MaxSubdomainRegistrations)).Mul(baseFeeAmount)
 	return amount, nil
 }
 

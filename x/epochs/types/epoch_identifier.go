@@ -14,11 +14,8 @@ func ValidateEpochIdentifierInterface(i interface{}) error {
 	if !ok {
 		return errorsmod.Wrapf(ErrInvalidParameterType, "%T", i)
 	}
-	if err := ValidateEpochIdentifierString(v); err != nil {
-		return err
-	}
 
-	return nil
+	return ValidateEpochIdentifierString(v)
 }
 
 func ValidateEpochIdentifierString(s string) error {
