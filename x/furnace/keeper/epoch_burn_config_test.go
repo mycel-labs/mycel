@@ -13,7 +13,7 @@ import (
 	"github.com/mycel-domain/mycel/x/furnace/types"
 )
 
-func createTestEpochBurnConfig(keeper *keeper.Keeper, ctx sdk.Context) types.EpochBurnConfig {
+func createTestEpochBurnConfig(keeper *keeper.Keeper, ctx sdk.Context) types.EpochBurnConfig { //nolint:unparam
 	item := types.EpochBurnConfig{}
 	keeper.SetEpochBurnConfig(ctx, item)
 	return item

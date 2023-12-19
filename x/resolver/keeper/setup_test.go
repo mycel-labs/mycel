@@ -71,7 +71,7 @@ func getBankGenesis() *banktypes.GenesisState {
 		makeBalance(testutil.Bob, testutil.BalBob),
 		makeBalance(testutil.Carol, testutil.BalCarol),
 	}
-	supply := banktypes.Supply{
+	supply := banktypes.Supply{ //nolint:staticcheck
 		Total: coins[0].Coins.Add(coins[1].Coins...).Add(coins[2].Coins...),
 	}
 
