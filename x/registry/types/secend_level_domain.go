@@ -37,6 +37,15 @@ func (secondLevelDomain *SecondLevelDomain) GetDnsRecord(dnsRecordType string) s
 	return ""
 }
 
+func (secondLevelDomain *SecondLevelDomain) GetTextRecord(key string) string {
+	for _, rec := range secondLevelDomain.Records {
+		if rec.GetTextRecord() != nil && rec.GetTextRecord().Key == key {
+			return rec.GetTextRecord().Value
+		}
+	}
+	return ""
+}
+
 func GetWalletAddressFormat(walletRecordType string) (walletAddressFormat string, err error) {
 	// Validate wallet record type
 	err = ValidateWalletRecordType(walletRecordType)
@@ -126,6 +135,34 @@ func (secondLevelDomain *SecondLevelDomain) UpdateDnsRecord(dnsRecordType string
 	updated := false
 	for i, rec := range secondLevelDomain.Records {
 		if rec.GetDnsRecord() != nil && rec.GetDnsRecord().DnsRecordType.String() == dnsRecordType {
+			secondLevelDomain.Records[i] = record
+			updated = true
+			break
+		}
+	}
+	if !updated {
+		secondLevelDomain.Records = append(secondLevelDomain.Records, record)
+	}
+	return err
+}
+
+func (secondLevelDomain *SecondLevelDomain) UpdateTextRecord(key string, value string) (err error) {
+	err = ValidateTextRecordKey(key)
+	if err != nil {
+		return err
+	}
+	textRecord := &TextRecord{
+		Key:   key,
+		Value: value,
+	}
+
+	record := &Record{
+		Record: &Record_TextRecord{TextRecord: textRecord},
+	}
+
+	updated := false
+	for i, rec := range secondLevelDomain.Records {
+		if rec.GetTextRecord() != nil && rec.GetTextRecord().Key == key {
 			secondLevelDomain.Records[i] = record
 			updated = true
 			break

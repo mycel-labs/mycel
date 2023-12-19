@@ -201,6 +201,34 @@ func TestDomainUpdateDnsRecord(t *testing.T) {
 	}
 }
 
+func TestDomainUpdateTextRecord(t *testing.T) {
+	testCases := []struct {
+		key    string
+		value  string
+		expErr error
+	}{
+		{
+			key:   "key1",
+			value: "value1",
+		},
+		{
+			key:    "ETHEREUM_MAINNET_MAINNET",
+			value:  "value2",
+			expErr: errorsmod.Wrapf(ErrInvalidTextRecordKey, "ETHEREUM_MAINNET_MAINNET"),
+		},
+	}
+	for _, tc := range testCases {
+		domain := SecondLevelDomain{Name: "foo", Parent: "myc"}
+		err := domain.UpdateTextRecord(tc.key, tc.value)
+		if tc.expErr == nil {
+			require.Nil(t, err)
+			require.Equal(t, tc.value, domain.GetTextRecord(tc.key))
+		} else {
+			require.EqualError(t, err, tc.expErr.Error())
+		}
+	}
+}
+
 func TestGetRoleSLD(t *testing.T) {
 	testCases := []struct {
 		domain SecondLevelDomain

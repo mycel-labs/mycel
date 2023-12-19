@@ -37,6 +37,7 @@ var (
 	ErrInvalidWalletRecordType = errorsmod.Register(ModuleName, 1201, "invalid wallet record type")
 	ErrInvalidDnsRecordValue   = errorsmod.Register(ModuleName, 1202, "invalid dns record value")
 	ErrInvalidDnsRecordType    = errorsmod.Register(ModuleName, 1203, "invalid dns record type")
+	ErrInvalidTextRecordKey    = errorsmod.Register(ModuleName, 1204, "invalid text record key, this key is reserved")
 )
 
 // withdraw sentinel errors

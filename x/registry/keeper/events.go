@@ -60,6 +60,18 @@ func EmitUpdateDnsRecordEvent(ctx sdk.Context, msg types.MsgUpdateDnsRecord) {
 	)
 }
 
+// Update dns record event
+func EmitUpdateTextRecordEvent(ctx sdk.Context, msg types.MsgUpdateTextRecord) {
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(types.EventTypeUpdateTextRecord,
+			sdk.NewAttribute(types.AttributeUpdateTextRecordEventDomainName, msg.Name),
+			sdk.NewAttribute(types.AttributeUpdateTextRecordEventDomainParent, msg.Parent),
+			sdk.NewAttribute(types.AttributeUpdateTextRecordEventKey, msg.Key),
+			sdk.NewAttribute(types.AttributeUpdateTextRecordEventValue, msg.Value),
+		),
+	)
+}
+
 // Withdraw fees event
 func EmitWithdrawRegistrationFeeEvent(ctx sdk.Context, msg types.MsgWithdrawRegistrationFee, fee sdk.Coins) {
 	ctx.EventManager().EmitEvent(
