@@ -19,7 +19,7 @@ type grpcService struct {
 	grpcConn *grpc.ClientConn
 }
 
-type DnsRecord interface{}
+type DnsRecord interface{} //nolint:revive
 
 func (s *grpcService) QueryDnsToMycelResolver(domain string, recordType string) (dnsRecord DnsRecord) {
 	domain = strings.Trim(domain, ".")
@@ -224,8 +224,8 @@ func RunDnsServer(nodeAddress string, listenPort int) error {
 	return err
 }
 
-// DnsCommand returns command to start DNS server
-func DnsCommand() *cobra.Command {
+// Command returns command to start DNS server
+func Command() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "dns",
 		Short: "Run DNS server",

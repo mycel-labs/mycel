@@ -49,24 +49,24 @@ func (k Keeper) DomainRegistrationFee(goCtx context.Context, req *types.QueryDom
 			MaxSubDomainRegistrations: config.MaxSubdomainRegistrations,
 			ErrorMessage:              "",
 		}, nil
-	} else {
-		// Second level domain
-		domain := types.SecondLevelDomain{Name: req.Name, Parent: req.Parent}
-		err := k.ValidateSecondLevelDomainIsRegistrable(ctx, domain)
-		if err != nil {
-			return createErrorResponse(err), nil
-		}
-		config := k.GetSecondLevelDomainParentsSubdomainConfig(ctx, domain)
-		fee, err := config.GetRegistrationFee(domain.Name, req.RegistrationPeriodInYear)
-		if err != nil {
-			return createErrorResponse(err), nil
-		}
-		return &types.QueryDomainRegistrationFeeResponse{
-			IsRegistrable:             true,
-			Fee:                       sdk.NewCoins(fee),
-			RegistrationPeriodInYear:  1,
-			MaxSubDomainRegistrations: 0,
-			ErrorMessage:              "",
-		}, nil
 	}
+
+	// Second level domain
+	domain := types.SecondLevelDomain{Name: req.Name, Parent: req.Parent}
+	err := k.ValidateSecondLevelDomainIsRegistrable(ctx, domain)
+	if err != nil {
+		return createErrorResponse(err), nil
+	}
+	config := k.GetSecondLevelDomainParentsSubdomainConfig(ctx, domain)
+	fee, err := config.GetRegistrationFee(domain.Name, req.RegistrationPeriodInYear)
+	if err != nil {
+		return createErrorResponse(err), nil
+	}
+	return &types.QueryDomainRegistrationFeeResponse{
+		IsRegistrable:             true,
+		Fee:                       sdk.NewCoins(fee),
+		RegistrationPeriodInYear:  1,
+		MaxSubDomainRegistrations: 0,
+		ErrorMessage:              "",
+	}, nil
 }

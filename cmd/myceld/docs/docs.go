@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/cobra/doc"
 )
 
-func DocsCommand(rootCmd *cobra.Command) *cobra.Command {
+func Command(rootCmd *cobra.Command) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "docs",
 		Short: "Generate markdowns docs for all myceld commands",

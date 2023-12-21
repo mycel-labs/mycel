@@ -160,12 +160,12 @@ func initRootCmd(
 
 	// add DNS command
 	rootCmd.AddCommand(
-		dns.DnsCommand(),
+		dns.Command(),
 	)
 
 	// add docs command
 	rootCmd.AddCommand(
-		docs.DocsCommand(rootCmd),
+		docs.Command(rootCmd),
 	)
 }
 
