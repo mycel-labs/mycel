@@ -11,7 +11,8 @@ import (
 	"github.com/mycel-domain/mycel/x/epochs/types"
 )
 
-func setupMsgServer(t testing.TB) (types.MsgServer, context.Context) {
-	k, ctx := keepertest.EpochsKeeper(t)
+func setupMsgServer(tb testing.TB) (types.MsgServer, context.Context) {
+	tb.Helper()
+	k, ctx := keepertest.EpochsKeeper(tb)
 	return keeper.NewMsgServerImpl(*k), sdk.WrapSDKContext(ctx)
 }

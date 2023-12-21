@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"testing"
 
-	tmcli "github.com/cometbft/cometbft/libs/cli"
-	clitestutil "github.com/cosmos/cosmos-sdk/testutil/cli"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/status"
+
+	tmcli "github.com/cometbft/cometbft/libs/cli"
+
+	clitestutil "github.com/cosmos/cosmos-sdk/testutil/cli"
 
 	"github.com/mycel-domain/mycel/testutil/network"
 	"github.com/mycel-domain/mycel/testutil/nullify"

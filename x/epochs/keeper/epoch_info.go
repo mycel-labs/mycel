@@ -20,7 +20,6 @@ func (k Keeper) SetEpochInfo(ctx sdk.Context, epochInfo types.EpochInfo) {
 func (k Keeper) GetEpochInfo(
 	ctx sdk.Context,
 	identifier string,
-
 ) (val types.EpochInfo, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochInfoKeyPrefix))
 
@@ -39,7 +38,6 @@ func (k Keeper) GetEpochInfo(
 func (k Keeper) RemoveEpochInfo(
 	ctx sdk.Context,
 	identifier string,
-
 ) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochInfoKeyPrefix))
 	store.Delete(types.EpochInfoKey(

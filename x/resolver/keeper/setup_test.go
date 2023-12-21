@@ -4,11 +4,13 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/suite"
+
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
+
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	"github.com/stretchr/testify/suite"
 
 	mycelapp "github.com/mycel-domain/mycel/app"
 	"github.com/mycel-domain/mycel/app/params"
@@ -69,7 +71,7 @@ func getBankGenesis() *banktypes.GenesisState {
 		makeBalance(testutil.Bob, testutil.BalBob),
 		makeBalance(testutil.Carol, testutil.BalCarol),
 	}
-	supply := banktypes.Supply{
+	supply := banktypes.Supply{ //nolint:staticcheck
 		Total: coins[0].Coins.Add(coins[1].Coins...).Add(coins[2].Coins...),
 	}
 

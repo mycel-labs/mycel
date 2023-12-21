@@ -4,6 +4,7 @@ import (
 	"time"
 
 	errorsmod "cosmossdk.io/errors"
+
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
@@ -25,7 +26,6 @@ func (k Keeper) GetSecondLevelDomain(
 	ctx sdk.Context,
 	name string,
 	parent string,
-
 ) (val types.SecondLevelDomain, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
 
@@ -46,7 +46,6 @@ func (k Keeper) RemoveSecondLevelDomain(
 	ctx sdk.Context,
 	name string,
 	parent string,
-
 ) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
 	store.Delete(types.SecondLevelDomainKey(

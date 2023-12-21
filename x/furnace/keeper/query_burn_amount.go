@@ -3,11 +3,12 @@ package keeper
 import (
 	"context"
 
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 
 	"github.com/mycel-domain/mycel/x/furnace/types"
 )
@@ -32,7 +33,6 @@ func (k Keeper) BurnAmountAll(goCtx context.Context, req *types.QueryAllBurnAmou
 		burnAmounts = append(burnAmounts, burnAmount)
 		return nil
 	})
-
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}

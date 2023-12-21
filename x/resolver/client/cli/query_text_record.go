@@ -3,9 +3,10 @@ package cli
 import (
 	"strconv"
 
+	"github.com/spf13/cobra"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/spf13/cobra"
 
 	"github.com/mycel-domain/mycel/x/resolver/types"
 )
@@ -30,7 +31,6 @@ func CmdTextRecord() *cobra.Command {
 			queryClient := types.NewQueryClient(clientCtx)
 
 			params := &types.QueryTextRecordRequest{
-
 				DomainName:   reqDomainName,
 				DomainParent: reqDomainParent,
 				Key:          reqKey,

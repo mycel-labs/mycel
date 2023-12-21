@@ -3,10 +3,11 @@ package cli
 import (
 	"strconv"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
+
+	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/flags"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
@@ -22,6 +23,9 @@ func CmdDomainRegistrationFee() *cobra.Command {
 			reqName := args[0]
 			reqParent := args[1]
 			reqRegistrationPeriodInYear, err := cast.ToUint64E(args[2])
+			if err != nil {
+				return err
+			}
 
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {

@@ -159,8 +159,6 @@ func (suite *KeeperTestSuite) TestAfterEpochHooks() {
 				}
 
 			}
-
 		})
 	}
-
 }

@@ -4,8 +4,9 @@ import (
 	"strconv"
 	"testing"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
@@ -29,7 +30,8 @@ func createNDomainOwnership(keeper *keeper.Keeper, ctx sdk.Context, n int) []typ
 func TestDomainOwnershipGet(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	items := createNDomainOwnership(keeper, ctx, 10)
-	for _, item := range items {
+	for i := range items {
+		item := items[i]
 		rst, found := keeper.GetDomainOwnership(ctx,
 			item.Owner,
 		)
@@ -40,6 +42,7 @@ func TestDomainOwnershipGet(t *testing.T) {
 		)
 	}
 }
+
 func TestDomainOwnershipRemove(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	items := createNDomainOwnership(keeper, ctx, 10)

@@ -12,8 +12,9 @@ import (
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
-func setupMsgServer(t testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
-	k, ctx := keepertest.RegistryKeeper(t)
+func setupMsgServer(tb testing.TB) (types.MsgServer, keeper.Keeper, context.Context) {
+	tb.Helper()
+	k, ctx := keepertest.RegistryKeeper(tb)
 	registry.InitGenesis(ctx, *k, *types.DefaultGenesis())
 	return keeper.NewMsgServerImpl(*k), *k, sdk.WrapSDKContext(ctx)
 }

@@ -2,6 +2,7 @@ package keeper
 
 import (
 	errorsmod "cosmossdk.io/errors"
+
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
@@ -22,7 +23,6 @@ func (k Keeper) SetBurnAmount(ctx sdk.Context, burnAmount types.BurnAmount) {
 func (k Keeper) GetBurnAmount(
 	ctx sdk.Context,
 	index uint64,
-
 ) (val types.BurnAmount, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BurnAmountKeyPrefix))
 
@@ -41,7 +41,6 @@ func (k Keeper) GetBurnAmount(
 func (k Keeper) RemoveBurnAmount(
 	ctx sdk.Context,
 	index uint64,
-
 ) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BurnAmountKeyPrefix))
 	store.Delete(types.BurnAmountKey(

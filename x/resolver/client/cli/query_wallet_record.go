@@ -3,9 +3,10 @@ package cli
 import (
 	"strconv"
 
+	"github.com/spf13/cobra"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/spf13/cobra"
 
 	"github.com/mycel-domain/mycel/x/resolver/types"
 )
@@ -30,7 +31,6 @@ func CmdQueryWalletRecord() *cobra.Command {
 			queryClient := types.NewQueryClient(clientCtx)
 
 			params := &types.QueryWalletRecordRequest{
-
 				DomainName:       reqDomainName,
 				DomainParent:     reqDomainParent,
 				WalletRecordType: reqWalletRecordType,

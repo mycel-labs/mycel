@@ -109,8 +109,6 @@ func (suite *KeeperTestSuite) TestUpdateDnsRecord() {
 			} else {
 				suite.Require().EqualError(err, tc.expErr.Error())
 			}
-
 		})
 	}
-
 }

@@ -13,7 +13,7 @@ func (k Keeper) BeforeEpochStart(ctx sdk.Context, epochIdentifier string, epochN
 
 // AfterEpochEnd is the epoch end hook.
 func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumber int64) {
-	var burnt = sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0))
+	burnt := sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0))
 
 	config, found := k.GetEpochBurnConfig(ctx)
 	if !found {
@@ -26,10 +26,10 @@ func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumb
 	}
 
 	// Get burn amount
-	burnAmount, found := k.GetBurnAmount(ctx, uint64(config.CurrentBurnAmountIndex))
+	burnAmount, found := k.GetBurnAmount(ctx, config.CurrentBurnAmountIndex)
 	// If not found, set default burn amount
 	if !found {
-		burnAmount = k.NewBurnAmount(ctx, config, uint64(config.CurrentBurnAmountIndex))
+		burnAmount = k.NewBurnAmount(ctx, config, config.CurrentBurnAmountIndex)
 	}
 
 	// Check if CurrentEpoch is smaller than TotalEpochs
@@ -42,9 +42,9 @@ func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumb
 		config.CurrentBurnAmountIndex++
 		k.SetEpochBurnConfig(ctx, config)
 
-		burnAmount, found = k.GetBurnAmount(ctx, uint64(config.CurrentBurnAmountIndex))
+		burnAmount, found = k.GetBurnAmount(ctx, config.CurrentBurnAmountIndex)
 		if !found {
-			burnAmount = k.NewBurnAmount(ctx, config, uint64(config.CurrentBurnAmountIndex))
+			burnAmount = k.NewBurnAmount(ctx, config, config.CurrentBurnAmountIndex)
 		}
 	}
 
@@ -63,7 +63,6 @@ func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumb
 
 	// Emit event
 	EmitEpochBurnEvent(ctx, epochIdentifier, epochNumber, &burnAmount, burnt)
-
 }
 
 // ___________________________________________________________________________________________________

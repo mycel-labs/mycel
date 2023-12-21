@@ -22,7 +22,6 @@ func TestGenesisState_Validate(t *testing.T) {
 		{
 			desc: "valid genesis state",
 			genState: &types.GenesisState{
-
 				EpochBurnConfig: types.EpochBurnConfig{
 					EpochIdentifier: "35",
 				},

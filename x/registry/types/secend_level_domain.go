@@ -61,7 +61,6 @@ func GetWalletAddressFormat(walletRecordType string) (walletAddressFormat string
 }
 
 func (secondLevelDomain *SecondLevelDomain) UpdateWalletRecord(walletRecordType string, address string) (err error) {
-
 	// Get wallet address format from wallet record type
 	walletAddressFormat, err := GetWalletAddressFormat(walletRecordType)
 	if err != nil {
@@ -111,7 +110,6 @@ func GetDnsRecordValueFormat(dnsRecordType string) (dnsRecordTypeFormat string, 
 }
 
 func (secondLevelDomain *SecondLevelDomain) UpdateDnsRecord(dnsRecordType string, value string) (err error) {
-
 	// Get wallet address format from dns record type
 	dnsRecordFormat, err := GetDnsRecordValueFormat(dnsRecordType)
 	if err != nil {

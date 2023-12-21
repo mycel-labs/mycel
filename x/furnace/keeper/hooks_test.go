@@ -74,7 +74,7 @@ func (suite *KeeperTestSuite) TestAfterEpochEndCreateBurnAmount() {
 				// Check if burn amount is expected
 				config, found := suite.app.FurnaceKeeper.GetEpochBurnConfig(suite.ctx)
 				suite.Require().True(found)
-				_, found = suite.app.FurnaceKeeper.GetBurnAmount(suite.ctx, uint64(config.CurrentBurnAmountIndex))
+				_, found = suite.app.FurnaceKeeper.GetBurnAmount(suite.ctx, config.CurrentBurnAmountIndex)
 				suite.Require().True(found)
 			}
 
@@ -85,14 +85,11 @@ func (suite *KeeperTestSuite) TestAfterEpochEndCreateBurnAmount() {
 			for i, event := range events {
 				suite.Require().Equal(tc.expectedEvents[i].BurnAmountIndex, event.Attributes[0].Value)
 			}
-
 		})
 	}
-
 }
 
 func (suite *KeeperTestSuite) TestAfterEpochEnd() {
-
 	testCases := []struct {
 		totalBurnAmounts []int64
 		expectedEvents   []ExpBurnEvent
@@ -241,7 +238,7 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 				// Check if burn amount is expected
 				config, found := suite.app.FurnaceKeeper.GetEpochBurnConfig(suite.ctx)
 				suite.Require().True(found)
-				_, found = suite.app.FurnaceKeeper.GetBurnAmount(suite.ctx, uint64(config.CurrentBurnAmountIndex))
+				_, found = suite.app.FurnaceKeeper.GetBurnAmount(suite.ctx, config.CurrentBurnAmountIndex)
 				suite.Require().True(found)
 			}
 
@@ -262,5 +259,4 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 			}
 		})
 	}
-
 }

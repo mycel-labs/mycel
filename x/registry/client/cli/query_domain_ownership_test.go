@@ -5,12 +5,14 @@ import (
 	"strconv"
 	"testing"
 
-	tmcli "github.com/cometbft/cometbft/libs/cli"
-	"github.com/cosmos/cosmos-sdk/client/flags"
-	clitestutil "github.com/cosmos/cosmos-sdk/testutil/cli"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	tmcli "github.com/cometbft/cometbft/libs/cli"
+
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	clitestutil "github.com/cosmos/cosmos-sdk/testutil/cli"
 
 	"github.com/mycel-domain/mycel/testutil/network"
 	"github.com/mycel-domain/mycel/testutil/nullify"
@@ -47,7 +49,7 @@ func TestShowDomainOwnership(t *testing.T) {
 	common := []string{
 		fmt.Sprintf("--%s=json", tmcli.OutputFlag),
 	}
-	for _, tc := range []struct {
+	tests := []struct {
 		desc    string
 		idOwner string
 
@@ -69,7 +71,9 @@ func TestShowDomainOwnership(t *testing.T) {
 			args: common,
 			err:  status.Error(codes.NotFound, "not found"),
 		},
-	} {
+	}
+	for i := range tests {
+		tc := tests[i]
 		t.Run(tc.desc, func(t *testing.T) {
 			args := []string{
 				tc.idOwner,

@@ -17,7 +17,6 @@ func ValidateTopLevelDomainName(name string) (err error) {
 		err = errorsmod.Wrapf(ErrInvalidTopLevelDomainName, "%s", name)
 	}
 	return err
-
 }
 
 func (topLevelDomain TopLevelDomain) ValidateName() (err error) {

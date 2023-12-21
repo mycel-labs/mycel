@@ -6,9 +6,11 @@ import (
 	"testing"
 	"time"
 
-	errorsmod "cosmossdk.io/errors"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
+
+	errorsmod "cosmossdk.io/errors"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/testutil"
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
@@ -45,10 +47,10 @@ func createNSecondLevelDomainResponse(keeper *keeper.Keeper, ctx sdk.Context, n 
 // Register top-level domains with k.RegisterSecondLevelDomain()
 // Domain name is set to `n` (n is a incremantal number)
 // e.g.) `1`, `2`, `n`...
-func registerNSecondLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator string, n int) ([]types.SecondLevelDomain, error) {
+func registerNSecondLevelDomain(k *keeper.Keeper, ctx sdk.Context, creatorAddr string, n int) ([]types.SecondLevelDomain, error) {
 	items := make([]types.SecondLevelDomain, n)
 	for i := range items {
-		creator, err := sdk.AccAddressFromBech32(testutil.Alice)
+		creator, err := sdk.AccAddressFromBech32(creatorAddr)
 		if err != nil {
 			return nil, err
 		}
@@ -77,7 +79,8 @@ func registerNSecondLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator strin
 func TestSecondLevelDomainGet(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	items := createNSecondLevelDomain(keeper, ctx, 10)
-	for _, item := range items {
+	for i := range items {
+		item := items[i]
 		rst, found := keeper.GetSecondLevelDomain(ctx,
 			item.Name,
 			item.Parent,
@@ -89,6 +92,7 @@ func TestSecondLevelDomainGet(t *testing.T) {
 		)
 	}
 }
+
 func TestSecondLevelDomainRemove(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	items := createNSecondLevelDomain(keeper, ctx, 10)

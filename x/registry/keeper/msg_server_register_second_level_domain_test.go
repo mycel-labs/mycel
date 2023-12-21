@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	errorsmod "cosmossdk.io/errors"
+
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
 	"github.com/mycel-domain/mycel/app/params"
@@ -149,8 +150,6 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 				_, err := suite.msgServer.RegisterSecondLevelDomain(suite.ctx, registerMsg)
 				suite.Require().EqualError(err, tc.expErr.Error())
 			}
-
 		})
 	}
-
 }

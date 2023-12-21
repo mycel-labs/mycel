@@ -4,9 +4,11 @@ import (
 	fmt "fmt"
 	"testing"
 
-	errorsmod "cosmossdk.io/errors"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
+
+	errorsmod "cosmossdk.io/errors"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/testutil"
 )
@@ -36,19 +38,24 @@ func TestDomainValidate(t *testing.T) {
 			expDomainParent: TopLevelDomain{Name: "myc"},
 		},
 		// Invalid name
-		{domain: SecondLevelDomain{Name: ".foo", Parent: "myc"},
+		{
+			domain: SecondLevelDomain{Name: ".foo", Parent: "myc"},
 			expErr: errorsmod.Wrapf(ErrInvalidSecondLevelDomainName, ".foo"),
 		},
-		{domain: SecondLevelDomain{Name: "", Parent: "myc"},
+		{
+			domain: SecondLevelDomain{Name: "", Parent: "myc"},
 			expErr: errorsmod.Wrapf(ErrInvalidSecondLevelDomainName, ""),
 		},
-		{domain: SecondLevelDomain{Name: "bar.foo", Parent: "myc"},
+		{
+			domain: SecondLevelDomain{Name: "bar.foo", Parent: "myc"},
 			expErr: errorsmod.Wrapf(ErrInvalidSecondLevelDomainName, "bar.foo"),
 		},
-		{domain: SecondLevelDomain{Name: ".", Parent: "myc"},
+		{
+			domain: SecondLevelDomain{Name: ".", Parent: "myc"},
 			expErr: errorsmod.Wrapf(ErrInvalidSecondLevelDomainName, "."),
 		},
-		{domain: SecondLevelDomain{Name: "##", Parent: "myc"},
+		{
+			domain: SecondLevelDomain{Name: "##", Parent: "myc"},
 			expErr: errorsmod.Wrapf(ErrInvalidSecondLevelDomainName, "##"),
 		},
 		// Invalid parent
@@ -83,7 +90,6 @@ func TestDomainValidate(t *testing.T) {
 		}
 
 	}
-
 }
 
 func TestDomainUpdateWalletRecord(t *testing.T) {

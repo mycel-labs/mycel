@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	errorsmod "cosmossdk.io/errors"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 
@@ -112,7 +113,6 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 					// Check if the total is equal to the sum of toBurn and toTreasury
 					if total.Len() == 1 {
 						suite.Require().Equal(total, sdk.NewCoins(toBurn.Add(toTreasury)))
-
 					} else {
 						suite.Require().Equal(total, sdk.NewCoins(toBurn, toTreasury))
 					}

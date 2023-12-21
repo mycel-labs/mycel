@@ -6,9 +6,11 @@ import (
 	"testing"
 	"time"
 
-	errorsmod "cosmossdk.io/errors"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/stretchr/testify/require"
+
+	errorsmod "cosmossdk.io/errors"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/testutil"
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
@@ -33,13 +35,12 @@ func createNTopLevelDomain(keeper *keeper.Keeper, ctx sdk.Context, n int) []type
 // Register top-level domains with k.RegisterTopLevelDomain()
 // Domain name is set to `celn` (n is a incremantal number)
 // e.g.) `cel1`, `cel2`, `celn`...
-func registerNTopLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator string, n int) ([]types.TopLevelDomain, error) {
+func registerNTopLevelDomain(k *keeper.Keeper, ctx sdk.Context, creatorAddr string, n int) ([]types.TopLevelDomain, error) {
 	items := make([]types.TopLevelDomain, n)
 	for i := range items {
-		creator := testutil.Alice
 		name := "cel" + strconv.Itoa(i)
 
-		tld, _, err := k.RegisterTopLevelDomain(ctx, creator, name, 1)
+		tld, _, err := k.RegisterTopLevelDomain(ctx, creatorAddr, name, 1)
 		if err != nil {
 			return nil, err
 		}
@@ -51,7 +52,8 @@ func registerNTopLevelDomain(k *keeper.Keeper, ctx sdk.Context, creator string, 
 func TestTopLevelDomainGet(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	items := createNTopLevelDomain(keeper, ctx, 10)
-	for _, item := range items {
+	for i := range items {
+		item := items[i]
 		rst, found := keeper.GetTopLevelDomain(ctx,
 			item.Name,
 		)
@@ -62,6 +64,7 @@ func TestTopLevelDomainGet(t *testing.T) {
 		)
 	}
 }
+
 func TestTopLevelDomainRemove(t *testing.T) {
 	keeper, ctx := keepertest.RegistryKeeper(t)
 	items := createNTopLevelDomain(keeper, ctx, 10)
@@ -130,7 +133,6 @@ func (suite *KeeperTestSuite) TestGetValidTopLevelDomain() {
 			}
 		})
 	}
-
 }
 
 func (suite *KeeperTestSuite) TestGetTopLevelDomainRole() {

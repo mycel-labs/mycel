@@ -10,6 +10,7 @@ import (
 	"github.com/miekg/dns"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 
 	resolver "github.com/mycel-domain/mycel/x/resolver/types"
 )
@@ -18,12 +19,16 @@ type grpcService struct {
 	grpcConn *grpc.ClientConn
 }
 
-type DnsRecord interface{}
+type DnsRecord interface{} //nolint:revive
 
 func (s *grpcService) QueryDnsToMycelResolver(domain string, recordType string) (dnsRecord DnsRecord) {
-
 	domain = strings.Trim(domain, ".")
 	division := strings.Index(domain, ".")
+
+	if division < 0 {
+		log.Printf("QueryDnsToMycelResolver: %s, %s", "invalid domain format", domain)
+		return nil
+	}
 
 	argName := domain[:division]
 	argParent := domain[division+1:]
@@ -201,7 +206,7 @@ func (s *grpcService) HandleDNSRequest(w dns.ResponseWriter, r *dns.Msg) {
 
 func RunDnsServer(nodeAddress string, listenPort int) error {
 	grpcConn, err := grpc.Dial(nodeAddress,
-		grpc.WithInsecure(),
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
 	)
 	if err != nil {
 		log.Fatalf("Failed to connect to node: %v", err)
@@ -219,8 +224,8 @@ func RunDnsServer(nodeAddress string, listenPort int) error {
 	return err
 }
 
-// DnsCommand returns command to start DNS server
-func DnsCommand() *cobra.Command {
+// Command returns command to start DNS server
+func Command() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "dns",
 		Short: "Run DNS server",

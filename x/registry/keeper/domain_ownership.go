@@ -20,7 +20,6 @@ func (k Keeper) SetDomainOwnership(ctx sdk.Context, domainOwnership types.Domain
 func (k Keeper) GetDomainOwnership(
 	ctx sdk.Context,
 	owner string,
-
 ) (val types.DomainOwnership, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainOwnershipKeyPrefix))
 
@@ -39,7 +38,6 @@ func (k Keeper) GetDomainOwnership(
 func (k Keeper) RemoveDomainOwnership(
 	ctx sdk.Context,
 	owner string,
-
 ) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainOwnershipKeyPrefix))
 	store.Delete(types.DomainOwnershipKey(
