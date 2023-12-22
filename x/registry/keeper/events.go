@@ -95,3 +95,13 @@ func EmitExtendTopLevelDomainExpirationDateEvent(ctx sdk.Context, domain types.T
 		),
 	)
 }
+
+// Update top-level-domain registration policy
+func EmitUpdateTopLevelDomainRegistrationPolicyEvent(ctx sdk.Context, domain types.TopLevelDomain) {
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(types.EventTypeUpdateTopLevelDomainRegistrationPolicy,
+			sdk.NewAttribute(types.AttributeUpdateTopLevelDomainRegistrationPolicyEventDomainName, domain.Name),
+			sdk.NewAttribute(types.AttributeUpdateTopLevelDomainRegistrationPolicyEventRegistrationPolicy, domain.RegistrationPolicy.String()),
+		),
+	)
+}

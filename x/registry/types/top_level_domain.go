@@ -53,6 +53,10 @@ func (topLevelDomain *TopLevelDomain) ExtendExpirationDate(from time.Time, exten
 	return expirationDate
 }
 
+func (topLevelDomain *TopLevelDomain) UpdateRegistrationPolicy(rp RegistrationPolicyType) {
+	topLevelDomain.RegistrationPolicy = rp
+}
+
 func (topLevelDomain TopLevelDomain) IsEditable(sender string) (isEditable bool, err error) {
 	role := topLevelDomain.GetRole(sender)
 	if role == DomainRole_NO_ROLE {

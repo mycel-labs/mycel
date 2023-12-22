@@ -19,6 +19,15 @@ func ValidateTopLevelDomainName(name string) (err error) {
 	return err
 }
 
+func (topLevelDomain TopLevelDomain) ValidateTopLevelDomainRegistrationPolicy(rps string) (RegistrationPolicyType, error) {
+	i, isFound := RegistrationPolicyType_value[rps]
+	if !isFound {
+		err := errorsmod.Wrapf(ErrInvalidRegistrationPolicy, "%s", rps)
+		return RegistrationPolicyType_PRIVATE, err
+	}
+	return RegistrationPolicyType(i), nil
+}
+
 func (topLevelDomain TopLevelDomain) ValidateName() (err error) {
 	err = ValidateTopLevelDomainName(topLevelDomain.Name)
 	return err
