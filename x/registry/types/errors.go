@@ -47,3 +47,8 @@ var (
 	ErrNoWithdrawalAmountToWithdraw = errorsmod.Register(ModuleName, 1302, "no registration fee to withdraw")
 	ErrInvalidDenom                 = errorsmod.Register(ModuleName, 1303, "invalid denom")
 )
+
+// policy sentinel errors
+var (
+	ErrInvalidRegistrationPolicy = errorsmod.Register(ModuleName, 1400, "invalid registration policy")
+)
