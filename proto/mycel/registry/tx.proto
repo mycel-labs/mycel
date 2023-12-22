@@ -10,13 +10,14 @@ option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc UpdateWalletRecord                 (MsgUpdateWalletRecord                ) returns (MsgUpdateWalletRecordResponse                );
-  rpc UpdateDnsRecord                    (MsgUpdateDnsRecord                   ) returns (MsgUpdateDnsRecordResponse                   );
-  rpc RegisterSecondLevelDomain          (MsgRegisterSecondLevelDomain         ) returns (MsgRegisterSecondLevelDomainResponse         );
-  rpc RegisterTopLevelDomain             (MsgRegisterTopLevelDomain            ) returns (MsgRegisterTopLevelDomainResponse            );
-  rpc WithdrawRegistrationFee            (MsgWithdrawRegistrationFee           ) returns (MsgWithdrawRegistrationFeeResponse           );
-  rpc ExtendTopLevelDomainExpirationDate (MsgExtendTopLevelDomainExpirationDate) returns (MsgExtendTopLevelDomainExpirationDateResponse);
-  rpc UpdateTextRecord                   (MsgUpdateTextRecord                  ) returns (MsgUpdateTextRecordResponse                  );
+  rpc UpdateWalletRecord                     (MsgUpdateWalletRecord                    ) returns (MsgUpdateWalletRecordResponse                    );
+  rpc UpdateDnsRecord                        (MsgUpdateDnsRecord                       ) returns (MsgUpdateDnsRecordResponse                       );
+  rpc RegisterSecondLevelDomain              (MsgRegisterSecondLevelDomain             ) returns (MsgRegisterSecondLevelDomainResponse             );
+  rpc RegisterTopLevelDomain                 (MsgRegisterTopLevelDomain                ) returns (MsgRegisterTopLevelDomainResponse                );
+  rpc WithdrawRegistrationFee                (MsgWithdrawRegistrationFee               ) returns (MsgWithdrawRegistrationFeeResponse               );
+  rpc ExtendTopLevelDomainExpirationDate     (MsgExtendTopLevelDomainExpirationDate    ) returns (MsgExtendTopLevelDomainExpirationDateResponse    );
+  rpc UpdateTextRecord                       (MsgUpdateTextRecord                      ) returns (MsgUpdateTextRecordResponse                      );
+  rpc UpdateTopLevelDomainRegistrationPolicy (MsgUpdateTopLevelDomainRegistrationPolicy) returns (MsgUpdateTopLevelDomainRegistrationPolicyResponse);
 }
 message MsgUpdateWalletRecord {
   string creator          = 1;
@@ -87,4 +88,12 @@ message MsgUpdateTextRecord {
 }
 
 message MsgUpdateTextRecordResponse {}
+
+message MsgUpdateTopLevelDomainRegistrationPolicy {
+  string creator            = 1;
+  string name               = 2;
+  string registrationPolicy = 3;
+}
+
+message MsgUpdateTopLevelDomainRegistrationPolicyResponse {}
 

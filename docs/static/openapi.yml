@@ -81737,6 +81737,8 @@ definitions:
     type: object
   mycel.registry.MsgUpdateTextRecordResponse:
     type: object
+  mycel.registry.MsgUpdateTopLevelDomainRegistrationPolicyResponse:
+    type: object
   mycel.registry.MsgUpdateWalletRecordResponse:
     type: object
   mycel.registry.MsgWithdrawRegistrationFeeResponse:

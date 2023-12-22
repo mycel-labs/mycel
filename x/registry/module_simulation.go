@@ -48,6 +48,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgUpdateTextRecord int = 100
 
+	opWeightMsgUpdateTopLevelDomainRegistrationPolicy = "op_weight_msg_update_top_level_domain_registration_policy"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgUpdateTopLevelDomainRegistrationPolicy int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -140,6 +144,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgUpdateTextRecord,
 		registrysimulation.SimulateMsgUpdateTextRecord(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgUpdateTopLevelDomainRegistrationPolicy int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUpdateTopLevelDomainRegistrationPolicy, &weightMsgUpdateTopLevelDomainRegistrationPolicy, nil,
+		func(_ *rand.Rand) {
+			weightMsgUpdateTopLevelDomainRegistrationPolicy = defaultWeightMsgUpdateTopLevelDomainRegistrationPolicy
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUpdateTopLevelDomainRegistrationPolicy,
+		registrysimulation.SimulateMsgUpdateTopLevelDomainRegistrationPolicy(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
