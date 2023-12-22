@@ -48,7 +48,7 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgUpdateTextRecord int = 100
 
-	opWeightMsgUpdateTopLevelDomainRegistrationPolicy = "op_weight_msg_update_top_level_domain_registration_policy"
+	opWeightMsgUpdateTopLevelDomainRegistrationPolicy = "op_weight_msg_update_top_level_domain_registration_policy" //#nosec G101
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgUpdateTopLevelDomainRegistrationPolicy int = 100
 
