@@ -9,12 +9,15 @@ import "mycel/registry/subdomain_config.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
+enum RegistrationPolicyType {
+  PRIVATE = 0;
+  PUBLIC = 1;
+}
+
 message TopLevelDomain {
   string name = 1;
-  google.protobuf.Timestamp expirationDate = 2 [
-    (gogoproto.stdtime) = true,
-    (gogoproto.nullable) = false
-  ];
+  google.protobuf.Timestamp expirationDate = 2
+      [ (gogoproto.stdtime) = true, (gogoproto.nullable) = false ];
   SubdomainConfig subdomainConfig = 3;
   uint64 subdomainCount = 4;
   repeated AccessControl accessControl = 5;
@@ -22,6 +25,7 @@ message TopLevelDomain {
     (gogoproto.nullable) = false,
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
   ];
+  RegistrationPolicyType registrationPolicy = 7;
 }
 
 message TopLevelDomainFee {
