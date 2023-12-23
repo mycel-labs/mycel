@@ -42,6 +42,8 @@ func (suite *KeeperTestSuite) TestWithdrawRegistrationFee() {
 			}
 			_, err := suite.msgServer.RegisterTopLevelDomain(suite.ctx, registerTopLevelDomainMsg)
 			suite.Require().Nil(err)
+			err = suite.app.RegistryKeeper.UpdateTopLevelDomainRegistrationPolicy(suite.ctx, testutil.Alice, tc.topLevelDomainName, types.RegistrationPolicyType_PUBLIC.String())
+			suite.Require().Nil(err)
 
 			// Register second-level-domain
 			registerSecondLevelDomainMsg := &types.MsgRegisterSecondLevelDomain{
