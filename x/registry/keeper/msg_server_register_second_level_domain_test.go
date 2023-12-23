@@ -73,6 +73,23 @@ func (suite *KeeperTestSuite) TestRegisterSecondLevelDomain() {
 			fn: func() {
 			},
 		},
+		{
+			creator:                  testutil.Bob,
+			name:                     "foo",
+			parent:                   "alice",
+			registrationPeriodInYear: 1,
+			domainOwnership: types.DomainOwnership{
+				Owner:   testutil.Alice,
+				Domains: []*types.OwnedDomain{{Name: "foo", Parent: "alice"}},
+			},
+			expErr: errorsmod.Wrapf(types.ErrNotAllowedRegisterDomain, "alice"),
+			fn: func() {
+				owner := testutil.Alice
+				// Create .bob TLD by Alice
+				_, _, err := suite.app.RegistryKeeper.RegisterTopLevelDomain(suite.ctx, owner, "alice", 1)
+				suite.Require().Nil(err)
+			},
+		},
 	}
 
 	for i, tc := range testCases {

@@ -201,10 +201,34 @@ func (k Keeper) ValidateSecondLevelDomainIsRegistrable(ctx sdk.Context, secondLe
 	return nil
 }
 
+func (k Keeper) CheckIsRegisteringDomainAllowed(ctx sdk.Context, secondLevelDomain types.SecondLevelDomain, sldOwner sdk.AccAddress) error {
+	// Get parent domain of second-level-domain
+	parentDomain, found := k.GetSecondLevelDomainParent(ctx, secondLevelDomain)
+	if !found {
+		return errorsmod.Wrapf(types.ErrSecondLevelDomainParentDoesNotExist, "%s", secondLevelDomain.Parent)
+	}
+
+	// Check if the registering domain is allowed or not
+	isPrivate := parentDomain.RegistrationPolicy == types.RegistrationPolicyType_PRIVATE
+	isOwner := parentDomain.GetRole(sldOwner.String()) == types.DomainRole_OWNER
+
+	if isPrivate && !isOwner {
+		return errorsmod.Wrapf(types.ErrNotAllowedRegisterDomain, "%s", parentDomain.Name)
+	}
+
+	return nil
+}
+
 // Register second level domain
 func (k Keeper) RegisterSecondLevelDomain(ctx sdk.Context, secondLevelDomain types.SecondLevelDomain, owner sdk.AccAddress, registrationPeriodIYear uint64) (err error) {
 	// Validate second-level-domain is registrable
 	err = k.ValidateSecondLevelDomainIsRegistrable(ctx, secondLevelDomain)
+	if err != nil {
+		return err
+	}
+
+	// Check if the registering domain under the parent domain is allowed or not
+	err = k.CheckIsRegisteringDomainAllowed(ctx, secondLevelDomain, owner)
 	if err != nil {
 		return err
 	}

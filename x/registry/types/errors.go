@@ -51,4 +51,5 @@ var (
 // policy sentinel errors
 var (
 	ErrInvalidRegistrationPolicy = errorsmod.Register(ModuleName, 1400, "invalid registration policy")
+	ErrNotAllowedRegisterDomain  = errorsmod.Register(ModuleName, 1401, "not allowed to regsiter under private domain")
 )
