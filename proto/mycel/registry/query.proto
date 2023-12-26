@@ -61,7 +61,7 @@ service Query {
   rpc DomainRegistrationFee(QueryDomainRegistrationFeeRequest)
       returns (QueryDomainRegistrationFeeResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/registry/domain_registration_fee/{name}/{parent}";
+        "/mycel-domain/mycel/registry/domain_registration_fee/{name}/{parent}/{registerer}";
   }
 
   // Queries a list of Role items.
@@ -141,6 +141,7 @@ message QueryDomainRegistrationFeeRequest {
   string name = 1;
   string parent = 2;
   uint64 registrationPeriodInYear = 3;
+  string registerer = 4;
 }
 
 message QueryDomainRegistrationFeeResponse {
