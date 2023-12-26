@@ -53,7 +53,11 @@ func (k Keeper) DomainRegistrationFee(goCtx context.Context, req *types.QueryDom
 
 	// Second level domain
 	domain := types.SecondLevelDomain{Name: req.Name, Parent: req.Parent}
-	err := k.ValidateSecondLevelDomainIsRegistrable(ctx, domain)
+	registerer, err := sdk.AccAddressFromBech32(req.Registerer)
+	if err != nil {
+		return nil, err
+	}
+	err = k.ValidateSecondLevelDomainIsRegistrable(ctx, domain, registerer)
 	if err != nil {
 		return createErrorResponse(err), nil
 	}
