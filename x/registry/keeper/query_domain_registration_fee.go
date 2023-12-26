@@ -45,7 +45,7 @@ func (k Keeper) DomainRegistrationFee(goCtx context.Context, req *types.QueryDom
 		return &types.QueryDomainRegistrationFeeResponse{
 			IsRegistrable:             true,
 			Fee:                       fee.TotalFee,
-			RegistrationPeriodInYear:  1,
+			RegistrationPeriodInYear:  req.RegistrationPeriodInYear,
 			MaxSubDomainRegistrations: config.MaxSubdomainRegistrations,
 			ErrorMessage:              "",
 		}, nil
@@ -69,7 +69,7 @@ func (k Keeper) DomainRegistrationFee(goCtx context.Context, req *types.QueryDom
 	return &types.QueryDomainRegistrationFeeResponse{
 		IsRegistrable:             true,
 		Fee:                       sdk.NewCoins(fee),
-		RegistrationPeriodInYear:  1,
+		RegistrationPeriodInYear:  req.RegistrationPeriodInYear,
 		MaxSubDomainRegistrations: 0,
 		ErrorMessage:              "",
 	}, nil
