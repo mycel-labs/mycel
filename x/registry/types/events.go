@@ -72,3 +72,11 @@ const (
 	AttributeExtendTopLevelDomainExpirationDateEventRegistrationFeeToBurn     = "registration-fee-to-burn"
 	AttributeExtendTopLevelDomainExpirationDateEventRegistrationFeeToTreasury = "registration-fee-to-treasury"
 )
+
+// Update top-level-domain registration policy
+const (
+	EventTypeUpdateTopLevelDomainRegistrationPolicy = "update-top-level-domain-registration-policy"
+
+	AttributeUpdateTopLevelDomainRegistrationPolicyEventDomainName         = "name"
+	AttributeUpdateTopLevelDomainRegistrationPolicyEventRegistrationPolicy = "registration-policy"
+)

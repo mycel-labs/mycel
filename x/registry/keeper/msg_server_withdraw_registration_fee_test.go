@@ -34,7 +34,7 @@ func (suite *KeeperTestSuite) TestWithdrawRegistrationFee() {
 		suite.Run(fmt.Sprintf("Case %d", i), func() {
 			suite.SetupTest()
 
-			// Register top level domain
+			// Register top-level-domain
 			registerTopLevelDomainMsg := &types.MsgRegisterTopLevelDomain{
 				Creator:                  testutil.Alice,
 				Name:                     tc.topLevelDomainName,
@@ -42,8 +42,10 @@ func (suite *KeeperTestSuite) TestWithdrawRegistrationFee() {
 			}
 			_, err := suite.msgServer.RegisterTopLevelDomain(suite.ctx, registerTopLevelDomainMsg)
 			suite.Require().Nil(err)
+			err = suite.app.RegistryKeeper.UpdateTopLevelDomainRegistrationPolicy(suite.ctx, testutil.Alice, tc.topLevelDomainName, types.RegistrationPolicyType_PUBLIC.String())
+			suite.Require().Nil(err)
 
-			// Register second level domain
+			// Register second-level-domain
 			registerSecondLevelDomainMsg := &types.MsgRegisterSecondLevelDomain{
 				Creator:                  testutil.Bob,
 				Name:                     "foo",

@@ -50443,6 +50443,12 @@ paths:
                           custom method
 
                           signatures required by gogoproto.
+                    registrationPolicy:
+                      type: string
+                      enum:
+                        - PRIVATE
+                        - PUBLIC
+                      default: PRIVATE
               pagination:
                 type: object
                 properties:
@@ -50687,6 +50693,12 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
+                  registrationPolicy:
+                    type: string
+                    enum:
+                      - PRIVATE
+                      - PUBLIC
+                    default: PRIVATE
         default:
           description: An unexpected error response.
           schema:
@@ -81472,6 +81484,12 @@ definitions:
                 method
 
                 signatures required by gogoproto.
+          registrationPolicy:
+            type: string
+            enum:
+              - PRIVATE
+              - PUBLIC
+            default: PRIVATE
       fee:
         type: object
         properties:
@@ -81657,6 +81675,12 @@ definitions:
                 method
 
                 signatures required by gogoproto.
+          registrationPolicy:
+            type: string
+            enum:
+              - PRIVATE
+              - PUBLIC
+            default: PRIVATE
       fee:
         type: object
         properties:
@@ -81712,6 +81736,8 @@ definitions:
   mycel.registry.MsgUpdateDnsRecordResponse:
     type: object
   mycel.registry.MsgUpdateTextRecordResponse:
+    type: object
+  mycel.registry.MsgUpdateTopLevelDomainRegistrationPolicyResponse:
     type: object
   mycel.registry.MsgUpdateWalletRecordResponse:
     type: object
@@ -81968,6 +81994,12 @@ definitions:
                   method
 
                   signatures required by gogoproto.
+            registrationPolicy:
+              type: string
+              enum:
+                - PRIVATE
+                - PUBLIC
+              default: PRIVATE
       pagination:
         type: object
         properties:
@@ -82182,6 +82214,12 @@ definitions:
                 method
 
                 signatures required by gogoproto.
+          registrationPolicy:
+            type: string
+            enum:
+              - PRIVATE
+              - PUBLIC
+            default: PRIVATE
   mycel.registry.QueryParamsResponse:
     type: object
     properties:
@@ -82201,6 +82239,12 @@ definitions:
     properties:
       role:
         type: string
+  mycel.registry.RegistrationPolicyType:
+    type: string
+    enum:
+      - PRIVATE
+      - PUBLIC
+    default: PRIVATE
   mycel.registry.SecondLevelDomainResponse:
     type: object
     properties:
@@ -82482,6 +82526,12 @@ definitions:
 
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
+      registrationPolicy:
+        type: string
+        enum:
+          - PRIVATE
+          - PUBLIC
+        default: PRIVATE
   mycel.registry.TopLevelDomainFee:
     type: object
     properties:

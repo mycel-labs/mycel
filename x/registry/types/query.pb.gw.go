@@ -344,7 +344,7 @@ func local_request_Query_DomainOwnershipAll_0(ctx context.Context, marshaler run
 }
 
 var (
-	filter_Query_DomainRegistrationFee_0 = &utilities.DoubleArray{Encoding: map[string]int{"name": 0, "parent": 1}, Base: []int{1, 1, 2, 0, 0}, Check: []int{0, 1, 1, 2, 3}}
+	filter_Query_DomainRegistrationFee_0 = &utilities.DoubleArray{Encoding: map[string]int{"name": 0, "parent": 1, "registerer": 2}, Base: []int{1, 1, 2, 3, 0, 0, 0}, Check: []int{0, 1, 1, 1, 2, 3, 4}}
 )
 
 func request_Query_DomainRegistrationFee_0(ctx context.Context, marshaler runtime.Marshaler, client QueryClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -378,6 +378,17 @@ func request_Query_DomainRegistrationFee_0(ctx context.Context, marshaler runtim
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "parent", err)
+	}
+
+	val, ok = pathParams["registerer"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "registerer")
+	}
+
+	protoReq.Registerer, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "registerer", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -423,6 +434,17 @@ func local_request_Query_DomainRegistrationFee_0(ctx context.Context, marshaler 
 
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "parent", err)
+	}
+
+	val, ok = pathParams["registerer"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "registerer")
+	}
+
+	protoReq.Registerer, err = runtime.String(val)
+
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "registerer", err)
 	}
 
 	if err := req.ParseForm(); err != nil {
@@ -965,7 +987,7 @@ var (
 
 	pattern_Query_DomainOwnershipAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"mycel-domain", "mycel", "registry", "domain_ownership"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_DomainRegistrationFee_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"mycel-domain", "mycel", "registry", "domain_registration_fee", "name", "parent"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_DomainRegistrationFee_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "registry", "domain_registration_fee", "name", "parent", "registerer"}, "", runtime.AssumeColonVerbOpt(true)))
 
 	pattern_Query_Role_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"mycel-domain", "mycel", "registry", "role", "domainName", "address"}, "", runtime.AssumeColonVerbOpt(true)))
 )

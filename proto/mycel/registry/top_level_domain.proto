@@ -11,10 +11,8 @@ option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 message TopLevelDomain {
   string name = 1;
-  google.protobuf.Timestamp expirationDate = 2 [
-    (gogoproto.stdtime) = true,
-    (gogoproto.nullable) = false
-  ];
+  google.protobuf.Timestamp expirationDate = 2
+      [ (gogoproto.stdtime) = true, (gogoproto.nullable) = false ];
   SubdomainConfig subdomainConfig = 3;
   uint64 subdomainCount = 4;
   repeated AccessControl accessControl = 5;

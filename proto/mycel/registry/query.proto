@@ -16,53 +16,58 @@ option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 // Query defines the gRPC querier service.
 service Query {
-  
+
   // Parameters queries the parameters of the module.
-  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/mycel/registry/params";
-  
   }
-  
+
   // Queries a list of TopLevelDomain items.
-  rpc TopLevelDomain    (QueryGetTopLevelDomainRequest) returns (QueryGetTopLevelDomainResponse) {
-    option (google.api.http).get = "/mycel-domain/mycel/registry/top_level_domain/{name}";
-  
+  rpc TopLevelDomain(QueryGetTopLevelDomainRequest)
+      returns (QueryGetTopLevelDomainResponse) {
+    option (google.api.http).get =
+        "/mycel-domain/mycel/registry/top_level_domain/{name}";
   }
-  rpc TopLevelDomainAll (QueryAllTopLevelDomainRequest) returns (QueryAllTopLevelDomainResponse) {
-    option (google.api.http).get = "/mycel-domain/mycel/registry/top_level_domain";
-  
+  rpc TopLevelDomainAll(QueryAllTopLevelDomainRequest)
+      returns (QueryAllTopLevelDomainResponse) {
+    option (google.api.http).get =
+        "/mycel-domain/mycel/registry/top_level_domain";
   }
-  
+
   // Queries a list of SecondLevelDomain items.
-  rpc SecondLevelDomain    (QueryGetSecondLevelDomainRequest) returns (QueryGetSecondLevelDomainResponse) {
-    option (google.api.http).get = "/mycel/registry/second_level_domain/{name}/{parent}";
-  
+  rpc SecondLevelDomain(QueryGetSecondLevelDomainRequest)
+      returns (QueryGetSecondLevelDomainResponse) {
+    option (google.api.http).get =
+        "/mycel/registry/second_level_domain/{name}/{parent}";
   }
-  rpc SecondLevelDomainAll (QueryAllSecondLevelDomainRequest) returns (QueryAllSecondLevelDomainResponse) {
+  rpc SecondLevelDomainAll(QueryAllSecondLevelDomainRequest)
+      returns (QueryAllSecondLevelDomainResponse) {
     option (google.api.http).get = "/mycel/registry/second_level_domain";
-  
   }
-  
+
   // Queries a list of DomainOwnership items.
-  rpc DomainOwnership    (QueryGetDomainOwnershipRequest) returns (QueryGetDomainOwnershipResponse) {
-    option (google.api.http).get = "/mycel-domain/mycel/registry/domain_ownership/{owner}";
-  
+  rpc DomainOwnership(QueryGetDomainOwnershipRequest)
+      returns (QueryGetDomainOwnershipResponse) {
+    option (google.api.http).get =
+        "/mycel-domain/mycel/registry/domain_ownership/{owner}";
   }
-  rpc DomainOwnershipAll (QueryAllDomainOwnershipRequest) returns (QueryAllDomainOwnershipResponse) {
-    option (google.api.http).get = "/mycel-domain/mycel/registry/domain_ownership";
-  
+  rpc DomainOwnershipAll(QueryAllDomainOwnershipRequest)
+      returns (QueryAllDomainOwnershipResponse) {
+    option (google.api.http).get =
+        "/mycel-domain/mycel/registry/domain_ownership";
   }
-  
+
   // Queries a list of DomainRegistrationFee items.
-  rpc DomainRegistrationFee (QueryDomainRegistrationFeeRequest) returns (QueryDomainRegistrationFeeResponse) {
-    option (google.api.http).get = "/mycel-domain/mycel/registry/domain_registration_fee/{name}/{parent}";
-  
+  rpc DomainRegistrationFee(QueryDomainRegistrationFeeRequest)
+      returns (QueryDomainRegistrationFeeResponse) {
+    option (google.api.http).get =
+        "/mycel-domain/mycel/registry/domain_registration_fee/{name}/{parent}/{registerer}";
   }
-  
+
   // Queries a list of Role items.
-  rpc Role (QueryRoleRequest) returns (QueryRoleResponse) {
-    option (google.api.http).get = "/mycel-domain/mycel/registry/role/{domainName}/{address}";
-  
+  rpc Role(QueryRoleRequest) returns (QueryRoleResponse) {
+    option (google.api.http).get =
+        "/mycel-domain/mycel/registry/role/{domainName}/{address}";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -70,17 +75,15 @@ message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
-  
+
   // params holds all the parameters of this module.
-  Params params = 1 [(gogoproto.nullable) = false];
+  Params params = 1 [ (gogoproto.nullable) = false ];
 }
 
-message QueryGetTopLevelDomainRequest {
-  string name = 1;
-}
+message QueryGetTopLevelDomainRequest { string name = 1; }
 
 message QueryGetTopLevelDomainResponse {
-  TopLevelDomain topLevelDomain = 1 [(gogoproto.nullable) = false];
+  TopLevelDomain topLevelDomain = 1 [ (gogoproto.nullable) = false ];
 }
 
 message QueryAllTopLevelDomainRequest {
@@ -88,23 +91,25 @@ message QueryAllTopLevelDomainRequest {
 }
 
 message QueryAllTopLevelDomainResponse {
-  repeated TopLevelDomain                         topLevelDomain = 1 [(gogoproto.nullable) = false];
-           cosmos.base.query.v1beta1.PageResponse pagination     = 2;
+  repeated TopLevelDomain topLevelDomain = 1 [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 message QueryGetSecondLevelDomainRequest {
-  string name   = 1;
+  string name = 1;
   string parent = 2;
 }
 
 message SecondLevelDomainResponse {
-  string                    name           = 1;
-  string                    parent         = 2;
-  google.protobuf.Timestamp expirationDate = 3 [(gogoproto.stdtime) = true, (gogoproto.nullable) = false];
+  string name = 1;
+  string parent = 2;
+  google.protobuf.Timestamp expirationDate = 3
+      [ (gogoproto.stdtime) = true, (gogoproto.nullable) = false ];
 }
 
 message QueryGetSecondLevelDomainResponse {
-  SecondLevelDomainResponse secondLevelDomain = 1 [(gogoproto.nullable) = false];
+  SecondLevelDomainResponse secondLevelDomain = 1
+      [ (gogoproto.nullable) = false ];
 }
 
 message QueryAllSecondLevelDomainRequest {
@@ -112,16 +117,15 @@ message QueryAllSecondLevelDomainRequest {
 }
 
 message QueryAllSecondLevelDomainResponse {
-  repeated SecondLevelDomainResponse              secondLevelDomain = 1 [(gogoproto.nullable) = false];
-           cosmos.base.query.v1beta1.PageResponse pagination        = 2;
+  repeated SecondLevelDomainResponse secondLevelDomain = 1
+      [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetDomainOwnershipRequest {
-  string owner = 1;
-}
+message QueryGetDomainOwnershipRequest { string owner = 1; }
 
 message QueryGetDomainOwnershipResponse {
-  DomainOwnership domainOwnership = 1 [(gogoproto.nullable) = false];
+  DomainOwnership domainOwnership = 1 [ (gogoproto.nullable) = false ];
 }
 
 message QueryAllDomainOwnershipRequest {
@@ -129,30 +133,31 @@ message QueryAllDomainOwnershipRequest {
 }
 
 message QueryAllDomainOwnershipResponse {
-  repeated DomainOwnership                        domainOwnership = 1 [(gogoproto.nullable) = false];
-           cosmos.base.query.v1beta1.PageResponse pagination      = 2;
+  repeated DomainOwnership domainOwnership = 1 [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 message QueryDomainRegistrationFeeRequest {
-  string name                     = 1;
-  string parent                   = 2;
+  string name = 1;
+  string parent = 2;
   uint64 registrationPeriodInYear = 3;
+  string registerer = 4;
 }
 
 message QueryDomainRegistrationFeeResponse {
-           bool                     isRegistrable             = 1;
-  repeated cosmos.base.v1beta1.Coin fee                       = 2 [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];
-           uint64                   registrationPeriodInYear  = 3;
-           uint64                   maxSubDomainRegistrations = 4;
-           string                   errorMessage              = 5;
+  bool isRegistrable = 1;
+  repeated cosmos.base.v1beta1.Coin fee = 2 [
+    (gogoproto.nullable) = false,
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
+  uint64 registrationPeriodInYear = 3;
+  uint64 maxSubDomainRegistrations = 4;
+  string errorMessage = 5;
 }
 
 message QueryRoleRequest {
   string domainName = 1;
-  string address    = 2;
+  string address = 2;
 }
 
-message QueryRoleResponse {
-  string role = 1;
-}
-
+message QueryRoleResponse { string role = 1; }

@@ -240,3 +240,32 @@ func (k Keeper) ExtendTopLevelDomainExpirationDate(ctx sdk.Context, creator stri
 
 	return topLevelDomain, fee, err
 }
+
+func (k Keeper) UpdateTopLevelDomainRegistrationPolicy(ctx sdk.Context, creator string, domainName string, registrationPolicy string) (err error) {
+	// Get domain
+	topLevelDomain, found := k.GetTopLevelDomain(ctx, domainName)
+	if !found {
+		return errorsmod.Wrapf(types.ErrTopLevelDomainNotFound, "%s", domainName)
+	}
+
+	// Check if the domain is editable
+	_, err = topLevelDomain.IsEditable(creator)
+	if err != nil {
+		return err
+	}
+
+	// Validate registrationPolicy
+	rp, err := topLevelDomain.ValidateTopLevelDomainRegistrationPolicy(registrationPolicy)
+	if err != nil {
+		return err
+	}
+
+	// Update domain store
+	topLevelDomain.UpdateRegistrationPolicy(rp)
+	k.SetTopLevelDomain(ctx, topLevelDomain)
+
+	// Emit event
+	EmitUpdateTopLevelDomainRegistrationPolicyEvent(ctx, topLevelDomain)
+
+	return nil
+}
