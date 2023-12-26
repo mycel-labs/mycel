@@ -2,6 +2,7 @@ package keeper_test
 
 import (
 	errorsmod "cosmossdk.io/errors"
+
 	"github.com/mycel-domain/mycel/testutil"
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
