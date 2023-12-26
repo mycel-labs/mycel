@@ -6,6 +6,11 @@ import "mycel/registry/access_control.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
+enum RegistrationPolicyType {
+  PRIVATE = 0;
+  PUBLIC = 1;
+}
+
 message SubdomainRegistrationFees {
   repeated FeeByLength feeByLength = 1;
   repeated FeeByName feeByName = 2;
@@ -30,4 +35,5 @@ message SubdomainConfig {
   bool isRegistrable = 3;
   DomainRole registrableRole = 4;
   bool customExpirationDate = 5;
+  RegistrationPolicyType registrationPolicy = 6;
 }

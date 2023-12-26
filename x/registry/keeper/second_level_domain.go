@@ -194,7 +194,7 @@ func (k Keeper) ValidateSecondLevelDomainIsRegistrable(ctx sdk.Context, secondLe
 	}
 
 	// Check if the registering domain is allowed or not
-	isPrivate := parentDomain.RegistrationPolicy == types.RegistrationPolicyType_PRIVATE
+	isPrivate := parentDomain.SubdomainConfig.RegistrationPolicy == types.RegistrationPolicyType_PRIVATE
 	isOwner := parentDomain.GetRole(sldOwner.String()) == types.DomainRole_OWNER
 
 	if isPrivate && !isOwner {

@@ -54,7 +54,7 @@ func (topLevelDomain *TopLevelDomain) ExtendExpirationDate(from time.Time, exten
 }
 
 func (topLevelDomain *TopLevelDomain) UpdateRegistrationPolicy(rp RegistrationPolicyType) {
-	topLevelDomain.RegistrationPolicy = rp
+	topLevelDomain.SubdomainConfig.RegistrationPolicy = rp
 }
 
 func (topLevelDomain TopLevelDomain) IsEditable(sender string) (isEditable bool, err error) {

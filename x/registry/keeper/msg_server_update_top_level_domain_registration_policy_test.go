@@ -84,7 +84,7 @@ func (suite *KeeperTestSuite) TestUpdateTopLevelDomainRegistrationPolicy() {
 				// Check if the record is updated
 				suite.Require().Nil(err)
 				res, _ := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, tc.name)
-				suite.Require().Equal(tc.registrationPolicy, res.GetRegistrationPolicy().String())
+				suite.Require().Equal(tc.registrationPolicy, res.GetSubdomainConfig().RegistrationPolicy.String())
 				// Evalute events
 				events, found := testutil.FindEventsByType(suite.ctx.EventManager().Events(), types.EventTypeUpdateTopLevelDomainRegistrationPolicy)
 				suite.Require().True(found)

@@ -17,6 +17,7 @@ func GetDefaultSubdomainConfig(baseFee int64) SubdomainConfig {
 		SubdomainRegistrationFees: &SubdomainRegistrationFees{
 			DefaultFee: &defaultFee,
 		},
+		RegistrationPolicy: RegistrationPolicyType_PRIVATE,
 	}
 }
 

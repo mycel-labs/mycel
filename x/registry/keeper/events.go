@@ -101,7 +101,7 @@ func EmitUpdateTopLevelDomainRegistrationPolicyEvent(ctx sdk.Context, domain typ
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(types.EventTypeUpdateTopLevelDomainRegistrationPolicy,
 			sdk.NewAttribute(types.AttributeUpdateTopLevelDomainRegistrationPolicyEventDomainName, domain.Name),
-			sdk.NewAttribute(types.AttributeUpdateTopLevelDomainRegistrationPolicyEventRegistrationPolicy, domain.RegistrationPolicy.String()),
+			sdk.NewAttribute(types.AttributeUpdateTopLevelDomainRegistrationPolicyEventRegistrationPolicy, domain.SubdomainConfig.RegistrationPolicy.String()),
 		),
 	)
 }
