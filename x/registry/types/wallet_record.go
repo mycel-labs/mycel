@@ -15,6 +15,8 @@ func WalletRecordFormats() map[string]string {
 		// Bitcoin
 		"BITCOIN_MAINNET_MAINNET": "BITCOIN",
 		"BITCOIN_TESTNET_TESTNET": "BITCOIN",
+		// DEFAULT
+		"BITCOIN_DEFAULT_DEFAULT": "BITCOIN",
 
 		// EVM
 		"ETHEREUM_MAINNET_MAINNET": "ETHEREUM",
@@ -42,16 +44,22 @@ func WalletRecordFormats() map[string]string {
 		"SHARDEUM_BETANET_SPHINX": "ETHEREUM",
 		// ZetaChain
 		"ZETA_TESTNET_ATHENS": "ETHEREUM",
+		// DEFAULT
+		"EVM_DEFAULT_DEFAULT": "ETHEREUM",
 
 		// Move
 		"APTOS_MAINNET_MAINNET": "MOVE",
 		"APTOS_TESTNET_TESTNET": "MOVE",
 		"SUI_MAINNET_MAINNET":   "MOVE",
 		"SUI_TESTNET_TESTNET":   "MOVE",
+		// DEFAULT
+		"MOVE_DEFAULT_DEFAULT": "MOVE",
 
 		// Solana
 		"SOLANA_MAINNET_MAINNET": "SOLANA",
 		"SOLANA_TESTNET_TESTNET": "SOLANA",
+		// DEFAULT
+		"SOLANA_DEFAULT_DEFAULT": "SOLANA",
 	}
 }
 
@@ -96,4 +104,24 @@ func ValidateWalletAddress(walletAddressFormat string, address string) (err erro
 		panic(fmt.Sprintf("Wallet address format %s is not found in WalletAddressRegex", walletAddressFormat))
 	}
 	return err
+}
+
+// GetDefaultRecordType(walletRecordType) returns the default wallet address for a given wallet record type.
+// This is used when a wallet record is not found in the domain record.
+func GetDefaultWalletRecordType(walletRecordType string) string {
+	wrf := WalletRecordFormats()
+	network := wrf[walletRecordType]
+	switch network {
+	case "BITCOIN":
+		return "BITCOIN_DEFAULT_DEFAULT"
+	case "ETHEREUM":
+		return "EVM_DEFAULT_DEFAULT"
+	case "MOVE":
+		return "MOVE_DEFAULT_DEFAULT"
+	case "SOLANA":
+		return "SOLANA_DEFAULT_DEFAULT"
+	default:
+		// This should never happen
+		panic(fmt.Sprintf("Wallet record type %s is not found in WalletRecordFormats", walletRecordType))
+	}
 }

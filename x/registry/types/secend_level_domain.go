@@ -20,12 +20,31 @@ func (secondLevelDomain SecondLevelDomain) ParseParent() (parent string) {
 }
 
 func (secondLevelDomain *SecondLevelDomain) GetWalletRecord(walletRecordType string) string {
+	var defaultWalletRecordValue string
+	defaultWalletRecordType := GetDefaultWalletRecordType(walletRecordType)
+
+	// Validate walletRecordType
+	err := ValidateWalletRecordType(walletRecordType)
+	if err != nil {
+		return ""
+	}
+
 	for _, rec := range secondLevelDomain.Records {
-		if rec.GetWalletRecord() != nil && rec.GetWalletRecord().WalletRecordType.String() == walletRecordType {
-			return rec.GetWalletRecord().Value
+		walletRecord := rec.GetWalletRecord()
+		if walletRecord != nil {
+			// Get default wallet record value
+			if walletRecord.WalletRecordType.String() == defaultWalletRecordType {
+				defaultWalletRecordValue = walletRecord.Value
+			}
+			// Get wallet record value
+			if walletRecord.WalletRecordType.String() == walletRecordType && walletRecord.Value != "" {
+				// Return wallet record value if found
+				return walletRecord.Value
+			}
 		}
 	}
-	return ""
+	// Return default wallet record value if no wallet record is found
+	return defaultWalletRecordValue
 }
 
 func (secondLevelDomain *SecondLevelDomain) GetDnsRecord(dnsRecordType string) string {
