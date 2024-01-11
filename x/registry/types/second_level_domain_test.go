@@ -92,6 +92,61 @@ func TestDomainValidate(t *testing.T) {
 	}
 }
 
+func TestGetWalletRecord(t *testing.T) {
+	domain := SecondLevelDomain{Name: "foo", Parent: "myc"}
+	testCases := []struct {
+		desc             string
+		walletRecordType string
+		resp             string
+		fn               func()
+	}{
+		// BITCOIN
+		{desc: "Bitcoin Default", walletRecordType: "BITCOIN_MAINNET_MAINNET", resp: "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2", fn: func() {
+			err := domain.UpdateWalletRecord("BITCOIN_DEFAULT_DEFAULT", "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2")
+			require.Nil(t, err)
+		}},
+		{desc: "Bitcoin Mainnet", walletRecordType: "BITCOIN_MAINNET_MAINNET", resp: "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2", fn: func() {
+			err := domain.UpdateWalletRecord("BITCOIN_MAINNET_MAINNET", "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2")
+			require.Nil(t, err)
+		}},
+		// EVM
+		{desc: "Ethereum Default", walletRecordType: "ETHEREUM_MAINNET_MAINNET", resp: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", fn: func() {
+			err := domain.UpdateWalletRecord("EVM_DEFAULT_DEFAULT", "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266")
+			require.Nil(t, err)
+		}},
+		{desc: "Ethereum Mainnet", walletRecordType: "ETHEREUM_MAINNET_MAINNET", resp: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", fn: func() {
+			err := domain.UpdateWalletRecord("ETHEREUM_MAINNET_MAINNET", "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266")
+			require.Nil(t, err)
+		}},
+		// MOVE
+		{desc: "Aptos Default", walletRecordType: "APTOS_MAINNET_MAINNET", resp: "0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b", fn: func() {
+			err := domain.UpdateWalletRecord("MOVE_DEFAULT_DEFAULT", "0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b")
+			require.Nil(t, err)
+		}},
+		{desc: "Aptos Mainnet", walletRecordType: "APTOS_MAINNET_MAINNET", resp: "0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b", fn: func() {
+			err := domain.UpdateWalletRecord("APTOS_MAINNET_MAINNET", "0xeeff357ea5c1a4e7bc11b2b17ff2dc2dcca69750bfef1e1ebcaccf8c8018175b")
+			require.Nil(t, err)
+		}},
+		// SOLANA
+		{desc: "Solana Default", walletRecordType: "SOLANA_MAINNET_MAINNET", resp: "HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe4YWrH", fn: func() {
+			err := domain.UpdateWalletRecord("SOLANA_DEFAULT_DEFAULT", "HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe4YWrH")
+			require.Nil(t, err)
+		}},
+		{desc: "Solana Mainnet", walletRecordType: "SOLANA_MAINNET_MAINNET", resp: "HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe4YWrH", fn: func() {
+			err := domain.UpdateWalletRecord("SOLANA_MAINNET_MAINNET", "HN7cABqLq46Es1jh92dQQisAq662SmxELLLsHHe4YWrH")
+			require.Nil(t, err)
+		}},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.desc, func(t *testing.T) {
+			tc.fn()
+			rec := domain.GetWalletRecord(tc.walletRecordType)
+			require.Equal(t, tc.resp, rec)
+		})
+	}
+}
+
 func TestDomainUpdateWalletRecord(t *testing.T) {
 	testCases := []struct {
 		walletRecordType string
