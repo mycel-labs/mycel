@@ -50190,7 +50190,7 @@ paths:
           type: string
       tags:
         - Query
-  /mycel-domain/mycel/registry/domain_registration_fee/{name}/{parent}:
+  /mycel-domain/mycel/registry/domain_registration_fee/{name}/{parent}/{registerer}:
     get:
       summary: Queries a list of DomainRegistrationFee items.
       operationId: MycelRegistryDomainRegistrationFee
@@ -50251,6 +50251,10 @@ paths:
           required: true
           type: string
         - name: parent
+          in: path
+          required: true
+          type: string
+        - name: registerer
           in: path
           required: true
           type: string
@@ -50408,6 +50412,12 @@ paths:
                           default: NO_ROLE
                         customExpirationDate:
                           type: boolean
+                        registrationPolicy:
+                          type: string
+                          enum:
+                            - PRIVATE
+                            - PUBLIC
+                          default: PRIVATE
                     subdomainCount:
                       type: string
                       format: uint64
@@ -50443,12 +50453,6 @@ paths:
                           custom method
 
                           signatures required by gogoproto.
-                    registrationPolicy:
-                      type: string
-                      enum:
-                        - PRIVATE
-                        - PUBLIC
-                      default: PRIVATE
               pagination:
                 type: object
                 properties:
@@ -50659,6 +50663,12 @@ paths:
                         default: NO_ROLE
                       customExpirationDate:
                         type: boolean
+                      registrationPolicy:
+                        type: string
+                        enum:
+                          - PRIVATE
+                          - PUBLIC
+                        default: PRIVATE
                   subdomainCount:
                     type: string
                     format: uint64
@@ -50693,12 +50703,6 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
-                  registrationPolicy:
-                    type: string
-                    enum:
-                      - PRIVATE
-                      - PUBLIC
-                    default: PRIVATE
         default:
           description: An unexpected error response.
           schema:
@@ -81450,6 +81454,12 @@ definitions:
                 default: NO_ROLE
               customExpirationDate:
                 type: boolean
+              registrationPolicy:
+                type: string
+                enum:
+                  - PRIVATE
+                  - PUBLIC
+                default: PRIVATE
           subdomainCount:
             type: string
             format: uint64
@@ -81484,12 +81494,6 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-          registrationPolicy:
-            type: string
-            enum:
-              - PRIVATE
-              - PUBLIC
-            default: PRIVATE
       fee:
         type: object
         properties:
@@ -81641,6 +81645,12 @@ definitions:
                 default: NO_ROLE
               customExpirationDate:
                 type: boolean
+              registrationPolicy:
+                type: string
+                enum:
+                  - PRIVATE
+                  - PUBLIC
+                default: PRIVATE
           subdomainCount:
             type: string
             format: uint64
@@ -81675,12 +81685,6 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-          registrationPolicy:
-            type: string
-            enum:
-              - PRIVATE
-              - PUBLIC
-            default: PRIVATE
       fee:
         type: object
         properties:
@@ -81960,6 +81964,12 @@ definitions:
                   default: NO_ROLE
                 customExpirationDate:
                   type: boolean
+                registrationPolicy:
+                  type: string
+                  enum:
+                    - PRIVATE
+                    - PUBLIC
+                  default: PRIVATE
             subdomainCount:
               type: string
               format: uint64
@@ -81994,12 +82004,6 @@ definitions:
                   method
 
                   signatures required by gogoproto.
-            registrationPolicy:
-              type: string
-              enum:
-                - PRIVATE
-                - PUBLIC
-              default: PRIVATE
       pagination:
         type: object
         properties:
@@ -82180,6 +82184,12 @@ definitions:
                 default: NO_ROLE
               customExpirationDate:
                 type: boolean
+              registrationPolicy:
+                type: string
+                enum:
+                  - PRIVATE
+                  - PUBLIC
+                default: PRIVATE
           subdomainCount:
             type: string
             format: uint64
@@ -82214,12 +82224,6 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-          registrationPolicy:
-            type: string
-            enum:
-              - PRIVATE
-              - PUBLIC
-            default: PRIVATE
   mycel.registry.QueryParamsResponse:
     type: object
     properties:
@@ -82339,6 +82343,12 @@ definitions:
         default: NO_ROLE
       customExpirationDate:
         type: boolean
+      registrationPolicy:
+        type: string
+        enum:
+          - PRIVATE
+          - PUBLIC
+        default: PRIVATE
   mycel.registry.SubdomainRegistrationFees:
     type: object
     properties:
@@ -82495,6 +82505,12 @@ definitions:
             default: NO_ROLE
           customExpirationDate:
             type: boolean
+          registrationPolicy:
+            type: string
+            enum:
+              - PRIVATE
+              - PUBLIC
+            default: PRIVATE
       subdomainCount:
         type: string
         format: uint64
@@ -82526,12 +82542,6 @@ definitions:
 
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
-      registrationPolicy:
-        type: string
-        enum:
-          - PRIVATE
-          - PUBLIC
-        default: PRIVATE
   mycel.registry.TopLevelDomainFee:
     type: object
     properties:

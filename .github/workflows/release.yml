@@ -35,11 +35,9 @@ jobs:
 
       - name: Issue Release Assets 
         if: ${{ steps.vars.outputs.should_release == 'true' }}
-        env:
-          CGO_ENABLED: 0
         run: |
           curl 'https://get.ignite.com/cli@v0.27.2'! | bash
-          ignite chain build --release --release.prefix ${{ steps.vars.outputs.tarball_prefix }} -t linux:amd64 -t darwin:amd64 -t darwin:arm64
+          ignite chain build --release --release.prefix ${{ steps.vars.outputs.tarball_prefix }} -t linux:amd64 -t darwin:amd64
 
       - name: Delete the "latest" Release
         uses: dev-drprasad/delete-tag-and-release@v0.2.1
