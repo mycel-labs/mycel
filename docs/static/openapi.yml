@@ -50989,6 +50989,7 @@ paths:
                             - NO_NETWORK
                             - BITCOIN_MAINNET_MAINNET
                             - BITCOIN_TESTNET_TESTNET
+                            - BITCOIN_DEFAULT_DEFAULT
                             - ETHEREUM_MAINNET_MAINNET
                             - ETHEREUM_TESTNET_GOERLI
                             - ETHEREUM_TESTNET_SEPOLIA
@@ -51006,15 +51007,19 @@ paths:
                             - ARBITRUM_TESTNET_GOERLI
                             - SHARDEUM_BETANET_SPHINX
                             - ZETA_TESTNET_ATHENS
+                            - EVM_DEFAULT_DEFAULT
                             - APTOS_MAINNET_MAINNET
                             - APTOS_TESTNET_TESTNET
                             - SUI_MAINNET_MAINNET
                             - SUI_TESTNET_TESTNET
+                            - MOVE_DEFAULT_DEFAULT
                             - SOLANA_MAINNET_MAINNET
                             - SOLANA_TESTNET_TESTNET
+                            - SOLANA_DEFAULT_DEFAULT
                           default: NO_NETWORK
                           description: |-
                             - BITCOIN_MAINNET_MAINNET: BTC 1xxx
+                             - BITCOIN_DEFAULT_DEFAULT: DEFAULT
                              - ETHEREUM_MAINNET_MAINNET: EVM 2xxxx
                             Etheruem
                              - POLYGON_MAINNET_MAINNET: Polygon
@@ -51028,10 +51033,13 @@ paths:
                             SHARDEUM_TESTNET_ = 20016;
                              - ZETA_TESTNET_ATHENS: Zetachain
                             ZETA_MAINNET_MAINNET = 20018;
+                             - EVM_DEFAULT_DEFAULT: DEFAULT
                              - APTOS_MAINNET_MAINNET: MOVE 3xxxx
                             Aptos
                              - SUI_MAINNET_MAINNET: Sui
+                             - MOVE_DEFAULT_DEFAULT: DEFAULT
                              - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
+                             - SOLANA_DEFAULT_DEFAULT: DEFAULT
                           title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
                         value:
                           type: string
@@ -51238,6 +51246,7 @@ paths:
                       - NO_NETWORK
                       - BITCOIN_MAINNET_MAINNET
                       - BITCOIN_TESTNET_TESTNET
+                      - BITCOIN_DEFAULT_DEFAULT
                       - ETHEREUM_MAINNET_MAINNET
                       - ETHEREUM_TESTNET_GOERLI
                       - ETHEREUM_TESTNET_SEPOLIA
@@ -51255,15 +51264,19 @@ paths:
                       - ARBITRUM_TESTNET_GOERLI
                       - SHARDEUM_BETANET_SPHINX
                       - ZETA_TESTNET_ATHENS
+                      - EVM_DEFAULT_DEFAULT
                       - APTOS_MAINNET_MAINNET
                       - APTOS_TESTNET_TESTNET
                       - SUI_MAINNET_MAINNET
                       - SUI_TESTNET_TESTNET
+                      - MOVE_DEFAULT_DEFAULT
                       - SOLANA_MAINNET_MAINNET
                       - SOLANA_TESTNET_TESTNET
+                      - SOLANA_DEFAULT_DEFAULT
                     default: NO_NETWORK
                     description: |-
                       - BITCOIN_MAINNET_MAINNET: BTC 1xxx
+                       - BITCOIN_DEFAULT_DEFAULT: DEFAULT
                        - ETHEREUM_MAINNET_MAINNET: EVM 2xxxx
                       Etheruem
                        - POLYGON_MAINNET_MAINNET: Polygon
@@ -51277,10 +51290,13 @@ paths:
                       SHARDEUM_TESTNET_ = 20016;
                        - ZETA_TESTNET_ATHENS: Zetachain
                       ZETA_MAINNET_MAINNET = 20018;
+                       - EVM_DEFAULT_DEFAULT: DEFAULT
                        - APTOS_MAINNET_MAINNET: MOVE 3xxxx
                       Aptos
                        - SUI_MAINNET_MAINNET: Sui
+                       - MOVE_DEFAULT_DEFAULT: DEFAULT
                        - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
+                       - SOLANA_DEFAULT_DEFAULT: DEFAULT
                     title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
                   value:
                     type: string
@@ -81357,6 +81373,8 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
+  mycel.registry.MsgCancelTopLevelDomainProposalResponse:
+    type: object
   mycel.registry.MsgExtendTopLevelDomainExpirationDateResponse:
     type: object
     properties:
@@ -81546,6 +81564,8 @@ definitions:
               method
 
               signatures required by gogoproto.
+  mycel.registry.MsgNewTopLevelDomainProposalResponse:
+    type: object
   mycel.registry.MsgRegisterSecondLevelDomainResponse:
     type: object
   mycel.registry.MsgRegisterTopLevelDomainResponse:
@@ -82624,6 +82644,7 @@ definitions:
       - NO_NETWORK
       - BITCOIN_MAINNET_MAINNET
       - BITCOIN_TESTNET_TESTNET
+      - BITCOIN_DEFAULT_DEFAULT
       - ETHEREUM_MAINNET_MAINNET
       - ETHEREUM_TESTNET_GOERLI
       - ETHEREUM_TESTNET_SEPOLIA
@@ -82641,15 +82662,19 @@ definitions:
       - ARBITRUM_TESTNET_GOERLI
       - SHARDEUM_BETANET_SPHINX
       - ZETA_TESTNET_ATHENS
+      - EVM_DEFAULT_DEFAULT
       - APTOS_MAINNET_MAINNET
       - APTOS_TESTNET_TESTNET
       - SUI_MAINNET_MAINNET
       - SUI_TESTNET_TESTNET
+      - MOVE_DEFAULT_DEFAULT
       - SOLANA_MAINNET_MAINNET
       - SOLANA_TESTNET_TESTNET
+      - SOLANA_DEFAULT_DEFAULT
     default: NO_NETWORK
     description: |-
       - BITCOIN_MAINNET_MAINNET: BTC 1xxx
+       - BITCOIN_DEFAULT_DEFAULT: DEFAULT
        - ETHEREUM_MAINNET_MAINNET: EVM 2xxxx
       Etheruem
        - POLYGON_MAINNET_MAINNET: Polygon
@@ -82663,10 +82688,13 @@ definitions:
       SHARDEUM_TESTNET_ = 20016;
        - ZETA_TESTNET_ATHENS: Zetachain
       ZETA_MAINNET_MAINNET = 20018;
+       - EVM_DEFAULT_DEFAULT: DEFAULT
        - APTOS_MAINNET_MAINNET: MOVE 3xxxx
       Aptos
        - SUI_MAINNET_MAINNET: Sui
+       - MOVE_DEFAULT_DEFAULT: DEFAULT
        - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
+       - SOLANA_DEFAULT_DEFAULT: DEFAULT
     title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
   mycel.registry.Record:
     type: object
@@ -82699,6 +82727,7 @@ definitions:
               - NO_NETWORK
               - BITCOIN_MAINNET_MAINNET
               - BITCOIN_TESTNET_TESTNET
+              - BITCOIN_DEFAULT_DEFAULT
               - ETHEREUM_MAINNET_MAINNET
               - ETHEREUM_TESTNET_GOERLI
               - ETHEREUM_TESTNET_SEPOLIA
@@ -82716,15 +82745,19 @@ definitions:
               - ARBITRUM_TESTNET_GOERLI
               - SHARDEUM_BETANET_SPHINX
               - ZETA_TESTNET_ATHENS
+              - EVM_DEFAULT_DEFAULT
               - APTOS_MAINNET_MAINNET
               - APTOS_TESTNET_TESTNET
               - SUI_MAINNET_MAINNET
               - SUI_TESTNET_TESTNET
+              - MOVE_DEFAULT_DEFAULT
               - SOLANA_MAINNET_MAINNET
               - SOLANA_TESTNET_TESTNET
+              - SOLANA_DEFAULT_DEFAULT
             default: NO_NETWORK
             description: |-
               - BITCOIN_MAINNET_MAINNET: BTC 1xxx
+               - BITCOIN_DEFAULT_DEFAULT: DEFAULT
                - ETHEREUM_MAINNET_MAINNET: EVM 2xxxx
               Etheruem
                - POLYGON_MAINNET_MAINNET: Polygon
@@ -82738,10 +82771,13 @@ definitions:
               SHARDEUM_TESTNET_ = 20016;
                - ZETA_TESTNET_ATHENS: Zetachain
               ZETA_MAINNET_MAINNET = 20018;
+               - EVM_DEFAULT_DEFAULT: DEFAULT
                - APTOS_MAINNET_MAINNET: MOVE 3xxxx
               Aptos
                - SUI_MAINNET_MAINNET: Sui
+               - MOVE_DEFAULT_DEFAULT: DEFAULT
                - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
+               - SOLANA_DEFAULT_DEFAULT: DEFAULT
             title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
           value:
             type: string
@@ -82768,6 +82804,7 @@ definitions:
           - NO_NETWORK
           - BITCOIN_MAINNET_MAINNET
           - BITCOIN_TESTNET_TESTNET
+          - BITCOIN_DEFAULT_DEFAULT
           - ETHEREUM_MAINNET_MAINNET
           - ETHEREUM_TESTNET_GOERLI
           - ETHEREUM_TESTNET_SEPOLIA
@@ -82785,15 +82822,19 @@ definitions:
           - ARBITRUM_TESTNET_GOERLI
           - SHARDEUM_BETANET_SPHINX
           - ZETA_TESTNET_ATHENS
+          - EVM_DEFAULT_DEFAULT
           - APTOS_MAINNET_MAINNET
           - APTOS_TESTNET_TESTNET
           - SUI_MAINNET_MAINNET
           - SUI_TESTNET_TESTNET
+          - MOVE_DEFAULT_DEFAULT
           - SOLANA_MAINNET_MAINNET
           - SOLANA_TESTNET_TESTNET
+          - SOLANA_DEFAULT_DEFAULT
         default: NO_NETWORK
         description: |-
           - BITCOIN_MAINNET_MAINNET: BTC 1xxx
+           - BITCOIN_DEFAULT_DEFAULT: DEFAULT
            - ETHEREUM_MAINNET_MAINNET: EVM 2xxxx
           Etheruem
            - POLYGON_MAINNET_MAINNET: Polygon
@@ -82807,10 +82848,13 @@ definitions:
           SHARDEUM_TESTNET_ = 20016;
            - ZETA_TESTNET_ATHENS: Zetachain
           ZETA_MAINNET_MAINNET = 20018;
+           - EVM_DEFAULT_DEFAULT: DEFAULT
            - APTOS_MAINNET_MAINNET: MOVE 3xxxx
           Aptos
            - SUI_MAINNET_MAINNET: Sui
+           - MOVE_DEFAULT_DEFAULT: DEFAULT
            - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
+           - SOLANA_DEFAULT_DEFAULT: DEFAULT
         title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
       value:
         type: string
@@ -82853,6 +82897,7 @@ definitions:
                     - NO_NETWORK
                     - BITCOIN_MAINNET_MAINNET
                     - BITCOIN_TESTNET_TESTNET
+                    - BITCOIN_DEFAULT_DEFAULT
                     - ETHEREUM_MAINNET_MAINNET
                     - ETHEREUM_TESTNET_GOERLI
                     - ETHEREUM_TESTNET_SEPOLIA
@@ -82870,15 +82915,19 @@ definitions:
                     - ARBITRUM_TESTNET_GOERLI
                     - SHARDEUM_BETANET_SPHINX
                     - ZETA_TESTNET_ATHENS
+                    - EVM_DEFAULT_DEFAULT
                     - APTOS_MAINNET_MAINNET
                     - APTOS_TESTNET_TESTNET
                     - SUI_MAINNET_MAINNET
                     - SUI_TESTNET_TESTNET
+                    - MOVE_DEFAULT_DEFAULT
                     - SOLANA_MAINNET_MAINNET
                     - SOLANA_TESTNET_TESTNET
+                    - SOLANA_DEFAULT_DEFAULT
                   default: NO_NETWORK
                   description: |-
                     - BITCOIN_MAINNET_MAINNET: BTC 1xxx
+                     - BITCOIN_DEFAULT_DEFAULT: DEFAULT
                      - ETHEREUM_MAINNET_MAINNET: EVM 2xxxx
                     Etheruem
                      - POLYGON_MAINNET_MAINNET: Polygon
@@ -82892,10 +82941,13 @@ definitions:
                     SHARDEUM_TESTNET_ = 20016;
                      - ZETA_TESTNET_ATHENS: Zetachain
                     ZETA_MAINNET_MAINNET = 20018;
+                     - EVM_DEFAULT_DEFAULT: DEFAULT
                      - APTOS_MAINNET_MAINNET: MOVE 3xxxx
                     Aptos
                      - SUI_MAINNET_MAINNET: Sui
+                     - MOVE_DEFAULT_DEFAULT: DEFAULT
                      - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
+                     - SOLANA_DEFAULT_DEFAULT: DEFAULT
                   title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
                 value:
                   type: string
@@ -82957,6 +83009,7 @@ definitions:
               - NO_NETWORK
               - BITCOIN_MAINNET_MAINNET
               - BITCOIN_TESTNET_TESTNET
+              - BITCOIN_DEFAULT_DEFAULT
               - ETHEREUM_MAINNET_MAINNET
               - ETHEREUM_TESTNET_GOERLI
               - ETHEREUM_TESTNET_SEPOLIA
@@ -82974,15 +83027,19 @@ definitions:
               - ARBITRUM_TESTNET_GOERLI
               - SHARDEUM_BETANET_SPHINX
               - ZETA_TESTNET_ATHENS
+              - EVM_DEFAULT_DEFAULT
               - APTOS_MAINNET_MAINNET
               - APTOS_TESTNET_TESTNET
               - SUI_MAINNET_MAINNET
               - SUI_TESTNET_TESTNET
+              - MOVE_DEFAULT_DEFAULT
               - SOLANA_MAINNET_MAINNET
               - SOLANA_TESTNET_TESTNET
+              - SOLANA_DEFAULT_DEFAULT
             default: NO_NETWORK
             description: |-
               - BITCOIN_MAINNET_MAINNET: BTC 1xxx
+               - BITCOIN_DEFAULT_DEFAULT: DEFAULT
                - ETHEREUM_MAINNET_MAINNET: EVM 2xxxx
               Etheruem
                - POLYGON_MAINNET_MAINNET: Polygon
@@ -82996,10 +83053,13 @@ definitions:
               SHARDEUM_TESTNET_ = 20016;
                - ZETA_TESTNET_ATHENS: Zetachain
               ZETA_MAINNET_MAINNET = 20018;
+               - EVM_DEFAULT_DEFAULT: DEFAULT
                - APTOS_MAINNET_MAINNET: MOVE 3xxxx
               Aptos
                - SUI_MAINNET_MAINNET: Sui
+               - MOVE_DEFAULT_DEFAULT: DEFAULT
                - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
+               - SOLANA_DEFAULT_DEFAULT: DEFAULT
             title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
           value:
             type: string
