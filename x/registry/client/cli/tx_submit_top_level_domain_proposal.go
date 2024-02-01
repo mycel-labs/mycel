@@ -9,6 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/address"
 	"github.com/cosmos/cosmos-sdk/x/gov/client/cli"
 	"github.com/mycel-domain/mycel/x/registry/types"
 	"github.com/spf13/cast"
@@ -19,7 +20,7 @@ var _ = strconv.Itoa(0)
 
 func CmdSubmitTopLevelDomainProposal() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "submit-top-level-domain-proposal [name] [registration-period-in-year]",
+		Use:   "submit-top-level-domain-proposal [name] [registration-period-in-year] [flags]",
 		Short: "Broadcast message submit-top-level-domain-proposal",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -43,7 +44,7 @@ func CmdSubmitTopLevelDomainProposal() *cobra.Command {
 			}
 
 			msg := types.NewMsgSubmitTopLevelDomainProposal(
-				clientCtx.GetFromAddress().String(),
+				sdk.AccAddress(address.Module("gov")).String(),
 				argName,
 				argRegistrationPeriodInYear,
 			)
@@ -59,7 +60,10 @@ func CmdSubmitTopLevelDomainProposal() *cobra.Command {
 		},
 	}
 
+	// add common proposal flags
 	flags.AddTxFlagsToCmd(cmd)
+	cli.AddGovPropFlagsToCmd(cmd)
+	cmd.MarkFlagRequired(cli.FlagTitle)
 
 	return cmd
 }
