@@ -101,7 +101,7 @@ message MsgUpdateTopLevelDomainRegistrationPolicyResponse {}
 message MsgSubmitTopLevelDomainProposal {
   string creator                  = 1;
   string name                     = 2;
-  string registrationPeriodInYear = 3;
+  uint64 registrationPeriodInYear = 3;
 }
 
 message MsgSubmitTopLevelDomainProposalResponse {}

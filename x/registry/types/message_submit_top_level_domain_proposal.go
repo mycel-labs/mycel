@@ -9,7 +9,7 @@ const TypeMsgSubmitTopLevelDomainProposal = "submit_top_level_domain_proposal"
 
 var _ sdk.Msg = &MsgSubmitTopLevelDomainProposal{}
 
-func NewMsgSubmitTopLevelDomainProposal(creator string, name string, registrationPeriodInYear string) *MsgSubmitTopLevelDomainProposal {
+func NewMsgSubmitTopLevelDomainProposal(creator string, name string, registrationPeriodInYear uint64) *MsgSubmitTopLevelDomainProposal {
 	return &MsgSubmitTopLevelDomainProposal{
 		Creator:                  creator,
 		Name:                     name,

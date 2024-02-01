@@ -10,6 +10,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/gov/client/cli"
 	"github.com/mycel-domain/mycel/x/registry/types"
+	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
 
@@ -22,7 +23,10 @@ func CmdSubmitTopLevelDomainProposal() *cobra.Command {
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argName := args[0]
-			argRegistrationPeriodInYear := args[1]
+			argRegistrationPeriodInYear, err := cast.ToUint64E(args[1])
+			if err != nil {
+				return err
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
