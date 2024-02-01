@@ -81373,8 +81373,6 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  mycel.registry.MsgCancelTopLevelDomainProposalResponse:
-    type: object
   mycel.registry.MsgExtendTopLevelDomainExpirationDateResponse:
     type: object
     properties:
@@ -81564,8 +81562,6 @@ definitions:
               method
 
               signatures required by gogoproto.
-  mycel.registry.MsgNewTopLevelDomainProposalResponse:
-    type: object
   mycel.registry.MsgRegisterSecondLevelDomainResponse:
     type: object
   mycel.registry.MsgRegisterTopLevelDomainResponse:
@@ -81757,6 +81753,8 @@ definitions:
               method
 
               signatures required by gogoproto.
+  mycel.registry.MsgSubmitTopLevelDomainProposalResponse:
+    type: object
   mycel.registry.MsgUpdateDnsRecordResponse:
     type: object
   mycel.registry.MsgUpdateTextRecordResponse:
