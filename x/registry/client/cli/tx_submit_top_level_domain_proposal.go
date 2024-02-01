@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
+	errorsmod "cosmossdk.io/errors"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
@@ -26,6 +27,9 @@ func CmdSubmitTopLevelDomainProposal() *cobra.Command {
 			argRegistrationPeriodInYear, err := cast.ToUint64E(args[1])
 			if err != nil {
 				return err
+			}
+			if argRegistrationPeriodInYear < 1 || argRegistrationPeriodInYear > 4 {
+				return errorsmod.Wrapf(types.ErrTopLevelDomainInvalidRegistrationPeriod, "%d year(s)", argRegistrationPeriodInYear)
 			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
