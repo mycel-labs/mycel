@@ -81755,6 +81755,193 @@ definitions:
               signatures required by gogoproto.
   mycel.registry.MsgSubmitTopLevelDomainProposalResponse:
     type: object
+    properties:
+      topLevelDomain:
+        type: object
+        properties:
+          name:
+            type: string
+          expirationDate:
+            type: string
+            format: date-time
+          subdomainConfig:
+            type: object
+            properties:
+              maxSubdomainRegistrations:
+                type: string
+                format: uint64
+              subdomainRegistrationFees:
+                type: object
+                properties:
+                  feeByLength:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        length:
+                          type: integer
+                          format: int64
+                        isRegistrable:
+                          type: boolean
+                        fee:
+                          type: object
+                          properties:
+                            denom:
+                              type: string
+                            amount:
+                              type: string
+                          description: >-
+                            Coin defines a token with a denomination and an
+                            amount.
+
+
+                            NOTE: The amount field is an Int which implements
+                            the custom method
+
+                            signatures required by gogoproto.
+                  feeByName:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        isRegistrable:
+                          type: boolean
+                        fee:
+                          type: object
+                          properties:
+                            denom:
+                              type: string
+                            amount:
+                              type: string
+                          description: >-
+                            Coin defines a token with a denomination and an
+                            amount.
+
+
+                            NOTE: The amount field is an Int which implements
+                            the custom method
+
+                            signatures required by gogoproto.
+                  defaultFee:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+              isRegistrable:
+                type: boolean
+              registrableRole:
+                type: string
+                enum:
+                  - NO_ROLE
+                  - OWNER
+                  - EDITOR
+                default: NO_ROLE
+              customExpirationDate:
+                type: boolean
+              registrationPolicy:
+                type: string
+                enum:
+                  - PRIVATE
+                  - PUBLIC
+                default: PRIVATE
+          subdomainCount:
+            type: string
+            format: uint64
+          accessControl:
+            type: array
+            items:
+              type: object
+              properties:
+                address:
+                  type: string
+                role:
+                  type: string
+                  enum:
+                    - NO_ROLE
+                    - OWNER
+                    - EDITOR
+                  default: NO_ROLE
+          totalWithdrawalAmount:
+            type: array
+            items:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
+      fee:
+        type: object
+        properties:
+          totalFee:
+            type: array
+            items:
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
+          burnWeight:
+            type: string
+          feeToBurn:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
+          feeToTreasury:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
   mycel.registry.MsgUpdateDnsRecordResponse:
     type: object
   mycel.registry.MsgUpdateTextRecordResponse:

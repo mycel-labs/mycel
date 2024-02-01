@@ -104,5 +104,8 @@ message MsgSubmitTopLevelDomainProposal {
   uint64 registrationPeriodInYear = 3;
 }
 
-message MsgSubmitTopLevelDomainProposalResponse {}
+message MsgSubmitTopLevelDomainProposalResponse {
+  TopLevelDomain    topLevelDomain = 1;
+  TopLevelDomainFee fee            = 2;
+}
 
