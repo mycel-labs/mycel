@@ -18,6 +18,7 @@ service Msg {
   rpc ExtendTopLevelDomainExpirationDate     (MsgExtendTopLevelDomainExpirationDate    ) returns (MsgExtendTopLevelDomainExpirationDateResponse    );
   rpc UpdateTextRecord                       (MsgUpdateTextRecord                      ) returns (MsgUpdateTextRecordResponse                      );
   rpc UpdateTopLevelDomainRegistrationPolicy (MsgUpdateTopLevelDomainRegistrationPolicy) returns (MsgUpdateTopLevelDomainRegistrationPolicyResponse);
+  rpc SubmitTopLevelDomainProposal           (MsgSubmitTopLevelDomainProposal          ) returns (MsgSubmitTopLevelDomainProposalResponse          );
 }
 message MsgUpdateWalletRecord {
   string creator          = 1;
@@ -96,4 +97,15 @@ message MsgUpdateTopLevelDomainRegistrationPolicy {
 }
 
 message MsgUpdateTopLevelDomainRegistrationPolicyResponse {}
+
+message MsgSubmitTopLevelDomainProposal {
+  string creator                  = 1;
+  string name                     = 2;
+  uint64 registrationPeriodInYear = 3;
+}
+
+message MsgSubmitTopLevelDomainProposalResponse {
+  TopLevelDomain    topLevelDomain = 1;
+  TopLevelDomainFee fee            = 2;
+}
 
