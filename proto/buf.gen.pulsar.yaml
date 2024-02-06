@@ -7,7 +7,7 @@ version: v1
 managed:
   enabled: true
   go_package_prefix:
-    default: cosmossdk.io/api
+    default: mycel/api
     except:
       - buf.build/googleapis/googleapis
       - buf.build/cosmos/gogo-proto
