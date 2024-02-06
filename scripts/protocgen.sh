@@ -32,6 +32,3 @@ rm -rf proto/github.com
 
 echo "Run go mod tidy to clean up go.mod and go.sum files"
 go mod tidy
-
-echo "Generating pulsar proto code"
-./scripts/protocgen-pulsar.sh
