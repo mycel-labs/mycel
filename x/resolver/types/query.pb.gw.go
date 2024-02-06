@@ -687,15 +687,15 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"mycel-domain", "mycel", "resolver", "params"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"mycel-domain", "mycel", "resolver", "params"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_WalletRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "resolver", "wallet_record", "domainName", "domainParent", "walletRecordType"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_WalletRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "resolver", "wallet_record", "domainName", "domainParent", "walletRecordType"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_DnsRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "resolver", "dns_record", "domainName", "domainParent", "dnsRecordType"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_DnsRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "resolver", "dns_record", "domainName", "domainParent", "dnsRecordType"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_AllRecords_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"mycel-domain", "mycel", "resolver", "all_records", "domainName", "domainParent"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_AllRecords_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5}, []string{"mycel-domain", "mycel", "resolver", "all_records", "domainName", "domainParent"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_TextRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "resolver", "text_record", "domainName", "domainParent", "key"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_TextRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "resolver", "text_record", "domainName", "domainParent", "key"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (
