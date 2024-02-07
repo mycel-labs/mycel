@@ -158,7 +158,7 @@ func (m *QueryGetEpochInfoRequest) GetIdentifier() string {
 }
 
 type QueryGetEpochInfoResponse struct {
-	EpochInfo EpochInfo `protobuf:"bytes,1,opt,name=epochInfo,proto3" json:"epochInfo"`
+	EpochInfo EpochInfo `protobuf:"bytes,1,opt,name=epoch_info,json=epochInfo,proto3" json:"epoch_info"`
 }
 
 func (m *QueryGetEpochInfoResponse) Reset()         { *m = QueryGetEpochInfoResponse{} }
@@ -246,7 +246,7 @@ func (m *QueryAllEpochInfoRequest) GetPagination() *query.PageRequest {
 }
 
 type QueryAllEpochInfoResponse struct {
-	EpochInfo  []EpochInfo         `protobuf:"bytes,1,rep,name=epochInfo,proto3" json:"epochInfo"`
+	EpochInfo  []EpochInfo         `protobuf:"bytes,1,rep,name=epoch_info,json=epochInfo,proto3" json:"epoch_info"`
 	Pagination *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 

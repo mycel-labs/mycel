@@ -30,12 +30,12 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type EpochInfo struct {
 	Identifier              string        `protobuf:"bytes,1,opt,name=identifier,proto3" json:"identifier,omitempty"`
-	StartTime               time.Time     `protobuf:"bytes,2,opt,name=startTime,proto3,stdtime" json:"startTime" yaml:"start_time"`
+	StartTime               time.Time     `protobuf:"bytes,2,opt,name=start_time,json=startTime,proto3,stdtime" json:"start_time" yaml:"start_time"`
 	Duration                time.Duration `protobuf:"bytes,3,opt,name=duration,proto3,stdduration" json:"duration,omitempty" yaml:"duration"`
-	CurrentEpoch            int64         `protobuf:"varint,4,opt,name=currentEpoch,proto3" json:"currentEpoch,omitempty"`
-	CurrentEpochStartTime   time.Time     `protobuf:"bytes,5,opt,name=currentEpochStartTime,proto3,stdtime" json:"currentEpochStartTime" yaml:"current_epoch_start_time"`
-	EpochCountingStarted    bool          `protobuf:"varint,6,opt,name=epochCountingStarted,proto3" json:"epochCountingStarted,omitempty"`
-	CurrentEpochStartHeight int64         `protobuf:"varint,7,opt,name=currentEpochStartHeight,proto3" json:"currentEpochStartHeight,omitempty"`
+	CurrentEpoch            int64         `protobuf:"varint,4,opt,name=current_epoch,json=currentEpoch,proto3" json:"current_epoch,omitempty"`
+	CurrentEpochStartTime   time.Time     `protobuf:"bytes,5,opt,name=current_epoch_start_time,json=currentEpochStartTime,proto3,stdtime" json:"current_epoch_start_time" yaml:"current_epoch_start_time"`
+	EpochCountingStarted    bool          `protobuf:"varint,6,opt,name=epoch_counting_started,json=epochCountingStarted,proto3" json:"epoch_counting_started,omitempty"`
+	CurrentEpochStartHeight int64         `protobuf:"varint,7,opt,name=current_epoch_start_height,json=currentEpochStartHeight,proto3" json:"current_epoch_start_height,omitempty"`
 }
 
 func (m *EpochInfo) Reset()         { *m = EpochInfo{} }

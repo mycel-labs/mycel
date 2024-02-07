@@ -26,9 +26,9 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 // GenesisState defines the registry module's genesis state.
 type GenesisState struct {
 	Params             Params              `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
-	TopLevelDomains    []TopLevelDomain    `protobuf:"bytes,2,rep,name=topLevelDomains,proto3" json:"topLevelDomains"`
-	SecondLevelDomains []SecondLevelDomain `protobuf:"bytes,3,rep,name=secondLevelDomains,proto3" json:"secondLevelDomains"`
-	DomainOwnerships   []DomainOwnership   `protobuf:"bytes,4,rep,name=domainOwnerships,proto3" json:"domainOwnerships"`
+	TopLevelDomains    []TopLevelDomain    `protobuf:"bytes,2,rep,name=top_level_domains,json=topLevelDomains,proto3" json:"top_level_domains"`
+	SecondLevelDomains []SecondLevelDomain `protobuf:"bytes,3,rep,name=second_level_domains,json=secondLevelDomains,proto3" json:"second_level_domains"`
+	DomainOwnerships   []DomainOwnership   `protobuf:"bytes,4,rep,name=domain_ownerships,json=domainOwnerships,proto3" json:"domain_ownerships"`
 }
 
 func (m *GenesisState) Reset()         { *m = GenesisState{} }

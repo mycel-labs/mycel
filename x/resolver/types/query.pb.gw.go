@@ -62,37 +62,37 @@ func request_Query_WalletRecord_0(ctx context.Context, marshaler runtime.Marshal
 		_   = err
 	)
 
-	val, ok = pathParams["domainName"]
+	val, ok = pathParams["domain_name"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_name")
 	}
 
 	protoReq.DomainName, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_name", err)
 	}
 
-	val, ok = pathParams["domainParent"]
+	val, ok = pathParams["domain_parent"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainParent")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_parent")
 	}
 
 	protoReq.DomainParent, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainParent", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_parent", err)
 	}
 
-	val, ok = pathParams["walletRecordType"]
+	val, ok = pathParams["wallet_record_type"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "walletRecordType")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "wallet_record_type")
 	}
 
 	protoReq.WalletRecordType, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "walletRecordType", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "wallet_record_type", err)
 	}
 
 	msg, err := client.WalletRecord(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -111,37 +111,37 @@ func local_request_Query_WalletRecord_0(ctx context.Context, marshaler runtime.M
 		_   = err
 	)
 
-	val, ok = pathParams["domainName"]
+	val, ok = pathParams["domain_name"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_name")
 	}
 
 	protoReq.DomainName, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_name", err)
 	}
 
-	val, ok = pathParams["domainParent"]
+	val, ok = pathParams["domain_parent"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainParent")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_parent")
 	}
 
 	protoReq.DomainParent, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainParent", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_parent", err)
 	}
 
-	val, ok = pathParams["walletRecordType"]
+	val, ok = pathParams["wallet_record_type"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "walletRecordType")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "wallet_record_type")
 	}
 
 	protoReq.WalletRecordType, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "walletRecordType", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "wallet_record_type", err)
 	}
 
 	msg, err := server.WalletRecord(ctx, &protoReq)
@@ -160,37 +160,37 @@ func request_Query_DnsRecord_0(ctx context.Context, marshaler runtime.Marshaler,
 		_   = err
 	)
 
-	val, ok = pathParams["domainName"]
+	val, ok = pathParams["domain_name"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_name")
 	}
 
 	protoReq.DomainName, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_name", err)
 	}
 
-	val, ok = pathParams["domainParent"]
+	val, ok = pathParams["domain_parent"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainParent")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_parent")
 	}
 
 	protoReq.DomainParent, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainParent", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_parent", err)
 	}
 
-	val, ok = pathParams["dnsRecordType"]
+	val, ok = pathParams["dns_record_type"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "dnsRecordType")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "dns_record_type")
 	}
 
 	protoReq.DnsRecordType, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "dnsRecordType", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "dns_record_type", err)
 	}
 
 	msg, err := client.DnsRecord(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -209,37 +209,37 @@ func local_request_Query_DnsRecord_0(ctx context.Context, marshaler runtime.Mars
 		_   = err
 	)
 
-	val, ok = pathParams["domainName"]
+	val, ok = pathParams["domain_name"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_name")
 	}
 
 	protoReq.DomainName, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_name", err)
 	}
 
-	val, ok = pathParams["domainParent"]
+	val, ok = pathParams["domain_parent"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainParent")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_parent")
 	}
 
 	protoReq.DomainParent, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainParent", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_parent", err)
 	}
 
-	val, ok = pathParams["dnsRecordType"]
+	val, ok = pathParams["dns_record_type"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "dnsRecordType")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "dns_record_type")
 	}
 
 	protoReq.DnsRecordType, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "dnsRecordType", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "dns_record_type", err)
 	}
 
 	msg, err := server.DnsRecord(ctx, &protoReq)
@@ -258,26 +258,26 @@ func request_Query_AllRecords_0(ctx context.Context, marshaler runtime.Marshaler
 		_   = err
 	)
 
-	val, ok = pathParams["domainName"]
+	val, ok = pathParams["domain_name"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_name")
 	}
 
 	protoReq.DomainName, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_name", err)
 	}
 
-	val, ok = pathParams["domainParent"]
+	val, ok = pathParams["domain_parent"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainParent")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_parent")
 	}
 
 	protoReq.DomainParent, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainParent", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_parent", err)
 	}
 
 	msg, err := client.AllRecords(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -296,26 +296,26 @@ func local_request_Query_AllRecords_0(ctx context.Context, marshaler runtime.Mar
 		_   = err
 	)
 
-	val, ok = pathParams["domainName"]
+	val, ok = pathParams["domain_name"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_name")
 	}
 
 	protoReq.DomainName, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_name", err)
 	}
 
-	val, ok = pathParams["domainParent"]
+	val, ok = pathParams["domain_parent"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainParent")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_parent")
 	}
 
 	protoReq.DomainParent, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainParent", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_parent", err)
 	}
 
 	msg, err := server.AllRecords(ctx, &protoReq)
@@ -334,26 +334,26 @@ func request_Query_TextRecord_0(ctx context.Context, marshaler runtime.Marshaler
 		_   = err
 	)
 
-	val, ok = pathParams["domainName"]
+	val, ok = pathParams["domain_name"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_name")
 	}
 
 	protoReq.DomainName, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_name", err)
 	}
 
-	val, ok = pathParams["domainParent"]
+	val, ok = pathParams["domain_parent"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainParent")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_parent")
 	}
 
 	protoReq.DomainParent, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainParent", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_parent", err)
 	}
 
 	val, ok = pathParams["key"]
@@ -383,26 +383,26 @@ func local_request_Query_TextRecord_0(ctx context.Context, marshaler runtime.Mar
 		_   = err
 	)
 
-	val, ok = pathParams["domainName"]
+	val, ok = pathParams["domain_name"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_name")
 	}
 
 	protoReq.DomainName, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_name", err)
 	}
 
-	val, ok = pathParams["domainParent"]
+	val, ok = pathParams["domain_parent"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainParent")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_parent")
 	}
 
 	protoReq.DomainParent, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainParent", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_parent", err)
 	}
 
 	val, ok = pathParams["key"]
@@ -687,15 +687,15 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"mycel-domain", "mycel", "resolver", "v1beta1", "params"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"mycel-domain", "mycel", "resolver", "v1beta1", "params"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_WalletRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6, 1, 0, 4, 1, 5, 7}, []string{"mycel-domain", "mycel", "resolver", "v1beta1", "wallet_record", "domainName", "domainParent", "walletRecordType"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_WalletRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6, 1, 0, 4, 1, 5, 7}, []string{"mycel-domain", "mycel", "resolver", "v1beta1", "wallet_record", "domain_name", "domain_parent", "wallet_record_type"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_DnsRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6, 1, 0, 4, 1, 5, 7}, []string{"mycel-domain", "mycel", "resolver", "v1beta1", "dns_record", "domainName", "domainParent", "dnsRecordType"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_DnsRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6, 1, 0, 4, 1, 5, 7}, []string{"mycel-domain", "mycel", "resolver", "v1beta1", "dns_record", "domain_name", "domain_parent", "dns_record_type"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_AllRecords_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "resolver", "v1beta1", "all_records", "domainName", "domainParent"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_AllRecords_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "resolver", "v1beta1", "all_records", "domain_name", "domain_parent"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_TextRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6, 1, 0, 4, 1, 5, 7}, []string{"mycel-domain", "mycel", "resolver", "v1beta1", "text_record", "domainName", "domainParent", "key"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_TextRecord_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6, 1, 0, 4, 1, 5, 7}, []string{"mycel-domain", "mycel", "resolver", "v1beta1", "text_record", "domain_name", "domain_parent", "key"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (

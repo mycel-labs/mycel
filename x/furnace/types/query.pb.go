@@ -151,7 +151,7 @@ func (m *QueryGetEpochBurnConfigRequest) XXX_DiscardUnknown() {
 var xxx_messageInfo_QueryGetEpochBurnConfigRequest proto.InternalMessageInfo
 
 type QueryGetEpochBurnConfigResponse struct {
-	EpochBurnConfig EpochBurnConfig `protobuf:"bytes,1,opt,name=EpochBurnConfig,proto3" json:"EpochBurnConfig"`
+	EpochBurnConfig EpochBurnConfig `protobuf:"bytes,1,opt,name=epoch_burn_config,json=epochBurnConfig,proto3" json:"epoch_burn_config"`
 }
 
 func (m *QueryGetEpochBurnConfigResponse) Reset()         { *m = QueryGetEpochBurnConfigResponse{} }
@@ -239,7 +239,7 @@ func (m *QueryGetBurnAmountRequest) GetIndex() uint64 {
 }
 
 type QueryGetBurnAmountResponse struct {
-	BurnAmount BurnAmount `protobuf:"bytes,1,opt,name=burnAmount,proto3" json:"burnAmount"`
+	BurnAmount BurnAmount `protobuf:"bytes,1,opt,name=burn_amount,json=burnAmount,proto3" json:"burn_amount"`
 }
 
 func (m *QueryGetBurnAmountResponse) Reset()         { *m = QueryGetBurnAmountResponse{} }
@@ -327,7 +327,7 @@ func (m *QueryAllBurnAmountRequest) GetPagination() *query.PageRequest {
 }
 
 type QueryAllBurnAmountResponse struct {
-	BurnAmount []BurnAmount        `protobuf:"bytes,1,rep,name=burnAmount,proto3" json:"burnAmount"`
+	BurnAmount []BurnAmount        `protobuf:"bytes,1,rep,name=burn_amount,json=burnAmount,proto3" json:"burn_amount"`
 	Pagination *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 

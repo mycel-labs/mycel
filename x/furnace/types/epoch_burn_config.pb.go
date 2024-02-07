@@ -29,10 +29,10 @@ var _ = time.Kitchen
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type EpochBurnConfig struct {
-	EpochIdentifier        string    `protobuf:"bytes,1,opt,name=epochIdentifier,proto3" json:"epochIdentifier,omitempty"`
-	CurrentBurnAmountIndex uint64    `protobuf:"varint,2,opt,name=currentBurnAmountIndex,proto3" json:"currentBurnAmountIndex,omitempty"`
-	DefaultTotalEpochs     uint64    `protobuf:"varint,3,opt,name=defaultTotalEpochs,proto3" json:"defaultTotalEpochs,omitempty"`
-	StartTime              time.Time `protobuf:"bytes,4,opt,name=startTime,proto3,stdtime" json:"startTime" yaml:"start_time"`
+	EpochIdentifier        string    `protobuf:"bytes,1,opt,name=epoch_identifier,json=epochIdentifier,proto3" json:"epoch_identifier,omitempty"`
+	CurrentBurnAmountIndex uint64    `protobuf:"varint,2,opt,name=current_burn_amount_index,json=currentBurnAmountIndex,proto3" json:"current_burn_amount_index,omitempty"`
+	DefaultTotalEpochs     uint64    `protobuf:"varint,3,opt,name=default_total_epochs,json=defaultTotalEpochs,proto3" json:"default_total_epochs,omitempty"`
+	StartTime              time.Time `protobuf:"bytes,4,opt,name=start_time,json=startTime,proto3,stdtime" json:"start_time" yaml:"start_time"`
 }
 
 func (m *EpochBurnConfig) Reset()         { *m = EpochBurnConfig{} }

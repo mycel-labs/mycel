@@ -164,7 +164,7 @@ func (m *QueryGetTopLevelDomainRequest) GetName() string {
 }
 
 type QueryGetTopLevelDomainResponse struct {
-	TopLevelDomain TopLevelDomain `protobuf:"bytes,1,opt,name=topLevelDomain,proto3" json:"topLevelDomain"`
+	TopLevelDomain TopLevelDomain `protobuf:"bytes,1,opt,name=top_level_domain,json=topLevelDomain,proto3" json:"top_level_domain"`
 }
 
 func (m *QueryGetTopLevelDomainResponse) Reset()         { *m = QueryGetTopLevelDomainResponse{} }
@@ -252,7 +252,7 @@ func (m *QueryAllTopLevelDomainRequest) GetPagination() *query.PageRequest {
 }
 
 type QueryAllTopLevelDomainResponse struct {
-	TopLevelDomain []TopLevelDomain    `protobuf:"bytes,1,rep,name=topLevelDomain,proto3" json:"topLevelDomain"`
+	TopLevelDomain []TopLevelDomain    `protobuf:"bytes,1,rep,name=top_level_domain,json=topLevelDomain,proto3" json:"top_level_domain"`
 	Pagination     *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
@@ -358,7 +358,7 @@ func (m *QueryGetSecondLevelDomainRequest) GetParent() string {
 type SecondLevelDomainResponse struct {
 	Name           string    `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Parent         string    `protobuf:"bytes,2,opt,name=parent,proto3" json:"parent,omitempty"`
-	ExpirationDate time.Time `protobuf:"bytes,3,opt,name=expirationDate,proto3,stdtime" json:"expirationDate"`
+	ExpirationDate time.Time `protobuf:"bytes,3,opt,name=expiration_date,json=expirationDate,proto3,stdtime" json:"expiration_date"`
 }
 
 func (m *SecondLevelDomainResponse) Reset()         { *m = SecondLevelDomainResponse{} }
@@ -416,7 +416,7 @@ func (m *SecondLevelDomainResponse) GetExpirationDate() time.Time {
 }
 
 type QueryGetSecondLevelDomainResponse struct {
-	SecondLevelDomain SecondLevelDomainResponse `protobuf:"bytes,1,opt,name=secondLevelDomain,proto3" json:"secondLevelDomain"`
+	SecondLevelDomain SecondLevelDomainResponse `protobuf:"bytes,1,opt,name=second_level_domain,json=secondLevelDomain,proto3" json:"second_level_domain"`
 }
 
 func (m *QueryGetSecondLevelDomainResponse) Reset()         { *m = QueryGetSecondLevelDomainResponse{} }
@@ -504,7 +504,7 @@ func (m *QueryAllSecondLevelDomainRequest) GetPagination() *query.PageRequest {
 }
 
 type QueryAllSecondLevelDomainResponse struct {
-	SecondLevelDomain []SecondLevelDomainResponse `protobuf:"bytes,1,rep,name=secondLevelDomain,proto3" json:"secondLevelDomain"`
+	SecondLevelDomain []SecondLevelDomainResponse `protobuf:"bytes,1,rep,name=second_level_domain,json=secondLevelDomain,proto3" json:"second_level_domain"`
 	Pagination        *query.PageResponse         `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
@@ -600,7 +600,7 @@ func (m *QueryGetDomainOwnershipRequest) GetOwner() string {
 }
 
 type QueryGetDomainOwnershipResponse struct {
-	DomainOwnership DomainOwnership `protobuf:"bytes,1,opt,name=domainOwnership,proto3" json:"domainOwnership"`
+	DomainOwnership DomainOwnership `protobuf:"bytes,1,opt,name=domain_ownership,json=domainOwnership,proto3" json:"domain_ownership"`
 }
 
 func (m *QueryGetDomainOwnershipResponse) Reset()         { *m = QueryGetDomainOwnershipResponse{} }
@@ -688,7 +688,7 @@ func (m *QueryAllDomainOwnershipRequest) GetPagination() *query.PageRequest {
 }
 
 type QueryAllDomainOwnershipResponse struct {
-	DomainOwnership []DomainOwnership   `protobuf:"bytes,1,rep,name=domainOwnership,proto3" json:"domainOwnership"`
+	DomainOwnership []DomainOwnership   `protobuf:"bytes,1,rep,name=domain_ownership,json=domainOwnership,proto3" json:"domain_ownership"`
 	Pagination      *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
@@ -742,7 +742,7 @@ func (m *QueryAllDomainOwnershipResponse) GetPagination() *query.PageResponse {
 type QueryDomainRegistrationFeeRequest struct {
 	Name                     string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Parent                   string `protobuf:"bytes,2,opt,name=parent,proto3" json:"parent,omitempty"`
-	RegistrationPeriodInYear uint64 `protobuf:"varint,3,opt,name=registrationPeriodInYear,proto3" json:"registrationPeriodInYear,omitempty"`
+	RegistrationPeriodInYear uint64 `protobuf:"varint,3,opt,name=registration_period_in_year,json=registrationPeriodInYear,proto3" json:"registration_period_in_year,omitempty"`
 	Registerer               string `protobuf:"bytes,4,opt,name=registerer,proto3" json:"registerer,omitempty"`
 }
 
@@ -808,11 +808,11 @@ func (m *QueryDomainRegistrationFeeRequest) GetRegisterer() string {
 }
 
 type QueryDomainRegistrationFeeResponse struct {
-	IsRegistrable             bool                                     `protobuf:"varint,1,opt,name=isRegistrable,proto3" json:"isRegistrable,omitempty"`
+	IsRegistrable             bool                                     `protobuf:"varint,1,opt,name=is_registrable,json=isRegistrable,proto3" json:"is_registrable,omitempty"`
 	Fee                       github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,2,rep,name=fee,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"fee"`
-	RegistrationPeriodInYear  uint64                                   `protobuf:"varint,3,opt,name=registrationPeriodInYear,proto3" json:"registrationPeriodInYear,omitempty"`
-	MaxSubDomainRegistrations uint64                                   `protobuf:"varint,4,opt,name=maxSubDomainRegistrations,proto3" json:"maxSubDomainRegistrations,omitempty"`
-	ErrorMessage              string                                   `protobuf:"bytes,5,opt,name=errorMessage,proto3" json:"errorMessage,omitempty"`
+	RegistrationPeriodInYear  uint64                                   `protobuf:"varint,3,opt,name=registration_period_in_year,json=registrationPeriodInYear,proto3" json:"registration_period_in_year,omitempty"`
+	MaxSubDomainRegistrations uint64                                   `protobuf:"varint,4,opt,name=max_sub_domain_registrations,json=maxSubDomainRegistrations,proto3" json:"max_sub_domain_registrations,omitempty"`
+	ErrorMessage              string                                   `protobuf:"bytes,5,opt,name=error_message,json=errorMessage,proto3" json:"error_message,omitempty"`
 }
 
 func (m *QueryDomainRegistrationFeeResponse) Reset()         { *m = QueryDomainRegistrationFeeResponse{} }
@@ -884,7 +884,7 @@ func (m *QueryDomainRegistrationFeeResponse) GetErrorMessage() string {
 }
 
 type QueryRoleRequest struct {
-	DomainName string `protobuf:"bytes,1,opt,name=domainName,proto3" json:"domainName,omitempty"`
+	DomainName string `protobuf:"bytes,1,opt,name=domain_name,json=domainName,proto3" json:"domain_name,omitempty"`
 	Address    string `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
 }
 

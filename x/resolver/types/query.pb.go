@@ -115,9 +115,9 @@ func (m *QueryParamsResponse) GetParams() Params {
 }
 
 type QueryWalletRecordRequest struct {
-	DomainName       string `protobuf:"bytes,1,opt,name=domainName,proto3" json:"domainName,omitempty"`
-	DomainParent     string `protobuf:"bytes,2,opt,name=domainParent,proto3" json:"domainParent,omitempty"`
-	WalletRecordType string `protobuf:"bytes,3,opt,name=walletRecordType,proto3" json:"walletRecordType,omitempty"`
+	DomainName       string `protobuf:"bytes,1,opt,name=domain_name,json=domainName,proto3" json:"domain_name,omitempty"`
+	DomainParent     string `protobuf:"bytes,2,opt,name=domain_parent,json=domainParent,proto3" json:"domain_parent,omitempty"`
+	WalletRecordType string `protobuf:"bytes,3,opt,name=wallet_record_type,json=walletRecordType,proto3" json:"wallet_record_type,omitempty"`
 }
 
 func (m *QueryWalletRecordRequest) Reset()         { *m = QueryWalletRecordRequest{} }
@@ -219,9 +219,9 @@ func (m *QueryWalletRecordResponse) GetValue() *types.WalletRecord {
 }
 
 type QueryDnsRecordRequest struct {
-	DomainName    string `protobuf:"bytes,1,opt,name=domainName,proto3" json:"domainName,omitempty"`
-	DomainParent  string `protobuf:"bytes,2,opt,name=domainParent,proto3" json:"domainParent,omitempty"`
-	DnsRecordType string `protobuf:"bytes,3,opt,name=dnsRecordType,proto3" json:"dnsRecordType,omitempty"`
+	DomainName    string `protobuf:"bytes,1,opt,name=domain_name,json=domainName,proto3" json:"domain_name,omitempty"`
+	DomainParent  string `protobuf:"bytes,2,opt,name=domain_parent,json=domainParent,proto3" json:"domain_parent,omitempty"`
+	DnsRecordType string `protobuf:"bytes,3,opt,name=dns_record_type,json=dnsRecordType,proto3" json:"dns_record_type,omitempty"`
 }
 
 func (m *QueryDnsRecordRequest) Reset()         { *m = QueryDnsRecordRequest{} }
@@ -323,8 +323,8 @@ func (m *QueryDnsRecordResponse) GetValue() *types.DnsRecord {
 }
 
 type QueryAllRecordsRequest struct {
-	DomainName   string `protobuf:"bytes,1,opt,name=domainName,proto3" json:"domainName,omitempty"`
-	DomainParent string `protobuf:"bytes,2,opt,name=domainParent,proto3" json:"domainParent,omitempty"`
+	DomainName   string `protobuf:"bytes,1,opt,name=domain_name,json=domainName,proto3" json:"domain_name,omitempty"`
+	DomainParent string `protobuf:"bytes,2,opt,name=domain_parent,json=domainParent,proto3" json:"domain_parent,omitempty"`
 }
 
 func (m *QueryAllRecordsRequest) Reset()         { *m = QueryAllRecordsRequest{} }
@@ -419,8 +419,8 @@ func (m *QueryAllRecordsResponse) GetValues() map[string]*types.Record {
 }
 
 type QueryTextRecordRequest struct {
-	DomainName   string `protobuf:"bytes,1,opt,name=domainName,proto3" json:"domainName,omitempty"`
-	DomainParent string `protobuf:"bytes,2,opt,name=domainParent,proto3" json:"domainParent,omitempty"`
+	DomainName   string `protobuf:"bytes,1,opt,name=domain_name,json=domainName,proto3" json:"domain_name,omitempty"`
+	DomainParent string `protobuf:"bytes,2,opt,name=domain_parent,json=domainParent,proto3" json:"domain_parent,omitempty"`
 	Key          string `protobuf:"bytes,3,opt,name=key,proto3" json:"key,omitempty"`
 }
 

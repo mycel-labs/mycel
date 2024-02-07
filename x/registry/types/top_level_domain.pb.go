@@ -31,11 +31,11 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type TopLevelDomain struct {
 	Name                  string                                   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	ExpirationDate        time.Time                                `protobuf:"bytes,2,opt,name=expirationDate,proto3,stdtime" json:"expirationDate"`
-	SubdomainConfig       *SubdomainConfig                         `protobuf:"bytes,3,opt,name=subdomainConfig,proto3" json:"subdomainConfig,omitempty"`
-	SubdomainCount        uint64                                   `protobuf:"varint,4,opt,name=subdomainCount,proto3" json:"subdomainCount,omitempty"`
-	AccessControl         []*AccessControl                         `protobuf:"bytes,5,rep,name=accessControl,proto3" json:"accessControl,omitempty"`
-	TotalWithdrawalAmount github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,6,rep,name=totalWithdrawalAmount,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"totalWithdrawalAmount"`
+	ExpirationDate        time.Time                                `protobuf:"bytes,2,opt,name=expiration_date,json=expirationDate,proto3,stdtime" json:"expiration_date"`
+	SubdomainConfig       *SubdomainConfig                         `protobuf:"bytes,3,opt,name=subdomain_config,json=subdomainConfig,proto3" json:"subdomain_config,omitempty"`
+	SubdomainCount        uint64                                   `protobuf:"varint,4,opt,name=subdomain_count,json=subdomainCount,proto3" json:"subdomain_count,omitempty"`
+	AccessControl         []*AccessControl                         `protobuf:"bytes,5,rep,name=access_control,json=accessControl,proto3" json:"access_control,omitempty"`
+	TotalWithdrawalAmount github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,6,rep,name=total_withdrawal_amount,json=totalWithdrawalAmount,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"total_withdrawal_amount"`
 }
 
 func (m *TopLevelDomain) Reset()         { *m = TopLevelDomain{} }
@@ -114,10 +114,10 @@ func (m *TopLevelDomain) GetTotalWithdrawalAmount() github_com_cosmos_cosmos_sdk
 }
 
 type TopLevelDomainFee struct {
-	TotalFee      github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,1,rep,name=totalFee,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"totalFee"`
-	BurnWeight    string                                   `protobuf:"bytes,2,opt,name=burnWeight,proto3" json:"burnWeight,omitempty"`
-	FeeToBurn     types.Coin                               `protobuf:"bytes,3,opt,name=feeToBurn,proto3,castvalue=github.com/cosmos/cosmos-sdk/types.Coin" json:"feeToBurn"`
-	FeeToTreasury types.Coin                               `protobuf:"bytes,4,opt,name=feeToTreasury,proto3,castvalue=github.com/cosmos/cosmos-sdk/types.Coin" json:"feeToTreasury"`
+	TotalFee      github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,1,rep,name=total_fee,json=totalFee,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"total_fee"`
+	BurnWeight    string                                   `protobuf:"bytes,2,opt,name=burn_weight,json=burnWeight,proto3" json:"burn_weight,omitempty"`
+	FeeToBurn     types.Coin                               `protobuf:"bytes,3,opt,name=fee_to_burn,json=feeToBurn,proto3,castvalue=github.com/cosmos/cosmos-sdk/types.Coin" json:"fee_to_burn"`
+	FeeToTreasury types.Coin                               `protobuf:"bytes,4,opt,name=fee_to_treasury,json=feeToTreasury,proto3,castvalue=github.com/cosmos/cosmos-sdk/types.Coin" json:"fee_to_treasury"`
 }
 
 func (m *TopLevelDomainFee) Reset()         { *m = TopLevelDomainFee{} }

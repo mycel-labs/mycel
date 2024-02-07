@@ -34,7 +34,7 @@ type MsgUpdateWalletRecord struct {
 	Creator          string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Name             string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	Parent           string `protobuf:"bytes,3,opt,name=parent,proto3" json:"parent,omitempty"`
-	WalletRecordType string `protobuf:"bytes,4,opt,name=walletRecordType,proto3" json:"walletRecordType,omitempty"`
+	WalletRecordType string `protobuf:"bytes,4,opt,name=wallet_record_type,json=walletRecordType,proto3" json:"wallet_record_type,omitempty"`
 	Value            string `protobuf:"bytes,5,opt,name=value,proto3" json:"value,omitempty"`
 }
 
@@ -146,7 +146,7 @@ type MsgUpdateDnsRecord struct {
 	Creator       string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Name          string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	Parent        string `protobuf:"bytes,3,opt,name=parent,proto3" json:"parent,omitempty"`
-	DnsRecordType string `protobuf:"bytes,4,opt,name=dnsRecordType,proto3" json:"dnsRecordType,omitempty"`
+	DnsRecordType string `protobuf:"bytes,4,opt,name=dns_record_type,json=dnsRecordType,proto3" json:"dns_record_type,omitempty"`
 	Value         string `protobuf:"bytes,5,opt,name=value,proto3" json:"value,omitempty"`
 }
 
@@ -258,7 +258,7 @@ type MsgRegisterSecondLevelDomain struct {
 	Creator                  string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Name                     string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	Parent                   string `protobuf:"bytes,3,opt,name=parent,proto3" json:"parent,omitempty"`
-	RegistrationPeriodInYear uint64 `protobuf:"varint,4,opt,name=registrationPeriodInYear,proto3" json:"registrationPeriodInYear,omitempty"`
+	RegistrationPeriodInYear uint64 `protobuf:"varint,4,opt,name=registration_period_in_year,json=registrationPeriodInYear,proto3" json:"registration_period_in_year,omitempty"`
 }
 
 func (m *MsgRegisterSecondLevelDomain) Reset()         { *m = MsgRegisterSecondLevelDomain{} }
@@ -361,7 +361,7 @@ var xxx_messageInfo_MsgRegisterSecondLevelDomainResponse proto.InternalMessageIn
 type MsgRegisterTopLevelDomain struct {
 	Creator                  string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Name                     string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	RegistrationPeriodInYear uint64 `protobuf:"varint,3,opt,name=registrationPeriodInYear,proto3" json:"registrationPeriodInYear,omitempty"`
+	RegistrationPeriodInYear uint64 `protobuf:"varint,3,opt,name=registration_period_in_year,json=registrationPeriodInYear,proto3" json:"registration_period_in_year,omitempty"`
 }
 
 func (m *MsgRegisterTopLevelDomain) Reset()         { *m = MsgRegisterTopLevelDomain{} }
@@ -419,7 +419,7 @@ func (m *MsgRegisterTopLevelDomain) GetRegistrationPeriodInYear() uint64 {
 }
 
 type MsgRegisterTopLevelDomainResponse struct {
-	TopLevelDomain *TopLevelDomain    `protobuf:"bytes,1,opt,name=topLevelDomain,proto3" json:"topLevelDomain,omitempty"`
+	TopLevelDomain *TopLevelDomain    `protobuf:"bytes,1,opt,name=top_level_domain,json=topLevelDomain,proto3" json:"top_level_domain,omitempty"`
 	Fee            *TopLevelDomainFee `protobuf:"bytes,2,opt,name=fee,proto3" json:"fee,omitempty"`
 }
 
@@ -523,7 +523,7 @@ func (m *MsgWithdrawRegistrationFee) GetName() string {
 }
 
 type MsgWithdrawRegistrationFeeResponse struct {
-	RegistrationFee github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,7,rep,name=registrationFee,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"registrationFee"`
+	RegistrationFee github_com_cosmos_cosmos_sdk_types.Coins `protobuf:"bytes,7,rep,name=registration_fee,json=registrationFee,proto3,castrepeated=github.com/cosmos/cosmos-sdk/types.Coins" json:"registration_fee"`
 }
 
 func (m *MsgWithdrawRegistrationFeeResponse) Reset()         { *m = MsgWithdrawRegistrationFeeResponse{} }
@@ -569,7 +569,7 @@ func (m *MsgWithdrawRegistrationFeeResponse) GetRegistrationFee() github_com_cos
 type MsgExtendTopLevelDomainExpirationDate struct {
 	Creator               string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Name                  string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	ExtensionPeriodInYear uint64 `protobuf:"varint,3,opt,name=extensionPeriodInYear,proto3" json:"extensionPeriodInYear,omitempty"`
+	ExtensionPeriodInYear uint64 `protobuf:"varint,3,opt,name=extension_period_in_year,json=extensionPeriodInYear,proto3" json:"extension_period_in_year,omitempty"`
 }
 
 func (m *MsgExtendTopLevelDomainExpirationDate) Reset()         { *m = MsgExtendTopLevelDomainExpirationDate{} }
@@ -627,7 +627,7 @@ func (m *MsgExtendTopLevelDomainExpirationDate) GetExtensionPeriodInYear() uint6
 }
 
 type MsgExtendTopLevelDomainExpirationDateResponse struct {
-	TopLevelDomain *TopLevelDomain    `protobuf:"bytes,1,opt,name=topLevelDomain,proto3" json:"topLevelDomain,omitempty"`
+	TopLevelDomain *TopLevelDomain    `protobuf:"bytes,1,opt,name=top_level_domain,json=topLevelDomain,proto3" json:"top_level_domain,omitempty"`
 	Fee            *TopLevelDomainFee `protobuf:"bytes,2,opt,name=fee,proto3" json:"fee,omitempty"`
 }
 
@@ -797,7 +797,7 @@ var xxx_messageInfo_MsgUpdateTextRecordResponse proto.InternalMessageInfo
 type MsgUpdateTopLevelDomainRegistrationPolicy struct {
 	Creator            string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Name               string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	RegistrationPolicy string `protobuf:"bytes,3,opt,name=registrationPolicy,proto3" json:"registrationPolicy,omitempty"`
+	RegistrationPolicy string `protobuf:"bytes,3,opt,name=registration_policy,json=registrationPolicy,proto3" json:"registration_policy,omitempty"`
 }
 
 func (m *MsgUpdateTopLevelDomainRegistrationPolicy) Reset() {

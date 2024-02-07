@@ -232,13 +232,13 @@ type isRecord_Record interface {
 }
 
 type Record_DnsRecord struct {
-	DnsRecord *DnsRecord `protobuf:"bytes,1,opt,name=dnsRecord,proto3,oneof" json:"dnsRecord,omitempty"`
+	DnsRecord *DnsRecord `protobuf:"bytes,1,opt,name=dns_record,json=dnsRecord,proto3,oneof" json:"dns_record,omitempty"`
 }
 type Record_WalletRecord struct {
-	WalletRecord *WalletRecord `protobuf:"bytes,2,opt,name=walletRecord,proto3,oneof" json:"walletRecord,omitempty"`
+	WalletRecord *WalletRecord `protobuf:"bytes,2,opt,name=wallet_record,json=walletRecord,proto3,oneof" json:"wallet_record,omitempty"`
 }
 type Record_TextRecord struct {
-	TextRecord *TextRecord `protobuf:"bytes,3,opt,name=textRecord,proto3,oneof" json:"textRecord,omitempty"`
+	TextRecord *TextRecord `protobuf:"bytes,3,opt,name=text_record,json=textRecord,proto3,oneof" json:"text_record,omitempty"`
 }
 
 func (*Record_DnsRecord) isRecord_Record()    {}
@@ -286,9 +286,9 @@ type SecondLevelDomain struct {
 	Name           string           `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Parent         string           `protobuf:"bytes,2,opt,name=parent,proto3" json:"parent,omitempty"`
 	Owner          string           `protobuf:"bytes,3,opt,name=owner,proto3" json:"owner,omitempty"`
-	ExpirationDate time.Time        `protobuf:"bytes,4,opt,name=expirationDate,proto3,stdtime" json:"expirationDate"`
+	ExpirationDate time.Time        `protobuf:"bytes,4,opt,name=expiration_date,json=expirationDate,proto3,stdtime" json:"expiration_date"`
 	Records        []*Record        `protobuf:"bytes,5,rep,name=records,proto3" json:"records,omitempty"`
-	AccessControl  []*AccessControl `protobuf:"bytes,6,rep,name=accessControl,proto3" json:"accessControl,omitempty"`
+	AccessControl  []*AccessControl `protobuf:"bytes,6,rep,name=access_control,json=accessControl,proto3" json:"access_control,omitempty"`
 }
 
 func (m *SecondLevelDomain) Reset()         { *m = SecondLevelDomain{} }

@@ -26,8 +26,8 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 // GenesisState defines the furnace module's genesis state.
 type GenesisState struct {
 	Params          Params          `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
-	EpochBurnConfig EpochBurnConfig `protobuf:"bytes,2,opt,name=epochBurnConfig,proto3" json:"epochBurnConfig"`
-	BurnAmounts     []BurnAmount    `protobuf:"bytes,3,rep,name=burnAmounts,proto3" json:"burnAmounts"`
+	EpochBurnConfig EpochBurnConfig `protobuf:"bytes,2,opt,name=epoch_burn_config,json=epochBurnConfig,proto3" json:"epoch_burn_config"`
+	BurnAmounts     []BurnAmount    `protobuf:"bytes,3,rep,name=burn_amounts,json=burnAmounts,proto3" json:"burn_amounts"`
 }
 
 func (m *GenesisState) Reset()         { *m = GenesisState{} }

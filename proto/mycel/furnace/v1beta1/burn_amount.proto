@@ -8,10 +8,11 @@ option go_package = "github.com/mycel-domain/mycel/x/furnace/types";
 
 message BurnAmount {
   uint64 index = 1;
-  bool burnStarted = 2;
-  uint64 totalEpochs = 3;
-  uint64 currentEpoch = 4;
-  cosmos.base.v1beta1.Coin totalBurnAmount = 5 [ (gogoproto.nullable) = false ];
-  cosmos.base.v1beta1.Coin cumulativeBurntAmount = 6
+  bool burn_started = 2;
+  uint64 total_epochs = 3;
+  uint64 current_epoch = 4;
+  cosmos.base.v1beta1.Coin total_burn_amount = 5
+      [ (gogoproto.nullable) = false ];
+  cosmos.base.v1beta1.Coin cumulative_burnt_amount = 6
       [ (gogoproto.nullable) = false ];
 }

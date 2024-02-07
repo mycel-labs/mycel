@@ -49,9 +49,9 @@ func (RegistrationPolicyType) EnumDescriptor() ([]byte, []int) {
 }
 
 type SubdomainRegistrationFees struct {
-	FeeByLength []*FeeByLength `protobuf:"bytes,1,rep,name=feeByLength,proto3" json:"feeByLength,omitempty"`
-	FeeByName   []*FeeByName   `protobuf:"bytes,2,rep,name=feeByName,proto3" json:"feeByName,omitempty"`
-	DefaultFee  *types.Coin    `protobuf:"bytes,3,opt,name=defaultFee,proto3" json:"defaultFee,omitempty"`
+	FeeByLength []*FeeByLength `protobuf:"bytes,1,rep,name=fee_by_length,json=feeByLength,proto3" json:"fee_by_length,omitempty"`
+	FeeByName   []*FeeByName   `protobuf:"bytes,2,rep,name=fee_by_name,json=feeByName,proto3" json:"fee_by_name,omitempty"`
+	DefaultFee  *types.Coin    `protobuf:"bytes,3,opt,name=default_fee,json=defaultFee,proto3" json:"default_fee,omitempty"`
 }
 
 func (m *SubdomainRegistrationFees) Reset()         { *m = SubdomainRegistrationFees{} }
@@ -110,7 +110,7 @@ func (m *SubdomainRegistrationFees) GetDefaultFee() *types.Coin {
 
 type FeeByLength struct {
 	Length        uint32      `protobuf:"varint,1,opt,name=length,proto3" json:"length,omitempty"`
-	IsRegistrable bool        `protobuf:"varint,2,opt,name=isRegistrable,proto3" json:"isRegistrable,omitempty"`
+	IsRegistrable bool        `protobuf:"varint,2,opt,name=is_registrable,json=isRegistrable,proto3" json:"is_registrable,omitempty"`
 	Fee           *types.Coin `protobuf:"bytes,3,opt,name=fee,proto3" json:"fee,omitempty"`
 }
 
@@ -170,7 +170,7 @@ func (m *FeeByLength) GetFee() *types.Coin {
 
 type FeeByName struct {
 	Name          string      `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	IsRegistrable bool        `protobuf:"varint,2,opt,name=isRegistrable,proto3" json:"isRegistrable,omitempty"`
+	IsRegistrable bool        `protobuf:"varint,2,opt,name=is_registrable,json=isRegistrable,proto3" json:"is_registrable,omitempty"`
 	Fee           *types.Coin `protobuf:"bytes,3,opt,name=fee,proto3" json:"fee,omitempty"`
 }
 

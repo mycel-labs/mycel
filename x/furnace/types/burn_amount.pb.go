@@ -26,11 +26,11 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type BurnAmount struct {
 	Index                 uint64     `protobuf:"varint,1,opt,name=index,proto3" json:"index,omitempty"`
-	BurnStarted           bool       `protobuf:"varint,2,opt,name=burnStarted,proto3" json:"burnStarted,omitempty"`
-	TotalEpochs           uint64     `protobuf:"varint,3,opt,name=totalEpochs,proto3" json:"totalEpochs,omitempty"`
-	CurrentEpoch          uint64     `protobuf:"varint,4,opt,name=currentEpoch,proto3" json:"currentEpoch,omitempty"`
-	TotalBurnAmount       types.Coin `protobuf:"bytes,5,opt,name=totalBurnAmount,proto3" json:"totalBurnAmount"`
-	CumulativeBurntAmount types.Coin `protobuf:"bytes,6,opt,name=cumulativeBurntAmount,proto3" json:"cumulativeBurntAmount"`
+	BurnStarted           bool       `protobuf:"varint,2,opt,name=burn_started,json=burnStarted,proto3" json:"burn_started,omitempty"`
+	TotalEpochs           uint64     `protobuf:"varint,3,opt,name=total_epochs,json=totalEpochs,proto3" json:"total_epochs,omitempty"`
+	CurrentEpoch          uint64     `protobuf:"varint,4,opt,name=current_epoch,json=currentEpoch,proto3" json:"current_epoch,omitempty"`
+	TotalBurnAmount       types.Coin `protobuf:"bytes,5,opt,name=total_burn_amount,json=totalBurnAmount,proto3" json:"total_burn_amount"`
+	CumulativeBurntAmount types.Coin `protobuf:"bytes,6,opt,name=cumulative_burnt_amount,json=cumulativeBurntAmount,proto3" json:"cumulative_burnt_amount"`
 }
 
 func (m *BurnAmount) Reset()         { *m = BurnAmount{} }

@@ -39,7 +39,7 @@ message QueryParamsResponse {
 message QueryGetEpochInfoRequest { string identifier = 1; }
 
 message QueryGetEpochInfoResponse {
-  EpochInfo epochInfo = 1 [ (gogoproto.nullable) = false ];
+  EpochInfo epoch_info = 1 [ (gogoproto.nullable) = false ];
 }
 
 message QueryAllEpochInfoRequest {
@@ -47,6 +47,6 @@ message QueryAllEpochInfoRequest {
 }
 
 message QueryAllEpochInfoResponse {
-  repeated EpochInfo epochInfo = 1 [ (gogoproto.nullable) = false ];
+  repeated EpochInfo epoch_info = 1 [ (gogoproto.nullable) = false ];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

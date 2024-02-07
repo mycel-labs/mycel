@@ -26,8 +26,8 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // Params defines the parameters for the module.
 type Params struct {
-	StakingInflationRatio      float32 `protobuf:"fixed32,1,opt,name=stakingInflationRatio,proto3" json:"stakingInflationRatio,omitempty"`
-	TopLevelDomainBaseFeeInUsd int64   `protobuf:"varint,2,opt,name=topLevelDomainBaseFeeInUsd,proto3" json:"topLevelDomainBaseFeeInUsd,omitempty"`
+	StakingInflationRatio      float32 `protobuf:"fixed32,1,opt,name=staking_inflation_ratio,json=stakingInflationRatio,proto3" json:"staking_inflation_ratio,omitempty"`
+	TopLevelDomainBaseFeeInUsd int64   `protobuf:"varint,2,opt,name=top_level_domain_base_fee_in_usd,json=topLevelDomainBaseFeeInUsd,proto3" json:"top_level_domain_base_fee_in_usd,omitempty"`
 }
 
 func (m *Params) Reset()      { *m = Params{} }
