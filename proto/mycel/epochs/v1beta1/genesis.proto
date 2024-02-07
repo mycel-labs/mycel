@@ -1,0 +1,13 @@
+syntax = "proto3";
+package mycel.epochs.v1beta1;
+
+import "gogoproto/gogo.proto";
+import "mycel/epochs/v1beta1/epoch_info.proto";
+import "mycel/epochs/v1beta1/params.proto";
+
+option go_package = "github.com/mycel-domain/mycel/x/epochs/types";
+
+// GenesisState defines the epochs module's genesis state.
+message GenesisState {
+  repeated EpochInfo epochs = 1 [ (gogoproto.nullable) = false ];
+}

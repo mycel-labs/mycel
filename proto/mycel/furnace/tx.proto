@@ -1,7 +1,0 @@
-syntax = "proto3";
-package mycel.furnace;
-
-option go_package = "github.com/mycel-domain/mycel/x/furnace/types";
-
-// Msg defines the Msg service.
-service Msg {}
