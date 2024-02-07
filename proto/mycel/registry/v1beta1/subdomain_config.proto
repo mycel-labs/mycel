@@ -12,28 +12,28 @@ enum RegistrationPolicyType {
 }
 
 message SubdomainRegistrationFees {
-  repeated FeeByLength feeByLength = 1;
-  repeated FeeByName feeByName = 2;
-  cosmos.base.v1beta1.Coin defaultFee = 3;
+  repeated FeeByLength fee_by_length = 1;
+  repeated FeeByName fee_by_name = 2;
+  cosmos.base.v1beta1.Coin default_fee = 3;
 }
 
 message FeeByLength {
   uint32 length = 1;
-  bool isRegistrable = 2;
+  bool is_registrable = 2;
   cosmos.base.v1beta1.Coin fee = 3;
 }
 
 message FeeByName {
   string name = 1;
-  bool isRegistrable = 2;
+  bool is_registrable = 2;
   cosmos.base.v1beta1.Coin fee = 3;
 }
 
 message SubdomainConfig {
-  uint64 maxSubdomainRegistrations = 1;
-  SubdomainRegistrationFees subdomainRegistrationFees = 2;
-  bool isRegistrable = 3;
-  DomainRole registrableRole = 4;
-  bool customExpirationDate = 5;
-  RegistrationPolicyType registrationPolicy = 6;
+  uint64 max_subdomain_registrations = 1;
+  SubdomainRegistrationFees subdomain_registration_fees = 2;
+  bool is_registrable = 3;
+  DomainRole registrable_role = 4;
+  bool custom_expiration_date = 5;
+  RegistrationPolicyType registration_policy = 6;
 }

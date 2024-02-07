@@ -10,12 +10,12 @@ import "mycel/registry/v1beta1/access_control.proto";
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 message DnsRecord {
-  DnsRecordType dnsRecordType = 1;
+  DnsRecordType dns_record_type = 1;
   string value = 2;
 }
 
 message WalletRecord {
-  NetworkName walletRecordType = 1;
+  NetworkName wallet_record_type = 1;
   string value = 2;
 }
 
@@ -26,9 +26,9 @@ message TextRecord {
 
 message Record {
   oneof record {
-    DnsRecord dnsRecord = 1;
-    WalletRecord walletRecord = 2;
-    TextRecord textRecord = 3;
+    DnsRecord dns_record = 1;
+    WalletRecord wallet_record = 2;
+    TextRecord text_record = 3;
   }
 }
 
@@ -36,8 +36,8 @@ message SecondLevelDomain {
   string name = 1;
   string parent = 2;
   string owner = 3;
-  google.protobuf.Timestamp expirationDate = 4
+  google.protobuf.Timestamp expiration_date = 4
       [ (gogoproto.stdtime) = true, (gogoproto.nullable) = false ];
   repeated Record records = 5;
-  repeated AccessControl accessControl = 6;
+  repeated AccessControl access_control = 6;
 }

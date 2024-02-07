@@ -49471,27 +49471,27 @@ paths:
           schema:
             type: object
             properties:
-              epochInfo:
+              epoch_info:
                 type: array
                 items:
                   type: object
                   properties:
                     identifier:
                       type: string
-                    startTime:
+                    start_time:
                       type: string
                       format: date-time
                     duration:
                       type: string
-                    currentEpoch:
+                    current_epoch:
                       type: string
                       format: int64
-                    currentEpochStartTime:
+                    current_epoch_start_time:
                       type: string
                       format: date-time
-                    epochCountingStarted:
+                    epoch_counting_started:
                       type: boolean
-                    currentEpochStartHeight:
+                    current_epoch_start_height:
                       type: string
                       format: int64
               pagination:
@@ -49609,25 +49609,25 @@ paths:
           schema:
             type: object
             properties:
-              epochInfo:
+              epoch_info:
                 type: object
                 properties:
                   identifier:
                     type: string
-                  startTime:
+                  start_time:
                     type: string
                     format: date-time
                   duration:
                     type: string
-                  currentEpoch:
+                  current_epoch:
                     type: string
                     format: int64
-                  currentEpochStartTime:
+                  current_epoch_start_time:
                     type: string
                     format: date-time
-                  epochCountingStarted:
+                  epoch_counting_started:
                     type: boolean
-                  currentEpochStartHeight:
+                  current_epoch_start_height:
                     type: string
                     format: int64
         default:
@@ -49700,7 +49700,7 @@ paths:
           schema:
             type: object
             properties:
-              burnAmount:
+              burn_amount:
                 type: array
                 items:
                   type: object
@@ -49708,15 +49708,15 @@ paths:
                     index:
                       type: string
                       format: uint64
-                    burnStarted:
+                    burn_started:
                       type: boolean
-                    totalEpochs:
+                    total_epochs:
                       type: string
                       format: uint64
-                    currentEpoch:
+                    current_epoch:
                       type: string
                       format: uint64
-                    totalBurnAmount:
+                    total_burn_amount:
                       type: object
                       properties:
                         denom:
@@ -49731,7 +49731,7 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
-                    cumulativeBurntAmount:
+                    cumulative_burnt_amount:
                       type: object
                       properties:
                         denom:
@@ -49861,21 +49861,21 @@ paths:
           schema:
             type: object
             properties:
-              burnAmount:
+              burn_amount:
                 type: object
                 properties:
                   index:
                     type: string
                     format: uint64
-                  burnStarted:
+                  burn_started:
                     type: boolean
-                  totalEpochs:
+                  total_epochs:
                     type: string
                     format: uint64
-                  currentEpoch:
+                  current_epoch:
                     type: string
                     format: uint64
-                  totalBurnAmount:
+                  total_burn_amount:
                     type: object
                     properties:
                       denom:
@@ -49890,7 +49890,7 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  cumulativeBurntAmount:
+                  cumulative_burnt_amount:
                     type: object
                     properties:
                       denom:
@@ -49941,18 +49941,18 @@ paths:
           schema:
             type: object
             properties:
-              EpochBurnConfig:
+              epoch_burn_config:
                 type: object
                 properties:
-                  epochIdentifier:
+                  epoch_identifier:
                     type: string
-                  currentBurnAmountIndex:
-                    type: string
-                    format: uint64
-                  defaultTotalEpochs:
+                  current_burn_amount_index:
                     type: string
                     format: uint64
-                  startTime:
+                  default_total_epochs:
+                    type: string
+                    format: uint64
+                  start_time:
                     type: string
                     format: date-time
         default:
@@ -50020,7 +50020,7 @@ paths:
           schema:
             type: object
             properties:
-              domainOwnership:
+              domain_ownership:
                 type: array
                 items:
                   type: object
@@ -50151,7 +50151,7 @@ paths:
           schema:
             type: object
             properties:
-              domainOwnership:
+              domain_ownership:
                 type: object
                 properties:
                   owner:
@@ -50200,7 +50200,7 @@ paths:
           schema:
             type: object
             properties:
-              isRegistrable:
+              is_registrable:
                 type: boolean
               fee:
                 type: array
@@ -50219,13 +50219,13 @@ paths:
                     method
 
                     signatures required by gogoproto.
-              registrationPeriodInYear:
+              registration_period_in_year:
                 type: string
                 format: uint64
-              maxSubDomainRegistrations:
+              max_sub_domain_registrations:
                 type: string
                 format: uint64
-              errorMessage:
+              error_message:
                 type: string
         default:
           description: An unexpected error response.
@@ -50258,14 +50258,14 @@ paths:
           in: path
           required: true
           type: string
-        - name: registrationPeriodInYear
+        - name: registration_period_in_year
           in: query
           required: false
           type: string
           format: uint64
       tags:
         - Query
-  /mycel-domain/mycel/registry/v1beta1/role/{domainName}/{address}:
+  /mycel-domain/mycel/registry/v1beta1/role/{domain_name}/{address}:
     get:
       summary: Queries a list of Role items.
       operationId: MycelRegistryV1Beta1Role
@@ -50296,7 +50296,7 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: domainName
+        - name: domain_name
           in: path
           required: true
           type: string
@@ -50315,26 +50315,26 @@ paths:
           schema:
             type: object
             properties:
-              topLevelDomain:
+              top_level_domain:
                 type: array
                 items:
                   type: object
                   properties:
                     name:
                       type: string
-                    expirationDate:
+                    expiration_date:
                       type: string
                       format: date-time
-                    subdomainConfig:
+                    subdomain_config:
                       type: object
                       properties:
-                        maxSubdomainRegistrations:
+                        max_subdomain_registrations:
                           type: string
                           format: uint64
-                        subdomainRegistrationFees:
+                        subdomain_registration_fees:
                           type: object
                           properties:
-                            feeByLength:
+                            fee_by_length:
                               type: array
                               items:
                                 type: object
@@ -50342,7 +50342,7 @@ paths:
                                   length:
                                     type: integer
                                     format: int64
-                                  isRegistrable:
+                                  is_registrable:
                                     type: boolean
                                   fee:
                                     type: object
@@ -50360,14 +50360,14 @@ paths:
                                       implements the custom method
 
                                       signatures required by gogoproto.
-                            feeByName:
+                            fee_by_name:
                               type: array
                               items:
                                 type: object
                                 properties:
                                   name:
                                     type: string
-                                  isRegistrable:
+                                  is_registrable:
                                     type: boolean
                                   fee:
                                     type: object
@@ -50385,7 +50385,7 @@ paths:
                                       implements the custom method
 
                                       signatures required by gogoproto.
-                            defaultFee:
+                            default_fee:
                               type: object
                               properties:
                                 denom:
@@ -50401,27 +50401,27 @@ paths:
                                 implements the custom method
 
                                 signatures required by gogoproto.
-                        isRegistrable:
+                        is_registrable:
                           type: boolean
-                        registrableRole:
+                        registrable_role:
                           type: string
                           enum:
                             - NO_ROLE
                             - OWNER
                             - EDITOR
                           default: NO_ROLE
-                        customExpirationDate:
+                        custom_expiration_date:
                           type: boolean
-                        registrationPolicy:
+                        registration_policy:
                           type: string
                           enum:
                             - PRIVATE
                             - PUBLIC
                           default: PRIVATE
-                    subdomainCount:
+                    subdomain_count:
                       type: string
                       format: uint64
-                    accessControl:
+                    access_control:
                       type: array
                       items:
                         type: object
@@ -50435,7 +50435,7 @@ paths:
                               - OWNER
                               - EDITOR
                             default: NO_ROLE
-                    totalWithdrawalAmount:
+                    total_withdrawal_amount:
                       type: array
                       items:
                         type: object
@@ -50568,24 +50568,24 @@ paths:
           schema:
             type: object
             properties:
-              topLevelDomain:
+              top_level_domain:
                 type: object
                 properties:
                   name:
                     type: string
-                  expirationDate:
+                  expiration_date:
                     type: string
                     format: date-time
-                  subdomainConfig:
+                  subdomain_config:
                     type: object
                     properties:
-                      maxSubdomainRegistrations:
+                      max_subdomain_registrations:
                         type: string
                         format: uint64
-                      subdomainRegistrationFees:
+                      subdomain_registration_fees:
                         type: object
                         properties:
-                          feeByLength:
+                          fee_by_length:
                             type: array
                             items:
                               type: object
@@ -50593,7 +50593,7 @@ paths:
                                 length:
                                   type: integer
                                   format: int64
-                                isRegistrable:
+                                is_registrable:
                                   type: boolean
                                 fee:
                                   type: object
@@ -50611,14 +50611,14 @@ paths:
                                     implements the custom method
 
                                     signatures required by gogoproto.
-                          feeByName:
+                          fee_by_name:
                             type: array
                             items:
                               type: object
                               properties:
                                 name:
                                   type: string
-                                isRegistrable:
+                                is_registrable:
                                   type: boolean
                                 fee:
                                   type: object
@@ -50636,7 +50636,7 @@ paths:
                                     implements the custom method
 
                                     signatures required by gogoproto.
-                          defaultFee:
+                          default_fee:
                             type: object
                             properties:
                               denom:
@@ -50652,27 +50652,27 @@ paths:
                               the custom method
 
                               signatures required by gogoproto.
-                      isRegistrable:
+                      is_registrable:
                         type: boolean
-                      registrableRole:
+                      registrable_role:
                         type: string
                         enum:
                           - NO_ROLE
                           - OWNER
                           - EDITOR
                         default: NO_ROLE
-                      customExpirationDate:
+                      custom_expiration_date:
                         type: boolean
-                      registrationPolicy:
+                      registration_policy:
                         type: string
                         enum:
                           - PRIVATE
                           - PUBLIC
                         default: PRIVATE
-                  subdomainCount:
+                  subdomain_count:
                     type: string
                     format: uint64
-                  accessControl:
+                  access_control:
                     type: array
                     items:
                       type: object
@@ -50686,7 +50686,7 @@ paths:
                             - OWNER
                             - EDITOR
                           default: NO_ROLE
-                  totalWithdrawalAmount:
+                  total_withdrawal_amount:
                     type: array
                     items:
                       type: object
@@ -50742,10 +50742,10 @@ paths:
                 description: params holds all the parameters of this module.
                 type: object
                 properties:
-                  stakingInflationRatio:
+                  staking_inflation_ratio:
                     type: number
                     format: float
-                  topLevelDomainBaseFeeInUsd:
+                  top_level_domain_base_fee_in_usd:
                     type: string
                     format: int64
             description: >-
@@ -50780,7 +50780,7 @@ paths:
           schema:
             type: object
             properties:
-              secondLevelDomain:
+              second_level_domain:
                 type: array
                 items:
                   type: object
@@ -50789,7 +50789,7 @@ paths:
                       type: string
                     parent:
                       type: string
-                    expirationDate:
+                    expiration_date:
                       type: string
                       format: date-time
               pagination:
@@ -50907,14 +50907,14 @@ paths:
           schema:
             type: object
             properties:
-              secondLevelDomain:
+              second_level_domain:
                 type: object
                 properties:
                   name:
                     type: string
                   parent:
                     type: string
-                  expirationDate:
+                  expiration_date:
                     type: string
                     format: date-time
         default:
@@ -50946,7 +50946,7 @@ paths:
           type: string
       tags:
         - Query
-  /mycel-domain/mycel/resolver/v1beta1/all_records/{domainName}/{domainParent}:
+  /mycel-domain/mycel/resolver/v1beta1/all_records/{domain_name}/{domain_parent}:
     get:
       summary: Queries a list of AllRecord items.
       operationId: MycelResolverV1Beta1AllRecords
@@ -50961,10 +50961,10 @@ paths:
                 additionalProperties:
                   type: object
                   properties:
-                    dnsRecord:
+                    dns_record:
                       type: object
                       properties:
-                        dnsRecordType:
+                        dns_record_type:
                           type: string
                           enum:
                             - NO_RECORD_TYPE
@@ -50980,10 +50980,10 @@ paths:
                           default: NO_RECORD_TYPE
                         value:
                           type: string
-                    walletRecord:
+                    wallet_record:
                       type: object
                       properties:
-                        walletRecordType:
+                        wallet_record_type:
                           type: string
                           enum:
                             - NO_NETWORK
@@ -51043,7 +51043,7 @@ paths:
                           title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
                         value:
                           type: string
-                    textRecord:
+                    text_record:
                       type: object
                       properties:
                         key:
@@ -51069,17 +51069,17 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: domainName
+        - name: domain_name
           in: path
           required: true
           type: string
-        - name: domainParent
+        - name: domain_parent
           in: path
           required: true
           type: string
       tags:
         - Query
-  /mycel-domain/mycel/resolver/v1beta1/dns_record/{domainName}/{domainParent}/{dnsRecordType}:
+  /mycel-domain/mycel/resolver/v1beta1/dns_record/{domain_name}/{domain_parent}/{dns_record_type}:
     get:
       summary: Queries a list of DnsRecord items.
       operationId: MycelResolverV1Beta1DnsRecord
@@ -51092,7 +51092,7 @@ paths:
               value:
                 type: object
                 properties:
-                  dnsRecordType:
+                  dns_record_type:
                     type: string
                     enum:
                       - NO_RECORD_TYPE
@@ -51127,15 +51127,15 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: domainName
+        - name: domain_name
           in: path
           required: true
           type: string
-        - name: domainParent
+        - name: domain_parent
           in: path
           required: true
           type: string
-        - name: dnsRecordType
+        - name: dns_record_type
           in: path
           required: true
           type: string
@@ -51177,7 +51177,7 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
-  /mycel-domain/mycel/resolver/v1beta1/text_record/{domainName}/{domainParent}/{key}:
+  /mycel-domain/mycel/resolver/v1beta1/text_record/{domain_name}/{domain_parent}/{key}:
     get:
       summary: Queries a list of TextRecord items.
       operationId: MycelResolverV1Beta1TextRecord
@@ -51213,11 +51213,11 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: domainName
+        - name: domain_name
           in: path
           required: true
           type: string
-        - name: domainParent
+        - name: domain_parent
           in: path
           required: true
           type: string
@@ -51227,7 +51227,7 @@ paths:
           type: string
       tags:
         - Query
-  /mycel-domain/mycel/resolver/v1beta1/wallet_record/{domainName}/{domainParent}/{walletRecordType}:
+  /mycel-domain/mycel/resolver/v1beta1/wallet_record/{domain_name}/{domain_parent}/{wallet_record_type}:
     get:
       summary: Queries a list of QueryWalletRecord items.
       operationId: MycelResolverV1Beta1WalletRecord
@@ -51240,7 +51240,7 @@ paths:
               value:
                 type: object
                 properties:
-                  walletRecordType:
+                  wallet_record_type:
                     type: string
                     enum:
                       - NO_NETWORK
@@ -51319,15 +51319,15 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
-        - name: domainName
+        - name: domain_name
           in: path
           required: true
           type: string
-        - name: domainParent
+        - name: domain_parent
           in: path
           required: true
           type: string
-        - name: walletRecordType
+        - name: wallet_record_type
           in: path
           required: true
           type: string
@@ -80998,20 +80998,20 @@ definitions:
     properties:
       identifier:
         type: string
-      startTime:
+      start_time:
         type: string
         format: date-time
       duration:
         type: string
-      currentEpoch:
+      current_epoch:
         type: string
         format: int64
-      currentEpochStartTime:
+      current_epoch_start_time:
         type: string
         format: date-time
-      epochCountingStarted:
+      epoch_counting_started:
         type: boolean
-      currentEpochStartHeight:
+      current_epoch_start_height:
         type: string
         format: int64
   mycel.epochs.v1beta1.Params:
@@ -81020,27 +81020,27 @@ definitions:
   mycel.epochs.v1beta1.QueryAllEpochInfoResponse:
     type: object
     properties:
-      epochInfo:
+      epoch_info:
         type: array
         items:
           type: object
           properties:
             identifier:
               type: string
-            startTime:
+            start_time:
               type: string
               format: date-time
             duration:
               type: string
-            currentEpoch:
+            current_epoch:
               type: string
               format: int64
-            currentEpochStartTime:
+            current_epoch_start_time:
               type: string
               format: date-time
-            epochCountingStarted:
+            epoch_counting_started:
               type: boolean
-            currentEpochStartHeight:
+            current_epoch_start_height:
               type: string
               format: int64
       pagination:
@@ -81072,25 +81072,25 @@ definitions:
   mycel.epochs.v1beta1.QueryGetEpochInfoResponse:
     type: object
     properties:
-      epochInfo:
+      epoch_info:
         type: object
         properties:
           identifier:
             type: string
-          startTime:
+          start_time:
             type: string
             format: date-time
           duration:
             type: string
-          currentEpoch:
+          current_epoch:
             type: string
             format: int64
-          currentEpochStartTime:
+          current_epoch_start_time:
             type: string
             format: date-time
-          epochCountingStarted:
+          epoch_counting_started:
             type: boolean
-          currentEpochStartHeight:
+          current_epoch_start_height:
             type: string
             format: int64
   mycel.epochs.v1beta1.QueryParamsResponse:
@@ -81106,15 +81106,15 @@ definitions:
       index:
         type: string
         format: uint64
-      burnStarted:
+      burn_started:
         type: boolean
-      totalEpochs:
+      total_epochs:
         type: string
         format: uint64
-      currentEpoch:
+      current_epoch:
         type: string
         format: uint64
-      totalBurnAmount:
+      total_burn_amount:
         type: object
         properties:
           denom:
@@ -81126,7 +81126,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      cumulativeBurntAmount:
+      cumulative_burnt_amount:
         type: object
         properties:
           denom:
@@ -81141,15 +81141,15 @@ definitions:
   mycel.furnace.v1beta1.EpochBurnConfig:
     type: object
     properties:
-      epochIdentifier:
+      epoch_identifier:
         type: string
-      currentBurnAmountIndex:
-        type: string
-        format: uint64
-      defaultTotalEpochs:
+      current_burn_amount_index:
         type: string
         format: uint64
-      startTime:
+      default_total_epochs:
+        type: string
+        format: uint64
+      start_time:
         type: string
         format: date-time
   mycel.furnace.v1beta1.Params:
@@ -81158,7 +81158,7 @@ definitions:
   mycel.furnace.v1beta1.QueryAllBurnAmountResponse:
     type: object
     properties:
-      burnAmount:
+      burn_amount:
         type: array
         items:
           type: object
@@ -81166,15 +81166,15 @@ definitions:
             index:
               type: string
               format: uint64
-            burnStarted:
+            burn_started:
               type: boolean
-            totalEpochs:
+            total_epochs:
               type: string
               format: uint64
-            currentEpoch:
+            current_epoch:
               type: string
               format: uint64
-            totalBurnAmount:
+            total_burn_amount:
               type: object
               properties:
                 denom:
@@ -81189,7 +81189,7 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-            cumulativeBurntAmount:
+            cumulative_burnt_amount:
               type: object
               properties:
                 denom:
@@ -81233,21 +81233,21 @@ definitions:
   mycel.furnace.v1beta1.QueryGetBurnAmountResponse:
     type: object
     properties:
-      burnAmount:
+      burn_amount:
         type: object
         properties:
           index:
             type: string
             format: uint64
-          burnStarted:
+          burn_started:
             type: boolean
-          totalEpochs:
+          total_epochs:
             type: string
             format: uint64
-          currentEpoch:
+          current_epoch:
             type: string
             format: uint64
-          totalBurnAmount:
+          total_burn_amount:
             type: object
             properties:
               denom:
@@ -81262,7 +81262,7 @@ definitions:
               method
 
               signatures required by gogoproto.
-          cumulativeBurntAmount:
+          cumulative_burnt_amount:
             type: object
             properties:
               denom:
@@ -81280,18 +81280,18 @@ definitions:
   mycel.furnace.v1beta1.QueryGetEpochBurnConfigResponse:
     type: object
     properties:
-      EpochBurnConfig:
+      epoch_burn_config:
         type: object
         properties:
-          epochIdentifier:
+          epoch_identifier:
             type: string
-          currentBurnAmountIndex:
-            type: string
-            format: uint64
-          defaultTotalEpochs:
+          current_burn_amount_index:
             type: string
             format: uint64
-          startTime:
+          default_total_epochs:
+            type: string
+            format: uint64
+          start_time:
             type: string
             format: date-time
   mycel.furnace.v1beta1.QueryParamsResponse:
@@ -81340,7 +81340,7 @@ definitions:
       length:
         type: integer
         format: int64
-      isRegistrable:
+      is_registrable:
         type: boolean
       fee:
         type: object
@@ -81359,7 +81359,7 @@ definitions:
     properties:
       name:
         type: string
-      isRegistrable:
+      is_registrable:
         type: boolean
       fee:
         type: object
@@ -81376,24 +81376,24 @@ definitions:
   mycel.registry.v1beta1.MsgExtendTopLevelDomainExpirationDateResponse:
     type: object
     properties:
-      topLevelDomain:
+      top_level_domain:
         type: object
         properties:
           name:
             type: string
-          expirationDate:
+          expiration_date:
             type: string
             format: date-time
-          subdomainConfig:
+          subdomain_config:
             type: object
             properties:
-              maxSubdomainRegistrations:
+              max_subdomain_registrations:
                 type: string
                 format: uint64
-              subdomainRegistrationFees:
+              subdomain_registration_fees:
                 type: object
                 properties:
-                  feeByLength:
+                  fee_by_length:
                     type: array
                     items:
                       type: object
@@ -81401,7 +81401,7 @@ definitions:
                         length:
                           type: integer
                           format: int64
-                        isRegistrable:
+                        is_registrable:
                           type: boolean
                         fee:
                           type: object
@@ -81419,14 +81419,14 @@ definitions:
                             the custom method
 
                             signatures required by gogoproto.
-                  feeByName:
+                  fee_by_name:
                     type: array
                     items:
                       type: object
                       properties:
                         name:
                           type: string
-                        isRegistrable:
+                        is_registrable:
                           type: boolean
                         fee:
                           type: object
@@ -81444,7 +81444,7 @@ definitions:
                             the custom method
 
                             signatures required by gogoproto.
-                  defaultFee:
+                  default_fee:
                     type: object
                     properties:
                       denom:
@@ -81459,27 +81459,27 @@ definitions:
                       custom method
 
                       signatures required by gogoproto.
-              isRegistrable:
+              is_registrable:
                 type: boolean
-              registrableRole:
+              registrable_role:
                 type: string
                 enum:
                   - NO_ROLE
                   - OWNER
                   - EDITOR
                 default: NO_ROLE
-              customExpirationDate:
+              custom_expiration_date:
                 type: boolean
-              registrationPolicy:
+              registration_policy:
                 type: string
                 enum:
                   - PRIVATE
                   - PUBLIC
                 default: PRIVATE
-          subdomainCount:
+          subdomain_count:
             type: string
             format: uint64
-          accessControl:
+          access_control:
             type: array
             items:
               type: object
@@ -81493,7 +81493,7 @@ definitions:
                     - OWNER
                     - EDITOR
                   default: NO_ROLE
-          totalWithdrawalAmount:
+          total_withdrawal_amount:
             type: array
             items:
               type: object
@@ -81513,7 +81513,7 @@ definitions:
       fee:
         type: object
         properties:
-          totalFee:
+          total_fee:
             type: array
             items:
               type: object
@@ -81530,9 +81530,9 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-          burnWeight:
+          burn_weight:
             type: string
-          feeToBurn:
+          fee_to_burn:
             type: object
             properties:
               denom:
@@ -81547,7 +81547,7 @@ definitions:
               method
 
               signatures required by gogoproto.
-          feeToTreasury:
+          fee_to_treasury:
             type: object
             properties:
               denom:
@@ -81567,24 +81567,24 @@ definitions:
   mycel.registry.v1beta1.MsgRegisterTopLevelDomainResponse:
     type: object
     properties:
-      topLevelDomain:
+      top_level_domain:
         type: object
         properties:
           name:
             type: string
-          expirationDate:
+          expiration_date:
             type: string
             format: date-time
-          subdomainConfig:
+          subdomain_config:
             type: object
             properties:
-              maxSubdomainRegistrations:
+              max_subdomain_registrations:
                 type: string
                 format: uint64
-              subdomainRegistrationFees:
+              subdomain_registration_fees:
                 type: object
                 properties:
-                  feeByLength:
+                  fee_by_length:
                     type: array
                     items:
                       type: object
@@ -81592,7 +81592,7 @@ definitions:
                         length:
                           type: integer
                           format: int64
-                        isRegistrable:
+                        is_registrable:
                           type: boolean
                         fee:
                           type: object
@@ -81610,14 +81610,14 @@ definitions:
                             the custom method
 
                             signatures required by gogoproto.
-                  feeByName:
+                  fee_by_name:
                     type: array
                     items:
                       type: object
                       properties:
                         name:
                           type: string
-                        isRegistrable:
+                        is_registrable:
                           type: boolean
                         fee:
                           type: object
@@ -81635,7 +81635,7 @@ definitions:
                             the custom method
 
                             signatures required by gogoproto.
-                  defaultFee:
+                  default_fee:
                     type: object
                     properties:
                       denom:
@@ -81650,27 +81650,27 @@ definitions:
                       custom method
 
                       signatures required by gogoproto.
-              isRegistrable:
+              is_registrable:
                 type: boolean
-              registrableRole:
+              registrable_role:
                 type: string
                 enum:
                   - NO_ROLE
                   - OWNER
                   - EDITOR
                 default: NO_ROLE
-              customExpirationDate:
+              custom_expiration_date:
                 type: boolean
-              registrationPolicy:
+              registration_policy:
                 type: string
                 enum:
                   - PRIVATE
                   - PUBLIC
                 default: PRIVATE
-          subdomainCount:
+          subdomain_count:
             type: string
             format: uint64
-          accessControl:
+          access_control:
             type: array
             items:
               type: object
@@ -81684,7 +81684,7 @@ definitions:
                     - OWNER
                     - EDITOR
                   default: NO_ROLE
-          totalWithdrawalAmount:
+          total_withdrawal_amount:
             type: array
             items:
               type: object
@@ -81704,7 +81704,7 @@ definitions:
       fee:
         type: object
         properties:
-          totalFee:
+          total_fee:
             type: array
             items:
               type: object
@@ -81721,9 +81721,9 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-          burnWeight:
+          burn_weight:
             type: string
-          feeToBurn:
+          fee_to_burn:
             type: object
             properties:
               denom:
@@ -81738,7 +81738,7 @@ definitions:
               method
 
               signatures required by gogoproto.
-          feeToTreasury:
+          fee_to_treasury:
             type: object
             properties:
               denom:
@@ -81764,7 +81764,7 @@ definitions:
   mycel.registry.v1beta1.MsgWithdrawRegistrationFeeResponse:
     type: object
     properties:
-      registrationFee:
+      registration_fee:
         type: array
         items:
           type: object
@@ -81788,17 +81788,17 @@ definitions:
   mycel.registry.v1beta1.Params:
     type: object
     properties:
-      stakingInflationRatio:
+      staking_inflation_ratio:
         type: number
         format: float
-      topLevelDomainBaseFeeInUsd:
+      top_level_domain_base_fee_in_usd:
         type: string
         format: int64
     description: Params defines the parameters for the module.
   mycel.registry.v1beta1.QueryAllDomainOwnershipResponse:
     type: object
     properties:
-      domainOwnership:
+      domain_ownership:
         type: array
         items:
           type: object
@@ -81843,7 +81843,7 @@ definitions:
   mycel.registry.v1beta1.QueryAllSecondLevelDomainResponse:
     type: object
     properties:
-      secondLevelDomain:
+      second_level_domain:
         type: array
         items:
           type: object
@@ -81852,7 +81852,7 @@ definitions:
               type: string
             parent:
               type: string
-            expirationDate:
+            expiration_date:
               type: string
               format: date-time
       pagination:
@@ -81884,26 +81884,26 @@ definitions:
   mycel.registry.v1beta1.QueryAllTopLevelDomainResponse:
     type: object
     properties:
-      topLevelDomain:
+      top_level_domain:
         type: array
         items:
           type: object
           properties:
             name:
               type: string
-            expirationDate:
+            expiration_date:
               type: string
               format: date-time
-            subdomainConfig:
+            subdomain_config:
               type: object
               properties:
-                maxSubdomainRegistrations:
+                max_subdomain_registrations:
                   type: string
                   format: uint64
-                subdomainRegistrationFees:
+                subdomain_registration_fees:
                   type: object
                   properties:
-                    feeByLength:
+                    fee_by_length:
                       type: array
                       items:
                         type: object
@@ -81911,7 +81911,7 @@ definitions:
                           length:
                             type: integer
                             format: int64
-                          isRegistrable:
+                          is_registrable:
                             type: boolean
                           fee:
                             type: object
@@ -81929,14 +81929,14 @@ definitions:
                               the custom method
 
                               signatures required by gogoproto.
-                    feeByName:
+                    fee_by_name:
                       type: array
                       items:
                         type: object
                         properties:
                           name:
                             type: string
-                          isRegistrable:
+                          is_registrable:
                             type: boolean
                           fee:
                             type: object
@@ -81954,7 +81954,7 @@ definitions:
                               the custom method
 
                               signatures required by gogoproto.
-                    defaultFee:
+                    default_fee:
                       type: object
                       properties:
                         denom:
@@ -81969,27 +81969,27 @@ definitions:
                         custom method
 
                         signatures required by gogoproto.
-                isRegistrable:
+                is_registrable:
                   type: boolean
-                registrableRole:
+                registrable_role:
                   type: string
                   enum:
                     - NO_ROLE
                     - OWNER
                     - EDITOR
                   default: NO_ROLE
-                customExpirationDate:
+                custom_expiration_date:
                   type: boolean
-                registrationPolicy:
+                registration_policy:
                   type: string
                   enum:
                     - PRIVATE
                     - PUBLIC
                   default: PRIVATE
-            subdomainCount:
+            subdomain_count:
               type: string
               format: uint64
-            accessControl:
+            access_control:
               type: array
               items:
                 type: object
@@ -82003,7 +82003,7 @@ definitions:
                       - OWNER
                       - EDITOR
                     default: NO_ROLE
-            totalWithdrawalAmount:
+            total_withdrawal_amount:
               type: array
               items:
                 type: object
@@ -82049,7 +82049,7 @@ definitions:
   mycel.registry.v1beta1.QueryDomainRegistrationFeeResponse:
     type: object
     properties:
-      isRegistrable:
+      is_registrable:
         type: boolean
       fee:
         type: array
@@ -82065,18 +82065,18 @@ definitions:
 
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
-      registrationPeriodInYear:
+      registration_period_in_year:
         type: string
         format: uint64
-      maxSubDomainRegistrations:
+      max_sub_domain_registrations:
         type: string
         format: uint64
-      errorMessage:
+      error_message:
         type: string
   mycel.registry.v1beta1.QueryGetDomainOwnershipResponse:
     type: object
     properties:
-      domainOwnership:
+      domain_ownership:
         type: object
         properties:
           owner:
@@ -82093,37 +82093,37 @@ definitions:
   mycel.registry.v1beta1.QueryGetSecondLevelDomainResponse:
     type: object
     properties:
-      secondLevelDomain:
+      second_level_domain:
         type: object
         properties:
           name:
             type: string
           parent:
             type: string
-          expirationDate:
+          expiration_date:
             type: string
             format: date-time
   mycel.registry.v1beta1.QueryGetTopLevelDomainResponse:
     type: object
     properties:
-      topLevelDomain:
+      top_level_domain:
         type: object
         properties:
           name:
             type: string
-          expirationDate:
+          expiration_date:
             type: string
             format: date-time
-          subdomainConfig:
+          subdomain_config:
             type: object
             properties:
-              maxSubdomainRegistrations:
+              max_subdomain_registrations:
                 type: string
                 format: uint64
-              subdomainRegistrationFees:
+              subdomain_registration_fees:
                 type: object
                 properties:
-                  feeByLength:
+                  fee_by_length:
                     type: array
                     items:
                       type: object
@@ -82131,7 +82131,7 @@ definitions:
                         length:
                           type: integer
                           format: int64
-                        isRegistrable:
+                        is_registrable:
                           type: boolean
                         fee:
                           type: object
@@ -82149,14 +82149,14 @@ definitions:
                             the custom method
 
                             signatures required by gogoproto.
-                  feeByName:
+                  fee_by_name:
                     type: array
                     items:
                       type: object
                       properties:
                         name:
                           type: string
-                        isRegistrable:
+                        is_registrable:
                           type: boolean
                         fee:
                           type: object
@@ -82174,7 +82174,7 @@ definitions:
                             the custom method
 
                             signatures required by gogoproto.
-                  defaultFee:
+                  default_fee:
                     type: object
                     properties:
                       denom:
@@ -82189,27 +82189,27 @@ definitions:
                       custom method
 
                       signatures required by gogoproto.
-              isRegistrable:
+              is_registrable:
                 type: boolean
-              registrableRole:
+              registrable_role:
                 type: string
                 enum:
                   - NO_ROLE
                   - OWNER
                   - EDITOR
                 default: NO_ROLE
-              customExpirationDate:
+              custom_expiration_date:
                 type: boolean
-              registrationPolicy:
+              registration_policy:
                 type: string
                 enum:
                   - PRIVATE
                   - PUBLIC
                 default: PRIVATE
-          subdomainCount:
+          subdomain_count:
             type: string
             format: uint64
-          accessControl:
+          access_control:
             type: array
             items:
               type: object
@@ -82223,7 +82223,7 @@ definitions:
                     - OWNER
                     - EDITOR
                   default: NO_ROLE
-          totalWithdrawalAmount:
+          total_withdrawal_amount:
             type: array
             items:
               type: object
@@ -82247,10 +82247,10 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
         properties:
-          stakingInflationRatio:
+          staking_inflation_ratio:
             type: number
             format: float
-          topLevelDomainBaseFeeInUsd:
+          top_level_domain_base_fee_in_usd:
             type: string
             format: int64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
@@ -82272,19 +82272,19 @@ definitions:
         type: string
       parent:
         type: string
-      expirationDate:
+      expiration_date:
         type: string
         format: date-time
   mycel.registry.v1beta1.SubdomainConfig:
     type: object
     properties:
-      maxSubdomainRegistrations:
+      max_subdomain_registrations:
         type: string
         format: uint64
-      subdomainRegistrationFees:
+      subdomain_registration_fees:
         type: object
         properties:
-          feeByLength:
+          fee_by_length:
             type: array
             items:
               type: object
@@ -82292,7 +82292,7 @@ definitions:
                 length:
                   type: integer
                   format: int64
-                isRegistrable:
+                is_registrable:
                   type: boolean
                 fee:
                   type: object
@@ -82309,14 +82309,14 @@ definitions:
                     method
 
                     signatures required by gogoproto.
-          feeByName:
+          fee_by_name:
             type: array
             items:
               type: object
               properties:
                 name:
                   type: string
-                isRegistrable:
+                is_registrable:
                   type: boolean
                 fee:
                   type: object
@@ -82333,7 +82333,7 @@ definitions:
                     method
 
                     signatures required by gogoproto.
-          defaultFee:
+          default_fee:
             type: object
             properties:
               denom:
@@ -82348,18 +82348,18 @@ definitions:
               method
 
               signatures required by gogoproto.
-      isRegistrable:
+      is_registrable:
         type: boolean
-      registrableRole:
+      registrable_role:
         type: string
         enum:
           - NO_ROLE
           - OWNER
           - EDITOR
         default: NO_ROLE
-      customExpirationDate:
+      custom_expiration_date:
         type: boolean
-      registrationPolicy:
+      registration_policy:
         type: string
         enum:
           - PRIVATE
@@ -82368,7 +82368,7 @@ definitions:
   mycel.registry.v1beta1.SubdomainRegistrationFees:
     type: object
     properties:
-      feeByLength:
+      fee_by_length:
         type: array
         items:
           type: object
@@ -82376,7 +82376,7 @@ definitions:
             length:
               type: integer
               format: int64
-            isRegistrable:
+            is_registrable:
               type: boolean
             fee:
               type: object
@@ -82393,14 +82393,14 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-      feeByName:
+      fee_by_name:
         type: array
         items:
           type: object
           properties:
             name:
               type: string
-            isRegistrable:
+            is_registrable:
               type: boolean
             fee:
               type: object
@@ -82417,7 +82417,7 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-      defaultFee:
+      default_fee:
         type: object
         properties:
           denom:
@@ -82434,19 +82434,19 @@ definitions:
     properties:
       name:
         type: string
-      expirationDate:
+      expiration_date:
         type: string
         format: date-time
-      subdomainConfig:
+      subdomain_config:
         type: object
         properties:
-          maxSubdomainRegistrations:
+          max_subdomain_registrations:
             type: string
             format: uint64
-          subdomainRegistrationFees:
+          subdomain_registration_fees:
             type: object
             properties:
-              feeByLength:
+              fee_by_length:
                 type: array
                 items:
                   type: object
@@ -82454,7 +82454,7 @@ definitions:
                     length:
                       type: integer
                       format: int64
-                    isRegistrable:
+                    is_registrable:
                       type: boolean
                     fee:
                       type: object
@@ -82471,14 +82471,14 @@ definitions:
                         custom method
 
                         signatures required by gogoproto.
-              feeByName:
+              fee_by_name:
                 type: array
                 items:
                   type: object
                   properties:
                     name:
                       type: string
-                    isRegistrable:
+                    is_registrable:
                       type: boolean
                     fee:
                       type: object
@@ -82495,7 +82495,7 @@ definitions:
                         custom method
 
                         signatures required by gogoproto.
-              defaultFee:
+              default_fee:
                 type: object
                 properties:
                   denom:
@@ -82510,27 +82510,27 @@ definitions:
                   method
 
                   signatures required by gogoproto.
-          isRegistrable:
+          is_registrable:
             type: boolean
-          registrableRole:
+          registrable_role:
             type: string
             enum:
               - NO_ROLE
               - OWNER
               - EDITOR
             default: NO_ROLE
-          customExpirationDate:
+          custom_expiration_date:
             type: boolean
-          registrationPolicy:
+          registration_policy:
             type: string
             enum:
               - PRIVATE
               - PUBLIC
             default: PRIVATE
-      subdomainCount:
+      subdomain_count:
         type: string
         format: uint64
-      accessControl:
+      access_control:
         type: array
         items:
           type: object
@@ -82544,7 +82544,7 @@ definitions:
                 - OWNER
                 - EDITOR
               default: NO_ROLE
-      totalWithdrawalAmount:
+      total_withdrawal_amount:
         type: array
         items:
           type: object
@@ -82561,7 +82561,7 @@ definitions:
   mycel.registry.v1beta1.TopLevelDomainFee:
     type: object
     properties:
-      totalFee:
+      total_fee:
         type: array
         items:
           type: object
@@ -82575,9 +82575,9 @@ definitions:
 
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
-      burnWeight:
+      burn_weight:
         type: string
-      feeToBurn:
+      fee_to_burn:
         type: object
         properties:
           denom:
@@ -82589,7 +82589,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      feeToTreasury:
+      fee_to_treasury:
         type: object
         properties:
           denom:
@@ -82604,7 +82604,7 @@ definitions:
   mycel.registry.v1beta1.DnsRecord:
     type: object
     properties:
-      dnsRecordType:
+      dns_record_type:
         type: string
         enum:
           - NO_RECORD_TYPE
@@ -82695,10 +82695,10 @@ definitions:
   mycel.registry.v1beta1.Record:
     type: object
     properties:
-      dnsRecord:
+      dns_record:
         type: object
         properties:
-          dnsRecordType:
+          dns_record_type:
             type: string
             enum:
               - NO_RECORD_TYPE
@@ -82714,10 +82714,10 @@ definitions:
             default: NO_RECORD_TYPE
           value:
             type: string
-      walletRecord:
+      wallet_record:
         type: object
         properties:
-          walletRecordType:
+          wallet_record_type:
             type: string
             enum:
               - NO_NETWORK
@@ -82777,7 +82777,7 @@ definitions:
             title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
           value:
             type: string
-      textRecord:
+      text_record:
         type: object
         properties:
           key:
@@ -82794,7 +82794,7 @@ definitions:
   mycel.registry.v1beta1.WalletRecord:
     type: object
     properties:
-      walletRecordType:
+      wallet_record_type:
         type: string
         enum:
           - NO_NETWORK
@@ -82865,10 +82865,10 @@ definitions:
         additionalProperties:
           type: object
           properties:
-            dnsRecord:
+            dns_record:
               type: object
               properties:
-                dnsRecordType:
+                dns_record_type:
                   type: string
                   enum:
                     - NO_RECORD_TYPE
@@ -82884,10 +82884,10 @@ definitions:
                   default: NO_RECORD_TYPE
                 value:
                   type: string
-            walletRecord:
+            wallet_record:
               type: object
               properties:
-                walletRecordType:
+                wallet_record_type:
                   type: string
                   enum:
                     - NO_NETWORK
@@ -82947,7 +82947,7 @@ definitions:
                   title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
                 value:
                   type: string
-            textRecord:
+            text_record:
               type: object
               properties:
                 key:
@@ -82960,7 +82960,7 @@ definitions:
       value:
         type: object
         properties:
-          dnsRecordType:
+          dns_record_type:
             type: string
             enum:
               - NO_RECORD_TYPE
@@ -82999,7 +82999,7 @@ definitions:
       value:
         type: object
         properties:
-          walletRecordType:
+          wallet_record_type:
             type: string
             enum:
               - NO_NETWORK

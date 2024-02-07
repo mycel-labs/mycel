@@ -8,6 +8,6 @@ option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 // Params defines the parameters for the module.
 message Params {
   option (gogoproto.goproto_stringer) = false;
-  float stakingInflationRatio = 1;
-  int64 topLevelDomainBaseFeeInUsd = 2;
+  float staking_inflation_ratio = 1;
+  int64 top_level_domain_base_fee_in_usd = 2;
 }

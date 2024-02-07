@@ -11,28 +11,28 @@ option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
 message TopLevelDomain {
   string name = 1;
-  google.protobuf.Timestamp expirationDate = 2
+  google.protobuf.Timestamp expiration_date = 2
       [ (gogoproto.stdtime) = true, (gogoproto.nullable) = false ];
-  SubdomainConfig subdomainConfig = 3;
-  uint64 subdomainCount = 4;
-  repeated AccessControl accessControl = 5;
-  repeated cosmos.base.v1beta1.Coin totalWithdrawalAmount = 6 [
+  SubdomainConfig subdomain_config = 3;
+  uint64 subdomain_count = 4;
+  repeated AccessControl access_control = 5;
+  repeated cosmos.base.v1beta1.Coin total_withdrawal_amount = 6 [
     (gogoproto.nullable) = false,
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
   ];
 }
 
 message TopLevelDomainFee {
-  repeated cosmos.base.v1beta1.Coin totalFee = 1 [
+  repeated cosmos.base.v1beta1.Coin total_fee = 1 [
     (gogoproto.nullable) = false,
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
   ];
-  string burnWeight = 2;
-  cosmos.base.v1beta1.Coin feeToBurn = 3 [
+  string burn_weight = 2;
+  cosmos.base.v1beta1.Coin fee_to_burn = 3 [
     (gogoproto.nullable) = false,
     (gogoproto.castvalue) = "github.com/cosmos/cosmos-sdk/types.Coin"
   ];
-  cosmos.base.v1beta1.Coin feeToTreasury = 4 [
+  cosmos.base.v1beta1.Coin fee_to_treasury = 4 [
     (gogoproto.nullable) = false,
     (gogoproto.castvalue) = "github.com/cosmos/cosmos-sdk/types.Coin"
   ];

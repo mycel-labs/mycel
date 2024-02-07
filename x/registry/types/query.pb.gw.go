@@ -470,15 +470,15 @@ func request_Query_Role_0(ctx context.Context, marshaler runtime.Marshaler, clie
 		_   = err
 	)
 
-	val, ok = pathParams["domainName"]
+	val, ok = pathParams["domain_name"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_name")
 	}
 
 	protoReq.DomainName, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_name", err)
 	}
 
 	val, ok = pathParams["address"]
@@ -508,15 +508,15 @@ func local_request_Query_Role_0(ctx context.Context, marshaler runtime.Marshaler
 		_   = err
 	)
 
-	val, ok = pathParams["domainName"]
+	val, ok = pathParams["domain_name"]
 	if !ok {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domainName")
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "domain_name")
 	}
 
 	protoReq.DomainName, err = runtime.String(val)
 
 	if err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domainName", err)
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "domain_name", err)
 	}
 
 	val, ok = pathParams["address"]
@@ -989,7 +989,7 @@ var (
 
 	pattern_Query_DomainRegistrationFee_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6, 1, 0, 4, 1, 5, 7}, []string{"mycel-domain", "mycel", "registry", "v1beta1", "domain_registration_fee", "name", "parent", "registerer"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Query_Role_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "registry", "v1beta1", "role", "domainName", "address"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Role_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5, 1, 0, 4, 1, 5, 6}, []string{"mycel-domain", "mycel", "registry", "v1beta1", "role", "domain_name", "address"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

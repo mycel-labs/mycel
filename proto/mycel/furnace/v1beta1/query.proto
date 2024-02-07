@@ -2,7 +2,6 @@ syntax = "proto3";
 package mycel.furnace.v1beta1;
 
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "mycel/furnace/v1beta1/burn_amount.proto";
@@ -50,13 +49,13 @@ message QueryParamsResponse {
 message QueryGetEpochBurnConfigRequest {}
 
 message QueryGetEpochBurnConfigResponse {
-  EpochBurnConfig EpochBurnConfig = 1 [ (gogoproto.nullable) = false ];
+  EpochBurnConfig epoch_burn_config = 1 [ (gogoproto.nullable) = false ];
 }
 
 message QueryGetBurnAmountRequest { uint64 index = 1; }
 
 message QueryGetBurnAmountResponse {
-  BurnAmount burnAmount = 1 [ (gogoproto.nullable) = false ];
+  BurnAmount burn_amount = 1 [ (gogoproto.nullable) = false ];
 }
 
 message QueryAllBurnAmountRequest {
@@ -64,6 +63,6 @@ message QueryAllBurnAmountRequest {
 }
 
 message QueryAllBurnAmountResponse {
-  repeated BurnAmount burnAmount = 1 [ (gogoproto.nullable) = false ];
+  repeated BurnAmount burn_amount = 1 [ (gogoproto.nullable) = false ];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

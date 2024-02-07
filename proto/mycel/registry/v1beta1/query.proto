@@ -9,7 +9,6 @@ import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 import "mycel/registry/v1beta1/domain_ownership.proto";
 import "mycel/registry/v1beta1/params.proto";
-import "mycel/registry/v1beta1/second_level_domain.proto";
 import "mycel/registry/v1beta1/top_level_domain.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
@@ -69,7 +68,7 @@ service Query {
   // Queries a list of Role items.
   rpc Role(QueryRoleRequest) returns (QueryRoleResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/registry/v1beta1/role/{domainName}/{address}";
+        "/mycel-domain/mycel/registry/v1beta1/role/{domain_name}/{address}";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -85,7 +84,7 @@ message QueryParamsResponse {
 message QueryGetTopLevelDomainRequest { string name = 1; }
 
 message QueryGetTopLevelDomainResponse {
-  TopLevelDomain topLevelDomain = 1 [ (gogoproto.nullable) = false ];
+  TopLevelDomain top_level_domain = 1 [ (gogoproto.nullable) = false ];
 }
 
 message QueryAllTopLevelDomainRequest {
@@ -93,7 +92,7 @@ message QueryAllTopLevelDomainRequest {
 }
 
 message QueryAllTopLevelDomainResponse {
-  repeated TopLevelDomain topLevelDomain = 1 [ (gogoproto.nullable) = false ];
+  repeated TopLevelDomain top_level_domain = 1 [ (gogoproto.nullable) = false ];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
@@ -105,12 +104,12 @@ message QueryGetSecondLevelDomainRequest {
 message SecondLevelDomainResponse {
   string name = 1;
   string parent = 2;
-  google.protobuf.Timestamp expirationDate = 3
+  google.protobuf.Timestamp expiration_date = 3
       [ (gogoproto.stdtime) = true, (gogoproto.nullable) = false ];
 }
 
 message QueryGetSecondLevelDomainResponse {
-  SecondLevelDomainResponse secondLevelDomain = 1
+  SecondLevelDomainResponse second_level_domain = 1
       [ (gogoproto.nullable) = false ];
 }
 
@@ -119,7 +118,7 @@ message QueryAllSecondLevelDomainRequest {
 }
 
 message QueryAllSecondLevelDomainResponse {
-  repeated SecondLevelDomainResponse secondLevelDomain = 1
+  repeated SecondLevelDomainResponse second_level_domain = 1
       [ (gogoproto.nullable) = false ];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
@@ -127,7 +126,7 @@ message QueryAllSecondLevelDomainResponse {
 message QueryGetDomainOwnershipRequest { string owner = 1; }
 
 message QueryGetDomainOwnershipResponse {
-  DomainOwnership domainOwnership = 1 [ (gogoproto.nullable) = false ];
+  DomainOwnership domain_ownership = 1 [ (gogoproto.nullable) = false ];
 }
 
 message QueryAllDomainOwnershipRequest {
@@ -135,30 +134,31 @@ message QueryAllDomainOwnershipRequest {
 }
 
 message QueryAllDomainOwnershipResponse {
-  repeated DomainOwnership domainOwnership = 1 [ (gogoproto.nullable) = false ];
+  repeated DomainOwnership domain_ownership = 1
+      [ (gogoproto.nullable) = false ];
   cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 message QueryDomainRegistrationFeeRequest {
   string name = 1;
   string parent = 2;
-  uint64 registrationPeriodInYear = 3;
+  uint64 registration_period_in_year = 3;
   string registerer = 4;
 }
 
 message QueryDomainRegistrationFeeResponse {
-  bool isRegistrable = 1;
+  bool is_registrable = 1;
   repeated cosmos.base.v1beta1.Coin fee = 2 [
     (gogoproto.nullable) = false,
     (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
   ];
-  uint64 registrationPeriodInYear = 3;
-  uint64 maxSubDomainRegistrations = 4;
-  string errorMessage = 5;
+  uint64 registration_period_in_year = 3;
+  uint64 max_sub_domain_registrations = 4;
+  string error_message = 5;
 }
 
 message QueryRoleRequest {
-  string domainName = 1;
+  string domain_name = 1;
   string address = 2;
 }
 
