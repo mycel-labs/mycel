@@ -2,7 +2,6 @@ syntax = "proto3";
 package mycel.furnace.v1beta1;
 
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "mycel/furnace/v1beta1/burn_amount.proto";

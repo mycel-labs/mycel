@@ -2,7 +2,6 @@ syntax = "proto3";
 package mycel.furnace.v1beta1;
 
 import "gogoproto/gogo.proto";
-import "google/protobuf/duration.proto";
 import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/furnace/types";

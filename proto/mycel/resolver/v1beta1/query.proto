@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package mycel.resolver.v1beta1;
 
-import "cosmos/base/query/v1beta1/pagination.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "mycel/registry/v1beta1/second_level_domain.proto";
