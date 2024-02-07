@@ -49464,7 +49464,7 @@ paths:
         - Query
   /mycel/epochs/v1beta1/epoch_info:
     get:
-      operationId: MycelEpochsEpochInfoAll
+      operationId: MycelEpochsV1Beta1EpochInfoAll
       responses:
         '200':
           description: A successful response.
@@ -49602,7 +49602,7 @@ paths:
   /mycel/epochs/v1beta1/epoch_info/{identifier}:
     get:
       summary: Queries a list of EpochInfo items.
-      operationId: MycelEpochsEpochInfo
+      operationId: MycelEpochsV1Beta1EpochInfo
       responses:
         '200':
           description: A successful response.
@@ -49658,7 +49658,7 @@ paths:
   /mycel/epochs/v1beta1/params:
     get:
       summary: Parameters queries the parameters of the module.
-      operationId: MycelEpochsParams
+      operationId: MycelEpochsV1Beta1Params
       responses:
         '200':
           description: A successful response.
@@ -49693,7 +49693,7 @@ paths:
         - Query
   /mycel-domain/mycel/furnace/v1beta1/burn_amount:
     get:
-      operationId: MycelFurnaceBurnAmountAll
+      operationId: MycelFurnaceV1Beta1BurnAmountAll
       responses:
         '200':
           description: A successful response.
@@ -49854,7 +49854,7 @@ paths:
   /mycel-domain/mycel/furnace/v1beta1/burn_amount/{index}:
     get:
       summary: Queries a list of BurnAmount items.
-      operationId: MycelFurnaceBurnAmount
+      operationId: MycelFurnaceV1Beta1BurnAmount
       responses:
         '200':
           description: A successful response.
@@ -49934,7 +49934,7 @@ paths:
   /mycel-domain/mycel/furnace/v1beta1/epoch_burn_config:
     get:
       summary: Queries a EpochBurnConfig by index.
-      operationId: MycelFurnaceEpochBurnConfig
+      operationId: MycelFurnaceV1Beta1EpochBurnConfig
       responses:
         '200':
           description: A successful response.
@@ -49978,7 +49978,7 @@ paths:
   /mycel-domain/mycel/furnace/v1beta1/params:
     get:
       summary: Parameters queries the parameters of the module.
-      operationId: MycelFurnaceParams
+      operationId: MycelFurnaceV1Beta1Params
       responses:
         '200':
           description: A successful response.
@@ -50013,7 +50013,7 @@ paths:
         - Query
   /mycel-domain/mycel/registry/v1beta1/domain_ownership:
     get:
-      operationId: MycelRegistryDomainOwnershipAll
+      operationId: MycelRegistryV1Beta1DomainOwnershipAll
       responses:
         '200':
           description: A successful response.
@@ -50144,7 +50144,7 @@ paths:
   /mycel-domain/mycel/registry/v1beta1/domain_ownership/{owner}:
     get:
       summary: Queries a list of DomainOwnership items.
-      operationId: MycelRegistryDomainOwnership
+      operationId: MycelRegistryV1Beta1DomainOwnership
       responses:
         '200':
           description: A successful response.
@@ -50193,7 +50193,7 @@ paths:
   /mycel-domain/mycel/registry/v1beta1/domain_registration_fee/{name}/{parent}/{registerer}:
     get:
       summary: Queries a list of DomainRegistrationFee items.
-      operationId: MycelRegistryDomainRegistrationFee
+      operationId: MycelRegistryV1Beta1DomainRegistrationFee
       responses:
         '200':
           description: A successful response.
@@ -50268,7 +50268,7 @@ paths:
   /mycel-domain/mycel/registry/v1beta1/role/{domainName}/{address}:
     get:
       summary: Queries a list of Role items.
-      operationId: MycelRegistryRole
+      operationId: MycelRegistryV1Beta1Role
       responses:
         '200':
           description: A successful response.
@@ -50308,7 +50308,7 @@ paths:
         - Query
   /mycel-domain/mycel/registry/v1beta1/top_level_domain:
     get:
-      operationId: MycelRegistryTopLevelDomainAll
+      operationId: MycelRegistryV1Beta1TopLevelDomainAll
       responses:
         '200':
           description: A successful response.
@@ -50561,7 +50561,7 @@ paths:
   /mycel-domain/mycel/registry/v1beta1/top_level_domain/{name}:
     get:
       summary: Queries a list of TopLevelDomain items.
-      operationId: MycelRegistryTopLevelDomain
+      operationId: MycelRegistryV1Beta1TopLevelDomain
       responses:
         '200':
           description: A successful response.
@@ -50731,7 +50731,7 @@ paths:
   /mycel/registry/v1beta1/params:
     get:
       summary: Parameters queries the parameters of the module.
-      operationId: MycelRegistryParams
+      operationId: MycelRegistryV1Beta1Params
       responses:
         '200':
           description: A successful response.
@@ -50773,7 +50773,7 @@ paths:
         - Query
   /mycel/registry/v1beta1/second_level_domain:
     get:
-      operationId: MycelRegistrySecondLevelDomainAll
+      operationId: MycelRegistryV1Beta1SecondLevelDomainAll
       responses:
         '200':
           description: A successful response.
@@ -50900,7 +50900,7 @@ paths:
   /mycel/registry/v1beta1/second_level_domain/{name}/{parent}:
     get:
       summary: Queries a list of SecondLevelDomain items.
-      operationId: MycelRegistrySecondLevelDomain
+      operationId: MycelRegistryV1Beta1SecondLevelDomain
       responses:
         '200':
           description: A successful response.
@@ -50949,7 +50949,7 @@ paths:
   /mycel-domain/mycel/resolver/v1beta1/all_records/{domainName}/{domainParent}:
     get:
       summary: Queries a list of AllRecord items.
-      operationId: MycelResolverAllRecords
+      operationId: MycelResolverV1Beta1AllRecords
       responses:
         '200':
           description: A successful response.
@@ -51082,7 +51082,7 @@ paths:
   /mycel-domain/mycel/resolver/v1beta1/dns_record/{domainName}/{domainParent}/{dnsRecordType}:
     get:
       summary: Queries a list of DnsRecord items.
-      operationId: MycelResolverDnsRecord
+      operationId: MycelResolverV1Beta1DnsRecord
       responses:
         '200':
           description: A successful response.
@@ -51144,7 +51144,7 @@ paths:
   /mycel-domain/mycel/resolver/v1beta1/params:
     get:
       summary: Parameters queries the parameters of the module.
-      operationId: MycelResolverParams
+      operationId: MycelResolverV1Beta1Params
       responses:
         '200':
           description: A successful response.
@@ -51180,7 +51180,7 @@ paths:
   /mycel-domain/mycel/resolver/v1beta1/text_record/{domainName}/{domainParent}/{key}:
     get:
       summary: Queries a list of TextRecord items.
-      operationId: MycelResolverTextRecord
+      operationId: MycelResolverV1Beta1TextRecord
       responses:
         '200':
           description: A successful response.
@@ -51230,7 +51230,7 @@ paths:
   /mycel-domain/mycel/resolver/v1beta1/wallet_record/{domainName}/{domainParent}/{walletRecordType}:
     get:
       summary: Queries a list of QueryWalletRecord items.
-      operationId: MycelResolverWalletRecord
+      operationId: MycelResolverV1Beta1WalletRecord
       responses:
         '200':
           description: A successful response.
@@ -80993,7 +80993,7 @@ definitions:
     description: |-
       Version defines the versioning scheme used to negotiate the IBC verison in
       the connection handshake.
-  mycel.epochs.EpochInfo:
+  mycel.epochs.v1beta1.EpochInfo:
     type: object
     properties:
       identifier:
@@ -81014,10 +81014,10 @@ definitions:
       currentEpochStartHeight:
         type: string
         format: int64
-  mycel.epochs.Params:
+  mycel.epochs.v1beta1.Params:
     type: object
     description: Params defines the parameters for the module.
-  mycel.epochs.QueryAllEpochInfoResponse:
+  mycel.epochs.v1beta1.QueryAllEpochInfoResponse:
     type: object
     properties:
       epochInfo:
@@ -81069,7 +81069,7 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  mycel.epochs.QueryGetEpochInfoResponse:
+  mycel.epochs.v1beta1.QueryGetEpochInfoResponse:
     type: object
     properties:
       epochInfo:
@@ -81093,14 +81093,14 @@ definitions:
           currentEpochStartHeight:
             type: string
             format: int64
-  mycel.epochs.QueryParamsResponse:
+  mycel.epochs.v1beta1.QueryParamsResponse:
     type: object
     properties:
       params:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  mycel.furnace.BurnAmount:
+  mycel.furnace.v1beta1.BurnAmount:
     type: object
     properties:
       index:
@@ -81138,7 +81138,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  mycel.furnace.EpochBurnConfig:
+  mycel.furnace.v1beta1.EpochBurnConfig:
     type: object
     properties:
       epochIdentifier:
@@ -81152,10 +81152,10 @@ definitions:
       startTime:
         type: string
         format: date-time
-  mycel.furnace.Params:
+  mycel.furnace.v1beta1.Params:
     type: object
     description: Params defines the parameters for the module.
-  mycel.furnace.QueryAllBurnAmountResponse:
+  mycel.furnace.v1beta1.QueryAllBurnAmountResponse:
     type: object
     properties:
       burnAmount:
@@ -81230,7 +81230,7 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  mycel.furnace.QueryGetBurnAmountResponse:
+  mycel.furnace.v1beta1.QueryGetBurnAmountResponse:
     type: object
     properties:
       burnAmount:
@@ -81277,7 +81277,7 @@ definitions:
               method
 
               signatures required by gogoproto.
-  mycel.furnace.QueryGetEpochBurnConfigResponse:
+  mycel.furnace.v1beta1.QueryGetEpochBurnConfigResponse:
     type: object
     properties:
       EpochBurnConfig:
@@ -81294,14 +81294,14 @@ definitions:
           startTime:
             type: string
             format: date-time
-  mycel.furnace.QueryParamsResponse:
+  mycel.furnace.v1beta1.QueryParamsResponse:
     type: object
     properties:
       params:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  mycel.registry.AccessControl:
+  mycel.registry.v1beta1.AccessControl:
     type: object
     properties:
       address:
@@ -81313,7 +81313,7 @@ definitions:
           - OWNER
           - EDITOR
         default: NO_ROLE
-  mycel.registry.DomainOwnership:
+  mycel.registry.v1beta1.DomainOwnership:
     type: object
     properties:
       owner:
@@ -81327,14 +81327,14 @@ definitions:
               type: string
             parent:
               type: string
-  mycel.registry.DomainRole:
+  mycel.registry.v1beta1.DomainRole:
     type: string
     enum:
       - NO_ROLE
       - OWNER
       - EDITOR
     default: NO_ROLE
-  mycel.registry.FeeByLength:
+  mycel.registry.v1beta1.FeeByLength:
     type: object
     properties:
       length:
@@ -81354,7 +81354,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  mycel.registry.FeeByName:
+  mycel.registry.v1beta1.FeeByName:
     type: object
     properties:
       name:
@@ -81373,7 +81373,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  mycel.registry.MsgExtendTopLevelDomainExpirationDateResponse:
+  mycel.registry.v1beta1.MsgExtendTopLevelDomainExpirationDateResponse:
     type: object
     properties:
       topLevelDomain:
@@ -81562,9 +81562,9 @@ definitions:
               method
 
               signatures required by gogoproto.
-  mycel.registry.MsgRegisterSecondLevelDomainResponse:
+  mycel.registry.v1beta1.MsgRegisterSecondLevelDomainResponse:
     type: object
-  mycel.registry.MsgRegisterTopLevelDomainResponse:
+  mycel.registry.v1beta1.MsgRegisterTopLevelDomainResponse:
     type: object
     properties:
       topLevelDomain:
@@ -81753,15 +81753,15 @@ definitions:
               method
 
               signatures required by gogoproto.
-  mycel.registry.MsgUpdateDnsRecordResponse:
+  mycel.registry.v1beta1.MsgUpdateDnsRecordResponse:
     type: object
-  mycel.registry.MsgUpdateTextRecordResponse:
+  mycel.registry.v1beta1.MsgUpdateTextRecordResponse:
     type: object
-  mycel.registry.MsgUpdateTopLevelDomainRegistrationPolicyResponse:
+  mycel.registry.v1beta1.MsgUpdateTopLevelDomainRegistrationPolicyResponse:
     type: object
-  mycel.registry.MsgUpdateWalletRecordResponse:
+  mycel.registry.v1beta1.MsgUpdateWalletRecordResponse:
     type: object
-  mycel.registry.MsgWithdrawRegistrationFeeResponse:
+  mycel.registry.v1beta1.MsgWithdrawRegistrationFeeResponse:
     type: object
     properties:
       registrationFee:
@@ -81778,14 +81778,14 @@ definitions:
 
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
-  mycel.registry.OwnedDomain:
+  mycel.registry.v1beta1.OwnedDomain:
     type: object
     properties:
       name:
         type: string
       parent:
         type: string
-  mycel.registry.Params:
+  mycel.registry.v1beta1.Params:
     type: object
     properties:
       stakingInflationRatio:
@@ -81795,7 +81795,7 @@ definitions:
         type: string
         format: int64
     description: Params defines the parameters for the module.
-  mycel.registry.QueryAllDomainOwnershipResponse:
+  mycel.registry.v1beta1.QueryAllDomainOwnershipResponse:
     type: object
     properties:
       domainOwnership:
@@ -81840,7 +81840,7 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  mycel.registry.QueryAllSecondLevelDomainResponse:
+  mycel.registry.v1beta1.QueryAllSecondLevelDomainResponse:
     type: object
     properties:
       secondLevelDomain:
@@ -81881,7 +81881,7 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  mycel.registry.QueryAllTopLevelDomainResponse:
+  mycel.registry.v1beta1.QueryAllTopLevelDomainResponse:
     type: object
     properties:
       topLevelDomain:
@@ -82046,7 +82046,7 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  mycel.registry.QueryDomainRegistrationFeeResponse:
+  mycel.registry.v1beta1.QueryDomainRegistrationFeeResponse:
     type: object
     properties:
       isRegistrable:
@@ -82073,7 +82073,7 @@ definitions:
         format: uint64
       errorMessage:
         type: string
-  mycel.registry.QueryGetDomainOwnershipResponse:
+  mycel.registry.v1beta1.QueryGetDomainOwnershipResponse:
     type: object
     properties:
       domainOwnership:
@@ -82090,7 +82090,7 @@ definitions:
                   type: string
                 parent:
                   type: string
-  mycel.registry.QueryGetSecondLevelDomainResponse:
+  mycel.registry.v1beta1.QueryGetSecondLevelDomainResponse:
     type: object
     properties:
       secondLevelDomain:
@@ -82103,7 +82103,7 @@ definitions:
           expirationDate:
             type: string
             format: date-time
-  mycel.registry.QueryGetTopLevelDomainResponse:
+  mycel.registry.v1beta1.QueryGetTopLevelDomainResponse:
     type: object
     properties:
       topLevelDomain:
@@ -82240,7 +82240,7 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-  mycel.registry.QueryParamsResponse:
+  mycel.registry.v1beta1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -82254,18 +82254,18 @@ definitions:
             type: string
             format: int64
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  mycel.registry.QueryRoleResponse:
+  mycel.registry.v1beta1.QueryRoleResponse:
     type: object
     properties:
       role:
         type: string
-  mycel.registry.RegistrationPolicyType:
+  mycel.registry.v1beta1.RegistrationPolicyType:
     type: string
     enum:
       - PRIVATE
       - PUBLIC
     default: PRIVATE
-  mycel.registry.SecondLevelDomainResponse:
+  mycel.registry.v1beta1.SecondLevelDomainResponse:
     type: object
     properties:
       name:
@@ -82275,7 +82275,7 @@ definitions:
       expirationDate:
         type: string
         format: date-time
-  mycel.registry.SubdomainConfig:
+  mycel.registry.v1beta1.SubdomainConfig:
     type: object
     properties:
       maxSubdomainRegistrations:
@@ -82365,7 +82365,7 @@ definitions:
           - PRIVATE
           - PUBLIC
         default: PRIVATE
-  mycel.registry.SubdomainRegistrationFees:
+  mycel.registry.v1beta1.SubdomainRegistrationFees:
     type: object
     properties:
       feeByLength:
@@ -82429,7 +82429,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  mycel.registry.TopLevelDomain:
+  mycel.registry.v1beta1.TopLevelDomain:
     type: object
     properties:
       name:
@@ -82558,7 +82558,7 @@ definitions:
 
             NOTE: The amount field is an Int which implements the custom method
             signatures required by gogoproto.
-  mycel.registry.TopLevelDomainFee:
+  mycel.registry.v1beta1.TopLevelDomainFee:
     type: object
     properties:
       totalFee:
@@ -82601,7 +82601,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  mycel.registry.DnsRecord:
+  mycel.registry.v1beta1.DnsRecord:
     type: object
     properties:
       dnsRecordType:
@@ -82620,7 +82620,7 @@ definitions:
         default: NO_RECORD_TYPE
       value:
         type: string
-  mycel.registry.DnsRecordType:
+  mycel.registry.v1beta1.DnsRecordType:
     type: string
     enum:
       - NO_RECORD_TYPE
@@ -82634,7 +82634,7 @@ definitions:
       - SRV
       - TXT
     default: NO_RECORD_TYPE
-  mycel.registry.NetworkName:
+  mycel.registry.v1beta1.NetworkName:
     type: string
     enum:
       - NO_NETWORK
@@ -82692,7 +82692,7 @@ definitions:
        - SOLANA_MAINNET_MAINNET: SOLANA 4xxxx
        - SOLANA_DEFAULT_DEFAULT: DEFAULT
     title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
-  mycel.registry.Record:
+  mycel.registry.v1beta1.Record:
     type: object
     properties:
       dnsRecord:
@@ -82784,14 +82784,14 @@ definitions:
             type: string
           value:
             type: string
-  mycel.registry.TextRecord:
+  mycel.registry.v1beta1.TextRecord:
     type: object
     properties:
       key:
         type: string
       value:
         type: string
-  mycel.registry.WalletRecord:
+  mycel.registry.v1beta1.WalletRecord:
     type: object
     properties:
       walletRecordType:
@@ -82854,10 +82854,10 @@ definitions:
         title: 'Rule: CHAINNAME_ENVIRONMENT_NETWORK'
       value:
         type: string
-  mycel.resolver.Params:
+  mycel.resolver.v1beta1.Params:
     type: object
     description: Params defines the parameters for the module.
-  mycel.resolver.QueryAllRecordsResponse:
+  mycel.resolver.v1beta1.QueryAllRecordsResponse:
     type: object
     properties:
       values:
@@ -82954,7 +82954,7 @@ definitions:
                   type: string
                 value:
                   type: string
-  mycel.resolver.QueryDnsRecordResponse:
+  mycel.resolver.v1beta1.QueryDnsRecordResponse:
     type: object
     properties:
       value:
@@ -82976,14 +82976,14 @@ definitions:
             default: NO_RECORD_TYPE
           value:
             type: string
-  mycel.resolver.QueryParamsResponse:
+  mycel.resolver.v1beta1.QueryParamsResponse:
     type: object
     properties:
       params:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  mycel.resolver.QueryTextRecordResponse:
+  mycel.resolver.v1beta1.QueryTextRecordResponse:
     type: object
     properties:
       value:
@@ -82993,7 +82993,7 @@ definitions:
             type: string
           value:
             type: string
-  mycel.resolver.QueryWalletRecordResponse:
+  mycel.resolver.v1beta1.QueryWalletRecordResponse:
     type: object
     properties:
       value:

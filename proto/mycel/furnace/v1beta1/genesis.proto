@@ -1,5 +1,5 @@
 syntax = "proto3";
-package mycel.furnace;
+package mycel.furnace.v1beta1;
 
 import "gogoproto/gogo.proto";
 import "mycel/furnace/v1beta1/burn_amount.proto";

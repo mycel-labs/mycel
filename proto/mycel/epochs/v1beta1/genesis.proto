@@ -1,5 +1,5 @@
 syntax = "proto3";
-package mycel.epochs;
+package mycel.epochs.v1beta1;
 
 import "gogoproto/gogo.proto";
 import "mycel/epochs/v1beta1/epoch_info.proto";

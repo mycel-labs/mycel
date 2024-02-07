@@ -1,5 +1,5 @@
 syntax = "proto3";
-package mycel.epochs;
+package mycel.epochs.v1beta1;
 
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "gogoproto/gogo.proto";

@@ -1,5 +1,5 @@
 syntax = "proto3";
-package mycel.resolver;
+package mycel.resolver.v1beta1;
 
 import "gogoproto/gogo.proto";
 

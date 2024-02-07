@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package mycel.resolver;
+package mycel.resolver.v1beta1;
 
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "gogoproto/gogo.proto";
@@ -63,7 +63,7 @@ message QueryWalletRecordRequest {
   string walletRecordType = 3;
 }
 
-message QueryWalletRecordResponse { mycel.registry.WalletRecord value = 1; }
+message QueryWalletRecordResponse { mycel.registry.v1beta1.WalletRecord value = 1; }
 
 message QueryDnsRecordRequest {
   string domainName = 1;
@@ -71,7 +71,7 @@ message QueryDnsRecordRequest {
   string dnsRecordType = 3;
 }
 
-message QueryDnsRecordResponse { mycel.registry.DnsRecord value = 1; }
+message QueryDnsRecordResponse { mycel.registry.v1beta1.DnsRecord value = 1; }
 
 message QueryAllRecordsRequest {
   string domainName = 1;
@@ -79,7 +79,7 @@ message QueryAllRecordsRequest {
 }
 
 message QueryAllRecordsResponse {
-  map<string, mycel.registry.Record> values = 1;
+  map<string, mycel.registry.v1beta1.Record> values = 1;
 }
 
 message QueryTextRecordRequest {
@@ -88,4 +88,4 @@ message QueryTextRecordRequest {
   string key = 3;
 }
 
-message QueryTextRecordResponse { mycel.registry.TextRecord value = 1; }
+message QueryTextRecordResponse { mycel.registry.v1beta1.TextRecord value = 1; }
