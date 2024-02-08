@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"cosmossdk.io/store/prefix"
+	storetypes "cosmossdk.io/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
@@ -48,7 +49,7 @@ func (k Keeper) RemoveDomainOwnership(
 // GetAllDomainOwnership returns all domainOwnership
 func (k Keeper) GetAllDomainOwnership(ctx sdk.Context) (list []types.DomainOwnership) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainOwnershipKeyPrefix))
-	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+	iterator := storetypes.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
 

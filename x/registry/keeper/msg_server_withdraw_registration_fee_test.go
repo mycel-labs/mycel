@@ -89,7 +89,7 @@ func (suite *KeeperTestSuite) TestWithdrawRegistrationFee() {
 				// Check top level domain
 				topLevelDomain, found := suite.app.RegistryKeeper.GetTopLevelDomain(suite.ctx, tc.topLevelDomainName)
 				suite.Require().True(found)
-				suite.Require().True(topLevelDomain.TotalWithdrawalAmount.IsEqual(sdk.NewCoins()))
+				suite.Require().True(topLevelDomain.TotalWithdrawalAmount.IsZero())
 
 			} else {
 				suite.Require().EqualError(err, tc.expErr.Error())
