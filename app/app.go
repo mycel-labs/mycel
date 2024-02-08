@@ -683,6 +683,7 @@ func NewApp(
 		app.BankKeeper,
 		app.DistrKeeper,
 		app.MintKeeper,
+		app.MintKeeper.Minter,
 		app.FurnaceKeeper,
 	)
 

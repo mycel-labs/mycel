@@ -1,32 +1,33 @@
 package types
 
 import (
+	context "context"
+
 	"cosmossdk.io/math"
+	"github.com/cosmos/cosmos-sdk/x/mint/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	minttypes "github.com/cosmos/cosmos-sdk/x/mint/types"
 
 	furnacetypes "github.com/mycel-domain/mycel/x/furnace/types"
 )
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)
 type AccountKeeper interface {
-	GetAccount(ctx sdk.Context, addr sdk.AccAddress) authtypes.AccountI
+	GetAccount(ctx context.Context, addr sdk.AccAddress) sdk.AccountI
 	// Methods imported from account should be defined here
 	GetModuleAddress(name string) sdk.AccAddress
-	GetModuleAccount(ctx sdk.Context, moduleName string) authtypes.ModuleAccountI
+	GetModuleAccount(ctx context.Context, moduleName string) sdk.ModuleAccountI
 }
 
 // BankKeeper defines the expected interface needed to retrieve account balances.
 type BankKeeper interface {
-	SpendableCoins(ctx sdk.Context, addr sdk.AccAddress) sdk.Coins
+	SpendableCoins(ctx context.Context, addr sdk.AccAddress) sdk.Coins
 	// Methods imported from bank should be defined here
-	SendCoins(ctx sdk.Context, fromAddr sdk.AccAddress, toAddr sdk.AccAddress, amt sdk.Coins) error
-	SendCoinsFromModuleToAccount(ctx sdk.Context, senderModule string, recipientAddr sdk.AccAddress, amt sdk.Coins) error
-	SendCoinsFromAccountToModule(ctx sdk.Context, senderAddr sdk.AccAddress, recipientModule string, amt sdk.Coins) error
-	GetSupply(ctx sdk.Context, denom string) sdk.Coin
-	GetBalance(ctx sdk.Context, addr sdk.AccAddress, denom string) sdk.Coin
+	SendCoins(ctx context.Context, fromAddr sdk.AccAddress, toAddr sdk.AccAddress, amt sdk.Coins) error
+	SendCoinsFromModuleToAccount(ctx context.Context, senderModule string, recipientAddr sdk.AccAddress, amt sdk.Coins) error
+	SendCoinsFromAccountToModule(ctx context.Context, senderAddr sdk.AccAddress, recipientModule string, amt sdk.Coins) error
+	GetSupply(ctx context.Context, denom string) sdk.Coin
+	GetBalance(ctx context.Context, addr sdk.AccAddress, denom string) sdk.Coin
 }
 
 type FurnaceKeeper interface {
@@ -34,10 +35,14 @@ type FurnaceKeeper interface {
 }
 
 type MintKeeper interface {
-	GetMinter(ctx sdk.Context) (minter minttypes.Minter)
-	BondedRatio(ctx sdk.Context) math.LegacyDec
+	BondedRatio(ctx context.Context) (math.LegacyDec, error)
+}
+
+type MintKeeperMinter interface {
+	Get(ctx context.Context) (types.Minter, error)
+	Set(ctx context.Context, minter types.Minter) error
 }
 
 type DistributionKeeper interface {
-	FundCommunityPool(ctx sdk.Context, amount sdk.Coins, sender sdk.AccAddress) error
+	FundCommunityPool(ctx context.Context, amount sdk.Coins, sender sdk.AccAddress) error
 }
