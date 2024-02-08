@@ -25,6 +25,7 @@ import (
 	"cosmossdk.io/store"
 	"cosmossdk.io/store/snapshots"
 	snapshottypes "cosmossdk.io/store/snapshots/types"
+	confixcmd "cosmossdk.io/tools/confix/cmd"
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/config"
@@ -92,6 +93,9 @@ func NewRootCmd() (*cobra.Command, appparams.EncodingConfig) {
 	}
 
 	initRootCmd(rootCmd, encodingConfig)
+	rootCmd.AddCommand(
+		confixcmd.ConfigCommand(),
+	)
 	overwriteFlagDefaults(rootCmd, map[string]string{
 		flags.FlagChainID:        strings.ReplaceAll(app.Name, "-", ""),
 		flags.FlagKeyringBackend: "test",
