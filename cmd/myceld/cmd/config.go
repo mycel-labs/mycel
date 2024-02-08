@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/app"
@@ -8,11 +9,11 @@ import (
 
 // RegisterDenoms registers token denoms.
 func RegisterDenoms() {
-	err := sdk.RegisterDenom(app.HumanCoinUnit, sdk.OneDec())
+	err := sdk.RegisterDenom(app.HumanCoinUnit, math.LegacyOneDec())
 	if err != nil {
 		panic(err)
 	}
-	err = sdk.RegisterDenom(app.BaseCoinUnit, sdk.NewDecWithPrec(1, app.MycelExponent))
+	err = sdk.RegisterDenom(app.BaseCoinUnit, math.LegacyNewDecWithPrec(1, app.MycelExponent))
 	if err != nil {
 		panic(err)
 	}

@@ -2,6 +2,7 @@ package params
 
 import (
 	errorsmod "cosmossdk.io/errors"
+	"cosmossdk.io/math"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/address"
@@ -35,11 +36,11 @@ var (
 
 // RegisterDenoms registers token denoms.
 func RegisterDenoms() {
-	err := sdk.RegisterDenom(HumanCoinUnit, sdk.OneDec())
+	err := sdk.RegisterDenom(HumanCoinUnit, math.LegacyOneDec())
 	if err != nil {
 		panic(err)
 	}
-	err = sdk.RegisterDenom(BaseCoinUnit, sdk.NewDecWithPrec(1, MycelExponent))
+	err = sdk.RegisterDenom(BaseCoinUnit, math.LegacyNewDecWithPrec(1, MycelExponent))
 	if err != nil {
 		panic(err)
 	}

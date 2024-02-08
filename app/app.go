@@ -41,6 +41,7 @@ import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 	reflectionv1 "cosmossdk.io/api/cosmos/reflection/v1"
 
+	"cosmossdk.io/math"
 	storetypes "cosmossdk.io/store/types"
 	"cosmossdk.io/x/evidence"
 	evidencekeeper "cosmossdk.io/x/evidence/keeper"
@@ -149,11 +150,11 @@ const (
 
 // RegisterDenoms registers token denoms.
 func RegisterDenoms() {
-	err := sdk.RegisterDenom(HumanCoinUnit, sdk.OneDec())
+	err := sdk.RegisterDenom(HumanCoinUnit, math.LegacyOneDec())
 	if err != nil {
 		panic(err)
 	}
-	err = sdk.RegisterDenom(BaseCoinUnit, sdk.NewDecWithPrec(1, MycelExponent))
+	err = sdk.RegisterDenom(BaseCoinUnit, math.LegacyNewDecWithPrec(1, MycelExponent))
 	if err != nil {
 		panic(err)
 	}
