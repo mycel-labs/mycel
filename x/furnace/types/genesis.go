@@ -3,6 +3,7 @@ package types
 import (
 	"fmt"
 
+	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/app/params"
@@ -30,8 +31,8 @@ func DefaultGenesis() *GenesisState {
 				BurnStarted:           false,
 				TotalEpochs:           120,
 				CurrentEpoch:          0,
-				TotalBurnAmount:       sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0)),
-				CumulativeBurntAmount: sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0)),
+				TotalBurnAmount:       sdk.NewCoin(params.DefaultBondDenom, math.NewInt(0)),
+				CumulativeBurntAmount: sdk.NewCoin(params.DefaultBondDenom, math.NewInt(0)),
 			},
 		},
 		// this line is used by starport scaffolding # genesis/types/default

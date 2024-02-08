@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 
+	"cosmossdk.io/math"
 	"github.com/stretchr/testify/suite"
 
 	tmproto "github.com/cometbft/cometbft/proto/tendermint/types"
@@ -59,7 +60,7 @@ func makeBalance(address string, balance int64) banktypes.Balance {
 		Coins: sdk.Coins{
 			sdk.Coin{
 				Denom:  params.DefaultBondDenom,
-				Amount: sdk.NewInt(balance),
+				Amount: math.NewInt(balance),
 			},
 		},
 	}

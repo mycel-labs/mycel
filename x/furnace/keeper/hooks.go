@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/app/params"
@@ -13,7 +14,7 @@ func (k Keeper) BeforeEpochStart(ctx sdk.Context, epochIdentifier string, epochN
 
 // AfterEpochEnd is the epoch end hook.
 func (k Keeper) AfterEpochEnd(ctx sdk.Context, epochIdentifier string, epochNumber int64) {
-	burnt := sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0))
+	burnt := sdk.NewCoin(params.DefaultBondDenom, math.NewInt(0))
 
 	config, found := k.GetEpochBurnConfig(ctx)
 	if !found {

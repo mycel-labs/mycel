@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"testing"
 
+	"cosmossdk.io/math"
 	"github.com/stretchr/testify/require"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -76,12 +77,12 @@ func (suite *KeeperTestSuite) TestAddRegistrationFeeToBurnAmounts() {
 		fn                      func()
 	}{
 		{
-			registrationFee:         sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(365)),
+			registrationFee:         sdk.NewCoin(params.DefaultBondDenom, math.NewInt(365)),
 			regitrationPeriodInYear: 1,
 			expStartBurnAmountIndex: 2,
 		},
 		{
-			registrationFee:         sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(36000000)),
+			registrationFee:         sdk.NewCoin(params.DefaultBondDenom, math.NewInt(36000000)),
 			regitrationPeriodInYear: 2,
 			expStartBurnAmountIndex: 3,
 			fn: func() {
@@ -105,7 +106,7 @@ func (suite *KeeperTestSuite) TestAddRegistrationFeeToBurnAmounts() {
 			burnAmounts, err := suite.app.FurnaceKeeper.AddRegistrationFeeToBurnAmounts(suite.ctx, tc.regitrationPeriodInYear, tc.registrationFee)
 			suite.Require().NoError(err)
 
-			totalBurnAmount := sdk.NewInt(0)
+			totalBurnAmount := math.NewInt(0)
 
 			for i, burnAmount := range burnAmounts {
 				if i == 0 {
