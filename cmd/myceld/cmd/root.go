@@ -47,7 +47,9 @@ import (
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
 	genutiltypes "github.com/cosmos/cosmos-sdk/x/genutil/types"
 
+	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
 	"github.com/mycel-domain/mycel/app"
+	"github.com/mycel-domain/mycel/app/params"
 	appparams "github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/cmd/myceld/dns"
 	"github.com/mycel-domain/mycel/cmd/myceld/docs"
@@ -55,7 +57,36 @@ import (
 
 // NewRootCmd creates a new root command for a Cosmos SDK application
 func NewRootCmd() (*cobra.Command, appparams.EncodingConfig) {
-	encodingConfig := app.MakeEncodingConfig()
+	var tempDir = func() string {
+		dir, err := os.MkdirTemp("", "myceld")
+		if err != nil {
+			panic("failed to create temp dir: " + err.Error())
+		}
+		defer os.RemoveAll(dir)
+
+		return dir
+	}
+	// we "pre"-instantiate the application for getting the injected/configured encoding configuration
+	// note, this is not necessary when using app wiring, as depinject can be directly used
+	tempApp := app.NewApp(
+		tmlog.NewNopLogger(),
+		dbm.NewMemDB(),
+		os.Stdout, // Add the missing Writer parameter
+		false,
+		map[int64]bool{},
+		tempDir(),
+		0,
+		app.MakeEncodingConfig(),
+		simtestutil.NewAppOptionsWithFlagHome(tempDir()),
+		[]wasmkeeper.Option{},
+	)
+
+	encodingConfig := params.EncodingConfig{
+		InterfaceRegistry: tempApp.InterfaceRegistry(),
+		TxConfig:          tempApp.TxConfig(),
+		Amino:             tempApp.LegacyAmino(),
+	}
+
 	initClientCtx := client.Context{}.
 		WithCodec(encodingConfig.Marshaler).
 		WithInterfaceRegistry(encodingConfig.InterfaceRegistry).
@@ -95,6 +126,9 @@ func NewRootCmd() (*cobra.Command, appparams.EncodingConfig) {
 	}
 
 	initRootCmd(rootCmd, encodingConfig)
+	if err := tempApp.AutoCliOpts().EnhanceRootCommand(rootCmd); err != nil {
+		panic(err)
+	}
 	rootCmd.AddCommand(
 		confixcmd.ConfigCommand(),
 	)
@@ -195,7 +229,6 @@ func queryCommand() *cobra.Command {
 		authcmd.QueryTxCmd(),
 	)
 
-	app.ModuleBasics.AddQueryCommands(cmd)
 	cmd.PersistentFlags().String(flags.FlagChainID, "", "The network chain ID")
 
 	return cmd
@@ -222,7 +255,6 @@ func txCommand() *cobra.Command {
 		authcmd.GetDecodeCommand(),
 	)
 
-	app.ModuleBasics.AddTxCommands(cmd)
 	cmd.PersistentFlags().String(flags.FlagChainID, "", "The network chain ID")
 
 	return cmd
