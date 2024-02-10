@@ -50,13 +50,12 @@ import (
 	simtestutil "github.com/cosmos/cosmos-sdk/testutil/sims"
 	"github.com/mycel-domain/mycel/app"
 	"github.com/mycel-domain/mycel/app/params"
-	appparams "github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/cmd/myceld/dns"
 	"github.com/mycel-domain/mycel/cmd/myceld/docs"
 )
 
 // NewRootCmd creates a new root command for a Cosmos SDK application
-func NewRootCmd() (*cobra.Command, appparams.EncodingConfig) {
+func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 	var tempDir = func() string {
 		dir, err := os.MkdirTemp("", "myceld")
 		if err != nil {
@@ -149,7 +148,7 @@ func initTendermintConfig() *tmcfg.Config {
 
 func initRootCmd(
 	rootCmd *cobra.Command,
-	encodingConfig appparams.EncodingConfig,
+	encodingConfig params.EncodingConfig,
 ) {
 	// Set config
 	initSDKConfig()
@@ -285,7 +284,7 @@ func overwriteFlagDefaults(c *cobra.Command, defaults map[string]string) {
 }
 
 type appCreator struct {
-	encodingConfig appparams.EncodingConfig
+	encodingConfig params.EncodingConfig
 }
 
 // newApp creates a new Cosmos SDK app
