@@ -70,7 +70,7 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 	tempApp := app.NewApp(
 		tmlog.NewNopLogger(),
 		dbm.NewMemDB(),
-		os.Stdout, // Add the missing Writer parameter
+		os.Stdout,
 		false,
 		map[int64]bool{},
 		tempDir(),
