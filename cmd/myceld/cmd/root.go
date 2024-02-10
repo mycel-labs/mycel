@@ -124,10 +124,6 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 		},
 	}
 
-	initRootCmd(rootCmd, encodingConfig)
-	if err := tempApp.AutoCliOpts().EnhanceRootCommand(rootCmd); err != nil {
-		panic(err)
-	}
 	rootCmd.AddCommand(
 		confixcmd.ConfigCommand(),
 	)
@@ -135,6 +131,15 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 		flags.FlagChainID:        strings.ReplaceAll(app.Name, "-", ""),
 		flags.FlagKeyringBackend: "test",
 	})
+
+	initRootCmd(rootCmd, encodingConfig)
+	autoCliOpts := tempApp.AutoCliOpts()
+	initClientCtx, _ = config.ReadFromClientConfig(initClientCtx)
+	autoCliOpts.ClientCtx = initClientCtx
+
+	if err := autoCliOpts.EnhanceRootCommand(rootCmd); err != nil {
+		panic(err)
+	}
 
 	return rootCmd, encodingConfig
 }
