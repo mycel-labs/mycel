@@ -84,7 +84,7 @@ func DefaultConfig() network.Config {
 				baseapp.SetChainID(chainID),
 			)
 		},
-		// GenesisState:    tempApp.ModuleBasics.DefaultGenesis(encoding.Marshaler),
+		// GenesisState:    tempApp.BasicModuleManager.DefaultGenesis(encoding.Marshaler),
 		TimeoutCommit:   2 * time.Second,
 		ChainID:         chainID,
 		NumValidators:   1,

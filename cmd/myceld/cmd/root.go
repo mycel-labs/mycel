@@ -156,24 +156,24 @@ func initRootCmd(
 	// Set config
 	initSDKConfig()
 
-	gentxModule := tempApp.ModuleBasics[genutiltypes.ModuleName].(genutil.AppModuleBasic)
+	gentxModule := tempApp.BasicModuleManager[genutiltypes.ModuleName].(genutil.AppModuleBasic)
 
 	// CosmWasm
 	wasmcli.ExtendUnsafeResetAllCmd(rootCmd)
 
 	valOperAddressCodec := address.NewBech32Codec(sdk.GetConfig().GetBech32ValidatorAddrPrefix())
 	rootCmd.AddCommand(
-		genutilcli.InitCmd(tempApp.ModuleBasics, app.DefaultNodeHome),
+		genutilcli.InitCmd(tempApp.BasicModuleManager, app.DefaultNodeHome),
 		genutilcli.CollectGenTxsCmd(banktypes.GenesisBalancesIterator{}, app.DefaultNodeHome, gentxModule.GenTxValidator, valOperAddressCodec),
 		genutilcli.MigrateGenesisCmd(genutilcli.MigrationMap),
 		genutilcli.GenTxCmd(
-			tempApp.ModuleBasics,
+			tempApp.BasicModuleManager,
 			encodingConfig.TxConfig,
 			banktypes.GenesisBalancesIterator{},
 			app.DefaultNodeHome,
 			valOperAddressCodec,
 		),
-		genutilcli.ValidateGenesisCmd(tempApp.ModuleBasics),
+		genutilcli.ValidateGenesisCmd(tempApp.BasicModuleManager),
 		AddGenesisAccountCmd(app.DefaultNodeHome),
 		tmcli.NewCompletionCmd(rootCmd, true),
 		debug.Cmd(),
