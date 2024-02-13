@@ -129,7 +129,7 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 		flags.FlagKeyringBackend: "test",
 	})
 
-	initRootCmd(rootCmd, encodingConfig)
+	initRootCmd(tempApp, rootCmd, encodingConfig)
 	autoCliOpts := tempApp.AutoCliOpts()
 	initClientCtx, _ = config.ReadFromClientConfig(initClientCtx)
 	autoCliOpts.ClientCtx = initClientCtx
@@ -149,30 +149,31 @@ func initTendermintConfig() *tmcfg.Config {
 }
 
 func initRootCmd(
+	tempApp *app.App,
 	rootCmd *cobra.Command,
 	encodingConfig params.EncodingConfig,
 ) {
 	// Set config
 	initSDKConfig()
 
-	gentxModule := app.ModuleBasics[genutiltypes.ModuleName].(genutil.AppModuleBasic)
+	gentxModule := tempApp.ModuleBasics[genutiltypes.ModuleName].(genutil.AppModuleBasic)
 
 	// CosmWasm
 	wasmcli.ExtendUnsafeResetAllCmd(rootCmd)
 
 	valOperAddressCodec := address.NewBech32Codec(sdk.GetConfig().GetBech32ValidatorAddrPrefix())
 	rootCmd.AddCommand(
-		genutilcli.InitCmd(app.ModuleBasics, app.DefaultNodeHome),
+		genutilcli.InitCmd(tempApp.ModuleBasics, app.DefaultNodeHome),
 		genutilcli.CollectGenTxsCmd(banktypes.GenesisBalancesIterator{}, app.DefaultNodeHome, gentxModule.GenTxValidator, valOperAddressCodec),
 		genutilcli.MigrateGenesisCmd(genutilcli.MigrationMap),
 		genutilcli.GenTxCmd(
-			app.ModuleBasics,
+			tempApp.ModuleBasics,
 			encodingConfig.TxConfig,
 			banktypes.GenesisBalancesIterator{},
 			app.DefaultNodeHome,
 			valOperAddressCodec,
 		),
-		genutilcli.ValidateGenesisCmd(app.ModuleBasics),
+		genutilcli.ValidateGenesisCmd(tempApp.ModuleBasics),
 		AddGenesisAccountCmd(app.DefaultNodeHome),
 		tmcli.NewCompletionCmd(rootCmd, true),
 		debug.Cmd(),
