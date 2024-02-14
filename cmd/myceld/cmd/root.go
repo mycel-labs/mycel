@@ -57,7 +57,7 @@ import (
 // NewRootCmd creates a new root command for a Cosmos SDK application
 func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 	var tempDir = func() string {
-		dir, err := os.MkdirTemp("", "myceld")
+		dir, err := os.MkdirTemp("", "mycel")
 		if err != nil {
 			panic("failed to create temp dir: " + err.Error())
 		}
@@ -71,7 +71,7 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 		tmlog.NewNopLogger(),
 		dbm.NewMemDB(),
 		os.Stdout,
-		false,
+		true,
 		map[int64]bool{},
 		tempDir(),
 		0,
@@ -87,10 +87,10 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 	}
 
 	initClientCtx := client.Context{}.
-		WithCodec(encodingConfig.Marshaler).
-		WithInterfaceRegistry(encodingConfig.InterfaceRegistry).
-		WithTxConfig(encodingConfig.TxConfig).
-		WithLegacyAmino(encodingConfig.Amino).
+		WithCodec(tempApp.AppCodec()).
+		WithInterfaceRegistry(tempApp.InterfaceRegistry()).
+		WithTxConfig(tempApp.TxConfig()).
+		WithLegacyAmino(tempApp.LegacyAmino()).
 		WithInput(os.Stdin).
 		WithAccountRetriever(types.AccountRetriever{}).
 		WithHomeDir(app.DefaultNodeHome).
@@ -103,6 +103,8 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 			// set the default command outputs
 			cmd.SetOut(cmd.OutOrStdout())
 			cmd.SetErr(cmd.ErrOrStderr())
+
+			initClientCtx = initClientCtx.WithCmdContext(cmd.Context())
 			initClientCtx, err := client.ReadPersistentCommandFlags(initClientCtx, cmd.Flags())
 			if err != nil {
 				return err
@@ -415,7 +417,7 @@ func initAppConfig() (string, interface{}) {
 	// The following code snippet is just for reference.
 
 	type CustomAppConfig struct {
-		serverconfig.Config
+		serverconfig.Config `mapstructure:",squash"`
 	}
 
 	// Optionally allow the chain developer to overwrite the SDK's default
