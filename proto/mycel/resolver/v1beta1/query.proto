@@ -4,7 +4,7 @@ package mycel.resolver.v1beta1;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
-import "github.com/mycel-domain/mycel/api/mycel/registry/v1beta1/second_level_domain.proto";
+import "mycel/registry/v1beta1/second_level_domain.proto";
 import "mycel/resolver/v1beta1/params.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/resolver/types";
