@@ -3,10 +3,10 @@ package keeper
 import (
 	"fmt"
 
-	"github.com/cometbft/cometbft/libs/log"
+	"cosmossdk.io/log"
+	storetypes "cosmossdk.io/store/types"
 
 	"github.com/cosmos/cosmos-sdk/codec"
-	storetypes "github.com/cosmos/cosmos-sdk/store/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 
@@ -23,6 +23,7 @@ type (
 		bankKeeper         types.BankKeeper
 		distributionKeeper types.DistributionKeeper
 		mintKeeper         types.MintKeeper
+		mintKeeperMinter   types.MintKeeperMinter
 		furnaceKeeper      types.FurnaceKeeper
 	}
 )
@@ -36,6 +37,7 @@ func NewKeeper(
 	bankKeeper types.BankKeeper,
 	distributionKeeper types.DistributionKeeper,
 	mintKeeper types.MintKeeper,
+	mintKeeperMinter types.MintKeeperMinter,
 	furnaceKeeper types.FurnaceKeeper,
 ) *Keeper {
 	// set KeyTable if it has not already been set
@@ -52,6 +54,7 @@ func NewKeeper(
 		bankKeeper:         bankKeeper,
 		distributionKeeper: distributionKeeper,
 		mintKeeper:         mintKeeper,
+		mintKeeperMinter:   mintKeeperMinter,
 		furnaceKeeper:      furnaceKeeper,
 	}
 }

@@ -69,14 +69,18 @@ func (suite *KeeperTestSuite) TestRegisterTopLevelDomain() {
 			// Before balances
 			furnaceAddress := authtypes.NewModuleAddress(furnacetypes.ModuleName)
 			beforeFurnaceBalance := suite.app.BankKeeper.GetAllBalances(suite.ctx, furnaceAddress)
-			beforeTreasuryBalance := suite.app.DistrKeeper.GetFeePool(suite.ctx).CommunityPool
+			beforeFeePool, err := suite.app.DistrKeeper.FeePool.Get(suite.ctx)
+			suite.Require().Nil(err)
+			beforeTreasuryBalance := beforeFeePool.CommunityPool
 
 			// Register domain
-			_, err := suite.msgServer.RegisterTopLevelDomain(suite.ctx, registerMsg)
+			_, err = suite.msgServer.RegisterTopLevelDomain(suite.ctx, registerMsg)
 
 			// After balances
 			afterFurnaceBalance := suite.app.BankKeeper.GetAllBalances(suite.ctx, furnaceAddress)
-			afterTreasuryBalance := suite.app.DistrKeeper.GetFeePool(suite.ctx).CommunityPool
+			afterFeePool, err := suite.app.DistrKeeper.FeePool.Get(suite.ctx)
+			suite.Require().Nil(err)
+			afterTreasuryBalance := afterFeePool.CommunityPool
 
 			if tc.expErr == nil {
 				// Evaluate if domain is registered

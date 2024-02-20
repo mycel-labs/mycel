@@ -4,7 +4,6 @@ import (
 	"math/rand"
 
 	"github.com/cosmos/cosmos-sdk/baseapp"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
@@ -73,15 +72,12 @@ func (AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Weight
 	return nil
 }
 
-// RegisterStoreDecoder registers a decoder
-func (am AppModule) RegisterStoreDecoder(_ sdk.StoreDecoderRegistry) {}
-
 // WeightedOperations returns the all the gov module operations with their respective weights.
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
 
 	var weightMsgUpdateWalletRecord int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUpdateWalletRecord, &weightMsgUpdateWalletRecord, nil,
+	simState.AppParams.GetOrGenerate(opWeightMsgUpdateWalletRecord, &weightMsgUpdateWalletRecord, nil,
 		func(_ *rand.Rand) {
 			weightMsgUpdateWalletRecord = defaultWeightMsgUpdateWalletRecord
 		},
@@ -92,18 +88,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	))
 
 	var weightMsgRegisterSecondLevelDomain int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRegisterSecondLevelDomain, &weightMsgRegisterSecondLevelDomain, nil,
+	simState.AppParams.GetOrGenerate(opWeightMsgRegisterSecondLevelDomain, &weightMsgRegisterSecondLevelDomain, nil,
 		func(_ *rand.Rand) {
 			weightMsgRegisterSecondLevelDomain = defaultWeightMsgRegisterSecondLevelDomain
-		},
-	)
+		})
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgRegisterSecondLevelDomain,
 		registrysimulation.SimulateMsgRegisterSecondLevelDomain(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	var weightMsgRegisterTopLevelDomain int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgRegisterTopLevelDomain, &weightMsgRegisterTopLevelDomain, nil,
+	simState.AppParams.GetOrGenerate(opWeightMsgRegisterTopLevelDomain, &weightMsgRegisterTopLevelDomain, nil,
 		func(_ *rand.Rand) {
 			weightMsgRegisterTopLevelDomain = defaultWeightMsgRegisterTopLevelDomain
 		},
@@ -114,7 +109,7 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	))
 
 	var weightMsgWithdrawRegistrationFee int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgWithdrawRegistrationFee, &weightMsgWithdrawRegistrationFee, nil,
+	simState.AppParams.GetOrGenerate(opWeightMsgWithdrawRegistrationFee, &weightMsgWithdrawRegistrationFee, nil,
 		func(_ *rand.Rand) {
 			weightMsgWithdrawRegistrationFee = defaultWeightMsgWithdrawRegistrationFee
 		},
@@ -125,7 +120,7 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	))
 
 	var weightMsgExtendTopLevelDomainExpirationDate int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgExtendTopLevelDomainExpirationDate, &weightMsgExtendTopLevelDomainExpirationDate, nil,
+	simState.AppParams.GetOrGenerate(opWeightMsgExtendTopLevelDomainExpirationDate, &weightMsgExtendTopLevelDomainExpirationDate, nil,
 		func(_ *rand.Rand) {
 			weightMsgExtendTopLevelDomainExpirationDate = defaultWeightMsgExtendTopLevelDomainExpirationDate
 		},
@@ -136,7 +131,7 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	))
 
 	var weightMsgUpdateTextRecord int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUpdateTextRecord, &weightMsgUpdateTextRecord, nil,
+	simState.AppParams.GetOrGenerate(opWeightMsgUpdateTextRecord, &weightMsgUpdateTextRecord, nil,
 		func(_ *rand.Rand) {
 			weightMsgUpdateTextRecord = defaultWeightMsgUpdateTextRecord
 		},
@@ -147,11 +142,15 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	))
 
 	var weightMsgUpdateTopLevelDomainRegistrationPolicy int
-	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUpdateTopLevelDomainRegistrationPolicy, &weightMsgUpdateTopLevelDomainRegistrationPolicy, nil,
+	simState.AppParams.GetOrGenerate(opWeightMsgUpdateTopLevelDomainRegistrationPolicy, &weightMsgUpdateTopLevelDomainRegistrationPolicy, nil,
 		func(_ *rand.Rand) {
 			weightMsgUpdateTopLevelDomainRegistrationPolicy = defaultWeightMsgUpdateTopLevelDomainRegistrationPolicy
 		},
 	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUpdateTopLevelDomainRegistrationPolicy,
+		registrysimulation.SimulateMsgUpdateTopLevelDomainRegistrationPolicy(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgUpdateTopLevelDomainRegistrationPolicy,
 		registrysimulation.SimulateMsgUpdateTopLevelDomainRegistrationPolicy(am.accountKeeper, am.bankKeeper, am.keeper),

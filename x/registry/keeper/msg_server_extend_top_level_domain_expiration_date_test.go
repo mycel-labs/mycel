@@ -58,7 +58,9 @@ func (suite *KeeperTestSuite) TestExtendTopLevelDomain() {
 			// Before balances
 			furnaceAddress := authtypes.NewModuleAddress(furnacetypes.ModuleName)
 			beforeFurnaceBalance := suite.app.BankKeeper.GetAllBalances(suite.ctx, furnaceAddress)
-			beforeTreasuryBalance := suite.app.DistrKeeper.GetFeePool(suite.ctx).CommunityPool
+			beforeFeePool, err := suite.app.DistrKeeper.FeePool.Get(suite.ctx)
+			suite.Require().Nil(err)
+			beforeTreasuryBalance := beforeFeePool.CommunityPool
 
 			// Extend domain
 			extendMsg := &types.MsgExtendTopLevelDomainExpirationDate{
@@ -70,7 +72,9 @@ func (suite *KeeperTestSuite) TestExtendTopLevelDomain() {
 
 			// After balances
 			afterFurnaceBalance := suite.app.BankKeeper.GetAllBalances(suite.ctx, furnaceAddress)
-			afterTreasuryBalance := suite.app.DistrKeeper.GetFeePool(suite.ctx).CommunityPool
+			afterFeePool, err := suite.app.DistrKeeper.FeePool.Get(suite.ctx)
+			suite.Require().Nil(err)
+			afterTreasuryBalance := afterFeePool.CommunityPool
 
 			if tc.expErr == nil {
 				suite.Require().Nil(err)

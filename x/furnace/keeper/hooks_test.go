@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"time"
 
+	"cosmossdk.io/math"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/app/params"
@@ -217,8 +219,8 @@ func (suite *KeeperTestSuite) TestAfterEpochEnd() {
 					Index:                 uint64(i + 1),
 					TotalEpochs:           3,
 					CurrentEpoch:          0,
-					TotalBurnAmount:       sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(tc.totalBurnAmounts[i])),
-					CumulativeBurntAmount: sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(0)),
+					TotalBurnAmount:       sdk.NewCoin(params.DefaultBondDenom, math.NewInt(tc.totalBurnAmounts[i])),
+					CumulativeBurntAmount: sdk.NewCoin(params.DefaultBondDenom, math.NewInt(0)),
 				})
 			}
 

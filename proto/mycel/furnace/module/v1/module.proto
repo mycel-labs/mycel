@@ -4,6 +4,8 @@ package mycel.furnace.module.v1;
 
 import "cosmos/app/v1alpha1/module.proto";
 
+option go_package = "github.com/mycel-domain/mycel/x/furnace";
+
 // Module is the config object of the furnace module.
 message Module {
   option (cosmos.app.v1alpha1.module) = {

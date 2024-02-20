@@ -382,13 +382,13 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"mycel-domain", "mycel", "furnace", "v1beta1", "params"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"mycel-domain", "mycel", "furnace", "v1beta1", "params"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_EpochBurnConfig_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"mycel-domain", "mycel", "furnace", "v1beta1", "epoch_burn_config"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_EpochBurnConfig_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"mycel-domain", "mycel", "furnace", "v1beta1", "epoch_burn_config"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_BurnAmount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"mycel-domain", "mycel", "furnace", "v1beta1", "burn_amount", "index"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_BurnAmount_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 1, 0, 4, 1, 5, 5}, []string{"mycel-domain", "mycel", "furnace", "v1beta1", "burn_amount", "index"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_BurnAmountAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"mycel-domain", "mycel", "furnace", "v1beta1", "burn_amount"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Query_BurnAmountAll_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"mycel-domain", "mycel", "furnace", "v1beta1", "burn_amount"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (

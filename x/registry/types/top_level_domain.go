@@ -6,18 +6,16 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	"cosmossdk.io/math"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-
 	"github.com/mycel-domain/mycel/app/params"
 )
 
 func GetMycelPrice(denom string) (price math.Int, err error) {
 	switch denom {
 	case params.DefaultBondDenom:
-		price = sdk.NewInt(1)
+		price = math.NewInt(1)
 		// TODO: Get price from oracle
 	default:
-		return sdk.NewInt(0), ErrInvalidDenom
+		return math.NewInt(0), ErrInvalidDenom
 	}
 	return price, nil
 }
@@ -27,10 +25,10 @@ func GetBeseFeeAmountInDenom(denom string, baseFeeInUsd int64) (amount math.Int,
 	// TODO: Get price from oracle
 	case params.DefaultBondDenom:
 		// 1USD = 10e6 umycel
-		amount = sdk.NewInt(baseFeeInUsd)
+		amount = math.NewInt(baseFeeInUsd)
 	case "uusdc":
 		// 1USD = 10e6 uusdc
-		amount = sdk.NewInt(baseFeeInUsd)
+		amount = math.NewInt(baseFeeInUsd)
 	default:
 		return amount, ErrInvalidDenom
 	}
@@ -42,7 +40,7 @@ func (topLevelDomain TopLevelDomain) GetRegistrationFeeAmountInDenom(denom strin
 	if err != nil {
 		return amount, err
 	}
-	amount = sdk.NewInt(int64(registrationPeriodInYear) * int64(topLevelDomain.SubdomainConfig.MaxSubdomainRegistrations)).Mul(baseFeeAmount)
+	amount = math.NewInt(int64(registrationPeriodInYear) * int64(topLevelDomain.SubdomainConfig.MaxSubdomainRegistrations)).Mul(baseFeeAmount)
 	return amount, nil
 }
 

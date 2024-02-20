@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	errorsmod "cosmossdk.io/errors"
+	"cosmossdk.io/math"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
@@ -11,7 +12,7 @@ import (
 )
 
 func GetDefaultSubdomainConfig(baseFee int64) SubdomainConfig {
-	defaultFee := sdk.NewCoin(params.DefaultBondDenom, sdk.NewInt(baseFee))
+	defaultFee := sdk.NewCoin(params.DefaultBondDenom, math.NewInt(baseFee))
 	return SubdomainConfig{
 		MaxSubdomainRegistrations: 100_000,
 		SubdomainRegistrationFees: &SubdomainRegistrationFees{
@@ -52,6 +53,6 @@ func (config SubdomainConfig) GetRegistrationFee(name string, registrationPeriod
 		}
 	}
 
-	amount.Amount = amount.Amount.Mul(sdk.NewInt(int64(registrationPeriodInYear)))
+	amount.Amount = amount.Amount.Mul(math.NewInt(int64(registrationPeriodInYear)))
 	return amount, err
 }

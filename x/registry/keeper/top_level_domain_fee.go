@@ -13,8 +13,15 @@ import (
 
 // Get burn weight
 func (k Keeper) GetBurnWeight(ctx sdk.Context) (weight math.LegacyDec, err error) {
-	inflation := k.mintKeeper.GetMinter(ctx).Inflation
-	bondedRatio := k.mintKeeper.BondedRatio(ctx)
+	minter, err := k.mintKeeperMinter.Get(ctx)
+	if err != nil {
+		return math.LegacyDec{}, err
+	}
+	inflation := minter.Inflation
+	bondedRatio, err := k.mintKeeper.BondedRatio(ctx)
+	if err != nil {
+		return math.LegacyDec{}, err
+	}
 
 	// TODO: Get alpha from params
 	stakingInflationRatio := k.GetParams(ctx).StakingInflationRatio

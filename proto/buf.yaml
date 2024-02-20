@@ -4,6 +4,7 @@
 # buf.yaml
 #
 version: v1
+name: buf.build/mycel/mycel
 deps:
   - buf.build/protocolbuffers/wellknowntypes
   - buf.build/cosmos/cosmos-sdk
