@@ -14,15 +14,13 @@ import (
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	"github.com/spf13/cast"
 
-	"cosmossdk.io/client/v2/autocli"
-	"cosmossdk.io/core/appmodule"
-	"cosmossdk.io/log"
 	abci "github.com/cometbft/cometbft/abci/types"
 	tmos "github.com/cometbft/cometbft/libs/os"
-	dbm "github.com/cosmos/cosmos-db"
 
-	addresscodec "github.com/cosmos/cosmos-sdk/codec/address"
-	"github.com/cosmos/cosmos-sdk/std"
+	dbm "github.com/cosmos/cosmos-db"
+	"github.com/cosmos/ibc-go/modules/capability"
+	capabilitykeeper "github.com/cosmos/ibc-go/modules/capability/keeper"
+	capabilitytypes "github.com/cosmos/ibc-go/modules/capability/types"
 	ica "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts"
 	icacontrollerkeeper "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/controller/keeper"
 	icacontrollertypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/controller/types"
@@ -40,8 +38,9 @@ import (
 
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 	reflectionv1 "cosmossdk.io/api/cosmos/reflection/v1"
-	authcodec "github.com/cosmos/cosmos-sdk/x/auth/codec"
-
+	"cosmossdk.io/client/v2/autocli"
+	"cosmossdk.io/core/appmodule"
+	"cosmossdk.io/log"
 	storetypes "cosmossdk.io/store/types"
 	"cosmossdk.io/x/evidence"
 	evidencekeeper "cosmossdk.io/x/evidence/keeper"
@@ -52,22 +51,26 @@ import (
 	"cosmossdk.io/x/upgrade"
 	upgradekeeper "cosmossdk.io/x/upgrade/keeper"
 	upgradetypes "cosmossdk.io/x/upgrade/types"
+
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/grpc/cmtservice"
 	nodeservice "github.com/cosmos/cosmos-sdk/client/grpc/node"
 	"github.com/cosmos/cosmos-sdk/codec"
+	addresscodec "github.com/cosmos/cosmos-sdk/codec/address"
 	"github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/runtime"
 	runtimeservices "github.com/cosmos/cosmos-sdk/runtime/services"
 	"github.com/cosmos/cosmos-sdk/server/api"
 	"github.com/cosmos/cosmos-sdk/server/config"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
+	"github.com/cosmos/cosmos-sdk/std"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	"github.com/cosmos/cosmos-sdk/version"
 	"github.com/cosmos/cosmos-sdk/x/auth"
 	"github.com/cosmos/cosmos-sdk/x/auth/ante"
+	authcodec "github.com/cosmos/cosmos-sdk/x/auth/codec"
 	authkeeper "github.com/cosmos/cosmos-sdk/x/auth/keeper"
 	authsims "github.com/cosmos/cosmos-sdk/x/auth/simulation"
 	authtx "github.com/cosmos/cosmos-sdk/x/auth/tx"
@@ -114,13 +117,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/staking"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/cosmos/ibc-go/modules/capability"
-	capabilitykeeper "github.com/cosmos/ibc-go/modules/capability/keeper"
-	capabilitytypes "github.com/cosmos/ibc-go/modules/capability/types"
 
 	appparams "github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/docs"
-
 	// Epochs
 	epochsmodule "github.com/mycel-domain/mycel/x/epochs"
 	epochsmodulekeeper "github.com/mycel-domain/mycel/x/epochs/keeper"
@@ -128,7 +127,6 @@ import (
 	furnacemodule "github.com/mycel-domain/mycel/x/furnace"
 	furnacemodulekeeper "github.com/mycel-domain/mycel/x/furnace/keeper"
 	furnacemoduletypes "github.com/mycel-domain/mycel/x/furnace/types"
-
 	// Registry
 	registrymodule "github.com/mycel-domain/mycel/x/registry"
 	registrymodulekeeper "github.com/mycel-domain/mycel/x/registry/keeper"
@@ -139,7 +137,9 @@ import (
 )
 
 const (
-	Name                 = "myceld"
+	Name                                    = "mycel"
+	DefaultGasLimit                   int64 = 50000000
+	DefaultVoteExtensionsEnableHeight       = 1
 )
 
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals
@@ -300,10 +300,10 @@ func NewApp(
 	baseAppOptions ...func(*baseapp.BaseApp),
 ) *App {
 	encCfg := appparams.DefaultEncodingConfig()
-  interfaceRegistry := encCfg.InterfaceRegistry
-  appCodec := encCfg.Marshaler
-  legacyAmino := encCfg.Amino
-  txConfig := encCfg.TxConfig
+	interfaceRegistry := encCfg.InterfaceRegistry
+	appCodec := encCfg.Marshaler
+	legacyAmino := encCfg.Amino
+	txConfig := encCfg.TxConfig
 	std.RegisterLegacyAminoCodec(legacyAmino)
 	std.RegisterInterfaces(interfaceRegistry)
 
@@ -390,11 +390,10 @@ func NewApp(
 		runtime.NewKVStoreService(keys[authtypes.StoreKey]),
 		authtypes.ProtoBaseAccount,
 		maccPerms,
-		addresscodec.NewBech32Codec(sdk.GetConfig().GetBech32AccountAddrPrefix()),
-		sdk.GetConfig().GetBech32AccountAddrPrefix(),
+		authcodec.NewBech32Codec(appparams.Bech32PrefixAccAddr),
+		appparams.Bech32PrefixAccAddr,
 		authtypes.NewModuleAddress(govtypes.ModuleName).String(),
 	)
-
 	app.AuthzKeeper = authzkeeper.NewKeeper(
 		runtime.NewKVStoreService(keys[authzkeeper.StoreKey]),
 		appCodec,
@@ -740,7 +739,6 @@ func NewApp(
 	// NOTE: staking module is required if HistoricalEntries param > 0
 	app.mm.SetOrderBeginBlockers(
 		// upgrades should be run first
-		upgradetypes.ModuleName,
 		capabilitytypes.ModuleName,
 		minttypes.ModuleName,
 		distrtypes.ModuleName,

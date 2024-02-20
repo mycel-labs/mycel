@@ -33,7 +33,7 @@ func DefaultEncodingConfig() *EncodingConfig {
 
 	return &EncodingConfig{
 		InterfaceRegistry: interfaceRegistry,
-    Marshaler:         marshaler,
+		Marshaler:         marshaler,
 		TxConfig:          txCfg,
 		Amino:             amino,
 	}

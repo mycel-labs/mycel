@@ -4,9 +4,9 @@ import (
 	"time"
 
 	errorsmod "cosmossdk.io/errors"
-
 	"cosmossdk.io/store/prefix"
 	storetypes "cosmossdk.io/store/types"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/x/registry/types"

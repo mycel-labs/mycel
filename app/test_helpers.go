@@ -7,11 +7,12 @@ import (
 	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
 	"github.com/stretchr/testify/require"
 
-	"cosmossdk.io/log"
 	abci "github.com/cometbft/cometbft/abci/types"
 	tmtypes "github.com/cometbft/cometbft/types"
+
 	dbm "github.com/cosmos/cosmos-db"
 
+	"cosmossdk.io/log"
 	"cosmossdk.io/math"
 
 	"github.com/cosmos/cosmos-sdk/client/flags"
