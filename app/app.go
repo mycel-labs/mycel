@@ -20,7 +20,6 @@ import (
 	abci "github.com/cometbft/cometbft/abci/types"
 	tmos "github.com/cometbft/cometbft/libs/os"
 	dbm "github.com/cosmos/cosmos-db"
-	"github.com/cosmos/gogoproto/proto"
 
 	addresscodec "github.com/cosmos/cosmos-sdk/codec/address"
 	"github.com/cosmos/cosmos-sdk/std"
@@ -43,7 +42,6 @@ import (
 	reflectionv1 "cosmossdk.io/api/cosmos/reflection/v1"
 	authcodec "github.com/cosmos/cosmos-sdk/x/auth/codec"
 
-	"cosmossdk.io/math"
 	storetypes "cosmossdk.io/store/types"
 	"cosmossdk.io/x/evidence"
 	evidencekeeper "cosmossdk.io/x/evidence/keeper"
@@ -51,7 +49,6 @@ import (
 	"cosmossdk.io/x/feegrant"
 	feegrantkeeper "cosmossdk.io/x/feegrant/keeper"
 	feegrantmodule "cosmossdk.io/x/feegrant/module"
-	"cosmossdk.io/x/tx/signing"
 	"cosmossdk.io/x/upgrade"
 	upgradekeeper "cosmossdk.io/x/upgrade/keeper"
 	upgradetypes "cosmossdk.io/x/upgrade/types"
@@ -142,26 +139,8 @@ import (
 )
 
 const (
-	AccountAddressPrefix = "mycel"
-	Name                 = "mycel"
-	HumanCoinUnit        = "mycel"
-	BaseCoinUnit         = "umycel"
-	MycelExponent        = 6
-
-	DefaultBondDenom = BaseCoinUnit
+	Name                 = "myceld"
 )
-
-// RegisterDenoms registers token denoms.
-func RegisterDenoms() {
-	err := sdk.RegisterDenom(HumanCoinUnit, math.LegacyOneDec())
-	if err != nil {
-		panic(err)
-	}
-	err = sdk.RegisterDenom(BaseCoinUnit, math.LegacyNewDecWithPrec(1, MycelExponent))
-	if err != nil {
-		panic(err)
-	}
-}
 
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals
 
@@ -320,25 +299,11 @@ func NewApp(
 	wasmOpts []wasmkeeper.Option,
 	baseAppOptions ...func(*baseapp.BaseApp),
 ) *App {
-	interfaceRegistry, err := types.NewInterfaceRegistryWithOptions(types.InterfaceRegistryOptions{
-		ProtoFiles: proto.HybridResolver,
-		SigningOptions: signing.Options{
-			AddressCodec: addresscodec.Bech32Codec{
-				Bech32Prefix: sdk.GetConfig().GetBech32AccountAddrPrefix(),
-			},
-			ValidatorAddressCodec: addresscodec.Bech32Codec{
-				Bech32Prefix: sdk.GetConfig().GetBech32ValidatorAddrPrefix(),
-			},
-		},
-	})
-	if err != nil {
-		panic(err)
-	}
-
-	appCodec := codec.NewProtoCodec(interfaceRegistry)
-	legacyAmino := codec.NewLegacyAmino()
-	txConfig := authtx.NewTxConfig(appCodec, authtx.DefaultSignModes)
-
+	encCfg := appparams.DefaultEncodingConfig()
+  interfaceRegistry := encCfg.InterfaceRegistry
+  appCodec := encCfg.Marshaler
+  legacyAmino := encCfg.Amino
+  txConfig := encCfg.TxConfig
 	std.RegisterLegacyAminoCodec(legacyAmino)
 	std.RegisterInterfaces(interfaceRegistry)
 
@@ -355,7 +320,7 @@ func NewApp(
 	bApp.SetTxEncoder(txConfig.TxEncoder())
 
 	keys := storetypes.NewKVStoreKeys(
-		authtypes.StoreKey, authz.ModuleName, banktypes.StoreKey, stakingtypes.StoreKey,
+		authtypes.StoreKey, authzkeeper.StoreKey, banktypes.StoreKey, stakingtypes.StoreKey,
 		crisistypes.StoreKey, minttypes.StoreKey, distrtypes.StoreKey, slashingtypes.StoreKey,
 		govtypes.StoreKey, paramstypes.StoreKey, ibcexported.StoreKey, upgradetypes.StoreKey,
 		feegrant.StoreKey, evidencetypes.StoreKey, ibctransfertypes.StoreKey, icahosttypes.StoreKey,
