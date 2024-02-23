@@ -1,6 +1,156 @@
 Initializing logger
 Registering providers
- Failed registering providers because of: no module registered for type URL /mycel.epochs.module.v1.Module, did you forget to import github.com/mycel-domain/mycel/x/epochs: find more information on how to make a module ready for app wiring: https://docs.cosmos.network/main/building-modules/depinject
+ Registering github.com/cosmos/cosmos-sdk/runtime.ProvideApp (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/runtime/module.go:84)
+  Registering resolver for simple type codec.Codec
+  Registering resolver for simple type *codec.LegacyAmino
+  Registering resolver for simple type *runtime.AppBuilder
+  Registering resolver for simple type *baseapp.MsgServiceRouter
+  Registering resolver for one-per-module type appmodule.AppModule
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+  Registering resolver for simple type protodesc.Resolver
+  Registering resolver for simple type protoregistry.MessageTypeResolver
+ Registering resolver for many-per-container type signing.CustomGetSigner
+ Registering github.com/cosmos/cosmos-sdk/runtime.ProvideInterfaceRegistry (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/runtime/module.go:161)
+  Registering resolver for simple type types.InterfaceRegistry
+ Registering module-scoped provider: github.com/cosmos/cosmos-sdk/runtime.ProvideKVStoreKey (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/runtime/module.go:198)
+  Registering resolver for module-scoped type *types.KVStoreKey
+ Registering module-scoped provider: github.com/cosmos/cosmos-sdk/runtime.ProvideTransientStoreKey (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/runtime/module.go:213)
+  Registering resolver for module-scoped type *types.TransientStoreKey
+ Registering module-scoped provider: github.com/cosmos/cosmos-sdk/runtime.ProvideMemoryStoreKey (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/runtime/module.go:219)
+  Registering resolver for module-scoped type *types.MemoryStoreKey
+ Registering github.com/cosmos/cosmos-sdk/runtime.ProvideGenesisTxHandler (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/runtime/module.go:225)
+  Registering resolver for simple type genesis.TxHandler
+ Registering module-scoped provider: github.com/cosmos/cosmos-sdk/runtime.ProvideKVStoreService (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/runtime/module.go:229)
+  Registering resolver for module-scoped type store.KVStoreService
+ Registering module-scoped provider: github.com/cosmos/cosmos-sdk/runtime.ProvideMemoryStoreService (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/runtime/module.go:234)
+  Registering resolver for module-scoped type store.MemoryStoreService
+ Registering module-scoped provider: github.com/cosmos/cosmos-sdk/runtime.ProvideTransientStoreService (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/runtime/module.go:239)
+  Registering resolver for module-scoped type store.TransientStoreService
+ Registering github.com/cosmos/cosmos-sdk/runtime.ProvideEventService (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/runtime/module.go:244)
+  Registering resolver for simple type event.Service
+ Registering github.com/cosmos/cosmos-sdk/runtime.ProvideHeaderInfoService (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/runtime/module.go:252)
+  Registering resolver for simple type header.Service
+ Registering github.com/cosmos/cosmos-sdk/runtime.ProvideCometInfoService (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/runtime/module.go:248)
+  Registering resolver for simple type comet.BlockInfoService
+ Registering github.com/cosmos/cosmos-sdk/runtime.ProvideBasicManager (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/runtime/module.go:256)
+  Registering resolver for simple type module.BasicManager
+ Registering github.com/cosmos/cosmos-sdk/runtime.ProvideAddressCodec (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/runtime/module.go:281)
+  Registering resolver for simple type address.Codec
+  Registering resolver for simple type runtime.ValidatorAddressCodec
+  Registering resolver for simple type runtime.ConsensusAddressCodec
+ Registering github.com/cosmos/cosmos-sdk/x/auth.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/auth/module.go:209)
+  Registering resolver for simple type keeper.AccountKeeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+ Implicitly registering resolver keeper.AccountKeeper for interface type nft.AccountKeeper
+ Registering cosmossdk.io/x/nft/module.ProvideModule (/Users/taru/go/pkg/mod/cosmossdk.io/x/nft@v0.1.0/module/module.go:183)
+  Registering resolver for simple type keeper.Keeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+ Registering github.com/cosmos/cosmos-sdk/x/auth/vesting.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/auth/vesting/module.go:140)
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+ Implicitly registering resolver keeper.AccountKeeper for interface type types.AccountKeeper
+ Registering github.com/cosmos/cosmos-sdk/x/bank.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/bank/module.go:227)
+  Registering resolver for simple type keeper.BaseKeeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+ Implicitly registering resolver keeper.AccountKeeper for interface type types.AccountKeeper
+ Implicitly registering resolver keeper.BaseKeeper for interface type types.BankKeeper
+ Registering github.com/cosmos/cosmos-sdk/x/staking.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/staking/module.go:221)
+  Registering resolver for simple type *keeper.Keeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+ Implicitly registering resolver keeper.AccountKeeper for interface type types.AccountKeeper
+ Implicitly registering resolver keeper.BaseKeeper for interface type types.BankKeeper
+ Implicitly registering resolver *keeper.Keeper for interface type types.StakingKeeper
+ Registering github.com/cosmos/cosmos-sdk/x/slashing.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/slashing/module.go:230)
+  Registering resolver for simple type keeper.Keeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+  Registering resolver for one-per-module type types.StakingHooksWrapper
+  Found resolver for types.StakingHooksWrapper: *depinject.onePerModuleResolver
+ Registering github.com/cosmos/cosmos-sdk/x/params.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/params/module.go:129)
+  Registering resolver for simple type keeper.Keeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+  Registering resolver for many-per-container type v1beta1.HandlerRoute
+  Found resolver for v1beta1.HandlerRoute: *depinject.groupResolver
+ Registering resolver for one-per-module type types.KeyTable
+ Registering module-scoped provider: github.com/cosmos/cosmos-sdk/x/params.ProvideSubspace (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/params/module.go:146)
+  Registering resolver for module-scoped type types.Subspace
+ Implicitly registering resolver keeper.BaseKeeper for interface type types.BankKeeper
+ Implicitly registering resolver keeper.BaseKeeper for interface type tx.BankKeeper
+ Implicitly registering resolver keeper.AccountKeeper for interface type ante.AccountKeeper
+ Registering github.com/cosmos/cosmos-sdk/x/auth/tx/config.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/auth/tx/config/config.go:68)
+  Registering resolver for simple type client.TxConfig
+  Registering resolver for simple type tx.ConfigOptions
+  Registering resolver for many-per-container type runtime.BaseAppOption
+  Found resolver for runtime.BaseAppOption: *depinject.groupResolver
+ Registering github.com/cosmos/cosmos-sdk/x/auth/tx/config.ProvideProtoRegistry (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/auth/tx/config/config.go:64)
+  Registering resolver for simple type signing.ProtoFileResolver
+ Implicitly registering resolver keeper.AccountKeeper for interface type types.AccountKeeper
+ Implicitly registering resolver *keeper.Keeper for interface type types.StakingKeeper
+ Registering github.com/cosmos/cosmos-sdk/x/genutil.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/genutil/module.go:138)
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+ Implicitly registering resolver keeper.AccountKeeper for interface type authz.AccountKeeper
+ Implicitly registering resolver keeper.BaseKeeper for interface type authz.BankKeeper
+ Implicitly registering resolver *baseapp.MsgServiceRouter for interface type baseapp.MessageRouter
+ Registering github.com/cosmos/cosmos-sdk/x/authz/module.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/authz/module/module.go:178)
+  Registering resolver for simple type keeper.Keeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+ Registering cosmossdk.io/x/upgrade.ProvideModule (/Users/taru/go/pkg/mod/cosmossdk.io/x/upgrade@v0.1.1/module.go:194)
+  Registering resolver for simple type *keeper.Keeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+  Found resolver for runtime.BaseAppOption: *depinject.groupResolver
+ Implicitly registering resolver keeper.AccountKeeper for interface type types.AccountKeeper
+ Implicitly registering resolver keeper.BaseKeeper for interface type types.BankKeeper
+ Implicitly registering resolver *keeper.Keeper for interface type types.StakingKeeper
+ Implicitly registering resolver types.Subspace for interface type exported.Subspace
+ Registering github.com/cosmos/cosmos-sdk/x/distribution.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/distribution/module.go:232)
+  Registering resolver for simple type keeper.Keeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+  Found resolver for types.StakingHooksWrapper: *depinject.onePerModuleResolver
+ Implicitly registering resolver *keeper.Keeper for interface type types.StakingKeeper
+ Implicitly registering resolver keeper.Keeper for interface type types.SlashingKeeper
+ Registering cosmossdk.io/x/evidence.ProvideModule (/Users/taru/go/pkg/mod/cosmossdk.io/x/evidence@v0.1.0/module.go:210)
+  Registering resolver for simple type keeper.Keeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+ Implicitly registering resolver types.Subspace for interface type exported.Subspace
+ Implicitly registering resolver keeper.AccountKeeper for interface type types.AccountKeeper
+ Implicitly registering resolver keeper.BaseKeeper for interface type types.BankKeeper
+ Implicitly registering resolver *keeper.Keeper for interface type types.StakingKeeper
+ Registering github.com/cosmos/cosmos-sdk/x/mint.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/mint/module.go:221)
+  Registering resolver for simple type keeper.Keeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+ Implicitly registering resolver keeper.AccountKeeper for interface type group.AccountKeeper
+ Implicitly registering resolver keeper.BaseKeeper for interface type group.BankKeeper
+ Registering github.com/cosmos/cosmos-sdk/x/group/module.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/group/module/module.go:208)
+  Registering resolver for simple type keeper.Keeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+ Implicitly registering resolver keeper.AccountKeeper for interface type feegrant.AccountKeeper
+ Implicitly registering resolver keeper.BaseKeeper for interface type feegrant.BankKeeper
+ Registering cosmossdk.io/x/feegrant/module.ProvideModule (/Users/taru/go/pkg/mod/cosmossdk.io/x/feegrant@v0.1.0/module/module.go:184)
+  Registering resolver for simple type keeper.Keeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+ Implicitly registering resolver keeper.AccountKeeper for interface type types.AccountKeeper
+ Implicitly registering resolver keeper.BaseKeeper for interface type types.BankKeeper
+ Implicitly registering resolver *keeper.Keeper for interface type types.StakingKeeper
+ Implicitly registering resolver keeper.Keeper for interface type types.DistributionKeeper
+ Implicitly registering resolver types.Subspace for interface type types.ParamSubspace
+ Registering github.com/cosmos/cosmos-sdk/x/gov.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/gov/module.go:189)
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+  Registering resolver for simple type *keeper.Keeper
+  Found resolver for v1beta1.HandlerRoute: *depinject.groupResolver
+ Registering github.com/cosmos/cosmos-sdk/x/gov.ProvideKeyTable (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/gov/module.go:218)
+  Found resolver for types.KeyTable: *depinject.onePerModuleResolver
+ Implicitly registering resolver keeper.BaseKeeper for interface type types.SupplyKeeper
+ Implicitly registering resolver types.Subspace for interface type exported.Subspace
+ Registering github.com/cosmos/cosmos-sdk/x/crisis.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/crisis/module.go:201)
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+  Registering resolver for simple type *keeper.Keeper
+ Registering github.com/cosmos/cosmos-sdk/x/consensus.ProvideModule (/Users/taru/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.50.3/x/consensus/module.go:117)
+  Registering resolver for simple type keeper.Keeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+  Found resolver for runtime.BaseAppOption: *depinject.groupResolver
+ Registering cosmossdk.io/x/circuit.ProvideModule (/Users/taru/go/pkg/mod/cosmossdk.io/x/circuit@v0.1.0/module.go:154)
+  Registering resolver for simple type keeper.Keeper
+  Found resolver for appmodule.AppModule: *depinject.onePerModuleResolver
+  Found resolver for runtime.BaseAppOption: *depinject.groupResolver
+ Failed registering providers because of: Multiple implementations found for interface types.StoreKey: 
 (1) attached stack trace
   -- stack trace:
   | cosmossdk.io/depinject.Configs.func1
@@ -23,11 +173,39 @@ Wraps: (2) attached stack trace
   -- stack trace:
   | cosmossdk.io/depinject.Configs.func1
   | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:175
-  | [...repeated from below...]
+  | cosmossdk.io/depinject.containerConfig.apply
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:185
+  | cosmossdk.io/depinject.Configs.func1
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:173
+  | cosmossdk.io/depinject.containerConfig.apply
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:185
+  | cosmossdk.io/depinject.doInject
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/inject.go:74
+  | cosmossdk.io/depinject.inject
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/inject.go:45
+  | cosmossdk.io/depinject.Inject
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/inject.go:19
+  | github.com/mycel-domain/mycel/cmd/myceld/cmd.NewRootCmd
+  | 	/Users/taru/dev/mycel/mycel/cmd/myceld/cmd/root.go:41
+  | main.main
+  | 	/Users/taru/dev/mycel/mycel/cmd/myceld/main.go:14
+  | runtime.main
+  | 	/opt/homebrew/Cellar/go/1.21.5/libexec/src/runtime/proc.go:267
 Wraps: (3) attached stack trace
   -- stack trace:
-  | cosmossdk.io/depinject.Error.func1
-  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:165
+  | cosmossdk.io/depinject.Configs.func1
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:175
+  | [...repeated from below...]
+Wraps: (4) attached stack trace
+  -- stack trace:
+  | cosmossdk.io/depinject.provide
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:51
+  | cosmossdk.io/depinject.ProvideInModule.func1
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:39
+  | cosmossdk.io/depinject.containerConfig.apply
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:185
+  | cosmossdk.io/depinject.Configs.func1
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:173
   | cosmossdk.io/depinject.containerConfig.apply
   | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:185
   | cosmossdk.io/depinject.Configs.func1
@@ -52,52 +230,13 @@ Wraps: (3) attached stack trace
   | 	/opt/homebrew/Cellar/go/1.21.5/libexec/src/runtime/proc.go:267
   | runtime.goexit
   | 	/opt/homebrew/Cellar/go/1.21.5/libexec/src/runtime/asm_arm64.s:1197
-Wraps: (4) no module registered for type URL /mycel.epochs.module.v1.Module, did you forget to import github.com/mycel-domain/mycel/x/epochs: find more information on how to make a module ready for app wiring: https://docs.cosmos.network/main/building-modules/depinject
-  |
-  | registered modules are:
-  |   cosmos.authz.module.v1.Module
-  |   cosmos.bank.module.v1.Module
-  |   cosmos.distribution.module.v1.Module
-  |   cosmos.tx.config.v1.Config
-  |   cosmos.nft.module.v1.Module
-  |   cosmos.vesting.module.v1.Module
-  |   cosmos.params.module.v1.Module
-  |   cosmos.crisis.module.v1.Module
-  |   cosmos.consensus.module.v1.Module
-  |   cosmos.auth.module.v1.Module
-  |   cosmos.app.runtime.v1alpha1.Module
-  |   cosmos.slashing.module.v1.Module
-  |   cosmos.group.module.v1.Module
-  |   cosmos.staking.module.v1.Module
-  |   cosmos.evidence.module.v1.Module
-  |   cosmos.circuit.module.v1.Module
-  |   cosmos.upgrade.module.v1.Module
-  |   cosmos.gov.module.v1.Module
-  |   cosmos.genutil.module.v1.Module
-  |   cosmos.mint.module.v1.Module
-  |   cosmos.feegrant.module.v1.Module
-Error types: (1) *withstack.withStack (2) *withstack.withStack (3) *withstack.withStack (4) *errors.errorString
- Error: no module registered for type URL /mycel.epochs.module.v1.Module, did you forget to import github.com/mycel-domain/mycel/x/epochs: find more information on how to make a module ready for app wiring: https://docs.cosmos.network/main/building-modules/depinject
-registered modules are:
-  cosmos.authz.module.v1.Module
-  cosmos.bank.module.v1.Module
-  cosmos.distribution.module.v1.Module
-  cosmos.tx.config.v1.Config
-  cosmos.nft.module.v1.Module
-  cosmos.vesting.module.v1.Module
-  cosmos.params.module.v1.Module
-  cosmos.crisis.module.v1.Module
-  cosmos.consensus.module.v1.Module
-  cosmos.auth.module.v1.Module
-  cosmos.app.runtime.v1alpha1.Module
-  cosmos.slashing.module.v1.Module
-  cosmos.group.module.v1.Module
-  cosmos.staking.module.v1.Module
-  cosmos.evidence.module.v1.Module
-  cosmos.circuit.module.v1.Module
-  cosmos.upgrade.module.v1.Module
-  cosmos.gov.module.v1.Module
-  cosmos.genutil.module.v1.Module
-  cosmos.mint.module.v1.Module
-  cosmos.feegrant.module.v1.Module
+Wraps: (5) Multiple implementations found for interface types.StoreKey: 
+  |   cosmossdk.io/store/types/*types.KVStoreKey
+  |   cosmossdk.io/store/types/*types.MemoryStoreKey
+  |   cosmossdk.io/store/types/*types.TransientStoreKey
+Error types: (1) *withstack.withStack (2) *withstack.withStack (3) *withstack.withStack (4) *withstack.withStack (5) depinject.ErrMultipleImplicitInterfaceBindings
+ Error: Multiple implementations found for interface types.StoreKey: 
+  cosmossdk.io/store/types/*types.KVStoreKey
+  cosmossdk.io/store/types/*types.MemoryStoreKey
+  cosmossdk.io/store/types/*types.TransientStoreKey
  Saved graph of container to /Users/taru/dev/mycel/mycel/debug_container.dot

@@ -4,21 +4,24 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
 	"time"
 
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/spf13/cobra"
-
 	"cosmossdk.io/core/appmodule"
-
+	"cosmossdk.io/depinject"
+	storetypes "cosmossdk.io/store/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
+	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/spf13/cobra"
 
+	// this line is used by starport scaffolding # 1
+
+	modulev1 "github.com/mycel-domain/mycel/api/mycel/epochs/module/v1"
 	"github.com/mycel-domain/mycel/x/epochs/client/cli"
 	"github.com/mycel-domain/mycel/x/epochs/keeper"
 	"github.com/mycel-domain/mycel/x/epochs/types"
@@ -81,7 +84,6 @@ func (AppModuleBasic) ValidateGenesis(cdc codec.JSONCodec, config client.TxEncod
 func (AppModuleBasic) RegisterGRPCGatewayRoutes(clientCtx client.Context, mux *runtime.ServeMux) {
 	err := types.RegisterQueryHandlerClient(context.Background(), mux, types.NewQueryClient(clientCtx))
 	if err != nil {
-		log.Printf("%v", err)
 	}
 }
 
@@ -161,4 +163,52 @@ func (am AppModule) BeginBlock(ctx context.Context) error {
 	defer telemetry.ModuleMeasureSince(am.Name(), time.Now(), telemetry.MetricKeyBeginBlocker)
 	am.keeper.BeginBlocker(sdk.UnwrapSDKContext(ctx))
 	return nil
+}
+
+// ----------------------------------------------------------------------------
+// App Wiring Setup
+// ----------------------------------------------------------------------------
+
+func init() {
+	appmodule.Register(
+		&modulev1.Module{},
+		appmodule.Provide(ProvideModule),
+	)
+}
+
+type ModuleInputs struct {
+	depinject.In
+
+	Cdc        codec.Codec
+	StoreKey   storetypes.StoreKey
+	MemKey     storetypes.StoreKey
+	ParamStore paramtypes.Subspace
+	Config     *modulev1.Module
+
+	AccountKeeper types.AccountKeeper
+	BankKeeper    types.BankKeeper
+}
+
+type ModuleOutputs struct {
+	depinject.Out
+
+	EpochsKeeper keeper.Keeper
+	Module       appmodule.AppModule
+}
+
+func ProvideModule(in ModuleInputs) ModuleOutputs {
+	k := keeper.NewKeeper(
+		in.Cdc,
+		in.StoreKey,
+		in.MemKey,
+		in.ParamStore,
+	)
+	m := NewAppModule(
+		in.Cdc,
+		*k,
+		in.AccountKeeper,
+		in.BankKeeper,
+	)
+
+	return ModuleOutputs{EpochsKeeper: *k, Module: m}
 }

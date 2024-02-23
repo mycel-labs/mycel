@@ -6,17 +6,20 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/spf13/cobra"
-
 	"cosmossdk.io/core/appmodule"
-
+	"cosmossdk.io/depinject"
+	storetypes "cosmossdk.io/store/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
+	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/spf13/cobra"
 
+	// this line is used by starport scaffolding # 1
+	modulev1 "github.com/mycel-domain/mycel/api/mycel/furnace/module/v1"
 	"github.com/mycel-domain/mycel/x/furnace/client/cli"
 	"github.com/mycel-domain/mycel/x/furnace/keeper"
 	"github.com/mycel-domain/mycel/x/furnace/types"
@@ -101,22 +104,22 @@ func (AppModuleBasic) GetQueryCmd() *cobra.Command {
 type AppModule struct {
 	AppModuleBasic
 
-	keeper        keeper.Keeper
-	accountKeeper types.AccountKeeper
-	bankKeeper    types.BankKeeper
+	keeper       keeper.Keeper
+	bankKeeper   types.BankKeeper
+	epochsKeeper types.EpochsKeeper
 }
 
 func NewAppModule(
 	cdc codec.Codec,
 	keeper keeper.Keeper,
-	accountKeeper types.AccountKeeper,
 	bankKeeper types.BankKeeper,
+	epochsKeeper types.EpochsKeeper,
 ) AppModule {
 	return AppModule{
 		AppModuleBasic: NewAppModuleBasic(cdc),
 		keeper:         keeper,
-		accountKeeper:  accountKeeper,
 		bankKeeper:     bankKeeper,
+		epochsKeeper:   epochsKeeper,
 	}
 }
 
@@ -156,4 +159,54 @@ func (AppModule) ConsensusVersion() uint64 { return 1 }
 // BeginBlock contains the logic that is automatically triggered at the beginning of each block
 func (am AppModule) BeginBlock(_ context.Context) error {
 	return nil
+}
+
+// ----------------------------------------------------------------------------
+// App Wiring Setup
+// ----------------------------------------------------------------------------
+
+func init() {
+	appmodule.Register(
+		&modulev1.Module{},
+		appmodule.Provide(ProvideModule),
+	)
+}
+
+type ModuleInputs struct {
+	depinject.In
+
+	Cdc        codec.Codec
+	StoreKey   storetypes.StoreKey
+	MemKey     storetypes.StoreKey
+	ParamStore paramtypes.Subspace
+	Config     *modulev1.Module
+
+	BankKeeper   types.BankKeeper
+	EpochsKeeper types.EpochsKeeper
+}
+
+type ModuleOutputs struct {
+	depinject.Out
+
+	EpochsKeeper keeper.Keeper
+	Module       appmodule.AppModule
+}
+
+func ProvideModule(in ModuleInputs) ModuleOutputs {
+	k := keeper.NewKeeper(
+		in.Cdc,
+		in.StoreKey,
+		in.MemKey,
+		in.ParamStore,
+		in.BankKeeper,
+		in.EpochsKeeper,
+	)
+	m := NewAppModule(
+		in.Cdc,
+		*k,
+		in.BankKeeper,
+		in.EpochsKeeper,
+	)
+
+	return ModuleOutputs{EpochsKeeper: *k, Module: m}
 }

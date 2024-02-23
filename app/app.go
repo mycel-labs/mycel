@@ -80,10 +80,13 @@ import (
 
 	"github.com/mycel-domain/mycel/docs"
 	// Epochs
+	_ "github.com/mycel-domain/mycel/x/epochs/module"
 	epochsmodulekeeper "github.com/mycel-domain/mycel/x/epochs/keeper"
 	// Furnace
+	_ "github.com/mycel-domain/mycel/x/furnace/module"
 	furnacemodulekeeper "github.com/mycel-domain/mycel/x/furnace/keeper"
 	// Registry
+	_ "github.com/mycel-domain/mycel/x/registry/module"
 	registrymodulekeeper "github.com/mycel-domain/mycel/x/registry/keeper"
 )
 

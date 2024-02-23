@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/mycel-domain/mycel/x/epochs"
+	"github.com/mycel-domain/mycel/x/epochs/module"
 	"github.com/mycel-domain/mycel/x/epochs/types"
 )
 
