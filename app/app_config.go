@@ -70,10 +70,6 @@ import (
 	registrymodulev1 "github.com/mycel-domain/mycel/api/mycel/registry/module/v1"
 	registrymoduletypes "github.com/mycel-domain/mycel/x/registry/types"
 	_ "github.com/mycel-domain/mycel/x/registry/module"
-	// Resolver
-	resolvermodulev1 "github.com/mycel-domain/mycel/api/mycel/resolver/module/v1"
-	resolvermoduletypes "github.com/mycel-domain/mycel/x/resolver/types"
-	_ "github.com/mycel-domain/mycel/x/resolver/module"
 )
 
 var (
@@ -116,7 +112,6 @@ var (
 		epochsmoduletypes.ModuleName,
 		furnacemoduletypes.ModuleName,
 		registrymoduletypes.ModuleName,
-		resolvermoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -146,7 +141,6 @@ var (
 		epochsmoduletypes.ModuleName,
 		furnacemoduletypes.ModuleName,
 		registrymoduletypes.ModuleName,
-		resolvermoduletypes.ModuleName,
 
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
@@ -171,7 +165,6 @@ var (
 		epochsmoduletypes.ModuleName,
 		furnacemoduletypes.ModuleName,
 		registrymoduletypes.ModuleName,
-		resolvermoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -339,10 +332,6 @@ var (
 			{
 				Name:   registrymoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&registrymodulev1.Module{}),
-			},
-			{
-				Name:   resolvermoduletypes.ModuleName,
-				Config: appconfig.WrapAny(&resolvermodulev1.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

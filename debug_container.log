@@ -55,49 +55,49 @@ Wraps: (3) attached stack trace
 Wraps: (4) no module registered for type URL /mycel.epochs.module.v1.Module, did you forget to import github.com/mycel-domain/mycel/x/epochs: find more information on how to make a module ready for app wiring: https://docs.cosmos.network/main/building-modules/depinject
   |
   | registered modules are:
-  |   cosmos.consensus.module.v1.Module
-  |   cosmos.feegrant.module.v1.Module
+  |   cosmos.authz.module.v1.Module
+  |   cosmos.bank.module.v1.Module
   |   cosmos.distribution.module.v1.Module
-  |   cosmos.mint.module.v1.Module
+  |   cosmos.tx.config.v1.Config
+  |   cosmos.nft.module.v1.Module
+  |   cosmos.vesting.module.v1.Module
   |   cosmos.params.module.v1.Module
   |   cosmos.crisis.module.v1.Module
-  |   cosmos.bank.module.v1.Module
-  |   cosmos.group.module.v1.Module
-  |   cosmos.authz.module.v1.Module
-  |   cosmos.staking.module.v1.Module
-  |   cosmos.upgrade.module.v1.Module
-  |   cosmos.nft.module.v1.Module
-  |   cosmos.circuit.module.v1.Module
-  |   cosmos.gov.module.v1.Module
-  |   cosmos.app.runtime.v1alpha1.Module
-  |   cosmos.genutil.module.v1.Module
-  |   cosmos.slashing.module.v1.Module
-  |   cosmos.tx.config.v1.Config
+  |   cosmos.consensus.module.v1.Module
   |   cosmos.auth.module.v1.Module
+  |   cosmos.app.runtime.v1alpha1.Module
+  |   cosmos.slashing.module.v1.Module
+  |   cosmos.group.module.v1.Module
+  |   cosmos.staking.module.v1.Module
   |   cosmos.evidence.module.v1.Module
-  |   cosmos.vesting.module.v1.Module
+  |   cosmos.circuit.module.v1.Module
+  |   cosmos.upgrade.module.v1.Module
+  |   cosmos.gov.module.v1.Module
+  |   cosmos.genutil.module.v1.Module
+  |   cosmos.mint.module.v1.Module
+  |   cosmos.feegrant.module.v1.Module
 Error types: (1) *withstack.withStack (2) *withstack.withStack (3) *withstack.withStack (4) *errors.errorString
  Error: no module registered for type URL /mycel.epochs.module.v1.Module, did you forget to import github.com/mycel-domain/mycel/x/epochs: find more information on how to make a module ready for app wiring: https://docs.cosmos.network/main/building-modules/depinject
 registered modules are:
-  cosmos.consensus.module.v1.Module
-  cosmos.feegrant.module.v1.Module
+  cosmos.authz.module.v1.Module
+  cosmos.bank.module.v1.Module
   cosmos.distribution.module.v1.Module
-  cosmos.mint.module.v1.Module
+  cosmos.tx.config.v1.Config
+  cosmos.nft.module.v1.Module
+  cosmos.vesting.module.v1.Module
   cosmos.params.module.v1.Module
   cosmos.crisis.module.v1.Module
-  cosmos.bank.module.v1.Module
-  cosmos.group.module.v1.Module
-  cosmos.authz.module.v1.Module
-  cosmos.staking.module.v1.Module
-  cosmos.upgrade.module.v1.Module
-  cosmos.nft.module.v1.Module
-  cosmos.circuit.module.v1.Module
-  cosmos.gov.module.v1.Module
-  cosmos.app.runtime.v1alpha1.Module
-  cosmos.genutil.module.v1.Module
-  cosmos.slashing.module.v1.Module
-  cosmos.tx.config.v1.Config
+  cosmos.consensus.module.v1.Module
   cosmos.auth.module.v1.Module
+  cosmos.app.runtime.v1alpha1.Module
+  cosmos.slashing.module.v1.Module
+  cosmos.group.module.v1.Module
+  cosmos.staking.module.v1.Module
   cosmos.evidence.module.v1.Module
-  cosmos.vesting.module.v1.Module
+  cosmos.circuit.module.v1.Module
+  cosmos.upgrade.module.v1.Module
+  cosmos.gov.module.v1.Module
+  cosmos.genutil.module.v1.Module
+  cosmos.mint.module.v1.Module
+  cosmos.feegrant.module.v1.Module
  Saved graph of container to /Users/taru/dev/mycel/mycel/debug_container.dot

@@ -85,8 +85,6 @@ import (
 	furnacemodulekeeper "github.com/mycel-domain/mycel/x/furnace/keeper"
 	// Registry
 	registrymodulekeeper "github.com/mycel-domain/mycel/x/registry/keeper"
-	// Resolver
-	resolvermodulekeeper "github.com/mycel-domain/mycel/x/resolver/keeper"
 )
 
 const (
@@ -156,7 +154,6 @@ type App struct {
 	// Mycel modules
 	RegistryKeeper registrymodulekeeper.Keeper
 	EpochsKeeper   epochsmodulekeeper.Keeper
-	ResolverKeeper resolvermodulekeeper.Keeper
 	FurnaceKeeper  furnacemodulekeeper.Keeper
 
 	// sm is the simulation manager
@@ -300,7 +297,6 @@ func New(
 		&app.EpochsKeeper,
 		&app.FurnaceKeeper,
 		&app.RegistryKeeper,
-		&app.ResolverKeeper,
 		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {
 		panic(err)
