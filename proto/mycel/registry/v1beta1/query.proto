@@ -10,6 +10,7 @@ import "google/protobuf/timestamp.proto";
 import "mycel/registry/v1beta1/domain_ownership.proto";
 import "mycel/registry/v1beta1/params.proto";
 import "mycel/registry/v1beta1/top_level_domain.proto";
+import "mycel/registry/v1beta1/second_level_domain.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/registry/types";
 
@@ -69,6 +70,34 @@ service Query {
   rpc Role(QueryRoleRequest) returns (QueryRoleResponse) {
     option (google.api.http).get =
         "/mycel/registry/v1beta1/role/{domain_name}/{address}";
+  }
+
+  // Queries a list of QueryWalletRecord items.
+  rpc WalletRecord(QueryWalletRecordRequest)
+      returns (QueryWalletRecordResponse) {
+    option (google.api.http).get =
+        "/mycel/resolver/v1beta1/wallet_record/{domain_name}/"
+        "{domain_parent}/{wallet_record_type}";
+  }
+
+  // Queries a list of DnsRecord items.
+  rpc DnsRecord(QueryDnsRecordRequest) returns (QueryDnsRecordResponse) {
+    option (google.api.http).get =
+        "/mycel/resolver/v1beta1/dns_record/{domain_name}/"
+        "{domain_parent}/{dns_record_type}";
+  }
+
+  // Queries a list of AllRecord items.
+  rpc AllRecords(QueryAllRecordsRequest) returns (QueryAllRecordsResponse) {
+    option (google.api.http).get = "/mycel/resolver/v1beta1/"
+                                   "all_records/{domain_name}/{domain_parent}";
+  }
+
+  // Queries a list of TextRecord items.
+  rpc TextRecord(QueryTextRecordRequest) returns (QueryTextRecordResponse) {
+    option (google.api.http).get =
+        "/mycel/resolver/v1beta1/text_record/{domain_name}/"
+        "{domain_parent}/{key}";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -163,3 +192,36 @@ message QueryRoleRequest {
 }
 
 message QueryRoleResponse { string role = 1; }
+
+message QueryWalletRecordRequest {
+  string domain_name = 1;
+  string domain_parent = 2;
+  string wallet_record_type = 3;
+}
+
+message QueryWalletRecordResponse { WalletRecord value = 1; }
+
+message QueryDnsRecordRequest {
+  string domain_name = 1;
+  string domain_parent = 2;
+  string dns_record_type = 3;
+}
+
+message QueryDnsRecordResponse { DnsRecord value = 1; }
+
+message QueryAllRecordsRequest {
+  string domain_name = 1;
+  string domain_parent = 2;
+}
+
+message QueryAllRecordsResponse {
+  map<string, Record> values = 1;
+}
+
+message QueryTextRecordRequest {
+  string domain_name = 1;
+  string domain_parent = 2;
+  string key = 3;
+}
+
+message QueryTextRecordResponse { TextRecord value = 1; }

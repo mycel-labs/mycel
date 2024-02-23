@@ -28,6 +28,10 @@ const (
 	Query_DomainOwnershipAll_FullMethodName    = "/mycel.registry.v1beta1.Query/DomainOwnershipAll"
 	Query_DomainRegistrationFee_FullMethodName = "/mycel.registry.v1beta1.Query/DomainRegistrationFee"
 	Query_Role_FullMethodName                  = "/mycel.registry.v1beta1.Query/Role"
+	Query_WalletRecord_FullMethodName          = "/mycel.registry.v1beta1.Query/WalletRecord"
+	Query_DnsRecord_FullMethodName             = "/mycel.registry.v1beta1.Query/DnsRecord"
+	Query_AllRecords_FullMethodName            = "/mycel.registry.v1beta1.Query/AllRecords"
+	Query_TextRecord_FullMethodName            = "/mycel.registry.v1beta1.Query/TextRecord"
 )
 
 // QueryClient is the client API for Query service.
@@ -49,6 +53,14 @@ type QueryClient interface {
 	DomainRegistrationFee(ctx context.Context, in *QueryDomainRegistrationFeeRequest, opts ...grpc.CallOption) (*QueryDomainRegistrationFeeResponse, error)
 	// Queries a list of Role items.
 	Role(ctx context.Context, in *QueryRoleRequest, opts ...grpc.CallOption) (*QueryRoleResponse, error)
+	// Queries a list of QueryWalletRecord items.
+	WalletRecord(ctx context.Context, in *QueryWalletRecordRequest, opts ...grpc.CallOption) (*QueryWalletRecordResponse, error)
+	// Queries a list of DnsRecord items.
+	DnsRecord(ctx context.Context, in *QueryDnsRecordRequest, opts ...grpc.CallOption) (*QueryDnsRecordResponse, error)
+	// Queries a list of AllRecord items.
+	AllRecords(ctx context.Context, in *QueryAllRecordsRequest, opts ...grpc.CallOption) (*QueryAllRecordsResponse, error)
+	// Queries a list of TextRecord items.
+	TextRecord(ctx context.Context, in *QueryTextRecordRequest, opts ...grpc.CallOption) (*QueryTextRecordResponse, error)
 }
 
 type queryClient struct {
@@ -140,6 +152,42 @@ func (c *queryClient) Role(ctx context.Context, in *QueryRoleRequest, opts ...gr
 	return out, nil
 }
 
+func (c *queryClient) WalletRecord(ctx context.Context, in *QueryWalletRecordRequest, opts ...grpc.CallOption) (*QueryWalletRecordResponse, error) {
+	out := new(QueryWalletRecordResponse)
+	err := c.cc.Invoke(ctx, Query_WalletRecord_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) DnsRecord(ctx context.Context, in *QueryDnsRecordRequest, opts ...grpc.CallOption) (*QueryDnsRecordResponse, error) {
+	out := new(QueryDnsRecordResponse)
+	err := c.cc.Invoke(ctx, Query_DnsRecord_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) AllRecords(ctx context.Context, in *QueryAllRecordsRequest, opts ...grpc.CallOption) (*QueryAllRecordsResponse, error) {
+	out := new(QueryAllRecordsResponse)
+	err := c.cc.Invoke(ctx, Query_AllRecords_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) TextRecord(ctx context.Context, in *QueryTextRecordRequest, opts ...grpc.CallOption) (*QueryTextRecordResponse, error) {
+	out := new(QueryTextRecordResponse)
+	err := c.cc.Invoke(ctx, Query_TextRecord_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
@@ -159,6 +207,14 @@ type QueryServer interface {
 	DomainRegistrationFee(context.Context, *QueryDomainRegistrationFeeRequest) (*QueryDomainRegistrationFeeResponse, error)
 	// Queries a list of Role items.
 	Role(context.Context, *QueryRoleRequest) (*QueryRoleResponse, error)
+	// Queries a list of QueryWalletRecord items.
+	WalletRecord(context.Context, *QueryWalletRecordRequest) (*QueryWalletRecordResponse, error)
+	// Queries a list of DnsRecord items.
+	DnsRecord(context.Context, *QueryDnsRecordRequest) (*QueryDnsRecordResponse, error)
+	// Queries a list of AllRecord items.
+	AllRecords(context.Context, *QueryAllRecordsRequest) (*QueryAllRecordsResponse, error)
+	// Queries a list of TextRecord items.
+	TextRecord(context.Context, *QueryTextRecordRequest) (*QueryTextRecordResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -192,6 +248,18 @@ func (UnimplementedQueryServer) DomainRegistrationFee(context.Context, *QueryDom
 }
 func (UnimplementedQueryServer) Role(context.Context, *QueryRoleRequest) (*QueryRoleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Role not implemented")
+}
+func (UnimplementedQueryServer) WalletRecord(context.Context, *QueryWalletRecordRequest) (*QueryWalletRecordResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WalletRecord not implemented")
+}
+func (UnimplementedQueryServer) DnsRecord(context.Context, *QueryDnsRecordRequest) (*QueryDnsRecordResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DnsRecord not implemented")
+}
+func (UnimplementedQueryServer) AllRecords(context.Context, *QueryAllRecordsRequest) (*QueryAllRecordsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AllRecords not implemented")
+}
+func (UnimplementedQueryServer) TextRecord(context.Context, *QueryTextRecordRequest) (*QueryTextRecordResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TextRecord not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -368,6 +436,78 @@ func _Query_Role_Handler(srv interface{}, ctx context.Context, dec func(interfac
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_WalletRecord_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryWalletRecordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).WalletRecord(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_WalletRecord_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).WalletRecord(ctx, req.(*QueryWalletRecordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_DnsRecord_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryDnsRecordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).DnsRecord(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_DnsRecord_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).DnsRecord(ctx, req.(*QueryDnsRecordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_AllRecords_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllRecordsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).AllRecords(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_AllRecords_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).AllRecords(ctx, req.(*QueryAllRecordsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_TextRecord_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryTextRecordRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).TextRecord(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Query_TextRecord_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).TextRecord(ctx, req.(*QueryTextRecordRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Query_ServiceDesc is the grpc.ServiceDesc for Query service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -410,6 +550,22 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Role",
 			Handler:    _Query_Role_Handler,
+		},
+		{
+			MethodName: "WalletRecord",
+			Handler:    _Query_WalletRecord_Handler,
+		},
+		{
+			MethodName: "DnsRecord",
+			Handler:    _Query_DnsRecord_Handler,
+		},
+		{
+			MethodName: "AllRecords",
+			Handler:    _Query_AllRecords_Handler,
+		},
+		{
+			MethodName: "TextRecord",
+			Handler:    _Query_TextRecord_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
