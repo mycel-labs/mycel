@@ -41,8 +41,10 @@ func setup(withGenesis bool, invCheckPeriod uint, wasmOpt ...wasmkeeper.Option) 
 	appOptions[flags.FlagHome] = DefaultNodeHome
 	appOptions[server.FlagInvCheckPeriod] = invCheckPeriod
 
-	encCdc := MakeEncodingConfig()
-	app := NewApp(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, invCheckPeriod, encCdc, EmptyAppOptions{}, wasmOpt)
+	app, err := New(log.NewNopLogger(), db, nil, true, appOptions)
+  if err != nil {
+    panic(err)
+  }
 	if withGenesis {
 		return app, app.DefaultGenesis()
 	}
