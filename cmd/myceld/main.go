@@ -8,7 +8,6 @@ import (
 
 	"github.com/mycel-domain/mycel/app"
 	"github.com/mycel-domain/mycel/app/params"
-	"github.com/mycel-domain/mycel/app/params"
 	"github.com/mycel-domain/mycel/cmd/myceld/cmd"
 )
 
