@@ -15,34 +15,34 @@ service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/resolver/v1beta1/params";
+        "/mycel/resolver/v1beta1/params";
   }
 
   // Queries a list of QueryWalletRecord items.
   rpc WalletRecord(QueryWalletRecordRequest)
       returns (QueryWalletRecordResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/resolver/v1beta1/wallet_record/{domain_name}/"
+        "/mycel/resolver/v1beta1/wallet_record/{domain_name}/"
         "{domain_parent}/{wallet_record_type}";
   }
 
   // Queries a list of DnsRecord items.
   rpc DnsRecord(QueryDnsRecordRequest) returns (QueryDnsRecordResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/resolver/v1beta1/dns_record/{domain_name}/"
+        "/mycel/resolver/v1beta1/dns_record/{domain_name}/"
         "{domain_parent}/{dns_record_type}";
   }
 
   // Queries a list of AllRecord items.
   rpc AllRecords(QueryAllRecordsRequest) returns (QueryAllRecordsResponse) {
-    option (google.api.http).get = "/mycel-domain/mycel/resolver/v1beta1/"
+    option (google.api.http).get = "/mycel/resolver/v1beta1/"
                                    "all_records/{domain_name}/{domain_parent}";
   }
 
   // Queries a list of TextRecord items.
   rpc TextRecord(QueryTextRecordRequest) returns (QueryTextRecordResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/resolver/v1beta1/text_record/{domain_name}/"
+        "/mycel/resolver/v1beta1/text_record/{domain_name}/"
         "{domain_parent}/{key}";
   }
 }

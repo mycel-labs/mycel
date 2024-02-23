@@ -25,12 +25,12 @@ service Query {
   rpc TopLevelDomain(QueryGetTopLevelDomainRequest)
       returns (QueryGetTopLevelDomainResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/registry/v1beta1/top_level_domain/{name}";
+        "/mycel/registry/v1beta1/top_level_domain/{name}";
   }
   rpc TopLevelDomainAll(QueryAllTopLevelDomainRequest)
       returns (QueryAllTopLevelDomainResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/registry/v1beta1/top_level_domain";
+        "/mycel/registry/v1beta1/top_level_domain";
   }
 
   // Queries a list of SecondLevelDomain items.
@@ -49,26 +49,26 @@ service Query {
   rpc DomainOwnership(QueryGetDomainOwnershipRequest)
       returns (QueryGetDomainOwnershipResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/registry/v1beta1/domain_ownership/{owner}";
+        "/mycel/registry/v1beta1/domain_ownership/{owner}";
   }
   rpc DomainOwnershipAll(QueryAllDomainOwnershipRequest)
       returns (QueryAllDomainOwnershipResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/registry/v1beta1/domain_ownership";
+        "/mycel/registry/v1beta1/domain_ownership";
   }
 
   // Queries a list of DomainRegistrationFee items.
   rpc DomainRegistrationFee(QueryDomainRegistrationFeeRequest)
       returns (QueryDomainRegistrationFeeResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/registry/v1beta1/domain_registration_fee/{name}/"
+        "/mycel/registry/v1beta1/domain_registration_fee/{name}/"
         "{parent}/{registerer}";
   }
 
   // Queries a list of Role items.
   rpc Role(QueryRoleRequest) returns (QueryRoleResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/registry/v1beta1/role/{domain_name}/{address}";
+        "/mycel/registry/v1beta1/role/{domain_name}/{address}";
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.

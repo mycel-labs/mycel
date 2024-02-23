@@ -14,26 +14,26 @@ option go_package = "github.com/mycel-domain/mycel/x/furnace/types";
 service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/mycel-domain/mycel/furnace/v1beta1/params";
+    option (google.api.http).get = "/mycel/furnace/v1beta1/params";
   }
 
   // Queries a EpochBurnConfig by index.
   rpc EpochBurnConfig(QueryGetEpochBurnConfigRequest)
       returns (QueryGetEpochBurnConfigResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/furnace/v1beta1/epoch_burn_config";
+        "/mycel/furnace/v1beta1/epoch_burn_config";
   }
 
   // Queries a list of BurnAmount items.
   rpc BurnAmount(QueryGetBurnAmountRequest)
       returns (QueryGetBurnAmountResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/furnace/v1beta1/burn_amount/{index}";
+        "/mycel/furnace/v1beta1/burn_amount/{index}";
   }
   rpc BurnAmountAll(QueryAllBurnAmountRequest)
       returns (QueryAllBurnAmountResponse) {
     option (google.api.http).get =
-        "/mycel-domain/mycel/furnace/v1beta1/burn_amount";
+        "/mycel/furnace/v1beta1/burn_amount";
   }
 }
 
