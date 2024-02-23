@@ -59,17 +59,21 @@ import (
 
 	appparams "github.com/mycel-domain/mycel/app/params"
 	// Epochs
-	epochsmoduletypes "github.com/mycel-domain/mycel/x/epochs/types"
 	epochsmodulev1 "github.com/mycel-domain/mycel/api/mycel/epochs/module/v1"
+	epochsmoduletypes "github.com/mycel-domain/mycel/x/epochs/types"
+	_ "github.com/mycel-domain/mycel/x/epochs/module"
 	// Furnace
-	furnacemoduletypes "github.com/mycel-domain/mycel/x/furnace/types"
 	furnacemodulev1 "github.com/mycel-domain/mycel/api/mycel/furnace/module/v1"
+	furnacemoduletypes "github.com/mycel-domain/mycel/x/furnace/types"
+	_ "github.com/mycel-domain/mycel/x/furnace/module"
 	// Registry
-	registrymoduletypes "github.com/mycel-domain/mycel/x/registry/types"
 	registrymodulev1 "github.com/mycel-domain/mycel/api/mycel/registry/module/v1"
+	registrymoduletypes "github.com/mycel-domain/mycel/x/registry/types"
+	_ "github.com/mycel-domain/mycel/x/registry/module"
 	// Resolver
-	resolvermoduletypes "github.com/mycel-domain/mycel/x/resolver/types"
 	resolvermodulev1 "github.com/mycel-domain/mycel/api/mycel/resolver/module/v1"
+	resolvermoduletypes "github.com/mycel-domain/mycel/x/resolver/types"
+	_ "github.com/mycel-domain/mycel/x/resolver/module"
 )
 
 var (
@@ -324,11 +328,6 @@ var (
 				Config: appconfig.WrapAny(&circuitmodulev1.Module{}),
 			},
 			// CosmWasm
-			{
-				Name:   wasmtypes.ModuleName,
-			},
-
-			// Mycel Modules
 			{
 				Name:   epochsmoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&epochsmodulev1.Module{}),

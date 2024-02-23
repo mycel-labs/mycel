@@ -7,7 +7,7 @@ import (
 
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
-	"github.com/mycel-domain/mycel/x/epochs"
+	"github.com/mycel-domain/mycel/x/epochs/module"
 	"github.com/mycel-domain/mycel/x/epochs/types"
 )
 

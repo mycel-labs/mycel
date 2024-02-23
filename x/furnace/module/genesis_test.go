@@ -7,7 +7,7 @@ import (
 
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
-	"github.com/mycel-domain/mycel/x/furnace"
+	"github.com/mycel-domain/mycel/x/furnace/module"
 	"github.com/mycel-domain/mycel/x/furnace/types"
 )
 
