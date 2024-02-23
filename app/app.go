@@ -91,6 +91,7 @@ import (
 
 const (
 	Name                                    = "mycel"
+	AccountAddressPrefix                    = "mycel"
 	DefaultGasLimit                   int64 = 50000000
 	DefaultVoteExtensionsEnableHeight       = 1
 )

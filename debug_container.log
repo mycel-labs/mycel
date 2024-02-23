@@ -1,0 +1,58 @@
+Initializing logger
+Registering providers
+ Failed registering providers because of: module "wasm" is missing a config object
+(1) attached stack trace
+  -- stack trace:
+  | cosmossdk.io/depinject.Configs.func1
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:175
+  | cosmossdk.io/depinject.containerConfig.apply
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:185
+  | cosmossdk.io/depinject.doInject
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/inject.go:74
+  | cosmossdk.io/depinject.inject
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/inject.go:45
+  | cosmossdk.io/depinject.Inject
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/inject.go:19
+  | github.com/mycel-domain/mycel/cmd/myceld/cmd.NewRootCmd
+  | 	/Users/taru/dev/mycel/mycel/cmd/myceld/cmd/root.go:41
+  | main.main
+  | 	/Users/taru/dev/mycel/mycel/cmd/myceld/main.go:14
+  | runtime.main
+  | 	/opt/homebrew/Cellar/go/1.21.5/libexec/src/runtime/proc.go:267
+Wraps: (2) attached stack trace
+  -- stack trace:
+  | cosmossdk.io/depinject.Configs.func1
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:175
+  | [...repeated from below...]
+Wraps: (3) attached stack trace
+  -- stack trace:
+  | cosmossdk.io/depinject.Error.func1
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:165
+  | cosmossdk.io/depinject.containerConfig.apply
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:185
+  | cosmossdk.io/depinject.Configs.func1
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:173
+  | cosmossdk.io/depinject.containerConfig.apply
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:185
+  | cosmossdk.io/depinject.Configs.func1
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:173
+  | cosmossdk.io/depinject.containerConfig.apply
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/config.go:185
+  | cosmossdk.io/depinject.doInject
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/inject.go:74
+  | cosmossdk.io/depinject.inject
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/inject.go:45
+  | cosmossdk.io/depinject.Inject
+  | 	/Users/taru/go/pkg/mod/cosmossdk.io/depinject@v1.0.0-alpha.4/inject.go:19
+  | github.com/mycel-domain/mycel/cmd/myceld/cmd.NewRootCmd
+  | 	/Users/taru/dev/mycel/mycel/cmd/myceld/cmd/root.go:41
+  | main.main
+  | 	/Users/taru/dev/mycel/mycel/cmd/myceld/main.go:14
+  | runtime.main
+  | 	/opt/homebrew/Cellar/go/1.21.5/libexec/src/runtime/proc.go:267
+  | runtime.goexit
+  | 	/opt/homebrew/Cellar/go/1.21.5/libexec/src/runtime/asm_arm64.s:1197
+Wraps: (4) module "wasm" is missing a config object
+Error types: (1) *withstack.withStack (2) *withstack.withStack (3) *withstack.withStack (4) *errors.errorString
+ Error: module "wasm" is missing a config object
+ Saved graph of container to /Users/taru/dev/mycel/mycel/debug_container.dot
