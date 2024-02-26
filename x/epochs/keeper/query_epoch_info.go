@@ -6,42 +6,22 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"cosmossdk.io/store/prefix"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/types/query"
 
 	"github.com/mycel-domain/mycel/x/epochs/types"
 )
 
-func (k Keeper) EpochInfoAll(goCtx context.Context, req *types.QueryAllEpochInfoRequest) (*types.QueryAllEpochInfoResponse, error) {
+func (k Keeper) EpochInfos(goCtx context.Context, req *types.QueryEpochsInfoRequest) (*types.QueryEpochsInfoResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	var epochInfos []types.EpochInfo
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	store := ctx.KVStore(k.storeKey)
-	epochInfoStore := prefix.NewStore(store, types.KeyPrefix(types.EpochInfoKeyPrefix))
-
-	pageRes, err := query.Paginate(epochInfoStore, req.Pagination, func(key []byte, value []byte) error {
-		var epochInfo types.EpochInfo
-		if err := k.cdc.Unmarshal(value, &epochInfo); err != nil {
-			return err
-		}
-
-		epochInfos = append(epochInfos, epochInfo)
-		return nil
-	})
-	if err != nil {
-		return nil, status.Error(codes.Internal, err.Error())
-	}
-
-	return &types.QueryAllEpochInfoResponse{EpochInfo: epochInfos, Pagination: pageRes}, nil
+	return &types.QueryEpochsInfoResponse{Epochs: k.GetAllEpochInfo(ctx)}, nil
 }
 
-func (k Keeper) EpochInfo(goCtx context.Context, req *types.QueryGetEpochInfoRequest) (*types.QueryGetEpochInfoResponse, error) {
+func (k Keeper) CurrentEpoch(goCtx context.Context, req *types.QueryCurrentEpochRequest) (*types.QueryCurrentEpochResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
@@ -55,5 +35,5 @@ func (k Keeper) EpochInfo(goCtx context.Context, req *types.QueryGetEpochInfoReq
 		return nil, status.Error(codes.NotFound, "not found")
 	}
 
-	return &types.QueryGetEpochInfoResponse{EpochInfo: val}, nil
+	return &types.QueryCurrentEpochResponse{EpochInfo: val}, nil
 }

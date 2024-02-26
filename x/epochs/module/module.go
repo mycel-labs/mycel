@@ -4,45 +4,49 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"sort"
 	"time"
 
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"golang.org/x/exp/maps"
+
 	"cosmossdk.io/core/appmodule"
+	"cosmossdk.io/core/store"
 	"cosmossdk.io/depinject"
-	storetypes "cosmossdk.io/store/types"
+	"cosmossdk.io/log"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/spf13/cobra"
-
-	// this line is used by starport scaffolding # 1
+	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
+	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 
 	modulev1 "github.com/mycel-domain/mycel/api/mycel/epochs/module/v1"
-	"github.com/mycel-domain/mycel/x/epochs/client/cli"
 	"github.com/mycel-domain/mycel/x/epochs/keeper"
 	"github.com/mycel-domain/mycel/x/epochs/types"
 )
 
 var (
-	_ module.AppModuleBasic   = AppModuleBasic{}
-	_ module.HasGenesisBasics = AppModuleBasic{}
+	_ module.AppModuleBasic      = (*AppModule)(nil)
+	_ module.AppModuleSimulation = (*AppModule)(nil)
+	_ module.HasGenesis          = (*AppModule)(nil)
+	_ module.HasInvariants       = (*AppModule)(nil)
+	_ module.HasConsensusVersion = (*AppModule)(nil)
 
-	_ appmodule.AppModule        = AppModule{}
-	_ appmodule.HasBeginBlocker  = AppModule{}
-	_ module.HasConsensusVersion = AppModule{}
-	_ module.HasGenesis          = AppModule{}
-	_ module.HasServices         = AppModule{}
+	_ appmodule.AppModule       = (*AppModule)(nil)
+	_ appmodule.HasBeginBlocker = (*AppModule)(nil)
+	_ appmodule.HasEndBlocker   = (*AppModule)(nil)
 )
 
 // ----------------------------------------------------------------------------
 // AppModuleBasic
 // ----------------------------------------------------------------------------
 
-// AppModuleBasic implements the AppModuleBasic interface that defines the independent methods a Cosmos SDK module needs to implement.
+// AppModuleBasic implements the AppModuleBasic interface that defines the
+// independent methods a Cosmos SDK module needs to implement.
 type AppModuleBasic struct {
 	cdc codec.BinaryCodec
 }
@@ -51,27 +55,27 @@ func NewAppModuleBasic(cdc codec.BinaryCodec) AppModuleBasic {
 	return AppModuleBasic{cdc: cdc}
 }
 
-// Name returns the name of the module as a string
+// Name returns the name of the module as a string.
 func (AppModuleBasic) Name() string {
 	return types.ModuleName
 }
 
-// RegisterLegacyAminoCodec registers the amino codec for the module, which is used to marshal and unmarshal structs to/from []byte in order to persist them in the module's KVStore
-func (AppModuleBasic) RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
-	types.RegisterCodec(cdc)
-}
+// RegisterLegacyAminoCodec registers the amino codec for the module, which is used
+// to marshal and unmarshal structs to/from []byte in order to persist them in the module's KVStore.
+func (AppModuleBasic) RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {}
 
-// RegisterInterfaces registers a module's interface types and their concrete implementations as proto.Message
+// RegisterInterfaces registers a module's interface types and their concrete implementations as proto.Message.
 func (a AppModuleBasic) RegisterInterfaces(reg cdctypes.InterfaceRegistry) {
 	types.RegisterInterfaces(reg)
 }
 
-// DefaultGenesis returns a default GenesisState for the module, marshalled to json.RawMessage. The default GenesisState need to be defined by the module developer and is primarily used for testing
+// DefaultGenesis returns a default GenesisState for the module, marshalled to json.RawMessage.
+// The default GenesisState need to be defined by the module developer and is primarily used for testing.
 func (AppModuleBasic) DefaultGenesis(cdc codec.JSONCodec) json.RawMessage {
 	return cdc.MustMarshalJSON(types.DefaultGenesis())
 }
 
-// ValidateGenesis used to validate the GenesisState, given in its json.RawMessage form
+// ValidateGenesis used to validate the GenesisState, given in its json.RawMessage form.
 func (AppModuleBasic) ValidateGenesis(cdc codec.JSONCodec, config client.TxEncodingConfig, bz json.RawMessage) error {
 	var genState types.GenesisState
 	if err := cdc.UnmarshalJSON(bz, &genState); err != nil {
@@ -80,21 +84,11 @@ func (AppModuleBasic) ValidateGenesis(cdc codec.JSONCodec, config client.TxEncod
 	return genState.Validate()
 }
 
-// RegisterGRPCGatewayRoutes registers the gRPC Gateway routes for the module
+// RegisterGRPCGatewayRoutes registers the gRPC Gateway routes for the module.
 func (AppModuleBasic) RegisterGRPCGatewayRoutes(clientCtx client.Context, mux *runtime.ServeMux) {
-	err := types.RegisterQueryHandlerClient(context.Background(), mux, types.NewQueryClient(clientCtx))
-	if err != nil {
+	if err := types.RegisterQueryHandlerClient(context.Background(), mux, types.NewQueryClient(clientCtx)); err != nil {
+		panic(err)
 	}
-}
-
-// GetTxCmd returns the root Tx command for the module. The subcommands of this root command are used by end-users to generate new transactions containing messages defined in the module
-func (a AppModuleBasic) GetTxCmd() *cobra.Command {
-	return cli.GetTxCmd()
-}
-
-// GetQueryCmd returns the root query command for the module. The subcommands of this root command are used by end-users to generate new queries to the subset of the state defined by the module
-func (AppModuleBasic) GetQueryCmd() *cobra.Command {
-	return cli.GetQueryCmd(types.StoreKey)
 }
 
 // ----------------------------------------------------------------------------
@@ -124,12 +118,6 @@ func NewAppModule(
 	}
 }
 
-// IsAppModule implements the appmodule.AppModule interface.
-func (am AppModule) IsAppModule() {}
-
-// IsOnePerModuleType is a marker function just indicates that this is a one-per-module type.
-func (am AppModule) IsOnePerModuleType() {}
-
 // RegisterServices registers a gRPC query service to respond to the module-specific gRPC queries
 func (am AppModule) RegisterServices(cfg module.Configurator) {
 	types.RegisterMsgServer(cfg.MsgServer(), keeper.NewMsgServerImpl(am.keeper))
@@ -139,8 +127,7 @@ func (am AppModule) RegisterServices(cfg module.Configurator) {
 // RegisterInvariants registers the invariants of the module. If an invariant deviates from its predicted value, the InvariantRegistry triggers appropriate logic (most often the chain will be halted)
 func (am AppModule) RegisterInvariants(_ sdk.InvariantRegistry) {}
 
-// InitGenesis performs the epochs module's genesis initialization It returns
-// no validator updates.
+// InitGenesis performs the module's genesis initialization. It returns no validator updates.
 func (am AppModule) InitGenesis(ctx sdk.Context, cdc codec.JSONCodec, gs json.RawMessage) {
 	var genState types.GenesisState
 	// Initialize global index to index in genesis state
@@ -155,7 +142,9 @@ func (am AppModule) ExportGenesis(ctx sdk.Context, cdc codec.JSONCodec) json.Raw
 	return cdc.MustMarshalJSON(genState)
 }
 
-// ConsensusVersion is a sequence number for state-breaking change of the module. It should be incremented on each consensus-breaking change introduced by the module. To avoid wrong/empty versions, the initial version should be set to 1
+// ConsensusVersion is a sequence number for state-breaking change of the module.
+// It should be incremented on each consensus-breaking change introduced by the module.
+// To avoid wrong/empty versions, the initial version should be set to 1.
 func (AppModule) ConsensusVersion() uint64 { return 1 }
 
 // BeginBlock contains the logic that is automatically triggered at the beginning of each block
@@ -165,6 +154,18 @@ func (am AppModule) BeginBlock(ctx context.Context) error {
 	return nil
 }
 
+// EndBlock contains the logic that is automatically triggered at the end of each block.
+// The end block implementation is optional.
+func (am AppModule) EndBlock(_ context.Context) error {
+	return nil
+}
+
+// IsOnePerModuleType implements the depinject.OnePerModuleType interface.
+func (am AppModule) IsOnePerModuleType() {}
+
+// IsAppModule implements the appmodule.AppModule interface.
+func (am AppModule) IsAppModule() {}
+
 // ----------------------------------------------------------------------------
 // App Wiring Setup
 // ----------------------------------------------------------------------------
@@ -173,17 +174,56 @@ func init() {
 	appmodule.Register(
 		&modulev1.Module{},
 		appmodule.Provide(ProvideModule),
+		appmodule.Invoke(InvokeSetEpochsHooks),
 	)
+}
+
+func InvokeSetEpochsHooks(
+	config *modulev1.Module,
+	keeper *keeper.Keeper,
+	epochsHooks map[string]types.EpochHooks,
+) error {
+	// all arguments to invokers are optional
+	if keeper == nil || config == nil {
+		return nil
+	}
+
+	modNames := maps.Keys(epochsHooks)
+	order := config.HooksOrder
+	if len(order) == 0 {
+		order = modNames
+		sort.Strings(order)
+	}
+
+	if len(order) != len(modNames) {
+		return fmt.Errorf("len(hooks_order: %v) != len(hooks modules: %v)", order, modNames)
+	}
+
+	if len(modNames) == 0 {
+		return nil
+	}
+
+	var multiHooks types.MultiEpochHooks
+	for _, modName := range order {
+		hook, ok := epochsHooks[modName]
+		if !ok {
+			return fmt.Errorf("can't find epochs hooks for module %s", modName)
+		}
+
+		multiHooks = append(multiHooks, hook)
+	}
+
+	keeper.SetHooks(multiHooks)
+	return nil
 }
 
 type ModuleInputs struct {
 	depinject.In
 
-	Cdc        codec.Codec
-	StoreKey   storetypes.StoreKey
-	MemKey     storetypes.StoreKey
-	ParamStore paramtypes.Subspace
-	Config     *modulev1.Module
+	StoreService store.KVStoreService
+	Cdc          codec.Codec
+	Config       *modulev1.Module
+	Logger       log.Logger
 
 	AccountKeeper types.AccountKeeper
 	BankKeeper    types.BankKeeper
@@ -197,11 +237,16 @@ type ModuleOutputs struct {
 }
 
 func ProvideModule(in ModuleInputs) ModuleOutputs {
+	// default to governance authority if not provided
+	authority := authtypes.NewModuleAddress(govtypes.ModuleName)
+	if in.Config.Authority != "" {
+		authority = authtypes.NewModuleAddressOrBech32Address(in.Config.Authority)
+	}
 	k := keeper.NewKeeper(
 		in.Cdc,
-		in.StoreKey,
-		in.MemKey,
-		in.ParamStore,
+		in.StoreService,
+		in.Logger,
+		authority.String(),
 	)
 	m := NewAppModule(
 		in.Cdc,

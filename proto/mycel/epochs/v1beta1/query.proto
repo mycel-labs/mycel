@@ -1,52 +1,34 @@
 syntax = "proto3";
 package mycel.epochs.v1beta1;
 
-import "cosmos/base/query/v1beta1/pagination.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "mycel/epochs/v1beta1/epoch_info.proto";
-import "mycel/epochs/v1beta1/params.proto";
 
 option go_package = "github.com/mycel-domain/mycel/x/epochs/types";
 
 // Query defines the gRPC querier service.
+// Query defines the gRPC querier service.
 service Query {
-  // Parameters queries the parameters of the module.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/mycel/epochs/v1beta1/params";
+  // EpochInfos provide running epochInfos
+  rpc EpochInfos(QueryEpochsInfoRequest) returns (QueryEpochsInfoResponse) {
+    option (google.api.http).get = "/mycel/epochs/v1beta1/epochs";
   }
-
-  // Queries a list of EpochInfo items.
-  rpc EpochInfo(QueryGetEpochInfoRequest) returns (QueryGetEpochInfoResponse) {
-    option (google.api.http).get =
-        "/mycel/epochs/v1beta1/epoch_info/{identifier}";
-  }
-  rpc EpochInfoAll(QueryAllEpochInfoRequest)
-      returns (QueryAllEpochInfoResponse) {
-    option (google.api.http).get = "/mycel/epochs/v1beta1/epoch_info";
+  // CurrentEpoch provide current epoch of specified identifier
+  rpc CurrentEpoch(QueryCurrentEpochRequest)
+      returns (QueryCurrentEpochResponse) {
+    option (google.api.http).get = "/mycel/epochs/v1beta1/current_epoch";
   }
 }
 
-// QueryParamsRequest is request type for the Query/Params RPC method.
-message QueryParamsRequest {}
-
-// QueryParamsResponse is response type for the Query/Params RPC method.
-message QueryParamsResponse {
-  // params holds all the parameters of this module.
-  Params params = 1 [ (gogoproto.nullable) = false ];
+message QueryEpochsInfoRequest {}
+message QueryEpochsInfoResponse {
+  repeated EpochInfo epochs = 1 [ (gogoproto.nullable) = false ];
 }
 
-message QueryGetEpochInfoRequest { string identifier = 1; }
-
-message QueryGetEpochInfoResponse {
+message QueryCurrentEpochRequest {
+  string identifier = 1;
+}
+message QueryCurrentEpochResponse { 
   EpochInfo epoch_info = 1 [ (gogoproto.nullable) = false ];
-}
-
-message QueryAllEpochInfoRequest {
-  cosmos.base.query.v1beta1.PageRequest pagination = 1;
-}
-
-message QueryAllEpochInfoResponse {
-  repeated EpochInfo epoch_info = 1 [ (gogoproto.nullable) = false ];
-  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }

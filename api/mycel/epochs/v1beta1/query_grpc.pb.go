@@ -19,20 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Query_Params_FullMethodName       = "/mycel.epochs.v1beta1.Query/Params"
-	Query_EpochInfo_FullMethodName    = "/mycel.epochs.v1beta1.Query/EpochInfo"
-	Query_EpochInfoAll_FullMethodName = "/mycel.epochs.v1beta1.Query/EpochInfoAll"
+	Query_EpochInfos_FullMethodName   = "/mycel.epochs.v1beta1.Query/EpochInfos"
+	Query_CurrentEpoch_FullMethodName = "/mycel.epochs.v1beta1.Query/CurrentEpoch"
 )
 
 // QueryClient is the client API for Query service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type QueryClient interface {
-	// Parameters queries the parameters of the module.
-	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
-	// Queries a list of EpochInfo items.
-	EpochInfo(ctx context.Context, in *QueryGetEpochInfoRequest, opts ...grpc.CallOption) (*QueryGetEpochInfoResponse, error)
-	EpochInfoAll(ctx context.Context, in *QueryAllEpochInfoRequest, opts ...grpc.CallOption) (*QueryAllEpochInfoResponse, error)
+	// EpochInfos provide running epochInfos
+	EpochInfos(ctx context.Context, in *QueryEpochsInfoRequest, opts ...grpc.CallOption) (*QueryEpochsInfoResponse, error)
+	// CurrentEpoch provide current epoch of specified identifier
+	CurrentEpoch(ctx context.Context, in *QueryCurrentEpochRequest, opts ...grpc.CallOption) (*QueryCurrentEpochResponse, error)
 }
 
 type queryClient struct {
@@ -43,27 +41,18 @@ func NewQueryClient(cc grpc.ClientConnInterface) QueryClient {
 	return &queryClient{cc}
 }
 
-func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error) {
-	out := new(QueryParamsResponse)
-	err := c.cc.Invoke(ctx, Query_Params_FullMethodName, in, out, opts...)
+func (c *queryClient) EpochInfos(ctx context.Context, in *QueryEpochsInfoRequest, opts ...grpc.CallOption) (*QueryEpochsInfoResponse, error) {
+	out := new(QueryEpochsInfoResponse)
+	err := c.cc.Invoke(ctx, Query_EpochInfos_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *queryClient) EpochInfo(ctx context.Context, in *QueryGetEpochInfoRequest, opts ...grpc.CallOption) (*QueryGetEpochInfoResponse, error) {
-	out := new(QueryGetEpochInfoResponse)
-	err := c.cc.Invoke(ctx, Query_EpochInfo_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *queryClient) EpochInfoAll(ctx context.Context, in *QueryAllEpochInfoRequest, opts ...grpc.CallOption) (*QueryAllEpochInfoResponse, error) {
-	out := new(QueryAllEpochInfoResponse)
-	err := c.cc.Invoke(ctx, Query_EpochInfoAll_FullMethodName, in, out, opts...)
+func (c *queryClient) CurrentEpoch(ctx context.Context, in *QueryCurrentEpochRequest, opts ...grpc.CallOption) (*QueryCurrentEpochResponse, error) {
+	out := new(QueryCurrentEpochResponse)
+	err := c.cc.Invoke(ctx, Query_CurrentEpoch_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -74,11 +63,10 @@ func (c *queryClient) EpochInfoAll(ctx context.Context, in *QueryAllEpochInfoReq
 // All implementations must embed UnimplementedQueryServer
 // for forward compatibility
 type QueryServer interface {
-	// Parameters queries the parameters of the module.
-	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
-	// Queries a list of EpochInfo items.
-	EpochInfo(context.Context, *QueryGetEpochInfoRequest) (*QueryGetEpochInfoResponse, error)
-	EpochInfoAll(context.Context, *QueryAllEpochInfoRequest) (*QueryAllEpochInfoResponse, error)
+	// EpochInfos provide running epochInfos
+	EpochInfos(context.Context, *QueryEpochsInfoRequest) (*QueryEpochsInfoResponse, error)
+	// CurrentEpoch provide current epoch of specified identifier
+	CurrentEpoch(context.Context, *QueryCurrentEpochRequest) (*QueryCurrentEpochResponse, error)
 	mustEmbedUnimplementedQueryServer()
 }
 
@@ -86,14 +74,11 @@ type QueryServer interface {
 type UnimplementedQueryServer struct {
 }
 
-func (UnimplementedQueryServer) Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
+func (UnimplementedQueryServer) EpochInfos(context.Context, *QueryEpochsInfoRequest) (*QueryEpochsInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EpochInfos not implemented")
 }
-func (UnimplementedQueryServer) EpochInfo(context.Context, *QueryGetEpochInfoRequest) (*QueryGetEpochInfoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EpochInfo not implemented")
-}
-func (UnimplementedQueryServer) EpochInfoAll(context.Context, *QueryAllEpochInfoRequest) (*QueryAllEpochInfoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EpochInfoAll not implemented")
+func (UnimplementedQueryServer) CurrentEpoch(context.Context, *QueryCurrentEpochRequest) (*QueryCurrentEpochResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CurrentEpoch not implemented")
 }
 func (UnimplementedQueryServer) mustEmbedUnimplementedQueryServer() {}
 
@@ -108,56 +93,38 @@ func RegisterQueryServer(s grpc.ServiceRegistrar, srv QueryServer) {
 	s.RegisterService(&Query_ServiceDesc, srv)
 }
 
-func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryParamsRequest)
+func _Query_EpochInfos_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryEpochsInfoRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).Params(ctx, in)
+		return srv.(QueryServer).EpochInfos(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Query_Params_FullMethodName,
+		FullMethod: Query_EpochInfos_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).Params(ctx, req.(*QueryParamsRequest))
+		return srv.(QueryServer).EpochInfos(ctx, req.(*QueryEpochsInfoRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_EpochInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryGetEpochInfoRequest)
+func _Query_CurrentEpoch_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryCurrentEpochRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).EpochInfo(ctx, in)
+		return srv.(QueryServer).CurrentEpoch(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Query_EpochInfo_FullMethodName,
+		FullMethod: Query_CurrentEpoch_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).EpochInfo(ctx, req.(*QueryGetEpochInfoRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Query_EpochInfoAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryAllEpochInfoRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(QueryServer).EpochInfoAll(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Query_EpochInfoAll_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).EpochInfoAll(ctx, req.(*QueryAllEpochInfoRequest))
+		return srv.(QueryServer).CurrentEpoch(ctx, req.(*QueryCurrentEpochRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -170,16 +137,12 @@ var Query_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Params",
-			Handler:    _Query_Params_Handler,
+			MethodName: "EpochInfos",
+			Handler:    _Query_EpochInfos_Handler,
 		},
 		{
-			MethodName: "EpochInfo",
-			Handler:    _Query_EpochInfo_Handler,
-		},
-		{
-			MethodName: "EpochInfoAll",
-			Handler:    _Query_EpochInfoAll_Handler,
+			MethodName: "CurrentEpoch",
+			Handler:    _Query_CurrentEpoch_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

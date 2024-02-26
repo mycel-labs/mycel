@@ -3,6 +3,16 @@ package app
 import (
 	"time"
 
+	"google.golang.org/protobuf/types/known/durationpb"
+
+	_ "github.com/mycel-domain/mycel/x/epochs/module"
+
+	capabilitytypes "github.com/cosmos/ibc-go/modules/capability/types"
+	icatypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/types"
+	ibcfeetypes "github.com/cosmos/ibc-go/v8/modules/apps/29-fee/types"
+	ibctransfertypes "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
+	ibcexported "github.com/cosmos/ibc-go/v8/modules/core/exported"
+
 	runtimev1alpha1 "cosmossdk.io/api/cosmos/app/runtime/v1alpha1"
 	appv1alpha1 "cosmossdk.io/api/cosmos/app/v1alpha1"
 	authmodulev1 "cosmossdk.io/api/cosmos/auth/module/v1"
@@ -31,6 +41,7 @@ import (
 	"cosmossdk.io/x/feegrant"
 	"cosmossdk.io/x/nft"
 	upgradetypes "cosmossdk.io/x/upgrade/types"
+
 	"github.com/cosmos/cosmos-sdk/runtime"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	vestingtypes "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
@@ -46,30 +57,11 @@ import (
 	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	capabilitytypes "github.com/cosmos/ibc-go/modules/capability/types"
-	icatypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/types"
-	ibcfeetypes "github.com/cosmos/ibc-go/v8/modules/apps/29-fee/types"
-	ibctransfertypes "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
-	ibcexported "github.com/cosmos/ibc-go/v8/modules/core/exported"
-	"google.golang.org/protobuf/types/known/durationpb"
 
-	// CosmWasm
-	// "github.com/CosmWasm/wasmd/x/wasm"
-	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-
-	appparams "github.com/mycel-domain/mycel/app/params"
 	// Epochs
 	epochsmodulev1 "github.com/mycel-domain/mycel/api/mycel/epochs/module/v1"
+	appparams "github.com/mycel-domain/mycel/app/params"
 	epochsmoduletypes "github.com/mycel-domain/mycel/x/epochs/types"
-	_ "github.com/mycel-domain/mycel/x/epochs/module"
-	// Furnace
-	furnacemodulev1 "github.com/mycel-domain/mycel/api/mycel/furnace/module/v1"
-	furnacemoduletypes "github.com/mycel-domain/mycel/x/furnace/types"
-	_ "github.com/mycel-domain/mycel/x/furnace/module"
-	// Registry
-	registrymodulev1 "github.com/mycel-domain/mycel/api/mycel/registry/module/v1"
-	registrymoduletypes "github.com/mycel-domain/mycel/x/registry/types"
-	_ "github.com/mycel-domain/mycel/x/registry/module"
 )
 
 var (
@@ -107,11 +99,12 @@ var (
 		consensustypes.ModuleName,
 		circuittypes.ModuleName,
 		// CosmWasm
-		wasmtypes.ModuleName,
+		// wasmtypes.ModuleName,
+
 		// Mycel modules
 		epochsmoduletypes.ModuleName,
-		furnacemoduletypes.ModuleName,
-		registrymoduletypes.ModuleName,
+		// furnacemoduletypes.ModuleName,
+		// registrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -136,11 +129,11 @@ var (
 		icatypes.ModuleName,
 		ibcfeetypes.ModuleName,
 		// CosmWasm
-		wasmtypes.ModuleName,
+		// wasmtypes.ModuleName,
 		// Mycel modules
 		epochsmoduletypes.ModuleName,
-		furnacemoduletypes.ModuleName,
-		registrymoduletypes.ModuleName,
+		// furnacemoduletypes.ModuleName,
+		// registrymoduletypes.ModuleName,
 
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
@@ -160,11 +153,11 @@ var (
 		icatypes.ModuleName,
 		ibcfeetypes.ModuleName,
 		// CosmWasm
-		wasmtypes.ModuleName,
+		// wasmtypes.ModuleName,
 		// Mycel modules
 		epochsmoduletypes.ModuleName,
-		furnacemoduletypes.ModuleName,
-		registrymoduletypes.ModuleName,
+		// furnacemoduletypes.ModuleName,
+		// registrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -322,17 +315,19 @@ var (
 			},
 			// CosmWasm
 			{
-				Name:   epochsmoduletypes.ModuleName,
-				Config: appconfig.WrapAny(&epochsmodulev1.Module{}),
+				Name: epochsmoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&epochsmodulev1.Module{
+					HooksOrder: []string{},
+				}),
 			},
-			{
-				Name:   furnacemoduletypes.ModuleName,
-				Config: appconfig.WrapAny(&furnacemodulev1.Module{}),
-			},
-			{
-				Name:   registrymoduletypes.ModuleName,
-				Config: appconfig.WrapAny(&registrymodulev1.Module{}),
-			},
+			// {
+			// Name:   furnacemoduletypes.ModuleName,
+			// Config: appconfig.WrapAny(&furnacemodulev1.Module{}),
+			// },
+			// {
+			// Name:   registrymoduletypes.ModuleName,
+			// Config: appconfig.WrapAny(&registrymodulev1.Module{}),
+			// },
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},
 	})

@@ -4,6 +4,7 @@ import (
 	"cosmossdk.io/store/prefix"
 	storetypes "cosmossdk.io/store/types"
 
+	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/x/epochs/types"
@@ -11,7 +12,8 @@ import (
 
 // SetEpochInfo set a specific epochInfo in the store from its index
 func (k Keeper) SetEpochInfo(ctx sdk.Context, epochInfo types.EpochInfo) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochInfoKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EpochInfoKeyPrefix))
 	b := k.cdc.MustMarshal(&epochInfo)
 	store.Set(types.EpochInfoKey(
 		epochInfo.Identifier,
@@ -23,7 +25,8 @@ func (k Keeper) GetEpochInfo(
 	ctx sdk.Context,
 	identifier string,
 ) (val types.EpochInfo, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochInfoKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EpochInfoKeyPrefix))
 
 	b := store.Get(types.EpochInfoKey(
 		identifier,
@@ -41,7 +44,9 @@ func (k Keeper) RemoveEpochInfo(
 	ctx sdk.Context,
 	identifier string,
 ) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochInfoKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EpochInfoKeyPrefix))
+
 	store.Delete(types.EpochInfoKey(
 		identifier,
 	))
@@ -49,7 +54,9 @@ func (k Keeper) RemoveEpochInfo(
 
 // GetAllEpochInfo returns all epochInfo
 func (k Keeper) GetAllEpochInfo(ctx sdk.Context) (list []types.EpochInfo) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochInfoKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EpochInfoKeyPrefix))
+
 	iterator := storetypes.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
@@ -65,7 +72,8 @@ func (k Keeper) GetAllEpochInfo(ctx sdk.Context) (list []types.EpochInfo) {
 
 // Iterate though epochs
 func (k Keeper) IterateEpochInfo(ctx sdk.Context, fn func(index int64, epochInfo types.EpochInfo) (stop bool)) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochInfoKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EpochInfoKeyPrefix))
 
 	iterator := storetypes.KVStorePrefixIterator(store, nil)
 	defer iterator.Close()

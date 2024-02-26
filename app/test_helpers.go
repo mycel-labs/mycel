@@ -42,9 +42,9 @@ func setup(withGenesis bool, invCheckPeriod uint, wasmOpt ...wasmkeeper.Option) 
 	appOptions[server.FlagInvCheckPeriod] = invCheckPeriod
 
 	app, err := New(log.NewNopLogger(), db, nil, true, appOptions)
-  if err != nil {
-    panic(err)
-  }
+	if err != nil {
+		panic(err)
+	}
 	if withGenesis {
 		return app, app.DefaultGenesis()
 	}

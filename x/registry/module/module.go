@@ -6,17 +6,19 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/spf13/cobra"
+
 	"cosmossdk.io/core/appmodule"
 	"cosmossdk.io/depinject"
 	storetypes "cosmossdk.io/store/types"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/spf13/cobra"
 
 	// this line is used by starport scaffolding # 1
 	modulev1 "github.com/mycel-domain/mycel/api/mycel/registry/module/v1"
