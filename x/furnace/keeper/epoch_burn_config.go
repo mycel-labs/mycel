@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"cosmossdk.io/store/prefix"
+	"github.com/cosmos/cosmos-sdk/runtime"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
@@ -10,14 +11,17 @@ import (
 
 // SetEpochBurnConfig set epochBurnConfig in the store
 func (k Keeper) SetEpochBurnConfig(ctx sdk.Context, epochBurnConfig types.EpochBurnConfig) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochBurnConfigKey))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
+
 	b := k.cdc.MustMarshal(&epochBurnConfig)
 	store.Set([]byte{0}, b)
 }
 
 // GetEpochBurnConfig returns epochBurnConfig
 func (k Keeper) GetEpochBurnConfig(ctx sdk.Context) (val types.EpochBurnConfig, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochBurnConfigKey))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
 
 	b := store.Get([]byte{0})
 	if b == nil {
@@ -30,6 +34,8 @@ func (k Keeper) GetEpochBurnConfig(ctx sdk.Context) (val types.EpochBurnConfig, 
 
 // RemoveEpochBurnConfig removes epochBurnConfig from the store
 func (k Keeper) RemoveEpochBurnConfig(ctx sdk.Context) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochBurnConfigKey))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
+
 	store.Delete([]byte{0})
 }

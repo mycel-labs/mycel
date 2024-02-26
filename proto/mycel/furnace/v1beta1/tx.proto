@@ -1,7 +1,11 @@
 syntax = "proto3";
 package mycel.furnace.v1beta1;
 
+import "cosmos/msg/v1/msg.proto";
+
 option go_package = "github.com/mycel-domain/mycel/x/furnace/types";
 
 // Msg defines the Msg service.
-service Msg {}
+service Msg {
+  option (cosmos.msg.v1.service) = true;
+}

@@ -7,6 +7,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	"cosmossdk.io/store/prefix"
+	"github.com/cosmos/cosmos-sdk/runtime"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
@@ -22,7 +23,9 @@ func (k Keeper) BurnAmountAll(goCtx context.Context, req *types.QueryAllBurnAmou
 	var burnAmounts []types.BurnAmount
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	store := ctx.KVStore(k.storeKey)
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
+
 	burnAmountStore := prefix.NewStore(store, types.KeyPrefix(types.BurnAmountKeyPrefix))
 
 	pageRes, err := query.Paginate(burnAmountStore, req.Pagination, func(key []byte, value []byte) error {

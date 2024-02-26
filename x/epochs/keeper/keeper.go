@@ -28,8 +28,6 @@ func NewKeeper(
 	logger log.Logger,
 	authority string,
 ) *Keeper {
-	// set KeyTable if it has not already been set
-
 	if _, err := sdk.AccAddressFromBech32(authority); err != nil {
 		panic(fmt.Sprintf("invalid authority address: %s", authority))
 	}

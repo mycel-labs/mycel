@@ -28,6 +28,7 @@ import (
 	_ "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts" // import for side-effects
 	_ "github.com/cosmos/ibc-go/v8/modules/apps/29-fee"                 // import for side-effects
 	_ "github.com/mycel-domain/mycel/x/epochs/module"
+	_ "github.com/mycel-domain/mycel/x/furnace/module"
 
 	dbm "github.com/cosmos/cosmos-db"
 	capabilitykeeper "github.com/cosmos/ibc-go/modules/capability/keeper"
@@ -80,8 +81,9 @@ import (
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 
 	"github.com/mycel-domain/mycel/docs"
-	// Epochs
+	// Mycel Modules
 	epochsmodulekeeper "github.com/mycel-domain/mycel/x/epochs/keeper"
+	furnacemodulekeeper "github.com/mycel-domain/mycel/x/furnace/keeper"
 )
 
 const (
@@ -147,9 +149,9 @@ type App struct {
 	// WasmKeeper wasmkeeper.Keeper
 
 	// Mycel modules
+	EpochsKeeper  epochsmodulekeeper.Keeper
+	FurnaceKeeper furnacemodulekeeper.Keeper
 	// RegistryKeeper registrymodulekeeper.Keeper
-	EpochsKeeper epochsmodulekeeper.Keeper
-	// FurnaceKeeper  furnacemodulekeeper.Keeper
 
 	// sm is the simulation manager
 	sm *module.SimulationManager
@@ -290,7 +292,7 @@ func New(
 		// &app.WasmKeeper,
 		// Mycel Keepers
 		&app.EpochsKeeper,
-		// &app.FurnaceKeeper,
+		&app.FurnaceKeeper,
 		// &app.RegistryKeeper,
 		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {

@@ -4,6 +4,7 @@ import (
 	errorsmod "cosmossdk.io/errors"
 	"cosmossdk.io/store/prefix"
 	storetypes "cosmossdk.io/store/types"
+	"github.com/cosmos/cosmos-sdk/runtime"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
@@ -13,7 +14,8 @@ import (
 
 // SetBurnAmount set a specific burnAmount in the store from its index
 func (k Keeper) SetBurnAmount(ctx sdk.Context, burnAmount types.BurnAmount) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BurnAmountKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
 	b := k.cdc.MustMarshal(&burnAmount)
 	store.Set(types.BurnAmountKey(
 		burnAmount.Index,
@@ -25,7 +27,8 @@ func (k Keeper) GetBurnAmount(
 	ctx sdk.Context,
 	index uint64,
 ) (val types.BurnAmount, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BurnAmountKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
 
 	b := store.Get(types.BurnAmountKey(
 		index,
@@ -43,7 +46,9 @@ func (k Keeper) RemoveBurnAmount(
 	ctx sdk.Context,
 	index uint64,
 ) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BurnAmountKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
+
 	store.Delete(types.BurnAmountKey(
 		index,
 	))
@@ -51,7 +56,8 @@ func (k Keeper) RemoveBurnAmount(
 
 // GetAllBurnAmount returns all burnAmount
 func (k Keeper) GetAllBurnAmount(ctx sdk.Context) (list []types.BurnAmount) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BurnAmountKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
 	iterator := storetypes.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
@@ -61,7 +67,6 @@ func (k Keeper) GetAllBurnAmount(ctx sdk.Context) (list []types.BurnAmount) {
 		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		list = append(list, val)
 	}
-
 	return
 }
 

@@ -58,10 +58,15 @@ import (
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
+	appparams "github.com/mycel-domain/mycel/app/params"
+
+	// Mycel modules
 	// Epochs
 	epochsmodulev1 "github.com/mycel-domain/mycel/api/mycel/epochs/module/v1"
-	appparams "github.com/mycel-domain/mycel/app/params"
 	epochsmoduletypes "github.com/mycel-domain/mycel/x/epochs/types"
+	// Furnace
+	furnacemodulev1 "github.com/mycel-domain/mycel/api/mycel/furnace/module/v1"
+	furnacemoduletypes "github.com/mycel-domain/mycel/x/furnace/types"
 )
 
 var (
@@ -103,7 +108,7 @@ var (
 
 		// Mycel modules
 		epochsmoduletypes.ModuleName,
-		// furnacemoduletypes.ModuleName,
+		furnacemoduletypes.ModuleName,
 		// registrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
@@ -132,7 +137,7 @@ var (
 		// wasmtypes.ModuleName,
 		// Mycel modules
 		epochsmoduletypes.ModuleName,
-		// furnacemoduletypes.ModuleName,
+		furnacemoduletypes.ModuleName,
 		// registrymoduletypes.ModuleName,
 
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
@@ -156,7 +161,7 @@ var (
 		// wasmtypes.ModuleName,
 		// Mycel modules
 		epochsmoduletypes.ModuleName,
-		// furnacemoduletypes.ModuleName,
+		furnacemoduletypes.ModuleName,
 		// registrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
@@ -317,13 +322,13 @@ var (
 			{
 				Name: epochsmoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&epochsmodulev1.Module{
-					HooksOrder: []string{},
+					HooksOrder: []string{furnacemoduletypes.ModuleName},
 				}),
 			},
-			// {
-			// Name:   furnacemoduletypes.ModuleName,
-			// Config: appconfig.WrapAny(&furnacemodulev1.Module{}),
-			// },
+			{
+				Name:   furnacemoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&furnacemodulev1.Module{}),
+			},
 			// {
 			// Name:   registrymoduletypes.ModuleName,
 			// Config: appconfig.WrapAny(&registrymodulev1.Module{}),
