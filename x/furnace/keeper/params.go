@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/cosmos/cosmos-sdk/runtime"
+
 	"github.com/mycel-domain/mycel/x/furnace/types"
 )
 

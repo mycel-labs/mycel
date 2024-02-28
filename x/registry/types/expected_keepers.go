@@ -30,7 +30,7 @@ type BankKeeper interface {
 }
 
 type FurnaceKeeper interface {
-	AddRegistrationFeeToBurnAmounts(ctx sdk.Context, registrationPeriodInYear uint64, amount sdk.Coin) (burnAmounts []furnacetypes.BurnAmount, err error)
+	AddRegistrationFeeToBurnAmounts(ctx context.Context, registrationPeriodInYear uint64, amount sdk.Coin) (burnAmounts []furnacetypes.BurnAmount, err error)
 }
 
 type MintKeeper interface {

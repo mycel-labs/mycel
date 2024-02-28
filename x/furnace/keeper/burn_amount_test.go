@@ -1,6 +1,7 @@
 package keeper_test
 
 import (
+	"context"
 	"fmt"
 	"strconv"
 	"testing"
@@ -21,7 +22,7 @@ import (
 // Prevent strconv unused error
 var _ = strconv.IntSize
 
-func createNBurnAmount(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.BurnAmount {
+func createNBurnAmount(keeper *keeper.Keeper, ctx context.Context, n int) []types.BurnAmount {
 	items := make([]types.BurnAmount, n)
 	for i := range items {
 		items[i].Index = uint64(i)

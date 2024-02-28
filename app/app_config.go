@@ -56,17 +56,16 @@ import (
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	appparams "github.com/mycel-domain/mycel/app/params"
-
 	// Mycel modules
 	// Epochs
 	epochsmodulev1 "github.com/mycel-domain/mycel/api/mycel/epochs/module/v1"
-	epochsmoduletypes "github.com/mycel-domain/mycel/x/epochs/types"
 	// Furnace
 	furnacemodulev1 "github.com/mycel-domain/mycel/api/mycel/furnace/module/v1"
-	furnacemoduletypes "github.com/mycel-domain/mycel/x/furnace/types"
 	// Registry
 	registrymodulev1 "github.com/mycel-domain/mycel/api/mycel/registry/module/v1"
+	appparams "github.com/mycel-domain/mycel/app/params"
+	epochsmoduletypes "github.com/mycel-domain/mycel/x/epochs/types"
+	furnacemoduletypes "github.com/mycel-domain/mycel/x/furnace/types"
 	registrymoduletypes "github.com/mycel-domain/mycel/x/registry/types"
 )
 

@@ -23,9 +23,9 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:     "Shows the burn amounts",
 				},
 				{
-					RpcMethod: "BurnAmount",
-					Use:       "burn-amount [index]",
-					Short:     "Shows the burn amount",
+					RpcMethod:      "BurnAmount",
+					Use:            "burn-amount [index]",
+					Short:          "Shows the burn amount",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "index"}},
 				},
 				{

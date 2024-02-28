@@ -1,6 +1,7 @@
 package keeper_test
 
 import (
+	"context"
 	"strconv"
 	"testing"
 
@@ -17,7 +18,7 @@ import (
 // Prevent strconv unused error
 var _ = strconv.IntSize
 
-func createNEpochInfo(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.EpochInfo {
+func createNEpochInfo(keeper *keeper.Keeper, ctx context.Context, n int) []types.EpochInfo {
 	items := make([]types.EpochInfo, n)
 	for i := range items {
 		items[i].Identifier = strconv.Itoa(i)

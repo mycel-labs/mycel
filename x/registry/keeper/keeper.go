@@ -21,7 +21,7 @@ type (
 
 		bankKeeper         types.BankKeeper
 		distributionKeeper types.DistributionKeeper
-		mintKeeper      types.MintKeeper
+		mintKeeper         types.MintKeeper
 		furnaceKeeper      types.FurnaceKeeper
 	}
 )
@@ -49,7 +49,7 @@ func NewKeeper(
 
 		bankKeeper:         bankKeeper,
 		distributionKeeper: distributionKeeper,
-		mintKeeper:      mintKeeper,
+		mintKeeper:         mintKeeper,
 		furnaceKeeper:      furnaceKeeper,
 	}
 }

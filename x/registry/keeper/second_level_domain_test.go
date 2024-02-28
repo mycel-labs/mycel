@@ -1,6 +1,7 @@
 package keeper_test
 
 import (
+	"context"
 	"fmt"
 	"strconv"
 	"testing"
@@ -22,7 +23,7 @@ import (
 // Prevent strconv unused error
 var _ = strconv.IntSize
 
-func createNSecondLevelDomain(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.SecondLevelDomain {
+func createNSecondLevelDomain(keeper *keeper.Keeper, ctx context.Context, n int) []types.SecondLevelDomain {
 	items := make([]types.SecondLevelDomain, n)
 	for i := range items {
 		items[i].Name = strconv.Itoa(i)
@@ -33,7 +34,7 @@ func createNSecondLevelDomain(keeper *keeper.Keeper, ctx sdk.Context, n int) []t
 	return items
 }
 
-func createNSecondLevelDomainResponse(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.SecondLevelDomainResponse {
+func createNSecondLevelDomainResponse(keeper *keeper.Keeper, ctx context.Context, n int) []types.SecondLevelDomainResponse {
 	items := createNSecondLevelDomain(keeper, ctx, n)
 	responses := make([]types.SecondLevelDomainResponse, n)
 	for i := range responses {
@@ -47,7 +48,7 @@ func createNSecondLevelDomainResponse(keeper *keeper.Keeper, ctx sdk.Context, n 
 // Register top-level domains with k.RegisterSecondLevelDomain()
 // Domain name is set to `n` (n is a incremantal number)
 // e.g.) `1`, `2`, `n`...
-func registerNSecondLevelDomain(k *keeper.Keeper, ctx sdk.Context, creatorAddr string, n int) ([]types.SecondLevelDomain, error) {
+func registerNSecondLevelDomain(k *keeper.Keeper, ctx context.Context, creatorAddr string, n int) ([]types.SecondLevelDomain, error) {
 	items := make([]types.SecondLevelDomain, n)
 	for i := range items {
 		creator, err := sdk.AccAddressFromBech32(creatorAddr)

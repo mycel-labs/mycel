@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"context"
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -9,7 +10,8 @@ import (
 )
 
 // Register top-level-domain event
-func EmitRegisterTopLevelDomainEvent(ctx sdk.Context, domain types.TopLevelDomain, fee types.TopLevelDomainFee) {
+func EmitRegisterTopLevelDomainEvent(goCtx context.Context, domain types.TopLevelDomain, fee types.TopLevelDomainFee) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(
 			types.EventTypeRegisterTopLevelDomain,
@@ -25,7 +27,8 @@ func EmitRegisterTopLevelDomainEvent(ctx sdk.Context, domain types.TopLevelDomai
 }
 
 // Register second-level-domain event
-func EmitRegisterSecondLevelDomainEvent(ctx sdk.Context, domain types.SecondLevelDomain, fee sdk.Coin) {
+func EmitRegisterSecondLevelDomainEvent(goCtx context.Context, domain types.SecondLevelDomain, fee sdk.Coin) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(types.EventTypeRegisterSecondLevelDomain,
 			sdk.NewAttribute(types.AttributeRegisterSecondLevelDomainEventName, domain.Name),
@@ -37,7 +40,8 @@ func EmitRegisterSecondLevelDomainEvent(ctx sdk.Context, domain types.SecondLeve
 }
 
 // Update wallet record event
-func EmitUpdateWalletRecordEvent(ctx sdk.Context, msg types.MsgUpdateWalletRecord) {
+func EmitUpdateWalletRecordEvent(goCtx context.Context, msg types.MsgUpdateWalletRecord) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(types.EventTypeUpdateWalletRecord,
 			sdk.NewAttribute(types.AttributeUpdateWalletRecordEventDomainName, msg.Name),
@@ -49,7 +53,8 @@ func EmitUpdateWalletRecordEvent(ctx sdk.Context, msg types.MsgUpdateWalletRecor
 }
 
 // Update dns record event
-func EmitUpdateDnsRecordEvent(ctx sdk.Context, msg types.MsgUpdateDnsRecord) {
+func EmitUpdateDnsRecordEvent(goCtx context.Context, msg types.MsgUpdateDnsRecord) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(types.EventTypeUpdateDnsRecord,
 			sdk.NewAttribute(types.AttributeUpdateDnsRecordEventDomainName, msg.Name),
@@ -61,7 +66,8 @@ func EmitUpdateDnsRecordEvent(ctx sdk.Context, msg types.MsgUpdateDnsRecord) {
 }
 
 // Update dns record event
-func EmitUpdateTextRecordEvent(ctx sdk.Context, msg types.MsgUpdateTextRecord) {
+func EmitUpdateTextRecordEvent(goCtx context.Context, msg types.MsgUpdateTextRecord) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(types.EventTypeUpdateTextRecord,
 			sdk.NewAttribute(types.AttributeUpdateTextRecordEventDomainName, msg.Name),
@@ -73,7 +79,8 @@ func EmitUpdateTextRecordEvent(ctx sdk.Context, msg types.MsgUpdateTextRecord) {
 }
 
 // Withdraw fees event
-func EmitWithdrawRegistrationFeeEvent(ctx sdk.Context, msg types.MsgWithdrawRegistrationFee, fee sdk.Coins) {
+func EmitWithdrawRegistrationFeeEvent(goCtx context.Context, msg types.MsgWithdrawRegistrationFee, fee sdk.Coins) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(types.EventTypeWithdrawRegistrationFee,
 			sdk.NewAttribute(types.AttributeWithdrawRegistrationFeeEventDomainName, msg.Name),
@@ -83,7 +90,8 @@ func EmitWithdrawRegistrationFeeEvent(ctx sdk.Context, msg types.MsgWithdrawRegi
 }
 
 // Extend top-level-domain expiration date event
-func EmitExtendTopLevelDomainExpirationDateEvent(ctx sdk.Context, domain types.TopLevelDomain, fee types.TopLevelDomainFee) {
+func EmitExtendTopLevelDomainExpirationDateEvent(goCtx context.Context, domain types.TopLevelDomain, fee types.TopLevelDomainFee) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(types.EventTypeExtendTopLevelDomainExpirationDate,
 			sdk.NewAttribute(types.AttributeExtendTopLevelDomainExpirationDateEventDomainName, domain.Name),
@@ -97,7 +105,8 @@ func EmitExtendTopLevelDomainExpirationDateEvent(ctx sdk.Context, domain types.T
 }
 
 // Update top-level-domain registration policy
-func EmitUpdateTopLevelDomainRegistrationPolicyEvent(ctx sdk.Context, domain types.TopLevelDomain) {
+func EmitUpdateTopLevelDomainRegistrationPolicyEvent(goCtx context.Context, domain types.TopLevelDomain) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(types.EventTypeUpdateTopLevelDomainRegistrationPolicy,
 			sdk.NewAttribute(types.AttributeUpdateTopLevelDomainRegistrationPolicyEventDomainName, domain.Name),

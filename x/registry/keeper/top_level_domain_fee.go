@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"context"
 	"fmt"
 
 	"cosmossdk.io/math"
@@ -12,22 +13,22 @@ import (
 )
 
 // Get burn weight
-func (k Keeper) GetBurnWeight(ctx sdk.Context) (weight math.LegacyDec, err error) {
+func (k Keeper) GetBurnWeight(goCtx context.Context) (weight math.LegacyDec, err error) {
 	// TODO: Get inflation from minter
-	// minter, err := k.mintKeeper.Minter.Get(ctx)
+	// minter, err := k.mintKeeper.Minter.Get(goCtx)
 	// if err != nil {
 	// return math.LegacyDec{}, err
 	// }
 	// inflation := minter.Inflation
 
 	inflation := math.LegacyMustNewDecFromStr(fmt.Sprintf("%f", 0.20))
-	bondedRatio, err := k.mintKeeper.BondedRatio(ctx)
+	bondedRatio, err := k.mintKeeper.BondedRatio(goCtx)
 	if err != nil {
 		return math.LegacyDec{}, err
 	}
 
 	// TODO: Get alpha from params
-	mintInflationRatio := k.GetParams(ctx).StakingInflationRatio
+	mintInflationRatio := k.GetParams(goCtx).StakingInflationRatio
 	alpha := math.LegacyMustNewDecFromStr(fmt.Sprintf("%f", mintInflationRatio))
 
 	w1 := alpha.Mul(bondedRatio)
@@ -37,12 +38,12 @@ func (k Keeper) GetBurnWeight(ctx sdk.Context) (weight math.LegacyDec, err error
 }
 
 // Get top-level-domain fee
-func (k Keeper) GetTopLevelDomainFee(ctx sdk.Context, topLevelDomain types.TopLevelDomain, registrationPeriodInYear uint64) (topLevelDomainFee types.TopLevelDomainFee, err error) {
+func (k Keeper) GetTopLevelDomainFee(goCtx context.Context, topLevelDomain types.TopLevelDomain, registrationPeriodInYear uint64) (topLevelDomainFee types.TopLevelDomainFee, err error) {
 	// TODO: Support other denoms
 	denom := params.DefaultBondDenom
 
 	// Get base fee
-	baseFeeInUsd := k.GetParams(ctx).TopLevelDomainBaseFeeInUsd
+	baseFeeInUsd := k.GetParams(goCtx).TopLevelDomainBaseFeeInUsd
 	if baseFeeInUsd == 0 {
 		panic("base fee is not set")
 	}
@@ -55,7 +56,7 @@ func (k Keeper) GetTopLevelDomainFee(ctx sdk.Context, topLevelDomain types.TopLe
 	topLevelDomainFee.TotalFee = sdk.NewCoins(sdk.NewCoin(denom, fee))
 
 	// Get burn weight (=W)
-	weight, err := k.GetBurnWeight(ctx)
+	weight, err := k.GetBurnWeight(goCtx)
 	if err != nil {
 		return types.TopLevelDomainFee{}, err
 	}

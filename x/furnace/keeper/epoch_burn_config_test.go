@@ -1,11 +1,10 @@
 package keeper_test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/stretchr/testify/require"
-
-	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
@@ -13,7 +12,7 @@ import (
 	"github.com/mycel-domain/mycel/x/furnace/types"
 )
 
-func createTestEpochBurnConfig(keeper *keeper.Keeper, ctx sdk.Context) types.EpochBurnConfig { //nolint:unparam
+func createTestEpochBurnConfig(keeper *keeper.Keeper, ctx context.Context) types.EpochBurnConfig { //nolint:unparam
 	item := types.EpochBurnConfig{}
 	keeper.SetEpochBurnConfig(ctx, item)
 	return item

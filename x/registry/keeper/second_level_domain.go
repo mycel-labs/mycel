@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"context"
 	"time"
 
 	errorsmod "cosmossdk.io/errors"
@@ -14,8 +15,8 @@ import (
 )
 
 // SetSecondLevelDomain set a specific second-level-domain in the store from its index
-func (k Keeper) SetSecondLevelDomain(ctx sdk.Context, domain types.SecondLevelDomain) {
-	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+func (k Keeper) SetSecondLevelDomain(goCtx context.Context, domain types.SecondLevelDomain) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
 
 	b := k.cdc.MustMarshal(&domain)
@@ -27,11 +28,11 @@ func (k Keeper) SetSecondLevelDomain(ctx sdk.Context, domain types.SecondLevelDo
 
 // GetSecondLevelDomain returns a second-level-domain from its index
 func (k Keeper) GetSecondLevelDomain(
-	ctx sdk.Context,
+	goCtx context.Context,
 	name string,
 	parent string,
 ) (val types.SecondLevelDomain, found bool) {
-	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
 
 	b := store.Get(types.SecondLevelDomainKey(
@@ -48,11 +49,11 @@ func (k Keeper) GetSecondLevelDomain(
 
 // RemoveSecondLevelDomain removes a second-level-domain from the store
 func (k Keeper) RemoveSecondLevelDomain(
-	ctx sdk.Context,
+	goCtx context.Context,
 	name string,
 	parent string,
 ) {
-	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
 
 	store.Delete(types.SecondLevelDomainKey(
@@ -62,8 +63,8 @@ func (k Keeper) RemoveSecondLevelDomain(
 }
 
 // GetAllSecondLevelDomain returns all second-level-domain
-func (k Keeper) GetAllSecondLevelDomain(ctx sdk.Context) (list []types.SecondLevelDomain) {
-	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+func (k Keeper) GetAllSecondLevelDomain(goCtx context.Context) (list []types.SecondLevelDomain) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
 
 	iterator := storetypes.KVStorePrefixIterator(store, []byte{})
@@ -80,13 +81,13 @@ func (k Keeper) GetAllSecondLevelDomain(ctx sdk.Context) (list []types.SecondLev
 }
 
 // Get is second-level-domain already taken
-func (k Keeper) GetIsSecondLevelDomainAlreadyTaken(ctx sdk.Context, domain types.SecondLevelDomain) (isDomainAlreadyTaken bool) {
-	_, isDomainAlreadyTaken = k.GetSecondLevelDomain(ctx, domain.Name, domain.Parent)
+func (k Keeper) GetIsSecondLevelDomainAlreadyTaken(goCtx context.Context, domain types.SecondLevelDomain) (isDomainAlreadyTaken bool) {
+	_, isDomainAlreadyTaken = k.GetSecondLevelDomain(goCtx, domain.Name, domain.Parent)
 	return isDomainAlreadyTaken
 }
 
 // Get valid second-level-domain
-func (k Keeper) GetValidSecondLevelDomain(ctx sdk.Context, name string, parent string) (secondLevelDomain types.SecondLevelDomain, err error) {
+func (k Keeper) GetValidSecondLevelDomain(goCtx context.Context, name string, parent string) (secondLevelDomain types.SecondLevelDomain, err error) {
 	// Regex validation
 	err = types.ValidateSecondLevelDomainName(name)
 	if err != nil {
@@ -98,18 +99,19 @@ func (k Keeper) GetValidSecondLevelDomain(ctx sdk.Context, name string, parent s
 	}
 
 	// Get parent domain
-	_, err = k.GetValidTopLevelDomain(ctx, parent)
+	_, err = k.GetValidTopLevelDomain(goCtx, parent)
 	if err != nil {
 		return types.SecondLevelDomain{}, err
 	}
 
 	// Get second-level-domain
-	secondLevelDomain, isFound := k.GetSecondLevelDomain(ctx, name, parent)
+	secondLevelDomain, isFound := k.GetSecondLevelDomain(goCtx, name, parent)
 	if !isFound {
 		return types.SecondLevelDomain{}, errorsmod.Wrapf(types.ErrSecondLevelDomainNotFound, "%s.%s", name, parent)
 	}
 
 	// Check if second-level-domain is not expired
+	ctx := sdk.UnwrapSDKContext(goCtx)
 	if ctx.BlockTime().After(secondLevelDomain.ExpirationDate) && secondLevelDomain.ExpirationDate != (time.Time{}) {
 		return types.SecondLevelDomain{}, errorsmod.Wrapf(types.ErrSecondLevelDomainExpired, "%s", name)
 	}
@@ -118,17 +120,17 @@ func (k Keeper) GetValidSecondLevelDomain(ctx sdk.Context, name string, parent s
 }
 
 // Get parent domain
-func (k Keeper) GetSecondLevelDomainParent(ctx sdk.Context, domain types.SecondLevelDomain) (parentDomain types.TopLevelDomain, found bool) {
+func (k Keeper) GetSecondLevelDomainParent(goCtx context.Context, domain types.SecondLevelDomain) (parentDomain types.TopLevelDomain, found bool) {
 	// Get parent domain
 	parent := domain.ParseParent()
-	parentDomain, found = k.GetTopLevelDomain(ctx, parent)
+	parentDomain, found = k.GetTopLevelDomain(goCtx, parent)
 	return parentDomain, found
 }
 
 // Get parent domain's subdomain config
-func (k Keeper) GetSecondLevelDomainParentsSubdomainConfig(ctx sdk.Context, domain types.SecondLevelDomain) types.SubdomainConfig {
+func (k Keeper) GetSecondLevelDomainParentsSubdomainConfig(goCtx context.Context, domain types.SecondLevelDomain) types.SubdomainConfig {
 	// Get parent domain
-	parentDomain, found := k.GetSecondLevelDomainParent(ctx, domain)
+	parentDomain, found := k.GetSecondLevelDomainParent(goCtx, domain)
 	if !found || parentDomain.SubdomainConfig == nil {
 		panic("parent domain or config not found")
 	}
@@ -136,8 +138,8 @@ func (k Keeper) GetSecondLevelDomainParentsSubdomainConfig(ctx sdk.Context, doma
 }
 
 // Get Role of the second-level domain
-func (k Keeper) GetSecondLevelDomainRole(ctx sdk.Context, name, parent, address string) (role types.DomainRole, found bool) {
-	sld, found := k.GetSecondLevelDomain(ctx, name, parent)
+func (k Keeper) GetSecondLevelDomainRole(goCtx context.Context, name, parent, address string) (role types.DomainRole, found bool) {
+	sld, found := k.GetSecondLevelDomain(goCtx, name, parent)
 	if !found {
 		return types.DomainRole_NO_ROLE, false
 	}
@@ -146,20 +148,20 @@ func (k Keeper) GetSecondLevelDomainRole(ctx sdk.Context, name, parent, address 
 }
 
 // Increment parents subdomain count
-func (k Keeper) IncrementParentsSubdomainCount(ctx sdk.Context, domain types.SecondLevelDomain) {
+func (k Keeper) IncrementParentsSubdomainCount(goCtx context.Context, domain types.SecondLevelDomain) {
 	// Increment parent's subdomain count
 	parent := domain.ParseParent()
-	parentDomain, found := k.GetTopLevelDomain(ctx, parent)
+	parentDomain, found := k.GetTopLevelDomain(goCtx, parent)
 	if !found {
 		panic("parent not found")
 	}
 	parentDomain.SubdomainCount++
-	k.SetTopLevelDomain(ctx, parentDomain)
+	k.SetTopLevelDomain(goCtx, parentDomain)
 }
 
 // Pay SLD registration fee
-func (k Keeper) PaySecondLevelDomainRegstrationFee(ctx sdk.Context, payer sdk.AccAddress, domain types.SecondLevelDomain, registrationPeriodInYear uint64) (fee sdk.Coin, err error) {
-	config := k.GetSecondLevelDomainParentsSubdomainConfig(ctx, domain)
+func (k Keeper) PaySecondLevelDomainRegstrationFee(goCtx context.Context, payer sdk.AccAddress, domain types.SecondLevelDomain, registrationPeriodInYear uint64) (fee sdk.Coin, err error) {
+	config := k.GetSecondLevelDomainParentsSubdomainConfig(goCtx, domain)
 
 	fee, err = config.GetRegistrationFee(domain.Name, registrationPeriodInYear)
 	if err != nil {
@@ -167,37 +169,37 @@ func (k Keeper) PaySecondLevelDomainRegstrationFee(ctx sdk.Context, payer sdk.Ac
 	}
 
 	// Send coins from payer to module account
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, types.ModuleName, sdk.NewCoins(fee))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(goCtx, payer, types.ModuleName, sdk.NewCoins(fee))
 	if err != nil {
 		return fee, err
 	}
 
 	// Update store
-	parent, found := k.GetTopLevelDomain(ctx, domain.Parent)
+	parent, found := k.GetTopLevelDomain(goCtx, domain.Parent)
 	if !found {
 		panic("parent not found")
 	}
 	parent.TotalWithdrawalAmount = parent.TotalWithdrawalAmount.Add(fee)
-	k.SetTopLevelDomain(ctx, parent)
+	k.SetTopLevelDomain(goCtx, parent)
 
 	return fee, err
 }
 
 // Validate second-level-domain is registrable
-func (k Keeper) ValidateSecondLevelDomainIsRegistrable(ctx sdk.Context, secondLevelDomain types.SecondLevelDomain, sldOwner sdk.AccAddress) error {
+func (k Keeper) ValidateSecondLevelDomainIsRegistrable(goCtx context.Context, secondLevelDomain types.SecondLevelDomain, sldOwner sdk.AccAddress) error {
 	// Validate second-level-domain
 	err := secondLevelDomain.Validate()
 	if err != nil {
 		return err
 	}
 	// Check if second-level-domain is already taken
-	isTaken := k.GetIsSecondLevelDomainAlreadyTaken(ctx, secondLevelDomain)
+	isTaken := k.GetIsSecondLevelDomainAlreadyTaken(goCtx, secondLevelDomain)
 	if isTaken {
 		return errorsmod.Wrapf(types.ErrSecondLevelDomainAlreadyTaken, "%s.%s", secondLevelDomain.Name, secondLevelDomain.Parent)
 	}
 
 	// Get parent domain of second-level-domain
-	parentDomain, found := k.GetSecondLevelDomainParent(ctx, secondLevelDomain)
+	parentDomain, found := k.GetSecondLevelDomainParent(goCtx, secondLevelDomain)
 	if !found {
 		return errorsmod.Wrapf(types.ErrSecondLevelDomainParentDoesNotExist, "%s", secondLevelDomain.Parent)
 	}
@@ -219,30 +221,30 @@ func (k Keeper) ValidateSecondLevelDomainIsRegistrable(ctx sdk.Context, secondLe
 }
 
 // Register second level domain
-func (k Keeper) RegisterSecondLevelDomain(ctx sdk.Context, secondLevelDomain types.SecondLevelDomain, owner sdk.AccAddress, registrationPeriodIYear uint64) (err error) {
+func (k Keeper) RegisterSecondLevelDomain(goCtx context.Context, secondLevelDomain types.SecondLevelDomain, owner sdk.AccAddress, registrationPeriodIYear uint64) (err error) {
 	// Validate second-level-domain is registrable
-	err = k.ValidateSecondLevelDomainIsRegistrable(ctx, secondLevelDomain, owner)
+	err = k.ValidateSecondLevelDomainIsRegistrable(goCtx, secondLevelDomain, owner)
 	if err != nil {
 		return err
 	}
 
 	// Increment parents subdomain SubdomainCount
-	k.IncrementParentsSubdomainCount(ctx, secondLevelDomain)
+	k.IncrementParentsSubdomainCount(goCtx, secondLevelDomain)
 
 	// Pay SLD registration fee
-	fee, err := k.PaySecondLevelDomainRegstrationFee(ctx, owner, secondLevelDomain, registrationPeriodIYear)
+	fee, err := k.PaySecondLevelDomainRegstrationFee(goCtx, owner, secondLevelDomain, registrationPeriodIYear)
 	if err != nil {
 		return err
 	}
 
 	// Append to owned domain
-	k.AppendToOwnedDomain(ctx, owner.String(), secondLevelDomain.Name, secondLevelDomain.Parent)
+	k.AppendToOwnedDomain(goCtx, owner.String(), secondLevelDomain.Name, secondLevelDomain.Parent)
 
 	// Set domain
-	k.SetSecondLevelDomain(ctx, secondLevelDomain)
+	k.SetSecondLevelDomain(goCtx, secondLevelDomain)
 
 	// Emit event
-	EmitRegisterSecondLevelDomainEvent(ctx, secondLevelDomain, fee)
+	EmitRegisterSecondLevelDomainEvent(goCtx, secondLevelDomain, fee)
 
 	return err
 }

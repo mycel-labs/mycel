@@ -33,8 +33,8 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 		accs[i] = acc.Address.String()
 	}
 	furnaceGenesis := types.GenesisState{
-    EpochBurnConfig: types.DefaultGenesis().GetEpochBurnConfig(),
-    BurnAmounts: types.DefaultGenesis().BurnAmounts,
+		EpochBurnConfig: types.DefaultGenesis().GetEpochBurnConfig(),
+		BurnAmounts:     types.DefaultGenesis().BurnAmounts,
 		// this line is used by starport scaffolding # simapp/module/genesisState
 	}
 	simState.GenState[types.ModuleName] = simState.Cdc.MustMarshalJSON(&furnaceGenesis)
