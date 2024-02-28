@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: mycel/registry/v1beta1/tx.proto
 
-package types
+package registryv1beta1
 
 import (
 	context "context"

@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: mycel/furnace/v1beta1/tx.proto
 
-package types
+package furnacev1beta1
 
 import (
 	grpc "google.golang.org/grpc"

@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: mycel/registry/v1beta1/query.proto
 
-package types
+package registryv1beta1
 
 import (
 	context "context"

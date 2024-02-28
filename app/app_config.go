@@ -56,16 +56,23 @@ import (
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
+	appparams "github.com/mycel-domain/mycel/app/params"
+
 	// Mycel modules
+
 	// Epochs
 	epochsmodulev1 "github.com/mycel-domain/mycel/api/mycel/epochs/module/v1"
+	_ "github.com/mycel-domain/mycel/x/epochs/module" // import for side-effects
+	epochsmoduletypes "github.com/mycel-domain/mycel/x/epochs/types"
+
 	// Furnace
 	furnacemodulev1 "github.com/mycel-domain/mycel/api/mycel/furnace/module/v1"
+	_ "github.com/mycel-domain/mycel/x/furnace/module" // import for side-effects
+	furnacemoduletypes "github.com/mycel-domain/mycel/x/furnace/types"
+
 	// Registry
 	registrymodulev1 "github.com/mycel-domain/mycel/api/mycel/registry/module/v1"
-	appparams "github.com/mycel-domain/mycel/app/params"
-	epochsmoduletypes "github.com/mycel-domain/mycel/x/epochs/types"
-	furnacemoduletypes "github.com/mycel-domain/mycel/x/furnace/types"
+	_ "github.com/mycel-domain/mycel/x/registry/module" // import for side-effects
 	registrymoduletypes "github.com/mycel-domain/mycel/x/registry/types"
 )
 
@@ -184,6 +191,8 @@ var (
 		{Account: ibcfeetypes.ModuleName},
 		{Account: icatypes.ModuleName},
 		// Mycel modules
+		{Account: furnacemoduletypes.ModuleName},
+		{Account: registrymoduletypes.ModuleName},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 
 	}

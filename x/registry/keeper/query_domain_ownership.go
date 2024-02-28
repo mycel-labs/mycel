@@ -9,19 +9,17 @@ import (
 	"cosmossdk.io/store/prefix"
 
 	"github.com/cosmos/cosmos-sdk/runtime"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
-func (k Keeper) DomainOwnershipAll(goCtx context.Context, req *types.QueryAllDomainOwnershipRequest) (*types.QueryAllDomainOwnershipResponse, error) {
+func (k Keeper) DomainOwnershipAll(ctx context.Context, req *types.QueryAllDomainOwnershipRequest) (*types.QueryAllDomainOwnershipResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
 	var domainOwnerships []types.DomainOwnership
-	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
@@ -44,11 +42,10 @@ func (k Keeper) DomainOwnershipAll(goCtx context.Context, req *types.QueryAllDom
 	return &types.QueryAllDomainOwnershipResponse{DomainOwnership: domainOwnerships, Pagination: pageRes}, nil
 }
 
-func (k Keeper) DomainOwnership(goCtx context.Context, req *types.QueryGetDomainOwnershipRequest) (*types.QueryGetDomainOwnershipResponse, error) {
+func (k Keeper) DomainOwnership(ctx context.Context, req *types.QueryGetDomainOwnershipRequest) (*types.QueryGetDomainOwnershipResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
-	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	val, found := k.GetDomainOwnership(
 		ctx,

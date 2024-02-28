@@ -9,19 +9,17 @@ import (
 	"cosmossdk.io/store/prefix"
 
 	"github.com/cosmos/cosmos-sdk/runtime"
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
-func (k Keeper) SecondLevelDomainAll(goCtx context.Context, req *types.QueryAllSecondLevelDomainRequest) (*types.QueryAllSecondLevelDomainResponse, error) {
+func (k Keeper) SecondLevelDomainAll(ctx context.Context, req *types.QueryAllSecondLevelDomainRequest) (*types.QueryAllSecondLevelDomainResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
 	var secondLevelDomains []types.SecondLevelDomainResponse
-	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
@@ -49,11 +47,10 @@ func (k Keeper) SecondLevelDomainAll(goCtx context.Context, req *types.QueryAllS
 	return &types.QueryAllSecondLevelDomainResponse{SecondLevelDomain: secondLevelDomains, Pagination: pageRes}, nil
 }
 
-func (k Keeper) SecondLevelDomain(goCtx context.Context, req *types.QueryGetSecondLevelDomainRequest) (*types.QueryGetSecondLevelDomainResponse, error) {
+func (k Keeper) SecondLevelDomain(ctx context.Context, req *types.QueryGetSecondLevelDomainRequest) (*types.QueryGetSecondLevelDomainResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
-	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	val, found := k.GetSecondLevelDomain(
 		ctx,

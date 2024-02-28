@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: mycel/furnace/v1beta1/query.proto
 
-package types
+package furnacev1beta1
 
 import (
 	context "context"

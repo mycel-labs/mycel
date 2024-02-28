@@ -4,7 +4,7 @@
 // - protoc             (unknown)
 // source: mycel/epochs/v1beta1/tx.proto
 
-package types
+package epochsv1beta1
 
 import (
 	grpc "google.golang.org/grpc"
