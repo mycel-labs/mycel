@@ -18,6 +18,7 @@ type (
 		storeService store.KVStoreService
 		logger       log.Logger
 		authority    string
+
 		bankKeeper   types.BankKeeper
 		epochsKeeper types.EpochsKeeper
 	}

@@ -13,19 +13,22 @@ import (
 
 // Get burn weight
 func (k Keeper) GetBurnWeight(ctx sdk.Context) (weight math.LegacyDec, err error) {
-	minter, err := k.mintKeeperMinter.Get(ctx)
-	if err != nil {
-		return math.LegacyDec{}, err
-	}
-	inflation := minter.Inflation
+	// TODO: Get inflation from minter
+	// minter, err := k.mintKeeper.Minter.Get(ctx)
+	// if err != nil {
+	// return math.LegacyDec{}, err
+	// }
+	// inflation := minter.Inflation
+
+	inflation := math.LegacyMustNewDecFromStr(fmt.Sprintf("%f", 0.20))
 	bondedRatio, err := k.mintKeeper.BondedRatio(ctx)
 	if err != nil {
 		return math.LegacyDec{}, err
 	}
 
 	// TODO: Get alpha from params
-	stakingInflationRatio := k.GetParams(ctx).StakingInflationRatio
-	alpha := math.LegacyMustNewDecFromStr(fmt.Sprintf("%f", stakingInflationRatio))
+	mintInflationRatio := k.GetParams(ctx).StakingInflationRatio
+	alpha := math.LegacyMustNewDecFromStr(fmt.Sprintf("%f", mintInflationRatio))
 
 	w1 := alpha.Mul(bondedRatio)
 	w2 := inflation.Mul(math.LegacyMustNewDecFromStr("1").Sub(alpha))

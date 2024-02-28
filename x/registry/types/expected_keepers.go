@@ -6,7 +6,6 @@ import (
 	"cosmossdk.io/math"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/mint/types"
 
 	furnacetypes "github.com/mycel-domain/mycel/x/furnace/types"
 )
@@ -35,12 +34,8 @@ type FurnaceKeeper interface {
 }
 
 type MintKeeper interface {
+	MintCoins(context.Context, sdk.Coins) error
 	BondedRatio(ctx context.Context) (math.LegacyDec, error)
-}
-
-type MintKeeperMinter interface {
-	Get(ctx context.Context) (types.Minter, error)
-	Set(ctx context.Context, minter types.Minter) error
 }
 
 type DistributionKeeper interface {

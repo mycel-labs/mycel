@@ -8,6 +8,7 @@ import (
 
 	"cosmossdk.io/store/prefix"
 
+	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
@@ -22,7 +23,9 @@ func (k Keeper) SecondLevelDomainAll(goCtx context.Context, req *types.QueryAllS
 	var secondLevelDomains []types.SecondLevelDomainResponse
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	store := ctx.KVStore(k.storeKey)
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
+
 	secondLevelDomainStore := prefix.NewStore(store, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
 
 	pageRes, err := query.Paginate(secondLevelDomainStore, req.Pagination, func(key []byte, value []byte) error {

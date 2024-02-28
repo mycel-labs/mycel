@@ -29,6 +29,7 @@ import (
 	_ "github.com/cosmos/ibc-go/v8/modules/apps/29-fee"                 // import for side-effects
 	_ "github.com/mycel-domain/mycel/x/epochs/module"
 	_ "github.com/mycel-domain/mycel/x/furnace/module"
+	_ "github.com/mycel-domain/mycel/x/registry/module"
 
 	dbm "github.com/cosmos/cosmos-db"
 	capabilitykeeper "github.com/cosmos/ibc-go/modules/capability/keeper"
@@ -84,6 +85,7 @@ import (
 	// Mycel Modules
 	epochsmodulekeeper "github.com/mycel-domain/mycel/x/epochs/keeper"
 	furnacemodulekeeper "github.com/mycel-domain/mycel/x/furnace/keeper"
+  registrymodulekeeper "github.com/mycel-domain/mycel/x/registry/keeper"
 )
 
 const (
@@ -151,7 +153,7 @@ type App struct {
 	// Mycel modules
 	EpochsKeeper  epochsmodulekeeper.Keeper
 	FurnaceKeeper furnacemodulekeeper.Keeper
-	// RegistryKeeper registrymodulekeeper.Keeper
+  RegistryKeeper registrymodulekeeper.Keeper
 
 	// sm is the simulation manager
 	sm *module.SimulationManager
@@ -293,7 +295,7 @@ func New(
 		// Mycel Keepers
 		&app.EpochsKeeper,
 		&app.FurnaceKeeper,
-		// &app.RegistryKeeper,
+    &app.RegistryKeeper,
 		// this line is used by starport scaffolding # stargate/app/keeperDefinition
 	); err != nil {
 		panic(err)

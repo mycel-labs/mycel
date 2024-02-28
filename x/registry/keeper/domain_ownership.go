@@ -4,6 +4,7 @@ import (
 	"cosmossdk.io/store/prefix"
 	storetypes "cosmossdk.io/store/types"
 
+	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
@@ -11,7 +12,9 @@ import (
 
 // SetDomainOwnership set a specific domainOwnership in the store from its index
 func (k Keeper) SetDomainOwnership(ctx sdk.Context, domainOwnership types.DomainOwnership) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+
 	b := k.cdc.MustMarshal(&domainOwnership)
 	store.Set(types.DomainOwnershipKey(
 		domainOwnership.Owner,
@@ -23,7 +26,8 @@ func (k Keeper) GetDomainOwnership(
 	ctx sdk.Context,
 	owner string,
 ) (val types.DomainOwnership, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
 
 	b := store.Get(types.DomainOwnershipKey(
 		owner,
@@ -41,7 +45,9 @@ func (k Keeper) RemoveDomainOwnership(
 	ctx sdk.Context,
 	owner string,
 ) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+
 	store.Delete(types.DomainOwnershipKey(
 		owner,
 	))
@@ -49,7 +55,9 @@ func (k Keeper) RemoveDomainOwnership(
 
 // GetAllDomainOwnership returns all domainOwnership
 func (k Keeper) GetAllDomainOwnership(ctx sdk.Context) (list []types.DomainOwnership) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+
 	iterator := storetypes.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()

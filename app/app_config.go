@@ -5,8 +5,6 @@ import (
 
 	"google.golang.org/protobuf/types/known/durationpb"
 
-	_ "github.com/mycel-domain/mycel/x/epochs/module"
-
 	capabilitytypes "github.com/cosmos/ibc-go/modules/capability/types"
 	icatypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/types"
 	ibcfeetypes "github.com/cosmos/ibc-go/v8/modules/apps/29-fee/types"
@@ -67,6 +65,9 @@ import (
 	// Furnace
 	furnacemodulev1 "github.com/mycel-domain/mycel/api/mycel/furnace/module/v1"
 	furnacemoduletypes "github.com/mycel-domain/mycel/x/furnace/types"
+	// Registry
+	registrymodulev1 "github.com/mycel-domain/mycel/api/mycel/registry/module/v1"
+	registrymoduletypes "github.com/mycel-domain/mycel/x/registry/types"
 )
 
 var (
@@ -109,7 +110,7 @@ var (
 		// Mycel modules
 		epochsmoduletypes.ModuleName,
 		furnacemoduletypes.ModuleName,
-		// registrymoduletypes.ModuleName,
+		registrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -138,7 +139,7 @@ var (
 		// Mycel modules
 		epochsmoduletypes.ModuleName,
 		furnacemoduletypes.ModuleName,
-		// registrymoduletypes.ModuleName,
+		registrymoduletypes.ModuleName,
 
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
@@ -162,7 +163,7 @@ var (
 		// Mycel modules
 		epochsmoduletypes.ModuleName,
 		furnacemoduletypes.ModuleName,
-		// registrymoduletypes.ModuleName,
+		registrymoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -183,7 +184,9 @@ var (
 		{Account: ibctransfertypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		{Account: ibcfeetypes.ModuleName},
 		{Account: icatypes.ModuleName},
+		// Mycel modules
 		// this line is used by starport scaffolding # stargate/app/maccPerms
+
 	}
 
 	// blocked account addresses
@@ -322,17 +325,20 @@ var (
 			{
 				Name: epochsmoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&epochsmodulev1.Module{
-					HooksOrder: []string{furnacemoduletypes.ModuleName},
+					HooksOrder: []string{
+						furnacemoduletypes.ModuleName,
+						registrymoduletypes.ModuleName,
+					},
 				}),
 			},
 			{
 				Name:   furnacemoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&furnacemodulev1.Module{}),
 			},
-			// {
-			// Name:   registrymoduletypes.ModuleName,
-			// Config: appconfig.WrapAny(&registrymodulev1.Module{}),
-			// },
+			{
+				Name:   registrymoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&registrymodulev1.Module{}),
+			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},
 	})

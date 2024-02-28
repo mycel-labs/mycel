@@ -7,6 +7,7 @@ import (
 	"cosmossdk.io/store/prefix"
 	storetypes "cosmossdk.io/store/types"
 
+	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
@@ -14,7 +15,9 @@ import (
 
 // SetSecondLevelDomain set a specific second-level-domain in the store from its index
 func (k Keeper) SetSecondLevelDomain(ctx sdk.Context, domain types.SecondLevelDomain) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
+
 	b := k.cdc.MustMarshal(&domain)
 	store.Set(types.SecondLevelDomainKey(
 		domain.Name,
@@ -28,7 +31,8 @@ func (k Keeper) GetSecondLevelDomain(
 	name string,
 	parent string,
 ) (val types.SecondLevelDomain, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
 
 	b := store.Get(types.SecondLevelDomainKey(
 		name,
@@ -48,7 +52,9 @@ func (k Keeper) RemoveSecondLevelDomain(
 	name string,
 	parent string,
 ) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
+
 	store.Delete(types.SecondLevelDomainKey(
 		name,
 		parent,
@@ -57,7 +63,9 @@ func (k Keeper) RemoveSecondLevelDomain(
 
 // GetAllSecondLevelDomain returns all second-level-domain
 func (k Keeper) GetAllSecondLevelDomain(ctx sdk.Context) (list []types.SecondLevelDomain) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
+
 	iterator := storetypes.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()

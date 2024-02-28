@@ -14,6 +14,8 @@ const (
 	MemStoreKey = "mem_registry"
 )
 
+var ParamsKey = []byte("p_registry")
+
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }

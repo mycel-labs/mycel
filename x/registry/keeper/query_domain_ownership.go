@@ -8,6 +8,7 @@ import (
 
 	"cosmossdk.io/store/prefix"
 
+	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
@@ -22,7 +23,9 @@ func (k Keeper) DomainOwnershipAll(goCtx context.Context, req *types.QueryAllDom
 	var domainOwnerships []types.DomainOwnership
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	store := ctx.KVStore(k.storeKey)
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+
 	domainOwnershipStore := prefix.NewStore(store, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
 
 	pageRes, err := query.Paginate(domainOwnershipStore, req.Pagination, func(key []byte, value []byte) error {
