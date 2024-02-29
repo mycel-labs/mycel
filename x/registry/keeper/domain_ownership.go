@@ -58,7 +58,6 @@ func (k Keeper) RemoveDomainOwnership(
 func (k Keeper) GetAllDomainOwnership(goCtx context.Context) (list []types.DomainOwnership) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
 	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
-
 	iterator := storetypes.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()

@@ -21,9 +21,7 @@ func (k Keeper) DomainOwnershipAll(ctx context.Context, req *types.QueryAllDomai
 
 	var domainOwnerships []types.DomainOwnership
 
-	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
-
+	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	domainOwnershipStore := prefix.NewStore(store, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
 
 	pageRes, err := query.Paginate(domainOwnershipStore, req.Pagination, func(key []byte, value []byte) error {

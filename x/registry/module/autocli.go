@@ -3,7 +3,7 @@ package registry
 import (
 	autocliv1 "cosmossdk.io/api/cosmos/autocli/v1"
 
-	modulev1 "github.com/mycel-domain/mycel/api/mycel/registry/v1beta1"
+	modulev1 "github.com/mycel-domain/mycel/api/mycel/registry/v1"
 )
 
 // AutoCLIOptions implements the autocli.HasAutoCLIConfig interface.

@@ -59,7 +59,6 @@ import (
 	appparams "github.com/mycel-domain/mycel/app/params"
 
 	// Mycel modules
-
 	// Epochs
 	epochsmodulev1 "github.com/mycel-domain/mycel/api/mycel/epochs/module/v1"
 	_ "github.com/mycel-domain/mycel/x/epochs/module" // import for side-effects

@@ -1,0 +1,43 @@
+syntax = "proto3";
+package mycel.registry.v1;
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
+import "mycel/registry/v1/dns_record.proto";
+import "mycel/registry/v1/network_name.proto";
+import "mycel/registry/v1/access_control.proto";
+
+option go_package = "github.com/mycel-domain/mycel/x/registry/types";
+
+message DnsRecord {
+  DnsRecordType dns_record_type = 1;
+  string value = 2;
+}
+
+message WalletRecord {
+  NetworkName wallet_record_type = 1;
+  string value = 2;
+}
+
+message TextRecord {
+  string key = 1;
+  string value = 2;
+}
+
+message Record {
+  oneof record {
+    DnsRecord dns_record = 1;
+    WalletRecord wallet_record = 2;
+    TextRecord text_record = 3;
+  }
+}
+
+message SecondLevelDomain {
+  string name = 1;
+  string parent = 2;
+  string owner = 3;
+  google.protobuf.Timestamp expiration_date = 4
+      [ (gogoproto.stdtime) = true, (gogoproto.nullable) = false ];
+  repeated Record records = 5;
+  repeated AccessControl access_control = 6;
+}

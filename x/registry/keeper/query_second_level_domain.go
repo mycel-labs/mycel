@@ -21,9 +21,7 @@ func (k Keeper) SecondLevelDomainAll(ctx context.Context, req *types.QueryAllSec
 
 	var secondLevelDomains []types.SecondLevelDomainResponse
 
-	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
-
+	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	secondLevelDomainStore := prefix.NewStore(store, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
 
 	pageRes, err := query.Paginate(secondLevelDomainStore, req.Pagination, func(key []byte, value []byte) error {

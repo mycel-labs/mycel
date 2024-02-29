@@ -21,9 +21,7 @@ func (k Keeper) TopLevelDomainAll(ctx context.Context, req *types.QueryAllTopLev
 
 	var topLevelDomains []types.TopLevelDomain
 
-	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.SecondLevelDomainKeyPrefix))
-
+	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	topLevelDomainStore := prefix.NewStore(store, types.KeyPrefix(types.TopLevelDomainKeyPrefix))
 
 	pageRes, err := query.Paginate(topLevelDomainStore, req.Pagination, func(key []byte, value []byte) error {

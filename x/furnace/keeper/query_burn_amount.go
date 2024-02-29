@@ -21,9 +21,7 @@ func (k Keeper) BurnAmountAll(ctx context.Context, req *types.QueryAllBurnAmount
 
 	var burnAmounts []types.BurnAmount
 
-	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
-
+	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	burnAmountStore := prefix.NewStore(store, types.KeyPrefix(types.BurnAmountKeyPrefix))
 
 	pageRes, err := query.Paginate(burnAmountStore, req.Pagination, func(key []byte, value []byte) error {
