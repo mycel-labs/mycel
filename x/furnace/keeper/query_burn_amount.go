@@ -8,21 +8,20 @@ import (
 
 	"cosmossdk.io/store/prefix"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/runtime"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
 	"github.com/mycel-domain/mycel/x/furnace/types"
 )
 
-func (k Keeper) BurnAmountAll(goCtx context.Context, req *types.QueryAllBurnAmountRequest) (*types.QueryAllBurnAmountResponse, error) {
+func (k Keeper) BurnAmountAll(ctx context.Context, req *types.QueryAllBurnAmountRequest) (*types.QueryAllBurnAmountResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
 	var burnAmounts []types.BurnAmount
-	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	store := ctx.KVStore(k.storeKey)
+	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	burnAmountStore := prefix.NewStore(store, types.KeyPrefix(types.BurnAmountKeyPrefix))
 
 	pageRes, err := query.Paginate(burnAmountStore, req.Pagination, func(key []byte, value []byte) error {
@@ -41,11 +40,10 @@ func (k Keeper) BurnAmountAll(goCtx context.Context, req *types.QueryAllBurnAmou
 	return &types.QueryAllBurnAmountResponse{BurnAmount: burnAmounts, Pagination: pageRes}, nil
 }
 
-func (k Keeper) BurnAmount(goCtx context.Context, req *types.QueryGetBurnAmountRequest) (*types.QueryGetBurnAmountResponse, error) {
+func (k Keeper) BurnAmount(ctx context.Context, req *types.QueryGetBurnAmountRequest) (*types.QueryGetBurnAmountResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
-	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	val, found := k.GetBurnAmount(
 		ctx,

@@ -10,7 +10,7 @@ import (
 
 type EpochsKeeper interface {
 	// Methods imported from epochs should be defined here
-	GetEpochInfo(ctx sdk.Context, identifier string) (val epochstypes.EpochInfo, found bool)
+	GetEpochInfo(ctx context.Context, identifier string) (val epochstypes.EpochInfo, found bool)
 }
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)

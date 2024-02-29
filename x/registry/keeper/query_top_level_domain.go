@@ -8,21 +8,20 @@ import (
 
 	"cosmossdk.io/store/prefix"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/runtime"
 	"github.com/cosmos/cosmos-sdk/types/query"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
-func (k Keeper) TopLevelDomainAll(goCtx context.Context, req *types.QueryAllTopLevelDomainRequest) (*types.QueryAllTopLevelDomainResponse, error) {
+func (k Keeper) TopLevelDomainAll(ctx context.Context, req *types.QueryAllTopLevelDomainRequest) (*types.QueryAllTopLevelDomainResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
 	var topLevelDomains []types.TopLevelDomain
-	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	store := ctx.KVStore(k.storeKey)
+	store := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	topLevelDomainStore := prefix.NewStore(store, types.KeyPrefix(types.TopLevelDomainKeyPrefix))
 
 	pageRes, err := query.Paginate(topLevelDomainStore, req.Pagination, func(key []byte, value []byte) error {
@@ -41,11 +40,10 @@ func (k Keeper) TopLevelDomainAll(goCtx context.Context, req *types.QueryAllTopL
 	return &types.QueryAllTopLevelDomainResponse{TopLevelDomain: topLevelDomains, Pagination: pageRes}, nil
 }
 
-func (k Keeper) TopLevelDomain(goCtx context.Context, req *types.QueryGetTopLevelDomainRequest) (*types.QueryGetTopLevelDomainResponse, error) {
+func (k Keeper) TopLevelDomain(ctx context.Context, req *types.QueryGetTopLevelDomainRequest) (*types.QueryGetTopLevelDomainResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
-	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	val, found := k.GetTopLevelDomain(
 		ctx,

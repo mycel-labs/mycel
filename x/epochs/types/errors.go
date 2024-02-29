@@ -8,7 +8,7 @@ import (
 
 // x/epochs module sentinel errors
 var (
-	ErrSample                                  = errorsmod.Register(ModuleName, 1100, "sample error")
+	ErrInvalidSigner                           = errorsmod.Register(ModuleName, 1100, "expected gov account as only signer for proposal message")
 	ErrEpochIdentifierCannotBeEmpty            = errorsmod.Register(ModuleName, 1101, "epoch identifier cannot be empty")
 	ErrEpochDurationCannotBeZero               = errorsmod.Register(ModuleName, 1102, "epoch duration cannot be zero")
 	ErrCurrentEpochCannotBeNegative            = errorsmod.Register(ModuleName, 1103, "current epoch cannot be negative")

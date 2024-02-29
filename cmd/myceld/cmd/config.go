@@ -1,44 +1,25 @@
 package cmd
 
 import (
-	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
-
 	cmtcfg "github.com/cometbft/cometbft/config"
-
-	"cosmossdk.io/math"
 
 	serverconfig "github.com/cosmos/cosmos-sdk/server/config"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/mycel-domain/mycel/app/params"
+	"github.com/mycel-domain/mycel/app"
 )
-
-// RegisterDenoms registers token denoms.
-func RegisterDenoms() {
-	err := sdk.RegisterDenom(params.HumanCoinUnit, math.LegacyOneDec())
-	if err != nil {
-		panic(err)
-	}
-	err = sdk.RegisterDenom(params.BaseCoinUnit, math.LegacyNewDecWithPrec(1, params.MycelExponent))
-	if err != nil {
-		panic(err)
-	}
-}
 
 func initSDKConfig() {
 	// Set prefixes
-	accountPubKeyPrefix := params.Bech32PrefixAccAddr + "pub"
-	validatorAddressPrefix := params.Bech32PrefixAccAddr + "valoper"
-	validatorPubKeyPrefix := params.Bech32PrefixAccAddr + "valoperpub"
-	consNodeAddressPrefix := params.Bech32PrefixAccAddr + "valcons"
-	consNodePubKeyPrefix := params.Bech32PrefixAccAddr + "valconspub"
-
-	// Set Denom
-	RegisterDenoms()
+	accountPubKeyPrefix := app.AccountAddressPrefix + "pub"
+	validatorAddressPrefix := app.AccountAddressPrefix + "valoper"
+	validatorPubKeyPrefix := app.AccountAddressPrefix + "valoperpub"
+	consNodeAddressPrefix := app.AccountAddressPrefix + "valcons"
+	consNodePubKeyPrefix := app.AccountAddressPrefix + "valconspub"
 
 	// Set and seal config
 	config := sdk.GetConfig()
-	config.SetBech32PrefixForAccount(params.Bech32PrefixAccAddr, accountPubKeyPrefix)
+	config.SetBech32PrefixForAccount(app.AccountAddressPrefix, accountPubKeyPrefix)
 	config.SetBech32PrefixForValidator(validatorAddressPrefix, validatorPubKeyPrefix)
 	config.SetBech32PrefixForConsensusNode(consNodeAddressPrefix, consNodePubKeyPrefix)
 	config.Seal()
@@ -62,7 +43,6 @@ func initAppConfig() (string, interface{}) {
 	// The following code snippet is just for reference.
 	type CustomAppConfig struct {
 		serverconfig.Config `mapstructure:",squash"`
-		Wasm                wasmtypes.WasmConfig `mapstructure:"wasm"`
 	}
 
 	// Optionally allow the chain developer to overwrite the SDK's default
@@ -86,8 +66,6 @@ func initAppConfig() (string, interface{}) {
 	customAppConfig := CustomAppConfig{
 		Config: *srvCfg,
 	}
-
-	customAppConfig.MinGasPrices = "0umycel"
 
 	customAppTemplate := serverconfig.DefaultConfigTemplate
 	// Edit the default template file

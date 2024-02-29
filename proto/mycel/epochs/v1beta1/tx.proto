@@ -1,7 +1,0 @@
-syntax = "proto3";
-package mycel.epochs.v1beta1;
-
-option go_package = "github.com/mycel-domain/mycel/x/epochs/types";
-
-// Msg defines the Msg service.
-service Msg {}

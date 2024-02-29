@@ -1,12 +1,11 @@
 package keeper_test
 
 import (
+	"context"
 	"strconv"
 	"testing"
 
 	"github.com/stretchr/testify/require"
-
-	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
 	"github.com/mycel-domain/mycel/testutil/nullify"
@@ -17,7 +16,7 @@ import (
 // Prevent strconv unused error
 var _ = strconv.IntSize
 
-func createNDomainOwnership(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.DomainOwnership {
+func createNDomainOwnership(keeper *keeper.Keeper, ctx context.Context, n int) []types.DomainOwnership {
 	items := make([]types.DomainOwnership, n)
 	for i := range items {
 		items[i].Owner = strconv.Itoa(i)

@@ -18,6 +18,8 @@ func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
 
+var ParamsKey = []byte("p_furnace")
+
 const (
 	EpochBurnConfigKey = "EpochBurnConfig/value/"
 )

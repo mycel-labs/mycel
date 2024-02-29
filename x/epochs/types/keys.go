@@ -14,6 +14,8 @@ const (
 	MemStoreKey = "mem_epochs"
 )
 
+var ParamsKey = []byte("p_epochs")
+
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }

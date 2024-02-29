@@ -1,6 +1,8 @@
 package keeper
 
 import (
+	"context"
+
 	"cosmossdk.io/math"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -8,7 +10,8 @@ import (
 	"github.com/mycel-domain/mycel/x/furnace/types"
 )
 
-func EmitEpochBurnEvent(ctx sdk.Context, epochIdentifier string, epochNumber int64, burnAmount *types.BurnAmount, burnt sdk.Coin) {
+func EmitEpochBurnEvent(goCtx context.Context, epochIdentifier string, epochNumber int64, burnAmount *types.BurnAmount, burnt sdk.Coin) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(
 			types.EventTypeEpochBurn,
@@ -24,7 +27,8 @@ func EmitEpochBurnEvent(ctx sdk.Context, epochIdentifier string, epochNumber int
 	)
 }
 
-func EmitBurnAmountCreatedEvent(ctx sdk.Context, burnAmount *types.BurnAmount) {
+func EmitBurnAmountCreatedEvent(goCtx context.Context, burnAmount *types.BurnAmount) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(
 			types.EventTypeBurnAmountCreated,

@@ -1,17 +1,21 @@
 package keeper
 
 import (
+	"context"
+
 	"cosmossdk.io/store/prefix"
 	storetypes "cosmossdk.io/store/types"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/runtime"
 
 	"github.com/mycel-domain/mycel/x/registry/types"
 )
 
 // SetDomainOwnership set a specific domainOwnership in the store from its index
-func (k Keeper) SetDomainOwnership(ctx sdk.Context, domainOwnership types.DomainOwnership) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+func (k Keeper) SetDomainOwnership(goCtx context.Context, domainOwnership types.DomainOwnership) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+
 	b := k.cdc.MustMarshal(&domainOwnership)
 	store.Set(types.DomainOwnershipKey(
 		domainOwnership.Owner,
@@ -20,10 +24,11 @@ func (k Keeper) SetDomainOwnership(ctx sdk.Context, domainOwnership types.Domain
 
 // GetDomainOwnership returns a domainOwnership from its index
 func (k Keeper) GetDomainOwnership(
-	ctx sdk.Context,
+	goCtx context.Context,
 	owner string,
 ) (val types.DomainOwnership, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
 
 	b := store.Get(types.DomainOwnershipKey(
 		owner,
@@ -38,18 +43,21 @@ func (k Keeper) GetDomainOwnership(
 
 // RemoveDomainOwnership removes a domainOwnership from the store
 func (k Keeper) RemoveDomainOwnership(
-	ctx sdk.Context,
+	goCtx context.Context,
 	owner string,
 ) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+
 	store.Delete(types.DomainOwnershipKey(
 		owner,
 	))
 }
 
 // GetAllDomainOwnership returns all domainOwnership
-func (k Keeper) GetAllDomainOwnership(ctx sdk.Context) (list []types.DomainOwnership) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+func (k Keeper) GetAllDomainOwnership(goCtx context.Context) (list []types.DomainOwnership) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
 	iterator := storetypes.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
@@ -64,12 +72,12 @@ func (k Keeper) GetAllDomainOwnership(ctx sdk.Context) (list []types.DomainOwner
 }
 
 // Append to owned domain
-func (k Keeper) AppendToOwnedDomain(ctx sdk.Context, owner string, name string, parent string) {
-	domainOwnership, found := k.GetDomainOwnership(ctx, owner)
+func (k Keeper) AppendToOwnedDomain(goCtx context.Context, owner string, name string, parent string) {
+	domainOwnership, found := k.GetDomainOwnership(goCtx, owner)
 	if found {
 		domainOwnership.Domains = append(domainOwnership.Domains, &types.OwnedDomain{Name: name, Parent: parent})
-		k.SetDomainOwnership(ctx, domainOwnership)
+		k.SetDomainOwnership(goCtx, domainOwnership)
 	} else {
-		k.SetDomainOwnership(ctx, types.DomainOwnership{Owner: owner, Domains: []*types.OwnedDomain{{Name: name, Parent: parent}}})
+		k.SetDomainOwnership(goCtx, types.DomainOwnership{Owner: owner, Domains: []*types.OwnedDomain{{Name: name, Parent: parent}}})
 	}
 }

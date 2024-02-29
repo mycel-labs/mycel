@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	resolver "github.com/mycel-domain/mycel/x/resolver/types"
+	resolver "github.com/mycel-domain/mycel/x/registry/types"
 )
 
 type grpcService struct {

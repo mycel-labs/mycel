@@ -1,23 +1,28 @@
 package keeper
 
 import (
+	"context"
+
 	"cosmossdk.io/store/prefix"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/runtime"
 
 	"github.com/mycel-domain/mycel/x/furnace/types"
 )
 
 // SetEpochBurnConfig set epochBurnConfig in the store
-func (k Keeper) SetEpochBurnConfig(ctx sdk.Context, epochBurnConfig types.EpochBurnConfig) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochBurnConfigKey))
+func (k Keeper) SetEpochBurnConfig(goCtx context.Context, epochBurnConfig types.EpochBurnConfig) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
+
 	b := k.cdc.MustMarshal(&epochBurnConfig)
 	store.Set([]byte{0}, b)
 }
 
 // GetEpochBurnConfig returns epochBurnConfig
-func (k Keeper) GetEpochBurnConfig(ctx sdk.Context) (val types.EpochBurnConfig, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochBurnConfigKey))
+func (k Keeper) GetEpochBurnConfig(goCtx context.Context) (val types.EpochBurnConfig, found bool) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
 
 	b := store.Get([]byte{0})
 	if b == nil {
@@ -29,7 +34,9 @@ func (k Keeper) GetEpochBurnConfig(ctx sdk.Context) (val types.EpochBurnConfig, 
 }
 
 // RemoveEpochBurnConfig removes epochBurnConfig from the store
-func (k Keeper) RemoveEpochBurnConfig(ctx sdk.Context) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.EpochBurnConfigKey))
+func (k Keeper) RemoveEpochBurnConfig(goCtx context.Context) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
+
 	store.Delete([]byte{0})
 }

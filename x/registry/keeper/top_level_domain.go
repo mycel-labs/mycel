@@ -1,12 +1,14 @@
 package keeper
 
 import (
+	"context"
 	"time"
 
 	errorsmod "cosmossdk.io/errors"
 	"cosmossdk.io/store/prefix"
 	storetypes "cosmossdk.io/store/types"
 
+	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/app/params"
@@ -15,8 +17,10 @@ import (
 )
 
 // SetTopLevelDomain set a specific topLevelDomain in the store from its index
-func (k Keeper) SetTopLevelDomain(ctx sdk.Context, topLevelDomain types.TopLevelDomain) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TopLevelDomainKeyPrefix))
+func (k Keeper) SetTopLevelDomain(goCtx context.Context, topLevelDomain types.TopLevelDomain) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+
 	b := k.cdc.MustMarshal(&topLevelDomain)
 	store.Set(types.TopLevelDomainKey(
 		topLevelDomain.Name,
@@ -25,10 +29,11 @@ func (k Keeper) SetTopLevelDomain(ctx sdk.Context, topLevelDomain types.TopLevel
 
 // GetTopLevelDomain returns a topLevelDomain from its index
 func (k Keeper) GetTopLevelDomain(
-	ctx sdk.Context,
+	goCtx context.Context,
 	name string,
 ) (val types.TopLevelDomain, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TopLevelDomainKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
 
 	b := store.Get(types.TopLevelDomainKey(
 		name,
@@ -43,18 +48,22 @@ func (k Keeper) GetTopLevelDomain(
 
 // RemoveTopLevelDomain removes a topLevelDomain from the store
 func (k Keeper) RemoveTopLevelDomain(
-	ctx sdk.Context,
+	goCtx context.Context,
 	name string,
 ) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TopLevelDomainKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+
 	store.Delete(types.TopLevelDomainKey(
 		name,
 	))
 }
 
 // GetAllTopLevelDomain returns all topLevelDomain
-func (k Keeper) GetAllTopLevelDomain(ctx sdk.Context) (list []types.TopLevelDomain) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.TopLevelDomainKeyPrefix))
+func (k Keeper) GetAllTopLevelDomain(goCtx context.Context) (list []types.TopLevelDomain) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.DomainOwnershipKeyPrefix))
+
 	iterator := storetypes.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
@@ -69,13 +78,13 @@ func (k Keeper) GetAllTopLevelDomain(ctx sdk.Context) (list []types.TopLevelDoma
 }
 
 // Get is top-level-domain already taken
-func (k Keeper) GetIsTopLevelDomainAlreadyTaken(ctx sdk.Context, domain types.TopLevelDomain) (isDomainAlreadyTaken bool) {
-	_, isDomainAlreadyTaken = k.GetTopLevelDomain(ctx, domain.Name)
+func (k Keeper) GetIsTopLevelDomainAlreadyTaken(goCtx context.Context, domain types.TopLevelDomain) (isDomainAlreadyTaken bool) {
+	_, isDomainAlreadyTaken = k.GetTopLevelDomain(goCtx, domain.Name)
 	return isDomainAlreadyTaken
 }
 
 // Get valid-top-level domain
-func (k Keeper) GetValidTopLevelDomain(ctx sdk.Context, name string) (topLevelDomain types.TopLevelDomain, err error) {
+func (k Keeper) GetValidTopLevelDomain(goCtx context.Context, name string) (topLevelDomain types.TopLevelDomain, err error) {
 	// Regex validation
 	err = types.ValidateTopLevelDomainName(name)
 	if err != nil {
@@ -83,12 +92,13 @@ func (k Keeper) GetValidTopLevelDomain(ctx sdk.Context, name string) (topLevelDo
 	}
 
 	// Get top level domain
-	topLevelDomain, found := k.GetTopLevelDomain(ctx, name)
+	topLevelDomain, found := k.GetTopLevelDomain(goCtx, name)
 	if !found {
 		return topLevelDomain, errorsmod.Wrapf(types.ErrTopLevelDomainNotFound, "%s", name)
 	}
 
 	// Check if domain is not expired
+	ctx := sdk.UnwrapSDKContext(goCtx)
 	if ctx.BlockTime().After(topLevelDomain.ExpirationDate) && topLevelDomain.ExpirationDate != (time.Time{}) {
 		return topLevelDomain, errorsmod.Wrapf(types.ErrTopLevelDomainExpired, "%s", name)
 	}
@@ -97,8 +107,8 @@ func (k Keeper) GetValidTopLevelDomain(ctx sdk.Context, name string) (topLevelDo
 }
 
 // Get Role of the domain
-func (k Keeper) GetTopLevelDomainRole(ctx sdk.Context, name, address string) (role types.DomainRole, found bool) {
-	tld, found := k.GetTopLevelDomain(ctx, name)
+func (k Keeper) GetTopLevelDomainRole(goCtx context.Context, name, address string) (role types.DomainRole, found bool) {
+	tld, found := k.GetTopLevelDomain(goCtx, name)
 	if !found {
 		return types.DomainRole_NO_ROLE, false
 	}
@@ -107,26 +117,26 @@ func (k Keeper) GetTopLevelDomainRole(ctx sdk.Context, name, address string) (ro
 }
 
 // Pay top-level-domain registration fee
-func (k Keeper) PayTopLevelDomainFee(ctx sdk.Context, payer sdk.AccAddress, domain types.TopLevelDomain, registrationPeriodInYear uint64) (registrationFee types.TopLevelDomainFee, err error) {
+func (k Keeper) PayTopLevelDomainFee(goCtx context.Context, payer sdk.AccAddress, domain types.TopLevelDomain, registrationPeriodInYear uint64) (registrationFee types.TopLevelDomainFee, err error) {
 	// Get registration fee
-	registrationFee, err = k.GetTopLevelDomainFee(ctx, domain, registrationPeriodInYear)
+	registrationFee, err = k.GetTopLevelDomainFee(goCtx, domain, registrationPeriodInYear)
 	if err != nil {
 		return types.TopLevelDomainFee{}, err
 	}
 
 	// Send coins to treasury
-	err = k.distributionKeeper.FundCommunityPool(ctx, sdk.NewCoins(registrationFee.FeeToTreasury), payer)
+	err = k.distributionKeeper.FundCommunityPool(goCtx, sdk.NewCoins(registrationFee.FeeToTreasury), payer)
 	if err != nil {
 		return types.TopLevelDomainFee{}, err
 	}
 
 	// Send coins to furnace module
-	err = k.bankKeeper.SendCoinsFromAccountToModule(ctx, payer, furnacetypes.ModuleName, sdk.NewCoins(registrationFee.FeeToBurn))
+	err = k.bankKeeper.SendCoinsFromAccountToModule(goCtx, payer, furnacetypes.ModuleName, sdk.NewCoins(registrationFee.FeeToBurn))
 	if err != nil {
 		return types.TopLevelDomainFee{}, err
 	}
 	// Store burn amount
-	_, err = k.furnaceKeeper.AddRegistrationFeeToBurnAmounts(ctx, registrationPeriodInYear, registrationFee.FeeToBurn)
+	_, err = k.furnaceKeeper.AddRegistrationFeeToBurnAmounts(goCtx, registrationPeriodInYear, registrationFee.FeeToBurn)
 	if err != nil {
 		return types.TopLevelDomainFee{}, err
 	}
@@ -141,14 +151,14 @@ func (k Keeper) PayTopLevelDomainFee(ctx sdk.Context, payer sdk.AccAddress, doma
 	return registrationFee, nil
 }
 
-func (k Keeper) ValidateTopLevelDomainIsRegistrable(ctx sdk.Context, topLevelDomain types.TopLevelDomain) error {
+func (k Keeper) ValidateTopLevelDomainIsRegistrable(goCtx context.Context, topLevelDomain types.TopLevelDomain) error {
 	// Validate top-level-domain
 	err := topLevelDomain.Validate()
 	if err != nil {
 		return err
 	}
 	// Check if top-level-domain is already taken
-	isTaken := k.GetIsTopLevelDomainAlreadyTaken(ctx, topLevelDomain)
+	isTaken := k.GetIsTopLevelDomainAlreadyTaken(goCtx, topLevelDomain)
 	if isTaken {
 		return errorsmod.Wrapf(types.ErrTopLevelDomainAlreadyTaken, "%s", topLevelDomain.Name)
 	}
@@ -157,8 +167,9 @@ func (k Keeper) ValidateTopLevelDomainIsRegistrable(ctx sdk.Context, topLevelDom
 }
 
 // Register top-level-domain
-func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, creator string, domainName string, registrationPeriodInYear uint64) (topLevelDomain types.TopLevelDomain, fee types.TopLevelDomainFee, err error) {
+func (k Keeper) RegisterTopLevelDomain(goCtx context.Context, creator string, domainName string, registrationPeriodInYear uint64) (topLevelDomain types.TopLevelDomain, fee types.TopLevelDomainFee, err error) {
 	// Create top-level-domain
+	ctx := sdk.UnwrapSDKContext(goCtx)
 	currentTime := ctx.BlockTime()
 	expirationDate := currentTime.AddDate(0, 0, params.OneYearInDays*int(registrationPeriodInYear))
 	accessControl := types.AccessControl{
@@ -175,7 +186,7 @@ func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, creator string, domainNa
 	}
 
 	// Validate top-level-domain is registrable
-	err = k.ValidateTopLevelDomainIsRegistrable(ctx, topLevelDomain)
+	err = k.ValidateTopLevelDomainIsRegistrable(goCtx, topLevelDomain)
 	if err != nil {
 		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, err
 	}
@@ -185,27 +196,27 @@ func (k Keeper) RegisterTopLevelDomain(ctx sdk.Context, creator string, domainNa
 	if err != nil {
 		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, err
 	}
-	fee, err = k.PayTopLevelDomainFee(ctx, creatorAddress, topLevelDomain, registrationPeriodInYear)
+	fee, err = k.PayTopLevelDomainFee(goCtx, creatorAddress, topLevelDomain, registrationPeriodInYear)
 	if err != nil {
 		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, err
 	}
 
 	// Set domain
-	k.SetTopLevelDomain(ctx, topLevelDomain)
+	k.SetTopLevelDomain(goCtx, topLevelDomain)
 
 	// Append to owned domain
-	k.AppendToOwnedDomain(ctx, creator, topLevelDomain.Name, "")
+	k.AppendToOwnedDomain(goCtx, creator, topLevelDomain.Name, "")
 
 	// Emit event
-	EmitRegisterTopLevelDomainEvent(ctx, topLevelDomain, fee)
+	EmitRegisterTopLevelDomainEvent(goCtx, topLevelDomain, fee)
 
 	return topLevelDomain, fee, nil
 }
 
 // Extend expiration date
-func (k Keeper) ExtendTopLevelDomainExpirationDate(ctx sdk.Context, creator string, domainName string, extensionPeriodInYear uint64) (topLevelDomain types.TopLevelDomain, fee types.TopLevelDomainFee, err error) {
+func (k Keeper) ExtendTopLevelDomainExpirationDate(goCtx context.Context, creator string, domainName string, extensionPeriodInYear uint64) (topLevelDomain types.TopLevelDomain, fee types.TopLevelDomainFee, err error) {
 	// Get domain
-	topLevelDomain, found := k.GetTopLevelDomain(ctx, domainName)
+	topLevelDomain, found := k.GetTopLevelDomain(goCtx, domainName)
 	if !found {
 		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, errorsmod.Wrapf(types.ErrTopLevelDomainNotFound, "%s", domainName)
 	}
@@ -227,24 +238,24 @@ func (k Keeper) ExtendTopLevelDomainExpirationDate(ctx sdk.Context, creator stri
 	}
 
 	// Pay TLD extend fee
-	fee, err = k.PayTopLevelDomainFee(ctx, creatorAddress, topLevelDomain, extensionPeriodInYear)
+	fee, err = k.PayTopLevelDomainFee(goCtx, creatorAddress, topLevelDomain, extensionPeriodInYear)
 	if err != nil {
 		return types.TopLevelDomain{}, types.TopLevelDomainFee{}, err
 	}
 
 	// Update domain store
 	topLevelDomain.ExtendExpirationDate(topLevelDomain.ExpirationDate, extensionPeriodInYear)
-	k.SetTopLevelDomain(ctx, topLevelDomain)
+	k.SetTopLevelDomain(goCtx, topLevelDomain)
 
 	// Emit event
-	EmitExtendTopLevelDomainExpirationDateEvent(ctx, topLevelDomain, fee)
+	EmitExtendTopLevelDomainExpirationDateEvent(goCtx, topLevelDomain, fee)
 
 	return topLevelDomain, fee, err
 }
 
-func (k Keeper) UpdateTopLevelDomainRegistrationPolicy(ctx sdk.Context, creator string, domainName string, registrationPolicy string) (err error) {
+func (k Keeper) UpdateTopLevelDomainRegistrationPolicy(goCtx context.Context, creator string, domainName string, registrationPolicy string) (err error) {
 	// Get domain
-	topLevelDomain, found := k.GetTopLevelDomain(ctx, domainName)
+	topLevelDomain, found := k.GetTopLevelDomain(goCtx, domainName)
 	if !found {
 		return errorsmod.Wrapf(types.ErrTopLevelDomainNotFound, "%s", domainName)
 	}
@@ -263,10 +274,10 @@ func (k Keeper) UpdateTopLevelDomainRegistrationPolicy(ctx sdk.Context, creator 
 
 	// Update domain store
 	topLevelDomain.UpdateRegistrationPolicy(rp)
-	k.SetTopLevelDomain(ctx, topLevelDomain)
+	k.SetTopLevelDomain(goCtx, topLevelDomain)
 
 	// Emit event
-	EmitUpdateTopLevelDomainRegistrationPolicyEvent(ctx, topLevelDomain)
+	EmitUpdateTopLevelDomainRegistrationPolicyEvent(goCtx, topLevelDomain)
 
 	return nil
 }

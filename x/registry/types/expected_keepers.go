@@ -6,7 +6,6 @@ import (
 	"cosmossdk.io/math"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/mint/types"
 
 	furnacetypes "github.com/mycel-domain/mycel/x/furnace/types"
 )
@@ -31,16 +30,12 @@ type BankKeeper interface {
 }
 
 type FurnaceKeeper interface {
-	AddRegistrationFeeToBurnAmounts(ctx sdk.Context, registrationPeriodInYear uint64, amount sdk.Coin) (burnAmounts []furnacetypes.BurnAmount, err error)
+	AddRegistrationFeeToBurnAmounts(ctx context.Context, registrationPeriodInYear uint64, amount sdk.Coin) (burnAmounts []furnacetypes.BurnAmount, err error)
 }
 
 type MintKeeper interface {
+	MintCoins(context.Context, sdk.Coins) error
 	BondedRatio(ctx context.Context) (math.LegacyDec, error)
-}
-
-type MintKeeperMinter interface {
-	Get(ctx context.Context) (types.Minter, error)
-	Set(ctx context.Context, minter types.Minter) error
 }
 
 type DistributionKeeper interface {

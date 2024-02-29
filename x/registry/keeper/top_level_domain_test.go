@@ -1,6 +1,7 @@
 package keeper_test
 
 import (
+	"context"
 	"fmt"
 	"strconv"
 	"testing"
@@ -9,8 +10,6 @@ import (
 	"github.com/stretchr/testify/require"
 
 	errorsmod "cosmossdk.io/errors"
-
-	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/testutil"
 	keepertest "github.com/mycel-domain/mycel/testutil/keeper"
@@ -22,7 +21,7 @@ import (
 // Prevent strconv unused error
 var _ = strconv.IntSize
 
-func createNTopLevelDomain(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.TopLevelDomain {
+func createNTopLevelDomain(keeper *keeper.Keeper, ctx context.Context, n int) []types.TopLevelDomain {
 	items := make([]types.TopLevelDomain, n)
 	for i := range items {
 		items[i].Name = strconv.Itoa(i)
@@ -35,7 +34,7 @@ func createNTopLevelDomain(keeper *keeper.Keeper, ctx sdk.Context, n int) []type
 // Register top-level domains with k.RegisterTopLevelDomain()
 // Domain name is set to `celn` (n is a incremantal number)
 // e.g.) `cel1`, `cel2`, `celn`...
-func registerNTopLevelDomain(k *keeper.Keeper, ctx sdk.Context, creatorAddr string, n int) ([]types.TopLevelDomain, error) {
+func registerNTopLevelDomain(k *keeper.Keeper, ctx context.Context, creatorAddr string, n int) ([]types.TopLevelDomain, error) {
 	items := make([]types.TopLevelDomain, n)
 	for i := range items {
 		name := "cel" + strconv.Itoa(i)

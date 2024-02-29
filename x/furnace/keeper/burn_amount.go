@@ -1,10 +1,13 @@
 package keeper
 
 import (
+	"context"
+
 	errorsmod "cosmossdk.io/errors"
 	"cosmossdk.io/store/prefix"
 	storetypes "cosmossdk.io/store/types"
 
+	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	"github.com/mycel-domain/mycel/app/params"
@@ -12,8 +15,9 @@ import (
 )
 
 // SetBurnAmount set a specific burnAmount in the store from its index
-func (k Keeper) SetBurnAmount(ctx sdk.Context, burnAmount types.BurnAmount) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BurnAmountKeyPrefix))
+func (k Keeper) SetBurnAmount(goCtx context.Context, burnAmount types.BurnAmount) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
 	b := k.cdc.MustMarshal(&burnAmount)
 	store.Set(types.BurnAmountKey(
 		burnAmount.Index,
@@ -22,10 +26,11 @@ func (k Keeper) SetBurnAmount(ctx sdk.Context, burnAmount types.BurnAmount) {
 
 // GetBurnAmount returns a burnAmount from its index
 func (k Keeper) GetBurnAmount(
-	ctx sdk.Context,
+	goCtx context.Context,
 	index uint64,
 ) (val types.BurnAmount, found bool) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BurnAmountKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
 
 	b := store.Get(types.BurnAmountKey(
 		index,
@@ -40,18 +45,21 @@ func (k Keeper) GetBurnAmount(
 
 // RemoveBurnAmount removes a burnAmount from the store
 func (k Keeper) RemoveBurnAmount(
-	ctx sdk.Context,
+	goCtx context.Context,
 	index uint64,
 ) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BurnAmountKeyPrefix))
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
+
 	store.Delete(types.BurnAmountKey(
 		index,
 	))
 }
 
 // GetAllBurnAmount returns all burnAmount
-func (k Keeper) GetAllBurnAmount(ctx sdk.Context) (list []types.BurnAmount) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.BurnAmountKeyPrefix))
+func (k Keeper) GetAllBurnAmount(goCtx context.Context) (list []types.BurnAmount) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(goCtx))
+	store := prefix.NewStore(storeAdapter, types.KeyPrefix(types.BurnAmountKeyPrefix))
 	iterator := storetypes.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
@@ -61,52 +69,51 @@ func (k Keeper) GetAllBurnAmount(ctx sdk.Context) (list []types.BurnAmount) {
 		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		list = append(list, val)
 	}
-
 	return
 }
 
 // Create a next burnAmount
-func (k Keeper) NewBurnAmount(ctx sdk.Context, config types.EpochBurnConfig, index uint64) (burnAmount types.BurnAmount) {
+func (k Keeper) NewBurnAmount(goCtx context.Context, config types.EpochBurnConfig, index uint64) (burnAmount types.BurnAmount) {
 	// Create burn amount
 	burnAmount = types.NewBurnAmount(config, index)
-	k.SetBurnAmount(ctx, burnAmount)
+	k.SetBurnAmount(goCtx, burnAmount)
 
 	// Emit event
-	EmitBurnAmountCreatedEvent(ctx, &burnAmount)
+	EmitBurnAmountCreatedEvent(goCtx, &burnAmount)
 
 	return burnAmount
 }
 
 // Add to total burn BurnAmount
-func (k Keeper) AddToTotalBurnAmount(ctx sdk.Context, index uint64, amount sdk.Coin) (newBurnAmount types.BurnAmount) {
+func (k Keeper) AddToTotalBurnAmount(goCtx context.Context, index uint64, amount sdk.Coin) (newBurnAmount types.BurnAmount) {
 	// Get burn amount
-	burnAmount, found := k.GetBurnAmount(ctx, index)
+	burnAmount, found := k.GetBurnAmount(goCtx, index)
 	if !found {
 		panic("burn amount not found")
 	}
 	// Update burn amount
 	burnAmount.TotalBurnAmount = burnAmount.TotalBurnAmount.Add(amount)
-	k.SetBurnAmount(ctx, burnAmount)
+	k.SetBurnAmount(goCtx, burnAmount)
 	return burnAmount
 }
 
 // Add registration fee to burnAmounts
-func (k Keeper) AddRegistrationFeeToBurnAmounts(ctx sdk.Context, registrationPeriodInYear uint64, amount sdk.Coin) (burnAmounts []types.BurnAmount, err error) {
+func (k Keeper) AddRegistrationFeeToBurnAmounts(goCtx context.Context, registrationPeriodInYear uint64, amount sdk.Coin) (burnAmounts []types.BurnAmount, err error) {
 	// Check registrationPeriodInYear
 	if registrationPeriodInYear == 0 {
 		return nil, errorsmod.Wrapf(types.ErrInvalidRegistrationPeriod, "%d", registrationPeriodInYear)
 	}
-	epochBurnConfig, found := k.GetEpochBurnConfig(ctx)
+	epochBurnConfig, found := k.GetEpochBurnConfig(goCtx)
 	if !found {
 		panic("epoch burn config not found")
 	}
 
 	remainDays := registrationPeriodInYear * params.OneYearInDays
 	for i := epochBurnConfig.CurrentBurnAmountIndex + 1; remainDays > 0; i++ {
-		burnAmount, found := k.GetBurnAmount(ctx, i)
+		burnAmount, found := k.GetBurnAmount(goCtx, i)
 		// Create new burn amount if not found
 		if !found {
-			burnAmount = k.NewBurnAmount(ctx, epochBurnConfig, i)
+			burnAmount = k.NewBurnAmount(goCtx, epochBurnConfig, i)
 		}
 
 		burnAmounts = append(burnAmounts, burnAmount)
@@ -129,7 +136,7 @@ func (k Keeper) AddRegistrationFeeToBurnAmounts(ctx sdk.Context, registrationPer
 			amount = sdk.NewCoin(amount.Denom, quotient)
 		}
 		burnAmounts[i].TotalBurnAmount = amount
-		k.AddToTotalBurnAmount(ctx, burnAmount.Index, amount)
+		k.AddToTotalBurnAmount(goCtx, burnAmount.Index, amount)
 	}
 	return burnAmounts, err
 }

@@ -21,12 +21,11 @@ func createErrorResponse(err error) *types.QueryDomainRegistrationFeeResponse {
 	}
 }
 
-func (k Keeper) DomainRegistrationFee(goCtx context.Context, req *types.QueryDomainRegistrationFeeRequest) (*types.QueryDomainRegistrationFeeResponse, error) {
+func (k Keeper) DomainRegistrationFee(ctx context.Context, req *types.QueryDomainRegistrationFeeRequest) (*types.QueryDomainRegistrationFeeResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	ctx := sdk.UnwrapSDKContext(goCtx)
 	if req.Parent == "" {
 		// Top level domain
 		config := types.GetDefaultSubdomainConfig(1)
