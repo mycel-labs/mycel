@@ -1,0 +1,148 @@
+syntax = "proto3";
+package mycel.registry;
+
+import "amino/amino.proto";
+import "cosmos/msg/v1/msg.proto";
+import "cosmos_proto/cosmos.proto";
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
+
+import "mycel/registry/params.proto";
+import "mycel/registry/top_level_domain.proto";
+
+option go_package = "github.com/mycel-domain/mycel/x/registry/types";
+
+// Msg defines the Msg service.
+service Msg {
+  option (cosmos.msg.v1.service) = true;
+
+  // UpdateParams defines a (governance) operation for updating the module
+  // parameters. The authority defaults to the x/gov module account.
+  rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
+
+  rpc UpdateWalletRecord(MsgUpdateWalletRecord)
+      returns (MsgUpdateWalletRecordResponse);
+  rpc UpdateDnsRecord(MsgUpdateDnsRecord) returns (MsgUpdateDnsRecordResponse);
+  rpc RegisterSecondLevelDomain(MsgRegisterSecondLevelDomain)
+      returns (MsgRegisterSecondLevelDomainResponse);
+  rpc RegisterTopLevelDomain(MsgRegisterTopLevelDomain)
+      returns (MsgRegisterTopLevelDomainResponse);
+  rpc WithdrawRegistrationFee(MsgWithdrawRegistrationFee)
+      returns (MsgWithdrawRegistrationFeeResponse);
+  rpc ExtendTopLevelDomainExpirationDate(MsgExtendTopLevelDomainExpirationDate)
+      returns (MsgExtendTopLevelDomainExpirationDateResponse);
+  rpc UpdateTextRecord(MsgUpdateTextRecord)
+      returns (MsgUpdateTextRecordResponse);
+  rpc UpdateTopLevelDomainRegistrationPolicy(
+      MsgUpdateTopLevelDomainRegistrationPolicy)
+      returns (MsgUpdateTopLevelDomainRegistrationPolicyResponse);
+}
+
+// MsgUpdateParams is the Msg/UpdateParams request type.
+message MsgUpdateParams {
+  option (cosmos.msg.v1.signer) = "authority";
+  option (amino.name) = "mycel/x/registry/MsgUpdateParams";
+
+  // authority is the address that controls the module (defaults to x/gov unless
+  // overwritten).
+  string authority = 1 [ (cosmos_proto.scalar) = "cosmos.AddressString" ];
+
+  // params defines the module parameters to update.
+  //
+  // NOTE: All parameters must be supplied.
+  Params params = 2
+      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
+}
+
+// MsgUpdateParamsResponse defines the response structure for executing a
+// MsgUpdateParams message.
+message MsgUpdateParamsResponse {}
+
+message MsgUpdateWalletRecord {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string name = 2;
+  string parent = 3;
+  string wallet_record_type = 4;
+  string value = 5;
+}
+
+message MsgUpdateWalletRecordResponse {}
+
+message MsgUpdateDnsRecord {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string name = 2;
+  string parent = 3;
+  string dns_record_type = 4;
+  string value = 5;
+}
+
+message MsgUpdateDnsRecordResponse {}
+
+message MsgRegisterSecondLevelDomain {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string name = 2;
+  string parent = 3;
+  uint64 registration_period_in_year = 4;
+}
+
+message MsgRegisterSecondLevelDomainResponse {}
+
+message MsgRegisterTopLevelDomain {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string name = 2;
+  uint64 registration_period_in_year = 3;
+}
+
+message MsgRegisterTopLevelDomainResponse {
+  TopLevelDomain top_level_domain = 1;
+  TopLevelDomainFee fee = 2;
+}
+
+message MsgWithdrawRegistrationFee {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string name = 2;
+}
+
+message MsgWithdrawRegistrationFeeResponse {
+  repeated cosmos.base.v1beta1.Coin registration_fee = 1 [
+    (gogoproto.nullable) = false,
+    (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"
+  ];
+}
+
+message MsgExtendTopLevelDomainExpirationDate {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string name = 2;
+  uint64 extension_period_in_year = 3;
+}
+
+message MsgExtendTopLevelDomainExpirationDateResponse {
+  TopLevelDomain top_level_domain = 1;
+  TopLevelDomainFee fee = 2;
+}
+
+message MsgUpdateTextRecord {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string name = 2;
+  string parent = 3;
+  string key = 4;
+  string value = 5;
+}
+
+message MsgUpdateTextRecordResponse {}
+
+message MsgUpdateTopLevelDomainRegistrationPolicy {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string name = 2;
+  string registration_policy = 3;
+}
+
+message MsgUpdateTopLevelDomainRegistrationPolicyResponse {}

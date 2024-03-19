@@ -1,0 +1,15 @@
+syntax = "proto3";
+package mycel.registry;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/mycel-domain/mycel/x/registry/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "mycel/x/registry/Params";
+  option (gogoproto.equal) = true;
+  float staking_inflation_ratio = 1;
+  int64 top_level_domain_base_fee_in_usd = 2;
+}

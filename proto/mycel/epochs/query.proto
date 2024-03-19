@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package mycel.epochs;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "mycel/epochs/params.proto";
+import "mycel/epochs/epoch_info.proto";
+
+option go_package = "github.com/mycel-domain/mycel/x/epochs/types";
+
+// Query defines the gRPC querier service.
+service Query {
+
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/epochs/params";
+  }
+
+  // Queries a list of EpochInfo items.
+  rpc EpochInfo(QueryGetEpochInfoRequest) returns (QueryGetEpochInfoResponse) {
+    option (google.api.http).get =
+        "/mycel-domain/mycel/epochs/epoch_info/{identifier}";
+  }
+  rpc EpochInfoAll(QueryAllEpochInfoRequest)
+      returns (QueryAllEpochInfoResponse) {
+    option (google.api.http).get = "/mycel-domain/mycel/epochs/epoch_info";
+  }
+}
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+
+  // params holds all the parameters of this module.
+  Params params = 1
+      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
+}
+
+message QueryGetEpochInfoRequest { string identifier = 1; }
+
+message QueryGetEpochInfoResponse {
+  EpochInfo epoch_info = 1 [ (gogoproto.nullable) = false ];
+}
+
+message QueryAllEpochInfoRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllEpochInfoResponse {
+  repeated EpochInfo epoch_info = 1 [ (gogoproto.nullable) = false ];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

@@ -1,0 +1,17 @@
+syntax = "proto3";
+package mycel.registry;
+
+option go_package = "github.com/mycel-domain/mycel/x/registry/types";
+
+enum DnsRecordType {
+  NO_RECORD_TYPE = 0;
+  A = 1;
+  AAAA = 2;
+  CNAME = 3;
+  NS = 4;
+  MX = 5;
+  PTR = 6;
+  SOA = 7;
+  SRV = 8;
+  TXT = 9;
+}

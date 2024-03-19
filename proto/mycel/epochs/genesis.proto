@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package mycel.epochs;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "mycel/epochs/params.proto";
+import "mycel/epochs/epoch_info.proto";
+
+option go_package = "github.com/mycel-domain/mycel/x/epochs/types";
+
+// GenesisState defines the epochs module's genesis state.
+message GenesisState {
+
+  // params defines all the parameters of the module.
+  Params params = 1
+      [ (gogoproto.nullable) = false, (amino.dont_omitempty) = true ];
+  repeated EpochInfo epochs = 2 [ (gogoproto.nullable) = false ];
+}
